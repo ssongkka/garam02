@@ -114,6 +114,7 @@ function getVeInfo(carNumber) {
                 console.log(veLen);
                 console.log(ve1);
                 console.log(ve2);
+                console.log("하이요");
 
                 $('#ve01').html('<span>' + ve2 + '</span>');
                 $('#ve02').html('<span>' + ve1 + '</span>');
@@ -222,4 +223,12 @@ $(document).on('keydown', 'input', function (eInner) {
 $(document).on('click', '#btn-x', function () {
     getVeAll();
     $('#ve-search').val('');
+});
+
+$(document).on('click', '#md-Ch', function () {
+    $('#modal-insert').modal('show')
+});
+
+$(document).on('click', '#md-New', function () {
+    $('#modal-insert').modal('show')
 });

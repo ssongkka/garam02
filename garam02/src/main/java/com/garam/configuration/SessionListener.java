@@ -21,8 +21,7 @@ public class SessionListener implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		System.out.println("하이요   " + time.substring(0, 2));
-		se.getSession().setMaxInactiveInterval(Integer.parseInt(time.substring(0, 2)));
+		se.getSession().setMaxInactiveInterval(Integer.parseInt(time.split("s")[0]));
 	}
 
 	@Override

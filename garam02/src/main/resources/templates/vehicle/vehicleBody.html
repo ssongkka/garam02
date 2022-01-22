@@ -138,7 +138,7 @@
                                         <div class="tct-item">색상</div>
                                         <div
                                             class="tct-item card"
-                                            style="background: rgba(0, 0, 0, 0); color: rgba(0, 0, 0, 0);border-radius: 3px;"
+                                            style="background: rgba(0, 0, 0, 0); color: rgba(0, 0, 0, 0); border-radius: 3px;"
                                             id="ve14">색상</div>
                                     </div>
                                 </blockquote>
@@ -270,11 +270,11 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
-                        <div class="emp-insert">
-                            <div class="emp-insert-item emp-pic">
+                        <div class="ve-insert-pic">
+                            <div class="ve-pics">
                                 <img
-                                    src="img/employee/emp.png"
-                                    id="emp-pic-pre"
+                                    src="img/vehicle/bus1.png"
+                                    id="ve-pic-pre"
                                     alt=""
                                     class="cardImg img-thumbnail">
                                 <form action="" id="emp-form">
@@ -284,137 +284,243 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="emp-insert-item">
-                                <div class="form-group col-md-4">
-                                    <label for="name">이름</label>
-                                    <input
-                                        type="text"
-                                        style="ime-mode: active"
-                                        class="form-control input-sm"
-                                        id="name"
-                                        name="name">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="birthday">생년월일</label>
-                                    <input type="date" class="form-control input-sm" id="birthday" name="birthday">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="gender">성별</label>
-                                    <select class="form-control" id="gender" name="gender">
-                                        <option>남</option>
-                                        <option>여</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="company">회사</label>
-                                    <select class="form-control" id="company" name="company">
-                                        <option>1</option>
-                                        <option>2</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="kind">구분</label>
-                                    <select class="form-control" id="kind" name="kind">
-                                        <option>회사</option>
-                                        <option>개인</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="phone1">연락처</label>
-                                    <input type="text" class="form-control input-sm" id="phone1" name="phone1">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="phone2">비상연락처</label>
-                                    <input type="text" class="form-control input-sm" id="phone2" name="phone2">
-                                </div>
+                            <div class="ve-pics">
+                                <img
+                                    src="img/vehicle/bus2.png"
+                                    id="ve-pic-pre"
+                                    alt=""
+                                    class="cardImg img-thumbnail">
+                                <form action="" id="emp-form">
+                                    <div class="form-group" style="padding-top: 1rem;">
+                                        <input type="file" name="uploadfile" id="imgSelector">
+                                        <input type="hidden" name="emp-id" id="emp-id">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="ve-pics">
+                                <img
+                                    src="img/vehicle/bus3.png"
+                                    id="ve-pic-pre"
+                                    alt=""
+                                    class="cardImg img-thumbnail">
+                                <form action="" id="emp-form">
+                                    <div class="form-group" style="padding-top: 1rem;">
+                                        <input type="file" name="uploadfile" id="imgSelector">
+                                        <input type="hidden" name="emp-id" id="emp-id">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
-                            <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
-                                <div class="form-group col-md-12">
-                                    <label for="address">주소</label>
-                                    <input type="text" class="form-control input-sm" id="address" name="address">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="garage">차고지</label>
-                                    <input type="text" class="form-control input-sm" id="garage" name="garage">
-                                </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">기본정보</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vehicle-1">차량번호&nbsp;&#42;</label>
+                                <select class="form-control input-sm" id="vehicle-1" name="vehicle-1">
+                                    <option selected="selected">대구</option>
+                                    <option>경북</option>
+                                    <option>경남</option>
+                                    <option>울산</option>
+                                    <option>부산</option>
+                                    <option>서울</option>
+                                    <option>경기</option>
+                                    <option>인천</option>
+                                    <option>대전</option>
+                                    <option>충남</option>
+                                    <option>충북</option>
+                                    <option>강원</option>
+                                    <option>전북</option>
+                                    <option>전남</option>
+                                    <option>광주</option>
+                                    <option>제주</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vehicle-2">&nbsp;</label>
+                                <select class="form-control input-sm" id="vehicle-2" name="vehicle-2">
+                                    <option selected="selected">70</option>
+                                    <option>71</option>
+                                    <option>72</option>
+                                    <option>73</option>
+                                    <option>74</option>
+                                    <option>75</option>
+                                    <option>76</option>
+                                    <option>77</option>
+                                    <option>78</option>
+                                    <option>79</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vehicle-3">&nbsp;</label>
+                                <select class="form-control input-sm" id="vehicle-3" name="bobvehicle-3uj">
+                                    <option selected="selected">바</option>
+                                    <option>아</option>
+                                    <option>사</option>
+                                    <option>자</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vehicle-4">&nbsp;</label>
+                                <input
+                                    type="text"
+                                    class="form-control input-sm"
+                                    id="vehicle-4"
+                                    name="vehicle-4">
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
-                            <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
-                                <div class="form-group col-md-6">
-                                    <label for="joind">입사일</label>
-                                    <input type="date" class="form-control input-sm" id="joind" name="joind">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="endd">퇴사일</label>
-                                    <input type="date" class="form-control input-sm" id="endd" name="endd">
-                                </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">소속정보</label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="owner">소속</label>
+                                <input list="ownerlist" class="form-control input-sm" id="owner" name="owner">
+                                <datalist id="ownerlist">
+                                    <option value="(주)새천년관광" label="(주)새천년관광"></option>
+                                </datalist>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="owner">승무원</label>
+                                <input list="ownerlist" class="form-control input-sm" id="owner" name="owner">
+                                <datalist id="ownerlist">
+                                    <option value="(주)새천년관광" label="(주)새천년관광"></option>
+                                </datalist>
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
-                            <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
-                                <div class="form-group col-md-6">
-                                    <label for="drvl">면허번호</label>
-                                    <input type="text" class="form-control input-sm" id="drvl" name="drvl">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="busl">버스자격증번호</label>
-                                    <input type="text" class="form-control input-sm" id="busl" name="busl">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="bosum">보수교육일</label>
-                                    <input type="date" class="form-control input-sm" id="bosum" name="bosum">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="bobuj">보수교육</label>
-                                    <select class="form-control" id="bobuj" name="bobuj">
-                                        <option>신규</option>
-                                        <option>보수</option>
-                                    </select>
-                                </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">차량정보</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="bus">종류</label>
+                                <select class="form-control input-sm" id="bus" name="bus">
+                                    <option selected="selected">대형</option>
+                                    <option>중형</option>
+                                    <option>우등</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="brand">제조사</label>
+                                <input list="brandlist" class="form-control input-sm" id="brand" name="brand">
+                                <datalist id="brandlist">
+                                    <option value="현대" label="현대"></option>
+                                    <option value="기아" label="기아"></option>
+                                    <option value="대우" label="대우"></option>
+                                </datalist>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vename">차명&nbsp;&#42;
+                                </label>
+                                <input type="text" class="form-control input-sm" id="vename" name="vename">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="grade">등급</label>
+                                <input
+                                    list="gradelist"
+                                    type="text"
+                                    class="form-control input-sm"
+                                    id="grade"
+                                    name="grade">
+                                <datalist id="gradelist">
+                                    <option value="노블" label="노블"></option>
+                                    <option value="프라임" label="프라임"></option>
+                                    <option value="엘레강스" label="엘레강스"></option>
+                                    <option value="유니시티" label="유니시티"></option>
+                                    <option value="슈퍼에어로시티" label="슈퍼에어로시티"></option>
+                                    <option value="그린시티" label="그린시티"></option>
+                                    <option value="에어로타운" label="에어로타운"></option>
+                                    <option value="카운티" label="카운티"></option>
+                                    <option value="실크로드" label="실크로드"></option>
+                                    <option value="썬샤인" label="썬샤인"></option>
+                                    <option value="블루스카이" label="블루스카이"></option>
+                                    <option value="파크웨이" label="파크웨이"></option>
+                                    <option value="그린필드" label="그린필드"></option>
+                                    <option value="BX212" label="BX212"></option>
+                                    <option value="FX212" label="FX212"></option>
+                                    <option value="FX120" label="FX120"></option>
+                                    <option value="FX116" label="FX116"></option>
+                                    <option value="BH090" label="BH090"></option>
+                                    <option value="BS090" label="BS090"></option>
+                                    <option value="레스타" label="레스타"></option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">&nbsp;</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vename">승차인원&nbsp;&#42;
+                                </label>
+                                <input type="text" class="form-control input-sm" id="vename" name="vename">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="fuel">연료&nbsp;&#42;
+                                </label>
+                                <select class="form-control input-sm" id="fuel" name="fuel">
+                                    <option selected="selected">경유</option>
+                                    <option>CNG</option>
+                                    <option>전기</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vename">색상
+                                </label>
+                                <input type="color" class="form-control input-sm" id="vename" name="vename">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="vename">출고(취득)가격&nbsp;&#42;
+                                </label>
+                                <input
+                                    type="text"
+                                    data-type="currency"
+                                    style="text-align: right;"
+                                    class="form-control input-sm"
+                                    id="vename"
+                                    name="vename">
+                            </div>
+                        </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">&nbsp;</label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="vename">차량등록일&nbsp;&#42;
+                                </label>
+                                <input type="date" class="form-control input-sm" id="vename" name="vename">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="vename">차량만료일&nbsp;&#42;
+                                </label>
+                                <input type="date" class="form-control input-sm" id="vename" name="vename">
+                            </div>
+                        </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">&nbsp;</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="vename">차대번호&nbsp;&#42;
+                                </label>
+                                <input type="text" class="form-control input-sm" id="vename" name="vename">
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
-                            <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
-                                <div class="form-group col-md-4">
-                                    <label for="bank">은행</label>
-                                    <input type="text" class="form-control input-sm" id="bank" name="bank">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="gye">계좌번호</label>
-                                    <input type="text" class="form-control input-sm" id="gye" name="gye">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="gyename">예금주</label>
-                                    <input type="text" class="form-control input-sm" id="gyename" name="gyename">
-                                </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">특이사항</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="vename">특이사항
+                                </label>
+                                <input type="text" class="form-control input-sm" id="vename" name="vename">
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
-                            <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
-                                <div class="form-group col-md-12">
-                                    <label for="memo">메모</label>
-                                    <input type="text" class="form-control input-sm" id="memo" name="memo">
-                                    <input type="hidden" id="basem" value="0">
-                                    <input type="hidden" id="kukm" value="0">
-                                    <input type="hidden" id="gunm" value="0">
-                                    <input type="hidden" id="gom" value="0">
-                                    <input type="hidden" id="sanm" value="0">
-                                </div>
-                            </div>
-                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" id="btn-insert">Save changes</button>
