@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garam.web.employee.mapper.EmployeeMapper">
+
+	<sql id="empColumns">
+		employeeinfo.id, employeeinfo.company, employeeinfo.kind,
+		employeeinfo.joind, employeeinfo.endD, employeeinfo.name,
+		employeeinfo.gender, employeeinfo.birthday, employeeinfo.phone1,
+		employeeinfo.phone2,
+		employeeinfo.address, employeeinfo.garage,
+		employeeinfo.bosuM,
+		employeeinfo.bobuJ, employeeinfo.drvL,
+		employeeinfo.busL, employeeinfo.memo, employeeinfo.bank,
+		employeeinfo.gye,
+		employeeinfo.gyename,
+		employeeinfo.baseM,
+		employeeinfo.kukM,
+		employeeinfo.gunM, employeeinfo.goM,
+		employeeinfo.sanM, employeeinfo.img, employeeinfo.trash,
+		vehicleinfo.carnumber,
+		vehicleinfo.vehicle
+	</sql>
+
+	<insert id="insertEmp"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+		INSERT INTO
+
+		employeeinfo
+
+		(id,
+		company,
+		kind,
+		joind,
+		endD,
+		name,
+		gender,
+		birthday,
+		phone1,
+		phone2,
+		address,
+		garage,
+		bosuM,
+		bobuJ,
+		drvL,
+		busL,
+		memo,
+		bank,
+		gye,
+		gyename,
+		baseM,
+		kukM,
+		gunM,
+		goM,
+		sanM,
+		img,
+		trash)
+
+		VALUES
+
+		(
+		#{id},
+		#{company},
+		#{kind},
+		#{joind},
+		#{endd},
+		#{name},
+		#{gender},
+		#{birthday},
+		#{phone1},
+		#{phone2},
+		#{address},
+		#{garage},
+		#{bosum},
+		#{bobuj},
+		#{drvl},
+		#{busl},
+		#{memo},
+		#{bank},
+		#{gye},
+		#{gyename},
+		#{basem},
+		#{kukm},
+		#{gunm},
+		#{gom},
+		#{sanm},
+		#{img},
+		1
+		);
+	</insert>
+
+	<select id="selectEmpAll"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		SELECT
+
+		employeeinfo.id, employeeinfo.name, employeeinfo.birthday,
+		employeeinfo.kind,
+		vehicleinfo.vehicle
+
+		FROM
+		employeeinfo
+
+		LEFT JOIN
+		vehicleinfo
+
+		ON
+		employeeinfo.id =
+		vehicleinfo.id
+
+		<where>
+			<if test="name != null">AND employeeinfo.name Like CONCAT('%',#{name},'%') </if>
+		</where>
+
+		ORDER BY name;
+
+	</select>
+
+	<select id="selectEmpName"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		SELECT
+
+		<include refid="empColumns" />
+
+		FROM employeeinfo
+
+		LEFT JOIN vehicleinfo
+
+		ON employeeinfo.id =
+		vehicleinfo.id
+
+		WHERE employeeinfo.name = #{name}
+
+		ORDER BY name;
+
+	</select>
+
+	<select id="selectEmpDetail"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		SELECT
+
+		<include refid="empColumns" />
+
+		FROM employeeinfo
+
+		LEFT JOIN vehicleinfo
+
+		ON employeeinfo.id =
+		vehicleinfo.id
+
+		WHERE employeeinfo.id = #{id}
+
+		ORDER BY name;
+	</select>
+
+	<update id="updateEmp"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		UPDATE
+
+		employeeinfo
+
+		SET
+
+		company = #{company},
+		kind =
+		#{kind},
+		joind =
+		#{joind},
+		endD = #{endd},
+		name = #{name},
+		gender =
+		#{gender},
+		birthday =
+		#{birthday},
+		phone1 =
+		#{phone1},
+		phone2 = #{phone2},
+		address = #{address},
+		garage = #{garage},
+		bosuM = #{bosum},
+		bobuJ =
+		#{bobuj},
+		drvL = #{drvl},
+		busL = #{busl},
+		memo = #{memo},
+		bank = #{bank},
+		gye = #{gye},
+		gyename =
+		#{gyename},
+		baseM = #{basem},
+		kukM = #{kukm},
+		gunM = #{gunm},
+		goM =
+		#{gom},
+		sanM = #{sanm},
+		<if test="img != null and img != '' "> img = #{img},</if>
+
+		trash = 1
+
+		WHERE
+
+		id = #{id};
+	</update>
+</mapper>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/basic">
+<th:block layout:fragment="title">
+	<title>데쉬보드에요</title>
+</th:block>
+
+<th:block layout:fragment="add-css">
+	<link rel="stylesheet" href="/css/rsvtCss/rsvtMany.css">
+</th:block>
+
+<th:block layout:fragment="body">
+
+	<div class="rsvt-ctm">
+		<input type="hidden" id="empin" name="empin"
+			th:value="${user.position}+'&nbsp;'+${user.name}"> <input
+			type="hidden" id="m-no" value="0"> <input type="hidden"
+			id="m-trash" value="2">
+		<div id="t-cnt">
+			<h3 id="t-name">
+				고객이름 <small id="t-tel">연락처</small> <small id="t-stp">출발지</small> <small
+					id="t-add">주소</small>
+			</h3>
+		</div>
+		<div>
+			<a type="button" class="asd" data-toggle="modal"
+				data-target="#myModal"> <i class="fas fa-user-plus"></i>고객정보입력
+			</a>
+		</div>
+	</div>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>고객 정보 입력</h3>
+				</div>
+				<input type="hidden" id="ctmno" name="ctmno" value="0"> <input
+					type="hidden" id="ctmtrash" name="ctmtrash" value="2">
+				<div class="modal-body">
+					<div class="row">
+						<div class="form-group col-xs-5">
+							<label class="radio-inline"> <input type="radio"
+								name="ctmsepa" id="radio0" value="0" checked="checked">
+								일반
+							</label> <label class="radio-inline"> <input type="radio"
+								name="ctmsepa" id="radio1" value="1"> 학단
+							</label> <label class="radio-inline"> <input type="radio"
+								name="ctmsepa" id="radio2" value="2"> 거래처
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-5">
+							<i class="fas fa-book-open"></i> <label for="ctmname">이름&#42;</label>
+							<input type="text" list="name-cho" class="form-control input-sm"
+								id="ctmname" name="ctmname" placeholder="이름을 입력해주세요." value=""
+								required="required">
+							<datalist id="name-cho">
+								<option th:each="custom : ${customer}"
+									th:value="${custom.ctmname}" th:label="${custom.ctmtel1}"
+									th:data-value="${custom.ctmseq}"></option>
+							</datalist>
+						</div>
+						<div class="form-group col-xs-1" id="">
+							<a id="ername"
+								class="fas fa-times-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
+								data-toggle="tooltip" data-placement="bottom"
+								data-trigger="hover" title="고객정보 지우기"></a>
+						</div>
+						<div class="form-group col-xs-6">
+							<i class="fas fa-phone-alt"></i> <label for="tel1">연락처&#42;</label>
+							<input type="text" list="tel1-cho"
+								class="form-control input-sm" id="ctmtel1" name="ctmtel1"
+								placeholder="전화번호 형식으로 입력" value="" required="required">
+							<datalist id="tel1-cho"></datalist>
+						</div>
+					</div>
+					<div id="user-plus">
+						<div class="row">
+							<div class="form-group col-xs-12 col-lg-6">
+								<i class="fas fa-map-marker-alt"></i> <label for="ctmstp">출발지</label>
+								<input type="text" class="form-control input-sm" id="ctmstp"
+									name="ctmstp" placeholder="출발지가 고정된 예약자일 경우 입력"></input>
+							</div>
+							<div class="form-group col-xs-12 col-lg-6">
+								<i class="fas fa-pen"></i> <label for="ctmdetail">메모</label> <input
+									type="text" class="form-control input-sm" id="ctmdetail"
+									name="ctmdetail"></input>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-xs-6">
+								<i class="fas fa-phone-alt"></i> <label for="ctmtel2">비상연락처</label>
+								<input type="text" class="form-control input-sm" id="ctmtel2"
+									name="ctmtel2" placeholder="010-0000-0000">
+							</div>
+							<div class="form-group col-xs-6">
+								<i class="fas fa-fax"></i> <label for="ctmfax">팩스</label> <input
+									type="text" class="form-control input-sm" id="ctmfax"
+									name="ctmfax" placeholder="팩스 번호를 입력해주세요.">
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-xs-12 col-lg-6">
+								<i class="fas fa-map"></i> <label for="ctmaddress">주소</label> <input
+									type="text" class="form-control input-sm" id="ctmaddress"
+									name="ctmaddress" placeholder="주소를 입력해주세요.">
+							</div>
+							<div class="form-group col-xs-12 col-lg-6">
+								<i class="fas fa-home"></i> <label for="ctmhomepage">홈페이지</label>
+								<input type="text" class="form-control input-sm"
+									id="ctmhomepage" name="ctmhomepage"
+									placeholder="홈페이지 주소를 입력해주세요.">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫&nbsp;&nbsp;기</button>
+					<button type="button" class="btn btn-primary" id="btn-modal">입&nbsp;&nbsp;력</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<table class="table table-striped table-bordered table-condensed"
+		id="rsvt-tb">
+		<thead>
+			<tr>
+				<th class="th-ct">출&nbsp;발&nbsp;일</th>
+				<th class="th-ct">도&nbsp;착&nbsp;일</th>
+				<th class="th-ct">차&nbsp;&nbsp;량</th>
+				<th class="th-ct">대&nbsp;&nbsp;수</th>
+				<th class="th-ct">출&nbsp;발&nbsp;시&nbsp;간</th>
+				<th class="th-ct">종&nbsp;료&nbsp;시&nbsp;간</th>
+				<th class="col-lg-2">출&nbsp;발&nbsp;장&nbsp;소</th>
+				<th class="col-lg-2">목&nbsp;적&nbsp;지</th>
+				<th class="col-lg-2">특&nbsp;이&nbsp;사&nbsp;항</th>
+				<th class="th-ct">부&nbsp;가&nbsp;세</th>
+				<th class="th-ct">운&nbsp;행&nbsp;금&nbsp;액</th>
+				<th class="th-ct">삭&nbsp;제</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td><input type="date" class="input-sm" id="std"
+					onchange="ccc(this)"></td>
+				<td><input type="date" class="input-sm" id="edd"></td>
+				<td><select id="bus" name="bus" class="input-sm">
+						<option value="대형">대형</option>
+						<option value="중형">중형</option>
+						<option value="우등">우등</option>
+						<option value="기타">기타</option>
+				</select></td>
+				<td><select class="input-sm">
+						<option th:each="i : ${#numbers.sequence(1, 50)}" th:value="${i}"
+							th:text="${i}">Num</option>
+				</select></td>
+				<td><input type="time" class="input-sm" value="08:30">
+				</td>
+				<td><input type="time" class="input-sm"></td>
+				<td><input type="text" class="input-sm" id="stp"></td>
+				<td><input type="text" class="input-sm"></td>
+				<td><input type="text" class="input-sm"></td>
+				<td><select class="input-sm">
+						<option value="포함">포함</option>
+						<option value="미포함">미포함</option>
+						<option value="카드">카드</option>
+				</select></td>
+				<td><input type="text" data-type="currency" class=" input-sm"
+					value="0" style="text-align: right;"></td>
+				<td class="th-ct"><a></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<button id="plus-btn">추가</button>
+		<button id="insert-many">입력</button>
+	</div>
+
+</th:block>
+
+<th:block layout:fragment="add-script">
+	<script src="/js/rsvt/rsvtMany.js"></script>
+</th:block>
+</html>

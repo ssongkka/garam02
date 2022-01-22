@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.container {
+	padding: 0;
+}
+
+.container h2 {
+	margin: 0;
+	padding-bottom: 2.5rem;
+	text-align: center;
+}
+
+.login-cont {
+	float: left;
+	background: blue;
+	height: 100%;
+}
+
+.login-main {
+	float: right;
+	padding: 3rem;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}

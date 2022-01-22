@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.garam.web.dashboard.mapper.DashboardMapper">
+
+	<sql id="customerColumns">
+		ctmseq , ctmno , ctmsepa , ctmname , ctmaddress , ctmtel1 ,
+		ctmtel2
+		, ctmfax , ctmhomepage , ctmstp , ctmdetail ,
+		ctmtrash
+	</sql>
+	<sql id="rsvtColumns">
+		rsvtseq, rsvt, ctmno, datein, datech, empin, stday,
+		endday,
+		bus, num, desty, rsvpstp, stt, endt, rsvtdetail, cont, conm,
+		confirm,
+		confirmm, rsvttrash
+	</sql>
+
+	<select id="selectCustomerAll"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		<include refid="customerColumns" />
+
+		FROM customer WHERE ctmtrash = 1;
+	</select>
+
+	<select id="selectCustomerName"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		<include refid="customerColumns" />
+
+		FROM customer
+
+		WHERE
+
+		ctmno = #{ctmno};
+
+		<!-- <where> -->
+		<!-- <if test="ctmno != 0">AND ctmno = #{ctmno} -->
+		<!-- </if> -->
+		<!-- <if test="ctmname != null">AND ctmname = #{ctmname} -->
+		<!-- </if> -->
+		<!-- <if test="ctmno != 0">AND ctmsepa = #{ctmsepa} -->
+		<!-- </if> -->
+		<!-- </where> -->
+	</select>
+
+	<insert id="insertCtm"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+		INSERT INTO
+		customer
+		(
+		<include refid="customerColumns" />
+		)
+		VALUES
+		(
+		null
+		, #{ctmno}
+		, #{ctmsepa}
+		, #{ctmname}
+		, #{ctmaddress}
+		,
+		#{ctmtel1}
+		,
+		#{ctmtel2}
+		, #{ctmfax}
+		, #{ctmhomepage}
+		, #{ctmstp}
+		,
+		#{ctmdetail}
+		, 1
+		);
+	</insert>
+
+	<insert id="insertRsvt"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		INSERT INTO
+		rsvt
+		(
+		<include refid="rsvtColumns" />
+		)
+		VALUES
+		(
+		null
+		, #{rsvt}
+		, #{ctmno}
+		, now()
+		, null
+		, #{empin}
+		, #{stday}
+		,
+		#{endday}
+		, #{bus}
+		, #{num}
+		, #{desty}
+		, #{rsvpstp}
+		,
+		#{stt}
+		, #{endt}
+		,
+		#{rsvtdetail}
+		,
+		#{cont}
+		, #{conm}
+		, #{confirm}
+		, 1
+		, 1
+		);
+	</insert>
+
+	<insert id="insertManyRsvt" parameterType="java.util.HashMap">
+
+		INSERT INTO rsvt
+		(
+		<include refid="rsvtColumns" />
+		)
+
+		VALUES
+		<foreach collection="rsvt" item="value" separator=",">
+			(
+			null,
+			#{value.rsvt},
+			#{value.ctmno},
+			NOW(),
+			null,
+			#{value.empin},
+			#{value.stday},
+			#{value.endday},
+			#{value.bus},
+			#{value.num},
+			#{value.desty},
+			#{value.rsvpstp},
+			#{value.stt},
+			#{value.endt},
+			#{value.rsvtdetail},
+			#{value.cont},
+			#{value.conm},
+			null,
+			null,
+			1
+			)
+		</foreach>
+	</insert>
+
+	<select id="selectAlloCTM"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+		rsvt.rsvt,
+		customer.ctmseq, customer.ctmsepa,
+		customer.ctmname,
+		customer.ctmaddress, customer.ctmtel1,
+		customer.ctmtel2,
+		customer.ctmfax, customer.ctmhomepage,
+		customer.ctmstp,
+		customer.ctmdetail,
+		customer.ctmtrash
+
+		FROM rsvt
+
+		LEFT JOIN
+		customer on
+		rsvt.ctmno = customer.ctmno
+
+		WHERE
+
+		(rsvt.stday <![CDATA[<=]]>
+		#{stday})
+		AND
+		(rsvt.endday <![CDATA[>=]]>
+		#{endday})
+
+		GROUP BY
+		customer.ctmseq
+
+		ORDER BY
+		customer.ctmsepa,
+		customer.ctmseq
+	</select>
+	<select id="selectAlloRSVT"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT *
+
+		FROM
+		rsvt
+
+		left join customer on rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		(rsvt.stday <![CDATA[<=]]>
+		#{stday})
+		AND
+		(rsvt.endday <![CDATA[>=]]>
+		#{endday})
+
+		ORDER BY
+		customer.ctmsepa,
+		customer.ctmseq
+	</select>
+	<select id="selectAlloOPER"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+
+		SELECT rsvt.rsvtseq, operation_info.operseq, operation_info.opernum,
+		operation_info.rsvt, operation_info.operday, operation_info.operno,
+		operation_info.opercom, operation_info.numm, operation_info.atlm,
+		operation_info.opertype, operation_info.operconfirm,
+		operation_info.operid, operation_info.opercar,
+		(SELECT
+		employeeinfo.name FROM employeeinfo WHERE employeeinfo.id =
+		operation_info.operid) AS name,
+		(SELECT vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		= operation_info.opercar) AS
+		vehicle
+
+		FROM operation_info
+		left join rsvt on operation_info.rsvt =
+		rsvt.rsvt
+
+		WHERE operation_info.rsvt IN
+
+		(SELECT rsvt.rsvt FROM rsvt left
+		join customer
+		on rsvt.ctmno =
+		customer.ctmno
+		WHERE ((rsvt.stday <![CDATA[<=]]>
+		#{stday})
+		AND
+		(rsvt.endday <![CDATA[>=]]>
+		#{endday})) AND operation_info.operday = #{stday}
+		ORDER BY
+		rsvt.ctmno);
+	</select>
+
+	<select id="selectWeekBusNum"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		bus, num
+
+		FROM
+		rsvt
+
+		WHERE
+
+		(rsvt.stday <![CDATA[<=]]>
+		#{stday})
+		AND
+		(rsvt.endday <![CDATA[>=]]>
+		#{endday})
+	</select>
+
+</mapper>

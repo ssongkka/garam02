@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+.rsvt-cst {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rsvt-form {
+    padding: 3rem 7rem;
+}
+
+.rsvt hr {
+    margin: 1rem 0;
+}
+
+.rsvt h3 {
+    margin: 0 0 2rem;
+}
+
+.rsvt-main {
+    padding: 3rem 55rem 3rem 25rem;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.rsvt i {
+    background: #346cb024;
+    color: #346CB0;
+    padding: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.rsvt-l {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 5rem 15rem;
+}
+
+.rsvt-l small {
+    margin-left: 2rem;
+}
+
+.rsvt-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.form-flex {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+}
+
+.form-flex div {
+    display: flex;
+    align-items: center;
+}
+
+.form-flex div label {
+    margin-bottom: 0;
+}
+
+.rsvt-title-1 {
+    font-size: 2rem;
+}
+
+.rsvt-title-2 {
+    flex: 1;
+    text-align: end;
+}
+
+.rsvt-r {
+    display: flex;
+}
+
+.user-plus {}
+
+.plus-btn {
+    text-align: center;
+    height: 3rem;
+    border-radius: 0.3rem;
+
+    min-width: 4px;
+    height: 30px;
+    padding: 0;
+    font-size: 13px;
+    line-height: 30px;
+    margin-top: 26px;
+}
+
+.rsvt-btn {
+    width: 10rem;
+}
+
+.rsvt-hd {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+}
+
+#ctmname:focus {
+    border-color: #Fc4700;
+    box-shadow: none;
+}
+
+#ctmtel1:focus {
+    border-color: #Fc4700;
+    box-shadow: none;
+}
+
+@media (max-width:1024px) {
+    .header .hd-icon {
+        display: none;
+    }
+
+    .rsvt {}
+
+    .rsvt-l {}
+
+    .rsvt-main {
+        padding: 1rem;
+    }
+
+    .rsvt-form {
+        padding: 3rem 1rem;
+    }
+}

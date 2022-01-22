@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: "NotoSans";
+    src: url("/fonts/NotoSansKR-Regular.otf");
+}
+
+:root {
+    --main-color: blue;
+    --color-datk: #1D2231;
+    --text-grey: #8390A2;
+    --side-size: 250px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    /* transition: 0.2s linear; */
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    font-family: "NotoSans";
+}
+
+a {
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    /* 	width: 30px; Desired width */
+    /* 	height: 30px; Desired height */
+    cursor: pointer;
+}
+input[type="text"] {
+    -webkit-ime-mode: active;
+    -moz-ime-mode: active;
+    -ms-ime-mode: active;
+    ime-mode: active;
+}
+
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table > tbody > tr > td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 70vh;
+
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
+    background: white;
+}
+
+.card-title {
+    border: none;
+    border-radius: 0.25rem 0.25rem 0 0;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
+    background: white;
+}
+
+.ck-editor__editable {
+    height: 300px;
+}
+
+.las {
+    display: inline;
+    line-height: 1.5rem;
+}
+
+.pgBox {
+    text-align: center;
+    padding: 1rem;
+}
+
+.panel-collapse {
+    cursor: default;
+}
+
+.BaseButton.size_default {
+    min-width: 46px;
+    height: 36px;
+    margin-right: 10px;
+    padding: 0 12px;
+    font-size: 13px;
+    line-height: 36px;
+}
+
+.BaseButton.size_mini {
+    min-width: 43px;
+    height: 26px;
+    margin-right: 10px;
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.BaseButton--skinGray {
+    border: 1px solid transparent;
+    background: #eff0f2;
+    color: #000000;
+}
+
+.BaseButton--skinWarring {
+    border: 1px solid transparent;
+    background: #ffc107;
+    color: #755800;
+}
+
+.BaseButton--skinGreen {
+    border: 1px solid transparent;
+    background: rgba(3, 199, 90, 0.12);
+    color: #009f47;
+}
+
+.BaseButton {
+    display: inline-block;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: top;
+}
+
+.table-sortable th {
+    cursor: pointer;
+}
+
+.table-sortable .th-sort-asc::after {
+    content: "\25b4";
+}
+
+.table-sortable .th-sort-desc::after {
+    content: "\25be";
+}
+
+.table-sortable .th-sort-asc::after,
+.table-sortable .th-sort-desc::after {
+    margin-left: 5px;
+}
+
+.table-sortable .th-sort-asc,
+.table-sortable .th-sort-desc {
+    background: rgba(0, 0, 0, 0.1);
+}

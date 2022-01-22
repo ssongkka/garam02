@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/cal_basic">
+<th:block layout:fragment="title">
+	<title>데쉬보드에요</title>
+</th:block>
+
+<th:block layout:fragment="add-css">
+	<link rel="stylesheet" href="/css/rsvtCss/rsvtMain.css">
+	<link rel="stylesheet" href="/css/rsvtCss/rsvtAllo.css">
+</th:block>
+
+<th:block layout:fragment="main">
+	<main class="main">
+		<div class="tab-pane" role="tabpanel">
+			<div class="dd-main-nav">
+				<!-- Nav tabs -->
+				<ul class="dd-nav card" role="tablist">
+					<li role="presentation" class="active"><a href="#rsvt"
+						aria-controls="rsvt" role="tab" data-toggle="tab">확인</a></li>
+					<li role="presentation"><a href="#allo" aria-controls="allo"
+						role="tab" data-toggle="tab">배차관리</a></li>
+					<li role="presentation"><a href="#manage"
+						aria-controls="manage" role="tab" data-toggle="tab">예약관리</a></li>
+					<li role="presentation"><a href="#settings"
+						aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
+					</li>
+				</ul>
+			</div>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="rsvt row tab-pane" id="rsvt">
+					<div class="rsvt-l card">
+						<!-- <form th:action="@{/rsvt/rsvtregister}" method="post" autocomplete="off">
+                            -->
+						<form action="/rsvt/rsvtregister" name="formRsvt"
+							th:action="@{/rsvt/rsvtregister}" method="post"
+							autocomplete="off">
+							<div class="rsvt-cst">
+								<h3>
+									고객 정보 <small> <label class="radio-inline"> <input
+											type="radio" name="ctmsepa" id="radio0" value="0"
+											checked="checked"> 일반
+									</label> <label class="radio-inline"> <input type="radio"
+											name="ctmsepa" id="radio1" value="1"> 학단
+									</label> <label class="radio-inline"> <input type="radio"
+											name="ctmsepa" id="radio2" value="2"> 거래처
+									</label>
+									</small>
+								</h3>
+								<div>
+									<h4>
+										<a class="far fa-list-alt" id="many-insert"> 대량입력</a>
+									</h4>
+								</div>
+							</div>
+							<input type="hidden" id="ctmno" name="ctmno" value="0"> <input
+								type="hidden" id="ctmtrash" name="ctmtrash" value="2">
+							<div class="row">
+								<div class="form-group col-xs-5">
+									<i class="fas fa-book-open"></i> <label for="ctmname">이름&#42;</label>
+									<input type="text" list="name-cho"
+										class="form-control input-sm" id="ctmname" name="ctmname"
+										placeholder="이름을 입력해주세요." value="" required="required">
+									<datalist id="name-cho">
+										<option th:each="custom : ${customer}"
+											th:value="${custom.ctmname}" th:label="${custom.ctmtel1}"
+											th:data-value="${custom.ctmno}"></option>
+
+									</datalist>
+								</div>
+								<div class="form-group col-xs-1" id="">
+									<a id="ername"
+										class="fas fa-times-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
+										data-toggle="tooltip" data-placement="bottom"
+										data-trigger="hover" title="고객정보 지우기"></a>
+								</div>
+								<div class="form-group col-xs-5">
+									<i class="fas fa-phone-alt"></i> <label for="tel1">연락처&#42;</label>
+									<input type="text" list="tel1-cho"
+										class="form-control input-sm" id="ctmtel1" name="ctmtel1"
+										placeholder="전화번호 형식으로 입력" value="" required="required">
+									<datalist id="tel1-cho"></datalist>
+								</div>
+								<div class="form-group col-xs-1" id="btnUserPlus">
+									<a id="userPlus"
+										class="fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
+										data-toggle="tooltip" data-placement="bottom" title="고객정보 지우기"></a>
+								</div>
+							</div>
+							<div id="user-plus">
+								<div class="row">
+									<div class="form-group col-xs-12 col-lg-6">
+										<i class="fas fa-map-marker-alt"></i> <label for="ctmstp">출발지</label>
+										<input type="text" class="form-control input-sm" id="ctmstp"
+											name="ctmstp" placeholder="출발지가 고정된 예약자일 경우 입력"></input>
+									</div>
+									<div class="form-group col-xs-12 col-lg-6">
+										<i class="fas fa-pen"></i> <label for="ctmdetail">메모</label> <input
+											type="text" class="form-control input-sm" id="ctmdetail"
+											name="ctmdetail"></input>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-xs-6">
+										<i class="fas fa-phone-alt"></i> <label for="ctmtel2">비상연락처</label>
+										<input type="text" class="form-control input-sm" id="ctmtel2"
+											name="ctmtel2" placeholder="010-0000-0000">
+									</div>
+									<div class="form-group col-xs-6">
+										<i class="fas fa-fax"></i> <label for="ctmfax">팩스</label> <input
+											type="text" class="form-control input-sm" id="ctmfax"
+											name="ctmfax" placeholder="팩스 번호를 입력해주세요.">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-xs-12 col-lg-6">
+										<i class="fas fa-map"></i> <label for="ctmaddress">주소</label>
+										<input type="text" class="form-control input-sm"
+											id="ctmaddress" name="ctmaddress" placeholder="주소를 입력해주세요.">
+									</div>
+									<div class="form-group col-xs-12 col-lg-6">
+										<i class="fas fa-home"></i> <label for="ctmhomepage">홈페이지</label>
+										<input type="text" class="form-control input-sm"
+											id="ctmhomepage" name="ctmhomepage"
+											placeholder="홈페이지 주소를 입력해주세요.">
+									</div>
+								</div>
+							</div>
+							<hr>
+							<h3>
+								운행 내용 <small>Secondary text</small>
+							</h3>
+							<div class="row">
+								<input type="hidden" id="rsvt" name="rsvt" value=""> <input
+									type="hidden" id="empin" name="empin"
+									th:value="${user.position}+'&nbsp;'+${user.name}">
+								<div class="form-group col-xs-6">
+									<i class="fas fa-calendar-day"></i> <label for="stday">출발일</label>
+									<input type="date" class="form-control input-sm" id="stday"
+										name="stday" required="required">
+								</div>
+								<div class="form-group col-xs-6">
+									<i class="fas fa-calendar-day"></i> <label for="endday">
+										<span>도착일</span><span id="daynight">(당일)</span>
+									</label> <input type="date" class="form-control input-sm" id="endday"
+										name="endday" required="required">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-xs-6">
+									<i class="fas fa-bus"></i> <label for="bus">차&nbsp;량</label> <select
+										id="bus" name="bus" class="form-control input-sm">
+										<option value="대형">대형(45인승)</option>
+										<option value="중형">중형(25인승)</option>
+										<option value="우등">우등(28인승)</option>
+										<option value="기타">기타</option>
+									</select>
+								</div>
+								<div class="form-group col-xs-6">
+									<i class="fas fa-equals"></i> <label for="num">대&nbsp;수</label>
+									<select id="num" name="num" class="form-control input-sm">
+										<option th:each="i : ${#numbers.sequence(1, 50)}"
+											th:value="${i}" th:text="${i} + '&nbsp;대'">Num</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-xs-6">
+									<i class="far fa-clock"></i> <label for="stt">출발시간</label> <input
+										type="time" class="form-control input-sm" id="stt" name="stt"
+										value="08:30">
+								</div>
+								<div class="form-group col-xs-6">
+									<i class="far fa-clock"></i> <label for="endt">종료시간</label> <input
+										type="time" class="form-control input-sm" id="endt"
+										name="endt">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-xs-12 col-lg-6">
+									<i class="fas fa-map-marker-alt"></i> <label for="rsvpstp">출발장소(모두기입)</label>
+									<textarea id="rsvpstp" name="rsvpstp" class="form-control"></textarea>
+								</div>
+								<div class="form-group col-xs-12 col-lg-6">
+									<i class="fas fa-map-marked-alt"></i> <label for="desty">목적지
+										및 경유지</label>
+									<textarea id="desty" name="desty" class="form-control"></textarea>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-xs-12">
+									<i class="far fa-bookmark"></i> <label for="rsvtdetail">특이사항</label>
+									<input type="text" class="form-control input-sm"
+										id="rsvtdetail" name="rsvtdetail" placeholder="특이사항을 입력해주세요.">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-xs-6">
+									<i class="fas fa-calculator"></i> <label for="cont">부가세</label>
+									<select id="cont" name="cont" class="form-control input-sm">
+										<option value="포함">포함</option>
+										<option value="미포함">미포함</option>
+										<option value="카드">카드</option>
+									</select>
+								</div>
+								<div class="form-group col-xs-6">
+									<i class="fas fa-won-sign"></i> <label for="conm">운행금액</label>
+									<input type="hidden" name="conm" id="conm"
+										class="form-control input-sm"> <input type="text"
+										id="conm2" data-type="currency" class="form-control input-sm"
+										value="0" placeholder="운행 금액 입력">
+								</div>
+							</div>
+							<div class="row" style="margin-top: 3rem;">
+								<div class="col-xs-12 form-flex">
+
+									<button type="button" class="btn btn-secondary btn-sm rsvt-btn"
+										id="eraser">지우기</button>
+									<button type="button" class="btn btn-primary btn-sm rsvt-btn"
+										id="insert-rsvt">입&nbsp;&nbsp;력</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane active" id="allo">
+					<div class="allo">
+						<div class="allo-main">
+							<div class="allo-detail-item" id="onewayBtn">
+								<a>편도</a>
+							</div>
+							<div id="allocont"></div>
+							<datalist id="car-info">
+								<option value="1234" label="44인"></option>
+								<option value="2334" label="44인"></option>
+								<option value="4432" label="44인"></option>
+								<option value="5523" label="44인"></option>
+								<option value="4232" label="44인"></option>
+								<option value="5123" label="44인"></option>
+								<option value="9575" label="44인"></option>
+								<option value="4221" label="44인"></option>
+								<option value="4532" label="44인"></option>
+								<option value="5334" label="44인"></option>
+								<option value="1134" label="44인"></option>
+								<option value="3543" label="44인"></option>
+								<option value="타회사" label=""></option>
+							</datalist>
+							<datalist id="per-info">
+								<option value="홍길동" label="44인"></option>
+								<option value="김길동" label="44인"></option>
+								<option value="차길동" label="44인"></option>
+							</datalist>
+						</div>
+						<div class="allo-side">asdasdasd</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="manage">6666</div>
+				<div role="tabpanel" class="tab-pane" id="settings">77777</div>
+			</div>
+		</div>
+	</main>
+</th:block>
+
+<th:block layout:fragment="add-script">
+	<script src="/js/rsvt/rsvtMain.js"></script>
+	<script src="/js/rsvt/rsvtAllo.js"></script>
+</th:block>
+</html>

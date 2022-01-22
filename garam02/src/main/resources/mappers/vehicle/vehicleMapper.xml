@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garam.web.vehicle.mapper.VehicleMapper">
+
+
+	<sql id="veColumns">
+		vehicleinfo.carnumber,
+		vehicleinfo.vehicle,
+		vehicleinfo.company,
+		IFNULL((SELECT employeeinfo.name FROM employeeinfo
+		WHERE
+		employeeinfo.id=vehicleinfo.owner), vehicleinfo.owner) AS owner,
+		vehicleinfo.id,
+		vehicleinfo.bus,
+		vehicleinfo.brand,
+		vehicleinfo.vename,
+		vehicleinfo.grade,
+		vehicleinfo.fuel,
+		vehicleinfo.num,
+		vehicleinfo.color,
+		vehicleinfo.regist,
+		vehicleinfo.expire,
+		vehicleinfo.price,
+		vehicleinfo.special,
+		vehicleinfo.img1,
+		vehicleinfo.img2,
+		vehicleinfo.img3,
+		vehicleinfo.trash,
+		employeeinfo.name
+	</sql>
+
+	<select id="selectVeAll"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		vehicleinfo.carnumber, vehicleinfo.vehicle,
+		vehicleinfo.company,
+
+		IFNULL((SELECT employeeinfo.name FROM employeeinfo
+		WHERE
+		employeeinfo.id=vehicleinfo.owner), vehicleinfo.owner) AS owner,
+		vehicleinfo.regist, vehicleinfo.bus, employeeinfo.name
+
+		FROM
+		vehicleinfo
+
+		LEFT JOIN
+		employeeinfo
+
+		ON
+		vehicleinfo.id =
+		employeeinfo.id
+
+		<where>
+			<if test="vehicle != null">AND vehicleinfo.vehicle Like CONCAT('%',#{vehicle},'%')
+			</if>
+		</where>
+
+		ORDER BY vehicleinfo.vehicle;
+	</select>
+
+	<select id="selectVeDetail"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		<include refid="veColumns" />
+
+		FROM
+		vehicleinfo
+
+		LEFT JOIN
+		employeeinfo
+
+		ON
+		vehicleinfo.id =
+		employeeinfo.id
+
+		WHERE vehicleinfo.carnumber = #{carNumber}
+	</select>
+
+
+</mapper>

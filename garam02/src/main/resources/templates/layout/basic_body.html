@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html
+    lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <body th:fragment="main-body">
+
+        <th:block layout:fragment="body"></th:block>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+        <script src="/js/common/summernote-lite.js"></script>
+        <script src="/js/common/summernote-ko-KR.js"></script>
+        <script src="/js/common/common.js"></script>
+
+        <th:block layout:fragment="add-script"></th:block>
+
+    </body>
+</html>

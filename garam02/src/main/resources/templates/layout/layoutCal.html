@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다
+        -->
+<title>부트스트랩 101 템플릿</title>
+
+<!-- 부트스트랩 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+	integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="ccc.css">
+
+<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
+<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
+<!--[if lt IE 9]> <script
+        src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> <script
+        src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]-->
+</head>
+<body>
+	<!-- header section starts -->
+
+	<header class="header">
+		<div class="logo">
+			<a href="#"> <img src="img1.png" alt="">
+			</a>
+		</div>
+		<div class="hd-search">
+			<div class="he-serach-group">
+				<form action="">
+					<div class="hd-search-icon fas fa-search"></div>
+					<input type="text" placeholder="검색">
+				</form>
+
+			</div>
+		</div>
+		<div class="hd-icon">
+			<div>
+				<i class="far fa-calendar-plus"></i>
+				<div>빠른예약</div>
+			</div>
+			<div>
+				<i class="fas fa-bus"></i>
+				<div>배차</div>
+			</div>
+		</div>
+		<div class="hd-user">
+			<div id="detail-user">
+				<i class="fas fa-user">&nbsp;사장 홍길동</i>
+			</div>
+			<div class="fas fa-bars" id="menu-btn"></div>
+		</div>
+		<div class="deail-form">
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+		</div>
+	</header>
+	<aside class="aside">
+		<div class="ad-cal">
+			<div class="ad-cal-items ad-cal-items-1 card" id="calendar">
+				<div class="dash-cal">
+					<div class="dash-cal-h">
+						<div class="dash-cal-h-item dash-cal-h-item1" id="fnDownMonth">
+							<i class="fas fa-chevron-left fa-lg"></i>
+						</div>
+						<div class="dash-cal-h-item dash-cal-h-item2" id="yearMonth">
+							<strong>2021년 11월</strong>
+						</div>
+						<div class="dash-cal-h-item dash-cal-h-item3" id="fnUpMonth">
+							<i class="fas fa-chevron-right fa-lg"></i>
+						</div>
+						<div class="dash-cal-h-item dash-cal-h-item4">
+							<button type="button" class="btn btn-primary btn-xs" id="btnYesD">어제</button>
+							<button type="button" class="btn btn-default btn-xs" id="btnToD">오늘</button>
+							<button type="button" class="btn btn-default btn-xs" id="btnTomD">내일</button>
+						</div>
+					</div>
+					<div class="dash-cal-con" id="dash-cal-contents">
+						<div class="dash-cal-con-item">
+							<span>월</span>
+						</div>
+						<div class="dash-cal-con-item">
+							<span>화</span>
+						</div>
+						<div class="dash-cal-con-item">
+							<span>수</span>
+						</div>
+						<div class="dash-cal-con-item">
+							<span>목</span>
+						</div>
+						<div class="dash-cal-con-item">
+							<span>금</span>
+						</div>
+						<div class="dash-cal-con-item cal-sat">
+							<span class="#0C6FCD">토</span>
+						</div>
+						<div class="dash-cal-con-item cal-sun">
+							<span class="#CF2F11">일</span>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item1"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>1</span><input type="hidden" id="calDay1"
+									value="2021-11-1">
+							</div>
+							<div id="cal-dot1">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item2"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>2</span><input type="hidden" id="calDay2"
+									value="2021-11-2">
+							</div>
+							<div id="cal-dot2">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item3"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>3</span><input type="hidden" id="calDay3"
+									value="2021-11-3">
+							</div>
+							<div id="cal-dot3">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item4"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>4</span><input type="hidden" id="calDay4"
+									value="2021-11-4">
+							</div>
+							<div id="cal-dot4">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item5"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>5</span><input type="hidden" id="calDay5"
+									value="2021-11-5">
+							</div>
+							<div id="cal-dot5">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item6"
+							onclick="setCalWhite(this.id)" style="color: #4B89DC;">
+							<div class="">
+								<span>6</span><input type="hidden" id="calDay6"
+									value="2021-11-6">
+							</div>
+							<div id="cal-dot6">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item7"
+							onclick="setCalWhite(this.id)" style="color: #CF2F11;">
+							<div class="">
+								<span>7</span><input type="hidden" id="calDay7"
+									value="2021-11-7">
+							</div>
+							<div id="cal-dot7">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item8"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>8</span><input type="hidden" id="calDay8"
+									value="2021-11-8">
+							</div>
+							<div id="cal-dot8">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item9"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>9</span><input type="hidden" id="calDay9"
+									value="2021-11-9">
+							</div>
+							<div id="cal-dot9">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item10"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>10</span><input type="hidden" id="calDay10"
+									value="2021-11-10">
+							</div>
+							<div id="cal-dot10">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item11"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>11</span><input type="hidden" id="calDay11"
+									value="2021-11-11">
+							</div>
+							<div id="cal-dot11">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item12"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>12</span><input type="hidden" id="calDay12"
+									value="2021-11-12">
+							</div>
+							<div id="cal-dot12">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item13"
+							onclick="setCalWhite(this.id)" style="color: #4B89DC;">
+							<div class="">
+								<span>13</span><input type="hidden" id="calDay13"
+									value="2021-11-13">
+							</div>
+							<div id="cal-dot13">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item14"
+							onclick="setCalWhite(this.id)" style="color: #CF2F11;">
+							<div class="">
+								<span>14</span><input type="hidden" id="calDay14"
+									value="2021-11-14">
+							</div>
+							<div id="cal-dot14">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item15"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>15</span><input type="hidden" id="calDay15"
+									value="2021-11-15">
+							</div>
+							<div id="cal-dot15">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item16"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>16</span><input type="hidden" id="calDay16"
+									value="2021-11-16">
+							</div>
+							<div id="cal-dot16">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item17"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>17</span><input type="hidden" id="calDay17"
+									value="2021-11-17">
+							</div>
+							<div id="cal-dot17">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item18"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>18</span><input type="hidden" id="calDay18"
+									value="2021-11-18">
+							</div>
+							<div id="cal-dot18">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item19"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>19</span><input type="hidden" id="calDay19"
+									value="2021-11-19">
+							</div>
+							<div id="cal-dot19">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item20"
+							onclick="setCalWhite(this.id)" style="color: #4B89DC;">
+							<div class="">
+								<span>20</span><input type="hidden" id="calDay20"
+									value="2021-11-20">
+							</div>
+							<div id="cal-dot20">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item21"
+							onclick="setCalWhite(this.id)" style="color: #CF2F11;">
+							<div class="">
+								<span>21</span><input type="hidden" id="calDay21"
+									value="2021-11-21">
+							</div>
+							<div id="cal-dot21">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item22"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>22</span><input type="hidden" id="calDay22"
+									value="2021-11-22">
+							</div>
+							<div id="cal-dot22">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item23"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>23</span><input type="hidden" id="calDay23"
+									value="2021-11-23">
+							</div>
+							<div id="cal-dot23">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item24"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>24</span><input type="hidden" id="calDay24"
+									value="2021-11-24">
+							</div>
+							<div id="cal-dot24">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c dash-cal-con-item-t"
+							id="dash-cal-con-item25" onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>25</span><input type="hidden" id="calDay25"
+									value="2021-11-25">
+							</div>
+							<div id="cal-dot25">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item26"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>26</span><input type="hidden" id="calDay26"
+									value="2021-11-26">
+							</div>
+							<div id="cal-dot26">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item27"
+							onclick="setCalWhite(this.id)" style="color: #4B89DC;">
+							<div class="">
+								<span>27</span><input type="hidden" id="calDay27"
+									value="2021-11-27">
+							</div>
+							<div id="cal-dot27">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item28"
+							onclick="setCalWhite(this.id)" style="color: #CF2F11;">
+							<div class="">
+								<span>28</span><input type="hidden" id="calDay28"
+									value="2021-11-28">
+							</div>
+							<div id="cal-dot28">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item29"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>29</span><input type="hidden" id="calDay29"
+									value="2021-11-29">
+							</div>
+							<div id="cal-dot29">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item30"
+							onclick="setCalWhite(this.id)">
+							<div class="">
+								<span>30</span><input type="hidden" id="calDay30"
+									value="2021-11-30">
+							</div>
+							<div id="cal-dot30">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item31"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>1</span><input type="hidden" id="calDay31"
+									value="2021-12-1">
+							</div>
+							<div id="cal-dot31">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item32"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>2</span><input type="hidden" id="calDay32"
+									value="2021-12-2">
+							</div>
+							<div id="cal-dot32">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item33"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>3</span><input type="hidden" id="calDay33"
+									value="2021-12-3">
+							</div>
+							<div id="cal-dot33">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item34"
+							onclick="setCalWhite(this.id)" style="color: #6fa0e3;">
+							<div class="">
+								<span>4</span><input type="hidden" id="calDay34"
+									value="2021-12-4">
+							</div>
+							<div id="cal-dot34">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item35"
+							onclick="setCalWhite(this.id)" style="color: #f0674f;">
+							<div class="">
+								<span>5</span><input type="hidden" id="calDay35"
+									value="2021-12-5">
+							</div>
+							<div id="cal-dot35">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item36"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>6</span><input type="hidden" id="calDay36"
+									value="2021-12-6">
+							</div>
+							<div id="cal-dot36">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item37"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>7</span><input type="hidden" id="calDay37"
+									value="2021-12-7">
+							</div>
+							<div id="cal-dot37">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item38"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>8</span><input type="hidden" id="calDay38"
+									value="2021-12-8">
+							</div>
+							<div id="cal-dot38">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item39"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>9</span><input type="hidden" id="calDay39"
+									value="2021-12-9">
+							</div>
+							<div id="cal-dot39">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item40"
+							onclick="setCalWhite(this.id)" style="color: #8390A2;">
+							<div class="">
+								<span>10</span><input type="hidden" id="calDay40"
+									value="2021-12-10">
+							</div>
+							<div id="cal-dot40">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item41"
+							onclick="setCalWhite(this.id)" style="color: #6fa0e3;">
+							<div class="">
+								<span>11</span><input type="hidden" id="calDay41"
+									value="2021-12-11">
+							</div>
+							<div id="cal-dot41">&nbsp;</div>
+						</div>
+						<div class="dash-cal-con-item-c" id="dash-cal-con-item42"
+							onclick="setCalWhite(this.id)" style="color: #f0674f;">
+							<div class="">
+								<span>12</span><input type="hidden" id="calDay42"
+									value="2021-12-12">
+							</div>
+							<div id="cal-dot42">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ad-cal-items ad-cal-items-2 card">
+				<blockquote>
+					<p id="bigDay">2021년 11월 25일 목요일</p>
+					<footer>
+						<cite title="Source Title" id="cal1">음력 2021-10-21</cite>
+					</footer>
+				</blockquote>
+			</div>
+			<div class="ad-cal-items ad-cal-items-4 card">
+				<blockquote>
+					<p>크리스마스</p>
+					<p>봄 여름 가을 겨울</p>
+					<p>봄 여름 가을 겨울</p>
+				</blockquote>
+			</div>
+		</div>
+	</aside>
+
+	<main class="main"></main>
+	<!-- header section ends -->
+
+	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- custom js file link -->
+	<script src="ccc.js"></script>
+</body>
+</html>

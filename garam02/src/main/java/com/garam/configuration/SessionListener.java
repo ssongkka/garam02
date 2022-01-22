@@ -1,0 +1,33 @@
+package com.garam.configuration;
+
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
+
+import org.slf4j.Logger;
+
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@PropertySource("classpath:/application.properties")
+@Configuration
+public class SessionListener implements HttpSessionListener {
+
+	@Value("${server.servlet.session.timeout}")
+	private String time;
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
+	@Override
+	public void sessionCreated(HttpSessionEvent se) {
+		System.out.println("하이요   " + time.substring(0, 2));
+		se.getSession().setMaxInactiveInterval(Integer.parseInt(time.substring(0, 2)));
+	}
+
+	@Override
+	public void sessionDestroyed(HttpSessionEvent se) {
+
+	}
+
+}

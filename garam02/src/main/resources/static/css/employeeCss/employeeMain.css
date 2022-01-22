@@ -1,0 +1,145 @@
+.main-aside {
+    display: flex;
+    gap: 2rem;
+    padding: 3rem;
+}
+
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(20,20,31,.075)!important;
+}
+
+.main-aside-item:nth-child(1) {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.main-aside-item:nth-child(2) {
+    flex: 2;
+    min-height: calc(100vh - 6rem);
+}
+
+.main-aside-item-head {
+    display: flex;
+    padding: 2rem;
+}
+
+.main-aside-item-head-item:nth-child(1) {}
+.main-aside-item-head-item:nth-child(2) {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    align-items: center;
+}
+
+.emp-head-detail:nth-child(1) {
+    padding-left: 2rem;
+    /* font-weight: 600; */
+}
+.emp-head-detail:nth-child(2) {
+    justify-self: end;
+}
+.emp-head-detail:nth-child(3) {
+    padding-left: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+}
+.emp-head-detail:nth-child(4) {
+    justify-self: end;
+}
+.emp-head-detail:nth-child(5) {
+    padding-left: 2rem;
+    font-weight: 600;
+}
+.emp-head-detail:nth-child(6) {
+    justify-self: end;
+}
+.emp-head-detail:nth-child(7) {
+    padding-left: 2rem;
+    font-weight: 600;
+}
+.emp-head-detail:nth-child(8) {
+    justify-self: end;
+}
+.emp-head-detail:nth-child(9) {
+    padding-left: 2rem;
+    font-weight: 600;
+}
+.emp-head-detail:nth-child(10) {
+    justify-self: end;
+}
+
+.main-aside-item-add {
+    display: grid;
+    grid-template-columns: 80px auto;
+    row-gap: 2rem;
+    column-gap: 1rem;
+}
+
+.emp-nth {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.emp-nth-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.emp-nth-btn-item {
+    flex: 1;
+}
+
+.emp-add-detail:nth-child(1) {}
+.emp-add-detail:nth-child(2) {}
+.emp-add-detail:nth-child(3) {}
+.emp-add-detail:nth-child(4) {}
+.emp-add-detail:nth-child(5) {}
+.emp-add-detail:nth-child(6) {}
+
+.main-aside-item:nth-child(1) {}
+.main-aside-item:nth-child(2) {
+    padding: 2rem;
+}
+
+.main-aside blockquote {
+    padding: 1rem 2rem;
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.cardImg {
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+}
+
+.emp-nth-item:nth-child(1) {
+    flex: 1;
+}
+.emp-nth-item:nth-child(2) {
+    flex: 2;
+}
+
+.emp-insert {
+    display: flex;
+}
+
+.emp-insert-item:nth-child(1) {
+    flex: 1;
+    padding-left: 3rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+.emp-insert-item:nth-child(2) {
+    flex: 2;
+}
+
+.emp-pic {
+    display: flex;
+    flex-direction: column;
+}

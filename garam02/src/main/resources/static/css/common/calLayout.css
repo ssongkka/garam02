@@ -1,0 +1,345 @@
+:root {
+    --main-color: #d3ad7f;
+    --black: #13131a;
+    --bg: #346cb0;
+    --border: 0.1rem solid rgba(255,255,255,.3);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {}
+
+section {
+    padding: 2rem 7%;
+}
+
+#yearMonth {
+    font-size: 1.5rem;
+    flex: 1;
+    width: 14rem;
+}
+
+#fnDownMonth {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#fnUpMonth {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#bigDay {}
+
+.heading {
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    padding-bottom: 3.5rem;
+    font-size: 4rem;
+}
+
+.heading span {
+    color: var(--main-color);
+    text-transform: uppercase;
+}
+
+.header {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5rem;
+    z-index: 2000;
+}
+
+.header .logo {
+    padding: 1rem;
+    width: 30rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header .logo img {
+    width: 15rem;
+}
+
+.header .hd-search {
+    flex: 1;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    background: white;
+    opacity: 0.5;
+
+    border-radius: 5rem;
+}
+
+.header .hd-search input {
+    width: 100%;
+    background: #fff;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 2rem;
+}
+
+.header .hd-search .hd-search-icon {
+    padding-left: 2rem;
+    font-size: 1.5rem;
+}
+
+.he-serach-group :first-child {
+    display: flex;
+    align-items: center;
+}
+
+.header .hd-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 2.3rem;
+}
+
+.header .hd-icon div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 0.3rem;
+}
+
+.header .hd-icon div div {
+    display: none;
+}
+
+.header .hd-icon div:hover {
+    color: var(--main-color);
+}
+
+.header .hd-user {
+    padding-left: 3rem;
+    padding-right: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.header .hd-user div:hover {
+    color: var(--main-color);
+}
+
+#menu-btn {
+    display: none;
+}
+
+.header .deail-form {
+    position: absolute;
+    top: 115%;
+    right: 0;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: var(--bg);
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.header .deail-form.active {
+    transform: scaleY(1);
+}
+
+.header .deail-form label:hover {
+    color: var(--main-color);
+}
+
+.aside {
+    background: #f6f7f9;
+    border-right: 1px solid rgba(20,20,31,.05);
+    width: 30rem;
+
+    position: fixed;
+    top: 5rem;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+}
+
+.ad-cal {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 1rem 2rem;
+}
+
+.ad-cal-items {
+    padding: 1rem;
+}
+
+.ad-cal hr {
+    border: 0;
+    width: 100%;
+    height: 0.1rem;
+    background: rgb(20 20 31 / 0%);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ad-cal-items-1 {
+    height: 28rem;
+    width: 100%;
+}
+
+.ad-cal-items-2 blockquote {
+    font-size: 1.8rem;
+}
+
+.ad-cal-items-3 blockquote {
+    font-size: 1.4rem;
+    /* font-weight: 600; */
+}
+
+.ad-cal-items-4 blockquote {
+    font-size: 1.4rem;
+    /* font-weight: 500; */
+}
+
+blockquote {
+    margin: 0;
+}
+
+.ad-cal-items-3 {}
+
+.main {
+    background: #f6f7f9;
+    padding-top: 5rem;
+    padding-left: 30rem;
+    min-height: calc(100vh - 0rem);
+}
+
+.dd-main-header {
+    width: 100%;
+    height: 6rem;
+    background: #e6e8ed;
+    padding: 2rem;
+}
+
+.dd-main-nav {
+    z-index: 1050;
+    position: fixed;
+    left: 30rem;
+    right: 0;
+}
+
+.dd-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #f6f7f9;
+    padding: 1rem;
+    box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5);
+}
+
+.dd-nav li {
+    flex: 1;
+}
+
+.tab-cont {
+    padding-top: 6rem;
+}
+
+@media (max-width:1024px) {
+    html {}
+    .header .logo {
+        width: 8rem;
+    }
+
+    .header .logo img {
+        width: 100%;
+    }
+
+    .header .hd-icon {
+        display: none;
+    }
+
+    .header .hd-icon div {
+        font-size: 6rem;
+        width: 10rem;
+        margin: 0 5rem;
+        /* background: red; */
+    }
+
+    .header .hd-icon div div {
+        display: block;
+        font-size: 1.5rem;
+        text-align: center;
+        /* background: red; */
+    }
+
+    .header .hd-search {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .header .search-form {
+        width: 90%;
+        right: 2rem;
+    }
+
+    .header .icons {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 2rem;
+    }
+
+    .aside {
+        display: none;
+    }
+
+    .main {
+        padding-top: 5rem;
+        padding-left: 0;
+        min-height: calc(100vh - 0rem);
+    }
+
+    .dd-main-nav {
+        z-index: 1050;
+        position: fixed;
+        left: 0;
+        right: 0;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tab-phone {
+        margin-top: 6rem;
+    }
+
+    .tab-cont {
+        padding-top: 13rem;
+    }
+}
+
+@media (max-width:992px) {
+
+    html {
+        /* font-size: 50%; */
+    }
+}

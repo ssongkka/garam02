@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garam.calendar.mapper.CalendarMapper">
+
+	<sql id="calendarColumns">
+		no
+		, solarcal
+		, lunarcal
+		, season
+		, etc
+		, holiday
+		, anniversary
+		,
+		event
+	</sql>
+
+	<select id="selectCalendarEvent"
+		parameterType="com.garam.calendar.domain.CalendarDTO"
+		resultType="com.garam.calendar.domain.CalendarDTO">
+		SELECT
+
+		<include refid="calendarColumns" />
+
+		FROM
+
+		cal
+
+		WHERE
+
+		solarcal
+
+		BETWEEN
+
+		#{stD} AND #{endD}
+	</select>
+
+</mapper>
+

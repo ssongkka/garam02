@@ -1,0 +1,160 @@
+.allo {
+    width: 100%;
+    bottom: 0;
+}
+
+.allo small {
+    padding: 0 2rem;
+    font-size: 1.2rem;
+}
+.allo-main {
+    margin-right: 30rem;
+    padding: 2rem 15rem;
+}
+
+.allo-card {
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+.allo-card h4 {
+    /* padding-left: 2rem; */
+    font-size: 1.5rem;
+    font-weight: 550;
+}
+
+.rv {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.allo-card .form-group {
+    margin: 0;
+}
+
+.allo-card-in {
+    padding: 1rem;
+}
+
+.allo-card-in hr {
+    margin: 1.5rem 0;
+}
+
+.allo-detail {
+    display: flex;
+    align-items: center;
+}
+
+.allo-detail p {
+    letter-spacing: 0.5px;
+    font-size: 1.3rem;
+    font-weight: 550;
+}
+.allo-detail small {
+    letter-spacing: 0.5px;
+    font-size: 1.2rem;
+}
+
+.allo-allo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 0;
+}
+.allo-allo input:focus {
+    outline: none;
+}
+
+.allo-allo-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stWay {
+    display: flex;
+    border: 1px solid rgba(34,34,48,.1);
+    align-items: center;
+}
+.edway {
+    display: flex;
+    border: 1px solid rgba(34,34,48,.1);
+    align-items: center;
+}
+
+.stWay div {
+    height: 100%;
+}
+
+.allo-allo-item input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    text-align: center;
+    height: 3rem;
+    font-size: 1.2rem;
+}
+
+.allo-allo-item input {
+    border: 0.1rem solid transparent;
+}
+
+.allo-allo-item input:focus {
+    border: 0.1rem solid rgb(36, 36, 44, 0.5);
+}
+
+#onewayBtn {}
+
+.allo-allo .form-control {
+    height: 28px;
+    border-radius: 0;
+    border: 0;
+    padding: 3px 6px;
+    margin: 0;
+    text-align: center;
+}
+
+.allo-side {
+    border-left: 1px solid rgba(34,34,48,.1);
+    background: white;
+    width: 30rem;
+    position: fixed;
+    padding: 12rem 2rem 2rem;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#allocont {}
+
+.no-allo {
+    padding: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.8rem;
+}
+
+@media (max-width:1024px) {
+    .allo-side {
+        display: none;
+    }
+    .allo-main {
+        margin-right: 0;
+        padding: 2rem;
+    }
+
+    .allo small {
+        padding: 0 0.5rem;
+    }
+
+    .allo-detail {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}

@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+blockquote {
+    padding: 1.2rem 1.6rem;
+    margin: 0;
+    font-size: 2.3rem;
+    border-left: 0.3rem solid #eee;
+}
+
+blockquote .small,
+blockquote footer,
+blockquote small {
+    display: block;
+    font-size: 65%;
+    line-height: 0.8;
+    color: #777;
+}
+
+input:focus {
+    box-shadow: none;
+}
+
+.nav {
+    font-size: 1.5rem;
+    padding: 0;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0;
+}
+
+.nav-tabs .nav-link {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.table {
+    font-size: 1.3rem;
+    background-color: #fff;
+}

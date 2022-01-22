@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body th:fragment="main-body">
+	<header class="header">
+		<div class="logo">
+			<a href="#"> <img src="img1.png" alt="">
+			</a>
+		</div>
+		<div class="hd-search">
+			<div class="he-serach-group">
+				<form action="">
+					<div class="hd-search-icon fas fa-search"></div>
+					<input type="text" placeholder="검색">
+				</form>
+
+			</div>
+		</div>
+		<div class="hd-icon">
+			<div>
+				<i class="far fa-calendar-plus"></i>
+				<div>빠른예약</div>
+			</div>
+			<div>
+				<i class="fas fa-bus"></i>
+				<div>배차</div>
+			</div>
+		</div>
+		<div class="hd-user">
+			<div id="detail-user">
+				<i class="fas fa-user">&nbsp;사장 홍길동</i>
+			</div>
+			<div class="fas fa-bars" id="menu-btn"></div>
+		</div>
+		<div class="deail-form">
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+			<div>123145124</div>
+		</div>
+	</header>
+	<aside class="aside">
+		<div class="ad-cal">
+			<div class="ad-cal-items ad-cal-items-1 card" id="calendar">
+				<div class="dash-cal">
+					<div class="dash-cal-h">
+						<div class="dash-cal-h-item dash-cal-h-item1" id="fnDownMonth">
+							<i class="fas fa-chevron-left fa-lg"></i>
+						</div>
+						<div class="dash-cal-h-item dash-cal-h-item2" id="yearMonth">
+							<strong>2021년 11월</strong>
+						</div>
+						<div class="dash-cal-h-item dash-cal-h-item3" id="fnUpMonth">
+							<i class="fas fa-chevron-right fa-lg"></i>
+						</div>
+						<div class="dash-cal-h-item dash-cal-h-item4">
+							<button type="button" class="btn btn-primary btn-xs" id="btnYesD">어제</button>
+							<button type="button" class="btn btn-default btn-xs" id="btnToD">오늘</button>
+							<button type="button" class="btn btn-default btn-xs" id="btnTomD">내일</button>
+						</div>
+					</div>
+					<div class="dash-cal-con" id="dash-cal-contents"></div>
+				</div>
+
+			</div>
+			<div class="ad-cal-items ad-cal-items-2 card">
+				<blockquote>
+					<p id="bigDay">2021년 11월 25일 목요일</p>
+					<footer>
+						<cite title="Source Title" id="cal1">음력 2021-10-21</cite>
+					</footer>
+				</blockquote>
+			</div>
+			<div class="ad-cal-items ad-cal-items-3 card" id="numday">
+				<blockquote>
+					<p>대형 35대</p>
+					<p>중형</p>
+					<p>우등</p>
+				</blockquote>
+			</div>
+			<div class="ad-cal-items ad-cal-items-4 card">
+				<blockquote id="midday"></blockquote>
+			</div>
+		</div>
+	</aside>
+
+	<th:block layout:fragment="main"></th:block>
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+	<script
+		src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+	<script src="/js/common/summernote-lite.js"></script>
+	<script src="/js/common/summernote-ko-KR.js"></script>
+	<script src="/js/common/common.js"></script>
+	<script src="/js/common/calendar.js"></script>
+	<script src="/js/common/calLayout.js"></script>
+
+	<th:block layout:fragment="add-script"></th:block>
+
+</body>
+</html>
