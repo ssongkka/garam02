@@ -105,7 +105,7 @@
                                         <div class="tct-item" id="ve09">&nbsp;</div>
                                     </div>
                                 </blockquote>
-                                <blockquote>
+                                <blockquote style="flex: 0.5;">
                                     <div class="title-content-title1-item">
                                         <div class="tct-item">연료</div>
                                         <div class="tct-item" id="ve10">&nbsp;</div>
@@ -129,17 +129,24 @@
                                 </blockquote>
                                 <blockquote>
                                     <div class="title-content-title1-item">
+                                        <div class="tct-item">차대번호</div>
+                                        <div class="tct-item" id="ve19">&nbsp;</div>
+                                    </div>
+                                </blockquote>
+                                <blockquote>
+                                    <div class="title-content-title1-item">
                                         <div class="tct-item">출고가</div>
                                         <div class="tct-item" id="ve13">&nbsp;</div>
                                     </div>
                                 </blockquote>
-                                <blockquote>
+                                <blockquote style="flex: 0.5;">
                                     <div class="title-content-title1-item">
                                         <div class="tct-item">색상</div>
                                         <div
                                             class="tct-item card"
                                             style="background: rgba(0, 0, 0, 0); color: rgba(0, 0, 0, 0); border-radius: 3px;"
-                                            id="ve14">색상</div>
+                                            id="ve14">색상
+                                            <input type="hidden" id="ve14-1" value=""></div>
                                     </div>
                                 </blockquote>
                             </div>
@@ -171,22 +178,19 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
-                                    <img src="img/vehicle/bus1.png" alt="" class="iimmgg center-block" id="ve16">
-                                    <div class="carousel-caption">
-                                        <h4>외&nbsp;&nbsp;&nbsp;부</h4>
-                                    </div>
+                                    <a href="img/vehicle/bus1.png" target='_blank' id="ve16-1">
+                                        <img src="img/vehicle/bus1.png" alt="" class="iimmgg center-block" id="ve16">
+                                    </a>
                                 </div>
                                 <div class="item">
-                                    <img src="img/vehicle/bus2.png" alt="" class="iimmgg center-block" id="ve17">
-                                    <div class="carousel-caption">
-                                        <h4>외&nbsp;&nbsp;&nbsp;부</h4>
-                                    </div>
+                                    <a href="img/vehicle/bus2.png" target='_blank' id="ve17-1">
+                                        <img src="img/vehicle/bus2.png" alt="" class="iimmgg center-block" id="ve17">
+                                    </a>
                                 </div>
                                 <div class="item">
-                                    <img src="img/vehicle/bus3.png" alt="" class="iimmgg center-block" id="ve18">
-                                    <div class="carousel-caption">
-                                        <h4>내&nbsp;&nbsp;&nbsp;부</h4>
-                                    </div>
+                                    <a href="img/vehicle/bus3.png" target='_blank' id="ve18-1">
+                                        <img src="img/vehicle/bus3.png" alt="" class="iimmgg center-block" id="ve18">
+                                    </a>
                                 </div>
                             </div>
 
@@ -269,56 +273,49 @@
                         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="id" name="id">
                         <div class="ve-insert-pic">
-                            <div class="ve-pics">
-                                <img
-                                    src="img/vehicle/bus1.png"
-                                    id="ve-pic-pre"
-                                    alt=""
-                                    class="cardImg img-thumbnail">
-                                <form action="" id="emp-form">
-                                    <div class="form-group" style="padding-top: 1rem;">
-                                        <input type="file" name="uploadfile" id="imgSelector">
-                                        <input type="hidden" name="emp-id" id="emp-id">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="ve-pics">
-                                <img
-                                    src="img/vehicle/bus2.png"
-                                    id="ve-pic-pre"
-                                    alt=""
-                                    class="cardImg img-thumbnail">
-                                <form action="" id="emp-form">
-                                    <div class="form-group" style="padding-top: 1rem;">
-                                        <input type="file" name="uploadfile" id="imgSelector">
-                                        <input type="hidden" name="emp-id" id="emp-id">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="ve-pics">
-                                <img
-                                    src="img/vehicle/bus3.png"
-                                    id="ve-pic-pre"
-                                    alt=""
-                                    class="cardImg img-thumbnail">
-                                <form action="" id="emp-form">
-                                    <div class="form-group" style="padding-top: 1rem;">
-                                        <input type="file" name="uploadfile" id="imgSelector">
-                                        <input type="hidden" name="emp-id" id="emp-id">
-                                    </div>
-                                </form>
-                            </div>
+                            <form action="" id="ve-form">
+                                <input type="hidden" id="vecarn" name="vecarn" value="">
+                                <div class="ve-pics">
+                                    <img
+                                        src="img/vehicle/bus1.png"
+                                        id="ve-pic-pre1"
+                                        alt=""
+                                        class="cardImg img-thumbnail">
+                                    <h5>외부1 사진</h5>
+                                    <label class="file-la" for="imgSelector1">파일선택</label>
+                                    <input type="file" name="uploadfile" id="imgSelector1" style="display: none;">
+                                </div>
+                                <div class="ve-pics">
+                                    <img
+                                        src="img/vehicle/bus2.png"
+                                        id="ve-pic-pre2"
+                                        alt=""
+                                        class="cardImg img-thumbnail">
+                                    <h5>외부2 사진</h5>
+                                    <label class="file-la" for="imgSelector2">파일선택</label>
+                                    <input type="file" name="uploadfile" id="imgSelector2" style="display: none;">
+                                </div>
+                                <div class="ve-pics">
+                                    <img
+                                        src="img/vehicle/bus3.png"
+                                        id="ve-pic-pre3"
+                                        alt=""
+                                        class="cardImg img-thumbnail">
+                                    <h5>실내 사진</h5>
+                                    <label class="file-la" for="imgSelector3">파일선택</label>
+                                    <input type="file" name="uploadfile" id="imgSelector3" style="display: none;">
+                                </div>
+                            </form>
                         </div>
                         <hr>
                         <div class="ve-insert">
                             <div class="form-group col-md-4">
-                                <label for="vehicle-4">기본정보</label>
+                                <label>기본정보</label>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="vehicle-1">차량번호&nbsp;&#42;</label>
-                                <select class="form-control input-sm" id="vehicle-1" name="vehicle-1">
+                                <select class="form-control input-sm" id="vehicle-1">
                                     <option selected="selected">대구</option>
                                     <option>경북</option>
                                     <option>경남</option>
@@ -339,7 +336,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="vehicle-2">&nbsp;</label>
-                                <select class="form-control input-sm" id="vehicle-2" name="vehicle-2">
+                                <select class="form-control input-sm" id="vehicle-2">
                                     <option selected="selected">70</option>
                                     <option>71</option>
                                     <option>72</option>
@@ -354,7 +351,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="vehicle-3">&nbsp;</label>
-                                <select class="form-control input-sm" id="vehicle-3" name="bobvehicle-3uj">
+                                <select class="form-control input-sm" id="vehicle-3">
                                     <option selected="selected">바</option>
                                     <option>아</option>
                                     <option>사</option>
@@ -363,11 +360,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="vehicle-4">&nbsp;</label>
-                                <input
-                                    type="text"
-                                    class="form-control input-sm"
-                                    id="vehicle-4"
-                                    name="vehicle-4">
+                                <input type="text" class="form-control input-sm" id="vehicle-4">
                             </div>
                         </div>
                         <hr>
@@ -377,23 +370,37 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="owner">소속</label>
-                                <input list="ownerlist" class="form-control input-sm" id="owner" name="owner">
-                                <datalist id="ownerlist">
-                                    <option value="(주)새천년관광" label="(주)새천년관광"></option>
-                                </datalist>
+                                <select class="form-control input-sm" id="owner">
+                                    <option selected="selected">미정</option>
+                                    <option
+                                        th:each="company : ${company}"
+                                        th:value="${company.company}"
+                                        th:label="${company.company}"
+                                        th:data-value="${company.company}"></option>
+                                    <option
+                                        th:each="emp : ${emp}"
+                                        th:value="${emp.name}"
+                                        th:label="${emp.name}"
+                                        th:data-value="${emp.id}"></option>
+                                </select>
+
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="owner">승무원</label>
-                                <input list="ownerlist" class="form-control input-sm" id="owner" name="owner">
-                                <datalist id="ownerlist">
-                                    <option value="(주)새천년관광" label="(주)새천년관광"></option>
-                                </datalist>
+                                <label for="id">승무원</label>
+                                <select class="form-control input-sm" id="id">
+                                    <option selected="selected">미정</option>
+                                    <option
+                                        th:each="emp : ${emp}"
+                                        th:value="${emp.name}"
+                                        th:label="${emp.name}"
+                                        th:data-value="${emp.id}"></option>
+                                </select>
                             </div>
                         </div>
                         <hr>
                         <div class="ve-insert">
                             <div class="form-group col-md-4">
-                                <label for="vehicle-4">차량정보</label>
+                                <label>차량정보</label>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="bus">종류</label>
@@ -453,10 +460,36 @@
                             <div class="form-group col-md-4">
                                 <label for="vehicle-4">&nbsp;</label>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label for="vename">승차인원&nbsp;&#42;
+                            <div class="form-group col-md-8">
+                                <label for="carnumber">차대번호&nbsp;&#42;
                                 </label>
-                                <input type="text" class="form-control input-sm" id="vename" name="vename">
+                                <input type="text" class="form-control input-sm" id="carn" name="carn">
+                            </div>
+                        </div>
+
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">&nbsp;</label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="regist">차량등록일&nbsp;&#42;
+                                </label>
+                                <input type="date" class="form-control input-sm" id="regist" name="regist">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="expire">차량만료일&nbsp;&#42;
+                                </label>
+                                <input type="date" class="form-control input-sm" id="expire" name="expire">
+                            </div>
+                        </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label for="vehicle-4">&nbsp;</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="num">승차인원&nbsp;&#42;
+                                </label>
+                                <input type="text" class="form-control input-sm" id="num" name="num">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="fuel">연료&nbsp;&#42;
@@ -468,59 +501,33 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="vename">색상
-                                </label>
-                                <input type="color" class="form-control input-sm" id="vename" name="vename">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="vename">출고(취득)가격&nbsp;&#42;
+                                <label for="price">출고(취득)가격&nbsp;&#42;
                                 </label>
                                 <input
                                     type="text"
                                     data-type="currency"
                                     style="text-align: right;"
                                     class="form-control input-sm"
-                                    id="vename"
-                                    name="vename">
+                                    id="price"
+                                    name="price">
                             </div>
-                        </div>
-                        <div class="ve-insert">
-                            <div class="form-group col-md-4">
-                                <label for="vehicle-4">&nbsp;</label>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="vename">차량등록일&nbsp;&#42;
+                            <div class="form-group col-md-2">
+                                <label for="color">색상
                                 </label>
-                                <input type="date" class="form-control input-sm" id="vename" name="vename">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="vename">차량만료일&nbsp;&#42;
-                                </label>
-                                <input type="date" class="form-control input-sm" id="vename" name="vename">
-                            </div>
-                        </div>
-                        <div class="ve-insert">
-                            <div class="form-group col-md-4">
-                                <label for="vehicle-4">&nbsp;</label>
-                            </div>
-                            <div class="form-group col-md-8">
-                                <label for="vename">차대번호&nbsp;&#42;
-                                </label>
-                                <input type="text" class="form-control input-sm" id="vename" name="vename">
+                                <input type="color" class="form-control input-sm" id="color" name="color">
                             </div>
                         </div>
                         <hr>
                         <div class="ve-insert">
                             <div class="form-group col-md-4">
-                                <label for="vehicle-4">특이사항</label>
+                                <label>특이사항</label>
                             </div>
                             <div class="form-group col-md-8">
-                                <label for="vename">특이사항
+                                <label for="special">특이사항
                                 </label>
-                                <input type="text" class="form-control input-sm" id="vename" name="vename">
+                                <input type="text" class="form-control input-sm" id="special" name="special">
                             </div>
                         </div>
-                        <hr>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" id="btn-insert">Save changes</button>
@@ -538,6 +545,6 @@
         <script src="/js/common/summernote-lite.js"></script>
         <script src="/js/common/summernote-ko-KR.js"></script>
         <script src="/js/common/common.js"></script>
-        <script src="/js/vehicle/vehicle.js"></script>
+        <script src="/js/vehicle/vehicleBody.js"></script>
     </body>
 </html>

@@ -176,9 +176,10 @@ function getEmpInfo(id) {
                     $('#emp13').html('<span></span><input type="hidden" id="emp13-1" value="">');
                 }
                 if (r[0].endd) {
-                    $('#emp14').html('<span>' + r[0].endd + '</span>');
+                    '<span>' + r[0].endd + '(' + r[0].endd + ')</span><input type="hidden" id="emp1' +
+                            '4-1" value="' + r[0].endd + '">'
                 } else {
-                    $('#emp14').html('<span></span>');
+                    $('#emp14').html('<span></span><input type="hidden" id="emp14-1" value="">');
                 }
                 if (r[0].drvl) {
                     $('#emp15').html('<span>' + r[0].drvl + '</span>');
@@ -247,8 +248,10 @@ function getEmpInfo(id) {
 
                 if (r[0].img) {
                     $('#empPic').attr('src', empFolder + r[0].img);
+                    $('#empPic-a').attr('href', empFolder + r[0].img);
                 } else {
                     $('#empPic').attr('src', 'img/employee/emp.png');
+                    $('#empPic-a').attr('href', 'img/employee/emp.png');
                 }
 
             }
@@ -286,9 +289,17 @@ $(document).on('click', '#md-New', function () {
 });
 
 function setEmpCh() {
-    console.log($('#emp03').children().text());
-    $('#id').val($('#emp00').val());
-    $('#emp-id').val($('#emp00').val());
+
+    if ($('#emp00').val()) {
+        $('#id').val($('#emp00').val());
+        $('#empid').val($('#emp00').val());
+    } else {
+        $('#id').val('');
+        $('#empid').val('');
+    }
+
+    $('#emp-pic-pre').attr('src', $('#empPic').attr('src'));
+
     $('#name').val($('#emp03').children().text());
     $('#birthday').val($('#emp05-1').val());
     $('#gender').val($('#emp06').children().text());
@@ -300,8 +311,17 @@ function setEmpCh() {
     $('#address').val($('#emp11').children().text());
     $('#garage').val($('#emp12').children().text());
 
-    $('#joind').val($('#emp13-1').val());
-    $('#endd').val($('#emp14').children().text());
+    if ($('#emp13-1').val()) {
+        $('#joind').val($('#emp13-1').val());
+    } else {
+        $('#joind').val('');
+    }
+
+    if ($('#emp14-1').val()) {
+        $('#endd').val($('#emp14-1').val());
+    } else {
+        $('#endd').val('');
+    }
 
     $('#drvl').val($('#emp15').children().text());
     $('#busl').val($('#emp16').children().text());
@@ -384,6 +404,7 @@ function insertEmp(tp) {
                 cache: false,
                 timeout: 600000,
                 success: function (r) {
+                    console.log(r);
                     resolve(r);
                 }
             })
@@ -399,13 +420,15 @@ function insertEmp(tp) {
                 "X-HTTP-Method-Override": "POST"
             };
 
-            console.log("asdddd  " + result);
-            console.log("asdddd  " + tp);
-            if (result == 1) {} else if (result == 2) {} else {
+            if (result == 1) {
+                alert("사진 파일 확인 후 다른 파일로 다시 업로드해주세요.");
+            } else if (result == 2) {
+                alert("인터넷 연결 상태를 확인해주세요.\n반복적으로 이 메세지가 발생하면 담당자에게 문의해주세요.");
+            } else {
                 const params = {
                     "tp": tp,
                     "id": result,
-                    "company": '(주)새천년관광',
+                    "company": $('#company').val(),
                     "kind": $('#kind').val(),
                     "joind": $('#joind').val(),
                     "endd": $('#endd').val(),
@@ -429,7 +452,7 @@ function insertEmp(tp) {
                     "gunm": $('#gunm').val(),
                     "gom": $('#gom').val(),
                     "sanm": $('#sanm').val(),
-                    "img": $('#imgSelector').val()
+                    "img": result + '.png'
                 };
                 $.ajax({
                     url: url,
@@ -439,9 +462,19 @@ function insertEmp(tp) {
                     data: JSON.stringify(params),
                     success: function (r) {
                         console.log("결과는!?   " + r);
+
+                        if (tp > 0) {
+                            refleshMsg("인사 정보 수정 완료");
+                        } else {
+                            refleshMsg("신규 인사 정보 입력 완료");
+                        }
                     }
                 })
             }
         });
     }
 }
+
+$(document).on('click', '#empPic', function () {
+    console.log("요요 사진사진사진");
+});

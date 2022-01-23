@@ -116,6 +116,19 @@
 
 	</select>
 
+	<select id="selectEmpNameList"
+		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		SELECT
+
+		id, name
+
+		FROM
+		employeeinfo
+
+		ORDER BY name;
+	</select>
+
 	<select id="selectEmpName"
 		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
 		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">

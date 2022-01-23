@@ -3,10 +3,12 @@ package com.garam.web.employee.service;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +30,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public String uploadEmpPic(String id, MultipartFile[] files) throws Exception {
 
+		String rtn = "";
+
 		String iidd = "";
+		String filename = "";
 
 		if (id.length() > 0) {
 			iidd = id;
@@ -45,14 +50,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
 
-				String filename = NameUtils.getFtpempfolder() + iidd + "." + extension;
+				filename = ftpmanager.getEmpFolder() + iidd + ".png";
 
-				ftp.storeFile(filename, inputStream);
+				if (ftp.storeFile(filename, inputStream)) {
+					rtn = iidd;
+				} else {
+					rtn = "2";
+				}
 
 				ftpmanager.disconnect(ftp);
+			} else {
+				rtn = "2";
 			}
+		} else {
+			rtn = iidd;
 		}
-		return iidd;
+
+		return rtn;
 	}
 
 	@Override
@@ -121,8 +135,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeInfoDTO.setImg(null);
 		} else {
 
-			System.out.println("ppppp " + Utils.getFileName(employeeInfoDTO.getImg(), employeeInfoDTO.getId()));
-
 			employeeInfoDTO.setImg(Utils.getFileName(employeeInfoDTO.getImg(), employeeInfoDTO.getId()));
 		}
 
@@ -157,6 +169,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		String day = LocalDate.now().toString().replaceAll("-", "").substring(2);
 		return "E-" + day + "-" + str;
+	}
+
+	@Override
+	public List<EmployeeInfoDTO> selectEmpNameList() throws Exception {
+		List<EmployeeInfoDTO> list = employeeMapper.selectEmpNameList();
+		return list;
 	}
 
 	@Override

@@ -13,6 +13,8 @@ public interface EmployeeService {
 
 	public List<EmployeeInfoDTO> selectEmpAll(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
+	public List<EmployeeInfoDTO> selectEmpNameList() throws Exception;
+
 	public List<EmployeeInfoDTO> selectEmpName(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
 	public List<EmployeeInfoDTO> selectEmpDetail(EmployeeInfoDTO employeeInfoDTO) throws Exception;

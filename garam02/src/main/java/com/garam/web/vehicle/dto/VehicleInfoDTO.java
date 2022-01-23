@@ -43,6 +43,9 @@ public class VehicleInfoDTO {
 	// 차량색상
 	private String color;
 
+	// 차대번호
+	private String carn;
+
 	// 차량등록일
 	private String regist;
 
@@ -63,6 +66,13 @@ public class VehicleInfoDTO {
 	private String img2;
 
 	private String img3;
+
+	private String regd;
+	private String reg;
+	private String insud;
+	private String insu;
+	private String jukd;
+	private String juk;
 
 	private String name;
 
@@ -242,21 +252,81 @@ public class VehicleInfoDTO {
 		this.name = name;
 	}
 
+	public String getRegd() {
+		return regd;
+	}
+
+	public void setRegd(String regd) {
+		this.regd = regd;
+	}
+
+	public String getReg() {
+		return reg;
+	}
+
+	public void setReg(String reg) {
+		this.reg = reg;
+	}
+
+	public String getInsud() {
+		return insud;
+	}
+
+	public void setInsud(String insud) {
+		this.insud = insud;
+	}
+
+	public String getInsu() {
+		return insu;
+	}
+
+	public void setInsu(String insu) {
+		this.insu = insu;
+	}
+
+	public String getJukd() {
+		return jukd;
+	}
+
+	public void setJukd(String jukd) {
+		this.jukd = jukd;
+	}
+
+	public String getJuk() {
+		return juk;
+	}
+
+	public void setJuk(String juk) {
+		this.juk = juk;
+	}
+
+	public String getCarn() {
+		return carn;
+	}
+
+	public void setCarn(String carn) {
+		this.carn = carn;
+	}
+
 	@Override
 	public String toString() {
 		return "VehicleInfoDTO [carNumber=" + carNumber + ", vehicle=" + vehicle + ", vehicle2=" + vehicle2
 				+ ", company=" + company + ", owner=" + owner + ", id=" + id + ", bus=" + bus + ", brand=" + brand
 				+ ", vename=" + vename + ", grade=" + grade + ", fuel=" + fuel + ", num=" + num + ", color=" + color
-				+ ", regist=" + regist + ", expire=" + expire + ", price=" + price + ", special=" + special + ", trash="
-				+ trash + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", name=" + name
-				+ ", getCarNumber()=" + getCarNumber() + ", getVehicle()=" + getVehicle() + ", getVehicle2()="
-				+ getVehicle2() + ", getCompany()=" + getCompany() + ", getOwner()=" + getOwner() + ", getId()="
-				+ getId() + ", getBus()=" + getBus() + ", getBrand()=" + getBrand() + ", getVename()=" + getVename()
-				+ ", getGrade()=" + getGrade() + ", getFuel()=" + getFuel() + ", getNum()=" + getNum() + ", getColor()="
-				+ getColor() + ", getRegist()=" + getRegist() + ", getExpire()=" + getExpire() + ", getPrice()="
-				+ getPrice() + ", getSpecial()=" + getSpecial() + ", getTrash()=" + getTrash() + ", getImg1()="
-				+ getImg1() + ", getImg2()=" + getImg2() + ", getImg3()=" + getImg3() + ", getName()=" + getName()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+				+ ", carn=" + carn + ", regist=" + regist + ", expire=" + expire + ", price=" + price + ", special="
+				+ special + ", trash=" + trash + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", regd="
+				+ regd + ", reg=" + reg + ", insud=" + insud + ", insu=" + insu + ", jukd=" + jukd + ", juk=" + juk
+				+ ", name=" + name + ", getCarNumber()=" + getCarNumber() + ", getVehicle()=" + getVehicle()
+				+ ", getVehicle2()=" + getVehicle2() + ", getCompany()=" + getCompany() + ", getOwner()=" + getOwner()
+				+ ", getId()=" + getId() + ", getBus()=" + getBus() + ", getBrand()=" + getBrand() + ", getVename()="
+				+ getVename() + ", getGrade()=" + getGrade() + ", getFuel()=" + getFuel() + ", getNum()=" + getNum()
+				+ ", getColor()=" + getColor() + ", getRegist()=" + getRegist() + ", getExpire()=" + getExpire()
+				+ ", getPrice()=" + getPrice() + ", getSpecial()=" + getSpecial() + ", getTrash()=" + getTrash()
+				+ ", getImg1()=" + getImg1() + ", getImg2()=" + getImg2() + ", getImg3()=" + getImg3() + ", getName()="
+				+ getName() + ", getRegd()=" + getRegd() + ", getReg()=" + getReg() + ", getInsud()=" + getInsud()
+				+ ", getInsu()=" + getInsu() + ", getJukd()=" + getJukd() + ", getJuk()=" + getJuk() + ", getCarn()="
+				+ getCarn() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
+
 }

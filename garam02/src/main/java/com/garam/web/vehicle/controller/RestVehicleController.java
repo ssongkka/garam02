@@ -23,6 +23,15 @@ public class RestVehicleController {
 
 	private final VehicleService vehicleService;
 
+	@PostMapping(value = "/veInsertPic")
+	public String empInsertPic(@RequestParam("vecarn") String vecarn, @RequestParam("uploadfile") MultipartFile[] files)
+			throws Exception {
+
+		String rtn = vehicleService.uploadVePic(vecarn, files);
+
+		return rtn;
+	}
+
 	@PostMapping(value = "/veAll")
 	public List<VehicleInfoDTO> empAll(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
 		List<VehicleInfoDTO> list = vehicleService.selectVeAll(vehicleInfoDTO);
@@ -36,4 +45,5 @@ public class RestVehicleController {
 
 		return list;
 	}
+
 }

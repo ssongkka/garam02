@@ -40,7 +40,7 @@
 }
 
 .title-img {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -53,7 +53,7 @@
 }
 
 .title-content {
-    flex: 3;
+    flex: 4;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -163,7 +163,9 @@
 }
 
 .iimmgg {
+    min-height: 30rem;
     max-height: 30rem;
+    object-fit: contain;
 }
 
 .carousel-control.left,
@@ -174,6 +176,10 @@
 .modal-body {
     display: flex;
     flex-direction: column;
+}
+
+#ve-form {
+    display: flex;
 }
 
 .cardImg {
@@ -189,10 +195,6 @@
     flex: 2;
 }
 
-.ve-insert-pic {
-    display: flex;
-}
-
 .ve-insert {
     padding: 0 5rem;
 }
@@ -200,6 +202,11 @@
 .ve-pics {
     flex: 1;
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .ve-insert-item:nth-child(2) {

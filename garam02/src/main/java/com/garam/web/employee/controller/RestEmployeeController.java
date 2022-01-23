@@ -30,11 +30,10 @@ public class RestEmployeeController {
 	}
 
 	@PostMapping(value = "/empInsertPic")
-	public String empInsertPic(@RequestParam("emp-id") String id, @RequestParam("uploadfile") MultipartFile[] files)
+	public String empInsertPic(@RequestParam("empid") String id, @RequestParam("uploadfile") MultipartFile[] files)
 			throws Exception {
-		String rtn = "";
 
-		rtn = employeeService.uploadEmpPic(id, files);
+		String rtn = employeeService.uploadEmpPic(id, files);
 
 		return rtn;
 	}

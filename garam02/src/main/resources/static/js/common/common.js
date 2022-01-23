@@ -319,3 +319,8 @@ function loginSession() {
     );
     location.reload();
 }
+
+function refleshMsg(msg) {
+    alert(msg);
+    location.reload();
+}

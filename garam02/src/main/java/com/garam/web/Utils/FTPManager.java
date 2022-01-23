@@ -41,6 +41,30 @@ public class FTPManager {
 	@Value("${ftp.carFolder}")
 	private String carFolder;
 
+	public String getHost() {
+		return host;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public String getEmpFolder() {
+		return empFolder;
+	}
+
+	public String getCarFolder() {
+		return carFolder;
+	}
+
 	// FTP connect
 	public FTPClient connect() {
 
