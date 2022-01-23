@@ -247,7 +247,7 @@ function getEmpInfo(id) {
                 }
 
                 if (r[0].img) {
-                    $('#empPic').attr('src', empFolder + r[0].img);
+                    updateImg(empFolder + r[0].img, 'empPic');
                     $('#empPic-a').attr('href', empFolder + r[0].img);
                 } else {
                     $('#empPic').attr('src', 'img/employee/emp.png');

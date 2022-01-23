@@ -216,21 +216,21 @@ function getVeInfo(carNumber) {
                 }
 
                 if (r[0].img1) {
-                    $('#ve16').attr('src', veFolder + r[0].img1);
+                    updateImg(veFolder + r[0].img1, 've16');
                     $('#ve16-1').attr('href', veFolder + r[0].img1);
                 } else {
                     $('#ve16').attr('src', 'img/vehicle/bus1.png');
                     $('#ve16-1').attr('href', 'img/vehicle/bus1.png');
                 }
                 if (r[0].img2) {
-                    $('#ve17').attr('src', veFolder + r[0].img2);
+                    updateImg(veFolder + r[0].img2, 've17');
                     $('#ve17-1').attr('href', veFolder + r[0].img2);
                 } else {
                     $('#ve17').attr('src', 'img/vehicle/bus2.png');
                     $('#ve17-1').attr('href', 'img/vehicle/bus2.png');
                 }
                 if (r[0].img3) {
-                    $('#ve18').attr('src', veFolder + r[0].img3);
+                    updateImg(veFolder + r[0].img3, 've18');
                     $('#ve18-1').attr('href', veFolder + r[0].img3);
                 } else {
                     $('#ve18').attr('src', 'img/vehicle/bus3.png');

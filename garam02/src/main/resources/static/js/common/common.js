@@ -324,3 +324,11 @@ function refleshMsg(msg) {
     alert(msg);
     location.reload();
 }
+
+function updateImg(source, id) {
+    const timestamp = (new Date()).getTime();
+    const newUrl = source + '?_=' + timestamp;
+
+    $('#' + id).attr('src', newUrl);
+    setTimeout(updateImg, 1000);
+}
