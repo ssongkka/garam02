@@ -1,3 +1,6 @@
+const good = '1px solid #ccc';
+const bad = '2px solid rgba(255, 0, 0, 0.5)';
+
 $(document).ready(function () {
     getVeAll();
 });
@@ -279,6 +282,7 @@ $('#imgSelector3').change(function () {
 });
 
 function setVeCh() {
+    setBorder();
     if ($('#ve00').val()) {
         $('#vecarn').val($('#ve00').val());
     } else {
@@ -337,8 +341,8 @@ function setVeCh() {
         $('#grade').val('');
     };
 
-    if ($('#ve06').children().text() != String.fromCharCode(160)) {
-        $('#carn').val($('#ve06').children().text());
+    if ($('#ve19').children().text() != String.fromCharCode(160)) {
+        $('#carn').val($('#ve19').children().text());
     } else {
         $('#carn').val('');
     };
@@ -391,6 +395,7 @@ function setVeCh() {
 }
 
 function setEmpClr() {
+    setBorder();
     $('#vecarn').val('');
 
     $('#vehicle-1').val('');
@@ -415,6 +420,20 @@ function setEmpClr() {
     $('#special').val('');
 }
 
+function setBorder() {
+    $('#vehicle-1').css('border', good);
+    $('#vehicle-2').css('border', good);
+    $('#vehicle-3').css('border', good);
+    $('#vehicle-4').css('border', good);
+    $('#brand').css('border', good);
+    $('#vename').css('border', good);
+    $('#grade').css('border', good);
+    $('#carn').css('border', good);
+    $('#regist').css('border', good);
+    $('#expire').css('border', good);
+    $('#num').css('border', good);
+}
+
 $(document).on('click', '#btn-insert', function () {
     if ($('#vecarn').val().length > 0) {
         insertVe(1);
@@ -424,7 +443,7 @@ $(document).on('click', '#btn-insert', function () {
 });
 
 function insertVe(tp) {
-    insertPic();
+    insertPic().then(insertContent);
     function insertPic() {
         return new Promise(function (resolve, reject) {
             var form = $('#ve-form')[0];
@@ -449,16 +468,153 @@ function insertVe(tp) {
     }
 
     function insertContent(result) {
-        return new
-        Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
+            let msg = '';
 
-            const ve1 = $('#vehicle-1').val();
-            const ve2 = $('#vehicle-2').val();
-            const ve3 = $('#vehicle-3').val();
-            const ve4 = $('#vehicle-4').val();
+            let ve1 = '';
+            let ve2 = '';
+            let ve3 = '';
+            let ve4 = '';
 
-            const vehicle = ve1 + ve2 + ve3 + ve4;
+            let vehicle = '';
+
+            if ($('#vehicle-1').val()) {
+                ve1 = $('#vehicle-1').val();
+                $('#vehicle-1').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n - 차량번호1';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차량번호1';
+                }
+                $('#vehicle-1').css('border', bad);
+            }
+            if ($('#vehicle-2').val()) {
+                ve2 = $('#vehicle-2').val();
+                $('#vehicle-2').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n - 차량번호2';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차량번호2';
+                }
+                $('#vehicle-2').css('border', bad);
+            }
+            if ($('#vehicle-3').val()) {
+                ve3 = $('#vehicle-3').val();
+                $('#vehicle-3').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n - 차량번호3';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차량번호3';
+                }
+                $('#vehicle-3').css('border', bad);
+            }
+            if ($('#vehicle-4').val()) {
+                ve4 = $('#vehicle-4').val();
+                $('#vehicle-4').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n - 차량번호4';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차량번호4';
+                }
+                $('#vehicle-4').css('border', bad);
+            }
+
+            if ($('#brand').val()) {
+                $('#brand').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 제조사';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 제조사';
+                }
+                $('#brand').css('border', bad);
+            }
+
+            if ($('#vename').val()) {
+                $('#vename').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 차명';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차명';
+                }
+                $('#vename').css('border', bad);
+            }
+
+            if ($('#grade').val()) {
+                $('#grade').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 등급';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 등급';
+                }
+                $('#grade').css('border', bad);
+            }
+
+            if ($('#carn').val()) {
+                $('#carn').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 차대번호';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차대번호';
+                }
+                $('#carn').css('border', bad);
+            }
+
+            if ($('#regist').val()) {
+                $('#regist').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 차량등록일';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차량등록일';
+                }
+                $('#regist').css('border', bad);
+            }
+
+            if ($('#expire').val()) {
+                $('#expire').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 차량만료일';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차량만료일';
+                }
+                $('#expire').css('border', bad);
+            }
+
+            if ($('#num').val()) {
+                $('#num').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 승차인원';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 승차인원';
+                }
+                $('#num').css('border', bad);
+            }
+
+            vehicle = ve1 + ve2 + ve3 + ve4;
+
             console.log(vehicle);
+            console.log(msg);
 
             const ownerVal = $('#owner').val();
             const owner = $('#owner option')
@@ -480,60 +636,55 @@ function insertVe(tp) {
             console.log(idVal);
             console.log(id);
 
-            const url = "/emp/empInsert";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-
             console.log("asdddd  " + result);
             console.log("asdddd  " + tp);
-            if (result == 1) {} else if (result == 2) {} else {
-                const params = {
-                    "tp": tp,
-                    "id": result,
-                    "company": $('#company').val(),
-                    "kind": $('#kind').val(),
-                    "joind": $('#joind').val(),
-                    "endd": $('#endd').val(),
-                    "name": $('#name').val(),
-                    "gender": $('#gender').val(),
-                    "birthday": $('#birthday').val(),
-                    "phone1": $('#phone1').val(),
-                    "phone2": $('#phone2').val(),
-                    "address": $('#address').val(),
-                    "garage": $('#garage').val(),
-                    "bosum": $('#bosum').val(),
-                    "bobuj": $('#bobuj').val(),
-                    "drvl": $('#drvl').val(),
-                    "busl": $('#busl').val(),
-                    "memo": $('#memo').val(),
-                    "bank": $('#bank').val(),
-                    "gye": $('#gye').val(),
-                    "gyename": $('#gyename').val(),
-                    "basem": $('#basem').val(),
-                    "kukm": $('#kukm').val(),
-                    "gunm": $('#gunm').val(),
-                    "gom": $('#gom').val(),
-                    "sanm": $('#sanm').val(),
-                    "img": $('#imgSelector').val()
-                };
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    dataType: "json",
-                    data: JSON.stringify(params),
-                    success: function (r) {
-                        console.log("결과는!?   " + r);
 
-                        if (tp > 0) {
-                            refleshMsg("인사 정보 수정 완료");
-                        } else {
-                            refleshMsg("신규 인사 정보 입력 완료");
+            if (msg.length > 0) {
+                alert(msg);
+            } else {
+                if (result == 1) {} else if (result == 2) {} else {
+                    const url = "/ve/veInsert";
+                    const headers = {
+                        "Content-Type": "application/json",
+                        "X-HTTP-Method-Override": "POST"
+                    };
+
+                    const params = {
+                        "tp": tp,
+                        "carNumber": result,
+                        "vehicle": vehicle,
+                        "company": $('#kind').val(),
+                        "owner": owner,
+                        "id": id,
+                        "bus": $('#bus').val(),
+                        "brand": $('#brand').val(),
+                        "vename": $('#vename').val(),
+                        "grade": $('#grade').val(),
+                        "fuel": $('#fuel').val(),
+                        "num": $('#num').val(),
+                        "color": $('#color').val(),
+                        "carn": $('#carn').val(),
+                        "regist": $('#regist').val(),
+                        "expire": $('#expire').val(),
+                        "price": $('#price').val(),
+                        "special": $('#special').val()
+                    };
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: headers,
+                        dataType: "json",
+                        data: JSON.stringify(params),
+                        success: function (r) {
+                            console.log("결과는!?   " + r);
+                            if (tp > 0) {
+                                refleshMsg("인사 정보 수정 완료 ");
+                            } else {
+                                refleshMsg("신규 인사 정보 입력 완료 ");
+                            }
                         }
-                    }
-                })
+                    });
+                }
             }
         });
     }

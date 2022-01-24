@@ -178,6 +178,20 @@
     flex-direction: column;
 }
 
+.modal-footer {
+    display: flex;
+    gap: 2rem;
+}
+
+.modal-btn:nth-child(1) {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+.modal-btn:nth-child(2) {
+    padding-right: 2rem;
+}
+
 #ve-form {
     display: flex;
 }

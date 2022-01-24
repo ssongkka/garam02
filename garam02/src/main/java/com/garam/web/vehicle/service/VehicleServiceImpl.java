@@ -26,6 +26,39 @@ public class VehicleServiceImpl implements VehicleService {
 	private final FTPManager ftpmanager;
 
 	@Override
+	public int insertVe(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rtn = 0;
+
+		if (vehicleInfoDTO.getOwner().equals("미정")) {
+			vehicleInfoDTO.setOwner(null);
+		}
+
+		if (vehicleInfoDTO.getId().equals("미정")) {
+			vehicleInfoDTO.setId(null);
+		}
+
+		if (vehicleInfoDTO.getPrice() == null || vehicleInfoDTO.getPrice() == 0) {
+			vehicleInfoDTO.setPrice(0);
+		}
+
+		if (vehicleInfoDTO.getSpecial() == null || vehicleInfoDTO.getSpecial().equals("")) {
+			vehicleInfoDTO.setSpecial("");
+		}
+
+		switch (vehicleInfoDTO.getTp()) {
+		case 0:
+			rtn = vehicleMapper.insertVe(vehicleInfoDTO);
+			break;
+		case 1:
+			rtn = vehicleMapper.updateVe(vehicleInfoDTO);
+			break;
+		}
+
+		return rtn;
+	}
+
+	@Override
 	public String uploadVePic(String carnumber, MultipartFile[] files) throws Exception {
 		String rtn = "";
 		String carN = "";

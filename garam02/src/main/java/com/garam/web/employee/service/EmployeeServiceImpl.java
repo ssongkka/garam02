@@ -71,6 +71,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public int insertEmp(EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		if (employeeInfoDTO.getCompany() == null || employeeInfoDTO.getCompany().equals("")
+				|| employeeInfoDTO.getCompany().equals("미정")) {
+			employeeInfoDTO.setKind(null);
+		}
 		if (employeeInfoDTO.getKind() == null || employeeInfoDTO.getKind().equals("")) {
 			employeeInfoDTO.setKind(null);
 		}
@@ -79,6 +83,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		if (employeeInfoDTO.getEndd() == null || employeeInfoDTO.getEndd().equals("")) {
 			employeeInfoDTO.setEndd(null);
+			System.out.println("없는데");
+		} else {
+			System.out.println("뭐지  " + employeeInfoDTO.getEndd());
 		}
 		if (employeeInfoDTO.getPhone2() == null || employeeInfoDTO.getPhone2().equals("")) {
 			employeeInfoDTO.setPhone2(null);
@@ -92,7 +99,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (employeeInfoDTO.getBosum() == null || employeeInfoDTO.getBosum().equals("")) {
 			employeeInfoDTO.setBosum(null);
 		}
-		if (employeeInfoDTO.getBobuj() == null || employeeInfoDTO.getBobuj().equals("")) {
+		if (employeeInfoDTO.getBobuj() == null || employeeInfoDTO.getBobuj().equals("")
+				|| employeeInfoDTO.getBobuj().equals("없음")) {
 			employeeInfoDTO.setBobuj(null);
 		}
 		if (employeeInfoDTO.getDrvl() == null || employeeInfoDTO.getDrvl().equals("")) {
@@ -129,25 +137,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeInfoDTO.setSanm(null);
 		}
 
-		int rtn = 0;
-
 		if (employeeInfoDTO.getImg() == null || employeeInfoDTO.getImg().equals("")) {
 			employeeInfoDTO.setImg(null);
-		} else {
-
-			employeeInfoDTO.setImg(Utils.getFileName(employeeInfoDTO.getImg(), employeeInfoDTO.getId()));
 		}
+
+		int rtn = 0;
 
 		switch (employeeInfoDTO.getTp()) {
 		case 0:
+			employeeInfoDTO.setTrash(1);
 			rtn = employeeMapper.insertEmp(employeeInfoDTO);
 			break;
 
 		case 1:
+			if (employeeInfoDTO.getEndd() == null) {
+				employeeInfoDTO.setTrash(1);
+			} else {
+				employeeInfoDTO.setTrash(0);
+			}
 			rtn = employeeMapper.updateEmp(employeeInfoDTO);
 			break;
 		}
-
 		return rtn;
 	}
 

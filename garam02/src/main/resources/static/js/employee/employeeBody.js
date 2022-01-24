@@ -1,3 +1,6 @@
+const good = '1px solid #ccc';
+const bad = '2px solid rgba(255, 0, 0, 0.5)';
+
 $(document).ready(function () {
     getEmpAll();
 });
@@ -22,71 +25,405 @@ function getEmpAll(name) {
 
         success: function (r) {
             let htmls = '';
+            let htmlsCompa = '';
+            let htmlsSolo = '';
+            let htmlsYeb = '';
+            let htmlsOutman = '';
+
+            let cnt = 0;
+            let cntCompa = 0;
+            let cntSolo = 0;
+            let cntYeb = 0;
+            let cntOutman = 0;
+
             for (let i = 0; i < r.length; i++) {
-                htmls += '<tr id="' + r[i].id +
-                        '" onclick="getEmpInfo(this.id)" style="cursor:pointer;">';
-                htmls += '<td>'
-                htmls += '<span>'
-                htmls += r[i].name;
-                htmls += '</span>'
-                htmls += '</td>'
-                if (r[i].kind) {
+
+                if (r[i].trash == 1 && r[i].kind != '예비') {
+                    cnt++;
+
+                    htmls += '<tr id="' + r[i].id + 'cut" onclick="getEmpInfo(this.id)" style="cursor:pointe' +
+                            'r;">';
                     htmls += '<td>'
                     htmls += '<span>'
-                    htmls += r[i].kind;
+                    htmls += r[i].name;
                     htmls += '</span>'
                     htmls += '</td>'
-                } else {
-                    htmls += '<td>'
-                    htmls += '<span>'
-                    htmls += '</span>'
-                    htmls += '</td>'
+                    if (r[i].kind) {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += r[i].kind;
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    } else {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    }
+                    if (r[i].birthday) {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += r[i].birthday;
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    } else {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    }
+                    if (r[i].age) {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += r[i].age;
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    } else {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    }
+                    if (r[i].vehicle) {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += r[i].vehicle;
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    } else {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    }
+                    if (r[i].bus) {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += r[i].bus;
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    } else {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    }
+                    htmls += '</tr>'
                 }
-                if (r[i].birthday) {
-                    htmls += '<td>'
-                    htmls += '<span>'
-                    htmls += r[i].birthday;
-                    htmls += '</span>'
-                    htmls += '</td>'
-                } else {
-                    htmls += '<td>'
-                    htmls += '<span>'
-                    htmls += '</span>'
-                    htmls += '</td>'
+                if (r[i].trash == 0) {
+                    cntOutman++;
+
+                    htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfo(this.id)" style="cursor:' +
+                            'pointer;">';
+                    htmlsOutman += '<td>'
+                    htmlsOutman += '<span>'
+                    htmlsOutman += r[i].name;
+                    htmlsOutman += '</span>'
+                    htmlsOutman += '</td>'
+                    if (r[i].kind) {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += r[i].kind;
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    } else {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    }
+                    if (r[i].birthday) {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += r[i].birthday;
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    } else {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    }
+                    if (r[i].age) {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += r[i].age;
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    } else {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    }
+                    if (r[i].vehicle) {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += r[i].vehicle;
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    } else {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    }
+                    if (r[i].bus) {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += r[i].bus;
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    } else {
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span>'
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                    }
+                    htmlsOutman += '</tr>'
                 }
-                if (r[i].age) {
-                    htmls += '<td>'
-                    htmls += '<span>'
-                    htmls += r[i].age;
-                    htmls += '</span>'
-                    htmls += '</td>'
-                } else {
-                    htmls += '<td>'
-                    htmls += '<span>'
-                    htmls += '</span>'
-                    htmls += '</td>'
+
+                if (r[i].kind == '회사') {
+                    cntCompa++;
+
+                    htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfo(this.id)" style="cursor:p' +
+                            'ointer;">';
+                    htmlsCompa += '<td>'
+                    htmlsCompa += '<span>'
+                    htmlsCompa += r[i].name;
+                    htmlsCompa += '</span>'
+                    htmlsCompa += '</td>'
+                    if (r[i].kind) {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += r[i].kind;
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    } else {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    }
+                    if (r[i].birthday) {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += r[i].birthday;
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    } else {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    }
+                    if (r[i].age) {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += r[i].age;
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    } else {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    }
+                    if (r[i].vehicle) {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += r[i].vehicle;
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    } else {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    }
+                    if (r[i].bus) {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += r[i].bus;
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    } else {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    }
+                    htmlsCompa += '</tr>'
                 }
-                if (r[i].vehicle) {
-                    htmls += '<td>'
-                    htmls += '<span>'
-                    htmls += r[i].vehicle;
-                    htmls += '</span>'
-                    htmls += '</td>'
-                } else {
-                    htmls += '<td>'
-                    htmls += '<span>'
-                    htmls += '</span>'
-                    htmls += '</td>'
+                if (r[i].kind == '개인') {
+                    cntSolo++;
+
+                    htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfo(this.id)" style="cursor:po' +
+                            'inter;">';
+                    htmlsSolo += '<td>'
+                    htmlsSolo += '<span>'
+                    htmlsSolo += r[i].name;
+                    htmlsSolo += '</span>'
+                    htmlsSolo += '</td>'
+                    if (r[i].kind) {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += r[i].kind;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    } else {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    }
+                    if (r[i].birthday) {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += r[i].birthday;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    } else {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    }
+                    if (r[i].age) {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += r[i].age;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    } else {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    }
+                    if (r[i].vehicle) {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += r[i].vehicle;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    } else {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    }
+                    if (r[i].bus) {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += r[i].bus;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    } else {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    }
+                    htmlsSolo += '</tr>'
                 }
-                htmls += '</tr>'
+                if (r[i].kind == '예비') {
+                    cntYeb++;
+
+                    htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfo(this.id)" style="cursor:poi' +
+                            'nter;">';
+                    htmlsYeb += '<td>'
+                    htmlsYeb += '<span>'
+                    htmlsYeb += r[i].name;
+                    htmlsYeb += '</span>'
+                    htmlsYeb += '</td>'
+                    if (r[i].kind) {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += r[i].kind;
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    } else {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    }
+                    if (r[i].birthday) {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += r[i].birthday;
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    } else {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    }
+                    if (r[i].age) {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += r[i].age;
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    } else {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    }
+                    if (r[i].vehicle) {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += r[i].vehicle;
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    } else {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    }
+                    if (r[i].bus) {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += r[i].bus;
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    } else {
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span>'
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                    }
+                    htmlsYeb += '</tr>'
+                }
             }
-            $('#emp-tb').html(htmls);
+            $('#emp-tb-all').html(htmls);
+            $('#emp-tb-compa').html(htmlsCompa);
+            $('#emp-tb-solo').html(htmlsSolo);
+            $('#emp-tb-yeb').html(htmlsYeb);
+            $('#emp-tb-outman').html(htmlsOutman);
+
+            $('#bgAll').text(cnt);
+            $('#bgCompa').text(cntCompa);
+            $('#bgSolo').text(cntSolo);
+            $('#bgYeb').text(cntYeb);
+            $('#bgOutman').text(cntOutman);
         }
     })
 }
 
 function getEmpInfo(id) {
     return new Promise(function (resolve, reject) {
+
+        $('td').css('background', 'none');
+
+        $('#' + id)
+            .children('td')
+            .css('background', 'red');
+
         const url = "/emp/empdetail";
         const headers = {
             "Content-Type": "application/json",
@@ -94,7 +431,7 @@ function getEmpInfo(id) {
         };
 
         const params = {
-            "id": id
+            "id": id.split('cut')[0]
         };
 
         $.ajax({
@@ -175,9 +512,12 @@ function getEmpInfo(id) {
                 } else {
                     $('#emp13').html('<span></span><input type="hidden" id="emp13-1" value="">');
                 }
+
                 if (r[0].endd) {
-                    '<span>' + r[0].endd + '(' + r[0].endd + ')</span><input type="hidden" id="emp1' +
-                            '4-1" value="' + r[0].endd + '">'
+                    $('#emp14').html(
+                        '<span>' + r[0].endd + '</span><input type="hidden" id="emp14-1" value="' + r[0].endd +
+                        '">'
+                    );
                 } else {
                     $('#emp14').html('<span></span><input type="hidden" id="emp14-1" value="">');
                 }
@@ -253,7 +593,6 @@ function getEmpInfo(id) {
                     $('#empPic').attr('src', 'img/employee/emp.png');
                     $('#empPic-a').attr('href', 'img/employee/emp.png');
                 }
-
             }
         })
     });
@@ -289,6 +628,7 @@ $(document).on('click', '#md-New', function () {
 });
 
 function setEmpCh() {
+    setBorder();
 
     if ($('#emp00').val()) {
         $('#id').val($('#emp00').val());
@@ -342,12 +682,14 @@ function setEmpCh() {
 }
 
 function setEmpClr() {
+    setBorder();
+
     $('#id').val('');
     $('#name').val('');
     $('#birthday').val('');
-    $('#gender').val('');
-    $('#company').val('');
-    $('#kind').val('');
+    $('#gender').val('남');
+    $('#company').val('미정');
+    $('#kind').val('회사');
     $('#phone1').val('');
     $('#phone2').val('');
 
@@ -361,7 +703,7 @@ function setEmpClr() {
     $('#drvl').val('');
     $('#busl').val('');
     $('#bosum').val('');
-    $('#bobuj').val('');
+    $('#bobuj').val('없음');
 
     $('#bank').val('');
     $('#gye').val('');
@@ -374,6 +716,9 @@ function setEmpClr() {
     $('#gunm').val(0);
     $('#gom').val(0);
     $('#sanm').val(0);
+}
+function setBorder() {
+    $('#name').css('border', good);
 }
 
 $(document).on('click', '#btn-insert', function () {
@@ -412,64 +757,89 @@ function insertEmp(tp) {
     }
 
     function insertContent(result) {
-        return new
-        Promise(function (resolve, reject) {
-            const url = "/emp/empInsert";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
+        return new Promise(function (resolve, reject) {
+            let msg = '';
 
-            if (result == 1) {
-                alert("사진 파일 확인 후 다른 파일로 다시 업로드해주세요.");
-            } else if (result == 2) {
-                alert("인터넷 연결 상태를 확인해주세요.\n반복적으로 이 메세지가 발생하면 담당자에게 문의해주세요.");
+            if ($('#name').val()) {
+                ve1 = $('#name').val();
+                $('#name').css('border', good);
             } else {
-                const params = {
-                    "tp": tp,
-                    "id": result,
-                    "company": $('#company').val(),
-                    "kind": $('#kind').val(),
-                    "joind": $('#joind').val(),
-                    "endd": $('#endd').val(),
-                    "name": $('#name').val(),
-                    "gender": $('#gender').val(),
-                    "birthday": $('#birthday').val(),
-                    "phone1": $('#phone1').val(),
-                    "phone2": $('#phone2').val(),
-                    "address": $('#address').val(),
-                    "garage": $('#garage').val(),
-                    "bosum": $('#bosum').val(),
-                    "bobuj": $('#bobuj').val(),
-                    "drvl": $('#drvl').val(),
-                    "busl": $('#busl').val(),
-                    "memo": $('#memo').val(),
-                    "bank": $('#bank').val(),
-                    "gye": $('#gye').val(),
-                    "gyename": $('#gyename').val(),
-                    "basem": $('#basem').val(),
-                    "kukm": $('#kukm').val(),
-                    "gunm": $('#gunm').val(),
-                    "gom": $('#gom').val(),
-                    "sanm": $('#sanm').val(),
-                    "img": result + '.png'
-                };
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    dataType: "json",
-                    data: JSON.stringify(params),
-                    success: function (r) {
-                        console.log("결과는!?   " + r);
+                msg = '*필수입력사항을 기입해주세요.';
+                msg += '\n\n - 승무원 이름';
+                $('#name').css('border', bad);
+            }
 
-                        if (tp > 0) {
-                            refleshMsg("인사 정보 수정 완료");
-                        } else {
-                            refleshMsg("신규 인사 정보 입력 완료");
+            if (msg.length > 0) {
+                alert(msg);
+            } else {
+                if (result == 1) {
+                    alert("사진 파일 확인 후 다른 파일로 다시 업로드해주세요.");
+                } else if (result == 2) {
+                    alert("인터넷 연결 상태를 확인해주세요.\n반복적으로 이 메세지가 발생하면 담당자에게 문의해주세요.");
+                } else {
+                    if ($('#endd').val()) {
+                        console.log("asdasd  " + $('#endd').val());
+                        if (confirm(
+                            $('#name').val() + " 승무원을 퇴사 처리하시겠습니까?\n\n('퇴사일'을 입력하면 해당 승무원은 퇴사 처리됩니다.)"
+                        )) {
+                            insert(result);
                         }
+                    } else {
+                        insert(result);
                     }
-                })
+                }
+            }
+        });
+    }
+    function insert(id) {
+        const url = "/emp/empInsert";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        const params = {
+            "tp": tp,
+            "id": id,
+            "company": $('#company').val(),
+            "kind": $('#kind').val(),
+            "joind": $('#joind').val(),
+            "endd": $('#endd').val(),
+            "name": $('#name').val(),
+            "gender": $('#gender').val(),
+            "birthday": $('#birthday').val(),
+            "phone1": $('#phone1').val(),
+            "phone2": $('#phone2').val(),
+            "address": $('#address').val(),
+            "garage": $('#garage').val(),
+            "bosum": $('#bosum').val(),
+            "bobuj": $('#bobuj').val(),
+            "drvl": $('#drvl').val(),
+            "busl": $('#busl').val(),
+            "memo": $('#memo').val(),
+            "bank": $('#bank').val(),
+            "gye": $('#gye').val(),
+            "gyename": $('#gyename').val(),
+            "basem": $('#basem').val(),
+            "kukm": $('#kukm').val(),
+            "gunm": $('#gunm').val(),
+            "gom": $('#gom').val(),
+            "sanm": $('#sanm').val(),
+            "img": id + '.png'
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                console.log("결과는!?   " + r);
+
+                if (tp > 0) {
+                    refleshMsg("인사 정보 수정 완료");
+                } else {
+                    refleshMsg("신규 인사 정보 입력 완료");
+                }
             }
         });
     }

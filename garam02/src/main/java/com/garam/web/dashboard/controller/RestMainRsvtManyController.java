@@ -27,14 +27,11 @@ public class RestMainRsvtManyController {
 		int rst = 0;
 		try {
 			rst = rsvtService.insertManyRsvt(map);
-			if (rst < 1) {
-				return rst;
-			}
 		} catch (DataAccessException e) {
-			return -1;
+			rst = -1;
 
 		} catch (Exception e) {
-			return -2;
+			rst = -2;
 		}
 		return rst;
 
@@ -46,14 +43,11 @@ public class RestMainRsvtManyController {
 		int rst = 0;
 		try {
 			rst = rsvtService.insertCtm(rsvtDTO);
-			if (rst < 1) {
-				return rst;
-			}
 		} catch (DataAccessException e) {
-			return -1;
+			rst = -1;
 
 		} catch (Exception e) {
-			return -2;
+			rst = -2;
 		}
 		return rst;
 

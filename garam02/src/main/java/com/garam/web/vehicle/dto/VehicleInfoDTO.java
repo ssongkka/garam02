@@ -1,7 +1,5 @@
 package com.garam.web.vehicle.dto;
 
-import com.garam.web.Utils.Utils;
-
 public class VehicleInfoDTO {
 
 	// 차대번호
@@ -76,6 +74,8 @@ public class VehicleInfoDTO {
 
 	private String name;
 
+	private int tp;
+
 	public String getCarNumber() {
 		return carNumber;
 	}
@@ -93,7 +93,7 @@ public class VehicleInfoDTO {
 	}
 
 	public String getVehicle2() {
-		return Utils.splitVehicle(getVehicle());
+		return vehicle2;
 	}
 
 	public void setVehicle2(String vehicle2) {
@@ -180,6 +180,14 @@ public class VehicleInfoDTO {
 		this.color = color;
 	}
 
+	public String getCarn() {
+		return carn;
+	}
+
+	public void setCarn(String carn) {
+		this.carn = carn;
+	}
+
 	public String getRegist() {
 		return regist;
 	}
@@ -244,14 +252,6 @@ public class VehicleInfoDTO {
 		this.img3 = img3;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getRegd() {
 		return regd;
 	}
@@ -300,12 +300,20 @@ public class VehicleInfoDTO {
 		this.juk = juk;
 	}
 
-	public String getCarn() {
-		return carn;
+	public String getName() {
+		return name;
 	}
 
-	public void setCarn(String carn) {
-		this.carn = carn;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getTp() {
+		return tp;
+	}
+
+	public void setTp(int tp) {
+		this.tp = tp;
 	}
 
 	@Override
@@ -316,17 +324,17 @@ public class VehicleInfoDTO {
 				+ ", carn=" + carn + ", regist=" + regist + ", expire=" + expire + ", price=" + price + ", special="
 				+ special + ", trash=" + trash + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", regd="
 				+ regd + ", reg=" + reg + ", insud=" + insud + ", insu=" + insu + ", jukd=" + jukd + ", juk=" + juk
-				+ ", name=" + name + ", getCarNumber()=" + getCarNumber() + ", getVehicle()=" + getVehicle()
-				+ ", getVehicle2()=" + getVehicle2() + ", getCompany()=" + getCompany() + ", getOwner()=" + getOwner()
-				+ ", getId()=" + getId() + ", getBus()=" + getBus() + ", getBrand()=" + getBrand() + ", getVename()="
-				+ getVename() + ", getGrade()=" + getGrade() + ", getFuel()=" + getFuel() + ", getNum()=" + getNum()
-				+ ", getColor()=" + getColor() + ", getRegist()=" + getRegist() + ", getExpire()=" + getExpire()
-				+ ", getPrice()=" + getPrice() + ", getSpecial()=" + getSpecial() + ", getTrash()=" + getTrash()
-				+ ", getImg1()=" + getImg1() + ", getImg2()=" + getImg2() + ", getImg3()=" + getImg3() + ", getName()="
-				+ getName() + ", getRegd()=" + getRegd() + ", getReg()=" + getReg() + ", getInsud()=" + getInsud()
-				+ ", getInsu()=" + getInsu() + ", getJukd()=" + getJukd() + ", getJuk()=" + getJuk() + ", getCarn()="
-				+ getCarn() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ ", name=" + name + ", tp=" + tp + ", getCarNumber()=" + getCarNumber() + ", getVehicle()="
+				+ getVehicle() + ", getVehicle2()=" + getVehicle2() + ", getCompany()=" + getCompany() + ", getOwner()="
+				+ getOwner() + ", getId()=" + getId() + ", getBus()=" + getBus() + ", getBrand()=" + getBrand()
+				+ ", getVename()=" + getVename() + ", getGrade()=" + getGrade() + ", getFuel()=" + getFuel()
+				+ ", getNum()=" + getNum() + ", getColor()=" + getColor() + ", getCarn()=" + getCarn()
+				+ ", getRegist()=" + getRegist() + ", getExpire()=" + getExpire() + ", getPrice()=" + getPrice()
+				+ ", getSpecial()=" + getSpecial() + ", getTrash()=" + getTrash() + ", getImg1()=" + getImg1()
+				+ ", getImg2()=" + getImg2() + ", getImg3()=" + getImg3() + ", getRegd()=" + getRegd() + ", getReg()="
+				+ getReg() + ", getInsud()=" + getInsud() + ", getInsu()=" + getInsu() + ", getJukd()=" + getJukd()
+				+ ", getJuk()=" + getJuk() + ", getName()=" + getName() + ", getTp()=" + getTp() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }

@@ -88,6 +88,73 @@
 		);
 	</insert>
 
+	<update id="updateEmp"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		UPDATE
+
+		employeeinfo
+
+		SET
+
+		company = #{company},
+		kind =
+		#{kind},
+		joind =
+		#{joind},
+		endD = #{endd},
+		name = #{name},
+		gender =
+		#{gender},
+		birthday =
+		#{birthday},
+		phone1 =
+		#{phone1},
+		phone2 = #{phone2},
+		address = #{address},
+		garage = #{garage},
+		bosuM = #{bosum},
+		bobuJ =
+		#{bobuj},
+		drvL = #{drvl},
+		busL = #{busl},
+		memo = #{memo},
+		bank = #{bank},
+		gye = #{gye},
+		gyename =
+		#{gyename},
+		baseM = #{basem},
+		kukM = #{kukm},
+		gunM = #{gunm},
+		goM =
+		#{gom},
+		sanM = #{sanm},
+		trash = #{trash},
+		<if test="img != null and img != '' ">img = #{img}</if>
+
+		WHERE
+
+		id = #{id};
+	</update>
+
+	<update id="deleteEmp"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		UPDATE
+
+		employeeinfo
+
+		SET
+
+		endD = #{endd},
+		trash = 0
+
+		WHERE
+
+		id =
+		#{id};
+	</update>
+
 	<select id="selectEmpAll"
 		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
 		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
@@ -95,8 +162,9 @@
 		SELECT
 
 		employeeinfo.id, employeeinfo.name, employeeinfo.birthday,
-		employeeinfo.kind,
-		vehicleinfo.vehicle
+		employeeinfo.kind, employeeinfo.trash,
+		vehicleinfo.vehicle,
+		vehicleinfo.bus
 
 		FROM
 		employeeinfo
@@ -170,53 +238,4 @@
 		ORDER BY name;
 	</select>
 
-	<update id="updateEmp"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
-
-		UPDATE
-
-		employeeinfo
-
-		SET
-
-		company = #{company},
-		kind =
-		#{kind},
-		joind =
-		#{joind},
-		endD = #{endd},
-		name = #{name},
-		gender =
-		#{gender},
-		birthday =
-		#{birthday},
-		phone1 =
-		#{phone1},
-		phone2 = #{phone2},
-		address = #{address},
-		garage = #{garage},
-		bosuM = #{bosum},
-		bobuJ =
-		#{bobuj},
-		drvL = #{drvl},
-		busL = #{busl},
-		memo = #{memo},
-		bank = #{bank},
-		gye = #{gye},
-		gyename =
-		#{gyename},
-		baseM = #{basem},
-		kukM = #{kukm},
-		gunM = #{gunm},
-		goM =
-		#{gom},
-		sanM = #{sanm},
-		<if test="img != null and img != '' "> img = #{img},</if>
-
-		trash = 1
-
-		WHERE
-
-		id = #{id};
-	</update>
 </mapper>

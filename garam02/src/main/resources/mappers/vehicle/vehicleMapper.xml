@@ -36,6 +36,156 @@
 		employeeinfo.name
 	</sql>
 
+	<insert id="insertVe"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		INSERT INTO vehicleinfo
+		(carnumber,
+		vehicle,
+		company,
+		owner,
+		id,
+		bus,
+		brand,
+		vename,
+		grade,
+		fuel,
+		num,
+		color,
+		carn,
+		regist,
+		expire,
+		price,
+		special,
+		img1,
+		img2,
+		img3,
+		regd,
+		reg,
+		insud,
+		insu,
+		jukd,
+		juk,
+		trash)
+		VALUES
+		(
+		#{carNumber},
+		#{vehicle},
+		#{company},
+		#{owner},
+		#{id},
+		#{bus},
+		#{brand},
+		#{vename},
+		#{grade},
+		#{fuel},
+		#{num},
+		#{color},
+		#{carn},
+		#{regist},
+		#{expire},
+		#{price},
+		#{special},
+		#{img1},
+		#{img2},
+		#{img3},
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		1
+		);
+
+	</insert>
+
+	<update id="updateVe"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+		UPDATE
+
+		vehicleinfo
+
+		SET
+
+		vehicle = #{vehicle},
+		company =
+		#{company},
+		owner =
+		#{owner},
+		id = #{id},
+		bus = #{bus},
+		brand = #{brand},
+		vename
+		= #{vename},
+		grade = #{grade},
+		fuel = #{fuel},
+		num = #{num},
+		color =
+		#{color},
+		carn =
+		#{carn},
+		regist = #{regist},
+		expire =
+		#{expire},
+		price =
+		#{price},
+		special =
+		#{special},
+
+		<if test="img1 != null and img1 != '' "> img1 = #{img1},</if>
+		<if test="img2 != null and img2 != '' "> img2 = #{img2},</if>
+		<if test="img3 != null and img3 != '' "> img3 = #{img3},</if>
+
+		WHERE
+
+		carnumber =
+		#{carnumber};
+	</update>
+
+	<update id="updateVePDF"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE
+
+		vehicleinfo
+
+		SET
+
+		<if test="regd != null and regd != '' "> regd = #{regd},</if>
+		<if test="reg != null and reg != '' "> reg = #{reg},</if>
+
+		<if test="insud != null and insud != '' "> insud = #{insud},</if>
+		<if test="insu != null and insu != '' "> insu = #{insu},</if>
+
+		<if test="jukd != null and jukd != '' "> jukd = #{jukd},</if>
+		<if test="juk != null and juk != '' "> juk = #{juk},</if>
+
+		WHERE
+
+		carnumber =
+		#{carnumber};
+
+	</update>
+
+	<update id="deleteVe"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE
+
+		vehicleinfo
+
+		SET
+
+		trash = 1
+
+		WHERE
+
+		carnumber =
+		#{carnumber};
+
+	</update>
+
 	<select id="selectVeAll"
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">

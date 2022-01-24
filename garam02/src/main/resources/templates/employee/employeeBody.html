@@ -23,26 +23,152 @@
                     </div>
                 </div>
                 <div class="hd-name">
-                    <table
-                        class="table table-striped table-hover table-bordered table-condensed table-sortable">
-                        <colgroup>
-                            <col width="25%"/>
-                            <col width="15%"/>
-                            <col width="20%"/>
-                            <col width="15%"/>
-                            <col width="25%"/>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>이름</th>
-                                <th>소속</th>
-                                <th>생년월일</th>
-                                <th>나이</th>
-                                <th>차량</th>
-                            </tr>
-                        </thead>
-                        <tbody id="emp-tb"></tbody>
-                    </table>
+                    <div role="tabpanel">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#all" aria-controls="all" role="tab" data-toggle="tab">전체&nbsp;<span class="badge" id="bgAll">00</span></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#compa" aria-controls="compa" role="tab" data-toggle="tab">회사&nbsp;<span class="badge" id="bgCompa">00</span></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#solo" aria-controls="solo" role="tab" data-toggle="tab">개인&nbsp;<span class="badge" id="bgSolo">00</span></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#yeb" aria-controls="yeb" role="tab" data-toggle="tab">예비&nbsp;<span class="badge" id="bgYeb">00</span></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#outman" aria-controls="outman" role="tab" data-toggle="tab">퇴사&nbsp;<span class="badge" id="bgOutman">00</span></a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="all">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable"
+                                    id="ddssaa">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>소속</th>
+                                            <th>생년월일</th>
+                                            <th>나이</th>
+                                            <th>차량</th>
+                                            <th>종류</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp-tb-all"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="compa">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>소속</th>
+                                            <th>생년월일</th>
+                                            <th>나이</th>
+                                            <th>차량</th>
+                                            <th>종류</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp-tb-compa"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="solo">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>소속</th>
+                                            <th>생년월일</th>
+                                            <th>나이</th>
+                                            <th>차량</th>
+                                            <th>종류</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp-tb-solo"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="yeb">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>소속</th>
+                                            <th>생년월일</th>
+                                            <th>나이</th>
+                                            <th>차량</th>
+                                            <th>종류</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp-tb-yeb"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="outman">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="15%"/>
+                                        <col width="20%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>소속</th>
+                                            <th>생년월일</th>
+                                            <th>나이</th>
+                                            <th>차량</th>
+                                            <th>종류</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp-tb-outman"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -222,6 +348,7 @@
                                     <label for="name">이름</label>
                                     <input
                                         type="text"
+                                        autocomplete="off"
                                         style="ime-mode: active"
                                         class="form-control input-sm"
                                         id="name"
@@ -241,7 +368,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="company">회사</label>
                                     <select class="form-control input-sm" id="company" name="company">
-                                        <option selected="selected">미정</option>
+                                        <option>미정</option>
                                         <option
                                             th:each="company : ${company}"
                                             th:value="${company.company}"
@@ -254,15 +381,26 @@
                                     <select class="form-control input-sm" id="kind" name="kind">
                                         <option>회사</option>
                                         <option>개인</option>
+                                        <option>예비</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="phone1">연락처</label>
-                                    <input type="text" class="form-control input-sm" id="phone1" name="phone1">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="phone1"
+                                        name="phone1">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="phone2">비상연락처</label>
-                                    <input type="text" class="form-control input-sm" id="phone2" name="phone2">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="phone2"
+                                        name="phone2">
                                 </div>
                             </div>
                         </div>
@@ -272,11 +410,21 @@
                             <div class="emp-insert-item">
                                 <div class="form-group col-md-12">
                                     <label for="address">주소</label>
-                                    <input type="text" class="form-control input-sm" id="address" name="address">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="address"
+                                        name="address">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="garage">차고지</label>
-                                    <input type="text" class="form-control input-sm" id="garage" name="garage">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="garage"
+                                        name="garage">
                                 </div>
                             </div>
                         </div>
@@ -289,7 +437,7 @@
                                     <input type="date" class="form-control input-sm" id="joind" name="joind">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="endd">퇴사일</label>
+                                    <label for="endd">퇴사일*(입력시 퇴사 처림됨)</label>
                                     <input type="date" class="form-control input-sm" id="endd" name="endd">
                                 </div>
                             </div>
@@ -300,19 +448,35 @@
                             <div class="emp-insert-item">
                                 <div class="form-group col-md-6">
                                     <label for="drvl">면허번호</label>
-                                    <input type="text" class="form-control input-sm" id="drvl" name="drvl">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="drvl"
+                                        name="drvl">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="busl">버스자격증번호</label>
-                                    <input type="text" class="form-control input-sm" id="busl" name="busl">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="busl"
+                                        name="busl">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="bosum">보수교육일</label>
-                                    <input type="date" class="form-control input-sm" id="bosum" name="bosum">
+                                    <input
+                                        type="date"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="bosum"
+                                        name="bosum">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="bobuj">보수교육</label>
                                     <select class="form-control input-sm" id="bobuj" name="bobuj">
+                                        <option>없음</option>
                                         <option>신규</option>
                                         <option>보수</option>
                                     </select>
@@ -325,15 +489,30 @@
                             <div class="emp-insert-item">
                                 <div class="form-group col-md-4">
                                     <label for="bank">은행</label>
-                                    <input type="text" class="form-control input-sm" id="bank" name="bank">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="bank"
+                                        name="bank">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="gye">계좌번호</label>
-                                    <input type="text" class="form-control input-sm" id="gye" name="gye">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="gye"
+                                        name="gye">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="gyename">예금주</label>
-                                    <input type="text" class="form-control input-sm" id="gyename" name="gyename">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="gyename"
+                                        name="gyename">
                                 </div>
                             </div>
                         </div>
@@ -343,7 +522,12 @@
                             <div class="emp-insert-item">
                                 <div class="form-group col-md-12">
                                     <label for="memo">메모</label>
-                                    <input type="text" class="form-control input-sm" id="memo" name="memo">
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        class="form-control input-sm"
+                                        id="memo"
+                                        name="memo">
                                     <input type="hidden" id="basem" value="0">
                                     <input type="hidden" id="kukm" value="0">
                                     <input type="hidden" id="gunm" value="0">
