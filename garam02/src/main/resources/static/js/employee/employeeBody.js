@@ -38,7 +38,7 @@ function getEmpAll(name) {
 
             for (let i = 0; i < r.length; i++) {
 
-                if (r[i].trash == 1 && r[i].kind != '예비') {
+                if (r[i].trash == 1) {
                     cnt++;
 
                     htmls += '<tr id="' + r[i].id + 'cut" onclick="getEmpInfo(this.id)" style="cursor:pointe' +
@@ -183,7 +183,7 @@ function getEmpAll(name) {
                     htmlsOutman += '</tr>'
                 }
 
-                if (r[i].kind == '회사') {
+                if (r[i].kind == '회사' && r[i].trash == 1) {
                     cntCompa++;
 
                     htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfo(this.id)" style="cursor:p' +
@@ -255,7 +255,7 @@ function getEmpAll(name) {
                     }
                     htmlsCompa += '</tr>'
                 }
-                if (r[i].kind == '개인') {
+                if (r[i].kind == '개인' && r[i].trash == 1) {
                     cntSolo++;
 
                     htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfo(this.id)" style="cursor:po' +
@@ -327,7 +327,7 @@ function getEmpAll(name) {
                     }
                     htmlsSolo += '</tr>'
                 }
-                if (r[i].kind == '예비') {
+                if (r[i].kind == '예비' && r[i].trash == 1) {
                     cntYeb++;
 
                     htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfo(this.id)" style="cursor:poi' +
@@ -418,11 +418,7 @@ function getEmpAll(name) {
 function getEmpInfo(id) {
     return new Promise(function (resolve, reject) {
 
-        $('td').css('background', 'none');
-
-        $('#' + id)
-            .children('td')
-            .css('background', 'red');
+        tbChoice(id);
 
         const url = "/emp/empdetail";
         const headers = {
@@ -687,9 +683,9 @@ function setEmpClr() {
     $('#id').val('');
     $('#name').val('');
     $('#birthday').val('');
-    $('#gender').val('남');
-    $('#company').val('미정');
-    $('#kind').val('회사');
+    $("#gender option:eq(0)").prop("selected", true);
+    $("#company option:eq(0)").prop("selected", true);
+    $("#kind option:eq(0)").prop("selected", true);
     $('#phone1').val('');
     $('#phone2').val('');
 
@@ -703,7 +699,7 @@ function setEmpClr() {
     $('#drvl').val('');
     $('#busl').val('');
     $('#bosum').val('');
-    $('#bobuj').val('없음');
+    $("#bobuj option:eq(0)").prop("selected", true);
 
     $('#bank').val('');
     $('#gye').val('');

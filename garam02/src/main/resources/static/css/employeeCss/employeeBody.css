@@ -1,5 +1,6 @@
 .main-aside {
     display: flex;
+    flex-direction: row;
     gap: 2rem;
     padding: 3rem;
 }
@@ -146,4 +147,30 @@
 
 .file-la {
     width: 150px;
+}
+
+.nomal-head {
+    display: none;
+}
+
+@media (max-width:992px) {
+    .nomal-head {
+        display: flex;
+        width: 100%;
+        height: 5rem;
+    }
+
+    .nomal-main {
+        padding-left: 0;
+    }
+
+    .nomal-aside {
+        width: 0;
+        right: 30%;
+    }
+
+    .main-aside {
+        padding: 1rem;
+        flex-direction: column;
+    }
 }

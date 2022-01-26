@@ -93,7 +93,9 @@ public class VehicleInfoDTO {
 	}
 
 	public String getVehicle2() {
-		return vehicle2;
+		int size = getVehicle().length() - 4;
+
+		return getVehicle().substring(size);
 	}
 
 	public void setVehicle2(String vehicle2) {

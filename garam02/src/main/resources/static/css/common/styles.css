@@ -10,6 +10,7 @@
     --color-datk: #1D2231;
     --text-grey: #8390A2;
     --side-size: 250px;
+    --table-ch:color: #337ab7;
 }
 
 * {
@@ -55,6 +56,10 @@ th {
 .table > tbody > tr > td {
     text-align: center;
     vertical-align: middle;
+}
+
+.nav p {
+    margin: 0;
 }
 
 .vertical-center {
@@ -164,9 +169,11 @@ th {
 }
 
 .file-la {
-    padding: 1rem;
+    padding: 0.5rem;
     text-align: center;
-    background-color: #FF6600;
+    font-weight: 500;
+    font-size: 1.3rem;
+    background-color: #86c535;
     border-radius: 4px;
     color: white;
     cursor: pointer;

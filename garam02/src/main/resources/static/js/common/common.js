@@ -7,6 +7,8 @@ class dateUtil {
 const empFolder = 'http://192.168.35.136:8000/list/HDD2/src/img/emp/';
 const veFolder = 'http://192.168.35.136:8000/list/HDD2/src/img/ve/';
 
+const tableCh = '#337ab7';
+
 function leftPad(value) {
     if (value >= 10) {
         return value;
@@ -331,4 +333,24 @@ function updateImg(source, id) {
 
     $('#' + id).attr('src', newUrl);
     setTimeout(updateImg, 1000);
+}
+
+function tbChoice(id) {
+    $('td').css('background', 'none');
+    $('td').css('color', 'black');
+
+    $('#' + id)
+        .children('td')
+        .css('background', tableCh);
+    $('#' + id)
+        .children('td')
+        .css('color', 'white');
+}
+
+//숫자만남기고제거
+function onlynumberic(event) {
+    event.target.value = event
+        .target
+        .value
+        .replace(/[^0-9]/g, "");
 }

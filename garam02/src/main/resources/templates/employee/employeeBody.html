@@ -28,19 +28,34 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#all" aria-controls="all" role="tab" data-toggle="tab">전체&nbsp;<span class="badge" id="bgAll">00</span></a>
+                                <a href="#all" aria-controls="all" role="tab" data-toggle="tab">
+                                    <p>전체</p>
+                                    <p class="badge" id="bgAll">00</p>
+                                </a>
                             </li>
                             <li role="presentation">
-                                <a href="#compa" aria-controls="compa" role="tab" data-toggle="tab">회사&nbsp;<span class="badge" id="bgCompa">00</span></a>
+                                <a href="#compa" aria-controls="compa" role="tab" data-toggle="tab">
+                                    <p>회사</p>
+                                    <p class="badge" id="bgCompa">00</p>
+                                </a>
                             </li>
                             <li role="presentation">
-                                <a href="#solo" aria-controls="solo" role="tab" data-toggle="tab">개인&nbsp;<span class="badge" id="bgSolo">00</span></a>
+                                <a href="#solo" aria-controls="solo" role="tab" data-toggle="tab">
+                                    <p>개인</p>
+                                    <p class="badge" id="bgSolo">00</p>
+                                </a>
                             </li>
                             <li role="presentation">
-                                <a href="#yeb" aria-controls="yeb" role="tab" data-toggle="tab">예비&nbsp;<span class="badge" id="bgYeb">00</span></a>
+                                <a href="#yeb" aria-controls="yeb" role="tab" data-toggle="tab">
+                                    <p>예비</p>
+                                    <p class="badge" id="bgYeb">00</p>
+                                </a>
                             </li>
                             <li role="presentation">
-                                <a href="#outman" aria-controls="outman" role="tab" data-toggle="tab">퇴사&nbsp;<span class="badge" id="bgOutman">00</span></a>
+                                <a href="#outman" aria-controls="outman" role="tab" data-toggle="tab">
+                                    <p>퇴사</p>
+                                    <p class="badge" id="bgOutman">00</p>
+                                </a>
                             </li>
                         </ul>
 
@@ -172,6 +187,11 @@
                 </div>
             </div>
         </aside>
+
+        <header class="nomal-head">
+            <div></div>
+        </header>
+
         <main class="nomal-main">
             <div class="main-aside">
                 <div class="main-aside-item">
@@ -181,6 +201,7 @@
                             <a href="img/employee/emp.png" target='_blank' id="empPic-a">
                                 <img
                                     src="img/employee/emp.png"
+                                    onerror="this.src='img/employee/emp.png'"
                                     alt=""
                                     class="cardImg img-thumbnail"
                                     id="empPic">
@@ -332,6 +353,7 @@
                             <div class="emp-insert-item emp-pic">
                                 <img
                                     src="img/employee/emp.png"
+                                    onerror="this.src='img/employee/emp.png'"
                                     id="emp-pic-pre"
                                     alt=""
                                     class="cardImg img-thumbnail">

@@ -130,17 +130,18 @@
 		#{expire},
 		price =
 		#{price},
-		special =
-		#{special},
 
 		<if test="img1 != null and img1 != '' "> img1 = #{img1},</if>
 		<if test="img2 != null and img2 != '' "> img2 = #{img2},</if>
 		<if test="img3 != null and img3 != '' "> img3 = #{img3},</if>
 
+		special =
+		#{special}
+
 		WHERE
 
 		carnumber =
-		#{carnumber};
+		#{carNumber};
 	</update>
 
 	<update id="updateVePDF"
@@ -164,7 +165,7 @@
 		WHERE
 
 		carnumber =
-		#{carnumber};
+		#{carNumber};
 
 	</update>
 
@@ -182,7 +183,7 @@
 		WHERE
 
 		carnumber =
-		#{carnumber};
+		#{carNumber};
 
 	</update>
 
@@ -198,7 +199,8 @@
 		IFNULL((SELECT employeeinfo.name FROM employeeinfo
 		WHERE
 		employeeinfo.id=vehicleinfo.owner), vehicleinfo.owner) AS owner,
-		vehicleinfo.regist, vehicleinfo.bus, employeeinfo.name
+		vehicleinfo.regist, vehicleinfo.bus, vehicleinfo.trash,
+		employeeinfo.name
 
 		FROM
 		vehicleinfo
@@ -207,7 +209,8 @@
 		employeeinfo
 
 		ON
-		vehicleinfo.id =
+		vehicleinfo.id
+		=
 		employeeinfo.id
 
 		<where>

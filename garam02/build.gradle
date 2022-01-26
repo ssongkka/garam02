@@ -36,6 +36,8 @@ dependencies {
 	
 	implementation 'mysql:mysql-connector-java:8.0.16'
 	
+	implementation 'com.lowagie:itext:2.1.7'
+
     compileOnly 'org.springframework.boot:spring-boot-devtools'
     
     developmentOnly 'org.springframework.boot:spring-boot-devtools' 

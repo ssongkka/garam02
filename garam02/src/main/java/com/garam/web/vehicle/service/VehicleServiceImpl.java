@@ -38,6 +38,10 @@ public class VehicleServiceImpl implements VehicleService {
 			vehicleInfoDTO.setId(null);
 		}
 
+		if (vehicleInfoDTO.getExpire() == null || vehicleInfoDTO.getExpire().equals("")) {
+			vehicleInfoDTO.setExpire(null);
+		}
+
 		if (vehicleInfoDTO.getPrice() == null || vehicleInfoDTO.getPrice() == 0) {
 			vehicleInfoDTO.setPrice(0);
 		}
@@ -45,6 +49,10 @@ public class VehicleServiceImpl implements VehicleService {
 		if (vehicleInfoDTO.getSpecial() == null || vehicleInfoDTO.getSpecial().equals("")) {
 			vehicleInfoDTO.setSpecial("");
 		}
+
+		vehicleInfoDTO.setImg1(vehicleInfoDTO.getCarNumber() + "_1.png");
+		vehicleInfoDTO.setImg2(vehicleInfoDTO.getCarNumber() + "_2.png");
+		vehicleInfoDTO.setImg3(vehicleInfoDTO.getCarNumber() + "_3.png");
 
 		switch (vehicleInfoDTO.getTp()) {
 		case 0:
@@ -68,8 +76,6 @@ public class VehicleServiceImpl implements VehicleService {
 		} else {
 			carN = get_Veno();
 		}
-
-		System.out.println("뭐지요  " + files.length);
 
 		FTPClient ftp = ftpmanager.connect();
 		for (int i = 0; i < files.length; i++) {

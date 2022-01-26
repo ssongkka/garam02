@@ -23,26 +23,212 @@
                     </div>
                 </div>
                 <div class="hd-name">
-                    <table
-                        class="table table-striped table-hover table-bordered table-condensed table-sortable">
-                        <colgroup>
-                            <col width="20%"/>
-                            <col width="25%"/>
-                            <col width="10%"/>
-                            <col width="25%"/>
-                            <col width="20%"/>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>차량번호</th>
-                                <th>소속</th>
-                                <th>등급</th>
-                                <th>차량등록일</th>
-                                <th>승무원</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ve-tb"></tbody>
-                    </table>
+                    <div role="tabpanel">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#all" aria-controls="all" role="tab" data-toggle="tab">
+                                    <p>전체</p>
+                                    <p class="badge" id="bgAll">00</p>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#dae" aria-controls="dae" role="tab" data-toggle="tab">
+                                    <p>대형</p>
+                                    <p class="badge" id="bgDae">00</p>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#jung" aria-controls="jung" role="tab" data-toggle="tab">
+                                    <p>중형</p>
+                                    <p class="badge" id="bgJung">00</p>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#udong" aria-controls="udong" role="tab" data-toggle="tab">
+                                    <p>우등</p>
+                                    <p class="badge" id="bgUdong">00</p>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#compa" aria-controls="udong" role="tab" data-toggle="tab">
+                                    <p>회사</p>
+                                    <p class="badge" id="bgCompa">00</p>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#gae" aria-controls="udong" role="tab" data-toggle="tab">
+                                    <p>개인</p>
+                                    <p class="badge" id="bgGae">00</p>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#end" aria-controls="end" role="tab" data-toggle="tab">
+                                    <p>만료</p>
+                                    <p class="badge" id="bgEnd">00</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="all">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="25%"/>
+                                        <col width="10%"/>
+                                        <col width="25%"/>
+                                        <col width="20%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>차량번호</th>
+                                            <th>소속</th>
+                                            <th>등급</th>
+                                            <th>차량등록일</th>
+                                            <th>승무원</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ve-tb-all"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="dae">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="25%"/>
+                                        <col width="10%"/>
+                                        <col width="25%"/>
+                                        <col width="20%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>차량번호</th>
+                                            <th>소속</th>
+                                            <th>등급</th>
+                                            <th>차량등록일</th>
+                                            <th>승무원</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ve-tb-dae"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="jung">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="25%"/>
+                                        <col width="10%"/>
+                                        <col width="25%"/>
+                                        <col width="20%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>차량번호</th>
+                                            <th>소속</th>
+                                            <th>등급</th>
+                                            <th>차량등록일</th>
+                                            <th>승무원</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ve-tb-jung"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="udong">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="25%"/>
+                                        <col width="10%"/>
+                                        <col width="25%"/>
+                                        <col width="20%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>차량번호</th>
+                                            <th>소속</th>
+                                            <th>등급</th>
+                                            <th>차량등록일</th>
+                                            <th>승무원</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ve-tb-udong"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="compa">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="25%"/>
+                                        <col width="10%"/>
+                                        <col width="25%"/>
+                                        <col width="20%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>차량번호</th>
+                                            <th>소속</th>
+                                            <th>등급</th>
+                                            <th>차량등록일</th>
+                                            <th>승무원</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ve-tb-compa"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="gae">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="25%"/>
+                                        <col width="10%"/>
+                                        <col width="25%"/>
+                                        <col width="20%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>차량번호</th>
+                                            <th>소속</th>
+                                            <th>등급</th>
+                                            <th>차량등록일</th>
+                                            <th>승무원</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ve-tb-gae"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="end">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="20%"/>
+                                        <col width="25%"/>
+                                        <col width="10%"/>
+                                        <col width="25%"/>
+                                        <col width="20%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>차량번호</th>
+                                            <th>소속</th>
+                                            <th>등급</th>
+                                            <th>차량등록일</th>
+                                            <th>승무원</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ve-tb-end"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -69,6 +255,12 @@
                                     <div class="title-content-title1-item">
                                         <div class="tct-item1">승무원</div>
                                         <div class="tct-item1" id="ve04">&nbsp;</div>
+                                    </div>
+                                </blockquote>
+                                <blockquote>
+                                    <div class="title-content-title1-item">
+                                        <div class="tct-item1">회사</div>
+                                        <div class="tct-item1" id="ve20">&nbsp;</div>
                                     </div>
                                 </blockquote>
                                 <blockquote>
@@ -179,17 +371,32 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
                                     <a href="img/vehicle/bus1.png" target='_blank' id="ve16-1">
-                                        <img src="img/vehicle/bus1.png" alt="" class="iimmgg center-block" id="ve16">
+                                        <img
+                                            src="img/vehicle/bus1.png"
+                                            onerror="this.src='img/vehicle/bus1.png'"
+                                            alt=""
+                                            class="iimmgg center-block"
+                                            id="ve16">
                                     </a>
                                 </div>
                                 <div class="item">
                                     <a href="img/vehicle/bus2.png" target='_blank' id="ve17-1">
-                                        <img src="img/vehicle/bus2.png" alt="" class="iimmgg center-block" id="ve17">
+                                        <img
+                                            src="img/vehicle/bus2.png"
+                                            onerror="this.src='img/vehicle/bus2.png'"
+                                            alt=""
+                                            class="iimmgg center-block"
+                                            id="ve17">
                                     </a>
                                 </div>
                                 <div class="item">
                                     <a href="img/vehicle/bus3.png" target='_blank' id="ve18-1">
-                                        <img src="img/vehicle/bus3.png" alt="" class="iimmgg center-block" id="ve18">
+                                        <img
+                                            src="img/vehicle/bus3.png"
+                                            onerror="this.src='img/vehicle/bus3.png'"
+                                            alt=""
+                                            class="iimmgg center-block"
+                                            id="ve18">
                                     </a>
                                 </div>
                             </div>
@@ -248,7 +455,6 @@
                                 <div role="tabpanel" class="tab-pane" id="messages">...</div>
                                 <div role="tabpanel" class="tab-pane" id="settings">...</div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -279,6 +485,7 @@
                                 <div class="ve-pics">
                                     <img
                                         src="img/vehicle/bus1.png"
+                                        onerror="this.src='img/vehicle/bus1.png'"
                                         id="ve-pic-pre1"
                                         alt=""
                                         class="cardImg img-thumbnail">
@@ -289,6 +496,7 @@
                                 <div class="ve-pics">
                                     <img
                                         src="img/vehicle/bus2.png"
+                                        onerror="this.src='img/vehicle/bus2.png'"
                                         id="ve-pic-pre2"
                                         alt=""
                                         class="cardImg img-thumbnail">
@@ -299,6 +507,7 @@
                                 <div class="ve-pics">
                                     <img
                                         src="img/vehicle/bus3.png"
+                                        onerror="this.src='img/vehicle/bus3.png'"
                                         id="ve-pic-pre3"
                                         alt=""
                                         class="cardImg img-thumbnail">
@@ -364,8 +573,25 @@
                                     type="text"
                                     class="form-control input-sm"
                                     id="vehicle-4"
-                                    name="2312q3"
+                                    max="9999"
+                                    maxlength="4"
+                                    onkeyup="onlynumberic(event)"
                                     autocomplete='off'>
+                            </div>
+                        </div>
+                        <div class="ve-insert">
+                            <div class="form-group col-md-4">
+                                <label></label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="company">회사&nbsp;&#42;</label>
+                                <select class="form-control input-sm" id="company">
+                                    <option
+                                        th:each="company : ${company}"
+                                        th:value="${company.company}"
+                                        th:label="${company.company}"
+                                        th:data-value="${company.company}"></option>
+                                </select>
                             </div>
                         </div>
                         <hr>
@@ -466,7 +692,7 @@
                                 <label for="vehicle-4">&nbsp;</label>
                             </div>
                             <div class="form-group col-md-8">
-                                <label for="carnumber">차대번호&nbsp;&#42;
+                                <label for="carn">차대번호&nbsp;&#42;
                                 </label>
                                 <input type="text" class="form-control input-sm" id="carn" autocomplete='off'>
                             </div>
