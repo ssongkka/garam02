@@ -1,6 +1,5 @@
 package com.garam02;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.garam.Garam02Application;
+import com.garam.web.Utils.PDFUtil;
 import com.lowagie.text.Cell;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -21,6 +21,7 @@ import com.lowagie.text.Paragraph;
 import com.lowagie.text.Table;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.VerticalText;
 
 @SpringBootTest
 @ContextConfiguration(classes = Garam02Application.class)
@@ -30,12 +31,12 @@ public class TestPdf {
 		System.out.println("되냐");
 
 		// 1) com.lowagie.text.Document 클래스 인스턴스를 생성합니다.
-		Document document = new Document(PageSize.A4, 10, 10, 10, 10);
+		Document document = new Document(PageSize.A4, 56.664f, 42.48f, 85.032f, 42.48f);
 		File file = new File("ItextExample3.PDF");
 
 		try {
 			// 2) Writer와 Document 사이의 연관을 맺어줍니다.
-			PdfWriter.getInstance(document, new FileOutputStream(file));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
 
 			// 3) 문서를 오픈합니다.
 			document.open();
@@ -48,7 +49,7 @@ public class TestPdf {
 
 			// 6) 준비한 설정값들을 활용해 Font 객체를 생성해줍니다. 생성자에 들어가는 인자는 BaseFont 와 사이즈 입니다.
 			BaseFont bf = BaseFont.createFont(fontFace, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-			Font font = new Font(bf, (float) 12);
+			Font font = new Font(bf, 12f);
 
 			// 7) 테이블을 생성해줍니다.
 			// com.lowagie.text.Table 에는 세가지 생성자가 있습니다.
@@ -57,28 +58,27 @@ public class TestPdf {
 
 			Table table = new Table(3, 3); // 가로 세로 1개짜리 테이블 생성
 			table.setWidth(100);
-			table.setAlignment(Element.ALIGN_CENTER);
-			table.setPadding(0);
-//			table.setBorderWidth(2); // 테이블 테두리 두께 설정 : 2
+//			table.setAlignment(Element.ALIGN_CENTER);
+			table.setBorderWidth(1); // 테이블 테두리 두께 설정 : 2
 //			table.setBorderColor(new Color(0, 0, 255)); // 테두리 색상 파랑색으로 설정
 //			table.setPadding(5); // padding 설정
 //			table.setSpacing(5); // spacing 설정
 //			table.setBackgroundColor(new Color(222, 222, 222)); // 테이블 배경색 설정
 
 			// 8) 테이블에 cell을 추가해 문장도 작성할 수 있습니다.
-			Cell cell = new Cell(new Paragraph("테이블 생성 예제입니다.", font));
-			cell.setBorderWidth(1);
-			cell.setBorderColor(new Color(0, 0, 0));
-			cell.setVerticalAlignment(Element.ALIGN_CENTER);
-			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table.addCell(cell, 0, 2);
+			Cell cell = new Cell(new Paragraph("aasdadasasd"));
+//			cell.setBorderWidth(1);
+////			cell.setBorderColor(new Color(0, 0, 0));
+			cell.setVerticalAlignment(5);
+//			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
 
-			Cell cell1 = new Cell(new Paragraph("테이블 생성 예제입니다.", font));
-			cell1.setBorderWidth(1);
-			cell1.setBorderColor(new Color(0, 0, 0));
-			cell1.setVerticalAlignment(Element.ALIGN_CENTER);
-			cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table.addCell(cell1, 0, 0);
+			Cell cell1 = new Cell(new Paragraph("테이블 생성 예제입니다."));
+//			cell1.setBorderWidth(1);
+//			cell1.setBorderColor(new Color(0, 0, 0));
+//			cell1.setVerticalAlignment(VerticalAlignment.ALIGN_MIDDLE);
+//			cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell1);
 
 			// 9) 문서에 작성해둔 테이블 객체를 추가해줍니다.
 			document.add(table);
@@ -102,4 +102,5 @@ public class TestPdf {
 		}
 
 	}
+
 }

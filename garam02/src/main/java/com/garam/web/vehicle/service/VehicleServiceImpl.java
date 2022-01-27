@@ -140,4 +140,10 @@ public class VehicleServiceImpl implements VehicleService {
 		return list;
 	}
 
+	@Override
+	public List<VehicleInfoDTO> selectVeAllPrint(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectVeAllPrint(vehicleInfoDTO);
+
+		return list;
+	}
 }

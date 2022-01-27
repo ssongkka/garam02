@@ -14,4 +14,6 @@ public interface VehicleService {
 	public List<VehicleInfoDTO> selectVeDetail(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public String uploadVePic(String carnumber, MultipartFile[] files) throws Exception;
+
+	public List<VehicleInfoDTO> selectVeAllPrint(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

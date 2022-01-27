@@ -220,6 +220,24 @@
 
 		ORDER BY vehicleinfo.vehicle;
 	</select>
+	<select id="selectVeAllPrint"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+		vehicleinfo
+
+		WHERE
+
+		company = #{company}
+
+		ORDER BY
+		vehicle;
+	</select>
 
 	<select id="selectVeDetail"
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"

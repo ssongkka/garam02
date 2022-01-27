@@ -15,4 +15,6 @@ public interface VehicleMapper {
 	public List<VehicleInfoDTO> selectVeAll(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectVeDetail(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectVeAllPrint(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }
