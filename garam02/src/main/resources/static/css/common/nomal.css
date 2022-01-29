@@ -5,7 +5,7 @@
 }
 
 .nomal-aside {
-    background: #FFFFFF;
+    background: #f6f7f9;
     border-right: 1px solid rgba(20,20,31,.05);
     width: 50rem;
 
@@ -22,7 +22,7 @@
 }
 
 .nomal-aside::-webkit-scrollbar-thumb {
-    background-color: hsla(0, 0%, 42%, 0.1);
+    background-color: hsla(0, 21%, 11%, 0.1);
     border-radius: 100px;
 }
 
@@ -31,8 +31,24 @@
     flex-direction: column;
 }
 
+.nomal-aside-btn {
+    display: flex;
+}
+
+.nomal-aside-btn-item:nth-child(1) {
+    flex: 1;
+    padding: 1rem;
+}
+.nomal-aside-btn-item:nth-child(2) {
+    flex: 1;
+    padding: 1rem;
+}
+
+.nomal-aside-btn button {
+    width: 100%;
+}
+
 .nomal-aside-search {
-    background: #f6f7f9;
     padding: 2rem;
     z-index: 1050;
 }

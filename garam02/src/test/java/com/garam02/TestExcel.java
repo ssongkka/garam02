@@ -52,7 +52,7 @@ public class TestExcel {
 			bbb.setCompany("(주)새천년관광");
 			aaa.add(bbb);
 
-			List<VehicleInfoDTO> list = vehicleMapper.selectVeAllPrint(bbb);
+			List<VehicleInfoDTO> list = vehicleMapper.selectVeAllPrint("(주)새천년관광");
 
 			String url = "src/main/resources/static/excel/car.xls";
 //			String url = "src/main/resources/static/fonts/hm.ttf";

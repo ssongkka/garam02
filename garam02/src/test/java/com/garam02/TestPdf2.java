@@ -67,7 +67,7 @@ public class TestPdf2 {
 			bbb.setCompany("(주)새천년관광");
 			aaa.add(bbb);
 
-			List<VehicleInfoDTO> list = vehicleMapper.selectVeAllPrint(bbb);
+			List<VehicleInfoDTO> list = vehicleMapper.selectVeAllPrint("(주)새천년관광");
 
 			// pdf 문서 처리하는 객체
 			Document document = pdfU.getDocument();

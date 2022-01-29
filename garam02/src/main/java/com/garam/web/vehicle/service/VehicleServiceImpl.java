@@ -1,7 +1,12 @@
 package com.garam.web.vehicle.service;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
@@ -9,12 +14,24 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.garam.web.Utils.FTPManager;
 import com.garam.web.Utils.NameUtils;
+import com.garam.web.Utils.PDFUtil;
+import com.garam.web.Utils.pdfFooter;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.mapper.VehicleMapper;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -141,9 +158,118 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public List<VehicleInfoDTO> selectVeAllPrint(VehicleInfoDTO vehicleInfoDTO) throws Exception {
-		List<VehicleInfoDTO> list = vehicleMapper.selectVeAllPrint(vehicleInfoDTO);
+	public File veDownPdf(String compa) {
 
-		return list;
+		List<VehicleInfoDTO> list;
+		PDFUtil pdfU = new PDFUtil();
+
+		Document document = null;
+		String name = "차량명세서_" + "_" + LocalDate.now().toString() + ".PDF";
+		File file = new File("tmpCars.PDF");
+
+		try {
+			document = pdfU.getDocument();
+
+			list = vehicleMapper.selectVeAllPrint(compa);
+
+			Font font = pdfU.getHYHeadM(20f);
+			Font font1 = pdfU.getHumenMyungjo(6.7f);
+
+			PdfPTable table = new PdfPTable(new float[] { 1f, 4f, 4f, 5f, 4f, 2f, 1f, 2f });
+			table.setWidthPercentage(100);
+
+			Chunk chunk = new Chunk("차 량 명 세 서", font); // 기본폰트로 타이틀
+
+			Paragraph ph = new Paragraph(chunk);
+			ph.setAlignment(Element.ALIGN_CENTER);
+
+			PdfPTable aa = new PdfPTable(new float[] { 1f, 1f });
+			aa.setWidthPercentage(98);
+			PdfPCell cellCompa = new PdfPCell(new Paragraph("회사명 : " + compa, pdfU.getHumenMyungjo(6.7f)));
+			cellCompa.setBorder(0);
+			cellCompa.setHorizontalAlignment(Element.ALIGN_LEFT);
+			PdfPCell cellDay = new PdfPCell(
+					new Paragraph("기준일 : " + LocalDate.now().toString(), pdfU.getHumenMyungjo(6.7f)));
+			cellDay.setBorder(0);
+			cellDay.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			aa.addCell(cellCompa);
+			aa.addCell(cellDay);
+
+			PdfPCell[] cell = new PdfPCell[8];
+
+			font1.setStyle(Font.BOLD);
+
+			cell[0] = new PdfPCell(new Paragraph("연번", font1));
+			cell[1] = new PdfPCell(new Paragraph("차량번호", font1));
+			cell[2] = new PdfPCell(new Paragraph("차명", font1));
+			cell[3] = new PdfPCell(new Paragraph("차대번호", font1));
+			cell[4] = new PdfPCell(new Paragraph("차종", font1));
+			cell[5] = new PdfPCell(new Paragraph("연식", font1));
+			cell[6] = new PdfPCell(new Paragraph("정원", font1));
+			cell[7] = new PdfPCell(new Paragraph("차량만료일", font1));
+
+			for (int i = 0; i < cell.length; i++) {
+				cell[i].setBackgroundColor(new BaseColor(191, 191, 191));
+				cell[i].setFixedHeight(20);
+				cell[i].setPaddingBottom(5);
+				cell[i].setHorizontalAlignment(Element.ALIGN_CENTER);
+				cell[i].setVerticalAlignment(Element.ALIGN_MIDDLE);
+				table.addCell(cell[i]);
+			}
+
+			PdfPCell[] cells = new PdfPCell[8];
+			font1.setStyle(Font.NORMAL);
+			for (int i = 0; i < list.size(); i++) {
+				cells[0] = new PdfPCell(new Paragraph(Integer.toString(i + 1), font1));
+				cells[1] = new PdfPCell(new Paragraph(list.get(i).getVehicle(), font1));
+				cells[2] = new PdfPCell(new Paragraph(list.get(i).getVename(), font1));
+				cells[3] = new PdfPCell(new Paragraph(list.get(i).getCarn(), font1));
+				cells[4] = new PdfPCell(new Paragraph(list.get(i).getBrand(), font1));
+				cells[5] = new PdfPCell(new Paragraph(list.get(i).getRegist().substring(0, 4), font1));
+				cells[6] = new PdfPCell(new Paragraph(list.get(i).getNum(), font1));
+				cells[7] = new PdfPCell(new Paragraph(list.get(i).getExpire(), font1));
+
+				if (i % 2 != 0) {
+					for (int k = 0; k < cells.length; k++) {
+						cells[k].setBackgroundColor(new BaseColor(240, 240, 240));
+					}
+				}
+
+				for (int y = 0; y < 8; y++) {
+					cells[y].setPaddingBottom(5);
+					cells[y].setHorizontalAlignment(Element.ALIGN_CENTER);
+					cells[y].setVerticalAlignment(Element.ALIGN_MIDDLE);
+					table.addCell(cells[y]);
+				}
+			}
+
+			table.setHeaderRows(1);
+
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+
+			pdfFooter event = new pdfFooter((list.size() / 45) + 1);
+			writer.setPageEvent(event);
+
+			document.open();
+
+			document.add(ph);
+			document.add(pdfU.getBlank(16f));
+
+			document.add(aa);
+			document.add(pdfU.getBlank(3f));
+
+			document.add(table);
+
+			System.out.println("요요요   " + document);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (document != null) {
+				document.close();
+			}
+		}
+
+		return file;
 	}
 }

@@ -20,6 +20,10 @@ input:focus {
     box-shadow: none;
 }
 
+.modal {
+    z-index: 1050;
+}
+
 .nav {
     font-size: 1.5rem;
     padding: 0;

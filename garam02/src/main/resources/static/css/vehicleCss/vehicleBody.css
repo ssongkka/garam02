@@ -242,3 +242,34 @@
     display: flex;
     gap: 1rem;
 }
+
+.md-file {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.md-file a {
+    flex: 1;
+    color: black;
+
+    min-width: 46px;
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    background: #e2e2e2;
+
+    border-radius: 3px;
+}
+
+.btn-excel {
+    color: #1D6F42;
+    font-size: 2rem;
+}
+
+.btn-pdf {
+    color: #c80a0a;
+    font-size: 2rem;
+}

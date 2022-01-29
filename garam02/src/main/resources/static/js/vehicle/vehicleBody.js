@@ -658,7 +658,7 @@ $(document).on('click', '#btn-x', function () {
 $(document).on('click', '#md-Ch', function () {
     if ($('#ve00').val()) {
         $('#modal-insert').modal('show')
-        $('#myModalLabel').text('차량 정보 수정');
+        $('#myModalLabel-insert').text('차량 정보 수정');
         setVeCh();
     } else {
         alert('수정 할 차량을 선택해주세요.');
@@ -667,8 +667,13 @@ $(document).on('click', '#md-Ch', function () {
 
 $(document).on('click', '#md-New', function () {
     $('#modal-insert').modal('show')
-    $('#myModalLabel').text('차량 정보 신규 입력');
+    $('#myModalLabel-insert').text('차량 정보 신규 입력');
     setEmpClr();
+});
+
+$(document).on('click', '#md-File', function () {
+    $('#modal-file').modal('show')
+    $('#myModalLabel-file').text('차량명세서 생성');
 });
 
 $('#imgSelector1').change(function () {
@@ -706,6 +711,7 @@ function setVeCh() {
     $('#vehicle-4').val(ve4);
 
     if ($('#ve20').children().text() != String.fromCharCode(160)) {
+        console.log($('#ve20').children().text());
         $('#company').val($('#ve20').children().text());
     } else {
         $('#company').val('');
@@ -782,6 +788,8 @@ function setVeCh() {
     } else {
         $('#price').val('');
     };
+
+    console.log($('#ve14-1').val());
 
     if ($('#ve14-1').val()) {
         $('#color').val($('#ve14-1').val());
@@ -1107,3 +1115,5 @@ function insertVe(tp) {
         });
     }
 }
+
+$(document).on('click', '#btn-pdf-d', function () {});

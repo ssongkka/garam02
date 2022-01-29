@@ -1,5 +1,7 @@
 package com.garam.web.vehicle.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -15,5 +17,5 @@ public interface VehicleService {
 
 	public String uploadVePic(String carnumber, MultipartFile[] files) throws Exception;
 
-	public List<VehicleInfoDTO> selectVeAllPrint(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+	public File veDownPdf(String compa) throws Exception;
 }
