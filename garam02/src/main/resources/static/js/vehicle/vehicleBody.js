@@ -5,6 +5,24 @@ $(document).ready(function () {
     getVeAll();
 });
 
+$(document).on('click', '#show-aside', function () {
+    if ($('#show-aside-hd').val() > 0) {
+        $('.nomal-aside')
+            .css('width', '0')
+            .css('margin-top', '0')
+            .hide();
+        $('.nomal-main').show();
+        $('#show-aside-hd').val(0);
+    } else {
+        $('.nomal-aside')
+            .css('width', '100%')
+            .css('margin-top', '5rem')
+            .show();;
+        $('.nomal-main').hide();
+        $('#show-aside-hd').val(1);
+    }
+});
+
 function getVeAll(vehicle) {
     const url = "/ve/veAll";
     const headers = {
@@ -50,6 +68,18 @@ function getVeAll(vehicle) {
                     htmls += r[i].vehicle2;
                     htmls += '</span>'
                     htmls += '</td>'
+                    if (r[i].name) {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += r[i].name;
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    } else {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    }
                     if (r[i].owner) {
                         htmls += '<td>'
                         htmls += '<span>'
@@ -78,18 +108,6 @@ function getVeAll(vehicle) {
                         htmls += '<td>'
                         htmls += '<span>'
                         htmls += r[i].regist;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td>'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    }
-                    if (r[i].name) {
-                        htmls += '<td>'
-                        htmls += '<span>'
-                        htmls += r[i].name;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
@@ -145,18 +163,6 @@ function getVeAll(vehicle) {
                         htmlsEnd += '</span>'
                         htmlsEnd += '</td>'
                     }
-                    if (r[i].name) {
-                        htmlsEnd += '<td>'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += r[i].name;
-                        htmlsEnd += '</span>'
-                        htmlsEnd += '</td>'
-                    } else {
-                        htmlsEnd += '<td>'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += '</span>'
-                        htmlsEnd += '</td>'
-                    }
                     htmlsEnd += '</tr>'
                 }
                 if (r[i].bus == '대형' && r[i].trash == 1) {
@@ -168,6 +174,18 @@ function getVeAll(vehicle) {
                     htmlsDae += r[i].vehicle2;
                     htmlsDae += '</span>'
                     htmlsDae += '</td>'
+                    if (r[i].name) {
+                        htmlsDae += '<td>'
+                        htmlsDae += '<span>'
+                        htmlsDae += r[i].name;
+                        htmlsDae += '</span>'
+                        htmlsDae += '</td>'
+                    } else {
+                        htmlsDae += '<td>'
+                        htmlsDae += '<span>'
+                        htmlsDae += '</span>'
+                        htmlsDae += '</td>'
+                    }
                     if (r[i].owner) {
                         htmlsDae += '<td>'
                         htmlsDae += '<span>'
@@ -204,18 +222,6 @@ function getVeAll(vehicle) {
                         htmlsDae += '</span>'
                         htmlsDae += '</td>'
                     }
-                    if (r[i].name) {
-                        htmlsDae += '<td>'
-                        htmlsDae += '<span>'
-                        htmlsDae += r[i].name;
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
-                    } else {
-                        htmlsDae += '<td>'
-                        htmlsDae += '<span>'
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
-                    }
                     htmlsDae += '</tr>'
                 }
                 if (r[i].bus == '중형' && r[i].trash == 1) {
@@ -227,6 +233,18 @@ function getVeAll(vehicle) {
                     htmlsJung += r[i].vehicle2;
                     htmlsJung += '</span>'
                     htmlsJung += '</td>'
+                    if (r[i].name) {
+                        htmlsJung += '<td>'
+                        htmlsJung += '<span>'
+                        htmlsJung += r[i].name;
+                        htmlsJung += '</span>'
+                        htmlsJung += '</td>'
+                    } else {
+                        htmlsJung += '<td>'
+                        htmlsJung += '<span>'
+                        htmlsJung += '</span>'
+                        htmlsJung += '</td>'
+                    }
                     if (r[i].owner) {
                         htmlsJung += '<td>'
                         htmlsJung += '<span>'
@@ -263,18 +281,6 @@ function getVeAll(vehicle) {
                         htmlsJung += '</span>'
                         htmlsJung += '</td>'
                     }
-                    if (r[i].name) {
-                        htmlsJung += '<td>'
-                        htmlsJung += '<span>'
-                        htmlsJung += r[i].name;
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
-                    } else {
-                        htmlsJung += '<td>'
-                        htmlsJung += '<span>'
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
-                    }
                     htmlsJung += '</tr>'
                 }
                 if (r[i].bus == '우등' && r[i].trash == 1) {
@@ -286,6 +292,18 @@ function getVeAll(vehicle) {
                     htmlsUdong += r[i].vehicle2;
                     htmlsUdong += '</span>'
                     htmlsUdong += '</td>'
+                    if (r[i].name) {
+                        htmlsUdong += '<td>'
+                        htmlsUdong += '<span>'
+                        htmlsUdong += r[i].name;
+                        htmlsUdong += '</span>'
+                        htmlsUdong += '</td>'
+                    } else {
+                        htmlsUdong += '<td>'
+                        htmlsUdong += '<span>'
+                        htmlsUdong += '</span>'
+                        htmlsUdong += '</td>'
+                    }
                     if (r[i].owner) {
                         htmlsUdong += '<td>'
                         htmlsUdong += '<span>'
@@ -322,18 +340,6 @@ function getVeAll(vehicle) {
                         htmlsUdong += '</span>'
                         htmlsUdong += '</td>'
                     }
-                    if (r[i].name) {
-                        htmlsUdong += '<td>'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += r[i].name;
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
-                    } else {
-                        htmlsUdong += '<td>'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
-                    }
                     htmlsUdong += '</tr>'
                 }
                 if (r[i].company == r[i].owner && r[i].trash == 1) {
@@ -345,6 +351,18 @@ function getVeAll(vehicle) {
                     htmlsCompa += r[i].vehicle2;
                     htmlsCompa += '</span>'
                     htmlsCompa += '</td>'
+                    if (r[i].name) {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += r[i].name;
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    } else {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    }
                     if (r[i].owner) {
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span>'
@@ -381,18 +399,6 @@ function getVeAll(vehicle) {
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     }
-                    if (r[i].name) {
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].name;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    }
                     htmlsCompa += '</tr>'
                 }
                 if (r[i].company != r[i].owner && r[i].trash == 1) {
@@ -405,6 +411,18 @@ function getVeAll(vehicle) {
                     htmlsGae += r[i].vehicle2;
                     htmlsGae += '</span>'
                     htmlsGae += '</td>'
+                    if (r[i].name) {
+                        htmlsGae += '<td>'
+                        htmlsGae += '<span>'
+                        htmlsGae += r[i].name;
+                        htmlsGae += '</span>'
+                        htmlsGae += '</td>'
+                    } else {
+                        htmlsGae += '<td>'
+                        htmlsGae += '<span>'
+                        htmlsGae += '</span>'
+                        htmlsGae += '</td>'
+                    }
                     if (r[i].owner) {
                         htmlsGae += '<td>'
                         htmlsGae += '<span>'
@@ -433,18 +451,6 @@ function getVeAll(vehicle) {
                         htmlsGae += '<td>'
                         htmlsGae += '<span>'
                         htmlsGae += r[i].regist;
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
-                    } else {
-                        htmlsGae += '<td>'
-                        htmlsGae += '<span>'
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
-                    }
-                    if (r[i].name) {
-                        htmlsGae += '<td>'
-                        htmlsGae += '<span>'
-                        htmlsGae += r[i].name;
                         htmlsGae += '</span>'
                         htmlsGae += '</td>'
                     } else {
@@ -574,31 +580,22 @@ function getVeInfo(carNumber) {
                 } else {
                     $('#ve13').html('<span>&nbsp;</span>');
                 }
+
+                console.log(r[0].special);
+
                 if (r[0].special) {
-                    $('#ve15').html('<span>' + r[0].special + '</span>');
+                    const sp = r[0]
+                        .special
+                        .split('\n');
+
+                    let spec = '';
+
+                    for (let i = 0; i < sp.length; i++) {
+                        spec += '<p>' + sp[i] + '</p>'
+                    }
+                    $('#ve15').html(spec);
                 } else {
                     $('#ve15').html('<span>&nbsp;</span>');
-                }
-                if (r[0].img1) {
-                    $('#ve16').attr('src', veFolder + r[0].img1);
-                    $('#ve16-1').attr('href', veFolder + r[0].img1);
-                } else {
-                    $('#ve16').attr('src', 'img/vehicle/bus1.png');
-                    $('#ve16-1').attr('href', 'img/vehicle/bus1.png');
-                }
-                if (r[0].img2) {
-                    $('#ve17').attr('src', veFolder + r[0].img2);
-                    $('#ve17-1').attr('href', veFolder + r[0].img2);
-                } else {
-                    $('#ve17').attr('src', 'img/vehicle/bus2.png');
-                    $('#ve17-1').attr('href', 'img/vehicle/bus2.png');
-                }
-                if (r[0].img3) {
-                    $('#ve18').attr('src', veFolder + r[0].img3);
-                    $('#ve18-1').attr('href', veFolder + r[0].img3);
-                } else {
-                    $('#ve18').attr('src', 'img/vehicle/bus3.png');
-                    $('#ve18-1').attr('href', 'img/vehicle/bus3.png');
                 }
                 if (r[0].color) {
                     $('#ve14').attr(
@@ -615,25 +612,55 @@ function getVeInfo(carNumber) {
                 }
 
                 if (r[0].img1) {
-                    updateImg(veFolder + r[0].img1, 've16');
-                    $('#ve16-1').attr('href', veFolder + r[0].img1);
+                    updateImg(veFolder + 'img/' + r[0].img1, 've16');
+                    $('#ve16-1').attr('href', veFolder + 'img/' + r[0].img1);
                 } else {
                     $('#ve16').attr('src', 'img/vehicle/bus1.png');
                     $('#ve16-1').attr('href', 'img/vehicle/bus1.png');
                 }
                 if (r[0].img2) {
-                    updateImg(veFolder + r[0].img2, 've17');
-                    $('#ve17-1').attr('href', veFolder + r[0].img2);
+                    updateImg(veFolder + 'img/' + r[0].img2, 've17');
+                    $('#ve17-1').attr('href', veFolder + 'img/' + r[0].img2);
                 } else {
                     $('#ve17').attr('src', 'img/vehicle/bus2.png');
                     $('#ve17-1').attr('href', 'img/vehicle/bus2.png');
                 }
                 if (r[0].img3) {
-                    updateImg(veFolder + r[0].img3, 've18');
-                    $('#ve18-1').attr('href', veFolder + r[0].img3);
+                    updateImg(veFolder + 'img/' + r[0].img3, 've18');
+                    $('#ve18-1').attr('href', veFolder + 'img/' + r[0].img3);
                 } else {
                     $('#ve18').attr('src', 'img/vehicle/bus3.png');
                     $('#ve18-1').attr('href', 'img/vehicle/bus3.png');
+                }
+
+                if (r[0].reg) {
+                    $('#ve21').html(
+                        '<a class="btn btn-success tct-item-btn" role="button" id="btn-reg"><span>' +
+                        r[0].regd + '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></i></a>'
+                    );
+                    $('#ve21-1').val(r[0].reg);
+                } else {
+                    $('#ve21').html(
+                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span>없&nbs' +
+                        'p;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></i' +
+                        '></a>'
+                    );
+                    $('#ve21-1').val('');
+                }
+
+                if (r[0].insu) {
+                    $('#ve22').html(
+                        '<a class="btn btn-success tct-item-btn" role="button" id="btn-insu"><span>' +
+                        r[0].insud + '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></i></a>'
+                    );
+                    $('#ve22-1').val(r[0].insu);
+                } else {
+                    $('#ve22').html(
+                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span>없&nb' +
+                        'sp;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></' +
+                        'i></a>'
+                    );
+                    $('#ve22-1').val('');
                 }
             }
         })
@@ -658,7 +685,7 @@ $(document).on('click', '#btn-x', function () {
 $(document).on('click', '#md-Ch', function () {
     if ($('#ve00').val()) {
         $('#modal-insert').modal('show')
-        $('#myModalLabel-insert').text('차량 정보 수정');
+        $('#myModalLabel-insert').text('  차량 정보 수정');
         setVeCh();
     } else {
         alert('수정 할 차량을 선택해주세요.');
@@ -667,13 +694,13 @@ $(document).on('click', '#md-Ch', function () {
 
 $(document).on('click', '#md-New', function () {
     $('#modal-insert').modal('show')
-    $('#myModalLabel-insert').text('차량 정보 신규 입력');
+    $('#myModalLabel-insert').text('  차량 정보 신규 입력');
     setEmpClr();
 });
 
 $(document).on('click', '#md-File', function () {
     $('#modal-file').modal('show')
-    $('#myModalLabel-file').text('차량명세서 생성');
+    $('#myModalLabel-file').text('  차량명세서 생성');
 });
 
 $('#imgSelector1').change(function () {
@@ -812,6 +839,10 @@ function setEmpClr() {
     setBorder();
     $('#vecarn').val('');
 
+    $('#ve-pic-pre1').attr('src', 'img/vehicle/bus1.png');
+    $('#ve-pic-pre2').attr('src', 'img/vehicle/bus2.png');
+    $('#ve-pic-pre3').attr('src', 'img/vehicle/bus3.png');
+
     $("#vehicle-1 option:eq(0)").prop("selected", true);
     $("#vehicle-2 option:eq(0)").prop("selected", true);
     $("#vehicle-3 option:eq(0)").prop("selected", true);
@@ -877,7 +908,6 @@ function insertVe(tp) {
                 cache: false,
                 timeout: 600000,
                 success: function (r) {
-                    console.log(r);
                     resolve(r);
                 }
             })
@@ -1073,9 +1103,28 @@ function insertVe(tp) {
                         "X-HTTP-Method-Override": "POST"
                     };
 
+                    const ccaarrnn = result.split('이미지')[0];
+                    const mg1 = result.split('이미지')[1];
+                    const mg2 = result.split('이미지')[2];
+                    const mg3 = result.split('이미지')[3];
+
+                    let iimmgg1 = '';
+                    let iimmgg2 = '';
+                    let iimmgg3 = '';
+
+                    if (mg1 == '1') {
+                        iimmgg1 = ccaarrnn + '_1.PNG'
+                    }
+                    if (mg2 == '1') {
+                        iimmgg2 = ccaarrnn + '_2.PNG'
+                    }
+                    if (mg3 == '1') {
+                        iimmgg3 = ccaarrnn + '_3.PNG'
+                    }
+
                     const params = {
                         "tp": tp,
-                        "carNumber": result,
+                        "carNumber": ccaarrnn,
                         "vehicle": vehicle,
                         "company": compa,
                         "owner": owner,
@@ -1093,7 +1142,10 @@ function insertVe(tp) {
                         "price": $('#price')
                             .val()
                             .replaceAll(',', ''),
-                        "special": $('#special').val()
+                        "special": $('#special').val(),
+                        "img1": iimmgg1,
+                        "img2": iimmgg2,
+                        "img3": iimmgg3
                     };
                     $.ajax({
                         url: url,
@@ -1102,7 +1154,6 @@ function insertVe(tp) {
                         dataType: "json",
                         data: JSON.stringify(params),
                         success: function (r) {
-                            console.log("결과는!?   " + r);
                             if (tp > 0) {
                                 refleshMsg("인사 정보 수정 완료 ");
                             } else {
@@ -1116,4 +1167,143 @@ function insertVe(tp) {
     }
 }
 
-$(document).on('click', '#btn-pdf-d', function () {});
+$(document).on('click', '#btn-excel-d', function () {
+    alert(
+        "'" + $('#compa-file').val() + "'의 차량명세서\nEXCEL 파일이 다운로드 됩니다.\n\n다운로드 완료 후 '다운로" +
+        "드 폴더'를 확인해주세요."
+    );
+    $('#down-form').attr('action', '/vehicle/excelDown');
+    $('#down-form').submit();
+    $('#modal-file').modal('hide');
+});
+
+$(document).on('click', '#btn-pdf-d', function () {
+    alert(
+        "'" + $('#compa-file').val() + "'의 차량명세서\nPDF 파일이 다운로드 됩니다.\n\n다운로드 완료 후 '다운로드 " +
+        "폴더'를 확인해주세요."
+    );
+    $('#down-form').attr('action', '/vehicle/pdfDown');
+    $('#down-form').submit();
+    $('#modal-file').modal('hide');
+});
+
+$(document).on('click', '#btn-reg', function () {
+    $('#modal-reg').modal('show')
+    $('#myModalLabel-reg').text('  차량등록증 조회 및 입력');
+    setReg();
+});
+
+$(document).on('click', '#btn-insu', function () {
+    $('#modal-insu').modal('show')
+    $('#myModalLabel-insu').text('  차량보험증서 조회 및 입력');
+    setInsu();
+});
+
+function setReg() {
+    $('#regcarn').val($('#ve00').val());
+
+    if ($('#ve21-1').val()) {
+        updateImg(veFolder + 'reg/' + $('#ve21-1').val(), 'reg-frame');
+    } else {
+        $('#reg-frame').attr('src', '');
+    }
+}
+
+function setInsu() {
+    $('#insucarn').val($('#ve00').val());
+
+    if ($('#ve22-1').val()) {
+        updateImg(veFolder + 'insu/' + $('#ve22-1').val(), 'insu-frame');
+    } else {
+        $('#insu-frame').attr('src', '');
+    }
+}
+
+$('#reg-selector').change(function () {
+    setPdfFromFile(this, '#reg-frame', '#reg-selector')
+});
+
+$('#insu-selector').change(function () {
+    setPdfFromFile(this, '#insu-frame', '#insu-selector')
+});
+
+$(document).on('click', '#reg-insert', function () {
+    if ($('#reg-selector').val()) {
+        LoadingWithMask();
+        var form = $('#form-reg')[0];
+        var data = new FormData(form);
+
+        const url = "/ve/veInsertRegPdf";
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: url,
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (r) {
+                closeLoadingWithMask();
+                switch (r) {
+                    case 1:
+                        refleshMsg("차량등로증 수정 완료");
+                        break;
+                    case 0:
+                        refleshMsg("차량등록증 수정 실패!\n\n다시 시도해 주세요.");
+                        break;
+                    case 2:
+                        refleshMsg("차량등록증 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        })
+    } else {
+        alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
+    }
+});
+
+$(document).on('click', '#insu-insert', function () {
+
+    if ($('#insu-selector').val()) {
+        LoadingWithMask();
+        var form = $('#form-insu')[0];
+        var data = new FormData(form);
+
+        console.log($('#insu-selector').val());
+
+        const url = "/ve/veInsertInsuPdf";
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: url,
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (r) {
+                closeLoadingWithMask();
+                switch (r) {
+                    case 1:
+                        refleshMsg("차량등로증 수정 완료");
+                        break;
+                    case 0:
+                        refleshMsg("차량등록증 수정 실패!\n\n다시 시도해 주세요.");
+                        break;
+                    case 2:
+                        refleshMsg("차량등록증 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        })
+    } else {
+        alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
+    }
+});

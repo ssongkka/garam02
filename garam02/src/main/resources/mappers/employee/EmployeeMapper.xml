@@ -129,8 +129,8 @@
 		goM =
 		#{gom},
 		sanM = #{sanm},
-		trash = #{trash},
-		<if test="img != null and img != '' ">img = #{img}</if>
+		<if test="img != null and img != '' ">img = #{img},</if>
+		trash = #{trash}
 
 		WHERE
 

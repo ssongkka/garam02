@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+    lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!-- Modal -->
+    <div
+        th:fragment="ve-MD-reg"
+        class="modal fade bs-example-modal-lg"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myLargeModalLabel"
+        aria-hidden="true"
+        id="modal-reg">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title fas fa-download" id="myModalLabel-reg">Modal title</h4>
+                </div>
+                <div class="modal-body mdb-reg">
+                    <div class="mdb-reg-item">
+                        <iframe class="mdb-reg-item-a" src="" frameborder="0" id="reg-frame"></iframe>
+                    </div>
+                    <div class="mdb-reg-item">
+                        <label class="file-la" for="reg-selector">파일선택</label>
+                        <form id="form-reg">
+                            <input type="file" name="uploadfile" id="reg-selector" style="display: none;">
+                            <input type="hidden" id="regcarn" name="regcarn" value="">
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫&nbsp;&nbsp;&nbsp;&nbsp;기</button>
+                    <button type="button" class="btn btn-primary" id="reg-insert">&nbsp;&nbsp;입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;력&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </div>

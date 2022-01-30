@@ -3,16 +3,22 @@
 <mapper namespace="com.garam.web.vehicle.mapper.VehicleMapper">
 
 	<sql id="veColumns">
-		vehicleinfo.carnumber, vehicleinfo.vehicle, vehicleinfo.company, IFNULL((SELECT
-		employeeinfo.name FROM employeeinfo WHERE
+		vehicleinfo.carnumber, vehicleinfo.vehicle,
+		vehicleinfo.company, IFNULL((SELECT
+		employeeinfo.name FROM employeeinfo
+		WHERE
 		employeeinfo.id=vehicleinfo.owner),
-		vehicleinfo.owner) AS owner, vehicleinfo.id, vehicleinfo.bus, vehicleinfo.brand,
+		vehicleinfo.owner) AS owner,
+		vehicleinfo.id, vehicleinfo.bus, vehicleinfo.brand,
 		vehicleinfo.vename, vehicleinfo.grade, vehicleinfo.fuel,
 		vehicleinfo.num,
-		vehicleinfo.color, vehicleinfo.carn, vehicleinfo.regist, vehicleinfo.expire,
-		vehicleinfo.price, vehicleinfo.special, vehicleinfo.img1,
+		vehicleinfo.color, vehicleinfo.carn,
+		vehicleinfo.regist, vehicleinfo.expire,
+		vehicleinfo.price,
+		vehicleinfo.special, vehicleinfo.img1,
 		vehicleinfo.img2,
-		vehicleinfo.img3, vehicleinfo.regd, vehicleinfo.reg, vehicleinfo.insud,
+		vehicleinfo.img3, vehicleinfo.regd, vehicleinfo.reg,
+		vehicleinfo.insud,
 		vehicleinfo.insu, vehicleinfo.jukd, vehicleinfo.juk,
 		vehicleinfo.trash,
 		employeeinfo.name
@@ -21,15 +27,21 @@
 	<insert id="insertVe"
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
-		INSERT INTO vehicleinfo (carnumber, vehicle, company, owner, id, bus, brand,
-		vename, grade, fuel, num, color, carn, regist, expire, price, special,
+		INSERT INTO vehicleinfo (carnumber, vehicle, company,
+		owner, id, bus, brand,
+		vename, grade, fuel, num, color, carn, regist,
+		expire, price, special,
 		img1,
-		img2, img3, regd, reg, insud, insu, jukd, juk, trash) VALUES (
+		img2, img3, regd, reg, insud, insu, jukd,
+		juk, trash) VALUES (
 		#{carNumber},
-		#{vehicle}, #{company}, #{owner}, #{id}, #{bus}, #{brand}, #{vename}, #{grade},
-		#{fuel}, #{num}, #{color}, #{carn}, #{regist}, #{expire}, #{price},
+		#{vehicle}, #{company}, #{owner},
+		#{id}, #{bus}, #{brand}, #{vename}, #{grade},
+		#{fuel}, #{num},
+		#{color}, #{carn}, #{regist}, #{expire}, #{price},
 		#{special},
-		#{img1}, #{img2}, #{img3}, null, null, null, null, null, null, 1 );
+		#{img1},
+		#{img2}, #{img3}, null, null, null, null, null, null, 1 );
 
 	</insert>
 
@@ -37,10 +49,13 @@
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 		UPDATE vehicleinfo SET vehicle = #{vehicle}, company = #{company},
 		owner =
-		#{owner}, id = #{id}, bus = #{bus}, brand = #{brand}, vename = #{vename}, grade
-		= #{grade}, fuel = #{fuel}, num = #{num}, color = #{color}, carn =
+		#{owner}, id = #{id}, bus = #{bus}, brand = #{brand}, vename =
+		#{vename}, grade
+		= #{grade}, fuel = #{fuel}, num = #{num}, color =
+		#{color}, carn =
 		#{carn},
-		regist = #{regist}, expire = #{expire}, price = #{price},
+		regist = #{regist}, expire = #{expire}, price
+		= #{price},
 
 		<if test="img1 != null and img1 != '' ">
 			img1 = #{img1},
@@ -51,8 +66,9 @@
 		<if test="img3 != null and img3 != '' ">
 			img3 = #{img3},
 		</if>
+		special = #{special}
 
-		special = #{special} WHERE carnumber = #{carNumber};
+		WHERE carnumber = #{carNumber};
 	</update>
 
 	<update id="updateVePDF"
@@ -80,6 +96,7 @@
 		<if test="juk != null and juk != '' ">
 			juk = #{juk},
 		</if>
+		trash = 1
 
 		WHERE carnumber = #{carNumber};
 
@@ -88,7 +105,14 @@
 	<update id="deleteVe"
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
-		UPDATE vehicleinfo SET trash = 1 WHERE carnumber = #{carNumber};
+		UPDATE vehicleinfo
+
+		SET trash = 0
+
+		WHERE
+
+		carnumber =
+		#{carNumber};
 
 	</update>
 
@@ -98,11 +122,13 @@
 
 		SELECT vehicleinfo.carnumber, vehicleinfo.vehicle,
 		vehicleinfo.company,
-		IFNULL((SELECT employeeinfo.name FROM employeeinfo WHERE
+		IFNULL((SELECT employeeinfo.name FROM employeeinfo
+		WHERE
 		employeeinfo.id=vehicleinfo.owner), vehicleinfo.owner) AS owner,
 		vehicleinfo.regist, vehicleinfo.bus, vehicleinfo.trash,
 		employeeinfo.name FROM
-		vehicleinfo LEFT JOIN employeeinfo ON vehicleinfo.id = employeeinfo.id
+		vehicleinfo LEFT JOIN employeeinfo ON
+		vehicleinfo.id = employeeinfo.id
 
 		<where>
 			<if test="vehicle != null">AND vehicleinfo.vehicle Like CONCAT('%',#{vehicle},'%')
@@ -115,7 +141,18 @@
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
-		SELECT * FROM vehicleinfo WHERE company = #{compa} ORDER BY vehicle;
+		SELECT
+		*
+		FROM
+		vehicleinfo
+
+		WHERE
+		company = #{compa}
+		AND
+		trash = 1
+
+		ORDER BY
+		vehicle;
 	</select>
 
 	<select id="selectVeDetail"

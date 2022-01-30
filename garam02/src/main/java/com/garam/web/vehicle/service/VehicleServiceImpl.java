@@ -4,7 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
@@ -13,6 +16,14 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,12 +75,17 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 
 		if (vehicleInfoDTO.getSpecial() == null || vehicleInfoDTO.getSpecial().equals("")) {
-			vehicleInfoDTO.setSpecial("");
+			vehicleInfoDTO.setSpecial(null);
 		}
-
-		vehicleInfoDTO.setImg1(vehicleInfoDTO.getCarNumber() + "_1.png");
-		vehicleInfoDTO.setImg2(vehicleInfoDTO.getCarNumber() + "_2.png");
-		vehicleInfoDTO.setImg3(vehicleInfoDTO.getCarNumber() + "_3.png");
+		if (vehicleInfoDTO.getImg1() == null || vehicleInfoDTO.getImg1().equals("")) {
+			vehicleInfoDTO.setImg1(null);
+		}
+		if (vehicleInfoDTO.getImg2() == null || vehicleInfoDTO.getImg2().equals("")) {
+			vehicleInfoDTO.setImg2(null);
+		}
+		if (vehicleInfoDTO.getImg3() == null || vehicleInfoDTO.getImg3().equals("")) {
+			vehicleInfoDTO.setImg3(null);
+		}
 
 		switch (vehicleInfoDTO.getTp()) {
 		case 0:
@@ -87,6 +103,7 @@ public class VehicleServiceImpl implements VehicleService {
 	public String uploadVePic(String carnumber, MultipartFile[] files) throws Exception {
 		String rtn = "";
 		String carN = "";
+		String img = "";
 
 		if (carnumber.length() > 0) {
 			carN = carnumber;
@@ -102,10 +119,10 @@ public class VehicleServiceImpl implements VehicleService {
 
 					InputStream inputStream = new BufferedInputStream(files[i].getInputStream());
 
-					String filename = ftpmanager.getCarFolder() + carN + "_" + (i + 1) + ".png";
+					String filename = ftpmanager.getCarFolder() + "img/" + carN + "_" + (i + 1) + ".PNG";
 
 					if (ftp.storeFile(filename, inputStream)) {
-						rtn = carN;
+						img += "이미지" + "1";
 					} else {
 						rtn = "2";
 					}
@@ -113,10 +130,16 @@ public class VehicleServiceImpl implements VehicleService {
 					rtn = "2";
 				}
 			} else {
-				rtn = carN;
+				img += "이미지" + "2";
 			}
-
 		}
+
+		if (!rtn.equals("2")) {
+			rtn = carN + img;
+		}
+
+		System.out.println("야호   " + rtn);
+
 		ftpmanager.disconnect(ftp);
 
 		return rtn;
@@ -164,8 +187,7 @@ public class VehicleServiceImpl implements VehicleService {
 		PDFUtil pdfU = new PDFUtil();
 
 		Document document = null;
-		String name = "차량명세서_" + "_" + LocalDate.now().toString() + ".PDF";
-		File file = new File("tmpCars.PDF");
+		File file = new File("tmp.PDF");
 
 		try {
 			document = pdfU.getDocument();
@@ -260,7 +282,6 @@ public class VehicleServiceImpl implements VehicleService {
 
 			document.add(table);
 
-			System.out.println("요요요   " + document);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -272,4 +293,177 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return file;
 	}
+
+	@Override
+	public File veDownExcel(String compa) {
+		HSSFWorkbook wb = null;
+		FileOutputStream fileoutputstream = null;
+
+		try {
+			List<VehicleInfoDTO> list = vehicleMapper.selectVeAllPrint(compa);
+
+			String url = "src/main/resources/static/excel/car.xls";
+
+			FileInputStream fis = new FileInputStream(url);
+
+			wb = new HSSFWorkbook(fis);
+			HSSFSheet sheet = wb.getSheetAt(0);
+
+			CellStyle style0 = wb.createCellStyle();
+			style0.setAlignment(HorizontalAlignment.LEFT);
+
+			HSSFRow rowCont = sheet.createRow(1);
+			HSSFCell cellCont = rowCont.createCell(0);
+			cellCont.setCellStyle(style0);
+			cellCont.setCellValue("회사명 : " + compa);
+
+			CellStyle style1 = wb.createCellStyle();
+			style1.setAlignment(HorizontalAlignment.RIGHT);
+			cellCont = rowCont.createCell(5);
+			cellCont.setCellStyle(style1);
+			cellCont.setCellValue("기준일 : " + LocalDate.now().toString());
+
+			CellStyle style = wb.createCellStyle();
+			style.setBorderBottom(BorderStyle.THIN);
+			style.setBorderTop(BorderStyle.THIN);
+			style.setBorderRight(BorderStyle.THIN);
+			style.setBorderLeft(BorderStyle.THIN);
+
+			style.setAlignment(HorizontalAlignment.CENTER);
+			style.setVerticalAlignment(VerticalAlignment.CENTER);
+
+			int rowNO = 3;
+
+			for (int i = 0; i < list.size(); i++) {
+				int cellNo = 0;
+				HSSFRow row = sheet.createRow(rowNO++);
+				HSSFCell cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(i + 1);
+
+				cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getVehicle());
+
+				cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getVename());
+
+				cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getCarn());
+
+				cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getBrand());
+
+				cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(Integer.parseInt(list.get(i).getRegist().split("-")[0]));
+
+				cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(Integer.parseInt(list.get(i).getNum()));
+
+				cell = row.createCell(cellNo++);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getExpire());
+
+			}
+
+			fileoutputstream = new FileOutputStream("tmp.XLS");
+			wb.write(fileoutputstream);
+
+			fileoutputstream.close();
+
+			wb.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		}
+
+		return new File("tmp.XLS");
+	}
+
+	@Override
+	public int updateVeRegPDF(String carnumber, MultipartFile[] files) throws Exception {
+
+		int rtn = 0;
+		String fileName = carnumber + "_Reg.PDF";
+
+		FTPClient ftp = ftpmanager.connect();
+		if (files[0].getSize() > 0) {
+			if (ftp.isConnected()) {
+				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
+
+				String filename = ftpmanager.getCarFolder() + "reg/" + fileName;
+
+				if (ftp.storeFile(filename, inputStream)) {
+					VehicleInfoDTO dto = new VehicleInfoDTO();
+
+					dto.setCarNumber(carnumber);
+					dto.setRegd(LocalDate.now().toString());
+					dto.setReg(fileName);
+
+					rtn = vehicleMapper.updateVePDF(dto);
+
+				} else {
+					rtn = 2;
+				}
+			} else {
+				rtn = 2;
+			}
+		} else {
+			rtn = 2;
+		}
+
+		ftpmanager.disconnect(ftp);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateVeInsuPDF(String carnumber, MultipartFile[] files) throws Exception {
+		int rtn = 0;
+		String fileName = carnumber + "_Insu.PDF";
+
+		FTPClient ftp = ftpmanager.connect();
+		if (files[0].getSize() > 0) {
+			if (ftp.isConnected()) {
+				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
+
+				String filename = ftpmanager.getCarFolder() + "insu/" + fileName;
+
+				if (ftp.storeFile(filename, inputStream)) {
+					VehicleInfoDTO dto = new VehicleInfoDTO();
+
+					dto.setCarNumber(carnumber);
+					dto.setInsud(LocalDate.now().toString());
+					dto.setInsu(fileName);
+
+					rtn = vehicleMapper.updateVePDF(dto);
+
+				} else {
+					rtn = 2;
+				}
+			} else {
+				rtn = 2;
+			}
+		} else {
+			rtn = 2;
+		}
+
+		ftpmanager.disconnect(ftp);
+
+		return rtn;
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.garam.web.vehicle.service;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.List;
 
@@ -18,4 +17,10 @@ public interface VehicleService {
 	public String uploadVePic(String carnumber, MultipartFile[] files) throws Exception;
 
 	public File veDownPdf(String compa) throws Exception;
+
+	public File veDownExcel(String compa) throws Exception;
+
+	public int updateVeRegPDF(String carnumber, MultipartFile[] files) throws Exception;
+
+	public int updateVeInsuPDF(String carnumber, MultipartFile[] files) throws Exception;
 }

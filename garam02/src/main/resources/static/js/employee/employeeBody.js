@@ -37,7 +37,6 @@ function getEmpAll(name) {
             let cntOutman = 0;
 
             for (let i = 0; i < r.length; i++) {
-
                 if (r[i].trash == 1) {
                     cnt++;
 
@@ -48,6 +47,20 @@ function getEmpAll(name) {
                     htmls += r[i].name;
                     htmls += '</span>'
                     htmls += '</td>'
+                    if (r[i].vehicle) {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += r[i]
+                            .vehicle
+                            .substring(r[i].vehicle.length - 4);
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    } else {
+                        htmls += '<td>'
+                        htmls += '<span>'
+                        htmls += '</span>'
+                        htmls += '</td>'
+                    }
                     if (r[i].kind) {
                         htmls += '<td>'
                         htmls += '<span>'
@@ -60,6 +73,7 @@ function getEmpAll(name) {
                         htmls += '</span>'
                         htmls += '</td>'
                     }
+
                     if (r[i].birthday) {
                         htmls += '<td>'
                         htmls += '<span>'
@@ -84,18 +98,7 @@ function getEmpAll(name) {
                         htmls += '</span>'
                         htmls += '</td>'
                     }
-                    if (r[i].vehicle) {
-                        htmls += '<td>'
-                        htmls += '<span>'
-                        htmls += r[i].vehicle;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td>'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    }
+
                     if (r[i].bus) {
                         htmls += '<td>'
                         htmls += '<span>'
@@ -156,30 +159,6 @@ function getEmpAll(name) {
                         htmlsOutman += '</span>'
                         htmlsOutman += '</td>'
                     }
-                    if (r[i].vehicle) {
-                        htmlsOutman += '<td>'
-                        htmlsOutman += '<span>'
-                        htmlsOutman += r[i].vehicle;
-                        htmlsOutman += '</span>'
-                        htmlsOutman += '</td>'
-                    } else {
-                        htmlsOutman += '<td>'
-                        htmlsOutman += '<span>'
-                        htmlsOutman += '</span>'
-                        htmlsOutman += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsOutman += '<td>'
-                        htmlsOutman += '<span>'
-                        htmlsOutman += r[i].bus;
-                        htmlsOutman += '</span>'
-                        htmlsOutman += '</td>'
-                    } else {
-                        htmlsOutman += '<td>'
-                        htmlsOutman += '<span>'
-                        htmlsOutman += '</span>'
-                        htmlsOutman += '</td>'
-                    }
                     htmlsOutman += '</tr>'
                 }
 
@@ -193,6 +172,20 @@ function getEmpAll(name) {
                     htmlsCompa += r[i].name;
                     htmlsCompa += '</span>'
                     htmlsCompa += '</td>'
+                    if (r[i].vehicle) {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += r[i]
+                            .vehicle
+                            .substring(r[i].vehicle.length - 4);
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    } else {
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span>'
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                    }
                     if (r[i].kind) {
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span>'
@@ -229,18 +222,6 @@ function getEmpAll(name) {
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     }
-                    if (r[i].vehicle) {
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].vehicle;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    }
                     if (r[i].bus) {
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span>'
@@ -265,6 +246,20 @@ function getEmpAll(name) {
                     htmlsSolo += r[i].name;
                     htmlsSolo += '</span>'
                     htmlsSolo += '</td>'
+                    if (r[i].vehicle) {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += r[i]
+                            .vehicle
+                            .substring(r[i].vehicle.length - 4);
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    } else {
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span>'
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                    }
                     if (r[i].kind) {
                         htmlsSolo += '<td>'
                         htmlsSolo += '<span>'
@@ -293,18 +288,6 @@ function getEmpAll(name) {
                         htmlsSolo += '<td>'
                         htmlsSolo += '<span>'
                         htmlsSolo += r[i].age;
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
-                    } else {
-                        htmlsSolo += '<td>'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
-                    }
-                    if (r[i].vehicle) {
-                        htmlsSolo += '<td>'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += r[i].vehicle;
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
                     } else {
@@ -365,30 +348,6 @@ function getEmpAll(name) {
                         htmlsYeb += '<td>'
                         htmlsYeb += '<span>'
                         htmlsYeb += r[i].age;
-                        htmlsYeb += '</span>'
-                        htmlsYeb += '</td>'
-                    } else {
-                        htmlsYeb += '<td>'
-                        htmlsYeb += '<span>'
-                        htmlsYeb += '</span>'
-                        htmlsYeb += '</td>'
-                    }
-                    if (r[i].vehicle) {
-                        htmlsYeb += '<td>'
-                        htmlsYeb += '<span>'
-                        htmlsYeb += r[i].vehicle;
-                        htmlsYeb += '</span>'
-                        htmlsYeb += '</td>'
-                    } else {
-                        htmlsYeb += '<td>'
-                        htmlsYeb += '<span>'
-                        htmlsYeb += '</span>'
-                        htmlsYeb += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsYeb += '<td>'
-                        htmlsYeb += '<span>'
-                        htmlsYeb += r[i].bus;
                         htmlsYeb += '</span>'
                         htmlsYeb += '</td>'
                     } else {
@@ -583,8 +542,8 @@ function getEmpInfo(id) {
                 }
 
                 if (r[0].img) {
-                    updateImg(empFolder + r[0].img, 'empPic');
-                    $('#empPic-a').attr('href', empFolder + r[0].img);
+                    updateImg(empFolder + 'img/' + r[0].img, 'empPic');
+                    $('#empPic-a').attr('href', empFolder + 'img/' + r[0].img);
                 } else {
                     $('#empPic').attr('src', 'img/employee/emp.png');
                     $('#empPic-a').attr('href', 'img/employee/emp.png');
@@ -681,6 +640,9 @@ function setEmpClr() {
     setBorder();
 
     $('#id').val('');
+
+    $('#emp-pic-pre').attr('src', 'img/employee/emp.png');
+
     $('#name').val('');
     $('#birthday').val('');
     $("#gender option:eq(0)").prop("selected", true);
@@ -793,9 +755,17 @@ function insertEmp(tp) {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
+
+        const iidd = id.split('이미지')[0];
+        const iimmgg = id.split('이미지')[1];
+        let inimg = '';
+
+        if (iimmgg == '1') {
+            inimg = iidd + '.PNG';
+        }
         const params = {
             "tp": tp,
-            "id": id,
+            "id": iidd,
             "company": $('#company').val(),
             "kind": $('#kind').val(),
             "joind": $('#joind').val(),
@@ -820,7 +790,7 @@ function insertEmp(tp) {
             "gunm": $('#gunm').val(),
             "gom": $('#gom').val(),
             "sanm": $('#sanm').val(),
-            "img": id + '.png'
+            "img": inimg
         };
         $.ajax({
             url: url,
@@ -829,8 +799,6 @@ function insertEmp(tp) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
-                console.log("결과는!?   " + r);
-
                 if (tp > 0) {
                     refleshMsg("인사 정보 수정 완료");
                 } else {

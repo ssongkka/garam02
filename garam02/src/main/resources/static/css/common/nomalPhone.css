@@ -1,0 +1,37 @@
+@media (max-width:992px) {
+    .nomal-head {
+        position: fixed;
+        z-index: 1050;
+        display: flex;
+        width: 100%;
+        height: 5rem;
+        padding: 1rem 3rem;
+
+        background: blue;
+    }
+    .nomal-head-item {
+        display: flex;
+        align-items: center;
+    }
+    .nomal-head-item:nth-child(1) {
+        flex: 1;
+    }
+    .nomal-head-item:nth-child(2) {}
+    .nomal-head a {
+        font-size: 3rem;
+    }
+
+    .nomal-main {
+        padding: 5rem 0 0;
+    }
+
+    .nomal-aside {
+        width: 0;
+        right: 30%;
+    }
+
+    .main-aside {
+        padding: 1rem;
+        flex-direction: column;
+    }
+}

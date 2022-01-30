@@ -50,10 +50,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
 
-				filename = ftpmanager.getEmpFolder() + iidd + ".png";
+				filename = ftpmanager.getEmpFolder() + "img/" + iidd + ".PNG";
 
 				if (ftp.storeFile(filename, inputStream)) {
-					rtn = iidd;
+					rtn = iidd + "이미지" + "1";
 				} else {
 					rtn = "2";
 				}
@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 				rtn = "2";
 			}
 		} else {
-			rtn = iidd;
+			rtn = iidd + "이미지" + "2";
 		}
 
 		return rtn;

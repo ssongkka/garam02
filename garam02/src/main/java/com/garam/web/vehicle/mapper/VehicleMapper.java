@@ -17,4 +17,6 @@ public interface VehicleMapper {
 	public List<VehicleInfoDTO> selectVeDetail(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectVeAllPrint(String compa) throws Exception;
+
+	public int updateVePDF(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

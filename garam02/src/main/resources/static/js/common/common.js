@@ -4,10 +4,48 @@ class dateUtil {
     }
 }
 
-const empFolder = 'http://192.168.35.136:8000/list/HDD2/src/img/emp/';
-const veFolder = 'http://192.168.35.136:8000/list/HDD2/src/img/ve/';
+const empFolder = 'http://192.168.35.136:8000/list/HDD2/src/emp/';
+const veFolder = 'http://192.168.35.136:8000/list/HDD2/src/ve/';
 
 const tableCh = '#337ab7';
+
+function LoadingWithMask() {
+    //화면의 높이와 너비를 구합니다.
+    var maskHeight = $(document).height();
+    var maskWidth = window.document.body.clientWidth;
+
+    //화면에 출력할 마스크를 설정해줍니다.
+
+    mask = `<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'>
+    <div id='loadingImg' style="padding-top: 30vh;>
+    <?xml version="1.0" encoding="utf-8"?>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(0, 0, 0, 0.3); display: block; shape-rendering: auto;" width="150px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+    <circle cx="50" cy="50" r="0" fill="none" stroke="#e90c59" stroke-width="10">
+    <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="0s"></animate>
+    <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="0s"></animate>
+    </circle><circle cx="50" cy="50" r="0" fill="none" stroke="#46dff0" stroke-width="10">
+    <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="-0.5s"></animate>
+    <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="-0.5s"></animate>
+    </circle>
+    </svg>
+    </div>
+    </div>`;
+
+    //화면에 레이어 추가
+    $('body').append(mask);
+    // .append(loadingImg) 마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+    $('#mask').css({'width': '100%', 'height': '100vh', 'opacity': '0.3'});
+
+    //마스크 표시
+    $('#mask').show();
+
+    //로딩중 이미지 표시 $('#loadingImg').show();
+}
+
+function closeLoadingWithMask() {
+    $('#mask').hide();
+    $('#mask').remove();
+}
 
 function leftPad(value) {
     if (value >= 10) {
@@ -243,6 +281,27 @@ function setImageFromFile(input, expression, id) {
         }
     } else {
         $(expression).attr('src', 'img/employee/emp.png');
+    }
+}
+
+function setPdfFromFile(input, expression, id) {
+    const aaa = $(id)
+        .val()
+        .split('\\');
+    const bbb = aaa[aaa.length - 1].split('.');
+    const imgName = bbb[1];
+    if (input.files && input.files[0]) {
+        console.log(input.files);
+        console.log(input.files[0]);
+        if (imgName == 'pdf') {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(expression).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            alert("pdf 파일이 아닙니다.\n'pdf' 형식의 파일을 선택해 주세요.");
+        }
     }
 }
 

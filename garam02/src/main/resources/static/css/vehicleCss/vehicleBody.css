@@ -36,6 +36,7 @@
 
 .ve-title {
     display: flex;
+    flex-direction: row;
     gap: 1rem;
 }
 
@@ -115,6 +116,8 @@
 
 .title-content-title1 {
     display: flex;
+    flex-direction: row;
+    gap: 0;
     height: 100%;
 }
 
@@ -178,7 +181,7 @@
     flex-direction: column;
 }
 
-.modal-footer {
+.mdf-insert {
     display: flex;
     gap: 2rem;
 }
@@ -272,4 +275,86 @@
 .btn-pdf {
     color: #c80a0a;
     font-size: 2rem;
+}
+
+.title-content-item-down {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+.title-content-item-down .title-content-item {
+    flex: 1;
+}
+.title-content-item-down .title-content-item:nth-child(2) {
+    display: flex;
+}
+.title-content-item-down .title-content-item:nth-child(2) .title-content-title1 {
+    width: 100%;
+}
+.title-content-item-down .title-content-item:nth-child(2) .title-content-title1 blockquote {
+    flex: 1;
+}
+
+.tct-item-btn {
+    padding: 0.1rem 0.6rem;
+}
+
+.mdb-reg {
+    display: flex;
+    flex-direction: column;
+}
+.mdb-reg-item:nth-child(1) {}
+.mdb-reg-item:nth-child(2) {
+    display: flex;
+}
+.mdb-reg-item:nth-child(2) label {
+    width: 100%;
+}
+
+.mdb-reg-item-a {
+    width: 100%;
+    height: 70vh;
+}
+
+.cont {
+    min-height: 48.5vh;
+
+    padding: 2rem;
+}
+
+@media (max-width:992px) {
+    .ve-title {
+        flex-direction: column;
+    }
+
+    .title-content-item-down {
+        gap: 1rem;
+        flex-direction: column;
+    }
+
+    .iimmgg {
+        min-height: 15rem;
+        max-height: 15rem;
+    }
+
+    .tct-item1:nth-child(1) {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+    .tct-item1:nth-child(2) {
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+
+    .tct-item:nth-child(1) {
+        font-size: 1.4rem;
+    }
+    .tct-item:nth-child(2) {
+        font-size: 1.6rem;
+    }
+
+    .title-content-title1 {
+        flex-direction: column;
+        gap: 2rem;
+    }
 }

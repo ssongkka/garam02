@@ -1,20 +1,8 @@
 package com.garam.web.vehicle.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Files;
 import java.util.List;
 
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.InputStreamSource;
-import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,4 +59,23 @@ public class RestVehicleController {
 
 		return list;
 	}
+
+	@PostMapping(value = "/veInsertRegPdf")
+	public int veInsertRegPdf(@RequestParam("regcarn") String vecarn, @RequestParam("uploadfile") MultipartFile[] files)
+			throws Exception {
+
+		int rtn = vehicleService.updateVeRegPDF(vecarn, files);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/veInsertInsuPdf")
+	public int veInsertInsuPdf(@RequestParam("insucarn") String vecarn,
+			@RequestParam("uploadfile") MultipartFile[] files) throws Exception {
+
+		int rtn = vehicleService.updateVeInsuPDF(vecarn, files);
+
+		return rtn;
+	}
+
 }

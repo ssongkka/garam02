@@ -1,3 +1,6 @@
+.nomal-head {
+    display: none;
+}
 .nomal-main {
     background: #f6f7f9;
     padding-left: 50rem;
@@ -5,8 +8,9 @@
 }
 
 .nomal-aside {
+    display: block;
     background: #f6f7f9;
-    border-right: 1px solid rgba(20,20,31,.05);
+    border-right: 3px solid rgba(20,20,31,.05);
     width: 50rem;
 
     position: fixed;

@@ -22,7 +22,7 @@
                     <h4 class="modal-title fas fa-download" id="myModalLabel-file">Modal title</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/vehicle/pdfDown" method="get" id="pdf-form">
+                    <form action="" method="get" id="down-form">
                         <div class="form-group">
                             <label for="compa-file">회사</label>
                             <select class="form-control input-sm" id="compa-file" name="compa">
@@ -33,13 +33,7 @@
                                     th:data-value="${company.company}"></option>
                             </select>
                         </div>
-                        <button type="submit">asdsad</button>
                     </form>
-                    <div class="form-group">
-                        <label for="regist-file">기준일
-                        </label>
-                        <input type="date" class="form-control input-sm" id="regist-file">
-                    </div>
                     <div class="md-file">
                         <a id="btn-excel-d" class="">EXCEL 파일 생성&nbsp;
                             <i class="far fa-file-excel btn-excel"></i>

@@ -179,9 +179,7 @@ ul {
         padding: 1rem;
     }
 
-    .home-main-item-2 {
-        display: none;
-    }
+    .home-main-item-2 {}
 
     .home-main-item-1 {
         display: grid;
