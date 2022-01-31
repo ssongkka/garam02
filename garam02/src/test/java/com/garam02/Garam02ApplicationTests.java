@@ -26,11 +26,13 @@ class Garam02ApplicationTests {
 	@Test
 	void contextLoads() {
 		try {
-//			vehicleController.veDownPdf();
+			List<VehicleInfoDTO> ccc = aaa.selectVeAll(null);
+			System.out.println(ccc);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println();
 	}
 
 	@Test

@@ -177,7 +177,8 @@
 		vehicleinfo.id
 
 		<where>
-			<if test="name != null">AND employeeinfo.name Like CONCAT('%',#{name},'%') </if>
+			<if test="name != null">OR employeeinfo.name Like CONCAT('%',#{name},'%') </if>
+			<if test="name != null">OR vehicleinfo.vehicle Like CONCAT('%',#{name},'%') </if>
 		</where>
 
 		ORDER BY name;

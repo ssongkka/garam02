@@ -74,7 +74,7 @@ public class RestVehicleController {
 			@RequestParam("uploadfile") MultipartFile[] files) throws Exception {
 
 		int rtn = vehicleService.updateVeInsuPDF(vecarn, files);
-
+		System.out.println("왔냐!?????");
 		return rtn;
 	}
 

@@ -173,8 +173,8 @@ th {
     text-align: center;
     font-weight: 500;
     font-size: 1.3rem;
-    background-color: #86c535;
+    background-color: #e2e2e2;
     border-radius: 4px;
-    color: white;
+    color: rgb(40, 40, 40);
     cursor: pointer;
 }

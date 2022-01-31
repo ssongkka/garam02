@@ -93,6 +93,9 @@ $("#ctmname").change(function () {
                 $('#ctmno').val('0');
                 $('#ctmtrash').val(2);
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     });
 });
@@ -195,11 +198,7 @@ function ernm() {
 }
 
 $(document).on('click', '#insert-rsvt', function () {
-    if (condition) {
-        
-    } else {
-        
-    }
+    if (condition) {} else {}
 
     let money = $('#conm2')
         .val()

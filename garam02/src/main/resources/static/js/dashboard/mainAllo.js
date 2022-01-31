@@ -46,7 +46,6 @@ function getAlloList(day) {
                 success: function (r) {
 
                     if (r.length > 0) {
-                        console.log("길이는!!??  " + r.length);
                         let ctmseqArr = new Array();
                         let htmls = '';
                         for (let i = 0; i < r.length; i++) {

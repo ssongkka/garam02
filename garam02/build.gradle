@@ -45,6 +45,9 @@ dependencies {
 	implementation 'org.apache.poi:poi-scratchpad:4.1.2'
 	implementation 'org.apache.poi:poi-excelant:4.1.2'
 	
+	implementation 'org.apache.pdfbox:pdfbox:2.0.25'
+	implementation 'org.apache.pdfbox:pdfbox-tools:2.0.25'
+	
     compileOnly 'org.springframework.boot:spring-boot-devtools'
     
     developmentOnly 'org.springframework.boot:spring-boot-devtools' 

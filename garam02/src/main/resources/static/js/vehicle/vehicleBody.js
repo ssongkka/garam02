@@ -5,22 +5,60 @@ $(document).ready(function () {
     getVeAll();
 });
 
+$('#sel-ve-1').change(function () {
+    const idVal = $('#sel-ve-1').val();
+    const iidd = $('#sel-ve-1 option')
+        .filter(function () {
+            return this.value == idVal;
+        })
+        .data('id');
+    $('#sel-emp-1').val(iidd);
+});
+$('#sel-ve-2').change(function () {
+    const idVal = $('#sel-ve-2').val();
+    const iidd = $('#sel-ve-2 option')
+        .filter(function () {
+            return this.value == idVal;
+        })
+        .data('id');
+    $('#sel-emp-2').val(iidd);
+});
+$('#sel-ve-3').change(function () {
+    const idVal = $('#sel-ve-3').val();
+    const iidd = $('#sel-ve-3 option')
+        .filter(function () {
+            return this.value == idVal;
+        })
+        .data('id');
+    $('#sel-emp-3').val(iidd);
+});
+$('#sel-ve-4').change(function () {
+    const idVal = $('#sel-ve-4').val();
+    const iidd = $('#sel-ve-4 option')
+        .filter(function () {
+            return this.value == idVal;
+        })
+        .data('id');
+    $('#sel-emp-4').val(iidd);
+});
+$('#sel-ve-5').change(function () {
+    const idVal = $('#sel-ve-5').val();
+    const iidd = $('#sel-ve-5 option')
+        .filter(function () {
+            return this.value == idVal;
+        })
+        .data('id');
+    $('#sel-emp-5').val(iidd);
+});
+
 $(document).on('click', '#show-aside', function () {
-    if ($('#show-aside-hd').val() > 0) {
-        $('.nomal-aside')
-            .css('width', '0')
-            .css('margin-top', '0')
-            .hide();
-        $('.nomal-main').show();
-        $('#show-aside-hd').val(0);
-    } else {
-        $('.nomal-aside')
-            .css('width', '100%')
-            .css('margin-top', '5rem')
-            .show();;
-        $('.nomal-main').hide();
-        $('#show-aside-hd').val(1);
-    }
+    // if ($('#show-aside-hd').val() > 0) {     $('.nomal-aside').attr('class','');
+    // $('#show-aside-hd').val(0); } else {     $('.nomal-aside') .css('width',
+    // '70%')         .css('margin-top', '5rem'); $('#show-aside-hd').val(1); }
+    let navbar = document.querySelector('.nomal-aside');
+    navbar
+        .classList
+        .toggle('active');
 });
 
 function getVeAll(vehicle) {
@@ -64,13 +102,13 @@ function getVeAll(vehicle) {
                     htmls += '<tr id="' + r[i].carNumber + 'cut" onclick="getVeInfo(this.id)" style="cursor:' +
                             'pointer;">';
                     htmls += '<td>'
-                    htmls += '<span>'
+                    htmls += '<span class="tr-ve">'
                     htmls += r[i].vehicle2;
                     htmls += '</span>'
                     htmls += '</td>'
                     if (r[i].name) {
                         htmls += '<td>'
-                        htmls += '<span>'
+                        htmls += '<span class="tr-emp">'
                         htmls += r[i].name;
                         htmls += '</span>'
                         htmls += '</td>'
@@ -123,7 +161,7 @@ function getVeAll(vehicle) {
                     htmlsEnd += '<tr id="' + r[i].carNumber + 'cutEnd" onclick="getVeInfo(this.id)" style="curs' +
                             'or:pointer;">';
                     htmlsEnd += '<td>'
-                    htmlsEnd += '<span>'
+                    htmlsEnd += '<span class="tr-ve">'
                     htmlsEnd += r[i].vehicle2;
                     htmlsEnd += '</span>'
                     htmlsEnd += '</td>'
@@ -170,13 +208,13 @@ function getVeAll(vehicle) {
                     htmlsDae += '<tr id="' + r[i].carNumber + 'cutDae" onclick="getVeInfo(this.id)" style="curs' +
                             'or:pointer;">';
                     htmlsDae += '<td>'
-                    htmlsDae += '<span>'
+                    htmlsDae += '<span class="tr-ve">'
                     htmlsDae += r[i].vehicle2;
                     htmlsDae += '</span>'
                     htmlsDae += '</td>'
                     if (r[i].name) {
                         htmlsDae += '<td>'
-                        htmlsDae += '<span>'
+                        htmlsDae += '<span class="tr-emp">'
                         htmlsDae += r[i].name;
                         htmlsDae += '</span>'
                         htmlsDae += '</td>'
@@ -229,13 +267,13 @@ function getVeAll(vehicle) {
                     htmlsJung += '<tr id="' + r[i].carNumber + 'cutJung" onclick="getVeInfo(this.id)" style="cur' +
                             'sor:pointer;">';
                     htmlsJung += '<td>'
-                    htmlsJung += '<span>'
+                    htmlsJung += '<span class="tr-ve">'
                     htmlsJung += r[i].vehicle2;
                     htmlsJung += '</span>'
                     htmlsJung += '</td>'
                     if (r[i].name) {
                         htmlsJung += '<td>'
-                        htmlsJung += '<span>'
+                        htmlsJung += '<span class="tr-emp">'
                         htmlsJung += r[i].name;
                         htmlsJung += '</span>'
                         htmlsJung += '</td>'
@@ -288,13 +326,13 @@ function getVeAll(vehicle) {
                     htmlsUdong += '<tr id="' + r[i].carNumber + 'cutUdong" onclick="getVeInfo(this.id)" style="cu' +
                             'rsor:pointer;">';
                     htmlsUdong += '<td>'
-                    htmlsUdong += '<span>'
+                    htmlsUdong += '<span class="tr-ve">'
                     htmlsUdong += r[i].vehicle2;
                     htmlsUdong += '</span>'
                     htmlsUdong += '</td>'
                     if (r[i].name) {
                         htmlsUdong += '<td>'
-                        htmlsUdong += '<span>'
+                        htmlsUdong += '<span class="tr-emp">'
                         htmlsUdong += r[i].name;
                         htmlsUdong += '</span>'
                         htmlsUdong += '</td>'
@@ -347,13 +385,13 @@ function getVeAll(vehicle) {
                     htmlsCompa += '<tr id="' + r[i].carNumber + 'cutCompa" onclick="getVeInfo(this.id)" style="cu' +
                             'rsor:pointer;">';
                     htmlsCompa += '<td>'
-                    htmlsCompa += '<span>'
+                    htmlsCompa += '<span class="tr-ve">'
                     htmlsCompa += r[i].vehicle2;
                     htmlsCompa += '</span>'
                     htmlsCompa += '</td>'
                     if (r[i].name) {
                         htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
+                        htmlsCompa += '<span class="tr-emp">'
                         htmlsCompa += r[i].name;
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
@@ -407,13 +445,13 @@ function getVeAll(vehicle) {
                     htmlsGae += '<tr id="' + r[i].carNumber + 'cutGae" onclick="getVeInfo(this.id)" style="curs' +
                             'or:pointer;">';
                     htmlsGae += '<td>'
-                    htmlsGae += '<span>'
+                    htmlsGae += '<span class="tr-ve">'
                     htmlsGae += r[i].vehicle2;
                     htmlsGae += '</span>'
                     htmlsGae += '</td>'
                     if (r[i].name) {
                         htmlsGae += '<td>'
-                        htmlsGae += '<span>'
+                        htmlsGae += '<span class="tr-emp">'
                         htmlsGae += r[i].name;
                         htmlsGae += '</span>'
                         htmlsGae += '</td>'
@@ -478,6 +516,9 @@ function getVeAll(vehicle) {
             $('#bgCompa').html(cntCompa);
             $('#bgGae').html(cntGae);
             $('#bgEnd').html(cntEnd);
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 }
@@ -635,33 +676,37 @@ function getVeInfo(carNumber) {
 
                 if (r[0].reg) {
                     $('#ve21').html(
-                        '<a class="btn btn-success tct-item-btn" role="button" id="btn-reg"><span>' +
-                        r[0].regd + '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></i></a>'
+                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span>' +
+                        r[0].regd + '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-upload"></i></a>'
                     );
                     $('#ve21-1').val(r[0].reg);
                 } else {
                     $('#ve21').html(
                         '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span>없&nbs' +
-                        'p;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></i' +
-                        '></a>'
+                        'p;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-uplo' +
+                        'ad"></i></a>'
                     );
                     $('#ve21-1').val('');
                 }
 
                 if (r[0].insu) {
                     $('#ve22').html(
-                        '<a class="btn btn-success tct-item-btn" role="button" id="btn-insu"><span>' +
-                        r[0].insud + '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></i></a>'
+                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span>' +
+                        r[0].insud +
+                        '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-upload"></i></a>'
                     );
                     $('#ve22-1').val(r[0].insu);
                 } else {
                     $('#ve22').html(
                         '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span>없&nb' +
-                        'sp;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-edit"></' +
-                        'i></a>'
+                        'sp;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-upl' +
+                        'oad"></i></a>'
                     );
                     $('#ve22-1').val('');
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -701,6 +746,13 @@ $(document).on('click', '#md-New', function () {
 $(document).on('click', '#md-File', function () {
     $('#modal-file').modal('show')
     $('#myModalLabel-file').text('  차량명세서 생성');
+});
+
+$(document).on('click', '#md-Juk', function () {
+    $('#juk-frame').attr('src', veFolder + 'choice.pdf');
+    $('#juk-selector').val('');
+    $('#modal-juk').modal('show')
+    $('#myModalLabel-juk').text('  교통안전정보 통보서 입력');
 });
 
 $('#imgSelector1').change(function () {
@@ -842,6 +894,9 @@ function setEmpClr() {
     $('#ve-pic-pre1').attr('src', 'img/vehicle/bus1.png');
     $('#ve-pic-pre2').attr('src', 'img/vehicle/bus2.png');
     $('#ve-pic-pre3').attr('src', 'img/vehicle/bus3.png');
+    $('#imgSelector1').val('');
+    $('#imgSelector2').val('');
+    $('#imgSelector3').val('');
 
     $("#vehicle-1 option:eq(0)").prop("selected", true);
     $("#vehicle-2 option:eq(0)").prop("selected", true);
@@ -909,6 +964,9 @@ function insertVe(tp) {
                 timeout: 600000,
                 success: function (r) {
                     resolve(r);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         });
@@ -1159,6 +1217,9 @@ function insertVe(tp) {
                             } else {
                                 refleshMsg("신규 인사 정보 입력 완료 ");
                             }
+                        },
+                        error: (jqXHR) => {
+                            loginSession(jqXHR.status);
                         }
                     });
                 }
@@ -1189,13 +1250,17 @@ $(document).on('click', '#btn-pdf-d', function () {
 
 $(document).on('click', '#btn-reg', function () {
     $('#modal-reg').modal('show')
-    $('#myModalLabel-reg').text('  차량등록증 조회 및 입력');
+    $('#myModalLabel-reg').text(
+        '  ' + $('#ve02').children().text() + ' 자동차등록증 조회 및 입력'
+    );
     setReg();
 });
 
 $(document).on('click', '#btn-insu', function () {
     $('#modal-insu').modal('show')
-    $('#myModalLabel-insu').text('  차량보험증서 조회 및 입력');
+    $('#myModalLabel-insu').text(
+        '  ' + $('#ve02').children().text() + ' 보험가입증명서 조회 및 입력'
+    );
     setInsu();
 });
 
@@ -1205,7 +1270,7 @@ function setReg() {
     if ($('#ve21-1').val()) {
         updateImg(veFolder + 'reg/' + $('#ve21-1').val(), 'reg-frame');
     } else {
-        $('#reg-frame').attr('src', '');
+        $('#reg-frame').attr('src', veFolder + "choice.pdf");
     }
 }
 
@@ -1215,7 +1280,7 @@ function setInsu() {
     if ($('#ve22-1').val()) {
         updateImg(veFolder + 'insu/' + $('#ve22-1').val(), 'insu-frame');
     } else {
-        $('#insu-frame').attr('src', '');
+        $('#insu-frame').attr('src', veFolder + "choice.pdf");
     }
 }
 
@@ -1225,6 +1290,10 @@ $('#reg-selector').change(function () {
 
 $('#insu-selector').change(function () {
     setPdfFromFile(this, '#insu-frame', '#insu-selector')
+});
+
+$('#juk-selector').change(function () {
+    setPdfFromFile(this, '#juk-frame', '#juk-selector')
 });
 
 $(document).on('click', '#reg-insert', function () {
@@ -1247,18 +1316,21 @@ $(document).on('click', '#reg-insert', function () {
                 closeLoadingWithMask();
                 switch (r) {
                     case 1:
-                        refleshMsg("차량등로증 수정 완료");
+                        refleshMsg("자동차등록증 수정 완료");
                         break;
                     case 0:
-                        refleshMsg("차량등록증 수정 실패!\n\n다시 시도해 주세요.");
+                        refleshMsg("자동차등록증 수정 실패!\n\n다시 시도해 주세요.");
                         break;
                     case 2:
-                        refleshMsg("차량등록증 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
+                        refleshMsg("자동차등록증 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
                         break;
 
                     default:
                         break;
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     } else {
@@ -1289,18 +1361,21 @@ $(document).on('click', '#insu-insert', function () {
                 closeLoadingWithMask();
                 switch (r) {
                     case 1:
-                        refleshMsg("차량등로증 수정 완료");
+                        refleshMsg("보험가입증명서 수정 완료");
                         break;
                     case 0:
-                        refleshMsg("차량등록증 수정 실패!\n\n다시 시도해 주세요.");
+                        refleshMsg("보험가입증명서 수정 실패!\n\n다시 시도해 주세요.");
                         break;
                     case 2:
-                        refleshMsg("차량등록증 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
+                        refleshMsg("보험가입증명서 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
                         break;
 
                     default:
                         break;
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     } else {

@@ -327,6 +327,9 @@ $(document).on('click', '#btn-modal', function () {
                         alert("고객정보 입력 실패!\n\n시스템을 확인해주세요.")
                         window.close();
                     }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             });
 
@@ -427,7 +430,6 @@ $(document).on('click', '#insert-many', function () {
             data: JSON.stringify(params),
 
             success: function (r) {
-                console.log('pppp  ' + r);
                 if (r > 0) {
                     let rtn = confirm(
                         "'" + $(' #t-name ').text() + "  " + r + "건'  예약정보 입력 완료\n\n창을 닫으시겠습니까?"
@@ -447,6 +449,9 @@ $(document).on('click', '#insert-many', function () {
                     alert("예약정보 입력 실패!\n\n시스템을 확인해주세요.")
                     window.close();
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         });
     } else {
@@ -534,6 +539,9 @@ $("#ctmname").change(function () {
                 $('#ctmno').val('0');
                 $('#ctmtrash').val(2);
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     });
 });

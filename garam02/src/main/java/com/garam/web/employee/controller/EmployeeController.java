@@ -14,6 +14,8 @@ import com.garam.web.Utils.UiUtils;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.service.EmployeeService;
 import com.garam.web.login.entity.User;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
+import com.garam.web.vehicle.service.VehicleService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeController extends UiUtils {
 
 	private final EmployeeService employeeService;
+	private final VehicleService vehicleService;
 	private final CompanyService companyService;
 
 	@GetMapping

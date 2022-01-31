@@ -255,7 +255,7 @@
 
 .md-file a {
     flex: 1;
-    color: black;
+    color: rgb(40, 40, 40);
 
     min-width: 46px;
     height: 36px;
@@ -280,7 +280,7 @@
 .title-content-item-down {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    gap: 1rem;
 }
 .title-content-item-down .title-content-item {
     flex: 1;
@@ -322,9 +322,22 @@
     padding: 2rem;
 }
 
+#ve02 {
+    letter-spacing: 0.5rem;
+}
+
 @media (max-width:992px) {
+    #ve01 {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    #ve02 {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
     .ve-title {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 
     .title-content-item-down {
@@ -339,11 +352,11 @@
 
     .tct-item1:nth-child(1) {
         font-size: 1.4rem;
-        font-weight: 600;
+        font-weight: 500;
     }
     .tct-item1:nth-child(2) {
         font-size: 1.6rem;
-        font-weight: 600;
+        font-weight: 500;
     }
 
     .tct-item:nth-child(1) {
@@ -355,6 +368,14 @@
 
     .title-content-title1 {
         flex-direction: column;
-        gap: 2rem;
     }
+
+    .title-content-title1 blo {
+        flex-direction: column;
+    }
+
+    .title-content blockquote {
+        padding: 1rem;
+    }
+
 }

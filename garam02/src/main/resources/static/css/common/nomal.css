@@ -19,6 +19,8 @@
     left: 0;
     z-index: 1000;
     overflow-y: overlay;
+
+    padding-top: 0;
 }
 
 .nomal-aside::-webkit-scrollbar {
@@ -44,6 +46,10 @@
     padding: 1rem;
 }
 .nomal-aside-btn-item:nth-child(2) {
+    flex: 1;
+    padding: 1rem;
+}
+.nomal-aside-btn-item:nth-child(3) {
     flex: 1;
     padding: 1rem;
 }
@@ -110,4 +116,20 @@
 
 .hd-name {
     padding: 1rem;
+}
+
+.tr-ve {
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+}
+
+.tr-emp {
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+}
+
+.tab-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }

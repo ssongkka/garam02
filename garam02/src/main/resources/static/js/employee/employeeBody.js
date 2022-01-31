@@ -5,6 +5,16 @@ $(document).ready(function () {
     getEmpAll();
 });
 
+$(document).on('click', '#show-aside', function () {
+    // if ($('#show-aside-hd').val() > 0) {     $('.nomal-aside').attr('class','');
+    // $('#show-aside-hd').val(0); } else {     $('.nomal-aside') .css('width',
+    // '70%')         .css('margin-top', '5rem'); $('#show-aside-hd').val(1); }
+    let navbar = document.querySelector('.nomal-aside');
+    navbar
+        .classList
+        .toggle('active');
+});
+
 function getEmpAll(name) {
     const url = "/emp/empAll";
     const headers = {
@@ -43,13 +53,13 @@ function getEmpAll(name) {
                     htmls += '<tr id="' + r[i].id + 'cut" onclick="getEmpInfo(this.id)" style="cursor:pointe' +
                             'r;">';
                     htmls += '<td>'
-                    htmls += '<span>'
+                    htmls += '<span class="tr-emp">'
                     htmls += r[i].name;
                     htmls += '</span>'
                     htmls += '</td>'
                     if (r[i].vehicle) {
                         htmls += '<td>'
-                        htmls += '<span>'
+                        htmls += '<span class="tr-ve">'
                         htmls += r[i]
                             .vehicle
                             .substring(r[i].vehicle.length - 4);
@@ -119,7 +129,7 @@ function getEmpAll(name) {
                     htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfo(this.id)" style="cursor:' +
                             'pointer;">';
                     htmlsOutman += '<td>'
-                    htmlsOutman += '<span>'
+                    htmlsOutman += '<span class="tr-emp">'
                     htmlsOutman += r[i].name;
                     htmlsOutman += '</span>'
                     htmlsOutman += '</td>'
@@ -168,13 +178,13 @@ function getEmpAll(name) {
                     htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfo(this.id)" style="cursor:p' +
                             'ointer;">';
                     htmlsCompa += '<td>'
-                    htmlsCompa += '<span>'
+                    htmlsCompa += '<span class="tr-emp">'
                     htmlsCompa += r[i].name;
                     htmlsCompa += '</span>'
                     htmlsCompa += '</td>'
                     if (r[i].vehicle) {
                         htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
+                        htmlsCompa += '<span class="tr-ve">'
                         htmlsCompa += r[i]
                             .vehicle
                             .substring(r[i].vehicle.length - 4);
@@ -242,13 +252,13 @@ function getEmpAll(name) {
                     htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfo(this.id)" style="cursor:po' +
                             'inter;">';
                     htmlsSolo += '<td>'
-                    htmlsSolo += '<span>'
+                    htmlsSolo += '<span class="tr-emp">'
                     htmlsSolo += r[i].name;
                     htmlsSolo += '</span>'
                     htmlsSolo += '</td>'
                     if (r[i].vehicle) {
                         htmlsSolo += '<td>'
-                        htmlsSolo += '<span>'
+                        htmlsSolo += '<span class="tr-ve">'
                         htmlsSolo += r[i]
                             .vehicle
                             .substring(r[i].vehicle.length - 4);
@@ -316,7 +326,7 @@ function getEmpAll(name) {
                     htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfo(this.id)" style="cursor:poi' +
                             'nter;">';
                     htmlsYeb += '<td>'
-                    htmlsYeb += '<span>'
+                    htmlsYeb += '<span class="tr-emp">'
                     htmlsYeb += r[i].name;
                     htmlsYeb += '</span>'
                     htmlsYeb += '</td>'
@@ -370,6 +380,9 @@ function getEmpAll(name) {
             $('#bgSolo').text(cntSolo);
             $('#bgYeb').text(cntYeb);
             $('#bgOutman').text(cntOutman);
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 }
@@ -441,13 +454,25 @@ function getEmpInfo(id) {
                 }
                 if (r[0].phone1) {
                     $('#emp07').html('<span>' + r[0].phone1 + '</span>');
+                    $('#emp08').html(
+                        '<span style="margin-right: 2rem;"><a href="tel:' + r[0].phone1 + '"><i class="' +
+                        'fas fa-phone"></i></a></span><span><a href="sms:' + r[0].phone1 + '"><i class=' +
+                        '"fas fa-envelope"></i></a></span>'
+                    );
                 } else {
                     $('#emp07').html('<span></span>');
+                    $('#emp08').html('<span></span>');
                 }
                 if (r[0].phone2) {
                     $('#emp09').html('<span>' + r[0].phone2 + '</span>');
+                    $('#emp10').html(
+                        '<span style="margin-right: 2rem;"><a href="tel:' + r[0].phone2 + '"><i class="' +
+                        'fas fa-phone"></i></a></span><span><a href="sms:' + r[0].phone2 + '"><i class=' +
+                        '"fas fa-envelope"></i></a></span>'
+                    );
                 } else {
                     $('#emp09').html('<span></span>');
+                    $('#emp10').html('<span></span>');
                 }
                 if (r[0].address) {
                     $('#emp11').html('<span>' + r[0].address + '</span>');
@@ -548,6 +573,9 @@ function getEmpInfo(id) {
                     $('#empPic').attr('src', 'img/employee/emp.png');
                     $('#empPic-a').attr('href', 'img/employee/emp.png');
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -570,16 +598,22 @@ $(document).on('keydown', 'input', function (eInner) {
 
 $('#imgSelector').change(function () {
     setImageFromFile(this, '#emp-pic-pre', '#imgSelector')
-    console.log("dasdadwad  " + $('#imgSelector').val());
 });
 
 $(document).on('click', '#md-Ch', function () {
-    $('#modal-insert').modal('show')
-    setEmpCh();
+    if ($('#emp00').val()) {
+        setEmpCh();
+        $('#myModalLabel-insert').text('  승무원 정보 수정');
+        $('#modal-insert').modal('show')
+    } else {
+        alert('수정 할 승무원정보를 선택해주세요.');
+    }
+
 });
 $(document).on('click', '#md-New', function () {
-    $('#modal-insert').modal('show')
     setEmpClr();
+    $('#myModalLabel-insert').text('  신규 승무원 정보 입력');
+    $('#modal-insert').modal('show')
 });
 
 function setEmpCh() {
@@ -642,6 +676,7 @@ function setEmpClr() {
     $('#id').val('');
 
     $('#emp-pic-pre').attr('src', 'img/employee/emp.png');
+    $('#imgSelector').val('');
 
     $('#name').val('');
     $('#birthday').val('');
@@ -709,6 +744,9 @@ function insertEmp(tp) {
                 success: function (r) {
                     console.log(r);
                     resolve(r);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         });
@@ -800,15 +838,14 @@ function insertEmp(tp) {
             data: JSON.stringify(params),
             success: function (r) {
                 if (tp > 0) {
-                    refleshMsg("인사 정보 수정 완료");
+                    refleshMsg("승무원 정보 수정 완료");
                 } else {
-                    refleshMsg("신규 인사 정보 입력 완료");
+                    refleshMsg("신규 승무원 정보 입력 완료");
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         });
     }
 }
-
-$(document).on('click', '#empPic', function () {
-    console.log("요요 사진사진사진");
-});

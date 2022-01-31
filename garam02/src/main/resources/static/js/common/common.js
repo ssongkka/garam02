@@ -268,17 +268,11 @@ function setImageFromFile(input, expression, id) {
     if (input.files && input.files[0]) {
         console.log(input.files);
         console.log(input.files[0]);
-        if (imgName == 'png' || imgName == 'jpg' || imgName == 'bmp' || imgName == 'gif') {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $(expression).attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            alert("이미지 파일이 아닙니다.\n'png', 'jpg', 'bmp', 'gif' 형식의 파일을 선택해 주세요.");
-            $(expression).attr('src', 'img/employee/emp.png');
-            $(id).val('');
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(expression).attr('src', e.target.result);
         }
+        reader.readAsDataURL(input.files[0]);
     } else {
         $(expression).attr('src', 'img/employee/emp.png');
     }
@@ -293,15 +287,13 @@ function setPdfFromFile(input, expression, id) {
     if (input.files && input.files[0]) {
         console.log(input.files);
         console.log(input.files[0]);
-        if (imgName == 'pdf') {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $(expression).attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            alert("pdf 파일이 아닙니다.\n'pdf' 형식의 파일을 선택해 주세요.");
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(expression).attr('src', e.target.result);
         }
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        $(expression).attr('src', veFolder + 'choice.pdf');
     }
 }
 
@@ -374,11 +366,15 @@ document
         });
     });
 
-function loginSession() {
-    alert(
-        "로그인 제한 시간이 만료되었습니다.\n\n로그인 후 10분동안 아무작업이 없으면 자동으로 로그아웃됩니다.\n다시 로그인해주세요."
-    );
-    location.reload();
+function loginSession(status) {
+
+    if (status === 403) {
+        alert(
+            "로그인 제한 시간이 만료되었습니다.\n\n로그인 후 10분동안 아무작업이 없으면 자동으로 로그아웃됩니다.\n다시 로그인해주세요."
+        );
+        location.reload();
+    } else {}
+
 }
 
 function refleshMsg(msg) {

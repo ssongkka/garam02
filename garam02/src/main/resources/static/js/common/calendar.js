@@ -234,6 +234,9 @@ class cal {
                         }
                     }
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         });
     }

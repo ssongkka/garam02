@@ -125,13 +125,22 @@
 		IFNULL((SELECT employeeinfo.name FROM employeeinfo
 		WHERE
 		employeeinfo.id=vehicleinfo.owner), vehicleinfo.owner) AS owner,
-		vehicleinfo.regist, vehicleinfo.bus, vehicleinfo.trash,
+		vehicleinfo.regist, vehicleinfo.bus, vehicleinfo.grade,
+		vehicleinfo.trash, employeeinfo.id,
 		employeeinfo.name FROM
-		vehicleinfo LEFT JOIN employeeinfo ON
+		vehicleinfo
+		LEFT JOIN
+		employeeinfo ON
 		vehicleinfo.id = employeeinfo.id
 
 		<where>
-			<if test="vehicle != null">AND vehicleinfo.vehicle Like CONCAT('%',#{vehicle},'%')
+			<if test="vehicle != null">OR vehicleinfo.vehicle Like CONCAT('%',#{vehicle},'%')
+			</if>
+			<if test="vehicle != null">OR owner Like CONCAT('%',#{vehicle},'%')
+			</if>
+			<if test="vehicle != null">OR employeeinfo.name Like CONCAT('%',#{vehicle},'%')
+			</if>
+			<if test="vehicle != null">OR vehicleinfo.grade Like CONCAT('%',#{vehicle},'%')
 			</if>
 		</where>
 

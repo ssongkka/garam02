@@ -25,6 +25,7 @@ import com.garam.web.Utils.UiUtils;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.service.EmployeeService;
 import com.garam.web.login.entity.User;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.service.VehicleService;
 
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,9 @@ public class VehicleController extends UiUtils {
 
 		List<CompanyDTO> company = companyService.selectCompany();
 		model.addAttribute("company", company);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeAll(null);
+		model.addAttribute("ve", ve);
 
 		return "vehicle/vehicle";
 	}

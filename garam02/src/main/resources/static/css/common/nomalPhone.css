@@ -26,12 +26,25 @@
     }
 
     .nomal-aside {
-        width: 0;
-        right: 30%;
+        width: 80%;
+        left: auto;
+        right: -100%;
+        padding-top: 5rem;
+    }
+    .nomal-aside.active {
+        right: 0;
     }
 
     .main-aside {
         padding: 1rem;
         flex-direction: column;
+    }
+
+    .ve-insert {
+        padding: 0;
+    }
+
+    .tab-flex {
+        flex-direction: row;
     }
 }
