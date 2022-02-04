@@ -30,6 +30,8 @@
 h4,
 h5,
 h6 {
+    flex: 1;
+    text-align: center;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -78,6 +80,8 @@ h6 {
 
 .home-main-item-22 {
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100px;
     gap: 3rem;
     flex: 1;
@@ -102,16 +106,12 @@ h6 {
 }
 
 .home-main-item-222:nth-child(1) {
-    flex: 1;
-    display: flex;
     align-items: center;
     justify-content: flex-end;
     font-size: 3rem;
 
 }
 .home-main-item-222:nth-child(2) {
-    flex: 1;
-    display: flex;
     align-items: center;
     justify-content: flex-start;
 }
@@ -214,4 +214,11 @@ ul {
         padding: 1rem;
     }
 
+    .home-main-item-22 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
 }

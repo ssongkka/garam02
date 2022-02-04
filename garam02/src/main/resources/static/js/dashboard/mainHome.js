@@ -250,9 +250,6 @@ function getMidCnt(day, i) {
                 $('#numday2').text('중형 ' + cnt25 + '대');
                 $('#numday3').text('우등 ' + cnt28 + '대');
             }
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
         }
     });
 }

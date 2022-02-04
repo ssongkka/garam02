@@ -29,7 +29,7 @@ $(document).on('click', '#plus-btn', function () {
     htmls += ' value="' + $('#edd').val() + '">';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<select id="bus" name="bus" class="input-sm">';
+    htmls += '<select id="bus" name="bus" class="form-control input-sm">';
     htmls += '<option value="대형">대형</option>';
     htmls += '<option value="중형">중형</option>';
     htmls += '<option value="우등">우등</option>';
@@ -37,7 +37,7 @@ $(document).on('click', '#plus-btn', function () {
     htmls += '</select>';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<select class="input-sm">';
+    htmls += '<select class="form-control input-sm">';
     htmls += '<option value="1">1</option>';
     htmls += '<option value="2">2</option>';
     htmls += '<option value="3">3</option>';
@@ -116,7 +116,7 @@ $(document).on('click', '#plus-btn', function () {
     htmls += '<input type="text">';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<select class="input-sm">';
+    htmls += '<select class="form-control input-sm">';
     htmls += '<option value="포함">포함</option>';
     htmls += '<option value="미포함">미포함</option>';
     htmls += '<option value="카드">카드</option>';
@@ -384,7 +384,7 @@ $(document).on('click', '#btn-modal', function () {
 
 $(document).on('click', '#insert-many', function () {
 
-    if ($('#m-no').val() > 0) {
+    if ($('#m-no').val() != 0) {
         const aaa = $('#rsvt-tb')
             .children()
             .children()

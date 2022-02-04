@@ -60,6 +60,13 @@ public class RestVehicleController {
 		return list;
 	}
 
+	@PostMapping(value = "/veId")
+	public List<VehicleInfoDTO> veId(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectVeId(vehicleInfoDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/veInsertRegPdf")
 	public int veInsertRegPdf(@RequestParam("regcarn") String vecarn, @RequestParam("uploadfile") MultipartFile[] files)
 			throws Exception {

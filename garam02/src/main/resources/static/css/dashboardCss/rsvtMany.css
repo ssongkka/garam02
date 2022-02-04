@@ -4,11 +4,9 @@ body {
     background: #f6f7f9;
 }
 
-select {
-    border: 0;
-    height: 30px;
-    background: transparent;
-}
+/* select {
+    width: auto;
+} */
 
 th {
     text-align: center;
@@ -32,7 +30,7 @@ th {
 }
 
 #rsvt-tb input:focus {
-    outline: none;
+    /* outline: none; */
 }
 
 #ername:focus {
@@ -111,4 +109,9 @@ th {
 
 .modal-footer {
     padding: 2rem 10rem;
+}
+
+.btng {
+    display: flex;
+    justify-content: space-between;
 }

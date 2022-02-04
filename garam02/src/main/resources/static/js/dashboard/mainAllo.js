@@ -1,22 +1,352 @@
 $(document).ready(function () {
-
     $('#onewayBtn').hide();
 });
 
 $(document).on('keydown', 'input', function (eInner) {
     var keyValue = eInner.which; //enter key
-    if (keyValue == 37 || keyValue == 39) {
+    if (keyValue == 37 || keyValue == 39 || keyValue == 27 || keyValue == 8) {
         var tabindex = $(this).attr('tabindex');
         if (keyValue == 39) { //down arrow 40
             tabindex++;
-        } else { //up arrow 38
+            $('[tabindex=' + tabindex + ']').focus();
+        } else if (keyValue == 37) { //up arrow 38
             tabindex--;
+            $('[tabindex=' + tabindex + ']').focus();
+        } else if (keyValue == 27 || keyValue == 8) {
+            $(this).val('');
+            $(this)
+                .next()
+                .val('');
         }
-        $('[tabindex=' + tabindex + ']').focus();
-    } else if (keyValue == 13) {
-        console.log('affwf');
     }
 });
+
+$(document).on('keydown', '.ve-car', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        var val = $(this).val();
+        var carnum = $('#car-info option')
+            .filter(function () {
+                return this.value == val;
+            })
+            .data('value');
+        var carowner = $('#car-info option')
+            .filter(function () {
+                return this.value == val;
+            })
+            .data('owner');
+        $(this)
+            .next()
+            .val(carnum);
+        $(this)
+            .next()
+            .next()
+            .val(carowner);
+        console.log(carnum);
+        console.log(carowner);
+        const iidd = '#' + $(this).attr('id');
+
+        ve02(carnum).then(ve03);
+
+        function ve02(para) {
+            return new Promise(function (resolve, reject) {
+                console.log($(iidd).val() == $(iidd).next().val());
+                if ($(iidd).val() == $(iidd).next().val()) {
+                    $(iidd)
+                        .next()
+                        .next()
+                        .next()
+                        .val('타회사');
+                    $(iidd)
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .val('타회사');
+
+                    if ($(iidd).val() && $(iidd).next().next().next().val() && $(iidd).next().next().next().next().next().val()) {
+                        alert("오키바리");
+                    }
+
+                    $(iidd)
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .focus();
+                } else {
+                    const url = "/ve/veId";
+                    const headers = {
+                        "Content-Type": "application/json",
+                        "X-HTTP-Method-Override": "POST"
+                    };
+                    const params = {
+                        "carNumber": para
+                    };
+
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: headers,
+                        dataType: "json",
+                        data: JSON.stringify(params),
+                        success: function (r) {
+                            if (r.length > 0) {
+                                $(iidd)
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[0].name);
+                                $(iidd)
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[0].id);
+
+                                if ($(iidd).val() && $(iidd).next().next().next().val() && $(iidd).next().next().next().next().next().val()) {
+                                    if (!$(iidd).next().val()) {
+                                        alert("차량정보없음\n\n차량번호를 확인해주세요.");
+                                    } else if (!$(iidd).next().next().next().val()) {
+                                        alert("승무원정보없음\n\n승무원을 확인해주세요.");
+
+                                    } else {
+                                        alert("오키바리");
+                                    }
+                                } else {}
+
+                                $(iidd)
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .focus();
+                            } else {
+                                alert("차량정보없음\n\n차량번호를 확인해주세요.");
+                                $(iidd).val('');
+                                $(iidd)
+                                    .next()
+                                    .val('');
+                                $(iidd)
+                                    .next()
+                                    .next()
+                                    .val('');
+                            }
+                        }
+                    });
+                }
+            })
+        }
+
+        function ve03() {
+            return new Promise(function (resolve, reject) {
+                const url = "/ve/veId";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+                const params = {
+                    "carNumber": para
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+                    success: function (r) {
+                        if (r.length > 0) {
+                            console.log(r[0].name);
+                            $(iidd)
+                                .next()
+                                .next()
+                                .next()
+                                .val(r[0].name);
+                            $(iidd)
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .val(r[0].id);
+                            $(iidd)
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .focus();
+                        } else {}
+                    }
+                });
+            })
+        }
+    }
+});
+
+$(document).on('keydown', '.ve-emp', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        var val = $(this).val();
+        var id = $('#per-info option')
+            .filter(function () {
+                return this.value == val;
+            })
+            .data('value');
+        $(this)
+            .next()
+            .val(id);
+        console.log(id);
+        const iidd = '#' + $(this).attr('id');
+        console.log();
+        $(this)
+            .next()
+            .val(id);
+
+        if ($(iidd).val() && $(iidd).prev().prev().prev().val() && $(iidd).next().next().val()) {
+            if (!$(iidd).prev().val()) {
+                alert("차량정보없음\n\n차량번호를 확인해주세요.");
+            } else if (!$(iidd).next().val()) {
+                alert("승무원정보없음\n\n승무원을 확인해주세요.");
+
+            } else {
+                alert("오키바리");
+            }
+        }
+    }
+});
+
+$(document).on('keydown', '.ve-m', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        const iidd = '#' + $(this).attr('id');
+        if ($(iidd).val() && $(iidd).prev().prev().val() && $(iidd).prev().prev().prev().prev().val()) {
+            if (!$(iidd).prev().prev().prev().val()) {
+                alert("차량정보없음\n\n차량번호를 확인해주세요.");
+            } else if (!$(iidd).prev().val()) {
+                alert("승무원정보없음\n\n승무원을 확인해주세요.");
+
+            } else {
+                alert("오키바리");
+                insertOper(iidd, 3);
+            }
+        }
+    }
+});
+
+function insertOper(id, num) {
+    return new Promise(function (resolve, reject) {
+        let veIn = '';
+        let compaIn = '';
+        let empIn = '';
+        let mIn = '';
+
+        switch (num) {
+            case 1:
+                veIn = $(id)
+                    .next()
+                    .val();
+                compaIn = $(id)
+                    .next()
+                    .next()
+                    .val();
+                empIn = $(id)
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .val();
+                mIn = $(id)
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .val()
+                    .replaceAll(',', '');
+                break;
+            case 2:
+                veIn = $(id)
+                    .prev()
+                    .prev()
+                    .val();
+                compaIn = $(id)
+                    .prev()
+                    .val();
+                empIn = $(id)
+                    .next()
+                    .val();
+                mIn = $(id)
+                    .next()
+                    .next()
+                    .val()
+                    .replaceAll(',', '');
+                break;
+            case 3:
+                veIn = $(id)
+                    .prev()
+                    .prev()
+                    .prev()
+                    .prev()
+                    .val();
+                compaIn = $(id)
+                    .prev()
+                    .prev()
+                    .prev()
+                    .val();
+                empIn = $(id)
+                    .prev()
+                    .val();
+                mIn = $(id)
+                    .val()
+                    .replaceAll(',', '');
+                break;
+
+            default:
+                break;
+        }
+
+        const rsvt = $(id)
+            .parent()
+            .parent()
+            .parent()
+            .prev()
+            .prev()
+            .prev()
+            .val();
+        let opernum = $(id)
+            .parent()
+            .prev()
+            .val();
+        const hoCha = $(id)
+            .parent()
+            .attr('id')
+            .split('-')[2];
+
+        const tod = $($(id).parent().parent().parent().prev().prev().children()[4]).val();
+        const ed = $($(id).parent().parent().parent().prev().prev().children()[5]).val();
+        const numM = $($(id).parent().parent().parent().prev().prev().children()[6]).val();
+
+        console.log('rsvt  ' + rsvt);
+        console.log('opernum  ' + opernum);
+        console.log('호차  ' + hoCha);
+        console.log('veIn  ' + veIn);
+        console.log('compaIn  ' + compaIn);
+        console.log('empIn  ' + empIn);
+        console.log('mIn  ' + mIn);
+        console.log('tod  ' + tod);
+        console.log('ed  ' + ed);
+        console.log('numM  ' + numM);
+
+        // const url = "/ve/veId"; const headers = {     "Content-Type":
+        // "application/json",     "X-HTTP-Method-Override": "POST" }; const params = {
+        // "carNumber": para }; $.ajax({     url: url,     type: "POST",     headers:
+        // headers,     dataType: "json",     data: JSON.stringify(params),     success:
+        // function (r) {} });
+    })
+}
 
 function getAlloList(day) {
     getCustomer()
@@ -52,6 +382,7 @@ function getAlloList(day) {
                             ctmseqArr[i] = r[i].ctmseq;
 
                             htmls += '<div class="card allo-card">';
+
                             htmls += '<input type="hidden" id="rvctm' + (
                                 i + 1
                             ) + '" value="' + r[i].ctmseq + '">';
@@ -60,20 +391,22 @@ function getAlloList(day) {
                             ) + '" value="' + r[i].ctmsepa + '">';
                             switch (r[i].ctmsepa) {
                                 case 0:
-                                    htmls += '<div><h4><i class="fas fa-user-check"></i>&nbsp;&nbsp;&nbsp;' + r[i].ctmname +
-                                            '<small>' + r[i].ctmtel1 + '</small></h4></div>';
+                                    htmls += '<div><h4><mark><i class="fas fa-user-check">&nbsp;&nbsp;' + r[i].ctmname + '</' +
+                                            'i></mark><small><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></s' +
+                                            'mall></h4></div>';
 
                                     break;
                                 case 1:
-                                    htmls += '<div><h4><i class="fas fa-school"></i>&nbsp;&nbsp;&nbsp;' + r[i].ctmname + '<s' +
-                                            'mall>' + r[i].ctmtel1 + '</small><small>' + r[i].ctmaddress + '</small></h4></' +
-                                            'div>';
+                                    htmls += '<div><h4><mark><i class="fas fa-school">&nbsp;&nbsp;' + r[i].ctmname + '</i></' +
+                                            'mark><small><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></small' +
+                                            '></h4></div>';
 
                                     break;
                                 case 2:
-                                    htmls += '<div><h4><i class="fas fa-file-signature"></i>&nbsp;&nbsp;&nbsp;' + r[i].ctmname +
-                                            '<small>' + r[i].ctmtel1 + '</small><small>' + r[i].ctmtel2 +
-                                            '</small><small>' + r[i].ctmdetail + '</small></h4></div>';
+                                    htmls += '<div><h4><mark><i class="fas fa-file-signature">&nbsp;&nbsp;' + r[i].ctmname +
+                                            '</i></mark><small><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a><' +
+                                            '/small><small><a href="tel:' + r[i].ctmtel2 + '">' + r[i].ctmtel2 + '</a></sma' +
+                                            'll><small>' + r[i].ctmdetail + '</small></h4></div>';
 
                                     break;
                                 default:
@@ -169,8 +502,14 @@ function getAlloList(day) {
                                 htmls += '<small>&#8361;' + AddComma(r[i].conm) + '</small> ';
                             }
                             htmls += '<small>' + r[i].cont + '</small> ';
-
                             htmls += '</div>';
+                            const aaa = $('.dash-cal-con-item-t')
+                                .children()
+                                .children()[1];
+                            const tod = $(aaa).val()
+                            htmls += '<input type="hidden" value="' + tod + '">';
+                            htmls += '<input type="hidden" value="' + r[i].endday + '">';
+                            htmls += '<input type="hidden" value="' + r[i].numm + '">';
                             htmls += '</div>';
                             htmls += '<hr>';
                             htmls += '<div class="allo-allo form-group">';
@@ -179,22 +518,25 @@ function getAlloList(day) {
                                 htmls += '<div class="allo-allo-item col-xs-12 col-lg-4">';
                                 htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
                                     k + 1
-                                ) + '" value="">';
+                                ) + '">';
                                 htmls += '<div class="stWay" id="st-' + r[i].rsvtseq + '-' + (
                                     k + 1
                                 ) + '">';
-                                htmls += '<input type="text" list="car-info" tabindex="' + (
+                                htmls += '<input type="text" class="ve-car" list="car-info" tabindex="' + (
                                     ++cnt
                                 ) + '" placeholder="' + (
                                     k + 1
-                                ) + '호차">';
+                                ) + '호차" id="' + cnt +
+                                        'car" style="font-weight: 600; letter-spacing: 0.3rem;">';
                                 htmls += '<input type="hidden" id="" value="0">';
-                                htmls += '<input type="text" list="per-info" tabindex="-1" placeholder="승무원">';
                                 htmls += '<input type="hidden" id="" value="0">';
-                                htmls += '<input type="text" id="atlmst" data-type="currency" tabindex="' + (
+                                htmls += '<input type="text" class="ve-emp"id="' + cnt + 'emp" list="per-info" tabindex=' +
+                                        '"-1" placeholder="승무원">';
+                                htmls += '<input type="hidden" id="" value="0">';
+                                htmls += '<input type="text" class="ve-m" id="' + cnt + 'm" onfocus="this.select()" data' +
+                                        '-type="currency" tabindex="' + (
                                     ++cnt
                                 ) + '" placeholder="배차금액">';
-                                htmls += '<input type="hidden" name="" id="" tabindex="-1">';
                                 htmls += '</div>';
                                 htmls += ' <div class="edway" style="display: none;" id="ed-' + r[i].rsvtseq + '-' + (
                                     k + 1
@@ -209,9 +551,9 @@ function getAlloList(day) {
                                 htmls += '</div>';
                                 htmls += '</div>';
                             }
+                            htmls += '</div>';
+                            htmls += '</div>';
 
-                            htmls += '</div>';
-                            htmls += '</div>';
                             for (let j = 0; j < result.length; j++) {
                                 if (r[i].ctmseq == result[j]) {
                                     ctmseqHtml[j] += htmls;
@@ -220,6 +562,9 @@ function getAlloList(day) {
                         }
                         for (let j = 0; j < ctmseqHtml.length; j++) {
                             $('#rv' + result[j]).html(ctmseqHtml[j]);
+                            $("input[data-type='currency']").bind('keyup keydown', function () {
+                                inputNumberFormat(this);
+                            });
                         }
                         resolve(rst);
                     }
@@ -230,6 +575,7 @@ function getAlloList(day) {
             }
         });
     }
+
     function getOper(result) {
         return new Promise(function (resolve, reject) {
 
@@ -271,10 +617,18 @@ function getAlloList(day) {
                                     .first()
                                     .next()
                                     .next()
+                                    .val(r[i].opercom);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
                                     .val(r[i].name);
                                 $(stid)
                                     .children()
                                     .first()
+                                    .next()
                                     .next()
                                     .next()
                                     .next()
@@ -286,17 +640,8 @@ function getAlloList(day) {
                                     .next()
                                     .next()
                                     .next()
+                                    .next()
                                     .val(AddComma(r[i].atlm));
-                                $(stid)
-                                    .children()
-                                    .first()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .val(r[i].atlm);
-
                             } else {
                                 var edid = '#ed-' + r[i].rsvtseq + '-' + r[i].operno;
                                 switch (r[i].opertype) {
@@ -315,10 +660,18 @@ function getAlloList(day) {
                                             .first()
                                             .next()
                                             .next()
+                                            .val(r[i].opercom);
+                                        $(stid)
+                                            .children()
+                                            .first()
+                                            .next()
+                                            .next()
+                                            .next()
                                             .val(r[i].name);
                                         $(stid)
                                             .children()
                                             .first()
+                                            .next()
                                             .next()
                                             .next()
                                             .next()
@@ -330,16 +683,8 @@ function getAlloList(day) {
                                             .next()
                                             .next()
                                             .next()
+                                            .next()
                                             .val(AddComma(r[i].atlm));
-                                        $(stid)
-                                            .children()
-                                            .first()
-                                            .next()
-                                            .next()
-                                            .next()
-                                            .next()
-                                            .next()
-                                            .val(r[i].atlm);
                                         break;
 
                                     case 2:
@@ -357,10 +702,18 @@ function getAlloList(day) {
                                             .first()
                                             .next()
                                             .next()
+                                            .val(r[i].opercom);
+                                        $(edid)
+                                            .children()
+                                            .first()
+                                            .next()
+                                            .next()
+                                            .next()
                                             .val(r[i].name);
                                         $(edid)
                                             .children()
                                             .first()
+                                            .next()
                                             .next()
                                             .next()
                                             .next()
@@ -372,16 +725,8 @@ function getAlloList(day) {
                                             .next()
                                             .next()
                                             .next()
+                                            .next()
                                             .val(AddComma(r[i].atlm));
-                                        $(edid)
-                                            .children()
-                                            .first()
-                                            .next()
-                                            .next()
-                                            .next()
-                                            .next()
-                                            .next()
-                                            .val(r[i].atlm);
                                         break;
 
                                     default:
@@ -399,13 +744,14 @@ function getAlloList(day) {
     function keydown_Arr() {
         $('input').on('keydown', function (eInner) {
             var keyValue = eInner.which; //enter key
-            console.log('asdasd');
-            if (keyValue == 37 || keyValue == 39) {
+            if (keyValue == 37 || keyValue == 39 || keyValue == 27 || keyValue == 8) {
                 var tabindex = $(this).attr('tabindex');
                 if (keyValue == 39) { //down arrow 40
                     tabindex++;
-                } else { //up arrow 38
+                } else if (keyValue == 37) { //up arrow 38
                     tabindex--;
+                } else if (keyValue == 27 || keyValue == 8) {
+                    $(this).val('');
                 }
                 $('[tabindex=' + tabindex + ']').focus();
             }

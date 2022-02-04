@@ -13,9 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.garam.web.Utils.UiUtils;
 import com.garam.web.constant.Method;
+import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.service.MainService;
+import com.garam.web.employee.dto.EmployeeInfoDTO;
+import com.garam.web.employee.service.EmployeeService;
 import com.garam.web.login.entity.User;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
+import com.garam.web.vehicle.service.VehicleService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,14 +30,28 @@ import lombok.RequiredArgsConstructor;
 public class DashboardController extends UiUtils {
 
 	private final MainService rsvtService;
+	private final EmployeeService employeeService;
+	private final VehicleService vehicleService;
 
 	@GetMapping
 	public String rsvt(@AuthenticationPrincipal User user, Model model) throws Exception {
 
+		model.addAttribute("user", user);
+
 		List<RsvtDTO> list = rsvtService.selectCustomerAll();
 		model.addAttribute("customer", list);
 
-		model.addAttribute("user", user);
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
+
+		List<OptDTO> opt = rsvtService.selectOpt();
+		model.addAttribute("opt", opt);
+
+		List<RsvtDTO> othercompa = rsvtService.selectCustomerOtherCompa();
+		model.addAttribute("othercompa", othercompa);
 
 		return "dashboard/dashBoard";
 	}

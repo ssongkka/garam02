@@ -146,6 +146,40 @@
 
 		ORDER BY vehicleinfo.vehicle;
 	</select>
+
+	<select id="selectVeId"
+		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		(SELECT name FROM employeeinfo WHERE employeeinfo.id
+		= vehicleinfo.id) AS name
+
+		FROM
+		vehicleinfo
+
+		WHERE
+
+		vehicleinfo.carnumber =
+		#{carNumber};
+
+	</select>
+
+	<select id="selectVeNameList"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		carnumber, vehicle, owner
+
+		FROM
+		vehicleinfo
+
+		ORDER BY
+		vehicle;
+	</select>
+
 	<select id="selectVeAllPrint"
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">

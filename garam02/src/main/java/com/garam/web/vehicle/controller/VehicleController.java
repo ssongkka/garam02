@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.garam.company.dto.CompanyDTO;
 import com.garam.company.service.CompanyService;
-import com.garam.web.Utils.UiUtils;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.service.EmployeeService;
 import com.garam.web.login.entity.User;
@@ -33,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/vehicle")
-public class VehicleController extends UiUtils {
+public class VehicleController {
 
 	private final VehicleService vehicleService;
 	private final EmployeeService employeeService;

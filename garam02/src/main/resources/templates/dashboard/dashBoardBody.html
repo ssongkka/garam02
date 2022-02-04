@@ -31,7 +31,7 @@
             </div>
             <div class="hd-user">
                 <div id="detail-user">
-                    <i class="fas fa-user">&nbsp;사장 홍길동</i>
+                    <i class="fas fa-user" th:text="${user.position}+'&nbsp;'+${user.name}"></i>
                 </div>
                 <div class="fas fa-bars" id="menu-btn"></div>
             </div>
@@ -53,7 +53,7 @@
                                 <i class="fas fa-chevron-left fa-lg"></i>
                             </div>
                             <div class="dash-cal-h-item dash-cal-h-item2" id="">
-                                <strong><input type="month" id="yearMonth" value="2021-06"></strong>
+                                <strong><input type="month" id="yearMonth" value=""></strong>
                             </div>
                             <div class="dash-cal-h-item dash-cal-h-item3" id="fnUpMonth">
                                 <i class="fas fa-chevron-right fa-lg"></i>
@@ -93,23 +93,21 @@
         <main class="main">
             <div class="tab-pane" role="tabpanel">
                 <div class="dd-main-nav">
-                    <div>
-                        <div class="dash-cal-d" id="dash-phone">
-                            <div class="dash-cal-d-item dash-cal-d-item1" id="fnDownDay">
-                                <i class="fas fa-chevron-left fa-lg"></i>
-                            </div>
-                            <div class="dash-cal-d-item dash-cal-d-item2" id="">
-                                <strong><input type="date" id="yearMonthDay" value="2021-06-01"></strong>
-                            </div>
-                            <div class="dash-cal-d-item dash-cal-d-item3" id="fnUpDay">
-                                <i class="fas fa-chevron-right fa-lg"></i>
-                            </div>
-                            <div class="dash-cal-d-item dash-cal-d-item4">
-                                <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
-                                control-id="ControlID-1">어제</button> -->
-                                <button type="button" class="btn btn-default btn-xs" id="btnToD">오늘</button>
-                                <button type="button" class="btn btn-default btn-xs" id="btnTomD">내일</button>
-                            </div>
+                    <div class="dash-cal-d card" id="dash-phone">
+                        <div class="dash-cal-d-item dash-cal-d-item1" id="fnDownDay">
+                            <i class="fas fa-chevron-left fa-lg"></i>
+                        </div>
+                        <div class="dash-cal-d-item dash-cal-d-item2" id="">
+                            <strong><input type="date" id="yearMonthDay" value="2021-06-01"></strong>
+                        </div>
+                        <div class="dash-cal-d-item dash-cal-d-item3" id="fnUpDay">
+                            <i class="fas fa-chevron-right fa-lg"></i>
+                        </div>
+                        <div class="dash-cal-d-item dash-cal-d-item4">
+                            <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
+                            control-id="ControlID-1">어제</button> -->
+                            <button type="button" class="btn btn-default btn-xs" id="btnToD">오늘</button>
+                            <button type="button" class="btn btn-default btn-xs" id="btnTomD">내일</button>
                         </div>
                     </div>
                     <!-- Nav tabs -->
@@ -151,6 +149,18 @@
                 </div>
             </div>
         </main>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const opt =/*[[${opt}]]*/
+            'default';
+            console.log("ㅎㅎㅎㅎ  " + opt[0].operm1);
+            console.log("ㅎㅎㅎㅎ  " + opt[0].card);
+
+            const optOperm1 = opt[0].operm1;
+            const optCard = opt[0].card;
+            /*]]>*/
+        </script>
 
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script

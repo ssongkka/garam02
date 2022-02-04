@@ -49,6 +49,23 @@
 		<!-- </where> -->
 	</select>
 
+	<select id="selectCustomerOtherCompa"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		<include refid="customerColumns" />
+
+		FROM customer
+
+		WHERE
+
+		ctmsepa = 2
+
+		AND
+
+		ctmtrash = 1;
+	</select>
+
 	<insert id="insertCtm"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 		INSERT INTO
@@ -108,7 +125,7 @@
 		#{cont}
 		, #{conm}
 		, #{confirm}
-		, 1
+		, null
 		, 1
 		);
 	</insert>
@@ -212,7 +229,7 @@
 
 		SELECT rsvt.rsvtseq, operation_info.operseq, operation_info.opernum,
 		operation_info.rsvt, operation_info.operday, operation_info.operno,
-		operation_info.opercom, operation_info.numm, operation_info.atlm,
+		operation_info.opercom, rsvt.numm, operation_info.atlm,
 		operation_info.opertype, operation_info.operconfirm,
 		operation_info.operid, operation_info.opercar,
 		(SELECT
@@ -259,6 +276,14 @@
 		AND
 		(rsvt.endday <![CDATA[>=]]>
 		#{endday})
+	</select>
+
+	<select id="selectOpt"
+		resultType="com.garam.web.dashboard.dto.OptDTO">
+		SELECT
+		*
+		FROM
+		opt
 	</select>
 
 </mapper>

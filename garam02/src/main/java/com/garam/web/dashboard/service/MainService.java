@@ -3,6 +3,7 @@ package com.garam.web.dashboard.service;
 import java.util.List;
 import java.util.Map;
 
+import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 
 public interface MainService {
@@ -11,6 +12,8 @@ public interface MainService {
 	public List<RsvtDTO> selectCustomerName(RsvtDTO rsvtDTO) throws Exception;
 
 	public int insertCtm(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectCustomerOtherCompa() throws Exception;
 
 	public int insertRsvt(RsvtDTO rsvtDTO) throws Exception;
 
@@ -23,4 +26,6 @@ public interface MainService {
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectWeekBusNum(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<OptDTO> selectOpt() throws Exception;
 }

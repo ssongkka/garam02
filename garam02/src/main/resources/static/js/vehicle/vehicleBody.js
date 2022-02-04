@@ -1382,3 +1382,47 @@ $(document).on('click', '#insu-insert', function () {
         alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
     }
 });
+$(document).on('click', '#juk-insert', function () {
+
+    if ($('#insu-selector').val()) {
+        LoadingWithMask();
+        var form = $('#form-juk')[0];
+        var data = new FormData(form);
+
+        console.log($('#insu-selector').val());
+
+        const url = "/ve/veInsertJukPdf";
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: url,
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (r) {
+                closeLoadingWithMask();
+                switch (r) {
+                    case 1:
+                        refleshMsg("보험가입증명서 수정 완료");
+                        break;
+                    case 0:
+                        refleshMsg("보험가입증명서 수정 실패!\n\n다시 시도해 주세요.");
+                        break;
+                    case 2:
+                        refleshMsg("보험가입증명서 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
+                        break;
+
+                    default:
+                        break;
+                }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    } else {
+        alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
+    }
+});

@@ -198,15 +198,8 @@ function ernm() {
 }
 
 $(document).on('click', '#insert-rsvt', function () {
-    if (condition) {} else {}
 
-    let money = $('#conm2')
-        .val()
-        .replaceAll(",", "");
-
-    $('#conm').val(money);
-
-    if ($('#ctmno').val() == 0) {}
+    $('#conm').val($('#conm').val().replaceAll(',', ''));
 
     formRsvt.submit();
 });
@@ -214,5 +207,5 @@ $(document).on('click', '#many-insert', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;
 
-    window.open('/rsvt/rsvtMany', 'ot');
+    window.open('/dashboard/rsvtMany', 'ot');
 });

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.mapper.DashboardMapper;
 
@@ -92,8 +93,6 @@ public class MainServiceImpl implements MainService {
 			rsvtDTO.setEndt(null);
 		}
 
-		System.out.println("gfgaeg   " + rsvtDTO.getCtmtrash());
-
 		if (rsvtDTO.getRsvt() == null || rsvtDTO.getRsvt().equals("")) {
 			System.out.println(rsvtDTO);
 			rsvtDTO.setRsvt(get_Rsvt(rsvtDTO.getStday().toString()));
@@ -147,6 +146,13 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public List<RsvtDTO> selectCustomerOtherCompa() throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectCustomerOtherCompa();
+
+		return list;
+	}
+
+	@Override
 	public List<RsvtDTO> selectAlloRSVT(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = rsvtMapper.selectAlloRSVT(rsvtDTO);
 
@@ -184,6 +190,13 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<RsvtDTO> selectWeekBusNum(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = rsvtMapper.selectWeekBusNum(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<OptDTO> selectOpt() throws Exception {
+		List<OptDTO> list = rsvtMapper.selectOpt();
 
 		return list;
 	}

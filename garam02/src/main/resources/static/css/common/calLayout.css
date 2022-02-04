@@ -319,6 +319,7 @@ blockquote {
     }
 
     .dd-main-nav {
+        background: #f6f7f9;
         z-index: 1050;
         position: fixed;
         left: 0;

@@ -366,9 +366,6 @@ function makeCal(nowD, day) {
                             }
                         }
                     }
-                },
-                error: (jqXHR) => {
-                    loginSession(jqXHR.status);
                 }
             });
         })

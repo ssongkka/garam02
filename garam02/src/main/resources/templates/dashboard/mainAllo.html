@@ -11,24 +11,25 @@
             </div>
             <div id="allocont"></div>
             <datalist id="car-info">
-                <option value="1234" label="44인"></option>
-                <option value="2334" label="44인"></option>
-                <option value="4432" label="44인"></option>
-                <option value="5523" label="44인"></option>
-                <option value="4232" label="44인"></option>
-                <option value="5123" label="44인"></option>
-                <option value="9575" label="44인"></option>
-                <option value="4221" label="44인"></option>
-                <option value="4532" label="44인"></option>
-                <option value="5334" label="44인"></option>
-                <option value="1134" label="44인"></option>
-                <option value="3543" label="44인"></option>
-                <option value="타회사" label=""></option>
+                <option
+                    th:each="ve : ${ve}"
+                    th:value="${ve.vehicle2}"
+                    th:label="${ve.vehicle2}"
+                    th:data-value="${ve.carNumber}"
+                    th:data-owner="${ve.owner}"></option>
+                <option
+                    th:each="othercompa : ${othercompa}"
+                    th:value="${othercompa.ctmname}"
+                    th:label="${othercompa.ctmname}"
+                    th:data-value="${othercompa.ctmname}"></option>
             </datalist>
-            <datalist id="per-info">
-                <option value="홍길동" label="44인"></option>
-                <option value="김길동" label="44인"></option>
-                <option value="차길동" label="44인"></option>
+            <datalist id="per-info" style="">
+                <option
+                    id="aaaccc"
+                    th:each="emp : ${emp}"
+                    th:value="${emp.name}"
+                    th:label="${emp.name}"
+                    th:data-value="${emp.id}"></option>
             </datalist>
         </div>
         <div class="allo-side">

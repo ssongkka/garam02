@@ -57,7 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) {
 		// /css/**, /images/**, /js/** 등 정적 리소스는 보안필터를 거치지 않게 한다.
-		web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+		web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+				.requestMatchers(new AntPathRequestMatcher("/fonts/**"))
+				.requestMatchers(new AntPathRequestMatcher("/img/**"));
 	}
 
 	@Bean

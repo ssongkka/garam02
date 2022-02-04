@@ -152,82 +152,67 @@ function getCalTimeInputJSPtoDB(calTime) {
     return rtn_Date + ' ' + rtn_Time;
 }
 
-// Jquery Dependency
-
-$("input[data-type='currency']").on({
-    keyup: function () {
-        formatCurrency($(this));
-    },
-    blur: function () {
-        formatCurrency($(this), "blur");
-    }
+// Jquery Dependency 키를 누르거나 떼었을때 이벤트 발생
+$("input[data-type='currency']").bind('keyup keydown', function () {
+    inputNumberFormat(this);
 });
 
-function formatNumber(n) {
-    // format number 1000000 to 1,234,567
-    return n
-        .replace(/\D/g, "")
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+//입력한 문자열 전달
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
 }
 
-function formatCurrency(input, blur) {
-    // appends $ to value, validates decimal side and puts cursor back in right
-    // position. get input value
-    var input_val = input.val();
+//콤마찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
 
-    // don't validate empty input
-    if (input_val === "") {
-        return;
-    }
+//콤마풀기
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
 
-    // original length
-    var original_len = input_val.length;
+//숫자만 리턴(저장할때) alert(cf_getNumberOnly('1,2./3g')); -> 123 return
+function cf_getNumberOnly(str) {
+    var len = str.length;
+    var sReturn = "";
 
-    // initial caret position
-    var caret_pos = input.prop("selectionStart");
-
-    // check for decimal
-    if (input_val.indexOf(".") >= 0) {
-
-        // get position of first decimal this prevents multiple decimals from being
-        // entered
-        var decimal_pos = input_val.indexOf(".");
-
-        // split number by decimal point
-        var left_side = input_val.substring(0, decimal_pos);
-        var right_side = input_val.substring(decimal_pos);
-
-        // add commas to left side of number
-        left_side = formatNumber(left_side);
-
-        // validate right side
-        right_side = formatNumber(right_side);
-
-        // On blur make sure 2 numbers after decimal
-        if (blur === "blur") {
-            right_side += "00";
+    for (var i = 0; i < len; i++) {
+        if ((str.charAt(i) >= "0") && (str.charAt(i) <= "9")) {
+            sReturn += str.charAt(i);
         }
-
-        // Limit decimal to only 2 digits
-        right_side = right_side.substring(0, 2);
-
-        // join number by .
-        input_val = left_side + "." + right_side;
-
-    } else {
-        // no decimal entered add commas to number remove all non-digits
-        input_val = formatNumber(input_val);
-        input_val = input_val;
     }
-
-    // send updated string to input
-    input.val(input_val);
-
-    // put caret back in the right position
-    var updated_len = input_val.length;
-    caret_pos = updated_len - original_len + caret_pos;
-    input[0].setSelectionRange(caret_pos, caret_pos);
+    return sReturn;
 }
+
+// $("input[data-type='currency']").on({     keyup: function () {
+// formatCurrency($(this));     },     blur: function () {
+// formatCurrency($(this), "blur");     } }); function formatNumber(n) { format
+// number 1000000 to 1,234,567     return n         .replace(/\D/g, "")
+// .replace(/\B(?=(\d{3})+(?!\d))/g, ",") } function formatCurrency(input, blur)
+// {      appends $ to value, validates decimal side and puts cursor back in
+// right      position. get input value     var input_val = input.val(); don't
+// validate empty input     if (input_val === "") {         return;     }
+// original length     var original_len = input_val.length;      initial caret
+// position     var caret_pos = input.prop("selectionStart");      check for
+// decimal     if (input_val.indexOf(".") >= 0) {          get position of first
+// decimal this prevents multiple decimals from being          entered var
+// decimal_pos = input_val.indexOf(".");          split number by decimal point
+// var left_side = input_val.substring(0, decimal_pos); var right_side =
+// input_val.substring(decimal_pos);          add commas to left side of number
+// left_side = formatNumber(left_side); validate right side         right_side =
+// formatNumber(right_side); On blur make sure 2 numbers after decimal
+// if (blur === "blur") { right_side += "00";         }          Limit decimal
+// to only 2 digits right_side = right_side.substring(0, 2);          join
+// number by . input_val = left_side + "." + right_side;     } else {
+// no decimal entered add commas to number remove all non-digits
+// input_val = formatNumber(input_val);         input_val = input_val;     }
+// send updated string to input     input.val(input_val);      put caret back in
+// the right position     var updated_len = input_val.length;     caret_pos =
+// updated_len - original_len + caret_pos; input[0].setSelectionRange(caret_pos,
+// caret_pos); }
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -367,14 +352,12 @@ document
     });
 
 function loginSession(status) {
-
     if (status === 403) {
+        location.reload();
         alert(
             "로그인 제한 시간이 만료되었습니다.\n\n로그인 후 10분동안 아무작업이 없으면 자동으로 로그아웃됩니다.\n다시 로그인해주세요."
         );
-        location.reload();
     } else {}
-
 }
 
 function refleshMsg(msg) {

@@ -174,10 +174,25 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
+	public List<VehicleInfoDTO> selectVeNameList() throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectVeNameList();
+
+		return list;
+	}
+
+	@Override
 	public List<VehicleInfoDTO> selectVeDetail(VehicleInfoDTO vehicleInfoDTO) throws Exception {
 		List<VehicleInfoDTO> list = vehicleMapper.selectVeDetail(vehicleInfoDTO);
 
 		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectVeId(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectVeDetail(vehicleInfoDTO);
+
+		return list;
+
 	}
 
 	@Override
@@ -465,5 +480,4 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return rtn;
 	}
-
 }

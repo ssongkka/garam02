@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 
 @Mapper
@@ -17,6 +18,8 @@ public interface DashboardMapper {
 
 	public int insertCtm(RsvtDTO rsvtDTO) throws Exception;
 
+	public List<RsvtDTO> selectCustomerOtherCompa() throws Exception;
+
 	public int insertManyRsvt(HashMap<String, Object> map) throws Exception;
 
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
@@ -27,4 +30,5 @@ public interface DashboardMapper {
 
 	public List<RsvtDTO> selectWeekBusNum(RsvtDTO rsvtDTO) throws Exception;
 
+	public List<OptDTO> selectOpt() throws Exception;
 }
