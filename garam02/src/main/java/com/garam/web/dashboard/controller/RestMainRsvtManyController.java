@@ -34,7 +34,6 @@ public class RestMainRsvtManyController {
 			rst = -2;
 		}
 		return rst;
-
 	}
 
 	@PostMapping(value = "/insertctm")

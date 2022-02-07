@@ -87,8 +87,28 @@ function betweenDate(sday, nday, eday) {
 
     const rtn = '(' + bak + '박' + il + '일/' + bet + ')';
 
-    console.log("일수 차이는?? " + rtn);
     return rtn;
+}
+
+function betweenDateNum(sday, eday) {
+    var date_arr1 = sday.split("-");
+    var date_arr3 = eday.split("-");
+
+    var stDate = new Date(date_arr1[0], date_arr1[1], date_arr1[2]);
+    var endDate = new Date(date_arr3[0], date_arr3[1], date_arr3[2]);
+
+    var btMs1 = endDate.getTime() - stDate.getTime();
+
+    var bak = btMs1 / (1000 * 60 * 60 * 24);
+    var il = bak + 1;
+
+    return il;
+}
+
+Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
 }
 
 function resize(obj) {
@@ -203,16 +223,15 @@ function cf_getNumberOnly(str) {
 // var left_side = input_val.substring(0, decimal_pos); var right_side =
 // input_val.substring(decimal_pos);          add commas to left side of number
 // left_side = formatNumber(left_side); validate right side         right_side =
-// formatNumber(right_side); On blur make sure 2 numbers after decimal
-// if (blur === "blur") { right_side += "00";         }          Limit decimal
-// to only 2 digits right_side = right_side.substring(0, 2);          join
-// number by . input_val = left_side + "." + right_side;     } else {
-// no decimal entered add commas to number remove all non-digits
-// input_val = formatNumber(input_val);         input_val = input_val;     }
-// send updated string to input     input.val(input_val);      put caret back in
-// the right position     var updated_len = input_val.length;     caret_pos =
-// updated_len - original_len + caret_pos; input[0].setSelectionRange(caret_pos,
-// caret_pos); }
+// formatNumber(right_side); On blur make sure 2 numbers after decimal if (blur
+// === "blur") { right_side += "00";         }          Limit decimal to only 2
+// digits right_side = right_side.substring(0, 2);          join number by .
+// input_val = left_side + "." + right_side;     } else { no decimal entered add
+// commas to number remove all non-digits input_val = formatNumber(input_val);
+// input_val = input_val;     } send updated string to input
+// input.val(input_val);      put caret back in the right position     var
+// updated_len = input_val.length;     caret_pos = updated_len - original_len +
+// caret_pos; input[0].setSelectionRange(caret_pos, caret_pos); }
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()

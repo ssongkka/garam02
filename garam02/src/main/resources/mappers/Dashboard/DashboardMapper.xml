@@ -12,9 +12,13 @@
 	<sql id="rsvtColumns">
 		rsvtseq, rsvt, ctmno, datein, datech, empin, stday,
 		endday,
-		bus, num, desty, rsvpstp, stt, endt, rsvtdetail, cont, conm,
+		bus, num, desty, rsvpstp, stt, endt, rsvtdetail, cont, conm, numm,
 		confirm,
 		confirmm, rsvttrash
+	</sql>
+	<sql id="operColumns">
+		opernum, rsvt, operday, operno, opercom, opercar, operid,
+		atlm, opertype, operconfirm, opertrash
 	</sql>
 
 	<select id="selectCustomerAll"
@@ -124,6 +128,7 @@
 		,
 		#{cont}
 		, #{conm}
+		, #{numm}
 		, #{confirm}
 		, null
 		, 1
@@ -157,12 +162,78 @@
 			#{value.rsvtdetail},
 			#{value.cont},
 			#{value.conm},
+			#{value.numm},
 			null,
 			null,
 			1
 			)
 		</foreach>
 	</insert>
+
+	<insert id="insertOper" parameterType="java.util.HashMap">
+
+		INSERT INTO operation_info
+		(
+		<include refid="operColumns" />
+		)
+		VALUES
+		<foreach collection="oper" item="value" separator=",">
+			(
+			#{value.opernum},
+			#{value.rsvt},
+			#{value.operday},
+			#{value.operno},
+			#{value.opercom},
+			#{value.opercar},
+			#{value.operid},
+			#{value.atlm},
+			#{value.opertype},
+			0,
+			1
+			)
+		</foreach>
+
+	</insert>
+
+	<update id="updateOper" parameterType="java.util.HashMap">
+
+		<foreach collection="oper" item="value" index="index"
+			separator=";">
+			UPDATE
+
+			operation_info SET
+
+			opercom =
+			#{value.opercom},
+			opercar =
+			#{value.opercar},
+			operid =
+			#{value.operid},
+			atlm = #{value.atlm}
+
+			WHERE
+
+			operday =
+			#{value.operday}
+
+			AND
+
+			opernum =
+			#{value.opernum}
+
+			AND
+
+			operno =
+			#{value.operno}
+
+			AND
+
+			opertype =
+			#{value.opertype}
+
+
+		</foreach>
+	</update>
 
 	<select id="selectAlloCTM"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
@@ -277,6 +348,58 @@
 		(rsvt.endday <![CDATA[>=]]>
 		#{endday})
 	</select>
+	<select id="selectOneWayOper"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		operseq, opernum, rsvt, operday, operno, opercom,
+		opercar, operid, atlm, opertype, operconfirm, opertrash, (SELECT
+		vehicleinfo.vehicle FROM vehicleinfo WHERE vehicleinfo.carnumber =
+		opercar) AS vehicle, (SELECT employeeinfo.name FROM employeeinfo WHERE
+		employeeinfo.id = operid) AS name
+
+		FROM
+
+		operation_info
+
+		WHERE
+
+		operday =
+		#{operday}
+
+		AND
+
+		opernum =
+		#{opernum};
+
+	</select>
+
+	<delete id="delAllo"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		DELETE FROM
+
+		operation_info
+
+		WHERE
+
+		operno =
+		#{operno}
+
+		AND
+
+		opertype =
+		#{opertype}
+
+		AND
+
+		opernum =
+		#{opernum}
+
+
+	</delete>
 
 	<select id="selectOpt"
 		resultType="com.garam.web.dashboard.dto.OptDTO">

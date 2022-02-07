@@ -22,6 +22,12 @@ public interface DashboardMapper {
 
 	public int insertManyRsvt(HashMap<String, Object> map) throws Exception;
 
+	public int insertOper(HashMap<String, Object> map) throws Exception;
+
+	public int updateOper(HashMap<String, Object> map) throws Exception;
+
+	public int delAllo(RsvtDTO rsvtDTO) throws Exception;
+
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloRSVT(RsvtDTO rsvtDTO) throws Exception;
@@ -29,6 +35,8 @@ public interface DashboardMapper {
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectWeekBusNum(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectOneWayOper(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<OptDTO> selectOpt() throws Exception;
 }

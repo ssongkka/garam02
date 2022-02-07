@@ -1,5 +1,6 @@
 package com.garam.web.dashboard.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,10 @@ public interface MainService {
 
 	public int insertManyRsvt(List<Map<String, Object>> map) throws Exception;
 
+	public int insertOper(List<Map<String, Object>> map) throws Exception;
+
+	public int delAllo(RsvtDTO rsvtDTO) throws Exception;
+
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloRSVT(RsvtDTO rsvtDTO) throws Exception;
@@ -26,6 +31,8 @@ public interface MainService {
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectWeekBusNum(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectOneWayOper(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<OptDTO> selectOpt() throws Exception;
 }

@@ -200,6 +200,17 @@ function ernm() {
 $(document).on('click', '#insert-rsvt', function () {
 
     $('#conm').val($('#conm').val().replaceAll(',', ''));
+    switch ($('#cont').val()) {
+        case '포함':
+            $('#numm').val(Math.floor(($('#conm').val() / 1.1) / $('#num').val()));
+            break;
+        case '카드':
+            $('#numm').val(Math.floor(($('#conm').val() / optCard) / $('#num').val()));
+            break;
+        default:
+            $('#numm').val(Math.floor($('#conm').val() / $('#num').val()));
+            break;
+    }
 
     formRsvt.submit();
 });

@@ -174,7 +174,6 @@ public class MainServiceImpl implements MainService {
 			if (map.get(i).get("endt").equals("") || map.get(i).get("endt").toString().length() == 0) {
 				map.get(i).replace("endt", null);
 			}
-
 		}
 
 		HashMap<String, Object> rsvt = new HashMap<>();
@@ -185,6 +184,43 @@ public class MainServiceImpl implements MainService {
 		int rtn = rsvtMapper.insertManyRsvt(rsvt);
 
 		return rtn;
+	}
+
+	@Override
+	public int insertOper(List<Map<String, Object>> map) throws Exception {
+		String opernum = get_Oper();
+		int cnt = 0;
+		for (int i = 0; i < map.size(); i++) {
+			if (map.get(i).get("opernum").equals("") || map.get(i).get("opernum").toString().length() == 0) {
+				map.get(i).replace("opernum", opernum);
+			} else {
+				cnt++;
+			}
+		}
+
+		HashMap<String, Object> oper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			oper.put("oper", map);
+		}
+
+		int rtn = 0;
+
+		System.out.println("ㅎㅎㅎㅎ    " + oper);
+
+		if (cnt > 0) {
+			rtn = rsvtMapper.updateOper(oper);
+		} else {
+			rtn = rsvtMapper.insertOper(oper);
+		}
+
+		return rtn;
+	}
+
+	private String get_Oper() {
+		String oper = "O-"
+				+ LocalDateTime.now().toString().substring(2, 22).replace("-", "").replace(":", "").replace(".", "-");
+
+		return oper;
 	}
 
 	@Override
@@ -199,5 +235,19 @@ public class MainServiceImpl implements MainService {
 		List<OptDTO> list = rsvtMapper.selectOpt();
 
 		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectOneWayOper(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectOneWayOper(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public int delAllo(RsvtDTO rsvtDTO) throws Exception {
+		int rtn = rsvtMapper.delAllo(rsvtDTO);
+
+		return rtn;
 	}
 }

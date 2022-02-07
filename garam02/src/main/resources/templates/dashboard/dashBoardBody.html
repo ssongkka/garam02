@@ -89,7 +89,6 @@
                 </div>
             </div>
         </aside>
-
         <main class="main">
             <div class="tab-pane" role="tabpanel">
                 <div class="dd-main-nav">
@@ -121,6 +120,7 @@
                             </li>
                             <li role="presentation">
                                 <a href="#allo" aria-controls="allo" role="tab" data-toggle="tab">배차관리</a>
+                                <input type="hidden" id="allo-num" value="1">
                             </li>
                             <li role="presentation">
                                 <a href="#manage" aria-controls="manage" role="tab" data-toggle="tab">예약관리</a>
@@ -149,14 +149,10 @@
                 </div>
             </div>
         </main>
-
         <script th:inline="javascript">
             /*<![CDATA[*/
             const opt =/*[[${opt}]]*/
             'default';
-            console.log("ㅎㅎㅎㅎ  " + opt[0].operm1);
-            console.log("ㅎㅎㅎㅎ  " + opt[0].card);
-
             const optOperm1 = opt[0].operm1;
             const optCard = opt[0].card;
             /*]]>*/
@@ -176,6 +172,5 @@
         <script src="/js/dashboard/mainHome.js"></script>
         <script src="/js/dashboard/mainRsvt.js"></script>
         <script src="/js/dashboard/mainAllo.js"></script>
-
     </body>
 </html>

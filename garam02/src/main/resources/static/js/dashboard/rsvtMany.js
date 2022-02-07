@@ -5,6 +5,7 @@ $(document).ready(function () {
     const day = toStringByFormatting(new Date());
     $("#std").val(day);
     $("#edd").val(day);
+    $('#myModal').modal('show')
 });
 
 $(document).on('click', '#plus-btn', function () {
@@ -394,7 +395,26 @@ $(document).on('click', '#insert-many', function () {
         let params = new Array();
         $(aaa[0]).val()
         for (let index = 0; index < aaa.length; index = index + 12) {
-            console.log($(aaa[index]).val());
+
+            const contt = $(aaa[index + 9]).val();
+            const conmm = $(aaa[index + 10])
+                .val()
+                .replaceAll(",", "");
+            const numnum = $(aaa[index + 3]).val();
+            let nummm = 0;
+
+            switch (contt) {
+                case '포함':
+                    nummm = Math.floor((conmm / 1.1) / numnum);
+                    break;
+                case '카드':
+                    nummm = Math.floor((conmm / optCard) / numnum);
+                    break;
+                default:
+                    nummm = Math.floor(conmm / numnum);
+                    break;
+            }
+
             const asd = {
                 "rsvt": get_Rsvt(11, $(aaa[index]).val(), index),
                 "ctmno": $('#m-no').val(),
@@ -402,16 +422,15 @@ $(document).on('click', '#insert-many', function () {
                 "stday": $(aaa[index]).val(),
                 "endday": $(aaa[index + 1]).val(),
                 "bus": $(aaa[index + 2]).val(),
-                "num": $(aaa[index + 3]).val(),
+                "num": numnum,
                 "desty": $(aaa[index + 7]).val(),
                 "rsvpstp": $(aaa[index + 6]).val(),
                 "stt": $(aaa[index + 4]).val(),
                 "endt": $(aaa[index + 5]).val(),
                 "rsvtdetail": $(aaa[index + 8]).val(),
-                "cont": $(aaa[index + 9]).val(),
-                "conm": $(aaa[index + 10])
-                    .val()
-                    .replaceAll(",", "")
+                "cont": contt,
+                "numm": nummm,
+                "conm": conmm
             };
             params.push(asd);
         }
@@ -503,8 +522,6 @@ $("#ctmname").change(function () {
         dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
-            console.log('qdwdwwqd');
-            console.log(r[0]);
             if (r[0] != null) {
                 $('#ctmno').val('');
                 $('#radio0').prop('checked', true);

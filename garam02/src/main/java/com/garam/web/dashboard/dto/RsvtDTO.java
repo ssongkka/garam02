@@ -94,6 +94,14 @@ public class RsvtDTO {
 		return ctmseq;
 	}
 
+	public String getOperday() {
+		return operday;
+	}
+
+	public void setOperday(String operday) {
+		this.operday = operday;
+	}
+
 	// 번호
 	private Long operseq;
 
@@ -101,7 +109,7 @@ public class RsvtDTO {
 	private String opernum;
 
 	// 운행일
-	private LocalDate operday;
+	private String operday;
 
 	// 호차
 	private Integer operno;
@@ -414,14 +422,6 @@ public class RsvtDTO {
 		this.opernum = opernum;
 	}
 
-	public LocalDate getOperday() {
-		return operday;
-	}
-
-	public void setOperday(LocalDate operday) {
-		this.operday = operday;
-	}
-
 	public Integer getOperno() {
 		return operno;
 	}
@@ -496,38 +496,6 @@ public class RsvtDTO {
 
 	public void setCtmseq(Integer ctmseq) {
 		this.ctmseq = ctmseq;
-	}
-
-	@Override
-	public String toString() {
-		return "RsvtDTO [ctmseq=" + ctmseq + ", ctmno=" + ctmno + ", ctmsepa=" + ctmsepa + ", ctmname=" + ctmname
-				+ ", ctmaddress=" + ctmaddress + ", ctmtel1=" + ctmtel1 + ", ctmtel2=" + ctmtel2 + ", ctmfax=" + ctmfax
-				+ ", ctmhomepage=" + ctmhomepage + ", ctmstp=" + ctmstp + ", ctmdetail=" + ctmdetail + ", ctmtrash="
-				+ ctmtrash + ", rsvtseq=" + rsvtseq + ", rsvt=" + rsvt + ", datein=" + datein + ", datech=" + datech
-				+ ", empin=" + empin + ", stday=" + stday + ", endday=" + endday + ", bus=" + bus + ", num=" + num
-				+ ", desty=" + desty + ", rsvpstp=" + rsvpstp + ", stt=" + stt + ", endt=" + endt + ", rsvtdetail="
-				+ rsvtdetail + ", cont=" + cont + ", conm=" + conm + ", confirm=" + confirm + ", confirmm=" + confirmm
-				+ ", rsvttrash=" + rsvttrash + ", operseq=" + operseq + ", opernum=" + opernum + ", operday=" + operday
-				+ ", operno=" + operno + ", opercom=" + opercom + ", opercar=" + opercar + ", operid=" + operid
-				+ ", numm=" + numm + ", atlm=" + atlm + ", opertype=" + opertype + ", operconfirm=" + operconfirm
-				+ ", opertrash=" + opertrash + ", vehicle=" + vehicle + ", name=" + name + ", getCtmseq()="
-				+ getCtmseq() + ", getCtmno()=" + getCtmno() + ", getVehicle()=" + getVehicle() + ", getName()="
-				+ getName() + ", getCtmsepa()=" + getCtmsepa() + ", getCtmname()=" + getCtmname() + ", getCtmaddress()="
-				+ getCtmaddress() + ", getCtmtel1()=" + getCtmtel1() + ", getCtmtel2()=" + getCtmtel2()
-				+ ", getCtmfax()=" + getCtmfax() + ", getCtmhomepage()=" + getCtmhomepage() + ", getCtmstp()="
-				+ getCtmstp() + ", getCtmdetail()=" + getCtmdetail() + ", getCtmtrash()=" + getCtmtrash()
-				+ ", getRsvtseq()=" + getRsvtseq() + ", getRsvt()=" + getRsvt() + ", getDatein()=" + getDatein()
-				+ ", getDatech()=" + getDatech() + ", getEmpin()=" + getEmpin() + ", getStday()=" + getStday()
-				+ ", getEndday()=" + getEndday() + ", getBus()=" + getBus() + ", getNum()=" + getNum() + ", getDesty()="
-				+ getDesty() + ", getRsvpstp()=" + getRsvpstp() + ", getStt()=" + getStt() + ", getEndt()=" + getEndt()
-				+ ", getRsvtdetail()=" + getRsvtdetail() + ", getCont()=" + getCont() + ", getConm()=" + getConm()
-				+ ", getConfirm()=" + getConfirm() + ", getConfirmm()=" + getConfirmm() + ", getRsvttrash()="
-				+ getRsvttrash() + ", getOperseq()=" + getOperseq() + ", getOpernum()=" + getOpernum()
-				+ ", getOperday()=" + getOperday() + ", getOperno()=" + getOperno() + ", getOpercom()=" + getOpercom()
-				+ ", getOpercar()=" + getOpercar() + ", getOperid()=" + getOperid() + ", getNumm()=" + getNumm()
-				+ ", getAtlm()=" + getAtlm() + ", getOpertype()=" + getOpertype() + ", getOperconfirm()="
-				+ getOperconfirm() + ", getOpertrash()=" + getOpertrash() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }
