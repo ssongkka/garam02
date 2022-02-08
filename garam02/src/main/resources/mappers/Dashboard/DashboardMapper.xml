@@ -196,12 +196,13 @@
 	</insert>
 
 	<update id="updateOper" parameterType="java.util.HashMap">
-
 		<foreach collection="oper" item="value" index="index"
 			separator=";">
 			UPDATE
 
-			operation_info SET
+			operation_info
+
+			SET
 
 			opercom =
 			#{value.opercom},
@@ -230,8 +231,6 @@
 
 			opertype =
 			#{value.opertype}
-
-
 		</foreach>
 	</update>
 
@@ -268,7 +267,7 @@
 
 		ORDER BY
 		customer.ctmsepa,
-		customer.ctmseq
+		customer.ctmseq;
 	</select>
 	<select id="selectAlloRSVT"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
@@ -291,35 +290,49 @@
 
 		ORDER BY
 		customer.ctmsepa,
-		customer.ctmseq
+		customer.ctmseq;
 	</select>
 	<select id="selectAlloOPER"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 
-
-		SELECT rsvt.rsvtseq, operation_info.operseq, operation_info.opernum,
-		operation_info.rsvt, operation_info.operday, operation_info.operno,
-		operation_info.opercom, rsvt.numm, operation_info.atlm,
-		operation_info.opertype, operation_info.operconfirm,
-		operation_info.operid, operation_info.opercar,
-		(SELECT
-		employeeinfo.name FROM employeeinfo WHERE employeeinfo.id =
+		SELECT
+		rsvt.rsvtseq, operation_info.operseq, operation_info.opernum,
+		operation_info.rsvt,
+		operation_info.operday, operation_info.operno,
+		operation_info.opercom,
+		rsvt.numm, operation_info.atlm,
+		operation_info.opertype,
+		operation_info.operconfirm,
+		operation_info.operid,
+		operation_info.opercar,
+		IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo WHERE employeeinfo.id =
+		operation_info.operid),
 		operation_info.operid) AS name,
-		(SELECT vehicleinfo.vehicle FROM
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
 		vehicleinfo WHERE vehicleinfo.carnumber
-		= operation_info.opercar) AS
+		=
+		operation_info.opercar),
+		operation_info.opercar) AS
 		vehicle
 
-		FROM operation_info
-		left join rsvt on operation_info.rsvt =
+		FROM
+		operation_info
+		left join rsvt on
+		operation_info.rsvt =
 		rsvt.rsvt
 
-		WHERE operation_info.rsvt IN
+		WHERE
+		operation_info.rsvt IN
 
-		(SELECT rsvt.rsvt FROM rsvt left
+		(SELECT
+		rsvt.rsvt FROM rsvt left
 		join customer
-		on rsvt.ctmno =
+		on
+		rsvt.ctmno =
 		customer.ctmno
 		WHERE ((rsvt.stday <![CDATA[<=]]>
 		#{stday})
@@ -327,7 +340,10 @@
 		(rsvt.endday <![CDATA[>=]]>
 		#{endday})) AND operation_info.operday = #{stday}
 		ORDER BY
-		rsvt.ctmno);
+		rsvt.ctmno)
+
+		ORDER BY
+		operation_info.rsvt;
 	</select>
 
 	<select id="selectWeekBusNum"
@@ -346,7 +362,7 @@
 		#{stday})
 		AND
 		(rsvt.endday <![CDATA[>=]]>
-		#{endday})
+		#{endday});
 	</select>
 	<select id="selectOneWayOper"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
@@ -372,7 +388,11 @@
 		AND
 
 		opernum =
-		#{opernum};
+		#{opernum}
+
+		ORDER BY
+
+		opertype;
 
 	</select>
 
@@ -396,8 +416,7 @@
 		AND
 
 		opernum =
-		#{opernum}
-
+		#{opernum};
 
 	</delete>
 
@@ -406,7 +425,7 @@
 		SELECT
 		*
 		FROM
-		opt
+		opt;
 	</select>
 
 </mapper>

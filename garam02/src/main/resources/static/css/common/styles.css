@@ -6,7 +6,8 @@
 }
 
 :root {
-    --main-color: blue;
+    --main-color: #62207a;
+    --sub-color: #DCC4DC;
     --color-datk: #1D2231;
     --text-grey: #8390A2;
     --side-size: 250px;
@@ -34,6 +35,10 @@ body {
 
 a {
     cursor: pointer;
+}
+
+input {
+    z-index: 800;
 }
 
 input[type="checkbox"] {

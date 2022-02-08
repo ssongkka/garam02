@@ -42,3 +42,22 @@ input:focus {
     font-size: 1.3rem;
     background-color: #fff;
 }
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+    color: #fff;
+    background-color: var(--main-color);
+}
+
+.home-nav > li.active > a,
+.home-nav > li.active > a:focus,
+.home-nav > li.active > a:hover {
+    color: #fff;
+    background-color: var(--main-color);
+}
+
+a {
+    color: var(--main-color);
+    text-decoration: none;
+}

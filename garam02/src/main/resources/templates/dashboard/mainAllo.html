@@ -6,7 +6,40 @@
 
     <div th:fragment="main-allo" class="allo">
         <div class="allo-main">
-            <div id="allocont"></div>
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#iltab" aria-controls="home" role="tab" data-toggle="tab">일반&nbsp;&nbsp;<span class="badge" id="bdg1">0</span></a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#jaktab" aria-controls="profile" role="tab" data-toggle="tab">학생단체&nbsp;&nbsp;<span class="badge" id="bdg2">0</span></a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#gutab" aria-controls="messages" role="tab" data-toggle="tab">거래처&nbsp;&nbsp;<span class="badge" id="bdg3">0</span></a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#goouttab" aria-controls="settings" role="tab" data-toggle="tab">Settings&nbsp;&nbsp;<span class="badge" id="bdg4">0</span></a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="iltab">
+                        <div class="allocont" id="allocont1"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="jaktab">
+                        <div class="allocont" id="allocont2"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="gutab">
+                        <div class="allocont" id="allocont3"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="goouttab">
+                        <div class="allocont" id="allocont4"></div>
+                    </div>
+                </div>
+            </div>
+
             <datalist id="car-info">
                 <option
                     th:each="ve : ${ve}"
@@ -18,7 +51,8 @@
                     th:each="othercompa : ${othercompa}"
                     th:value="${othercompa.ctmname}"
                     th:label="${othercompa.ctmname}"
-                    th:data-value="${othercompa.ctmname}"></option>
+                    th:data-value="${othercompa.ctmname}"
+                    th:data-owner="${othercompa.ctmname}"></option>
             </datalist>
             <datalist id="per-info">
                 <option
@@ -34,7 +68,7 @@
         </div>
         <!-- Modal -->
         <div
-        style="background: transparent;"
+            style="background: transparent;"
             class="modal fade"
             id="modal-one"
             tabindex="-1"
@@ -56,7 +90,7 @@
                     </div>
                     <div class="modal-body md-one-bdc" id="md-one-bd"></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                         <button type="button" class="btn btn-default" id="btn-one-plus">운행 추가</button>
                     </div>
                 </div>

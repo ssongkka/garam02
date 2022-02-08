@@ -155,7 +155,7 @@ public class RsvtDTO {
 	}
 
 	public void setVehicle(String vehicle) {
-		this.vehicle = vehicle.substring(5);
+		this.vehicle = vehicle;
 	}
 
 	public String getName() {

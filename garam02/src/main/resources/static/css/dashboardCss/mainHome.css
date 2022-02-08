@@ -1,13 +1,17 @@
 @charset "UTF-8";
 
 .main-home {
-    padding: 3rem 40rem 3rem 10rem;
+    /* padding: 3rem 40rem 3rem 10rem; */
+    display: flex;
 }
 
 .home-main {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    margin-right: 30rem;
+    padding: 3rem 5rem;
 }
 
 .home-main-item-1 {
@@ -154,8 +158,8 @@ ul {
 .home-nav > li.active > a,
 .home-nav > li.active > a:focus,
 .home-nav > li.active > a:hover {
-    color: #fff;
-    background-color: #337ab7;
+    color: var(--main-color);
+    background-color: var(--sub-color);
 }
 
 .home-main-item-44:nth-child(1) {

@@ -69,8 +69,8 @@
 }
 
 .emp-head-detail:nth-child(8) i {
-    background: #346cb024;
-    color: #346CB0;
+    background: var(--sub-color);
+    color: var(--main-color);
     padding: 0.5rem;
     border-radius: 10%;
 }
@@ -85,8 +85,8 @@
 }
 
 .emp-head-detail:nth-child(10) i {
-    background: #346cb024;
-    color: #346CB0;
+    background: var(--sub-color);
+    color: var(--main-color);
     padding: 0.5rem;
     border-radius: 10%;
 }

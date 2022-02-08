@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.garam.company.dto.CompanyDTO;
+import com.garam.company.service.CompanyService;
 import com.garam.web.Utils.UiUtils;
 import com.garam.web.constant.Method;
 import com.garam.web.dashboard.dto.OptDTO;
@@ -32,6 +34,7 @@ public class DashboardController extends UiUtils {
 	private final MainService rsvtService;
 	private final EmployeeService employeeService;
 	private final VehicleService vehicleService;
+	private final CompanyService companyService;
 
 	@GetMapping
 	public String rsvt(@AuthenticationPrincipal User user, Model model) throws Exception {
@@ -40,6 +43,9 @@ public class DashboardController extends UiUtils {
 
 		List<RsvtDTO> list = rsvtService.selectCustomerAll();
 		model.addAttribute("customer", list);
+
+		List<CompanyDTO> compa = companyService.selectCompany();
+		model.addAttribute("compa", compa);
 
 		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
 		model.addAttribute("emp", emp);
