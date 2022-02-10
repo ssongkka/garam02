@@ -272,7 +272,8 @@
 	<select id="selectAlloRSVT"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
-		SELECT *
+		SELECT
+		*
 
 		FROM
 		rsvt
@@ -289,8 +290,7 @@
 		#{endday})
 
 		ORDER BY
-		customer.ctmsepa,
-		customer.ctmseq;
+		rsvt.datein;
 	</select>
 	<select id="selectAlloOPER"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
@@ -371,11 +371,21 @@
 		SELECT
 
 		operseq, opernum, rsvt, operday, operno, opercom,
-		opercar, operid, atlm, opertype, operconfirm, opertrash, (SELECT
-		vehicleinfo.vehicle FROM vehicleinfo WHERE vehicleinfo.carnumber =
-		opercar) AS vehicle, (SELECT employeeinfo.name FROM employeeinfo WHERE
-		employeeinfo.id = operid) AS name
-
+		opercar, operid, atlm, opertype, operconfirm, opertrash,
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar),
+		operation_info.opercar)
+		AS
+		vehicle, IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo WHERE
+		employeeinfo.id =
+		operation_info.operid),
+		operation_info.operid) AS name
 		FROM
 
 		operation_info
@@ -390,34 +400,40 @@
 		opernum =
 		#{opernum}
 
-		ORDER BY
+		ORDER
+		BY
 
 		opertype;
 
 	</select>
 
-	<delete id="delAllo"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<delete id="delAllo" parameterType="java.util.HashMap">
+		<foreach collection="allodel" item="value" index="index"
+			separator=";">
+			DELETE FROM
 
-		DELETE FROM
+			operation_info
 
-		operation_info
+			WHERE
 
-		WHERE
+			operday =
+			#{value.operday}
 
-		operno =
-		#{operno}
+			AND
 
-		AND
+			opernum =
+			#{value.opernum}
 
-		opertype =
-		#{opertype}
+			AND
 
-		AND
+			operno =
+			#{value.operno}
 
-		opernum =
-		#{opernum};
+			AND
 
+			opertype =
+			#{value.opertype}
+		</foreach>
 	</delete>
 
 	<select id="selectOpt"

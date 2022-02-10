@@ -58,6 +58,11 @@ th {
     vertical-align: middle;
 }
 
+.badge1 {
+    background: var(--sub-color);
+    color: var(--main-color);
+}
+
 .table > tbody > tr > td {
     text-align: center;
     vertical-align: middle;

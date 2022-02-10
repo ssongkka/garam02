@@ -71,11 +71,11 @@ public class RestMainAlloController {
 	}
 
 	@PostMapping(value = "/del")
-	public int delAllo(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+	public int delAllo(@RequestBody List<Map<String, Object>> map) throws Exception {
 
 		int rst = 0;
 		try {
-			rst = rsvtService.delAllo(rsvtDTO);
+			rst = rsvtService.delAllo(map);
 		} catch (DataAccessException e) {
 			rst = -1;
 

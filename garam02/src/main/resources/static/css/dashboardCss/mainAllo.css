@@ -55,6 +55,7 @@
 .allo-detail {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .allo-detail p {
@@ -156,7 +157,8 @@
     height: 30px;
     font-size: 1.5rem;
     padding: 0 0.5rem;
-    color: rgba(139,194,76,1);
+    color: var(--main-color);
+    background: var(--sub-color);
 }
 
 .allo-allo .form-control {
@@ -199,12 +201,27 @@
 }
 
 @media (max-width:1024px) {
+    .allo {
+        flex-direction: column;
+    }
+
+    .allo-main ul {
+        position: relative;
+        padding: 0;
+        z-index: 1000;
+    }
+
+    .allocont {
+        padding: 0;
+    }
+
     .allo-side {
-        display: none;
+        width: 100%;
+        position: relative;
     }
     .allo-main {
         margin-right: 0;
-        padding: 2rem;
+        padding: 1rem;
     }
 
     .allo small {

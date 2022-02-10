@@ -245,8 +245,13 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int delAllo(RsvtDTO rsvtDTO) throws Exception {
-		int rtn = rsvtMapper.delAllo(rsvtDTO);
+	public int delAllo(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> allodel = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			allodel.put("allodel", map);
+		}
+
+		int rtn = rsvtMapper.delAllo(allodel);
 
 		return rtn;
 	}

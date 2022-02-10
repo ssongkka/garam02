@@ -159,7 +159,7 @@ $(document).on('keydown', '.ve-car-one', function (eInner) {
             .val(carowner);
         const iidd = '#' + $(this).attr('id');
 
-        ve02(carnum).then(ve03);
+        ve02(carnum);
 
         function ve02(para) {
             return new Promise(function (resolve, reject) {
@@ -601,7 +601,6 @@ function insertOperOne(id, num) {
         console.log('mIn  ' + mIn);
         console.log('tod  ' + tod);
         console.log('ed  ' + ed);
-
     })
 }
 
@@ -683,13 +682,25 @@ function mdOneWay(val) {
                     htmls += '<span style="margin: 0 3rem;">' + (
                         i + 1
                     ) + '</span>'
+
+                    let ve = '';
+                    if (r[i].vehicle) {
+                        if (r[i].name == '타회사') {
+                            ve = r[i].vehicle;
+                        } else {
+                            ve = r[i]
+                                .vehicle
+                                .substring(r[i].vehicle.length - 4);
+                        }
+                    }
+
                     if (r[i].opertype == 1) {
                         htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
                             ++cnt
                         ) + '" placeholder="' + (
                             i + 1
                         ) + '호차" id="' + cnt + 'car" style="font-weight: 600; letter-spacing: 0.3rem;ba' +
-                                'ckground: transparent;" value="' + r[i].vehicle + '" disabled>';
+                                'ckground: transparent;" value="' + ve + '" disabled>';
                         htmls += '<input type="hidden" value="' + r[i].opercar + '" disabled>';
                         htmls += '<input type="hidden" value="' + r[i].opercom + '" disabled>';
                         htmls += '<input type="text" class="ve-emp-one" id="' + cnt + 'emp" list="per-info" tabi' +
@@ -707,7 +718,7 @@ function mdOneWay(val) {
                         ) + '" placeholder="' + (
                             i + 1
                         ) + '호차" id="' + cnt + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" ' +
-                                'value="' + r[i].vehicle + '">';
+                                'value="' + ve + '">';
                         htmls += '<input type="hidden" value="' + r[i].opercar + '">';
                         htmls += '<input type="hidden" value="' + r[i].opercom + '">';
                         htmls += '<input type="text" class="ve-emp-one" id="' + cnt + 'emp" list="per-info" tabi' +
@@ -737,7 +748,20 @@ function mdOneWay(val) {
                 $("input[data-type='currency']").bind('keyup keydown', function () {
                     inputNumberFormat(this);
                 });
-
+                $('[data-toggle="tooltip"]').tooltip({
+                    container: "body",
+                    delay: {
+                        "show": 0,
+                        "hide": 111000
+                    }
+                });
+                $('.tooltip-right').tooltip({
+                    placement: 'right',
+                    viewport: {
+                        selector: 'body',
+                        padding: 2
+                    }
+                });
             } else {
                 alert('첫번째 운행 할 차량을 먼저 배차해주세요.');
             }
@@ -796,6 +820,20 @@ function plusOneWay(num) {
 
     $("input[data-type='currency']").bind('keyup keydown', function () {
         inputNumberFormat(this);
+    });
+    $('[data-toggle="tooltip"]').tooltip({
+        container: "body",
+        delay: {
+            "show": 0,
+            "hide": 111000
+        }
+    });
+    $('.tooltip-right').tooltip({
+        placement: 'right',
+        viewport: {
+            selector: 'body',
+            padding: 2
+        }
     });
 }
 
@@ -858,9 +896,9 @@ function getAlloList(day) {
                                     htmls += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls += '<div><h4><mark><i class="fas fa-user-check">&nbsp;&nbsp;' + r[i].ctmname + '</' +
-                                            'i></mark><small><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></s' +
-                                            'mall></h4></div>';
+                                    htmls += '<div><h4><mark><i class="fas fa-user-check" style="letter-spacing: 0.3rem;">&n' +
+                                            'bsp;&nbsp;' + r[i].ctmname + '</i></mark><small><a href="tel:' + r[i].ctmtel1 +
+                                            '">' + r[i].ctmtel1 + '</a></small></h4></div>';
                                     htmls += '<hr>';
                                     htmls += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls += '</div>';
@@ -876,9 +914,9 @@ function getAlloList(day) {
                                     htmls2 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls2 += '<div><h4><mark><i class="fas fa-school">&nbsp;&nbsp;' + r[i].ctmname + '</i></' +
-                                            'mark><small><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></small' +
-                                            '></h4></div>';
+                                    htmls2 += '<div><h4><mark><i class="fas fa-school" style="letter-spacing: 0.3rem;">&nbsp;' +
+                                            '&nbsp;' + r[i].ctmname + '</i></mark><small><a href="tel:' + r[i].ctmtel1 +
+                                            '">' + r[i].ctmtel1 + '</a></small></h4></div>';
                                     htmls2 += '<hr>';
                                     htmls2 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls2 += '</div>';
@@ -894,10 +932,11 @@ function getAlloList(day) {
                                     htmls3 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls3 += '<div><h4><mark><i class="fas fa-file-signature">&nbsp;&nbsp;' + r[i].ctmname +
-                                            '</i></mark><small><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a><' +
-                                            '/small><small><a href="tel:' + r[i].ctmtel2 + '">' + r[i].ctmtel2 + '</a></sma' +
-                                            'll><small>' + r[i].ctmdetail + '</small></h4></div>';
+                                    htmls3 += '<div><h4><mark><i class="fas fa-file-signature" style="letter-spacing: 0.3rem;' +
+                                            '">&nbsp;&nbsp;' + r[i].ctmname + '</i></mark><small><a href="tel:' + r[i].ctmtel1 +
+                                            '">' + r[i].ctmtel1 + '</a></small><small><a href="tel:' + r[i].ctmtel2 +
+                                            '">' + r[i].ctmtel2 + '</a></small><small>' + r[i].ctmdetail + '</small></h4></' +
+                                            'div>';
                                     htmls3 += '<hr>';
                                     htmls3 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls3 += '</div>';
@@ -905,10 +944,6 @@ function getAlloList(day) {
                                     break;
                             }
                         }
-
-                        console.log('111  ' + htmls);
-                        console.log('222  ' + htmls2);
-                        console.log('333  ' + htmls3);
                         resolve(ctmseqArr);
                     } else {
                         resolve(0);
@@ -1012,17 +1047,21 @@ function getAlloList(day) {
                             htmls += '<div class="allo-detail">';
                             htmls += '<div class="allo-detail-item">';
                             htmls += '<blockquote>';
-                            htmls += '<p><mark>' + r[i].desty + suk + '</mark></p>';
+                            htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                                    '><i class="fas fa-map-marker-alt">&nbsp;&nbsp;</i>' + r[i].desty + '<em style=' +
+                                    '"letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
                             htmls += '</blockquote>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<small><mark>' + r[i].bus + '&nbsp;' + r[i].num + '대</mark></small>';
+                            htmls += '<small><mark><i class="fas fa-bus">&nbsp;</i>' + r[i].bus + '</mark>&nbsp;&nbs' +
+                                    'p;<span class="badge">' + r[i].num + '</span></small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<small>' + r[i].rsvpstp + '</small>';
+                            htmls += '<small><i class="fas fa-map-pin">&nbsp;</i>' + r[i].rsvpstp + '</small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<small>' + r[i].stt + '&nbsp;&#47;&nbsp;' + r[i].endt + '</small>';
+                            htmls += '<small><i class="far fa-clock">&nbsp;</i>' + r[i].stt + '&nbsp;&#47;&nbsp;' + r[i].endt +
+                                    '</small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
 
@@ -1054,11 +1093,17 @@ function getAlloList(day) {
                                     k + 1
                                 ) + '">';
 
-                                // if (condition) {} else {}
+                                if (suk.length > 0) {
+                                    htmls += '<button class="onebtn tooltip-right" role="button" id="bt-' + (
+                                        cnt - 1
+                                    ) + '" data-toggle="tooltip" data-placement="left" title="숙박 운행은 편도 운행이 가능하지 않습' +
+                                            '니다."><i class="fas fa-ban"></i></button>';
+                                } else {
+                                    htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
+                                        cnt - 1
+                                    ) + '"><i class="far fa-list-alt"></i></button>';
+                                }
 
-                                htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
-                                    cnt - 1
-                                ) + '"><i class="far fa-list-alt"></i></button>';
                                 htmls += '<input type="text" class="ve-car" list="car-info" tabindex="' + (
                                     ++cnt
                                 ) + '" placeholder="' + (
@@ -1095,7 +1140,25 @@ function getAlloList(day) {
                             $("input[data-type='currency']").bind('keyup keydown', function () {
                                 inputNumberFormat(this);
                             });
+                            $('[data-toggle="tooltip"]').tooltip({
+                                container: "body",
+                                delay: {
+                                    "show": 0,
+                                    "hide": 111000
+                                }
+                            });
+                            $('.tooltip-right').tooltip({
+                                placement: 'right',
+                                viewport: {
+                                    selector: 'body',
+                                    padding: 2
+                                }
+                            });
                         }
+                        // if (cnt0 > 0) {     $('#bdggg').attr('class', 'badge badge1'); } if (cnt00 >
+                        // 0) {     $('#bdg1').attr('class', 'badge badge1'); } if (cnt01 > 0) {
+                        // $('#bdg2').attr('class', 'badge badge1'); } if (cnt02 > 0) {
+                        // $('#bdg3').attr('class', 'badge badge1'); }
                         $('#bdggg').text(cnt0);
                         $('#bdg1').text(cnt00);
                         $('#bdg2').text(cnt01);
@@ -1104,6 +1167,10 @@ function getAlloList(day) {
                     }
                 })
             } else {
+                $('#bdggg').text(0);
+                $('#bdg1').text(0);
+                $('#bdg2').text(0);
+                $('#bdg3').text(0);
                 getRsvtList(0);
                 resolve(0);
             }
@@ -1256,16 +1323,38 @@ function delAllo(id) {
         .attr('id')
         .split('-')[2];
 
+    const tod = $(
+        $('#' + id).parent().parent().parent().prev().prev().children()[5]
+    ).val();
+    const ed = $(
+        $('#' + id).parent().parent().parent().prev().prev().children()[6]
+    ).val();
+
+    console.log("tdtdtd   " + tod);
+    console.log("ededed   " + ed);
+
+    let params = new Array();
+    const beetween = betweenDateNum(tod, ed);
+
+    for (let i = 0; i < beetween; i++) {
+
+        let date = new Date(tod);
+
+        const ddd = toStringByFormatting(date.addDays(i));
+
+        const asd = {
+            "opernum": opernum,
+            "operday": ddd,
+            "operno": hoCha,
+            "opertype": "1"
+        };
+        params.push(asd);
+    }
+
     const url = "/allo/del";
     const headers = {
         "Content-Type": "application/json",
         "X-HTTP-Method-Override": "POST"
-    };
-
-    const params = {
-        "operno": hoCha,
-        "opertype": 1,
-        "opernum": opernum
     };
 
     $.ajax({

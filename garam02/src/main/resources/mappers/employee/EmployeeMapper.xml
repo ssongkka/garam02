@@ -190,7 +190,7 @@
 
 		SELECT
 
-		id, name
+		*
 
 		FROM
 		employeeinfo

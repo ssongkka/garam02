@@ -9,6 +9,44 @@ const veFolder = 'http://192.168.35.136:8000/list/HDD2/src/ve/';
 
 const tableCh = '#337ab7';
 
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+        container: "body",
+        delay: {
+            "show": 0,
+            "hide": 111000
+        }
+    });
+    $('.tooltip-right').tooltip({
+        placement: 'right',
+        viewport: {
+            selector: 'body',
+            padding: 2
+        }
+    });
+    $('.tooltip-bottom').tooltip({
+        placement: 'bottom',
+        viewport: {
+            selector: 'body',
+            padding: 2
+        }
+    });
+    $('.tooltip-viewport-right').tooltip({
+        placement: 'right',
+        viewport: {
+            selector: '.container-viewport',
+            padding: 2
+        }
+    });
+    $('.tooltip-viewport-bottom').tooltip({
+        placement: 'bottom',
+        viewport: {
+            selector: '.container-viewport',
+            padding: 2
+        }
+    });
+});
+
 function LoadingWithMask() {
     //화면의 높이와 너비를 구합니다.
     var maskHeight = $(document).height();
@@ -232,10 +270,6 @@ function cf_getNumberOnly(str) {
 // input.val(input_val);      put caret back in the right position     var
 // updated_len = input_val.length;     caret_pos = updated_len - original_len +
 // caret_pos; input[0].setSelectionRange(caret_pos, caret_pos); }
-
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
 
 function numberOnly(e) {
     e.value = e

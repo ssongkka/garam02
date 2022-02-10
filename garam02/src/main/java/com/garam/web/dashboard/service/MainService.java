@@ -22,7 +22,7 @@ public interface MainService {
 
 	public int insertOper(List<Map<String, Object>> map) throws Exception;
 
-	public int delAllo(RsvtDTO rsvtDTO) throws Exception;
+	public int delAllo(List<Map<String, Object>> map) throws Exception;
 
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
 

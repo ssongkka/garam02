@@ -26,7 +26,7 @@ public interface DashboardMapper {
 
 	public int updateOper(HashMap<String, Object> map) throws Exception;
 
-	public int delAllo(RsvtDTO rsvtDTO) throws Exception;
+	public int delAllo(HashMap<String, Object> map) throws Exception;
 
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
 

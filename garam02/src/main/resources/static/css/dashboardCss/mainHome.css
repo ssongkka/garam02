@@ -3,6 +3,7 @@
 .main-home {
     /* padding: 3rem 40rem 3rem 10rem; */
     display: flex;
+    flex-direction: column;
 }
 
 .home-main {
@@ -74,6 +75,7 @@ h6 {
 
 .home-main-item-2 {
     display: flex;
+    flex-direction: row;
     gap: 2rem;
 }
 
@@ -86,9 +88,9 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
     gap: 3rem;
     flex: 1;
+    padding: 1rem;
 }
 
 .home-main-item-22-1 {
@@ -103,7 +105,7 @@ h6 {
 
 .home-main-item-22-1-item {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,12 +114,39 @@ h6 {
 .home-main-item-222:nth-child(1) {
     align-items: center;
     justify-content: flex-end;
-    font-size: 3rem;
+    font-size: 4rem;
+}
+.home-main-item-222:nth-child(2),
+.home-main-item-222:nth-child(3) {
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
 }
-.home-main-item-222:nth-child(2) {
+
+.home-main-item-222-span {
+    flex: 1;
+    display: flex;
     align-items: center;
-    justify-content: flex-start;
+}
+
+.home-main-item-222-span:nth-child(1) {
+    font-size: 1.2rem;
+}
+.home-main-item-222-span:nth-child(2) {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+}
+.home-main-item-222-span:nth-child(3) {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    gap: 0.3rem;
+}
+.home-main-item-222-span:nth-child(3) span {
+    cursor: help;
 }
 
 dl {
@@ -179,11 +208,20 @@ ul {
 }
 
 @media (max-width:992px) {
-    .main-home {
-        padding: 1rem;
+    .home-main {
+        padding: 0;
+        margin: 0;
     }
 
-    .home-main-item-2 {}
+    .main-home {
+        flex-direction: column;
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .home-main-item-2 {
+        flex-direction: column;
+    }
 
     .home-main-item-1 {
         display: grid;
