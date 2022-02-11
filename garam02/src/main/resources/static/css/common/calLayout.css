@@ -240,28 +240,12 @@ blockquote {
     right: 0;
 }
 
-.dd-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    background: #f6f7f9;
-    padding: 1rem;
-    box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5);
-}
-
-.dd-nav li {
-    flex: 1;
-}
-
 .tab-cont {
     padding-top: 6rem;
 }
 
 @media (max-width:1024px) {
     html {}
-    .dd-main-nav .nav > li > a {
-        padding: 0;
-    }
 
     .header .logo {
         width: 8rem;

@@ -266,8 +266,9 @@
 		customer.ctmseq
 
 		ORDER BY
+		customer.ctmseq,
 		customer.ctmsepa,
-		customer.ctmseq;
+		customer.ctmname;
 	</select>
 	<select id="selectAlloRSVT"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
@@ -290,7 +291,9 @@
 		#{endday})
 
 		ORDER BY
-		rsvt.datein;
+		customer.ctmseq,
+		customer.ctmsepa,
+		customer.ctmname;
 	</select>
 	<select id="selectAlloOPER"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"

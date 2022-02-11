@@ -83,7 +83,6 @@ $(document).on('click', '#fnDownDay', function () {
     const dday = toStringByFormatting(new Date(ddd));
     console.log(dday);
 
-    setCalWhite1(dday);
     $("#yearMonthDay").val(dday);
 
     $("#yearMonth").val(dday.substring(0, 7));
@@ -100,7 +99,6 @@ $(document).on('click', '#fnUpDay', function () {
     const dday = toStringByFormatting(new Date(ddd));
     console.log(dday);
 
-    setCalWhite1(dday);
     $("#yearMonthDay").val(dday);
 
     $("#yearMonth").val(dday.substring(0, 7));
@@ -118,17 +116,21 @@ function get_Year_Month() {
 }
 
 function get_Year_Month1() {
-    const aaa = $("#yearMonth").text();
-    const now_D = new String(aaa);
-    const year = parseInt(now_D.substring(0, 4));
-    const month = parseInt(now_D.substring(6, 8));
+    const aaa = $("#yearMonthDay").val();
+    console.log("ccsscc   " + aaa);
+    const bbb = aaa.split('-');
+    const year = parseInt(bbb[0]);
+    const month = parseInt(bbb[1]);
     const now_Month = new Date(year, month - 1, 1);
 
     return now_Month;
 }
 
 function setCalWhite(e) {
+    console.log("향   " + e);
     const day = calen_Rsvt.setCalclss(e);
+    console.log("향   " + day);
+    console.log("향   " + day.substring(0, 7));
     $("#yearMonth").val(day.substring(0, 7));
     $("#yearMonthDay").val(day);
     setBigDay(day);
@@ -140,15 +142,15 @@ function setCalWhite(e) {
         let ddd = new Date(day);
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
-
         getMidCnt(dweek, i);
     }
 }
 
 function setCalWhite1(day) {
     $("#yearMonth").val(day.substring(0, 7));
-    this.setBigDay(day);
-    this.setCaldays(day);
+    $("#yearMonthDay").val(day);
+    setBigDay(day);
+    setCaldays(day);
     getAlloList(day);
     setStEdDay(day);
 
@@ -156,7 +158,6 @@ function setCalWhite1(day) {
         let ddd = new Date(day);
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
-
         getMidCnt(dweek, i);
     }
 }
@@ -191,8 +192,48 @@ $("#yearMonth").change(function () {
 });
 
 $("#yearMonthDay").change(function () {
-    const day = $("#yearMonthDay").val();
-    setCalWhite1(day);
+    makeCal(get_Year_Month1(), null);
+    console.log(
+        toStringByFormatting(new Date($("#yearMonthDay").val())).split('-')[0]
+    );
+    console.log(
+        toStringByFormatting(new Date($("#yearMonthDay").val())).split('-')[1]
+    );
+
+    const yyear = toStringByFormatting(new Date($("#yearMonthDay").val())).split(
+        '-'
+    )[0];
+    const mmonth = toStringByFormatting(new Date($("#yearMonthDay").val())).split(
+        '-'
+    )[1];
+
+    $("#yearMonth").val(yyear + '-' + mmonth);
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        console.log(iiiddd);
+        console.log('iiiddd   ' + $("#yearMonthDay").val());
+        console.log('iiiddd   ' + $(iiiddd).children().children().next().val());
+        console.log(
+            'iiiddd   ' + $("#yearMonthDay").val() == $(iiiddd).children().children().next().val()
+        );
+        console.log(typeof($("#yearMonthDay").val()));
+        console.log(typeof($(iiiddd).children().children().next().val()));
+
+        console.log(new Date($("#yearMonthDay").val()));
+        console.log(new Date($(iiiddd).children().children().next().val()));
+
+        console.log(
+            toStringByFormatting(new Date($("#yearMonthDay").val())) == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))
+        );
+
+        if (toStringByFormatting(new Date($("#yearMonthDay").val())) == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+        }
+    }
 });
 
 function makeCal(nowD, day) {

@@ -24,8 +24,10 @@
 }
 
 .allo-card {
-    margin-bottom: 2rem;
-    padding: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 2rem 1rem 1rem;
+    background-color: #fafbfc;
 }
 
 .allo-card h4 {
@@ -56,6 +58,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    background-color: #fafbfc;
 }
 
 .allo-detail p {
@@ -232,6 +235,11 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .allo-card {
+        padding: 2rem 1rem;
     }
 
     .allo-card h4 {

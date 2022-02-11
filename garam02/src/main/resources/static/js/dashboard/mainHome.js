@@ -98,9 +98,6 @@ function cardVeEmpMake() {
     }
     htmlsEmp += '</div>';
 
-    console.log("afwfff  " + htmlsVe);
-    console.log("afwfff  " + htmlsEmp);
-
     $('#card-ve').html(htmlsVe);
     $('#card-emp').html(htmlsEmp);
 }
@@ -201,9 +198,7 @@ function getRsvtList(r, day) {
                         htmlsSchool += r[i].bus;
                         htmlsSchool += '</td>';
 
-                        console.log("aaaa  " + cnt01);
                         cnt01++;
-                        console.log("aaaa  " + cnt01);
 
                         cntArr.push(cnt02);
                         cnt02 = 1;

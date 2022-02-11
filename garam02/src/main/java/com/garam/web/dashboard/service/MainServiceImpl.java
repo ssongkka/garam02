@@ -190,12 +190,18 @@ public class MainServiceImpl implements MainService {
 	public int insertOper(List<Map<String, Object>> map) throws Exception {
 		String opernum = get_Oper();
 		int cnt = 0;
+		int cnt1 = 0;
 		for (int i = 0; i < map.size(); i++) {
 			if (map.get(i).get("opernum").equals("") || map.get(i).get("opernum").toString().length() == 0) {
 				map.get(i).replace("opernum", opernum);
 			} else {
 				cnt++;
 			}
+
+			if (Integer.parseInt((String) map.get(i).get("opertype")) > 1) {
+				cnt1++;
+			}
+
 		}
 
 		HashMap<String, Object> oper = new HashMap<>();
@@ -205,12 +211,18 @@ public class MainServiceImpl implements MainService {
 
 		int rtn = 0;
 
-		System.out.println("ㅎㅎㅎㅎ    " + oper);
-
-		if (cnt > 0) {
-			rtn = rsvtMapper.updateOper(oper);
+		if (cnt1 > 0) {
+			if (rsvtMapper.updateOper(oper) == 0) {
+				rtn = rsvtMapper.insertOper(oper);
+			} else {
+				rtn = 1;
+			}
 		} else {
-			rtn = rsvtMapper.insertOper(oper);
+			if (cnt > 0) {
+				rtn = rsvtMapper.updateOper(oper);
+			} else {
+				rtn = rsvtMapper.insertOper(oper);
+			}
 		}
 
 		return rtn;
