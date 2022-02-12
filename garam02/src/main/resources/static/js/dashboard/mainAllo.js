@@ -10,19 +10,21 @@ $(document).on('keydown', 'input', function (eInner) {
         } else if (keyValue == 37) { //up arrow 38
             tabindex--;
             $('[tabindex=' + tabindex + ']').focus();
-        } else if (keyValue == 27 || keyValue == 8) {
-            $(this).val('');
-            $(this)
-                .next()
-                .val('');
         }
-        // scrollY();
+        scrollY();
     }
 });
 
-// function scrollY() {     var id = '#' + $(':focus').attr('id');     var
-// location = $(id)         .offset()         .top;     window.scrollTo({ top:
-// location - 330,         behavior: 'smooth'     }); }
+function scrollY() {
+    var id = '#' + $(':focus').attr('id');
+    var location = $(id)
+        .offset()
+        .top;
+    window.scrollTo({
+        top: location - 350,
+        behavior: 'smooth'
+    });
+}
 
 function checkAllo(iidd) {
     if ($(iidd).val() && $(iidd).next().val() && $(iidd).next().next().val() && $(iidd).next().next().next().val() && $(iidd).next().next().next().next().val() && $(iidd).next().next().next().next().next().val()) {
@@ -137,6 +139,15 @@ $(document).on('keydown', '.ve-car', function (eInner) {
                 }
             })
         }
+    } else if (keyValue == 27 || keyValue == 8) {
+        $(this).val('');
+        $(this)
+            .next()
+            .val('');
+        $(this)
+            .next()
+            .next()
+            .val('');
     }
 });
 $(document).on('keydown', '.ve-car-one', function (eInner) {
@@ -247,6 +258,15 @@ $(document).on('keydown', '.ve-car-one', function (eInner) {
                 }
             })
         }
+    } else if (keyValue == 27 || keyValue == 8) {
+        $(this).val('');
+        $(this)
+            .next()
+            .val('');
+        $(this)
+            .next()
+            .next()
+            .val('');
     }
 });
 
@@ -276,6 +296,11 @@ $(document).on('keydown', '.ve-emp', function (eInner) {
                 parseInt(tbi) + 1
             ) + ']').focus();
         }
+    } else if (keyValue == 27 || keyValue == 8) {
+        $(this).val('');
+        $(this)
+            .next()
+            .val('');
     }
 });
 
@@ -305,6 +330,11 @@ $(document).on('keydown', '.ve-emp-one', function (eInner) {
                 parseInt(tbi) + 1
             ) + ']').focus();
         }
+    } else if (keyValue == 27 || keyValue == 8) {
+        $(this).val('');
+        $(this)
+            .next()
+            .val('');
     }
 });
 
@@ -325,6 +355,8 @@ $(document).on('keydown', '.ve-m', function (eInner) {
                 parseInt(tbi) + 1
             ) + ']').focus();
         }
+    } else if (keyValue == 27 || keyValue == 8) {
+        $(this).val('');
     }
 });
 
@@ -342,11 +374,14 @@ $(document).on('keydown', '.ve-m-one', function (eInner) {
                 insertOperOne(iidd, 3);
             }
         }
+    } else if (keyValue == 27 || keyValue == 8) {
+        $(this).val('');
     }
 });
 
 function insertOper(id, num) {
     return new Promise(function (resolve, reject) {
+        LoadingWithMask();
         let veIn = '';
         let compaIn = '';
         let empIn = '';
@@ -417,6 +452,13 @@ function insertOper(id, num) {
                 break;
         }
 
+        let conpaCheck = 0;
+        for (let k = 0; k < dbCompa.length; k++) {
+            if (dbCompa[k].company == compaIn) {
+                conpaCheck++;
+            }
+        }
+
         const rsvt = $(id)
             .parent()
             .parent()
@@ -451,7 +493,6 @@ function insertOper(id, num) {
             let date = new Date(tod);
 
             const ddd = toStringByFormatting(date.addDays(i));
-
             const asd = {
                 "opernum": opernum,
                 "rsvt": rsvt,
@@ -480,7 +521,12 @@ function insertOper(id, num) {
             data: JSON.stringify(params),
 
             success: function (r) {
-                if (r > 0) {
+                if (r.length > 0) {
+                    $(id)
+                        .parent()
+                        .prev()
+                        .prev()
+                        .val(r[0].opernum);
                     let tabnum = '';
                     if ($(id).attr('tabindex') != '-1') {
                         tabnum = $(id).attr('tabindex');
@@ -491,13 +537,31 @@ function insertOper(id, num) {
                             .prev()
                             .attr('tabindex');
                     }
-                    $('#allo-num').val(parseInt(tabnum) + 1);
-                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
-                } else if (r == 0) {
+                    if (conpaCheck > 0) {
+                        $(id)
+                            .parent()
+                            .attr('class', 'stWay1');
+                    } else {
+                        if (empIn == '타회사') {
+                            $(id)
+                                .parent()
+                                .attr('class', 'stWay3');
+                        } else {
+                            $(id)
+                                .parent()
+                                .attr('class', 'stWay2');
+                        }
+                    }
+                    closeLoadingWithMask();
+                    $('[tabindex=' + (
+                        parseInt(tabnum) + 1
+                    ) + ']').focus();
+                    scrollY();
+                } else if (r[0].opernum == 0) {
                     alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
-                } else if (r == -1) {
+                } else if (r[0].opernum == -1) {
                     alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-                } else if (r == -2) {
+                } else if (r[0].opernum == -2) {
                     alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
                 }
             },
@@ -597,6 +661,13 @@ function insertOperOne(id, num) {
                 break;
         }
 
+        let conpaCheck = 0;
+        for (let k = 0; k < dbCompa.length; k++) {
+            if (dbCompa[k].company == compaIn) {
+                conpaCheck++;
+            }
+        }
+
         const rsvt = $('#btn-rsvt').val();
         const opernum = $('#btn-opernum').val();
         const hoCha = $('#btn-hoho').val();
@@ -651,7 +722,13 @@ function insertOperOne(id, num) {
             data: JSON.stringify(params),
 
             success: function (r) {
-                if (r > 0) {
+                if (r.length > 0) {
+                    console.log("ddddd   " + r[0].opernum);
+                    $(id)
+                        .parent()
+                        .prev()
+                        .prev()
+                        .val(r[0].opernum);
                     let tabnum = '';
                     if ($(id).attr('tabindex') != '-1') {
                         tabnum = $(id).attr('tabindex');
@@ -662,13 +739,32 @@ function insertOperOne(id, num) {
                             .prev()
                             .attr('tabindex');
                     }
-                    $('#allo-num').val(parseInt(tabnum) + 1);
-                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
-                } else if (r == 0) {
+
+                    if (conpaCheck > 0) {
+                        $(id)
+                            .parent()
+                            .attr('class', 'stWay1');
+                    } else {
+                        if (empIn == '타회사') {
+                            $(id)
+                                .parent()
+                                .attr('class', 'stWay3');
+                        } else {
+                            $(id)
+                                .parent()
+                                .attr('class', 'stWay2');
+                        }
+                    }
+                    closeLoadingWithMask();
+                    $('[tabindex=' + (
+                        parseInt(tabnum) + 1
+                    ) + ']').focus();
+                    scrollY();
+                } else if (r[0].opernum == 0) {
                     alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
-                } else if (r == -1) {
+                } else if (r[0].opernum == -1) {
                     alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-                } else if (r == -2) {
+                } else if (r[0].opernum == -2) {
                     alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
                 }
             },
@@ -752,7 +848,29 @@ function mdOneWay(val) {
                     htmls += '<input type="hidden" value="' + tod + '">';
                     htmls += '<input type="hidden" value="' + ed + '">';
                     htmls += '<input type="hidden" value="' + numM + '">';
-                    htmls += '<div class="stWay" id="st-st-' + hoCha + '">';
+
+                    let cnt = 0;
+                    for (let j = 0; j < dbCompa.length; j++) {
+                        console.log(dbCompa[j].company == r[i].opercom);
+                        if (dbCompa[j].company == r[i].opercom) {
+                            cnt++;
+                        }
+                    }
+                    if (cnt > 0) {
+                        htmls += '<div class="stWay1" id="st-st-' + (
+                            i + 1
+                        ) + '">';
+                    } else {
+                        if (r[i].name == '타회사') {
+                            htmls += '<div class="stWay3" id="st-st-' + (
+                                i + 1
+                            ) + '">';
+                        } else {
+                            htmls += '<div class="stWay2" id="st-st-' + (
+                                i + 1
+                            ) + '">';
+                        }
+                    }
                     htmls += '<span style="margin: 0 3rem;">' + (
                         i + 1
                     ) + '</span>'
@@ -774,16 +892,20 @@ function mdOneWay(val) {
                             ++cnt
                         ) + '" placeholder="' + (
                             i + 1
-                        ) + '호차" id="' + cnt + 'car" style="font-weight: 600; letter-spacing: 0.3rem;ba' +
-                                'ckground: transparent;" value="' + ve + '" disabled>';
+                        ) + '호차" id="' + (
+                            i + 100
+                        ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;background: transpare' +
+                                'nt;" value="' + ve + '" disabled>';
                         htmls += '<input type="hidden" value="' + r[i].opercar + '" disabled>';
                         htmls += '<input type="hidden" value="' + r[i].opercom + '" disabled>';
-                        htmls += '<input autocomplete="off" type="text" class="ve-emp-one" id="' + cnt + 'emp" l' +
-                                'ist="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name + '" style' +
-                                '="background: transparent;" disabled>';
+                        htmls += '<input autocomplete="off" type="text" class="ve-emp-one" id="' + (
+                            i + 100
+                        ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
+                                '" style="background: transparent;" disabled>';
                         htmls += '<input type="hidden" value="' + r[i].operid + '" disabled>';
-                        htmls += '<input autocomplete="off" type="text" class="ve-m-one" id="' + cnt + 'm" onfoc' +
-                                'us="this.select()" data-type="currency" tabindex="' + (
+                        htmls += '<input autocomplete="off" type="text" class="ve-m-one" id="' + (
+                            i + 100
+                        ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
                             ++cnt
                         ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '" style="background' +
                                 ': transparent;" disabled>';
@@ -792,25 +914,30 @@ function mdOneWay(val) {
                             ++cnt
                         ) + '" placeholder="' + (
                             i + 1
-                        ) + '호차" id="' + cnt + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" ' +
-                                'value="' + ve + '">';
+                        ) + '호차" id="' + (
+                            i + 100
+                        ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve +
+                                '">';
                         htmls += '<input type="hidden" value="' + r[i].opercar + '">';
                         htmls += '<input type="hidden" value="' + r[i].opercom + '">';
-                        htmls += '<input type="text" class="ve-emp-one" id="' + cnt + 'emp" list="per-info" tabi' +
-                                'ndex="-1" placeholder="승무원" value="' + r[i].name + '">';
+                        htmls += '<input type="text" class="ve-emp-one" id="' + (
+                            i + 100
+                        ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
+                                '">';
                         htmls += '<input type="hidden" value="' + r[i].operid + '">';
-                        htmls += '<input type="text" class="ve-m-one" id="' + cnt + 'm" onfocus="this.select()" ' +
-                                'data-type="currency" tabindex="' + (
+                        htmls += '<input type="text" class="ve-m-one" id="' + (
+                            i + 100
+                        ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
                             ++cnt
                         ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '">';
                     }
                     if (i > 0) {
                         htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
-                            cnt + 200
+                            i + 100
                         ) + '"><i class="fas fa-times"></i>';
                     } else {
                         htmls += '<button class="onebtn" role="button" id="bt-' + (
-                            cnt + 200
+                            i + 100
                         ) + '" style="opacity: 0;" disabled><i class="fas fa-times"></i>';
                     }
 
@@ -850,6 +977,10 @@ $(document).on('click', '#btn-one-plus', function () {
     let size = $('#btn-size').val();
     $('#btn-size').val(++size);
 });
+$(document).on('click', '#btn-one-plus-close', function () {
+    $('#modal-one').modal('hide');
+    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+});
 
 function plusOneWay(num) {
 
@@ -863,7 +994,7 @@ function plusOneWay(num) {
     htmls += '<input type="hidden" value="' + $('#btn-tod').val() + '">';
     htmls += '<input type="hidden" value="' + $('#btn-ed').val() + '">';
     htmls += '<input type="hidden" value="' + $('#btn-ed').val() + '">';
-    htmls += '<div class="stWay" id="st-st-' + $('#btn-hoho').val() + '">';
+    htmls += '<div class="stWay" id="st-st-' + num + '">';
     htmls += '<span style="margin: 0 3rem;">' + (
         num
     ) + '</span>'
@@ -910,21 +1041,6 @@ function plusOneWay(num) {
             padding: 2
         }
     });
-}
-
-function delOne(param) {
-
-    if (!$('#' + param).prev().val() && !$('#' + param).prev().prev().prev().val() && !$(
-        '#' + param
-    ).prev().prev().prev().prev().prev().prev().val()) {
-        let size = $('#btn-size').val();
-        $('#btn-size').val(--size);
-        $('#' + param)
-            .parent()
-            .parent()
-            .remove();
-    } else {}
-
 }
 
 function getAlloList(day) {
@@ -1039,31 +1155,71 @@ function getAlloList(day) {
                     }
 
                     const cont = '금일 운행정보 없음';
+                    let contcc = '';
                     if (htmls) {
                         $('#allocont1').html(htmls);
-                    } else {
-                        $('#allocont1').html(
-                            '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                            ';">' + cont + '</div>'
-                        );
+                        contcc += "'일반'"
                     }
                     if (htmls2) {
                         $('#allocont2').html(htmls2);
-                    } else {
-                        $('#allocont2').html(
-                            '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                            ';">' + cont + '</div>'
-                        );
+                        if (contcc) {
+                            contcc += ", '학생단체'";
+                        } else {
+                            contcc += "'학생단체'";
+                        }
                     }
                     if (htmls3) {
                         $('#allocont3').html(htmls3);
-                    } else {
-                        $('#allocont3').html(
-                            '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                            ';">' + cont + '</div>'
-                        );
+                        if (contcc) {
+                            contcc += ", '거래처'";
+                        } else {
+                            contcc += "'거래처'";
+                        }
                     }
 
+                    if (contcc) {
+                        contcc += ' 운행을 확인해주세요.';
+                    }
+
+                    if (!htmls) {
+                        if (contcc) {
+                            $('#allocont1').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
+                            );
+                        } else {
+                            $('#allocont1').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p></div>'
+                            );
+                        }
+                    }
+                    if (!htmls2) {
+                        if (contcc) {
+                            $('#allocont2').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
+                            );
+                        } else {
+                            $('#allocont2').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p></div>'
+                            );
+                        }
+                    }
+                    if (!htmls3) {
+                        if (contcc) {
+                            $('#allocont3').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
+                            );
+                        } else {
+                            $('#allocont3').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p></div>'
+                            );
+                        }
+                    }
                 }
             })
         });
@@ -1401,9 +1557,7 @@ function getAlloList(day) {
                 })
 
             } else {}
-            $('[tabindex=' + $('#allo-num').val() + ']').focus();
-            // scrollY();
-            $('#allo-num').val(1);
+            $('[tabindex=0]').focus();
         });
     }
 
@@ -1426,6 +1580,7 @@ function getAlloList(day) {
 }
 
 function delAllo(id) {
+    LoadingWithMask();
     const opernum = $('#' + id)
         .parent()
         .prev()
@@ -1452,14 +1607,15 @@ function delAllo(id) {
         let date = new Date(tod);
 
         const ddd = toStringByFormatting(date.addDays(i));
-
-        const asd = {
-            "opernum": opernum,
-            "operday": ddd,
-            "operno": hoCha,
-            "opertype": "1"
-        };
-        params.push(asd);
+        for (let l = 0; l < 5; l++) {
+            const asd = {
+                "opernum": opernum,
+                "operday": ddd,
+                "operno": hoCha,
+                "opertype": l
+            };
+            params.push(asd);
+        }
     }
 
     const url = "/allo/del";
@@ -1476,7 +1632,96 @@ function delAllo(id) {
         data: JSON.stringify(params),
 
         success: function (r) {
-            setCalWhite($('.dash-cal-con-item-t').attr('id'));;
+            closeLoadingWithMask();
+            setCalWhite($('.dash-cal-con-item-t').attr('id'));
         }
     })
+}
+
+function delOne(param) {
+    const id = '#' + param;
+
+    const nextnext = $(id)
+        .parent()
+        .attr('id');
+
+    let stid = '#st-st-' + (
+        parseInt(nextnext.split('-')[2]) + 1
+    );
+
+    if ($(stid).attr('id')) {
+        alert("다음 운행 부터 삭제해주세요.");
+    } else {
+        let hoho = $(id)
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .text();
+
+        const opernum = $('#btn-opernum').val();
+        const hoCha = $('#btn-hoho').val();
+        const tod = $('#btn-tod').val();
+        const ed = $('#btn-ed').val();
+
+        // console.log('tod  ' + tod); console.log('ed  ' + ed);
+
+        let params = new Array();
+        const beetween = betweenDateNum(tod, ed);
+
+        for (let i = 0; i < beetween; i++) {
+            let date = new Date(tod);
+
+            const ddd = toStringByFormatting(date.addDays(i));
+            const asd = {
+                "opernum": opernum,
+                "operday": ddd,
+                "operno": hoCha,
+                "opertype": hoho
+            };
+            params.push(asd);
+
+            console.log('opernum  ' + opernum);
+            console.log('호차  ' + hoCha);
+            console.log('opertype  ' + hoho);
+            console.log('operday  ' + ddd);
+        }
+
+        const url = "/allo/del";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+                if (r > 0) {
+                    let size = $('#btn-size').val();
+                    $('#btn-size').val(--size);
+                    $('#' + param)
+                        .parent()
+                        .parent()
+                        .remove();
+                } else if (r == 0) {
+                    alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                } else if (r == -1) {
+                    alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == -2) {
+                    alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    }
 }

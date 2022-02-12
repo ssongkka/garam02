@@ -208,10 +208,6 @@ th {
     flex: 1;
 }
 
-.home-nav > li > a {
-    border-radius: 0;
-}
-
 .home-nav {
     display: flex;
     align-items: center;
@@ -225,6 +221,8 @@ th {
     position: relative;
     display: block;
     padding: 0.6rem;
+    border-radius: 0;
+    margin-bottom: 0;
 }
 
 .home-nav > li.active > a,
@@ -240,7 +238,7 @@ th {
 
 @media (max-width:992px) {
     .dd-main-nav .nav > li > a {
-        padding: 1rem 0;
+        padding: 1rem 0.1rem;
     }
     .dd-nav li > a {
         padding: 1rem 0;

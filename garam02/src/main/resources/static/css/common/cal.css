@@ -111,7 +111,7 @@
 }
 
 .dash-cal-con-item-c:hover {
-    background: silver;
+    background: var(--sub-color);
 }
 
 .dash-cal-con-item-c div {
@@ -127,7 +127,6 @@
 }
 
 .dash-cal-con-item-c :last-child {
-
     align-self: flex-start;
     /* display: flex;
     justify-content: center;
@@ -135,12 +134,13 @@
 }
 
 .dash-cal-con-item-t {
-    background: #CF2F11;
+    background: var(--sub-color);
+    /* color: white; */
 }
 
-.dash-cal-con-item-t:hover {
+/* .dash-cal-con-item-t:hover {
     background: silver;
-}
+} */
 
 .dash-cal-con-item-ed1 {
     color: #CF2F11;

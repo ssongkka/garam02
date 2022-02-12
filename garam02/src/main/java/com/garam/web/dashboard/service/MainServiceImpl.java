@@ -3,6 +3,7 @@ package com.garam.web.dashboard.service;
 import java.io.Console;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,7 +188,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int insertOper(List<Map<String, Object>> map) throws Exception {
+	public List<RsvtDTO> insertOper(List<Map<String, Object>> map) throws Exception {
 		String opernum = get_Oper();
 		int cnt = 0;
 		int cnt1 = 0;
@@ -195,6 +196,7 @@ public class MainServiceImpl implements MainService {
 			if (map.get(i).get("opernum").equals("") || map.get(i).get("opernum").toString().length() == 0) {
 				map.get(i).replace("opernum", opernum);
 			} else {
+				opernum = (String) map.get(i).get("opernum");
 				cnt++;
 			}
 
@@ -204,28 +206,45 @@ public class MainServiceImpl implements MainService {
 
 		}
 
+		RsvtDTO dto = new RsvtDTO();
+
 		HashMap<String, Object> oper = new HashMap<>();
 		for (int i = 0; i < map.size(); i++) {
 			oper.put("oper", map);
 		}
 
-		int rtn = 0;
+		String rtn = "";
 
 		if (cnt1 > 0) {
 			if (rsvtMapper.updateOper(oper) == 0) {
-				rtn = rsvtMapper.insertOper(oper);
+				if (rsvtMapper.insertOper(oper) > 0) {
+					dto.setOpernum(opernum);
+				} else {
+					dto.setOpernum("");
+				}
 			} else {
-				rtn = 1;
+				dto.setOpernum(opernum);
 			}
 		} else {
 			if (cnt > 0) {
-				rtn = rsvtMapper.updateOper(oper);
+				if (rsvtMapper.updateOper(oper) > 0) {
+					dto.setOpernum(opernum);
+				} else {
+					dto.setOpernum("");
+				}
 			} else {
-				rtn = rsvtMapper.insertOper(oper);
+				if (rsvtMapper.insertOper(oper) > 0) {
+					dto.setOpernum(opernum);
+				} else {
+					dto.setOpernum("");
+				}
 			}
 		}
 
-		return rtn;
+		List<RsvtDTO> list = new ArrayList<RsvtDTO>();
+		list.add(dto);
+
+		return list;
 	}
 
 	private String get_Oper() {

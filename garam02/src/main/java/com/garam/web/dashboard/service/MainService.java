@@ -20,7 +20,7 @@ public interface MainService {
 
 	public int insertManyRsvt(List<Map<String, Object>> map) throws Exception;
 
-	public int insertOper(List<Map<String, Object>> map) throws Exception;
+	public List<RsvtDTO> insertOper(List<Map<String, Object>> map) throws Exception;
 
 	public int delAllo(List<Map<String, Object>> map) throws Exception;
 

@@ -293,7 +293,7 @@ form.sign-in-form {
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        padding: 2.5rem 8%;
+        padding: 1rem;
         grid-column: 1 / 2;
     }
 
@@ -302,7 +302,7 @@ form.sign-in-form {
     }
 
     .left-panel {
-        grid-row: 3 / 5;
+        grid-row: 4 / 5;
     }
 
     .image {
@@ -385,7 +385,7 @@ form.sign-in-form {
     }
 
     .container:before {
-        top: 75%;
+        top: 85%;
         left: 50%;
     }
 

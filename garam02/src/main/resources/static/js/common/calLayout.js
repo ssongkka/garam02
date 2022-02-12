@@ -1,5 +1,15 @@
 let searchForm = document.querySelector('.deail-form');
 
+var swiper = new Swiper('.swiper-container', {
+    speed: 500,
+    slidesPerView: 2,
+    loop: true,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+    }
+});
+
 document
     .querySelector('#detail-user')
     .onclick = () => {
@@ -76,33 +86,45 @@ $(document).on('click', '#fnUpMonth', function () {
 $(document).on('click', '#fnDownDay', function () {
 
     let ddd = new Date($("#yearMonthDay").val());
-    console.log(ddd);
     ddd = ddd.setDate(ddd.getDate() - 1);
-    console.log(new Date(ddd));
 
     const dday = toStringByFormatting(new Date(ddd));
-    console.log(dday);
 
     $("#yearMonthDay").val(dday);
 
-    $("#yearMonth").val(dday.substring(0, 7));
     makeCal(new Date(ddd), null);
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (toStringByFormatting(new Date(ddd)) == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+        }
+    }
 });
 
 $(document).on('click', '#fnUpDay', function () {
 
     let ddd = new Date($("#yearMonthDay").val());
-    console.log(ddd);
     ddd = ddd.setDate(ddd.getDate() + 1);
-    console.log(new Date(ddd));
 
     const dday = toStringByFormatting(new Date(ddd));
-    console.log(dday);
 
     $("#yearMonthDay").val(dday);
 
-    $("#yearMonth").val(dday.substring(0, 7));
     makeCal(new Date(ddd), null);
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (toStringByFormatting(new Date(ddd)) == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+        }
+    }
 });
 
 function get_Year_Month() {
@@ -127,10 +149,7 @@ function get_Year_Month1() {
 }
 
 function setCalWhite(e) {
-    console.log("향   " + e);
     const day = calen_Rsvt.setCalclss(e);
-    console.log("향   " + day);
-    console.log("향   " + day.substring(0, 7));
     $("#yearMonth").val(day.substring(0, 7));
     $("#yearMonthDay").val(day);
     setBigDay(day);
@@ -193,41 +212,10 @@ $("#yearMonth").change(function () {
 
 $("#yearMonthDay").change(function () {
     makeCal(get_Year_Month1(), null);
-    console.log(
-        toStringByFormatting(new Date($("#yearMonthDay").val())).split('-')[0]
-    );
-    console.log(
-        toStringByFormatting(new Date($("#yearMonthDay").val())).split('-')[1]
-    );
-
-    const yyear = toStringByFormatting(new Date($("#yearMonthDay").val())).split(
-        '-'
-    )[0];
-    const mmonth = toStringByFormatting(new Date($("#yearMonthDay").val())).split(
-        '-'
-    )[1];
-
-    $("#yearMonth").val(yyear + '-' + mmonth);
 
     for (let i = 0; i < 42; i++) {
         let iiiddd = '#dash-cal-con-item' + (
             i + 1
-        );
-
-        console.log(iiiddd);
-        console.log('iiiddd   ' + $("#yearMonthDay").val());
-        console.log('iiiddd   ' + $(iiiddd).children().children().next().val());
-        console.log(
-            'iiiddd   ' + $("#yearMonthDay").val() == $(iiiddd).children().children().next().val()
-        );
-        console.log(typeof($("#yearMonthDay").val()));
-        console.log(typeof($(iiiddd).children().children().next().val()));
-
-        console.log(new Date($("#yearMonthDay").val()));
-        console.log(new Date($(iiiddd).children().children().next().val()));
-
-        console.log(
-            toStringByFormatting(new Date($("#yearMonthDay").val())) == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))
         );
 
         if (toStringByFormatting(new Date($("#yearMonthDay").val())) == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
@@ -405,6 +393,21 @@ function makeCal(nowD, day) {
                             if (dateutil.isSameDay(getDay, tmpArr2[index])) {
                                 $(dotID).html("&#149;");
                             }
+                        }
+
+                        if (dateutil.isSameDay(getDay, new Date())) {
+                            $(calID)
+                                .children()
+                                .children()
+                                .css('background', 'rgba(255, 239, 55, 0.5)')
+                                .css('border-radius', '30%');
+                        } else {
+                            $(calID)
+                                .children()
+                                .children()
+                                .css('background', 'none')
+                                .css('border-radius', '30%');
+
                         }
                     }
                 }

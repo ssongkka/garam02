@@ -1,5 +1,6 @@
 package com.garam.web.dashboard.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.service.MainService;
+import com.lowagie.text.Anchor;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,20 +56,17 @@ public class RestMainAlloController {
 	}
 
 	@PostMapping(value = "/insert")
-	public int insertAllo(@RequestBody List<Map<String, Object>> map) throws Exception {
+	public List<RsvtDTO> insertAllo(@RequestBody List<Map<String, Object>> map) throws Exception {
 
-		System.out.println("ccccc  " + map);
-
-		int rst = 0;
+		List<RsvtDTO> list = new ArrayList<RsvtDTO>();
 		try {
-			rst = rsvtService.insertOper(map);
+			list = rsvtService.insertOper(map);
 		} catch (DataAccessException e) {
-			rst = -1;
-
+			list.get(0).setOpernum("-1");
 		} catch (Exception e) {
-			rst = -2;
+			list.get(0).setOpernum("-2");
 		}
-		return rst;
+		return list;
 	}
 
 	@PostMapping(value = "/del")
