@@ -481,9 +481,9 @@ function insertOper(id, num) {
             .attr('id')
             .split('-')[2];
 
-        const tod = $($(id).parent().parent().parent().prev().prev().children()[5]).val();
-        const ed = $($(id).parent().parent().parent().prev().prev().children()[6]).val();
-        const numM = $($(id).parent().parent().parent().prev().prev().children()[7]).val();
+        const tod = $($(id).parent().parent().parent().prev().prev().children()[7]).val();
+        const ed = $($(id).parent().parent().parent().prev().prev().children()[8]).val();
+        const numM = $($(id).parent().parent().parent().prev().prev().children()[9]).val();
 
         let params = new Array();
         const beetween = betweenDateNum(tod, ed);
@@ -776,7 +776,9 @@ function insertOperOne(id, num) {
 }
 
 function mdOneWay(val) {
+    console.log("aasdfasdf   " + val);
     const iidd = '#' + val;
+    console.log("aasdfasdf   " + iidd);
 
     const opernum = $(iidd)
         .parent()
@@ -784,8 +786,8 @@ function mdOneWay(val) {
         .prev()
         .val();
 
-    const tod = $($(iidd).parent().parent().parent().prev().prev().children()[5]).val();
-
+    const tod = $($(iidd).parent().parent().parent().prev().prev().children()[7]).val();
+    console.log("aasdfasdf   " + tod);
     const url = "/allo/oneway";
     const headers = {
         "Content-Type": "application/json",
@@ -825,9 +827,9 @@ function mdOneWay(val) {
                     .attr('id')
                     .split('-')[2];
 
-                const tod = $($(iidd).parent().parent().parent().prev().prev().children()[5]).val();
-                const ed = $($(iidd).parent().parent().parent().prev().prev().children()[6]).val();
-                const numM = $($(iidd).parent().parent().parent().prev().prev().children()[7]).val();
+                const tod = $($(iidd).parent().parent().parent().prev().prev().children()[7]).val();
+                const ed = $($(iidd).parent().parent().parent().prev().prev().children()[8]).val();
+                const numM = $($(iidd).parent().parent().parent().prev().prev().children()[9]).val();
 
                 $('#btn-hoho').val(hoCha);
                 $('#btn-rsvt').val(rsvt);
@@ -983,64 +985,71 @@ $(document).on('click', '#btn-one-plus-close', function () {
 });
 
 function plusOneWay(num) {
+    console.log("cnt   " + num);
 
-    let cnt = (2 * num) - 1;
+    if (num <= 5) {
+        let cnt = (2 * num) - 1;
+        console.log("cnt   " + cnt);
 
-    let htmls = '';
+        let htmls = '';
 
-    htmls += '<div class="allo-allo-item col-xs-12 col-lg-4" style="width: 100%;">';
-    htmls += '<input type="hidden" value="' + $('#btn-rsvt').val() + '">';
-    htmls += '<input type="hidden" value="' + $('#btn-opernum').val() + '">';
-    htmls += '<input type="hidden" value="' + $('#btn-tod').val() + '">';
-    htmls += '<input type="hidden" value="' + $('#btn-ed').val() + '">';
-    htmls += '<input type="hidden" value="' + $('#btn-ed').val() + '">';
-    htmls += '<div class="stWay" id="st-st-' + num + '">';
-    htmls += '<span style="margin: 0 3rem;">' + (
-        num
-    ) + '</span>'
-    htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
-        cnt + 100
-    ) + '" placeholder="' + (
-        num
-    ) + '번째 운행" id="' + (
-        num + 100
-    ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="">';
-    htmls += '<input type="hidden" value="">';
-    htmls += '<input type="hidden" value="">';
-    htmls += '<input type="text" class="ve-emp-one" id="' + (
-        num + 100
-    ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="">';
-    htmls += '<input type="hidden" value="">';
-    htmls += '<input type="text" class="ve-m-one" id="' + (
-        parseInt(cnt) + 100
-    ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-        ++cnt + 100
-    ) + '" placeholder="배차금액" value="">';
-    htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
-        num + 100
-    ) + '"><i class="fas fa-times"></i>';
-    htmls += '</div>';
-    htmls += '</div>';
+        htmls += '<div class="allo-allo-item col-xs-12 col-lg-4" style="width: 100%;">';
+        htmls += '<input type="hidden" value="' + $('#btn-rsvt').val() + '">';
+        htmls += '<input type="hidden" value="' + $('#btn-opernum').val() + '">';
+        htmls += '<input type="hidden" value="' + $('#btn-tod').val() + '">';
+        htmls += '<input type="hidden" value="' + $('#btn-ed').val() + '">';
+        htmls += '<input type="hidden" value="' + $('#btn-ed').val() + '">';
+        htmls += '<div class="stWay" id="st-st-' + num + '">';
+        htmls += '<span style="margin: 0 3rem;">' + (
+            num
+        ) + '</span>'
+        htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
+            cnt + 100
+        ) + '" placeholder="' + (
+            num
+        ) + '번째 운행" id="' + (
+            num + 100
+        ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="">';
+        htmls += '<input type="hidden" value="">';
+        htmls += '<input type="hidden" value="">';
+        htmls += '<input type="text" class="ve-emp-one" id="' + (
+            num + 100
+        ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="">';
+        htmls += '<input type="hidden" value="">';
+        htmls += '<input type="text" class="ve-m-one" id="' + (
+            parseInt(cnt) + 100
+        ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+            ++cnt + 100
+        ) + '" placeholder="배차금액" value="">';
+        htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+            num + 100
+        ) + '"><i class="fas fa-times"></i>';
+        htmls += '</div>';
+        htmls += '</div>';
 
-    $('#md-one-bd').append(htmls);
+        $('#md-one-bd').append(htmls);
 
-    $("input[data-type='currency']").bind('keyup keydown', function () {
-        inputNumberFormat(this);
-    });
-    $('[data-toggle="tooltip"]').tooltip({
-        container: "body",
-        delay: {
-            "show": 0,
-            "hide": 111000
-        }
-    });
-    $('.tooltip-right').tooltip({
-        placement: 'right',
-        viewport: {
-            selector: 'body',
-            padding: 2
-        }
-    });
+        $("input[data-type='currency']").bind('keyup keydown', function () {
+            inputNumberFormat(this);
+        });
+        $('[data-toggle="tooltip"]').tooltip({
+            container: "body",
+            delay: {
+                "show": 0,
+                "hide": 111000
+            }
+        });
+        $('.tooltip-right').tooltip({
+            placement: 'right',
+            viewport: {
+                selector: 'body',
+                padding: 2
+            }
+        });
+    } else {
+        alert("편도 운행은 5회까지만 추가 할 수 있습니다.");
+    }
+
 }
 
 function getAlloList(day) {
@@ -1105,9 +1114,22 @@ function getAlloList(day) {
                                     htmls += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls += '<div><h4><i class="fas fa-user-check" style="letter-spacing: 0.3rem;">&nbsp;&n' +
-                                            'bsp;' + r[i].ctmname + '</i>' + tteell1 + tteell2 + ddetail + '</h4></div>';
+                                    htmls += '<div class="ctm-ttt"><i class="fas fa-user-check" style="letter-spacing: 0.3re' +
+                                            'm;"></i>';
+                                    htmls += '<div>';
+                                    htmls += r[i].ctmname;
+                                    htmls += '</div>';
+                                    htmls += '<div>';
+                                    htmls += tteell1;
+                                    htmls += '</div>';
+                                    htmls += '<div>';
+                                    htmls += tteell2;
+                                    htmls += '</div>';
+                                    htmls += '<div>';
+                                    htmls += ddetail;
+                                    htmls += '</div>';
                                     htmls += '<hr>';
+                                    htmls += '</div>';
                                     htmls += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls += '</div>';
                                     htmls += '</div>';
@@ -1122,13 +1144,25 @@ function getAlloList(day) {
                                     htmls2 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls2 += '<div><h4><i class="fas fa-school" style="letter-spacing: 0.3rem;">&nbsp;&nbsp;' +
-                                            r[i].ctmname + '</i>' + tteell1 + tteell2 + ddetail + '</h4></div>';
+                                    htmls2 += '<div class="ctm-ttt"><i class="fas fa-school" style="letter-spacing: 0.3rem;">' +
+                                            '</i>';
+                                    htmls2 += '<div>';
+                                    htmls2 += r[i].ctmname;
+                                    htmls2 += '</div>';
+                                    htmls2 += '<div>';
+                                    htmls2 += tteell1;
+                                    htmls2 += '</div>';
+                                    htmls2 += '<div>';
+                                    htmls2 += tteell2;
+                                    htmls2 += '</div>';
+                                    htmls2 += '<div>';
+                                    htmls2 += ddetail;
+                                    htmls2 += '</div>';
                                     htmls2 += '<hr>';
+                                    htmls2 += '</div>';
                                     htmls2 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls2 += '</div>';
                                     htmls2 += '</div>';
-
                                     break;
                                 case 2:
                                     htmls3 += '<div class="card allo-card">';
@@ -1136,13 +1170,22 @@ function getAlloList(day) {
                                     htmls3 += '<input type="hidden" id="rvctm' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmseq + '">';
-                                    htmls3 += '<input type="hidden" id="rvctmsepa' + (
-                                        i + 1
-                                    ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls3 += '<div><h4><i class="fas fa-file-signature" style="letter-spacing: 0.3rem;">&nbs' +
-                                            'p;&nbsp;' + r[i].ctmname + '</i>' + tteell1 + tteell2 + ddetail +
-                                            '</h4></div>';
+                                    htmls3 += '<div class="ctm-ttt"><i class="fas fa-file-signature" style="letter-spacing: 0' +
+                                            '.3rem;"></i>';
+                                    htmls3 += '<div>';
+                                    htmls3 += r[i].ctmname;
+                                    htmls3 += '</div>';
+                                    htmls3 += '<div>';
+                                    htmls3 += tteell1;
+                                    htmls3 += '</div>';
+                                    htmls3 += '<div>';
+                                    htmls3 += tteell2;
+                                    htmls3 += '</div>';
+                                    htmls3 += '<div>';
+                                    htmls3 += ddetail;
+                                    htmls3 += '</div>';
                                     htmls3 += '<hr>';
+                                    htmls3 += '</div>';
                                     htmls3 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls3 += '</div>';
                                     htmls3 += '</div>';
@@ -1318,6 +1361,12 @@ function getAlloList(day) {
                                 AddComma(r[i].numm)
                             ) + ')</small> ';
                             htmls += '<small>' + r[i].cont + '</small> ';
+                            htmls += '</div>';
+                            htmls += '<div class="allo-detail-item">';
+                            htmls += '<button class="btn btn-default"><i class="fas fa-pencil-alt"></i></button>'
+                            htmls += '</div>';
+                            htmls += '<div class="allo-detail-item">';
+                            htmls += '<button class="btn btn-default"><i class="fas fa-won-sign"></i></button>'
                             htmls += '</div>';
                             const aaa = $('.dash-cal-con-item-t')
                                 .children()
@@ -1593,10 +1642,10 @@ function delAllo(id) {
         .split('-')[2];
 
     const tod = $(
-        $('#' + id).parent().parent().parent().prev().prev().children()[5]
+        $('#' + id).parent().parent().parent().prev().prev().children()[7]
     ).val();
     const ed = $(
-        $('#' + id).parent().parent().parent().prev().prev().children()[6]
+        $('#' + id).parent().parent().parent().prev().prev().children()[8]
     ).val();
 
     let params = new Array();

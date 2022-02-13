@@ -190,6 +190,57 @@ ul {
     font-weight: 600;
 }
 
+.hide-tr {
+    display: none;
+}
+
+/* .hide-tr span {
+    font-size: 1.4rem;
+} */
+
+.hide-tr blockquote {
+    padding: 1rem;
+    font-size: 1.3rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.det {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.det-bae {
+    text-align: left;
+}
+
+.det-de {
+    color: gray;
+    text-align: left;
+}
+
+.fst-t {
+    padding-right: 1rem;
+    color: gray;
+}
+
+.td-desty {
+    cursor: pointer;
+    text-align: left;
+    padding-right: 1rem;
+}
+.td-desty1 {
+    cursor: pointer;
+    background: #FFFFFF;
+}
+.td-desty2 {
+    cursor: pointer;
+    background: #F9F9F9;
+}
+
 @media (max-width:992px) {
     .home-main {
         padding: 0;

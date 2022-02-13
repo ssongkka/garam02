@@ -1,9 +1,16 @@
 @charset "UTF-8";
 
+.rsvt {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .rsvt-cst {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .rsvt-form {
@@ -19,7 +26,9 @@
 }
 
 .rsvt-main {
-    padding: 3rem 55rem 3rem 25rem;
+    flex: 1;
+    margin-right: 30rem;
+    padding: 2rem 15rem;
 }
 
 .row {
@@ -114,17 +123,28 @@
     box-shadow: none;
 }
 
+#stday {
+    background: var(--sub-color);
+}
+
+#endday {
+    background: var(--sub-color);
+}
+
 @media (max-width:1024px) {
     .header .hd-icon {
         display: none;
     }
 
-    .rsvt {}
+    .rsvt {
+        flex-direction: column;
+    }
 
     .rsvt-l {}
 
     .rsvt-main {
         padding: 1rem;
+        margin: 0;
     }
 
     .rsvt-form {

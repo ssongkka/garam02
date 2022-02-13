@@ -212,7 +212,12 @@ $(document).on('click', '#insert-rsvt', function () {
             break;
     }
 
-    formRsvt.submit();
+    if ($('#ctmname').val() && $('#ctmtel1').val()) {
+        formRsvt.submit();
+    } else {
+        alert("고객정보를 입력해주세요.\n\n고객이름과 연락처는 꼭 입력하셔야합니다.");
+    }
+
 });
 $(document).on('click', '#many-insert', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=

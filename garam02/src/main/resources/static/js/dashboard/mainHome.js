@@ -2,6 +2,17 @@ $(document).ready(function () {
     cardVeEmpMake();
 });
 
+function scrollYHome(param) {
+    var id = param;
+    var location = $(id)
+        .offset()
+        .top;
+    window.scrollTo({
+        top: location - 350,
+        behavior: 'smooth'
+    });
+}
+
 function cardVeEmpMake() {
     let cntVe1 = [];
     let cntVe2 = [];
@@ -113,10 +124,20 @@ function getRsvtList(r, day) {
 
     let cntAll = 0;
 
-    let cnt01 = 1;
-    let cnt02 = 1;
+    let cnt11 = 1;
+    let cnt12 = 1;
+
+    let cnt21 = 1;
+    let cnt22 = 1;
+
+    let cnt31 = 1;
+    let cnt32 = 1;
 
     let cntArr = new Array();
+    let cntArr2 = new Array();
+    let cntArr3 = new Array();
+
+    let contColor = 0;
     for (let i = 0; i < r.length; i++) {
         cntAll = cntAll + r[i].num;
         let suk = '';
@@ -126,14 +147,62 @@ function getRsvtList(r, day) {
         switch (r[i].ctmsepa) {
             case 0:
                 cntHome = cntHome + r[i].num;
-                htmlsHome += '<tr>';
-                htmlsHome += '<td>';
-                htmlsHome += r[i].ctmname;
-                htmlsHome += '</td>';
+                ++contColor
 
-                htmlsHome += '<td style="text-align: left; padding-left: 2rem;">';
-                htmlsHome += r[i].desty + suk;
-                htmlsHome += '</td>';
+                const idd1 = 'td' + cnt11;
+
+                if (i == 0 || cnt11 == 1) {
+                    htmlsHome += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-home-' + idd1 + '-' +
+                            i + '" onclick="showDetailSch(this.id)">';
+                    htmlsHome += '<td id="td' + cnt11 + '-hhh">';
+                    htmlsHome += r[i].ctmname;
+                    htmlsHome += '</td>';
+
+                    htmlsHome += '<td style="text-align: left; padding-left: 2rem;">';
+                    htmlsHome += r[i].desty + suk;
+                    htmlsHome += '</td>';
+                    cnt11++;
+                } else {
+                    if (r[i - 1].ctmno == r[i].ctmno) {
+                        if ((cnt11 - 1) % 2 == 0) {
+                            htmlsHome += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-home-td' + (
+                                cnt11 - 1
+                            ) + '-' + i + '" onclick="showDetailSch(this.id)">';
+                        } else {
+                            htmlsHome += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-home-td' + (
+                                cnt11 - 1
+                            ) + '-' + i + '" onclick="showDetailSch(this.id)">';
+                        }
+                        htmlsHome += '<td style="text-align: left; padding-left: 2rem;">';
+                        htmlsHome += r[i].desty + suk;
+                        htmlsHome += '</td>';
+
+                        cnt12++;
+
+                        console.log("lloogg  " + cnt12);
+                    } else {
+                        if (cnt11 % 2 == 0) {
+                            htmlsHome += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-home-' + idd1 + '-' +
+                                    i + '" onclick="showDetailSch(this.id)">';
+                        } else {
+                            htmlsHome += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-home-' + idd1 + '-' +
+                                    i + '" onclick="showDetailSch(this.id)">';
+                        }
+
+                        htmlsHome += '<td id="td' + cnt11 + '-hhh">';
+                        htmlsHome += r[i].ctmname;
+                        htmlsHome += '</td>';
+
+                        htmlsHome += '<td style="text-align: left; padding-left: 2rem;">';
+                        htmlsHome += r[i].desty + suk;
+                        htmlsHome += '</td>';
+
+                        cnt11++;
+
+                        cntArr.push(cnt12);
+                        cnt12 = 1;
+                    }
+                }
 
                 htmlsHome += '<td>';
                 htmlsHome += r[i].bus;
@@ -143,99 +212,201 @@ function getRsvtList(r, day) {
                 htmlsHome += r[i].num;
                 htmlsHome += '</td>';
 
-                htmlsHome += '<td style="text-align: right; padding-right: 2rem;">';
+                htmlsHome += '<td class="" style="text-align: right; padding-right: 2rem;">';
                 htmlsHome += AddComma(r[i].conm);
                 htmlsHome += '</td>';
 
-                htmlsHome += '<td style="text-align: left; padding-left: 2rem;">';
+                htmlsHome += '<td class="hidden-xs" style="text-align: left; padding-left: 2rem;">';
                 htmlsHome += r[i].rsvpstp;
                 htmlsHome += '</td>';
 
-                htmlsHome += '<td>';
+                htmlsHome += '<td class="hidden-xs">';
                 htmlsHome += r[i].stt;
                 htmlsHome += '</td>';
                 htmlsHome += '</tr>';
+                htmlsHome += '<tr class="hide-tr" id="tr-home' + i + '"><td colspan="6">'
+
+                htmlsHome += '<div class="det">';
+                htmlsHome += '<div class="det-item">';
+                htmlsHome += '<blockquote>';
+                htmlsHome += '<span class="fst-t">배차현황</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '<span class="det-bae ">3507</span>';
+                htmlsHome += '</blockquote>';
+                htmlsHome += '</div>';
+                htmlsHome += '<div class="det-item">';
+                htmlsHome += '<blockquote>';
+                htmlsHome += '<span class="fst-t">운행상세</span>';
+                htmlsHome += '<span class="det-bae ">aegfagfaawawfawawfafawffwffawf</span>';
+                htmlsHome += '</blockquote>';
+                htmlsHome += '</div>';
+                htmlsHome += '<div class="det-item">';
+                htmlsHome += '<blockquote>';
+                htmlsHome += '<span class="fst-t">입금현황</span>';
+                htmlsHome += '<span class="det-bae ">100,000</span>';
+                htmlsHome += '</blockquote>';
+                htmlsHome += '</div>';
+                htmlsHome += '<div class="det-item">';
+                htmlsHome += '<blockquote>';
+                htmlsHome += '<span class="fst-t">입력일</span>';
+                htmlsHome += '<span class="det-bae ">2022-02-04</span>';
+                htmlsHome += '<span class="fst-t">수정일</span>';
+                htmlsHome += '<span class="det-bae ">2022-02-04</span>';
+                htmlsHome += '</blockquote>';
+                htmlsHome += '</div>';
+                htmlsHome += '<div class="det-item">';
+                htmlsHome += '<blockquote>';
+                htmlsHome += '<span class="fst-t">담당자</span>';
+                htmlsHome += '<span class="det-bae ">홍길동</span>';
+                htmlsHome += '</blockquote>';
+                htmlsHome += '</div>';
+                htmlsHome += '</div>';
+
+                htmlsHome += '</td></tr>';
                 break;
             case 1:
                 cntSchool = cntSchool + r[i].num;
+                const idd2 = 'td' + cnt21;
 
-                if (i == 0 || cnt01 == 1) {
-                    htmlsSchool += '<tr style="background: #F9F9F9;">';
-                    htmlsSchool += '<td id="td' + cnt01 + '">';
+                if (i == 0 || cnt21 == 1) {
+                    htmlsSchool += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-sch-' + idd2 + '-' + i +
+                            '" onclick="showDetailSch(this.id)">';
+                    htmlsSchool += '<td id="td' + cnt21 + '-sss">';
                     htmlsSchool += r[i].ctmname;
                     htmlsSchool += '</td>';
 
-                    htmlsSchool += '<td>';
-                    htmlsSchool += r[i].bus;
+                    htmlsSchool += '<td style="text-align: left; padding-left: 2rem;">';
+                    htmlsSchool += r[i].desty + suk;
                     htmlsSchool += '</td>';
-                    cnt01++;
+                    cnt21++;
                 } else {
                     if (r[i - 1].ctmno == r[i].ctmno) {
-                        if ((cnt01 - 1) % 2 == 0) {
-                            htmlsSchool += '<tr style="background: #FFFFFF;">';
+                        if ((cnt21 - 1) % 2 == 0) {
+                            htmlsSchool += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-sch-td' + (
+                                cnt21 - 1
+                            ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsSchool += '<tr style="background: #F9F9F9;">';
+                            htmlsSchool += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-sch-td' + (
+                                cnt21 - 1
+                            ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         }
-                        htmlsSchool += '<td>';
-                        htmlsSchool += r[i].bus;
+                        htmlsSchool += '<td style="text-align: left; padding-left: 2rem;">';
+                        htmlsSchool += r[i].desty + suk;
                         htmlsSchool += '</td>';
 
-                        cnt02++;
+                        cnt22++;
                     } else {
-                        if (cnt01 % 2 == 0) {
-                            htmlsSchool += '<tr style="background: #FFFFFF;">';
+                        if (cnt21 % 2 == 0) {
+                            htmlsSchool += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-sch-' + idd2 + '-' + i +
+                                    '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsSchool += '<tr style="background: #F9F9F9;">';
+                            htmlsSchool += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-sch-' + idd2 + '-' + i +
+                                    '" onclick="showDetailSch(this.id)">';
                         }
 
-                        const idd = 'td' + cnt01;
-
-                        htmlsSchool += '<td id="' + idd + '">';
+                        htmlsSchool += '<td id="td' + cnt21 + '-sss">';
                         htmlsSchool += r[i].ctmname;
                         htmlsSchool += '</td>';
 
-                        htmlsSchool += '<td>';
-                        htmlsSchool += r[i].bus;
+                        htmlsSchool += '<td style="text-align: left; padding-left: 2rem;">';
+                        htmlsSchool += r[i].desty + suk;
                         htmlsSchool += '</td>';
 
-                        cnt01++;
+                        cnt21++;
 
-                        cntArr.push(cnt02);
-                        cnt02 = 1;
+                        cntArr2.push(cnt22);
+                        cnt22 = 1;
                     }
                 }
+
+                htmlsSchool += '<td>';
+                htmlsSchool += r[i].bus;
+                htmlsSchool += '</td>';
 
                 htmlsSchool += '<td>';
                 htmlsSchool += r[i].num;
                 htmlsSchool += '</td>';
 
-                htmlsSchool += '<td style="text-align: left; padding-left: 2rem;">';
-                htmlsSchool += r[i].desty + suk;
-                htmlsSchool += '</td>';
-
-                htmlsSchool += '<td style="text-align: left; padding-left: 2rem;">';
-                htmlsSchool += r[i].rsvpstp;
-                htmlsSchool += '</td>';
-
-                htmlsSchool += '<td>';
+                htmlsSchool += '<td class="hidden-xs">';
                 htmlsSchool += r[i].stt;
                 htmlsSchool += '</td>';
 
-                htmlsSchool += '<td style="text-align: right; padding-right: 2rem;">';
+                htmlsSchool += '<td class="hidden-xs" style="text-align: left; padding-left: 2rem;">';
+                htmlsSchool += r[i].rsvpstp;
+                htmlsSchool += '</td>';
+
+                htmlsSchool += '<td class="hidden-xs" style="text-align: right; padding-right: 2rem;">';
                 htmlsSchool += AddComma(r[i].conm);
                 htmlsSchool += '</td>';
                 htmlsSchool += '</tr>';
+                htmlsSchool += '<tr style ="display:none;" id="tr-sch' + i + '"><td colspan="6">awfafafwf</td>' +
+                        '</tr>';
                 break;
             case 2:
                 cntaccount = cntaccount + r[i].num;
-                htmlsaccount += '<tr>';
-                htmlsaccount += '<td>';
-                htmlsaccount += r[i].ctmname;
-                htmlsaccount += '</td>';
+                const idd3 = 'td' + cnt21;
 
-                htmlsaccount += '<td style="text-align: left; padding-left: 2rem;">';
-                htmlsaccount += r[i].desty + suk;
-                htmlsaccount += '</td>';
+                if (i == 0 || cnt31 == 1) {
+                    htmlsaccount += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-acc-' + idd3 + '-' + i +
+                            '" onclick="showDetailSch(this.id)">';
+                    htmlsaccount += '<td id="td' + cnt31 + '-aaa">';
+                    htmlsaccount += r[i].ctmname;
+                    htmlsaccount += '</td>';
+
+                    htmlsaccount += '<td style="text-align: left; padding-left: 2rem;">';
+                    htmlsaccount += r[i].desty + suk;
+                    htmlsaccount += '</td>';
+                    cnt31++;
+                } else {
+                    if (r[i - 1].ctmno == r[i].ctmno) {
+                        if ((cnt31 - 1) % 2 == 0) {
+                            htmlsaccount += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-acc-td' + (
+                                cnt31 - 1
+                            ) + '-' + i + '" onclick="showDetailSch(this.id)">';
+                        } else {
+                            htmlsaccount += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-acc-td' + (
+                                cnt31 - 1
+                            ) + '-' + i + '" onclick="showDetailSch(this.id)">';
+                        }
+                        htmlsaccount += '<td style="text-align: left; padding-left: 2rem;">';
+                        htmlsaccount += r[i].desty + suk;
+                        htmlsaccount += '</td>';
+
+                        cnt32++;
+                    } else {
+                        if (cnt31 % 2 == 0) {
+                            htmlsaccount += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-acc-' + idd3 + '-' + i +
+                                    '" onclick="showDetailSch(this.id)">';
+                        } else {
+                            htmlsaccount += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-acc-' + idd3 + '-' + i +
+                                    '" onclick="showDetailSch(this.id)">';
+                        }
+
+                        htmlsaccount += '<td id="td' + cnt31 + '-aaa">';
+                        htmlsaccount += r[i].ctmname;
+                        htmlsaccount += '</td>';
+
+                        htmlsaccount += '<td style="text-align: left; padding-left: 2rem;">';
+                        htmlsaccount += r[i].desty + suk;
+                        htmlsaccount += '</td>';
+
+                        cnt31++;
+
+                        cntArr3.push(cnt32);
+                        cnt32 = 1;
+                    }
+                }
 
                 htmlsaccount += '<td>';
                 htmlsaccount += r[i].bus;
@@ -245,20 +416,20 @@ function getRsvtList(r, day) {
                 htmlsaccount += r[i].num;
                 htmlsaccount += '</td>';
 
-                htmlsaccount += '<td>';
+                htmlsaccount += '<td class="" style="text-align: right; padding-right: 2rem;">';
                 htmlsaccount += AddComma(r[i].conm);
                 htmlsaccount += '</td>';
 
-                htmlsaccount += '<td style="text-align: left; padding-left: 2rem;">';
+                htmlsaccount += '<td class="hidden-xs" style="text-align: left; padding-left: 2rem;">';
                 htmlsaccount += r[i].rsvpstp;
                 htmlsaccount += '</td>';
 
-                htmlsaccount += '<td style="text-align: right; padding-right: 2rem;">';
+                htmlsaccount += '<td class="hidden-xs">';
                 htmlsaccount += r[i].stt;
                 htmlsaccount += '</td>';
                 htmlsaccount += '</tr>';
-                break;
-            default:
+                htmlsaccount += '<tr style ="display:none;" id="tr-acc' + i + '"><td colspan="6">awfafafwf</td>' +
+                        '</tr>';
                 break;
         }
     }
@@ -280,28 +451,63 @@ function getRsvtList(r, day) {
     const noRsvt = '<tr><td colspan="7">운행 정보 없음</td></tr>';
 
     if (htmlsHome) {
+        cntArr.push(cnt12);
         $('#home-tb-normal').html(htmlsHome);
+        console.log('111  ' + cntArr.length);
+        for (let i = 0; i < cntArr.length; i++) {
+            console.log('111  ' + cntArr[i]);
+            const idd = '#td' + (
+                i + 1
+            ) + '-hhh';
+            if (i == cntArr.length - 1) {
+                $(idd).attr('rowspan', 100);
+            } else {
+                $(idd).attr('rowspan', cntArr[i]);
+            }
+            // $(idd).attr('rowspan', cntArr[i]);
+        }
     } else {
         $('#home-tb-normal').html(noRsvt);
     }
 
     if (htmlsSchool) {
-        cntArr.push(cnt02);
+        cntArr2.push(cnt12);
         $('#home-tb-school').html(htmlsSchool);
-        for (let i = 0; i < cntArr.length; i++) {
+        console.log('222  ' + cntArr2.length);
+        for (let i = 0; i < cntArr2.length; i++) {
+            console.log('222  ' + cntArr2[i]);
             const idd = '#td' + (
                 i + 1
-            );
-            $(idd).attr('rowspan', cntArr[i]);
+            ) + '-sss';
+            if (i == cntArr2.length - 1) {
+                $(idd).attr('rowspan', 100);
+            } else {
+                $(idd).attr('rowspan', cntArr2[i]);
+            }
         }
     } else {
         $('#home-tb-school').html(noRsvt);
     }
+
     if (htmlsaccount) {
+        cntArr3.push(cnt22);
         $('#home-tb-account').html(htmlsaccount);
+        console.log('333  ' + cntArr3.length);
+        for (let i = 0; i < cntArr3.length; i++) {
+            console.log('333  ' + cntArr3[i]);
+            const idd = '#td' + (
+                i + 1
+            ) + '-aaa';
+            if (i == cntArr3.length - 1) {
+                $(idd).attr('rowspan', 100);
+            } else {
+                $(idd).attr('rowspan', cntArr3[i]);
+            }
+        }
     } else {
         $('#home-tb-account').html(noRsvt);
     }
+
 }
 
 function getMidCnt(day, i) {
@@ -369,3 +575,48 @@ $(document).on('click', '#goVe', function () {
 
     window.open('/vehicle', '차량 정보');
 });
+
+function showDetail(id) {
+    const iidd = '#tr-' + id.split('-')[1] + id.split('-')[3];
+
+    console.log('iidd  ' + iidd);
+
+    if ($(iidd).css("display") == "none") {
+        $(iidd).show();
+    } else {
+        $(iidd).hide();
+    }
+}
+
+function showDetailSch(id) {
+    console.log('iidd  ' + id);
+    const iidd = '#tr-' + id.split('-')[1] + id.split('-')[3];
+    let iiiddd = '';
+    switch (id.split('-')[1]) {
+        case 'home':
+            iiiddd = '#' + id.split('-')[2] + '-hhh';
+            break;
+        case 'sch':
+            iiiddd = '#' + id.split('-')[2] + '-sss';
+            break;
+        case 'acc':
+            iiiddd = '#' + id.split('-')[2] + '-aaa';
+            break;
+    }
+
+    const rowSize = $(iiiddd).attr('rowspan');
+    console.log('iidd  ' + iidd);
+    console.log('iidd  ' + iiiddd);
+    console.log('iidd  ' + rowSize);
+
+    if ($(iidd).css("display") == "none") {
+        const upsize = parseInt(rowSize) + 1;
+        $(iiiddd).attr('rowspan', upsize);
+        $(iidd).show();
+        scrollYHome(iidd);
+    } else {
+        const upsize = parseInt(rowSize) - 1;
+        $(iiiddd).attr('rowspan', upsize);
+        $(iidd).hide();
+    }
+}

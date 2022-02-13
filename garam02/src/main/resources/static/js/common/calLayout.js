@@ -1,15 +1,5 @@
 let searchForm = document.querySelector('.deail-form');
 
-var swiper = new Swiper('.swiper-container', {
-    speed: 500,
-    slidesPerView: 2,
-    loop: true,
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-    }
-});
-
 document
     .querySelector('#detail-user')
     .onclick = () => {
