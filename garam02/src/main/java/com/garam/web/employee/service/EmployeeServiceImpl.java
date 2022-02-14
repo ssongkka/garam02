@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.garam.web.Utils.FTPManager;
 import com.garam.web.Utils.NameUtils;
 import com.garam.web.Utils.Utils;
+import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.mapper.EmployeeMapper;
 
@@ -204,6 +205,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<EmployeeInfoDTO> selectEmpDetail(EmployeeInfoDTO employeeInfoDTO) throws Exception {
 		List<EmployeeInfoDTO> list = employeeMapper.selectEmpDetail(employeeInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<EmpRsvtDTO> selectEmpOperList(EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeMapper.selectEmpOperList(empRsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<EmpRsvtDTO> selectEmpOperListCnt(EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeMapper.selectEmpOperListCnt(empRsvtDTO);
 
 		return list;
 	}

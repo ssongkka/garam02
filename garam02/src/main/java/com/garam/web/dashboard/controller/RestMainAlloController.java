@@ -83,4 +83,57 @@ public class RestMainAlloController {
 		}
 		return rst;
 	}
+
+	@PostMapping(value = "/chRSVT")
+	public List<RsvtDTO> chRSVT(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectRSVT(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/updateRsvt")
+	public int updateRsvt(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = rsvtService.updateRsvt(rsvtDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
+	@PostMapping(value = "/cancleRsvt")
+	public int cancleRsvt(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = rsvtService.cancleRsvt(rsvtDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
+	@PostMapping(value = "/delRsvt")
+	public int delRsvt(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = rsvtService.delRsvt(rsvtDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
 }

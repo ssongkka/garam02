@@ -29,6 +29,7 @@
                     </div>
                 </div>
                 <div class="hd-name">
+                    <input type="hidden" id="emp-iidd">
                     <div role="tabpanel">
 
                         <!-- Nav tabs -->
@@ -310,31 +311,45 @@
                 </div>
                 <div class="main-aside-item card">
                     <div role="tabpanel">
-
                         <!-- Nav tabs -->
-                        <ul class="nav nav-pills nav-justified" role="tablist">
+                        <ul class="nav nav-pills nav-justified dd-nav dd-nav2" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a>
+                                <a href="#mainoper" aria-controls="mainoper" role="tab" data-toggle="tab">Home</a>
                             </li>
                             <li role="presentation">
-                                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
+                                <a href="#operemp" aria-controls="operemp" role="tab" data-toggle="tab">운행내역</a>
                             </li>
                             <li role="presentation">
-                                <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a>
+                                <a href="#moneyemp" aria-controls="moneyemp" role="tab" data-toggle="tab">급여</a>
                             </li>
                             <li role="presentation">
-                                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
+                                <a href="#infoemp" aria-controls="infoemp" role="tab" data-toggle="tab">Settings</a>
                             </li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home">...</div>
-                            <div role="tabpanel" class="tab-pane" id="profile">...</div>
-                            <div role="tabpanel" class="tab-pane" id="messages">...</div>
-                            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                            <div
+                                th:insert="employee/empHome :: emp-home"
+                                role="tabpanel"
+                                class="tab-pane fade in active"
+                                id="mainoper"></div>
+                            <div
+                                th:insert="employee/empOper :: emp-oper"
+                                role="tabpanel"
+                                class="tab-pane fade"
+                                id="operemp"></div>
+                            <div
+                                th:insert="employee/empMoney :: emp-money"
+                                role="tabpanel"
+                                class="tab-pane fade"
+                                id="moneyemp"></div>
+                            <div
+                                th:insert="employee/empInfo :: emp-info"
+                                role="tabpanel"
+                                class="tab-pane fade"
+                                id="infoemp"></div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -591,5 +606,6 @@
         <script src="/js/common/summernote-ko-KR.js"></script>
         <script src="/js/common/common.js"></script>
         <script src="/js/employee/employeeBody.js"></script>
+        <script src="/js/employee/empOper.js"></script>
     </body>
 </html>

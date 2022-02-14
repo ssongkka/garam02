@@ -139,6 +139,13 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public List<RsvtDTO> selectRSVT(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectRSVT(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception {
 
 		List<RsvtDTO> list = rsvtMapper.selectAlloCTM(rsvtDTO);
@@ -283,6 +290,27 @@ public class MainServiceImpl implements MainService {
 		}
 
 		int rtn = rsvtMapper.delAllo(allodel);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRsvt(RsvtDTO rsvtDTO) throws Exception {
+		int rtn = rsvtMapper.updateRsvt(rsvtDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int cancleRsvt(RsvtDTO rsvtDTO) throws Exception {
+		int rtn = rsvtMapper.cancleRsvt(rsvtDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int delRsvt(RsvtDTO rsvtDTO) throws Exception {
+		int rtn = rsvtMapper.delRsvt(rsvtDTO);
 
 		return rtn;
 	}

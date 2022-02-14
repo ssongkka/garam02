@@ -8,6 +8,8 @@ $(document).ready(function () {
         'class',
         'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
     );
+
+    dateInput();
 });
 
 $(document).on('click', '#btnUserPlus', function () {
@@ -102,31 +104,34 @@ $("#ctmname").change(function () {
 
 $(document).on('change', '#stday', function () {
     $("#endday").val($("#stday").val())
-    $("#daynight").text('(당일)');
+    dateInput();
 });
 
 $(document).on('change', '#endday', function () {
+    dateInput();
+});
+
+function dateInput() {
     const origin = $("#endday").val();
-    const std = new Date($("#stday").val());
-    const edd = new Date($("#endday").val());
+    const std = $("#stday").val();
+    const edd = $("#endday").val();
 
-    var dateDiff = Math.ceil((edd.getTime() - std.getTime()) / (1000 * 3600 * 24));
+    const beet = betweenDateNum(std, edd);
 
-    if (dateDiff === 0) {
-        $("#daynight").text(' (당일)');
+    if (beet > 1) {
+        $("#daynight").text(' (' + (
+            beet - 1
+        ) + '박' + beet + '일)');
         $("#daynight").css('color', 'blue');
-    } else if (dateDiff > 0) {
-        const day = '(' + dateDiff + '박' + (
-            dateDiff + 1
-        ) + '일)';
-        $("#daynight").text(day);
+    } else if (beet == 1) {
+        $("#daynight").text(' (당일)');
         $("#daynight").css('color', 'blue');
     } else {
         $("#endday").val(origin);
         $("#daynight").text('  도착일을 확인해주세요!!!');
         $("#daynight").css('color', 'red');
     }
-});
+}
 
 $(document).on('click', '#eraser', function () {
 
@@ -163,6 +168,8 @@ $(document).on('click', '#eraser', function () {
         $('#rsvtdetail').val('');
         $('#cont').val('포함');
         $('#conm').val('');
+
+        $('#daynight').text('');
 
         $('html').scrollTop(0);
 

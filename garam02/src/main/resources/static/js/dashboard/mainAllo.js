@@ -481,9 +481,9 @@ function insertOper(id, num) {
             .attr('id')
             .split('-')[2];
 
-        const tod = $($(id).parent().parent().parent().prev().prev().children()[7]).val();
-        const ed = $($(id).parent().parent().parent().prev().prev().children()[8]).val();
-        const numM = $($(id).parent().parent().parent().prev().prev().children()[9]).val();
+        const tod = $($(id).parent().parent().parent().prev().prev().children()[6]).val();
+        const ed = $($(id).parent().parent().parent().prev().prev().children()[7]).val();
+        const numM = $($(id).parent().parent().parent().prev().prev().children()[8]).val();
 
         let params = new Array();
         const beetween = betweenDateNum(tod, ed);
@@ -786,7 +786,7 @@ function mdOneWay(val) {
         .prev()
         .val();
 
-    const tod = $($(iidd).parent().parent().parent().prev().prev().children()[7]).val();
+    const tod = $($(iidd).parent().parent().parent().prev().prev().children()[6]).val();
     console.log("aasdfasdf   " + tod);
     const url = "/allo/oneway";
     const headers = {
@@ -796,7 +796,8 @@ function mdOneWay(val) {
 
     const params = {
         "opernum": opernum,
-        "operday": tod
+        "operday": tod,
+        "opertrash": 1
     };
 
     $.ajax({
@@ -827,9 +828,9 @@ function mdOneWay(val) {
                     .attr('id')
                     .split('-')[2];
 
-                const tod = $($(iidd).parent().parent().parent().prev().prev().children()[7]).val();
-                const ed = $($(iidd).parent().parent().parent().prev().prev().children()[8]).val();
-                const numM = $($(iidd).parent().parent().parent().prev().prev().children()[9]).val();
+                const tod = $($(iidd).parent().parent().parent().prev().prev().children()[6]).val();
+                const ed = $($(iidd).parent().parent().parent().prev().prev().children()[7]).val();
+                const numM = $($(iidd).parent().parent().parent().prev().prev().children()[8]).val();
 
                 $('#btn-hoho').val(hoCha);
                 $('#btn-rsvt').val(rsvt);
@@ -979,6 +980,7 @@ $(document).on('click', '#btn-one-plus', function () {
     let size = $('#btn-size').val();
     $('#btn-size').val(++size);
 });
+
 $(document).on('click', '#btn-one-plus-close', function () {
     $('#modal-one').modal('hide');
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
@@ -1067,7 +1069,8 @@ function getAlloList(day) {
 
             const params = {
                 "stday": day,
-                "endday": day
+                "endday": day,
+                "rsvttrash": 1
             };
 
             $.ajax({
@@ -1092,17 +1095,17 @@ function getAlloList(day) {
                             let ddetail = '';
 
                             if (r[i].ctmtel1) {
-                                tteell1 = '<small><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></' +
-                                        'small>';
+                                tteell1 = '<span><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></s' +
+                                        'pan>';
                             } else {
-                                tteell1 = '<small>연락처 없음</small>';
+                                tteell1 = '<span>연락처 없음</span>';
                             }
                             if (r[i].ctmtel2) {
-                                tteell2 = '<small><a href="tel:' + r[i].ctmtel2 + '">' + r[i].ctmtel2 + '</a></' +
-                                        'small>';
+                                tteell2 = '<span><a href="tel:' + r[i].ctmtel2 + '">' + r[i].ctmtel2 + '</a></s' +
+                                        'pan>';
                             }
                             if (r[i].ctmdetail) {
-                                ddetail = '<small>' + r[i].ctmdetail + '</small>';
+                                ddetail = '<span>' + r[i].ctmdetail + '</span>';
                             }
                             switch (r[i].ctmsepa) {
 
@@ -1114,21 +1117,23 @@ function getAlloList(day) {
                                     htmls += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls += '<div class="ctm-ttt"><i class="fas fa-user-check" style="letter-spacing: 0.3re' +
-                                            'm;"></i>';
-                                    htmls += '<div>';
-                                    htmls += r[i].ctmname;
-                                    htmls += '</div>';
-                                    htmls += '<div>';
+                                    htmls += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-user-check" st' +
+                                            'yle="letter-spacing: 0.3rem;">' + r[i].ctmname + '</i></div>';
+                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
+                                    // '</div>';
+                                    htmls += '<div class="ctm-ttt-item">';
                                     htmls += tteell1;
                                     htmls += '</div>';
-                                    htmls += '<div>';
+                                    htmls += '<div class="ctm-ttt-item">';
                                     htmls += tteell2;
                                     htmls += '</div>';
-                                    htmls += '<div>';
+                                    htmls += '<div class="ctm-ttt-item">';
                                     htmls += ddetail;
                                     htmls += '</div>';
-                                    htmls += '<hr>';
+                                    htmls += '<div class="ctm-ttt-item">';
+                                    htmls += '<button class="btn btn-default allo-detail-item-1" data-toggle="tooltip" data-' +
+                                            'placement="left" title="일괄 입금내역 입력"><i class="fas fa-won-sign"></i></button>';
+                                    htmls += '</div>';
                                     htmls += '</div>';
                                     htmls += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls += '</div>';
@@ -1137,58 +1142,65 @@ function getAlloList(day) {
                                     break;
                                 case 1:
                                     htmls2 += '<div class="card allo-card">';
-
                                     htmls2 += '<input type="hidden" id="rvctm' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmseq + '">';
                                     htmls2 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls2 += '<div class="ctm-ttt"><i class="fas fa-school" style="letter-spacing: 0.3rem;">' +
-                                            '</i>';
-                                    htmls2 += '<div>';
-                                    htmls2 += r[i].ctmname;
-                                    htmls2 += '</div>';
-                                    htmls2 += '<div>';
+                                    htmls2 += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-school" style=' +
+                                            '"letter-spacing: 0.3rem;">' + r[i].ctmname + '</i></div>';
+                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
+                                    // '</div>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
                                     htmls2 += tteell1;
                                     htmls2 += '</div>';
-                                    htmls2 += '<div>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
                                     htmls2 += tteell2;
                                     htmls2 += '</div>';
-                                    htmls2 += '<div>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
                                     htmls2 += ddetail;
                                     htmls2 += '</div>';
-                                    htmls2 += '<hr>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
+                                    htmls2 += '<button class="btn btn-default allo-detail-item-1" data-toggle="tooltip" data-' +
+                                            'placement="left" title="일괄 입금내역 입력"><i class="fas fa-won-sign"></i></button>';
+                                    htmls2 += '</div>';
                                     htmls2 += '</div>';
                                     htmls2 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls2 += '</div>';
                                     htmls2 += '</div>';
+
                                     break;
                                 case 2:
                                     htmls3 += '<div class="card allo-card">';
-
                                     htmls3 += '<input type="hidden" id="rvctm' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmseq + '">';
-                                    htmls3 += '<div class="ctm-ttt"><i class="fas fa-file-signature" style="letter-spacing: 0' +
-                                            '.3rem;"></i>';
-                                    htmls3 += '<div>';
-                                    htmls3 += r[i].ctmname;
-                                    htmls3 += '</div>';
-                                    htmls3 += '<div>';
+                                    htmls3 += '<input type="hidden" id="rvctmsepa' + (
+                                        i + 1
+                                    ) + '" value="' + r[i].ctmsepa + '">';
+                                    htmls3 += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-file-signature' +
+                                            '" style="letter-spacing: 0.3rem;">' + r[i].ctmname + '</i></div>';
+                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
+                                    // '</div>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
                                     htmls3 += tteell1;
                                     htmls3 += '</div>';
-                                    htmls3 += '<div>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
                                     htmls3 += tteell2;
                                     htmls3 += '</div>';
-                                    htmls3 += '<div>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
                                     htmls3 += ddetail;
                                     htmls3 += '</div>';
-                                    htmls3 += '<hr>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
+                                    htmls3 += '<button class="btn btn-default allo-detail-item-1" data-toggle="tooltip" data-' +
+                                            'placement="left" title="일괄 입금내역 입력"><i class="fas fa-won-sign"></i></button>';
+                                    htmls3 += '</div>';
                                     htmls3 += '</div>';
                                     htmls3 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
                                     htmls3 += '</div>';
                                     htmls3 += '</div>';
+
                                     break;
                             }
                         }
@@ -1279,7 +1291,8 @@ function getAlloList(day) {
 
                 const params = {
                     "stday": day,
-                    "endday": day
+                    "endday": day,
+                    "rsvttrash": 1
                 };
 
                 $.ajax({
@@ -1363,10 +1376,12 @@ function getAlloList(day) {
                             htmls += '<small>' + r[i].cont + '</small> ';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<button class="btn btn-default"><i class="fas fa-pencil-alt"></i></button>'
-                            htmls += '</div>';
-                            htmls += '<div class="allo-detail-item">';
-                            htmls += '<button class="btn btn-default"><i class="fas fa-won-sign"></i></button>'
+                            htmls += '<button class="btn btn-default allo-detail-item-1" id="btn-1-' + r[i].rsvtseq +
+                                    '-' + i + '" onclick="getRsvt(this.id)"><i class="fas fa-pencil-alt"></i></butt' +
+                                    'on>';
+                            htmls += '<button class="btn btn-default allo-detail-item-2" id="btn-2-' + r[i].rsvtseq +
+                                    '-' + i + '" onclick="getRsvtM(this.id)"><i class="fas fa-won-sign"></i></butto' +
+                                    'n>';
                             htmls += '</div>';
                             const aaa = $('.dash-cal-con-item-t')
                                 .children()
@@ -1506,7 +1521,8 @@ function getAlloList(day) {
 
                 const params = {
                     "stday": day,
-                    "endday": day
+                    "endday": day,
+                    "opertrash": 1
                 };
 
                 $.ajax({
@@ -1642,10 +1658,10 @@ function delAllo(id) {
         .split('-')[2];
 
     const tod = $(
-        $('#' + id).parent().parent().parent().prev().prev().children()[7]
+        $('#' + id).parent().parent().parent().prev().prev().children()[6]
     ).val();
     const ed = $(
-        $('#' + id).parent().parent().parent().prev().prev().children()[8]
+        $('#' + id).parent().parent().parent().prev().prev().children()[7]
     ).val();
 
     let params = new Array();
@@ -1772,5 +1788,247 @@ function delOne(param) {
                 loginSession(jqXHR.status);
             }
         })
+    }
+}
+
+function getRsvt(id) {
+    console.log('getRsvt   ' + id);
+    const iidd = '#' + id;
+    const rsvt = $(iidd)
+        .parent()
+        .parent()
+        .prev()
+        .val();
+
+    console.log('getRsvt   ' + rsvt);
+
+    $('#md-rsvtNum').val(rsvt);
+
+    const url = "/allo/chRSVT";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+    const params = {
+        "rsvt": rsvt
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            console.log("good  " + r);
+            console.log("good  " + r.length);
+            console.log("good  " + r[0].rsvt);
+
+            $('#stday-1').val(r[0].stday);
+            $('#endday-1').val(r[0].endday);
+            $('#bus-1').val(r[0].bus);
+            $('#num-1').val(r[0].num);
+            $('#stt-1').val(r[0].stt);
+            $('#endt-1').val(r[0].endt);
+            $('#rsvpstp-1').val(r[0].rsvpstp);
+            $('#desty-1').val(r[0].desty);
+            $('#rsvtdetail-1').val(r[0].rsvtdetail);
+            $('#cont-1').val(r[0].cont);
+            $('#conm-1').val(AddComma(r[0].conm));
+            $('#numm-1').val(r[0].numm);
+            chDateInput();
+        }
+    });
+
+    $('#modal-rsvt').modal('show');
+}
+
+$(document).on('click', '#btn-rsvt-insert', function () {
+
+    $('#conm-1').val($('#conm-1').val().replaceAll(',', ''));
+    switch ($('#conm-1').val()) {
+        case '포함':
+            $('#numm-1').val(Math.floor(($('#conm-1').val() / 1.1) / $('#num-1').val()));
+            break;
+        case '카드':
+            $('#numm-1').val(
+                Math.floor(($('#conm-1').val() / optCard) / $('#num-1').val())
+            );
+            break;
+        default:
+            $('#numm-1').val(Math.floor($('#conm-1').val() / $('#num-1').val()));
+            break;
+    }
+
+    let rtn = '';
+
+    if (!$('#stday-1').val()) {
+        rtn += '출발일'
+    }
+    if (!$('#endday-1').val()) {
+        if (rtn) {
+            rtn += ', 도착일'
+        } else {
+            rtn += '도착일'
+        }
+    }
+
+    if (rtn) {
+        alert(rtn + '을 입력해주세요.');
+    } else {
+        const url = "/allo/updateRsvt";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "stday": $('#stday-1').val(),
+            "endday": $('#endday-1').val(),
+            "bus": $('#bus-1').val(),
+            "num": $('#num-1').val(),
+            "stt": $('#stt-1').val(),
+            "endt": $('#endt-1').val(),
+            "rsvpstp": $('#rsvpstp-1').val(),
+            "desty": $('#desty-1').val(),
+            "rsvtdetail": $('#rsvtdetail-1').val(),
+            "cont": $('#cont-1').val(),
+            "conm": $('#conm-1').val(),
+            "numm": $('#numm-1').val(),
+            "rsvt": $('#md-rsvtNum').val()
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r > 0) {
+                    alert("운행정보가 수정되었습니다.\n\n배차정보를 다시 입력해주세요.");
+                    $('#modal-rsvt').modal('hide');
+                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                } else if (r == 0) {
+                    alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
+                } else if (r == -1) {
+                    alert("운행정보 수정 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == -2) {
+                    alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
+                }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        });
+    }
+});
+
+$(document).on('click', '#btn-rsvt-close', function () {
+    $('#modal-rsvt').modal('hide');
+    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+});
+
+$(document).on('click', '#btn-rsvt-cancle', function () {
+    const url = "/allo/cancleRsvt";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    const params = {
+        "rsvt": $('#md-rsvtNum').val()
+    };
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r > 0) {
+                alert("예약정보 및 해당 예약의 배차가 취소되었습니다.");
+                $('#modal-rsvt').modal('hide');
+                setCalWhite($('.dash-cal-con-item-t').attr('id'));
+            } else if (r == 0) {
+                alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("예약정보가 취소 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
+            }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
+        }
+    });
+});
+$(document).on('click', '#btn-rsvt-del', function () {
+    const url = "/allo/delRsvt";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    const params = {
+        "rsvt": $('#md-rsvtNum').val()
+    };
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r > 0) {
+                alert("예약정보 및 해당 예약의 배차가 삭제되었습니다.");
+                $('#modal-rsvt').modal('hide');
+                setCalWhite($('.dash-cal-con-item-t').attr('id'));
+            } else if (r == 0) {
+                alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("예약정보가 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
+            }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
+        }
+    });
+});
+
+$(document).on('change', '#stday-1', function () {
+    $("#endday-1").val($("#stday-1").val())
+    chDateInput();
+});
+
+$(document).on('change', '#endday-1', function () {
+    chDateInput();
+});
+
+function chDateInput() {
+    const origin = $("#endday-1").val();
+    const std = $("#stday-1").val();
+    const edd = $("#endday-1").val();
+
+    console.log("adsw  " + std);
+    console.log("adsw  " + edd);
+
+    const beet = betweenDateNum(std, edd);
+
+    console.log("adsw  " + beet);
+
+    if (beet > 1) {
+        $("#daynight-1").text(' (' + (
+            beet - 1
+        ) + '박' + beet + '일)');
+        $("#daynight-1").css('color', 'blue');
+    } else if (beet == 1) {
+        $("#daynight-1").text(' (당일)');
+        $("#daynight-1").css('color', 'blue');
+    } else {
+        $("#endday-1").val(origin);
+        $("#daynight-1").text('  도착일을 확인해주세요!!!');
+        $("#daynight-1").css('color', 'red');
     }
 }

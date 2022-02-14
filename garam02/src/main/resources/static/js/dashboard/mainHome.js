@@ -519,7 +519,8 @@ function getMidCnt(day, i) {
 
     const params = {
         "stday": day,
-        "endday": day
+        "endday": day,
+        "rsvttrash": 1
     };
 
     $.ajax({

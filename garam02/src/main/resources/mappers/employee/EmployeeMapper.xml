@@ -239,4 +239,131 @@
 		ORDER BY name;
 	</select>
 
+	<select id="selectEmpOperList"
+		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
+
+		SELECT
+		rsvt.rsvtseq, rsvt.desty, rsvt.stday, rsvt.endday,
+		operation_info.operseq,
+		operation_info.opernum,
+		operation_info.rsvt,
+		operation_info.operday,
+		operation_info.operno,
+		rsvt.numm,
+		operation_info.atlm,
+		operation_info.opertype,
+		operation_info.operid,
+		operation_info.opercar,
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar),
+		operation_info.opercar)
+		AS
+		vehicle,
+		(SELECT
+		customer.ctmname FROM
+		customer
+		WHERE
+		customer.ctmno
+		=
+		rsvt.ctmno)
+		AS
+		ctmname,
+		operation_info.opertrash
+
+		FROM
+
+		operation_info
+		left
+		join rsvt on
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		WHERE
+
+		(operation_info.operday BETWEEN
+		#{stday} AND #{endday})
+
+		AND
+
+		operation_info.operid = #{operid}
+
+		AND
+
+		operation_info.opertrash =
+		#{opertrash}
+
+		ORDER BY
+		rsvt.stday,
+		operation_info.opernum,
+		operation_info.operday,
+		rsvt.stt;
+
+	</select>
+
+	<select id="selectEmpOperListCnt"
+		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
+
+		SELECT
+
+		operation_info.opernum, COUNT(*) AS cnt
+
+		FROM
+
+		operation_info
+		left
+		join rsvt on
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		WHERE
+
+		operation_info.opernum IN
+		(SELECT
+
+		operation_info.opernum
+
+		FROM
+
+		operation_info
+
+		WHERE
+
+		(operation_info.operday
+		BETWEEN
+		#{stday} AND
+		#{endday})
+
+		AND
+
+		operation_info.operid = #{operid}
+
+		AND
+
+		operation_info.opertrash =
+		#{opertrash}
+
+		GROUP BY operation_info.opernum)
+
+		AND
+
+		operation_info.operid = #{operid}
+
+		GROUP
+		BY
+		operation_info.opernum
+
+		ORDER BY
+		rsvt.stday,
+		operation_info.opernum,
+		operation_info.operday,
+		rsvt.stt;
+
+	</select>
+
 </mapper>

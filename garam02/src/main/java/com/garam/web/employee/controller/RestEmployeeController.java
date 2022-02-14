@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.service.EmployeeService;
 
@@ -55,6 +56,20 @@ public class RestEmployeeController {
 	@PostMapping(value = "/empdetail")
 	public List<EmployeeInfoDTO> empDetail(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
 		List<EmployeeInfoDTO> list = employeeService.selectEmpDetail(employeeInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empOperCnt")
+	public List<EmpRsvtDTO> empOperCnt(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeService.selectEmpOperListCnt(empRsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empOper")
+	public List<EmpRsvtDTO> empOper(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeService.selectEmpOperList(empRsvtDTO);
 
 		return list;
 	}

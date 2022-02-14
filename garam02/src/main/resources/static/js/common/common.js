@@ -140,7 +140,11 @@ function betweenDateNum(sday, eday) {
     var bak = btMs1 / (1000 * 60 * 60 * 24);
     var il = bak + 1;
 
-    return il;
+    if (bak < 0) {
+        return bak;
+    } else {
+        return il;
+    }
 }
 
 Date.prototype.addDays = function (days) {

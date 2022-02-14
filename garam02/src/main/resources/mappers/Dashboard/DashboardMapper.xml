@@ -27,7 +27,9 @@
 
 		<include refid="customerColumns" />
 
-		FROM customer WHERE ctmtrash = 1;
+		FROM customer
+
+		WHERE ctmtrash = 1;
 	</select>
 
 	<select id="selectCustomerName"
@@ -41,7 +43,9 @@
 
 		WHERE
 
-		ctmno = #{ctmno};
+		ctmno = #{ctmno}
+		AND
+		ctmtrash = 1;;
 
 		<!-- <where> -->
 		<!-- <if test="ctmno != 0">AND ctmno = #{ctmno} -->
@@ -195,6 +199,70 @@
 
 	</insert>
 
+	<update id="updateRsvt"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		UPDATE
+
+		rsvt SET
+
+		<if test="stday != null and stday != '' ">
+			rsvt.stday =
+			#{stday},
+		</if>
+		<if test="endday != null and endday != '' ">
+			rsvt.endday = #{endday},
+		</if>
+		<if test="bus != null and bus != '' ">
+			rsvt.bus = #{bus},
+		</if>
+		<if test="num != null and num != '' ">
+			rsvt.num = #{num},
+		</if>
+		<if test="desty != null and desty != '' ">
+			rsvt.desty = #{desty},
+		</if>
+		<if test="rsvpstp != null and rsvpstp != '' ">
+			rsvt.rsvpstp = #{rsvpstp},
+		</if>
+		<if test="stt != null and stt != '' ">
+			rsvt.stt = #{stt},
+		</if>
+		<if test="endt != null and endt != '' ">
+			rsvt.endt = #{endt},
+		</if>
+		<if test="rsvtdetail != null and rsvtdetail != '' ">
+			rsvt.rsvtdetail = #{rsvtdetail},
+		</if>
+		<if test="cont != null and cont != '' ">
+			rsvt.cont =
+			#{cont},
+		</if>
+		<if test="conm != null and conm != '' ">
+			rsvt.conm =
+			#{conm},
+		</if>
+		<if test="numm != null and numm != '' ">
+			rsvt.numm = #{numm},
+		</if>
+		rsvt.datech = NOW()
+
+		WHERE
+
+		rsvt.rsvt =
+		#{rsvt};
+
+		DELETE FROM
+
+		operation_info
+
+		WHERE
+
+		rsvt =
+		#{rsvt};
+
+	</update>
+
 	<update id="updateOper" parameterType="java.util.HashMap">
 		<foreach collection="oper" item="value" index="index"
 			separator=";">
@@ -234,6 +302,74 @@
 		</foreach>
 	</update>
 
+	<delete id="delRsvt"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		DELETE FROM
+
+		rsvt
+
+		WHERE
+
+		rsvt.rsvt =
+		#{rsvt};
+
+		DELETE FROM
+
+		operation_info
+
+		WHERE
+
+		rsvt =
+		#{rsvt};
+	</delete>
+
+	<update id="cancleRsvt"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		UPDATE
+
+		rsvt
+
+		SET
+
+		rsvt.rsvttrash = 0,
+		rsvt.datech=NOW()
+
+		WHERE
+
+		rsvt.rsvt =
+		#{rsvt};
+
+		DELETE FROM
+
+		operation_info
+
+		WHERE
+
+		rsvt =
+		#{rsvt};
+	</update>
+
+	<select id="selectRSVT"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		rsvt
+
+		WHERE
+
+		rsvt.rsvt = #{rsvt};
+
+	</select>
+
+
 	<select id="selectAlloCTM"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
@@ -258,9 +394,15 @@
 
 		(rsvt.stday <![CDATA[<=]]>
 		#{stday})
+
 		AND
+
 		(rsvt.endday <![CDATA[>=]]>
 		#{endday})
+
+		AND
+
+		rsvt.rsvttrash = #{rsvttrash}
 
 		GROUP BY
 		customer.ctmseq
@@ -286,9 +428,15 @@
 
 		(rsvt.stday <![CDATA[<=]]>
 		#{stday})
+
 		AND
+
 		(rsvt.endday <![CDATA[>=]]>
 		#{endday})
+
+		AND
+
+		rsvt.rsvttrash = #{rsvttrash}
 
 		ORDER BY
 		customer.ctmseq,
@@ -320,7 +468,8 @@
 		=
 		operation_info.opercar),
 		operation_info.opercar) AS
-		vehicle
+		vehicle,
+		operation_info.opertrash
 
 		FROM
 		operation_info
@@ -345,6 +494,10 @@
 		ORDER BY
 		rsvt.ctmno)
 
+		AND
+
+		operation_info.opertrash = #{opertrash}
+
 		ORDER BY
 		operation_info.rsvt;
 	</select>
@@ -354,7 +507,7 @@
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
-		bus, num
+		bus, num, rsvttrash
 
 		FROM
 		rsvt
@@ -363,9 +516,16 @@
 
 		(rsvt.stday <![CDATA[<=]]>
 		#{stday})
+
 		AND
+
 		(rsvt.endday <![CDATA[>=]]>
-		#{endday});
+		#{endday})
+
+		AND
+
+		rsvt.rsvttrash = #{rsvttrash};
+
 	</select>
 	<select id="selectOneWayOper"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
@@ -388,7 +548,10 @@
 		employeeinfo WHERE
 		employeeinfo.id =
 		operation_info.operid),
-		operation_info.operid) AS name
+		operation_info.operid) AS
+		name,
+		operation_info.opertrash
+
 		FROM
 
 		operation_info
@@ -402,6 +565,11 @@
 
 		opernum =
 		#{opernum}
+
+		AND
+
+		opertrash =
+		#{opertrash}
 
 		ORDER
 		BY
@@ -435,7 +603,7 @@
 			AND
 
 			opertype =
-			#{value.opertype}
+			#{value.opertype};
 		</foreach>
 	</delete>
 
