@@ -17,7 +17,8 @@
 		confirmm, rsvttrash
 	</sql>
 	<sql id="operColumns">
-		opernum, rsvt, operday, operno, opercom, opercar, operid,
+		opernum, rsvt, operday, dayst, operno, opercom, opercar,
+		operid,
 		atlm, opertype, operconfirm, opertrash
 	</sql>
 
@@ -186,6 +187,7 @@
 			#{value.opernum},
 			#{value.rsvt},
 			#{value.operday},
+			#{value.dayst},
 			#{value.operno},
 			#{value.opercom},
 			#{value.opercar},
@@ -272,6 +274,8 @@
 
 			SET
 
+			dayst =
+			#{value.dayst},
 			opercom =
 			#{value.opercom},
 			opercar =

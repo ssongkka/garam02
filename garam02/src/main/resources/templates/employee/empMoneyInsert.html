@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html
+    lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <div th:fragment="emp-money-in" class="moneyInsertEmp">
+        <div class="moneyInsertEmp-item card">
+            <div class="operTitle shadow-sm">
+                <div class="operTitle-item">
+                    <h4>운행내역</h4>
+                </div>
+                <div class="operTitle-item">
+                    <div class="dash-cal-h-money">
+                        <div class="dash-cal-h-item dash-cal-h-item1" id="fnDownMonth1">
+                            <i class="fas fa-chevron-left fa-lg"></i>
+                        </div>
+                        <div class="dash-cal-h-item dash-cal-h-item2" id="">
+                            <strong><input
+                                class="yearmonthsMoney"
+                                type="month"
+                                id="yearmonthsMoney1"
+                                value=""
+                                control-id="ControlID-2"></strong>
+                        </div>
+                        <div class="dash-cal-h-item dash-cal-h-item3" id="fnUpMonth1">
+                            <i class="fas fa-chevron-right fa-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="operCont scBar">
+                <div>
+                    <h4>일반 운행 내역</h4>
+                </div>
+                <table
+                    class="table table-striped table-hover table-bordered table-condensed table-sortable home-tb">
+                    <colgroup></colgroup>
+                    <thead>
+                        <tr>
+                            <th colspan="2">번호</th>
+                            <th class="hideTh"></th>
+                            <th class="hideTh"></th>
+                            <th class="hideTh"></th>
+                            <th class="hideTh"></th>
+                            <th>운행일</th>
+                            <th>목적지</th>
+                            <th>운행</th>
+                            <th>고객정보</th>
+                            <th>금액</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emp-oper-money-tb">
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="hideTh"></td>
+                            <td class="hideTh"></td>
+                            <td class="hideTh"></td>
+                            <td class="hideTh"></td>
+                            <td>asdsa</td>
+                            <td>asdas</td>
+                            <td>asdd</td>
+                            <td>asd</td>
+                            <td>asd</td>
+                            <td>asdas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="moneyInsertEmp-item card">asfasfsaf</div>
+    </div>
+</html>

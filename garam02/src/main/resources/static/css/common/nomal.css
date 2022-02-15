@@ -18,18 +18,7 @@
     bottom: 0;
     left: 0;
     z-index: 1000;
-    overflow-y: overlay;
-
     padding-top: 0;
-}
-
-.nomal-aside::-webkit-scrollbar {
-    width: 3px;
-}
-
-.nomal-aside::-webkit-scrollbar-thumb {
-    background-color: hsla(0, 21%, 11%, 0.1);
-    border-radius: 100px;
 }
 
 .nomal-aside-main {
@@ -41,18 +30,14 @@
     display: flex;
 }
 
-.nomal-aside-btn-item:nth-child(1) {
+.nomal-aside-btn-item {
     flex: 1;
-    padding: 1rem;
+    padding: 1rem 1rem 0;
 }
-.nomal-aside-btn-item:nth-child(2) {
-    flex: 1;
-    padding: 1rem;
-}
-.nomal-aside-btn-item:nth-child(3) {
-    flex: 1;
-    padding: 1rem;
-}
+
+.nomal-aside-btn-item:nth-child(1) {}
+.nomal-aside-btn-item:nth-child(2) {}
+.nomal-aside-btn-item:nth-child(3) {}
 
 .nomal-aside-btn button {
     width: 100%;
@@ -114,8 +99,13 @@
     align-items: center;
 }
 
-.hd-name {
+.hd-name {}
+
+.hd-tb {
+    margin-top: 0.2rem;
     padding: 1rem;
+    overflow-y: scroll;
+    max-height: calc(100vh - 21rem);
 }
 
 .tr-ve {

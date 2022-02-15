@@ -111,6 +111,8 @@ public class RsvtDTO {
 	// 운행일
 	private String operday;
 
+	// 운행일순서
+	private Integer dayst;
 	// 호차
 	private Integer operno;
 
@@ -141,6 +143,14 @@ public class RsvtDTO {
 	private String vehicle;
 
 	private String name;
+
+	public Integer getDayst() {
+		return dayst;
+	}
+
+	public void setDayst(Integer dayst) {
+		this.dayst = dayst;
+	}
 
 	public String getCtmno() {
 		return ctmno;

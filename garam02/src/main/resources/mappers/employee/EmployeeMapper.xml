@@ -294,6 +294,11 @@
 
 		AND
 
+		operation_info.dayst =
+		1
+
+		AND
+
 		operation_info.opertrash =
 		#{opertrash}
 

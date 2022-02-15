@@ -1,0 +1,73 @@
+#empMoney {
+    display: none;
+}
+
+#empNomal {}
+
+.main-adise-money {
+    padding: 3rem;
+}
+
+.moneyInsertEmp {
+    min-height: calc(100vh - 6rem);
+    display: flex;
+    gap: 2rem;
+}
+
+.moneyInsertEmp-item {
+    display: flex;
+    gap: 1rem;
+}
+
+.moneyInsertEmp-item:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    width: 60rem;
+    position: fixed;
+    z-index: 950;
+    min-height: calc(100vh - 6rem);
+}
+.moneyInsertEmp-item:nth-child(2) {
+    width: 100%;
+    margin-left: 62rem;
+}
+
+.operTitle {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.operTitle-item {
+    letter-spacing: 0.5rem;
+    padding-left: 2rem;
+}
+
+.operTitle-item:nth-child(1) {
+    flex: 1;
+}
+.operTitle-item:nth-child(2) {
+    flex: 2;
+}
+
+.operCont {
+    padding: 0 2rem;
+    overflow-y: scroll;
+    max-height: calc(100vh - 13rem);
+}
+
+.dash-cal-h-money {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3rem;
+}
+
+.operCont tr {
+    cursor: pointer;
+}
+
+@media (max-width:992px) {
+    .moneyInsertEmp {
+        flex-direction: column;
+    }
+}

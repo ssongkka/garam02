@@ -42,10 +42,14 @@ input {
 }
 
 input[type="checkbox"] {
-    /* 	width: 30px; Desired width */
-    /* 	height: 30px; Desired height */
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
+input[type=checkbox]:checked + label {
+    background: var(--main-color);
+}
+
 input[type="text"] {
     -webkit-ime-mode: active;
     -moz-ime-mode: active;
@@ -56,6 +60,15 @@ input[type="text"] {
 th {
     text-align: center;
     vertical-align: middle;
+}
+
+.scBar::-webkit-scrollbar {
+    width: 3px;
+}
+
+.scBar::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 21%, 11%, 0.1);
+    border-radius: 100px;
 }
 
 .badge1 {
@@ -234,6 +247,10 @@ th {
 
 .home-nav > li+li {
     margin-left: 0;
+}
+
+.shadow-sm {
+    box-shadow: 0 4px 4px -4px rgb(0 0 0 / 50%);
 }
 
 @media (max-width:992px) {

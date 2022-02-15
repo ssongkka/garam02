@@ -614,6 +614,19 @@ $(document).on('click', '#md-New', function () {
     $('#myModalLabel-insert').text('  신규 승무원 정보 입력');
     $('#modal-insert').modal('show')
 });
+$(document).on('click', '#insert-money', function () {
+
+    if ($('#empNomal').is(':visible')) {
+        $('#insert-money').html(`일반입력&nbsp;<i class="fas fa-plus-square"></i>`);
+        $('#empNomal').hide();
+        $('#empMoney').show();
+    } else {
+        $('#insert-money').html(`급여입력&nbsp;<i class="fas fa-plus-square"></i>`);
+        $('#empNomal').show();
+        $('#empMoney').hide();
+    }
+
+});
 
 function setEmpCh() {
     setBorder();

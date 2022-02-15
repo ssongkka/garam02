@@ -99,6 +99,9 @@ public class EmpRsvtDTO {
 	// 운행일
 	private String operday;
 
+	// 운행일
+	private String dayst;
+
 	// 호차
 	private Integer operno;
 
@@ -129,6 +132,14 @@ public class EmpRsvtDTO {
 	private String vehicle;
 
 	private String name;
+
+	public String getDayst() {
+		return dayst;
+	}
+
+	public void setDayst(String dayst) {
+		this.dayst = dayst;
+	}
 
 	public Integer getCtmseq() {
 		return ctmseq;

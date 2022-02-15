@@ -6,10 +6,6 @@
     padding: 2rem;
 }
 
-.shadow-sm {
-    box-shadow: 0 0.125rem 0.25rem rgba(20,20,31,.075)!important;
-}
-
 .main-aside-item:nth-child(1) {
     flex: 1.5;
     display: flex;
