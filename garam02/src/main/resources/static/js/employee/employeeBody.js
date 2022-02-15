@@ -72,26 +72,26 @@ function getEmpAll(name) {
                         htmls += '</td>'
                     }
                     if (r[i].kind) {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += r[i].kind;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
                     }
 
                     if (r[i].birthday) {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += r[i].birthday;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
@@ -110,13 +110,13 @@ function getEmpAll(name) {
                     }
 
                     if (r[i].bus) {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += r[i].bus;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
@@ -146,13 +146,13 @@ function getEmpAll(name) {
                         htmlsOutman += '</td>'
                     }
                     if (r[i].birthday) {
-                        htmlsOutman += '<td>'
+                        htmlsOutman += '<td class="hidden-xs">'
                         htmlsOutman += '<span>'
                         htmlsOutman += r[i].birthday;
                         htmlsOutman += '</span>'
                         htmlsOutman += '</td>'
                     } else {
-                        htmlsOutman += '<td>'
+                        htmlsOutman += '<td class="hidden-xs">'
                         htmlsOutman += '<span>'
                         htmlsOutman += '</span>'
                         htmlsOutman += '</td>'
@@ -459,7 +459,7 @@ function getEmpInfo(id) {
                     '"fas fa-envelope"></i></a></span>'
                 );
             } else {
-                $('#emp07').html('<span></span>');
+                $('#emp07').html('&nbsp;');
                 $('#emp08').html('<span></span>');
             }
             if (r[0].phone2) {

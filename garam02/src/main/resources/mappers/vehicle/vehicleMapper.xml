@@ -21,7 +21,9 @@
 		vehicleinfo.insud,
 		vehicleinfo.insu, vehicleinfo.jukd, vehicleinfo.juk,
 		vehicleinfo.trash,
-		employeeinfo.name
+		employeeinfo.name,
+		employeeinfo.phone1,
+		employeeinfo.phone2
 	</sql>
 
 	<insert id="insertVe"

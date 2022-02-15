@@ -74,7 +74,7 @@
 .title-content-head blockquote {}
 
 .title-content-item {
-    padding: 2rem;
+    padding: 2rem 1.5rem;
 }
 
 .title-content-item:nth-child(1) {
@@ -123,9 +123,11 @@
     justify-content: center;
     gap: 0.5rem;
 
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 500;
     flex: 1;
+
+    letter-spacing: 0.1rem;
 }
 
 .tct-item1:nth-child(1) {
@@ -138,6 +140,10 @@
     flex: 1;
     font-size: 1.8rem;
     font-weight: 600;
+    align-items: flex-end;
+}
+.hide-ve-tel {
+    display: none;
 }
 
 .tct-item:nth-child(1) {
@@ -322,6 +328,13 @@
     letter-spacing: 0.5rem;
 }
 
+.nohide-tel {
+    font-size: 1.4rem;
+    color: #8390A2;
+    font-weight: 500;
+    padding-left: 0.5rem;
+}
+
 @media (max-width:992px) {
     #ve01 {
         font-size: 1.8rem;
@@ -351,6 +364,7 @@
         font-weight: 500;
     }
     .tct-item1:nth-child(2) {
+        display: flex;
         font-size: 1.6rem;
         font-weight: 500;
     }
@@ -371,7 +385,31 @@
     }
 
     .title-content blockquote {
-        padding: 1rem;
+        padding: 1rem 2rem;
     }
 
+    .hide-ve-tel {
+        display: block;
+    }
+    .hide-ve-tel i {
+        background: var(--sub-color);
+        color: var(--main-color);
+        padding: 0.3rem;
+        border-radius: 10%;
+    }
+    .hide-ve-tel:nth-child(3) {
+        flex: 1;
+        text-align: right;
+        padding-right: 1rem;
+    }
+
+    .title-content-item {
+        padding: 2rem;
+    }
+
+    .iimmgg {
+        min-height: 20rem;
+        max-height: 20rem;
+        object-fit: contain;
+    }
 }

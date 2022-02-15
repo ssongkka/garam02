@@ -11,6 +11,8 @@
     flex-direction: column;
     gap: 2rem;
 
+    letter-spacing: 0.1rem;
+
     width: 58rem;
     position: fixed;
     z-index: 950;
@@ -37,9 +39,10 @@
 .main-aside-item-head-item:nth-child(2) {
     flex: 1;
     display: grid;
-    gap: 0;
     grid-template-columns: 1fr 100px;
     align-items: center;
+    row-gap: 0.8rem;
+    width: 100%;
 }
 
 .emp-head-detail:nth-child(1) {
@@ -50,11 +53,13 @@
     justify-self: end;
 }
 .emp-head-detail:nth-child(3) {
+    letter-spacing: 0.3rem;
     padding-left: 2rem;
     font-size: 2rem;
     font-weight: 600;
 }
 .emp-head-detail:nth-child(4) {
+    letter-spacing: 0.1rem;
     justify-self: end;
 }
 .emp-head-detail:nth-child(5) {
@@ -76,7 +81,7 @@
 .emp-head-detail:nth-child(8) i {
     background: var(--sub-color);
     color: var(--main-color);
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-radius: 10%;
 }
 
@@ -92,7 +97,7 @@
 .emp-head-detail:nth-child(10) i {
     background: var(--sub-color);
     color: var(--main-color);
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-radius: 10%;
 }
 
@@ -129,6 +134,7 @@
 
 .emp-ttt {
     color: #8390A2;
+    font-weight: 500;
 }
 
 .emp-add-detail:nth-child(1) {}
@@ -188,6 +194,10 @@
 }
 
 @media (max-width:992px) {
+
+    .emp-nth {
+        padding: 2rem;
+    }
 
     .emp-nth:nth-child(1) {
         order: 1;
@@ -278,6 +288,7 @@
 
     .main-aside-item-add {
         grid-template-columns: auto;
+        row-gap: 1rem;
     }
 
     .main-aside-item:nth-child(1) {

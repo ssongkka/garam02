@@ -66,7 +66,6 @@ $(document).on('click', '#fnDownMonth', function () {
 });
 
 $(document).on('click', '#fnUpMonth', function () {
-
     var now_D = get_Year_Month();
     var upMonth = new Date(now_D.setMonth(now_D.getMonth() + 1));
     $("#yearMonth").val(toStringByFormatting(upMonth).substring(0, 7));
@@ -140,7 +139,23 @@ function get_Year_Month1() {
 
 function setCalWhite(e) {
     const day = calen_Rsvt.setCalclss(e);
-    $("#yearMonth").val(day.substring(0, 7));
+
+    const aaa = toStringByFormatting(new Date(day)).split('-')[1];;
+    const bbb = $("#yearMonth")
+        .val()
+        .split('-')[1];
+
+    console.log("mmm1  " + aaa);
+    console.log("mmm2  " + bbb);
+
+    if (bbb) {
+        if (aaa == bbb) {
+            $("#yearMonth").val(day.substring(0, 7));
+        }
+    } else {
+        $("#yearMonth").val(day.substring(0, 7));
+    }
+
     $("#yearMonthDay").val(day);
     setBigDay(day);
     setCaldays(day);
@@ -463,6 +478,7 @@ function setCaldays(st) {
                         $(idd + (i + 1) + '2').html(
                             '<h2>' + new Date(r[i].solarCal).getDate() + '</h2>'
                         );
+                        $(idd + (i + 1) + '5').val(r[i].solarCal);
 
                         switch (new Date(r[i].solarCal).getDay()) {
                             case 0:
@@ -475,7 +491,7 @@ function setCaldays(st) {
                                 break;
                             default:
                                 $(idd + (i + 1) + '1').css('color', 'black');
-                                $(idd + (i + 1) + '1').css('border', 'none');
+                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
                                 break;
                         }
 
@@ -508,6 +524,8 @@ function setCaldays(st) {
 
                         $(idd + (i + 1) + '3').html('<h5>&ndash;</h5>');
 
+                        $(idd + (i + 1) + '5').val(toStringByFormatting(new Date(ddd1)));
+
                         switch (new Date(ddd1).getDay()) {
                             case 0:
                                 $(idd + (i + 1) + '1').css('color', '#CF2F11');
@@ -519,7 +537,7 @@ function setCaldays(st) {
                                 break;
                             default:
                                 $(idd + (i + 1) + '1').css('color', 'black');
-                                $(idd + (i + 1) + '1').css('border', 'none');
+                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
                                 break;
                         }
                     }
@@ -533,3 +551,50 @@ function setCaldays(st) {
         });
     });
 }
+
+$(
+    '#dash-week-10, #dash-week-20, #dash-week-30, #dash-week-40, #dash-week-50, #da' +
+    'sh-week-60, #dash-week-70'
+).click(function () {
+    const iidd = $(this).children()[4];
+    const val = $(iidd).val();
+    console.log("몇번 ??  " + val);
+
+    let cnt = 0;
+    for (let i = 0; i < 42; i++) {
+        const iddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        const ddoomm = $(iddd)
+            .children()
+            .children()[1];
+        const day = $(ddoomm).val();
+
+        if (val == day) {
+            cnt = 0;
+            setCalWhite($(iddd).attr('id'));
+            break;
+        } else {
+            cnt++;
+        }
+    }
+    if (cnt > 0) {
+        $('#fnUpMonth').click();
+
+        for (let i = 0; i < 42; i++) {
+            const iddd1 = '#dash-cal-con-item' + (
+                i + 1
+            );
+
+            const ddoomm1 = $(iddd1)
+                .children()
+                .children()[1];
+            const day1 = $(ddoomm1).val();
+
+            if (val == day1) {
+                setCalWhite($(iddd1).attr('id'));
+            }
+        }
+    }
+});

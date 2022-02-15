@@ -119,13 +119,13 @@ function getVeAll(vehicle) {
                         htmls += '</td>'
                     }
                     if (r[i].owner) {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += r[i].owner;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
@@ -143,13 +143,13 @@ function getVeAll(vehicle) {
                         htmls += '</td>'
                     }
                     if (r[i].regist) {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += r[i].regist;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td>'
+                        htmls += '<td class="hidden-xs">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
@@ -190,13 +190,13 @@ function getVeAll(vehicle) {
                         htmlsEnd += '</td>'
                     }
                     if (r[i].regist) {
-                        htmlsEnd += '<td>'
+                        htmlsEnd += '<td class="hidden-xs">'
                         htmlsEnd += '<span>'
                         htmlsEnd += r[i].regist;
                         htmlsEnd += '</span>'
                         htmlsEnd += '</td>'
                     } else {
-                        htmlsEnd += '<td>'
+                        htmlsEnd += '<td class="hidden-xs">'
                         htmlsEnd += '<span>'
                         htmlsEnd += '</span>'
                         htmlsEnd += '</td>'
@@ -225,13 +225,13 @@ function getVeAll(vehicle) {
                         htmlsDae += '</td>'
                     }
                     if (r[i].owner) {
-                        htmlsDae += '<td>'
+                        htmlsDae += '<td class="hidden-xs">'
                         htmlsDae += '<span>'
                         htmlsDae += r[i].owner;
                         htmlsDae += '</span>'
                         htmlsDae += '</td>'
                     } else {
-                        htmlsDae += '<td>'
+                        htmlsDae += '<td class="hidden-xs">'
                         htmlsDae += '<span>'
                         htmlsDae += '</span>'
                         htmlsDae += '</td>'
@@ -249,13 +249,13 @@ function getVeAll(vehicle) {
                         htmlsDae += '</td>'
                     }
                     if (r[i].regist) {
-                        htmlsDae += '<td>'
+                        htmlsDae += '<td class="hidden-xs">'
                         htmlsDae += '<span>'
                         htmlsDae += r[i].regist;
                         htmlsDae += '</span>'
                         htmlsDae += '</td>'
                     } else {
-                        htmlsDae += '<td>'
+                        htmlsDae += '<td class="hidden-xs">'
                         htmlsDae += '<span>'
                         htmlsDae += '</span>'
                         htmlsDae += '</td>'
@@ -284,13 +284,13 @@ function getVeAll(vehicle) {
                         htmlsJung += '</td>'
                     }
                     if (r[i].owner) {
-                        htmlsJung += '<td>'
+                        htmlsJung += '<td class="hidden-xs">'
                         htmlsJung += '<span>'
                         htmlsJung += r[i].owner;
                         htmlsJung += '</span>'
                         htmlsJung += '</td>'
                     } else {
-                        htmlsJung += '<td>'
+                        htmlsJung += '<td class="hidden-xs">'
                         htmlsJung += '<span>'
                         htmlsJung += '</span>'
                         htmlsJung += '</td>'
@@ -308,13 +308,13 @@ function getVeAll(vehicle) {
                         htmlsJung += '</td>'
                     }
                     if (r[i].regist) {
-                        htmlsJung += '<td>'
+                        htmlsJung += '<td class="hidden-xs">'
                         htmlsJung += '<span>'
                         htmlsJung += r[i].regist;
                         htmlsJung += '</span>'
                         htmlsJung += '</td>'
                     } else {
-                        htmlsJung += '<td>'
+                        htmlsJung += '<td class="hidden-xs">'
                         htmlsJung += '<span>'
                         htmlsJung += '</span>'
                         htmlsJung += '</td>'
@@ -343,13 +343,13 @@ function getVeAll(vehicle) {
                         htmlsUdong += '</td>'
                     }
                     if (r[i].owner) {
-                        htmlsUdong += '<td>'
+                        htmlsUdong += '<td class="hidden-xs">'
                         htmlsUdong += '<span>'
                         htmlsUdong += r[i].owner;
                         htmlsUdong += '</span>'
                         htmlsUdong += '</td>'
                     } else {
-                        htmlsUdong += '<td>'
+                        htmlsUdong += '<td class="hidden-xs">'
                         htmlsUdong += '<span>'
                         htmlsUdong += '</span>'
                         htmlsUdong += '</td>'
@@ -367,13 +367,13 @@ function getVeAll(vehicle) {
                         htmlsUdong += '</td>'
                     }
                     if (r[i].regist) {
-                        htmlsUdong += '<td>'
+                        htmlsUdong += '<td class="hidden-xs">'
                         htmlsUdong += '<span>'
                         htmlsUdong += r[i].regist;
                         htmlsUdong += '</span>'
                         htmlsUdong += '</td>'
                     } else {
-                        htmlsUdong += '<td>'
+                        htmlsUdong += '<td class="hidden-xs">'
                         htmlsUdong += '<span>'
                         htmlsUdong += '</span>'
                         htmlsUdong += '</td>'
@@ -402,13 +402,13 @@ function getVeAll(vehicle) {
                         htmlsCompa += '</td>'
                     }
                     if (r[i].owner) {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="hidden-xs">'
                         htmlsCompa += '<span>'
                         htmlsCompa += r[i].owner;
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     } else {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="hidden-xs">'
                         htmlsCompa += '<span>'
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
@@ -426,13 +426,13 @@ function getVeAll(vehicle) {
                         htmlsCompa += '</td>'
                     }
                     if (r[i].regist) {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="hidden-xs">'
                         htmlsCompa += '<span>'
                         htmlsCompa += r[i].regist;
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     } else {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="hidden-xs">'
                         htmlsCompa += '<span>'
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
@@ -462,13 +462,13 @@ function getVeAll(vehicle) {
                         htmlsGae += '</td>'
                     }
                     if (r[i].owner) {
-                        htmlsGae += '<td>'
+                        htmlsGae += '<td class="hidden-xs">'
                         htmlsGae += '<span>'
                         htmlsGae += r[i].owner;
                         htmlsGae += '</span>'
                         htmlsGae += '</td>'
                     } else {
-                        htmlsGae += '<td>'
+                        htmlsGae += '<td class="hidden-xs">'
                         htmlsGae += '<span>'
                         htmlsGae += '</span>'
                         htmlsGae += '</td>'
@@ -486,13 +486,13 @@ function getVeAll(vehicle) {
                         htmlsGae += '</td>'
                     }
                     if (r[i].regist) {
-                        htmlsGae += '<td>'
+                        htmlsGae += '<td class="hidden-xs">'
                         htmlsGae += '<span>'
                         htmlsGae += r[i].regist;
                         htmlsGae += '</span>'
                         htmlsGae += '</td>'
                     } else {
-                        htmlsGae += '<td>'
+                        htmlsGae += '<td class="hidden-xs">'
                         htmlsGae += '<span>'
                         htmlsGae += '</span>'
                         htmlsGae += '</td>'
@@ -562,7 +562,12 @@ function getVeInfo(carNumber) {
                     $('#ve03').html('<span>&nbsp;</span>');
                 }
                 if (r[0].name) {
-                    $('#ve04').html('<span>' + r[0].name + '</span>');
+                    $('#ve04').html(
+                        '<span>' + r[0].name + '</span><span class="nohide-tel">' + r[0].phone1 + '</sp' +
+                        'an><span class="hide-ve-tel"><a href="tel:' + r[0].phone1 + '"><i class="fas f' +
+                        'a-phone"></i></a></span><span class="hide-ve-tel"><a href="sms:' + r[0].phone1 +
+                        '"><i class="fas fa-envelope"></i></a></span>'
+                    );
                 } else {
                     $('#ve04').html('<span>&nbsp;</span>');
                 }
