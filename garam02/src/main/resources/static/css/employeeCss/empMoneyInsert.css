@@ -30,6 +30,10 @@
 .moneyInsertEmp-item:nth-child(2) {
     width: 100%;
     margin-left: 62rem;
+
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 6rem);
 }
 
 .operTitle {
@@ -41,29 +45,103 @@
 .operTitle-item {
     letter-spacing: 0.5rem;
     padding-left: 2rem;
+    gap: 2rem;
 }
 
-.operTitle-item:nth-child(1) {
-    flex: 1;
-}
+.operTitle-item:nth-child(1) {}
 .operTitle-item:nth-child(2) {
-    flex: 2;
+    flex: 1;
 }
 
 .operCont {
-    padding: 0 2rem;
+    margin-top: 0.3rem;
     overflow-y: scroll;
-    max-height: calc(100vh - 13rem);
+    max-height: calc(100vh - 20rem);
 }
 
 .dash-cal-h-money {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 3rem;
 }
 
 .operCont tr {
     cursor: pointer;
+}
+
+.tab-flex-Minsert {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tab-oper-m {
+    padding: 1rem;
+}
+
+.moneyInsertEmp-item {
+    padding: 1rem 2rem;
+}
+
+.insert-cont-main {
+    display: flex;
+    gap: 1rem;
+}
+
+.insert-cont-item:nth-child(1) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.insert-cont-item:nth-child(2) {
+    flex: 1;
+}
+
+.insert-cont-item-title {
+    display: flex;
+    background: rgb(240, 240, 240);
+    border: 1px solid #ddd;
+    padding: 1rem 1rem 1rem 2rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    justify-content: space-between;
+}
+
+.insert-cont-item-title .btn {
+    padding: 0 1rem;
+}
+
+.insert-name {
+    display: flex;
+    border: 1px solid #ddd;
+}
+
+.insert-name-item {
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+}
+
+.insert-name-item:nth-child(2),
+.insert-name-item:nth-child(4),
+.insert-name-item:nth-child(6) {
+    flex: 1;
+    max-width: 20%;
+}
+.insert-name-item:nth-child(3),
+.insert-name-item:nth-child(5),
+.insert-name-item:nth-child(7) {
+    flex: 1;
+    max-width: auto;
+}
+
+.insert-cont-item-cont .btn {
+    padding: 1rem;
+}
+
+.insert-cont-item input {
+    width: 100%;
+}
+.insert-cont-item .table > thead > tr > th {
+    vertical-align: middle;
 }
 
 @media (max-width:992px) {

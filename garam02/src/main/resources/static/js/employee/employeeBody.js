@@ -85,38 +85,38 @@ function getEmpAll(name) {
                     }
 
                     if (r[i].birthday) {
-                        htmls += '<td class="hidden-xs">'
+                        htmls += '<td class="size-hidden hidden-xs">'
                         htmls += '<span>'
                         htmls += r[i].birthday;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td class="hidden-xs">'
+                        htmls += '<td class="size-hidden hidden-xs">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
                     }
                     if (r[i].age) {
-                        htmls += '<td>'
+                        htmls += '<td class="size-hidden">'
                         htmls += '<span>'
                         htmls += r[i].age;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td>'
+                        htmls += '<td class="size-hidden">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
                     }
 
                     if (r[i].bus) {
-                        htmls += '<td class="hidden-xs">'
+                        htmls += '<td class="size-hidden hidden-xs">'
                         htmls += '<span>'
                         htmls += r[i].bus;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td class="hidden-xs">'
+                        htmls += '<td class="size-hidden hidden-xs">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
@@ -209,37 +209,37 @@ function getEmpAll(name) {
                         htmlsCompa += '</td>'
                     }
                     if (r[i].birthday) {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="size-hidden">'
                         htmlsCompa += '<span>'
                         htmlsCompa += r[i].birthday;
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     } else {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="size-hidden">'
                         htmlsCompa += '<span>'
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     }
                     if (r[i].age) {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="size-hidden">'
                         htmlsCompa += '<span>'
                         htmlsCompa += r[i].age;
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     } else {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="size-hidden">'
                         htmlsCompa += '<span>'
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     }
                     if (r[i].bus) {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="size-hidden">'
                         htmlsCompa += '<span>'
                         htmlsCompa += r[i].bus;
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     } else {
-                        htmlsCompa += '<td>'
+                        htmlsCompa += '<td class="size-hidden">'
                         htmlsCompa += '<span>'
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
@@ -283,37 +283,37 @@ function getEmpAll(name) {
                         htmlsSolo += '</td>'
                     }
                     if (r[i].birthday) {
-                        htmlsSolo += '<td>'
+                        htmlsSolo += '<td class="size-hidden">'
                         htmlsSolo += '<span>'
                         htmlsSolo += r[i].birthday;
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
                     } else {
-                        htmlsSolo += '<td>'
+                        htmlsSolo += '<td class="size-hidden">'
                         htmlsSolo += '<span>'
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
                     }
                     if (r[i].age) {
-                        htmlsSolo += '<td>'
+                        htmlsSolo += '<td class="size-hidden">'
                         htmlsSolo += '<span>'
                         htmlsSolo += r[i].age;
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
                     } else {
-                        htmlsSolo += '<td>'
+                        htmlsSolo += '<td class="size-hidden">'
                         htmlsSolo += '<span>'
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
                     }
                     if (r[i].bus) {
-                        htmlsSolo += '<td>'
+                        htmlsSolo += '<td class="size-hidden">'
                         htmlsSolo += '<span>'
                         htmlsSolo += r[i].bus;
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
                     } else {
-                        htmlsSolo += '<td>'
+                        htmlsSolo += '<td class="size-hidden">'
                         htmlsSolo += '<span>'
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
@@ -411,6 +411,7 @@ function getEmpInfo(id) {
         success: function (r) {
             if (r[0].id) {
                 $('#emp00').val(r[0].id);
+                $('#m-id').val(r[0].id);
             } else {
                 $('#emp01').val('');
             }
@@ -428,6 +429,7 @@ function getEmpInfo(id) {
             }
             if (r[0].name) {
                 $('#emp03').html('<span>' + r[0].name + '</span>');
+                $('#m-name').html('<span>' + r[0].name + '</span>');
             } else {
                 $('#emp03').html('<span></span>');
             }
@@ -441,6 +443,7 @@ function getEmpInfo(id) {
                     '<span>' + r[0].birthday + '(' + r[0].age + ')</span><input type="hidden" id="e' +
                     'mp05-1" value="' + r[0].birthday + '">'
                 );
+                $('#m-bir').html('<span>' + r[0].birthday + '</span>');
                 $('#emp05-1').val(r[0].birthday);
             } else {
                 $('#emp05').html('<span></span><input type="hidden" id="emp05-1" value="">');
@@ -488,6 +491,7 @@ function getEmpInfo(id) {
                     '<span>' + r[0].joind + '(' + r[0].joindDay + ')</span><input type="hidden" id=' +
                     '"emp13-1" value="' + r[0].joind + '">'
                 );
+                $('#m-ind').html('<span>' + r[0].joind + '</span>');
             } else {
                 $('#emp13').html('<span></span><input type="hidden" id="emp13-1" value="">');
             }
@@ -614,16 +618,23 @@ $(document).on('click', '#md-New', function () {
     $('#myModalLabel-insert').text('  신규 승무원 정보 입력');
     $('#modal-insert').modal('show')
 });
+
 $(document).on('click', '#insert-money', function () {
 
     if ($('#empNomal').is(':visible')) {
         $('#insert-money').html(`일반입력&nbsp;<i class="fas fa-plus-square"></i>`);
         $('#empNomal').hide();
         $('#empMoney').show();
+        $('.size-hidden').hide();
+        $('.nomal-aside').css('width', '30rem');
+        $('.nomal-main').css('padding-left', '30rem');
     } else {
         $('#insert-money').html(`급여입력&nbsp;<i class="fas fa-plus-square"></i>`);
         $('#empNomal').show();
         $('#empMoney').hide();
+        $('.size-hidden').show();
+        $('.nomal-aside').css('width', '50rem');
+        $('.nomal-main').css('padding-left', '50rem');
     }
 
 });

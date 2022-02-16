@@ -203,6 +203,7 @@ function getEmpOperListCompa(id) {
                         check = r[i].opernum;
                     }
                     $('#emp-oper-money-tb').html(htmls);
+                    $('#bgoper1').text(cnt);
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);
@@ -227,6 +228,8 @@ function chTr(id) {
     } else {
         $(iiiddd).prop("checked", true);
     }
+
+    checkChAll();
 }
 function chCh(id) {
     console.log(id);
@@ -237,4 +240,64 @@ function chCh(id) {
     } else {
         $(iidd).prop("checked", true);
     }
+
+    checkChAll();
 }
+
+function checkChAll() {
+
+    let check = 1;
+
+    const aaaa = $('#mCh-All')
+        .parent()
+        .parent()
+        .parent()
+        .next()
+        .children();
+
+    for (let i = 0; i < aaaa.length; i++) {
+        const bbbb = $(aaaa[i]);
+        const cccc = $(bbbb.children().children());
+        if ($(cccc).is(':checked')) {
+            check = check * 1;
+        } else {
+            check = check * 0;
+        }
+    }
+
+    if (check > 0) {
+        $('#mCh-All').prop("checked", true);
+    } else {
+        $('#mCh-All').prop("checked", false);
+    }
+
+}
+
+$(document).on('change', '#mCh-All', function () {
+    console.log($(this).is(':checked'));
+
+    const aaaa = $(this)
+        .parent()
+        .parent()
+        .parent()
+        .next()
+        .children();
+
+    if ($(this).is(':checked')) {
+        for (let i = 0; i < aaaa.length; i++) {
+            const bbbb = $(aaaa[i]);
+            const cccc = $(bbbb.children().children());
+            $(cccc).prop("checked", true);
+        }
+    } else {
+        for (let i = 0; i < aaaa.length; i++) {
+            const bbbb = $(aaaa[i]);
+            const cccc = $(bbbb.children().children());
+            $(cccc).prop("checked", false);
+        }
+    }
+});
+
+$(document).on('click', '#mdINM', function () {
+    $('#md-inM').modal('show');
+});

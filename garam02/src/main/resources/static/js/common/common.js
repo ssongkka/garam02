@@ -249,32 +249,6 @@ function cf_getNumberOnly(str) {
     return sReturn;
 }
 
-// $("input[data-type='currency']").on({     keyup: function () {
-// formatCurrency($(this));     },     blur: function () {
-// formatCurrency($(this), "blur");     } }); function formatNumber(n) { format
-// number 1000000 to 1,234,567     return n         .replace(/\D/g, "")
-// .replace(/\B(?=(\d{3})+(?!\d))/g, ",") } function formatCurrency(input, blur)
-// {      appends $ to value, validates decimal side and puts cursor back in
-// right      position. get input value     var input_val = input.val(); don't
-// validate empty input     if (input_val === "") {         return;     }
-// original length     var original_len = input_val.length;      initial caret
-// position     var caret_pos = input.prop("selectionStart");      check for
-// decimal     if (input_val.indexOf(".") >= 0) {          get position of first
-// decimal this prevents multiple decimals from being          entered var
-// decimal_pos = input_val.indexOf(".");          split number by decimal point
-// var left_side = input_val.substring(0, decimal_pos); var right_side =
-// input_val.substring(decimal_pos);          add commas to left side of number
-// left_side = formatNumber(left_side); validate right side         right_side =
-// formatNumber(right_side); On blur make sure 2 numbers after decimal if (blur
-// === "blur") { right_side += "00";         }          Limit decimal to only 2
-// digits right_side = right_side.substring(0, 2);          join number by .
-// input_val = left_side + "." + right_side;     } else { no decimal entered add
-// commas to number remove all non-digits input_val = formatNumber(input_val);
-// input_val = input_val;     } send updated string to input
-// input.val(input_val);      put caret back in the right position     var
-// updated_len = input_val.length;     caret_pos = updated_len - original_len +
-// caret_pos; input[0].setSelectionRange(caret_pos, caret_pos); }
-
 function numberOnly(e) {
     e.value = e
         .value
@@ -347,6 +321,59 @@ function setPdfFromFile(input, expression, id) {
  * @param {boolean} asc Determines if the sorting will be in ascending
  */
 function sortTableByColumn(table, column, asc = true) {
+
+    const tbClass = $(table)
+        .attr('class')
+        .split(' ')
+        .includes('table-sortable');
+
+    if (tbClass) {
+
+        const dirModifier = asc
+            ? 1
+            : -1;
+        const tBody = table.tBodies[0];
+        const rows = Array.from(tBody.querySelectorAll("tr"));
+
+        // Sort each row
+        const sortedRows = rows.sort((a, b) => {
+            const aColText = a
+                .querySelector(`td:nth-child(${column + 1})`)
+                .textContent
+                .trim();
+            const bColText = b
+                .querySelector(`td:nth-child(${column + 1})`)
+                .textContent
+                .trim();
+
+            return aColText > bColText
+                ? (1 * dirModifier)
+                : (-1 * dirModifier);
+        });
+
+        // Remove all existing TRs from the table
+        while (tBody.firstChild) {
+            tBody.removeChild(tBody.firstChild);
+        }
+
+        // Re-add the newly sorted rows
+        tBody.append(...sortedRows);
+
+        // Remember how the column is currently sorted
+        table
+            .querySelectorAll("th")
+            .forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+        table
+            .querySelector(`th:nth-child(${column + 1})`)
+            .classList
+            .toggle("th-sort-asc", asc);
+        table
+            .querySelector(`th:nth-child(${column + 1})`)
+            .classList
+            .toggle("th-sort-desc", !asc);
+    }
+}
+function sortTableByColumn111(table, column, asc = true) {
     const dirModifier = asc
         ? 1
         : -1;
