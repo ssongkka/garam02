@@ -8,6 +8,10 @@
     padding: 3rem;
 }
 
+.main-adise-money .table {
+    font-size: 1.2rem;
+}
+
 .moneyInsertEmp {
     min-height: calc(100vh - 6rem);
     display: flex;
@@ -30,11 +34,107 @@
 .moneyInsertEmp-item:nth-child(2) {
     width: 100%;
     margin-left: 62rem;
-
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 6rem);
 }
+
+.moneyInsertEmp-start {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: calc(100vh - 28rem);
+}
+
+.moneyInsertEmp-End {
+    flex: 1;
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    padding: 1rem 3rem;
+}
+
+.moneyInsertEmp-End-item:nth-child(1) {
+    flex: 1;
+}
+.moneyInsertEmp-End-item:nth-child(2) {
+    flex: 1;
+    display: grid;
+}
+
+.End-items {
+    text-align: center;
+}
+
+.End-items:nth-child(1),
+.End-items:nth-child(11),
+.End-items:nth-child(13),
+.End-items:nth-child(15),
+.End-items:nth-child(17),
+.End-items:nth-child(19),
+.End-items:nth-child(21),
+.End-items:nth-child(21),
+.End-items:nth-child(3),
+.End-items:nth-child(5),
+.End-items:nth-child(7),
+.End-items:nth-child(9) {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.End-items:nth-child(10),
+.End-items:nth-child(12),
+.End-items:nth-child(14),
+.End-items:nth-child(16),
+.End-items:nth-child(18),
+.End-items:nth-child(2),
+.End-items:nth-child(20),
+.End-items:nth-child(22),
+.End-items:nth-child(24),
+.End-items:nth-child(4),
+.End-items:nth-child(6),
+.End-items:nth-child(8) {
+    padding-right: 5rem;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.End-items:nth-child(21) {
+    grid-column: 3 / 4;
+}
+.End-items:nth-child(22) {
+    grid-column: 4 / 5;
+}
+
+.tb-End {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.tb-End tr {
+    padding: 1rem;
+}
+
+.inM {
+    padding: 1rem;
+}
+
+.inM:nth-child(1),
+.inM:nth-child(3),
+.inM:nth-child(5) {}
+.inM:nth-child(2),
+.inM:nth-child(4),
+.inM:nth-child(6) {}
 
 .operTitle {
     display: flex;
@@ -56,7 +156,7 @@
 .operCont {
     margin-top: 0.3rem;
     overflow-y: scroll;
-    max-height: calc(100vh - 20rem);
+    max-height: calc(100vh - 22rem);
 }
 
 .dash-cal-h-money {
@@ -78,13 +178,10 @@
     padding: 1rem;
 }
 
-.moneyInsertEmp-item {
-    padding: 1rem 2rem;
-}
-
 .insert-cont-main {
     display: flex;
     gap: 1rem;
+    padding: 0 1rem;
 }
 
 .insert-cont-item:nth-child(1) {
@@ -111,7 +208,7 @@
 
 .insert-name {
     display: flex;
-    border: 1px solid #ddd;
+    padding: 0 1rem;
 }
 
 .insert-name-item {
@@ -142,6 +239,52 @@
 }
 .insert-cont-item .table > thead > tr > th {
     vertical-align: middle;
+}
+
+.input-tr {}
+
+.aaaadddd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+}
+
+.itttem {
+    padding: 1rem 0.3rem;
+}
+
+.itttem .form-control {
+    padding: 0;
+}
+
+.itttem:nth-child(1) {
+    width: 22%;
+}
+.itttem:nth-child(2) {
+    width: 15%;
+}
+.itttem:nth-child(3) {
+    width: 33%;
+}
+.itttem:nth-child(4) {
+    width: 20%;
+}
+.itttem:nth-child(5) {
+    width: 10%;
+    text-align: center;
+    /* background: var(--main-color); */
+}
+
+.input-M {
+    width: 100%;
+    text-align: center;
+}
+
+.input-MM {
+    width: 100%;
+    height: 100%;
+    text-align: right;
 }
 
 @media (max-width:992px) {

@@ -42,8 +42,8 @@ input {
 }
 
 input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+    /* width: 1.5rem; */
+    /* height: 1.5rem; */
     cursor: pointer;
 }
 input[type=checkbox]:checked + label {
@@ -251,6 +251,10 @@ th {
 
 .shadow-sm {
     box-shadow: 0 4px 4px -4px rgb(0 0 0 / 50%);
+}
+
+.cuor-p {
+    cursor: pointer;
 }
 
 @media (max-width:992px) {

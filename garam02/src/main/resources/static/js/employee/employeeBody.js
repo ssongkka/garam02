@@ -84,42 +84,44 @@ function getEmpAll(name) {
                         htmls += '</td>'
                     }
 
-                    if (r[i].birthday) {
-                        htmls += '<td class="size-hidden hidden-xs">'
-                        htmls += '<span>'
-                        htmls += r[i].birthday;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td class="size-hidden hidden-xs">'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    }
-                    if (r[i].age) {
-                        htmls += '<td class="size-hidden">'
-                        htmls += '<span>'
-                        htmls += r[i].age;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td class="size-hidden">'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    }
+                    if ($('#showm').val() == '0') {
+                        if (r[i].birthday) {
+                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<span>'
+                            htmls += r[i].birthday;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+                        if (r[i].age) {
+                            htmls += '<td class="size-hidden">'
+                            htmls += '<span>'
+                            htmls += r[i].age;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td class="size-hidden">'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
 
-                    if (r[i].bus) {
-                        htmls += '<td class="size-hidden hidden-xs">'
-                        htmls += '<span>'
-                        htmls += r[i].bus;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td class="size-hidden hidden-xs">'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
+                        if (r[i].bus) {
+                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<span>'
+                            htmls += r[i].bus;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
                     }
                     htmls += '</tr>'
                 }
@@ -208,41 +210,44 @@ function getEmpAll(name) {
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
                     }
-                    if (r[i].birthday) {
-                        htmlsCompa += '<td class="size-hidden">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].birthday;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td class="size-hidden">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    }
-                    if (r[i].age) {
-                        htmlsCompa += '<td class="size-hidden">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].age;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td class="size-hidden">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsCompa += '<td class="size-hidden">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].bus;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td class="size-hidden">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
+
+                    if ($('#showm').val() == '0') {
+                        if (r[i].birthday) {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].birthday;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        if (r[i].age) {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].age;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].bus;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
                     }
                     htmlsCompa += '</tr>'
                 }
@@ -282,41 +287,44 @@ function getEmpAll(name) {
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
                     }
-                    if (r[i].birthday) {
-                        htmlsSolo += '<td class="size-hidden">'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += r[i].birthday;
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
-                    } else {
-                        htmlsSolo += '<td class="size-hidden">'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
-                    }
-                    if (r[i].age) {
-                        htmlsSolo += '<td class="size-hidden">'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += r[i].age;
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
-                    } else {
-                        htmlsSolo += '<td class="size-hidden">'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsSolo += '<td class="size-hidden">'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += r[i].bus;
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
-                    } else {
-                        htmlsSolo += '<td class="size-hidden">'
-                        htmlsSolo += '<span>'
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
+
+                    if ($('#showm').val() == '0') {
+                        if (r[i].birthday) {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += r[i].birthday;
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        } else {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        }
+                        if (r[i].age) {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += r[i].age;
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        } else {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += r[i].bus;
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        } else {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        }
                     }
                     htmlsSolo += '</tr>'
                 }
@@ -622,6 +630,7 @@ $(document).on('click', '#md-New', function () {
 $(document).on('click', '#insert-money', function () {
 
     if ($('#empNomal').is(':visible')) {
+        $('#showm').val('1');
         $('#insert-money').html(`일반입력&nbsp;<i class="fas fa-plus-square"></i>`);
         $('#empNomal').hide();
         $('#empMoney').show();
@@ -629,6 +638,7 @@ $(document).on('click', '#insert-money', function () {
         $('.nomal-aside').css('width', '30rem');
         $('.nomal-main').css('padding-left', '30rem');
     } else {
+        $('#showm').val('0');
         $('#insert-money').html(`급여입력&nbsp;<i class="fas fa-plus-square"></i>`);
         $('#empNomal').show();
         $('#empMoney').hide();
