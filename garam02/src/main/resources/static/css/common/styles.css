@@ -249,6 +249,10 @@ th {
     margin-left: 0;
 }
 
+.evNav {
+    padding: 0 0.5rem;
+}
+
 .shadow-sm {
     box-shadow: 0 4px 4px -4px rgb(0 0 0 / 50%);
 }

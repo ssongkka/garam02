@@ -401,7 +401,6 @@ $(document).on('keydown', '.input-M', function (eInner) {
     if (keyValue == 13) {
         switch (tabi) {
             case "1":
-                console.log(tabi);
                 const getYM = $('#yearmonthsMoney2').val();
                 const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
 
@@ -482,7 +481,11 @@ function insertInM() {
         switch ($('#inp-cont4').val().length) {
             case 1:
             case 2:
-                conttt4 = cccc + "000";
+                if (cccc == '0') {
+                    conttt4 = '0';
+                } else {
+                    conttt4 = cccc + "000";
+                }
                 break;
             default:
                 conttt4 = cccc;
@@ -544,16 +547,167 @@ $(document).on('click', '#insert-inM', function () {
     insertInM();
 });
 
-function delTb(params) {
-    $(params)
-        .parent()
-        .remove();
-}
-
 function delTbInM() {
     if (confirm('지급내역을 모두 삭제하겠습니까?')) {
         $('#emp-in-money-tb')
             .children()
             .remove();
     }
+}
+$(document).on('keydown', '.output-M', function (eInner) {
+    const tabi = $(this).attr('tabindex');
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        switch (tabi) {
+            case "11":
+                const getYM = $('#yearmonthsMoney2').val();
+                const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
+
+                const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
+
+                const yesterday = new Date(oneMonthAgo.setDate(oneMonthAgo.getDate() - 1));
+
+                const endday = toStringByFormatting(yesterday); // 어제
+
+                const lastD = endday.split('-')[2];
+
+                if (parseInt($(this).val()) > 0 && parseInt($(this).val()) <= lastD) {
+                    $('[tabindex=12]').focus();
+                } else {
+                    const ddday = endday.split('-')[1] + '월은 ' + lastD + '까지입니다.'
+                    alert("날짜를 확인해주세요.\n\n" + ddday);
+                    $(this).val('');
+                }
+                break;
+            case "12":
+                switch ($(this).val()) {
+                    case "1":
+                        $(this).val('과태료');
+                        $('#inp-cont12').val('기타');
+                        break;
+                }
+
+                $('[tabindex=13]').focus();
+                break;
+            case "13":
+                insertOutM();
+                $('[tabindex=11]').focus();
+                break;
+        }
+
+    } else if (keyValue == 37) {
+        switch (tabi) {
+            case "11":
+                $('[tabindex=13]').focus();
+                break;
+            case "12":
+                $('[tabindex=11]').focus();
+                break;
+            case "13":
+                $('[tabindex=12]').focus();
+                break;
+        }
+    } else if (keyValue == 39) {
+        switch (tabi) {
+            case "11":
+                $('[tabindex=12]').focus();
+                break;
+            case "12":
+                $('[tabindex=13]').focus();
+                break;
+            case "13":
+                $('[tabindex=11]').focus();
+                break;
+        }
+    }
+});
+
+function insertOutM() {
+    if ($('#inp-cont11').val() && $('#inp-cont12').val() && $('#inp-cont13').val() && $('#inp-cont14').val()) {
+        const cccc = $('#inp-cont14')
+            .val()
+            .replaceAll(',', '');
+        let conttt4 = '';
+
+        switch ($('#inp-cont14').val().length) {
+            case 1:
+            case 2:
+                if (cccc == '0') {
+                    conttt4 = '0';
+                } else {
+                    conttt4 = cccc + "000";
+                }
+                break;
+            default:
+                conttt4 = cccc;
+                break;
+        }
+
+        let size = 0;
+        if ($('#emp-out-money-tb').children().length > 0) {
+            size = parseInt($('#emp-out-money-tb').children().length) + 1;
+        } else {
+            size = 1;
+        }
+
+        let conttt1 = $('#inp-cont11').val();
+        let conttt2 = $('#inp-cont12').val();
+        let conttt3 = $('#inp-cont13').val();
+
+        let httmll = '';
+        httmll += '<tr>';
+        httmll += '<td class="hideTh"></td>';
+        httmll += '<td class="hideTh"></td>';
+        httmll += '<td class="hideTh"></td>';
+        httmll += '<td class="hideTh"></td>';
+        httmll += '<td>' + size + '</td>';
+        httmll += '<td>' + conttt1 + '일</td>';
+        httmll += '<td>' + conttt2 + '</td>';
+        httmll += '<td>' + conttt3 + '</td>';
+        httmll += '<td>' + AddComma(conttt4) + '</td>';
+        httmll += '<td class="cuor-p" onclick="delTb(this)">';
+        httmll += '<i class="fas fa-minus-square"></i>';
+        httmll += '</td>';
+        httmll += '</tr>';
+
+        $('#emp-out-money-tb').append(httmll);
+    } else {
+        let st = '';
+        if (!$('#inp-cont11').val()) {
+            st += '공제날짜';
+        }
+        if (!$('#inp-cont13').val()) {
+            if (st.length > 0) {
+                st += ', 내용'
+            } else {
+                st += '공제내용';
+            }
+        }
+        if (!$('#inp-cont14').val()) {
+            if (st.length > 0) {
+                st += ', 금액'
+            } else {
+                st += '공제금액';
+            }
+        }
+        alert(st + '을 입력해주세요.');
+    }
+}
+
+$(document).on('click', '#insert-outM', function () {
+    insertOutM();
+});
+
+function delTbInM() {
+    if (confirm('공제내역을 모두 삭제하겠습니까?')) {
+        $('#emp-out-money-tb')
+            .children()
+            .remove();
+    }
+}
+
+function delTb(params) {
+    $(params)
+        .parent()
+        .remove();
 }
