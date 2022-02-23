@@ -80,9 +80,6 @@ function getEmpOperListCompa(id) {
     );
     const endday = toStringByFormatting(yesterday); // 어제
 
-    console.log("stday   " + stday);
-    console.log("endday   " + endday);
-
     getEmpOperCnt().then(getEmpOper);
 
     function getEmpOperCnt() {
@@ -106,14 +103,11 @@ function getEmpOperListCompa(id) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log("결과는??" + r[0]);
                     const map = new Map();
 
                     for (let i = 0; i < r.length; i++) {
                         map.set(r[i].opernum, r[i].cnt);
-                        console.log("map  " + map);
                     }
-                    console.log(map.size);
                     resolve(map);
                 },
                 error: (jqXHR) => {
@@ -144,7 +138,6 @@ function getEmpOperListCompa(id) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log("결과는??222" + r[0]);
 
                     let cnt = 0;
                     let check = '';
@@ -292,16 +285,11 @@ function chTr(id) {
 }
 function chCh(id) {
     const iidd = '#' + id;
-
     if ($(iidd).is(':checked')) {
         $(iidd).prop("checked", false);
     } else {
         $(iidd).prop("checked", true);
     }
-
-    chInDay(iidd);
-
-    checkChAll();
 }
 
 function checkChAll() {
@@ -329,6 +317,125 @@ function checkChAll() {
         $('#mCh-All').prop("checked", true);
     } else {
         $('#mCh-All').prop("checked", false);
+    }
+
+    chOperMoney();
+}
+function chOperMoney() {
+
+    let money = 0;
+
+    const aaaa = $('#mCh-All')
+        .parent()
+        .parent()
+        .parent()
+        .next()
+        .children();
+
+    for (let i = 0; i < aaaa.length; i++) {
+        const bbbb = $(aaaa[i]);
+        const cccc = $(bbbb.children().children());
+        const dddd = (
+            cccc.parent().next().next().next().next().next().next().next().next().text()
+        ).replaceAll(',', '');
+        if ($(cccc).is(':checked')) {
+            money = money + parseInt(dddd);
+        }
+    }
+
+    $('#in-operM').text(AddComma(money * opt[0].oper));
+    sumAllpro();
+}
+
+function sumAllpro() {
+    sumIN()
+        .then(sumOut)
+        .then(sumAll);
+    function sumIN() {
+        return new Promise(function (resolve, reject) {
+
+            let base = ($('#in-baseM').val()).replaceAll(',', '');
+            let oper = ($('#in-operM').text()).replaceAll(',', '');
+            let go = ($('#in-goM').text()).replaceAll(',', '');
+            let gisu = ($('#in-gisuM').text()).replaceAll(',', '');
+            let gita = ($('#in-gitaM').text()).replaceAll(',', '');
+
+            if (!base) {
+                base = 0;
+            }
+            if (!oper) {
+                oper = 0;
+            }
+            if (!go) {
+                go = 0;
+            }
+            if (!gisu) {
+                gisu = 0;
+            }
+            if (!gita) {
+                gita = 0;
+            }
+
+            console.log(base);
+            console.log(oper);
+            console.log(go);
+            console.log(gisu);
+            console.log(gita);
+
+            const inAll = parseInt(base) + parseInt(oper) + parseInt(go) + parseInt(gisu) +
+                    parseInt(gita);
+
+            console.log("inAll  " + inAll);
+
+            $('#in-inAllM').text(AddComma(inAll));
+            resolve();
+        })
+    }
+    function sumOut(result) {
+        return new Promise(function (resolve, reject) {
+
+            let sadea = ($('#out-sadea').text()).replaceAll(',', '');
+            let gita = ($('#out-gitaM').text()).replaceAll(',', '');
+            let sae = ($('#out-saeM').text()).replaceAll(',', '');
+
+            if (!sadea) {
+                sadea = 0;
+            }
+            if (!gita) {
+                gita = 0;
+            }
+            if (!sae) {
+                sae = 0;
+            }
+
+            console.log(sadea);
+            console.log(gita);
+            console.log(sae);
+
+            const outAll = parseInt(sadea) + parseInt(gita) + parseInt(sae);
+
+            $('#out-outAllM').text(AddComma(outAll));
+            resolve();
+        })
+    }
+    function sumAll(result) {
+        return new Promise(function (resolve, reject) {
+
+            let inM = ($('#in-inAllM').text()).replaceAll(',', '');
+            let outM = ($('#out-outAllM').text()).replaceAll(',', '');
+
+            if (!inM) {
+                inM = 0;
+            }
+            if (!outM) {
+                outM = 0;
+            }
+
+            const All = parseInt(inM) - parseInt(outM);
+
+            $('#AllM').text(AddComma(All));
+            resolve();
+        })
     }
 }
 
@@ -389,6 +496,8 @@ $(document).on('change', '#mCh-All', function () {
             chInDay(cccc);
         }
     }
+
+    chOperMoney();
 });
 
 $(document).on('click', '#mdINM', function () {
@@ -698,7 +807,7 @@ $(document).on('click', '#insert-outM', function () {
     insertOutM();
 });
 
-function delTbInM() {
+function delTbOutM() {
     if (confirm('공제내역을 모두 삭제하겠습니까?')) {
         $('#emp-out-money-tb')
             .children()

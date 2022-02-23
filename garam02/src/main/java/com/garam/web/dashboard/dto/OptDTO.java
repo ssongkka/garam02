@@ -4,6 +4,7 @@ public class OptDTO {
 
 	private Integer operm1;
 	private Double card;
+	private Double oper;
 
 	public Double getCard() {
 		return card;
@@ -19,6 +20,14 @@ public class OptDTO {
 
 	public void setOperm1(Integer operm1) {
 		this.operm1 = operm1;
+	}
+
+	public Double getOper() {
+		return oper;
+	}
+
+	public void setOper(Double oper) {
+		this.oper = oper;
 	}
 
 }

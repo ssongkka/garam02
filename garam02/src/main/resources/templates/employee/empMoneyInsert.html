@@ -316,40 +316,109 @@
                 </div>
             </div>
         </div>
-        <div class="moneyInsertEmp-End card">
+        <div class="moneyInsertEmp-End">
             <div class="End-items">
-                <span>기본급</span></div>
-            <div class="End-items"><input type="text" autocomplete="off" class="input-MM" id="baseM"></div>
-            <div class="End-items">
-                <span>4대보험</span></div>
-            <div class="End-items"></div>
-            <div class="End-items">
-                <span>운행수당</span></div>
-            <div class="End-items" id="in-operM"></div>
-            <div class="End-items">
-                <span>ㅁㅁㅁ</span></div>
-            <div class="End-items"></div>
-            <div class="End-items">
-                <span>기타수당</span></div>
-            <div class="End-items" id="in-etcM"></div>
-            <div class="End-items">
-                <span>ㅁㅁㅁ</span></div>
-            <div class="End-items"></div>
-            <div class="End-items">
-                <span>기타</span></div>
-            <div class="End-items" id="in-etcetcM"></div>
-            <div class="End-items">
-                <span>ㅁㅁㅁ</span></div>
-            <div class="End-items"></div>
-            <div class="End-items">
-                <span>지급총액</span></div>
-            <div class="End-items" id="in-AllM"></div>
-            <div class="End-items">
-                <span>공제총액</span></div>
-            <div class="End-items"></div>
-            <div class="End-items">
-                <span>실지급액</span></div>
-            <div class="End-items"></div>
+                <div class="End-items-in card">
+                    <table class="table table-striped table-bordered table-condensed">
+                        <colgroup>
+                            <col width="40%"/>
+                            <col width="60%"/>
+                        </colgroup>
+                        <tr>
+                            <td>기본급</td>
+                            <td><input class="moneyinput" id="in-baseM" type="text" data-type="currency"></td>
+                        </tr>
+                        <tr>
+                            <td>운행수당</td>
+                            <td class="moneyininin">
+                                <span id="in-operM"></span></td>
+                        </tr>
+                        <tr>
+                            <td>운행경비</td>
+                            <td class="moneyininin">
+                                <span id="in-goM"></span></td>
+                        </tr>
+                        <tr>
+                            <td>기타수당</td>
+                            <td class="moneyininin">
+                                <span id="in-gisuM"></span></td>
+                        </tr>
+                        <tr>
+                            <td>기타</td>
+                            <td class="moneyininin">
+                                <span id="in-gitaM"></span></td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-condensed" style="margin-top: 2rem;">
+                        <colgroup>
+                            <col width="40%"/>
+                            <col width="60%"/>
+                        </colgroup>
+                        <tr class="moneys">
+                            <td>지급총액</td>
+                            <td class="moneyininin">
+                                <span id="in-inAllM"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="End-items-out card">
+                    <table class="table table-striped table-bordered table-condensed">
+                        <colgroup>
+                            <col width="40%"/>
+                            <col width="60%"/>
+                        </colgroup>
+                        <tr>
+                            <td>4대보험</td>
+                            <td class="moneyininin">
+                                <span id="out-sadea"></span></td>
+                        </tr>
+                        <tr>
+                            <td>기타공제</td>
+                            <td class="moneyininin">
+                                <span id="out-gitaM"></span></td>
+                        </tr>
+                        <tr>
+                            <td>세금</td>
+                            <td class="moneyininin">
+                                <span id="out-saeM"></span></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td class="moneyininin">
+                                <span id=""></span></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td class="moneyininin">
+                                <span id=""></span></td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-condensed" style="margin-top: 2rem;">
+                        <colgroup>
+                            <col width="40%"/>
+                            <col width="60%"/>
+                        </colgroup>
+                        <tr class="moneys">
+                            <td>공제총액</td>
+                            <td class="moneyininin">
+                                <span id="out-outAllM"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="End-items card">
+                <table class="table table-striped table-bordered table-condensed">
+                    <colgroup>
+                        <col width="50%"/>
+                        <col width="50%"/>
+                    </colgroup>
+                    <tr class="moneys">
+                        <td>실지급액</td>
+                        <td class="moneyininin">
+                            <span id="AllM"></span></td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <!-- Modal -->
         <div
