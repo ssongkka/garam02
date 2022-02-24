@@ -273,6 +273,7 @@
 		rsvt.ctmno)
 		AS
 		ctmname,
+		operation_info.operconfirm,
 		operation_info.opertrash
 
 		FROM
@@ -296,11 +297,6 @@
 
 		operation_info.dayst =
 		1
-
-		AND
-
-		operation_info.opertrash =
-		#{opertrash}
 
 		ORDER BY
 		rsvt.stday,

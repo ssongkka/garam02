@@ -24,4 +24,8 @@ public interface EmployeeMapper {
 	public List<EmpRsvtDTO> selectEmpOperList(EmpRsvtDTO empRsvtDTO) throws Exception;
 
 	public List<EmpRsvtDTO> selectEmpOperListCnt(EmpRsvtDTO empRsvtDTO) throws Exception;
+
+	public List<EmployeeInfoDTO> SelectEmpBaseMoney(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public int empUpOper(EmpRsvtDTO empRsvtDTO) throws Exception;
 }

@@ -194,7 +194,7 @@
 			#{value.operid},
 			#{value.atlm},
 			#{value.opertype},
-			0,
+			null,
 			1
 			)
 		</foreach>
@@ -607,7 +607,7 @@
 			AND
 
 			opertype =
-			#{value.opertype};
+			#{value.opertype}
 		</foreach>
 	</delete>
 

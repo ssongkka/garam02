@@ -9,19 +9,17 @@
 }
 
 .inTb {
-    border: 1px solid #718a8b;
     border-top: none;
 }
 .outTb {
-    border: 1px solid #223347;
     border-top: none;
 }
 
 .inTb .table-striped > tbody > tr:nth-of-type(odd) {
-    background: #718a8b14;
+    background: #0a5c001a;
 }
 .outTb .table-striped > tbody > tr:nth-of-type(odd) {
-    background: #22334714;
+    background: #00439314;
 }
 
 .inTb table {
@@ -63,7 +61,7 @@
     flex-direction: column;
     gap: 1rem;
     padding-bottom: 1rem;
-    min-height: calc(100vh - 35rem);
+    min-height: calc(100vh - 35.5rem);
 }
 
 .moneyInsertEmp-End {
@@ -87,6 +85,7 @@
 .End-items-in {
     flex: 1;
     padding: 1rem;
+    letter-spacing: 0.1rem;
 }
 .End-items table {
     margin: 0;
@@ -94,10 +93,12 @@
 .End-items-out {
     flex: 1;
     padding: 1rem;
+    letter-spacing: 0.2rem;
 }
 
 .End-items:nth-child(2) {
     padding: 1rem;
+    letter-spacing: 0.2rem;
 }
 
 .tb-End tr {
@@ -112,9 +113,9 @@
     padding-right: 3rem;
 }
 .moneyinput {
-    width: 100%;
     text-align: right;
-    padding-right: 3rem;
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
 }
 
 .moneys {
@@ -125,17 +126,25 @@
     display: flex;
     align-items: center;
     padding: 1rem;
-}
-
-.operTitle-item {
-    letter-spacing: 0.5rem;
-    padding-left: 2rem;
     gap: 2rem;
 }
 
-.operTitle-item:nth-child(1) {}
+.operTitle-item {
+    gap: 2rem;
+}
+
+.operTitle-item:nth-child(1) {
+    letter-spacing: 0.3rem;
+}
 .operTitle-item:nth-child(2) {
     flex: 1;
+}
+.operTitle-item:nth-child(3) {
+    display: flex;
+    gap: 2rem;
+}
+.operTitle-item:nth-child(3) a {
+    width: 10rem;
 }
 
 .operCont {
@@ -185,6 +194,7 @@
     padding: 0.5rem 0.5rem 0.5rem 2rem;
     border-radius: 0.5rem 0.5rem 0 0;
     justify-content: space-between;
+    letter-spacing: 0.3rem;
 }
 
 .insert-cont-item-title1 {

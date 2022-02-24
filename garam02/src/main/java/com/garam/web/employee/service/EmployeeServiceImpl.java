@@ -222,4 +222,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return list;
 	}
+
+	@Override
+	public List<EmployeeInfoDTO> SelectEmpBaseMoney(EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<EmployeeInfoDTO> list = employeeMapper.SelectEmpBaseMoney(employeeInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public int empUpOper(EmpRsvtDTO empRsvtDTO) throws Exception {
+		int rtn = employeeMapper.empUpOper(empRsvtDTO);
+
+		return rtn;
+	}
 }

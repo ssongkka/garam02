@@ -12,8 +12,10 @@
                 </div>
                 <div class="operTitle-item">
                     <div class="dash-cal-h-money">
-                        <div class="dash-cal-h-item dash-cal-h-item1" id="fnDownMonth1">
-                            <i class="fas fa-chevron-left fa-lg"></i>
+                        <div class="">
+                            <a class="btn" id="fnDownMonth1">
+                                <i class="fas fa-chevron-left fa-lg"></i>
+                            </a>
                         </div>
                         <div class="dash-cal-h-item dash-cal-h-item2" id="">
                             <strong><input
@@ -23,8 +25,10 @@
                                 value=""
                                 control-id="ControlID-2"></strong>
                         </div>
-                        <div class="dash-cal-h-item dash-cal-h-item3" id="fnUpMonth1">
-                            <i class="fas fa-chevron-right fa-lg"></i>
+                        <div class="">
+                            <a class="btn" id="fnUpMonth1">
+                                <i class="fas fa-chevron-right fa-lg"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -92,19 +96,7 @@
                             </thead>
                             <tbody id="emp-oper-money-tb">
                                 <tr>
-                                    <!-- <td colspan="7">운행정보없음</td> -->
-                                    <td></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td>55</td>
-                                    <td>02일</td>
-                                    <td>세종문화회관</td>
-                                    <td>1,000,000</td>
-                                    <td>편도</td>
-                                    <td>세종문화회관</td>
-                                    <td>2021-02</td>
+                                    <td colspan="12">운행정보없음</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -123,8 +115,10 @@
                 </div>
                 <div class="operTitle-item">
                     <div class="dash-cal-h-money">
-                        <div class="dash-cal-h-item dash-cal-h-item1" id="fnDownMonth2">
-                            <i class="fas fa-chevron-left fa-lg"></i>
+                        <div class="">
+                            <a class="btn" id="fnDownMonth2">
+                                <i class="fas fa-chevron-left fa-lg"></i>
+                            </a>
                         </div>
                         <div class="dash-cal-h-item dash-cal-h-item2" id="">
                             <strong><input
@@ -134,10 +128,16 @@
                                 value=""
                                 control-id="ControlID-2"></strong>
                         </div>
-                        <div class="dash-cal-h-item dash-cal-h-item3" id="fnUpMonth2">
-                            <i class="fas fa-chevron-right fa-lg"></i>
+                        <div class="">
+                            <a class="btn" id="fnUpMonth2">
+                                <i class="fas fa-chevron-right fa-lg"></i>
+                            </a>
                         </div>
                     </div>
+                </div>
+                <div class="operTitle-item">
+                    <a type="button" class="btn btn-warning" id="noSave">임시저장</a>
+                    <a type="button" class="btn btn-default" id="yesSave">저&nbsp;&nbsp;장</a>
                 </div>
             </div>
             <div class="insert-name">
@@ -157,7 +157,7 @@
                     <div class="insert-cont-item-title1">
                         <span>지급내역</span>
                     </div>
-                    <div class="aaaadddd1">
+                    <form class="aaaadddd1" id="inForm">
                         <div class="itttem1">
                             <input
                                 type="number"
@@ -168,7 +168,8 @@
                                 class="form-control input-M"
                                 onfocus="this.select()"
                                 placeholder="날짜"
-                                value="1">
+                                value="1"
+                                disabled="true">
                         </div>
                         <div class="itttem1">
                             <select class="form-control input-M" id="inp-cont2" placeholder="구분">
@@ -200,7 +201,7 @@
                         <a class="itttem1" id="insert-inM" data-toggle="tooltip" title="입력">
                             <i class="fas fa-plus-square"></i>
                         </a>
-                    </div>
+                    </form>
                     <div class="insert-cont-item-cont inTb">
                         <table class="table table-striped table-bordered table-condensed">
                             <colgroup>
@@ -235,7 +236,7 @@
                     <div class="insert-cont-item-title2">
                         <span>공제내역</span>
                     </div>
-                    <div class="aaaadddd2">
+                    <form class="aaaadddd2" id="outForm">
                         <div class="itttem2">
                             <input
                                 type="number"
@@ -283,7 +284,7 @@
                         <a class="itttem2" id="insert-outM" data-toggle="tooltip" title="입력">
                             <i class="fas fa-plus-square"></i>
                         </a>
-                    </div>
+                    </form>
                     <div class="insert-cont-item-cont outTb">
                         <table class="table table-striped table-bordered table-condensed">
                             <colgroup>
@@ -310,7 +311,80 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody id="emp-out-money-tb"></tbody>
+                            <tbody id="emp-out-money-tb">
+                                <tr>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td>1</td>
+                                    <td>1일</td>
+                                    <td>보험료</td>
+                                    <td>국민연금</td>
+                                    <td><input
+                                        type="text"
+                                        data-type="currency"
+                                        id="kukmM"
+                                        style="text-align: right;"
+                                        onfocus="this.select()"
+                                        value="0"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td>2</td>
+                                    <td>1일</td>
+                                    <td>보험료</td>
+                                    <td>건강보험</td>
+                                    <td><input
+                                        type="text"
+                                        data-type="currency"
+                                        id="gunmM"
+                                        style="text-align: right; background: #22334714;"
+                                        onfocus="this.select()"
+                                        value="0"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td>3</td>
+                                    <td>1일</td>
+                                    <td>보험료</td>
+                                    <td>고용보험</td>
+                                    <td><input
+                                        type="text"
+                                        data-type="currency"
+                                        id="gomM"
+                                        style="text-align: right;"
+                                        onfocus="this.select()"
+                                        value="0"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td class="hideTh"></td>
+                                    <td>4</td>
+                                    <td>1일</td>
+                                    <td>보험료</td>
+                                    <td>산재보험</td>
+                                    <td><input
+                                        type="text"
+                                        data-type="currency"
+                                        id="sanmM"
+                                        style="text-align: right; background: #22334714;"
+                                        onfocus="this.select()"
+                                        value="0"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -318,7 +392,7 @@
         </div>
         <div class="moneyInsertEmp-End">
             <div class="End-items">
-                <div class="End-items-in card">
+                <div class="End-items-in card inTb">
                     <table class="table table-striped table-bordered table-condensed">
                         <colgroup>
                             <col width="40%"/>
@@ -326,7 +400,12 @@
                         </colgroup>
                         <tr>
                             <td>기본급</td>
-                            <td><input class="moneyinput" id="in-baseM" type="text" data-type="currency"></td>
+                            <td class="moneyininin"><input
+                                class="moneyinput"
+                                id="in-baseM"
+                                type="text"
+                                data-type="currency"
+                                onfocus="this.select()"></td>
                         </tr>
                         <tr>
                             <td>운행수당</td>
@@ -361,7 +440,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="End-items-out card">
+                <div class="End-items-out card outTb">
                     <table class="table table-striped table-bordered table-condensed">
                         <colgroup>
                             <col width="40%"/>

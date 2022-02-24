@@ -81,6 +81,11 @@ th {
     vertical-align: middle;
 }
 
+.table > tbody > tr > .tdRight {
+    text-align: right;
+    vertical-align: middle;
+}
+
 .nav p {
     margin: 0;
 }

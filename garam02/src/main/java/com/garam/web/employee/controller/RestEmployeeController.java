@@ -74,4 +74,17 @@ public class RestEmployeeController {
 		return list;
 	}
 
+	@PostMapping(value = "/empBaseMoney")
+	public List<EmployeeInfoDTO> empBaseMoney(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<EmployeeInfoDTO> list = employeeService.SelectEmpBaseMoney(employeeInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empOperUp")
+	public int empOperUp(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		int rtn = employeeService.empUpOper(empRsvtDTO);
+
+		return rtn;
+	}
 }

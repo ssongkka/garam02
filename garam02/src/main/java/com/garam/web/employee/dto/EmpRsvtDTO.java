@@ -124,7 +124,7 @@ public class EmpRsvtDTO {
 	private Integer opertype;
 
 	// 운행확정
-	private Integer operconfirm;
+	private String operconfirm;
 
 	// 삭제여부
 	private Integer opertrash;
@@ -481,14 +481,6 @@ public class EmpRsvtDTO {
 		this.numm = numm;
 	}
 
-	public Integer getAtlm() {
-		return atlm;
-	}
-
-	public void setAtlm(Integer atlm) {
-		this.atlm = atlm;
-	}
-
 	public Integer getOpertype() {
 		return opertype;
 	}
@@ -497,12 +489,20 @@ public class EmpRsvtDTO {
 		this.opertype = opertype;
 	}
 
-	public Integer getOperconfirm() {
+	public String getOperconfirm() {
 		return operconfirm;
 	}
 
-	public void setOperconfirm(Integer operconfirm) {
+	public void setOperconfirm(String operconfirm) {
 		this.operconfirm = operconfirm;
+	}
+
+	public Integer getAtlm() {
+		return atlm;
+	}
+
+	public void setAtlm(Integer atlm) {
+		this.atlm = atlm;
 	}
 
 	public Integer getOpertrash() {

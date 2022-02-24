@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garam.web.employee.mapper.EmployeeMapper">
+
+	<sql id="empMoneyColumns">
+	</sql>
+
+	<select id="SelectEmpBaseMoney"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		SELECT
+
+		baseM, kukM, gunM, goM, sanM
+
+		FROM
+
+		employeeinfo
+
+		WHERE
+
+		employeeinfo.id = #{id}
+	</select>
+
+	<update id="empUpOper"
+		parameterType="com.garam.web.employee.dto.EmpRsvtDTO">
+
+		UPDATE
+
+		operation_info
+
+		SET
+
+		operconfirm = #{operconfirm},
+		opertrash = #{opertrash}
+
+		WHERE
+
+		opernum = #{opernum}
+
+		AND
+
+		operno = #{operno}
+
+		AND
+
+		opertype = #{opertype}
+
+		AND
+
+		operid = #{operid}
+
+		AND
+
+		opercar
+		= #{opercar}
+	</update>
+</mapper>
