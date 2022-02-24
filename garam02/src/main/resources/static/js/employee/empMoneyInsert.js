@@ -36,10 +36,21 @@ $(document).ready(function () {
         const now = new Date();
         const oneMonthAgo = new Date(now.setMonth(now.getMonth() - 1));
         const fff = toStringByFormatting(oneMonthAgo);
+
+        const nowMonth = new Date(now.split('-')[0], now.split('-')[1] - 1, 1);
+
+        const oneMonthAgo1 = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
+        const fff1 = toStringByFormatting(oneMonthAgo1);
         $('#yearmonthsMoney1').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
         $('#yearmonthsMoney2').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
-        $('#yearmonthsMoney1').attr('max', fff.split('-')[0] + '-' + fff.split('-')[1]);
-        $('#yearmonthsMoney2').attr('max', fff.split('-')[0] + '-' + fff.split('-')[1]);
+        $('#yearmonthsMoney1').attr(
+            'max',
+            fff1.split('-')[0] + '-' + fff1.split('-')[1]
+        );
+        $('#yearmonthsMoney2').attr(
+            'max',
+            fff1.split('-')[0] + '-' + fff1.split('-')[1]
+        );
     } else {
         $('#yearmonthsMoney1').val(
             nownownow.split('-')[0] + '-' + nownownow.split('-')[1]
@@ -112,23 +123,40 @@ $(document).on('click', '#fnUpMonth2', function () {
     const now2 = parseInt(nownownow2.split('-')[0] + nownownow2.split('-')[1]);
 
     if (now2 < now1) {
-        setYearMonthUp('#yearmonthsMoney2');
-        $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
-        getEmpOperListCompa($('#emp-iidd').val());
+        const ch = confirm("급여 월을 변경하시겠습니까?\n\n저장되지 않은 정보는 사라집니다.");
+        if (ch) {
+            setYearMonthUp('#yearmonthsMoney2');
+            $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
+            getEmpMoneyListCompa($('#emp-iidd').val());
+            getEmpOperListCompa($('#emp-iidd').val());
+        }
     } else {
         alert("급여 지급 월을 확인해주세요.");
     }
 });
 
 $(document).on('click', '#fnDownMonth2', function () {
-    setYearMonthDown('#yearmonthsMoney2');
-    $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
-    getEmpOperListCompa($('#emp-iidd').val());
+    const ch = confirm("급여 월을 변경하시겠습니까?\n\n저장되지 않은 정보는 사라집니다.");
+    if (ch) {
+        console.log('1');
+        setYearMonthDown('#yearmonthsMoney2');
+        console.log('1');
+        $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
+        console.log('1');
+        getEmpMoneyListCompa($('#emp-iidd').val());
+        console.log('1');
+        getEmpOperListCompa($('#emp-iidd').val());
+        console.log('1');
+    }
 });
 
 $(document).on('change', '#yearmonthsMoney2', function () {
-    $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
-    getEmpOperListCompa($('#emp-iidd').val());
+    const ch = confirm("급여 월을 변경하시겠습니까?\n\n저장되지 않은 정보는 사라집니다.");
+    if (ch) {
+        $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
+        getEmpMoneyListCompa($('#emp-iidd').val());
+        getEmpOperListCompa($('#emp-iidd').val());
+    }
 });
 
 function getEmpOperListCompa(id) {
@@ -144,46 +172,9 @@ function getEmpOperListCompa(id) {
     );
     const endday = toStringByFormatting(yesterday); // 어제
 
-    $("#inp-cont1").removeAttr("disabled");
-    $("#inp-cont2").removeAttr("disabled");
-    $("#inp-cont3").removeAttr("disabled");
-    $("#inp-cont4").removeAttr("disabled");
-
-    $("#inp-cont11").removeAttr("disabled");
-    $("#inp-cont12").removeAttr("disabled");
-    $("#inp-cont13").removeAttr("disabled");
-    $("#inp-cont14").removeAttr("disabled");
-
-    $("#kukmM").removeAttr("disabled");
-    $("#gunmM").removeAttr("disabled");
-    $("#gomM").removeAttr("disabled");
-    $("#sanmM").removeAttr("disabled");
-
-    $("#in-baseM").removeAttr("disabled");
-
-    $("#insert-inM").removeAttr("disabled");
-    $("#insert-outM").removeAttr("disabled");
-
-    $("#insert-outM").prop("disabled", false);
-    $("#insert-inM").prop("disabled", false);
-
-    $("#yesSave").removeAttr("disabled");
-    $("#noSave").removeAttr("disabled");
-
-    $("#fnDownMonth1").attr("disabled", false);
-    $("#fnUpMonth1").attr("disabled", false);
-    $("#fnDownMonth2").attr("disabled", false);
-    $("#fnUpMonth2").attr("disabled", false);
-
-    $("#yearmonthsMoney1").attr("disabled", false);
-    $("#yearmonthsMoney2").attr("disabled", false);
-
-    $('#inForm')[0].reset();
-    $('#outForm')[0].reset();
-
     getEmpOperCnt()
         .then(getEmpOper)
-        .then(getEmpBaseM);
+        .then(sumAll);
 
     function getEmpOperCnt() {
         return new Promise(function (resolve, reject) {
@@ -222,7 +213,6 @@ function getEmpOperListCompa(id) {
 
     function getEmpOper(result) {
         return new Promise(function (resolve, reject) {
-
             const url = "/emp/empOper";
             const headers = {
                 "Content-Type": "application/json",
@@ -248,7 +238,6 @@ function getEmpOperListCompa(id) {
                     if (r.length > 0) {
 
                         for (let i = 0; i < r.length; i++) {
-                            console.log("operconfirm   " + r[i].operconfirm);
                             switch (r[i].opertrash) {
                                 case 0:
                                     if (result.get(r[i].opernum) > 1) {
@@ -594,12 +583,164 @@ function getEmpOperListCompa(id) {
                     $('#bgoper1').text(cnt);
                     checkChAll();
                     resolve();
-                },
-                error: (jqXHR) => {
-                    loginSession(jqXHR.status);
                 }
             })
         });
+    }
+    function sumAll(result) {
+        return new Promise(function (resolve, reject) {
+            sumAllpro();
+        })
+    }
+}
+
+function getEmpMoneyListCompa(id) {
+    $('#emp-out-money-tb')
+        .children()
+        .remove();
+    $('#emp-in-money-tb')
+        .children()
+        .remove();
+
+    getEmpInMList()
+        .then(getEmpOutMList)
+        .then(getEmpBaseM)
+        .then(sumAll);
+
+    function getEmpInMList(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empInMList";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+            const params = {
+                "id": id,
+                "sday": $('#yearmonthsMoney2').val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r > 0) {
+                        let httmll = '';
+                        for (let i = 0; i < r.length; i++) {
+                            let ddd = '';
+                            if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
+                                ddd = (r[i].date)
+                                    .split('-')[2]
+                                    .substring('1');
+                            } else {
+                                ddd = (r[i].date).split('-')[2];
+                            }
+
+                            httmll += '<tr>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td>' + (
+                                cnt++
+                            ) + '</td>';
+                            httmll += '<td>' + ddd + '일</td>';
+                            httmll += '<td>' + r[i].separation + '</td>';
+                            httmll += '<td>' + r[i].contents + '</td>';
+                            httmll += '<td class="tdRight">' + AddComma(r[i].money) + '</td>';
+
+                            switch (r[i].strash) {
+                                case 0:
+                                    httmll += '<td>';
+                                    httmll += '</td>';
+                                    httmll += '</tr>';
+                                    break;
+                                case 1:
+                                    httmll += '<td class="cuor-p" onclick="delTb(this)">';
+                                    httmll += '<i class="fas fa-minus-square"></i>';
+                                    httmll += '</td>';
+                                    httmll += '</tr>';
+                                    break;
+                            }
+                        }
+                        $('#emp-in-money-tb').append(httmll);
+                        resolve(1);
+                    } else {
+                        resolve(0);
+                    }
+                }
+            })
+        })
+    }
+    function getEmpOutMList(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empOutMList";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+            const params = {
+                "id": id,
+                "sday": $('#yearmonthsMoney2').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r > 0) {
+                        let httmll = '';
+                        for (let i = 0; i < r.length; i++) {
+                            let ddd = '';
+                            if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
+                                ddd = (r[i].date)
+                                    .split('-')[2]
+                                    .substring('1');
+                            } else {
+                                ddd = (r[i].date).split('-')[2];
+                            }
+
+                            httmll += '<tr>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td class="hideTh"></td>';
+                            httmll += '<td>' + (
+                                cnt++
+                            ) + '</td>';
+                            httmll += '<td>' + ddd + '일</td>';
+                            httmll += '<td>' + r[i].separation + '</td>';
+                            httmll += '<td>' + r[i].contents + '</td>';
+                            httmll += '<td class="tdRight">' + AddComma(r[i].money) + '</td>';
+
+                            switch (r[i].strash) {
+                                case 0:
+                                    httmll += '<td>';
+                                    httmll += '</td>';
+                                    httmll += '</tr>';
+                                    break;
+                                case 1:
+                                    httmll += '<td class="cuor-p" onclick="delTb(this)">';
+                                    httmll += '<i class="fas fa-minus-square"></i>';
+                                    httmll += '</td>';
+                                    httmll += '</tr>';
+                                    break;
+                            }
+                        }
+                        $('#emp-out-money-tb').append(httmll);
+                        let rtn1 = [result, 1]
+                        resolve(rtn1);
+                    } else {
+                        let rtn2 = [result, 0]
+                        resolve(rtn2);
+                    }
+                }
+            })
+        })
     }
     function getEmpBaseM(result) {
         return new Promise(function (resolve, reject) {
@@ -620,25 +761,131 @@ function getEmpOperListCompa(id) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log("baseM   " + r[0].basem)
-                    console.log("kukM   " + r[0].kukm)
-                    console.log("gunM   " + r[0].gunm)
-                    console.log("goM   " + r[0].gom)
-                    console.log("sanM   " + r[0].sanm)
 
-                    $('#in-baseM').val(AddComma(r[0].basem));
-                    $('#kukmM').val(AddComma(r[0].kukm));
-                    $('#gunmM').val(AddComma(r[0].gunm));
-                    $('#gomM').val(AddComma(r[0].gom));
-                    $('#sanmM').val(AddComma(r[0].sanm));
-                    sumAllpro();
+                    if (parseInt(result[0]) < 1) {
+                        $('#in-baseM').val(AddComma(r[0].basem));
+                    }
+
+                    if (parseInt(result[1]) < 1) {
+                        let htmls = '';
+                        htmls += '<tr>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += '<td>1</td>';
+                        htmls += '<td>1일</td>';
+                        htmls += '<td>보험료</td>';
+                        htmls += '<td>국민연금</td>';
+                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="kukmM" onfo' +
+                                'cus="this.select()" value="' + AddComma(r[0].kukm) + '"></td>';
+                        htmls += '<td></td>';
+                        htmls += '</tr>';
+                        htmls += '<tr>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += '<td>2</td>';
+                        htmls += '<td>1일</td>';
+                        htmls += '<td>보험료</td>';
+                        htmls += '<td>건강보험</td>';
+                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="gunmM" onfo' +
+                                'cus="this.select()" value="' + AddComma(r[0].gunm) + '"></td>';
+                        htmls += '<td></td>';
+                        htmls += '</tr>';
+                        htmls += '<tr>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += '<td>3</td>';
+                        htmls += '<td>1일</td>';
+                        htmls += '<td>보험료</td>';
+                        htmls += '<td>고용보험</td>';
+                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="gomM" onfoc' +
+                                'us="this.select()" value="' + AddComma(r[0].gom) + '"></td>';
+                        htmls += '<td></td>';
+                        htmls += '</tr>';
+                        htmls += '<tr>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += ' <td class="hideTh"></td>';
+                        htmls += '<td>4</td>';
+                        htmls += '<td>1일</td>';
+                        htmls += '<td>보험료</td>';
+                        htmls += '<td>산재보험</td>';
+                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="sanmM" onfo' +
+                                'cus="this.select()" value="' + AddComma(r[0].sanm) + '"></td>';
+                        htmls += '<td></td>';
+                        htmls += '</tr>';
+                        $('#emp-out-money-tb').append(htmls);
+                    }
+                    resolve();
                 }
             })
         })
     }
+    function sumAll(result) {
+        return new Promise(function (resolve, reject) {
+            sumAllpro();
+        })
+    }
+}
+
+function clkName() {
+    $("#inp-cont1").removeAttr("disabled");
+    $("#inp-cont2").removeAttr("disabled");
+    $("#inp-cont3").removeAttr("disabled");
+    $("#inp-cont4").removeAttr("disabled");
+
+    $("#inp-cont11").removeAttr("disabled");
+    $("#inp-cont12").removeAttr("disabled");
+    $("#inp-cont13").removeAttr("disabled");
+    $("#inp-cont14").removeAttr("disabled");
+
+    $("#kukmM").removeAttr("disabled");
+    $("#gunmM").removeAttr("disabled");
+    $("#gomM").removeAttr("disabled");
+    $("#sanmM").removeAttr("disabled");
+
+    $("#in-baseM").removeAttr("disabled");
+
+    $("#insert-inM").removeAttr("disabled");
+    $("#insert-outM").removeAttr("disabled");
+
+    $("#insert-outM").prop("disabled", false);
+    $("#insert-inM").prop("disabled", false);
+
+    $("#yesSave").removeAttr("disabled");
+    $("#noSave").removeAttr("disabled");
+
+    $("#fnDownMonth1").attr("disabled", false);
+    $("#fnUpMonth1").attr("disabled", false);
+    $("#fnDownMonth2").attr("disabled", false);
+    $("#fnUpMonth2").attr("disabled", false);
+
+    $("#yearmonthsMoney1").attr("disabled", false);
+    $("#yearmonthsMoney2").attr("disabled", false);
+
+    $('#inForm')[0].reset();
+    $('#outForm')[0].reset();
 }
 
 $(document).on('change', '#in-baseM', function () {
+    sumAllpro();
+});
+$(document).on('change', '#kukmM', function () {
+    sumAllpro();
+});
+$(document).on('change', '#gunmM', function () {
+    sumAllpro();
+});
+$(document).on('change', '#gomM', function () {
+    sumAllpro();
+});
+$(document).on('change', '#sanmM', function () {
     sumAllpro();
 });
 
@@ -720,7 +967,6 @@ function chCh(id) {
 }
 
 function checkChAll() {
-
     let check = 1;
 
     const aaaa = $('#mCh-All')
@@ -749,14 +995,6 @@ function checkChAll() {
 }
 
 function updateOper(id, car, opernum, opertype, operno, day, trash) {
-    console.log("id   " + id);
-    console.log("car   " + car);
-    console.log("opernum   " + opernum);
-    console.log("opertype   " + opertype);
-    console.log("operno   " + operno);
-    console.log("day   " + day);
-    console.log("trash   " + trash);
-
     if (!day) {
         day = null;
     }
@@ -800,6 +1038,7 @@ function sumAllpro() {
     function operMSet() {
         return new Promise(function (resolve, reject) {
             let money = 0;
+            let chM = 0;
 
             const aaaa = $('#mCh-All')
                 .parent()
@@ -816,9 +1055,11 @@ function sumAllpro() {
                 ).replaceAll(',', '');
                 if ($(cccc).is(':checked')) {
                     money = money + parseInt(dddd);
+                    chM++;
                 }
             }
             $('#in-operM').text(AddComma(money * opt[0].oper));
+            $('#in-operC').text(chM + '건');
             resolve();
         })
     }
@@ -827,7 +1068,6 @@ function sumAllpro() {
             const aaa = $('#emp-in-money-tb')
                 .children()
                 .length;
-            console.log("ggggggggg   " + aaa);
             let sumGy = 0;
             let sumGisu = 0;
             let sumGitaa = 0;
@@ -852,7 +1092,6 @@ function sumAllpro() {
                     .next()
                     .next()
                     .next();
-                console.log("llll  " + $(ttdd11).text());
 
                 switch ($(ttdd11).text()) {
                     case "경비":
@@ -881,7 +1120,6 @@ function sumAllpro() {
             const aaa = $('#emp-out-money-tb')
                 .children()
                 .length;
-            console.log("ggggggggg   " + aaa);
             let sumBo = 0;
             let sumGita = 0;
             let sumSae = 0;
@@ -899,7 +1137,9 @@ function sumAllpro() {
                     .next()
                     .children()[0];
                 const inpp = $(ttdd).val();
-                sumBo = sumBo + parseInt(inpp.replaceAll(',', ''));
+                if (inpp) {
+                    sumBo = sumBo + parseInt(inpp.replaceAll(',', ''));
+                }
             }
 
             for (let i = 4; i < aaa; i++) {
@@ -922,7 +1162,6 @@ function sumAllpro() {
                     .next()
                     .next()
                     .next();
-                console.log("llll  " + $(ttdd1).text());
 
                 switch ($(ttdd1).text()) {
                     case "기타":
@@ -934,8 +1173,6 @@ function sumAllpro() {
                         sumSae = sumSae + parseInt(inpp2.replaceAll(',', ''));
                         break;
                 }
-                console.log("sumGita   " + sumGita);
-                console.log("sumSae   " + sumSae);
             }
             $('#out-sadea').text(AddComma(sumBo));
             $('#out-gitaM').text(AddComma(sumGita));
@@ -1305,6 +1542,27 @@ $(document).on('click', '#insert-inM', function () {
     insertInM();
 });
 
+function setNum() {
+    $('#emp-in-money-tb')
+        .children()
+        .length;
+    const ininin = $('#emp-in-money-tb').children();
+    console.log(ininin);
+    for (let i = 0; i < ininin.length; i++) {
+        console.log($(ininin[i]).children());
+        const tttt = $(ininin[i]).children();
+        $(tttt[4]).text(i + 1);
+    }
+    const outout = $('#emp-out-money-tb').children();
+    $('#emp-out-money-tb')
+
+    for (let i = 0; i < outout.length; i++) {
+        console.log($(outout[i]).children());
+        const tttt1 = $(outout[i]).children();
+        $(tttt1[4]).text(i + 1);
+    }
+}
+
 function delTbInM() {
     if (confirm('지급내역을 모두 삭제하겠습니까?')) {
         $('#emp-in-money-tb')
@@ -1487,4 +1745,6 @@ function delTb(params) {
             sumAllpro();
         })
     }
+
+    setNum();
 }

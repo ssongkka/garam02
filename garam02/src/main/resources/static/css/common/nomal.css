@@ -28,11 +28,12 @@
 
 .nomal-aside-btn {
     display: flex;
+    gap: 1rem;
+    padding: 1rem;
 }
 
 .nomal-aside-btn-item {
     flex: 1;
-    padding: 1rem 1rem 0;
 }
 
 .nomal-aside-btn-item:nth-child(1) {}
@@ -44,7 +45,7 @@
 }
 
 .nomal-aside-search {
-    padding: 2rem;
+    padding: 1rem;
     z-index: 1050;
 }
 

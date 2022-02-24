@@ -184,6 +184,7 @@
                                 tabindex="2"
                                 id="inp-cont3"
                                 class="form-control input-M"
+                                autocomplete="off"
                                 onfocus="this.select()"
                                 placeholder="내용">
                         </div>
@@ -193,6 +194,7 @@
                                 tabindex="3"
                                 id="inp-cont4"
                                 class="form-control input-M"
+                                autocomplete="off"
                                 onfocus="this.select()"
                                 data-type="currency"
                                 placeholder="금액"
@@ -267,6 +269,7 @@
                                 tabindex="12"
                                 id="inp-cont13"
                                 class="form-control output-M"
+                                autocomplete="off"
                                 onfocus="this.select()"
                                 placeholder="내용">
                         </div>
@@ -276,6 +279,7 @@
                                 tabindex="13"
                                 id="inp-cont14"
                                 class="form-control output-M"
+                                autocomplete="off"
                                 onfocus="this.select()"
                                 data-type="currency"
                                 placeholder="금액"
@@ -311,80 +315,7 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody id="emp-out-money-tb">
-                                <tr>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td>1</td>
-                                    <td>1일</td>
-                                    <td>보험료</td>
-                                    <td>국민연금</td>
-                                    <td><input
-                                        type="text"
-                                        data-type="currency"
-                                        id="kukmM"
-                                        style="text-align: right;"
-                                        onfocus="this.select()"
-                                        value="0"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td>2</td>
-                                    <td>1일</td>
-                                    <td>보험료</td>
-                                    <td>건강보험</td>
-                                    <td><input
-                                        type="text"
-                                        data-type="currency"
-                                        id="gunmM"
-                                        style="text-align: right; background: #22334714;"
-                                        onfocus="this.select()"
-                                        value="0"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td>3</td>
-                                    <td>1일</td>
-                                    <td>보험료</td>
-                                    <td>고용보험</td>
-                                    <td><input
-                                        type="text"
-                                        data-type="currency"
-                                        id="gomM"
-                                        style="text-align: right;"
-                                        onfocus="this.select()"
-                                        value="0"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td class="hideTh"></td>
-                                    <td>4</td>
-                                    <td>1일</td>
-                                    <td>보험료</td>
-                                    <td>산재보험</td>
-                                    <td><input
-                                        type="text"
-                                        data-type="currency"
-                                        id="sanmM"
-                                        style="text-align: right; background: #22334714;"
-                                        onfocus="this.select()"
-                                        value="0"></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
+                            <tbody id="emp-out-money-tb"></tbody>
                         </table>
                     </div>
                 </div>
@@ -408,9 +339,14 @@
                                 onfocus="this.select()"></td>
                         </tr>
                         <tr>
-                            <td>운행수당</td>
+                            <td
+                                th:text="'운행수당('+ ${#numbers.formatInteger(opt[0].oper*100, 2, 'COMMA')} + '&#37;)'"></td>
                             <td class="moneyininin">
-                                <span id="in-operM"></span></td>
+                                <div class="operDis">
+                                    <span id="in-operC"></span>
+                                    <span id="in-operM"></span>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>운행경비</td>

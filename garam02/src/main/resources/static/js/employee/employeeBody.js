@@ -584,7 +584,9 @@ function getEmpInfo(id) {
                 $('#empPic').attr('src', 'img/employee/emp.png');
                 $('#empPic-a').attr('href', 'img/employee/emp.png');
             }
+            clkName();
             getEmpOperListCompa(id.split('cut')[0]);
+            getEmpMoneyListCompa(id.split('cut')[0]);
         },
         error: (jqXHR) => {
             loginSession(jqXHR.status);

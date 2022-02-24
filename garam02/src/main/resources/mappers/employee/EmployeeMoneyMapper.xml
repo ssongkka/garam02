@@ -55,4 +55,45 @@
 		opercar
 		= #{opercar}
 	</update>
+
+	<select id="selInMoney"
+		parameterType="com.garam.web.employee.dto.Empsalary"
+		resultType="com.garam.web.employee.dto.Empsalary">
+
+		SELECT
+
+		*
+
+		FROM
+
+		personnalplus
+
+		WHERE
+
+		personnalplus.id = #{id}
+
+		AND
+
+		personnalplus.sday = #{sday}
+	</select>
+	<select id="selOutMoney"
+		parameterType="com.garam.web.employee.dto.Empsalary"
+		resultType="com.garam.web.employee.dto.Empsalary">
+
+		SELECT
+
+		*
+
+		FROM
+
+		personnalminus
+
+		WHERE
+
+		personnalminus.id = #{id}
+
+		AND
+
+		personnalminus.sday = #{sday}
+	</select>
 </mapper>

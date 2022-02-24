@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
+import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
@@ -86,5 +87,19 @@ public class RestEmployeeController {
 		int rtn = employeeService.empUpOper(empRsvtDTO);
 
 		return rtn;
+	}
+
+	@PostMapping(value = "/empInMList")
+	public List<Empsalary> empInMList(@RequestBody Empsalary empsalary) throws Exception {
+		List<Empsalary> list = employeeService.selInMoney(empsalary);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empOutMList")
+	public List<Empsalary> empOutMList(@RequestBody Empsalary empsalary) throws Exception {
+		List<Empsalary> list = employeeService.selOutMoney(empsalary);
+
+		return list;
 	}
 }
