@@ -1,5 +1,6 @@
 package com.garam.web.employee.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,14 @@ public interface EmployeeMapper {
 	public List<Empsalary> selInMoney(Empsalary empsalary) throws Exception;
 
 	public List<Empsalary> selOutMoney(Empsalary empsalary) throws Exception;
+
+	public List<EmpRsvtDTO> selectOperMoney(EmpRsvtDTO empRsvtDTO) throws Exception;
+
+	public int insertInM(HashMap<String, Object> map) throws Exception;
+
+	public int insertOutM(HashMap<String, Object> map) throws Exception;
+
+	public int delInM(Empsalary empsalary) throws Exception;
+
+	public int delOutM(Empsalary empsalary) throws Exception;
 }

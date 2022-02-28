@@ -104,9 +104,22 @@
 
 .hd-tb {
     margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
     padding: 1rem;
     overflow-y: scroll;
-    max-height: calc(100vh - 18rem);
+}
+
+.scBarEmp {
+    max-height: calc(100vh - 19rem);
+}
+
+.scBarVe {
+    max-height: calc(100vh - 21rem);
+}
+
+.hd-tb-bt {
+    height: 2rem;
+    box-shadow: 0 -4px 4px -4px rgb(0 0 0 / 50%);
 }
 
 .tr-ve {

@@ -1,7 +1,10 @@
 package com.garam.web.employee.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
@@ -89,6 +93,12 @@ public class RestEmployeeController {
 		return rtn;
 	}
 
+	@PostMapping(value = "/empOperM")
+	public List<EmpRsvtDTO> empOperM(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeService.selectOperMoney(empRsvtDTO);
+		return list;
+	}
+
 	@PostMapping(value = "/empInMList")
 	public List<Empsalary> empInMList(@RequestBody Empsalary empsalary) throws Exception {
 		List<Empsalary> list = employeeService.selInMoney(empsalary);
@@ -101,5 +111,49 @@ public class RestEmployeeController {
 		List<Empsalary> list = employeeService.selOutMoney(empsalary);
 
 		return list;
+	}
+
+	@PostMapping(value = "/insertInM")
+	public int insertAllo(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+
+		try {
+			rtn = employeeService.insertInM(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertOutM")
+	public int insertOutM(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+
+		try {
+			rtn = employeeService.insertOutM(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
+	@PostMapping(value = "/empInMDel")
+	public int empInMDel(@RequestBody Empsalary empsalary) throws Exception {
+		int rtn = employeeService.delInM(empsalary);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/empOutMDel")
+	public int empoutMDel(@RequestBody Empsalary empsalary) throws Exception {
+		int rtn = employeeService.delOutM(empsalary);
+
+		return rtn;
 	}
 }

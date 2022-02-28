@@ -396,202 +396,208 @@ function getEmpAll(name) {
 }
 
 function getEmpInfo(id) {
-
     tbChoice(id);
     $('#emp-iidd').val(id.split('cut')[0]);
-    const url = "/emp/empdetail";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
 
-    const params = {
-        "id": id.split('cut')[0]
-    };
+    getEmp1().then(getEmpOperListCompa($('#emp-iidd').val()));
 
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
+    function getEmp1() {
+        return new Promise(function (resolve, reject) {
+            LoadingWithMask();
+            const url = "/emp/empdetail";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
 
-        success: function (r) {
-            if (r[0].id) {
-                $('#emp00').val(r[0].id);
-                $('#m-id').val(r[0].id);
-            } else {
-                $('#emp01').val('');
-            }
+            const params = {
+                "id": id.split('cut')[0]
+            };
 
-            if (r[0].company) {
-                $('#emp01').html('<span>' + r[0].company + '</span>');
-            } else {
-                $('#emp01').html('<span></span>');
-            }
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
 
-            if (r[0].kind) {
-                $('#emp02').html('<span>' + r[0].kind + '</span>');
-            } else {
-                $('#emp02').html('<span></span>');
-            }
-            if (r[0].name) {
-                $('#emp03').html('<span>' + r[0].name + '</span>');
-                $('#m-name').html('<span>' + r[0].name + '</span>');
-            } else {
-                $('#emp03').html('<span></span>');
-            }
-            if (r[0].vehicle) {
-                $('#emp04').html('<span>' + r[0].vehicle + '</span>');
-            } else {
-                $('#emp04').html('<span></span>');
-            }
-            if (r[0].birthday) {
-                $('#emp05').html(
-                    '<span>' + r[0].birthday + '(' + r[0].age + ')</span><input type="hidden" id="e' +
-                    'mp05-1" value="' + r[0].birthday + '">'
-                );
-                $('#m-bir').html('<span>' + r[0].birthday + '</span>');
-                $('#emp05-1').val(r[0].birthday);
-            } else {
-                $('#emp05').html('<span></span><input type="hidden" id="emp05-1" value="">');
-                $('#emp05-1').val('');
-            }
-            if (r[0].gender) {
-                $('#emp06').html('<span>' + r[0].gender + '</span>');
-            } else {
-                $('#emp06').html('<span></span>');
-            }
-            if (r[0].phone1) {
-                $('#emp07').html('<span>' + r[0].phone1 + '</span>');
-                $('#emp08').html(
-                    '<span style="margin-right: 2rem;"><a href="tel:' + r[0].phone1 + '"><i class="' +
-                    'fas fa-phone"></i></a></span><span><a href="sms:' + r[0].phone1 + '"><i class=' +
-                    '"fas fa-envelope"></i></a></span>'
-                );
-            } else {
-                $('#emp07').html('&nbsp;');
-                $('#emp08').html('<span></span>');
-            }
-            if (r[0].phone2) {
-                $('#emp09').html('<span>' + r[0].phone2 + '</span>');
-                $('#emp10').html(
-                    '<span style="margin-right: 2rem;"><a href="tel:' + r[0].phone2 + '"><i class="' +
-                    'fas fa-phone"></i></a></span><span><a href="sms:' + r[0].phone2 + '"><i class=' +
-                    '"fas fa-envelope"></i></a></span>'
-                );
-            } else {
-                $('#emp09').html('<span></span>');
-                $('#emp10').html('<span></span>');
-            }
-            if (r[0].address) {
-                $('#emp11').html('<span>' + r[0].address + '</span>');
-            } else {
-                $('#emp11').html('<span></span>');
-            }
-            if (r[0].garage) {
-                $('#emp12').html('<span>' + r[0].garage + '</span>');
-            } else {
-                $('#emp12').html('<span></span>');
-            }
-            if (r[0].joind) {
-                $('#emp13').html(
-                    '<span>' + r[0].joind + '(' + r[0].joindDay + ')</span><input type="hidden" id=' +
-                    '"emp13-1" value="' + r[0].joind + '">'
-                );
-                $('#m-ind').html('<span>' + r[0].joind + '</span>');
-            } else {
-                $('#emp13').html('<span></span><input type="hidden" id="emp13-1" value="">');
-            }
+                success: function (r) {
+                    if (r[0].id) {
+                        $('#emp00').val(r[0].id);
+                        $('#m-id').val(r[0].id);
+                    } else {
+                        $('#emp01').val('');
+                    }
 
-            if (r[0].endd) {
-                $('#emp14').html(
-                    '<span>' + r[0].endd + '</span><input type="hidden" id="emp14-1" value="' + r[0].endd +
-                    '">'
-                );
-            } else {
-                $('#emp14').html('<span></span><input type="hidden" id="emp14-1" value="">');
-            }
-            if (r[0].drvl) {
-                $('#emp15').html('<span>' + r[0].drvl + '</span>');
-            } else {
-                $('#emp15').html('<span></span>');
-            }
-            if (r[0].busl) {
-                $('#emp16').html('<span>' + r[0].busl + '</span>');
-            } else {
-                $('#emp16').html('<span></span>');
-            }
-            if (r[0].bosum) {
-                $('#emp17').html(
-                    '<span>' + r[0].bosum + '(' + r[0].bobuj + ')</span><input type="hidden" id="em' +
-                    'p17-1" value="' + r[0].bosum + '"><input type="hidden" id="emp17-2" value="' +
-                    r[0].bobuj + '">'
-                );
-            } else {
-                $('#emp17').html(
-                    '<span></span><input type="hidden" id="emp17-1" value=""><input type="hidden" i' +
-                    'd="emp17-2" value="">'
-                );
-            }
-            if (r[0].bank) {
-                $('#emp18').html(
-                    '<span>' + r[0].bank + '&nbsp;' + r[0].gye + '&nbsp;' + r[0].gyename + '</span>' +
-                    '<input type="hidden" id="emp18-1" value="' + r[0].bank + '"><input type="hidde' +
-                    'n" id="emp18-2" value="' + r[0].gye + '"><input type="hidden" id="emp18-3" val' +
-                    'ue="' + r[0].gyename + '">'
-                );
-            } else {
-                $('#emp18').html('<span></span>');
-            }
+                    if (r[0].company) {
+                        $('#emp01').html('<span>' + r[0].company + '</span>');
+                    } else {
+                        $('#emp01').html('<span></span>');
+                    }
 
-            if (r[0].memo) {
-                $('#emp19').html('<span>' + r[0].memo + '</span>');
-            } else {
-                $('#emp19').html('<span></span>');
-            }
+                    if (r[0].kind) {
+                        $('#emp02').html('<span>' + r[0].kind + '</span>');
+                    } else {
+                        $('#emp02').html('<span></span>');
+                    }
+                    if (r[0].name) {
+                        $('#emp03').html('<span>' + r[0].name + '</span>');
+                        $('#m-name').html('<span>' + r[0].name + '</span>');
+                    } else {
+                        $('#emp03').html('<span></span>');
+                    }
+                    if (r[0].vehicle) {
+                        $('#emp04').html('<span>' + r[0].vehicle + '</span>');
+                    } else {
+                        $('#emp04').html('<span></span>');
+                    }
+                    if (r[0].birthday) {
+                        $('#emp05').html(
+                            '<span>' + r[0].birthday + '(' + r[0].age + ')</span><input type="hidden" id="e' +
+                            'mp05-1" value="' + r[0].birthday + '">'
+                        );
+                        $('#m-bir').html('<span>' + r[0].birthday + '</span>');
+                        $('#emp05-1').val(r[0].birthday);
+                    } else {
+                        $('#emp05').html('<span></span><input type="hidden" id="emp05-1" value="">');
+                        $('#emp05-1').val('');
+                    }
+                    if (r[0].gender) {
+                        $('#emp06').html('<span>' + r[0].gender + '</span>');
+                    } else {
+                        $('#emp06').html('<span></span>');
+                    }
+                    if (r[0].phone1) {
+                        $('#emp07').html('<span>' + r[0].phone1 + '</span>');
+                        $('#emp08').html(
+                            '<span style="margin-right: 2rem;"><a href="tel:' + r[0].phone1 + '"><i class="' +
+                            'fas fa-phone"></i></a></span><span><a href="sms:' + r[0].phone1 + '"><i class=' +
+                            '"fas fa-envelope"></i></a></span>'
+                        );
+                    } else {
+                        $('#emp07').html('&nbsp;');
+                        $('#emp08').html('<span></span>');
+                    }
+                    if (r[0].phone2) {
+                        $('#emp09').html('<span>' + r[0].phone2 + '</span>');
+                        $('#emp10').html(
+                            '<span style="margin-right: 2rem;"><a href="tel:' + r[0].phone2 + '"><i class="' +
+                            'fas fa-phone"></i></a></span><span><a href="sms:' + r[0].phone2 + '"><i class=' +
+                            '"fas fa-envelope"></i></a></span>'
+                        );
+                    } else {
+                        $('#emp09').html('<span></span>');
+                        $('#emp10').html('<span></span>');
+                    }
+                    if (r[0].address) {
+                        $('#emp11').html('<span>' + r[0].address + '</span>');
+                    } else {
+                        $('#emp11').html('<span></span>');
+                    }
+                    if (r[0].garage) {
+                        $('#emp12').html('<span>' + r[0].garage + '</span>');
+                    } else {
+                        $('#emp12').html('<span></span>');
+                    }
+                    if (r[0].joind) {
+                        $('#emp13').html(
+                            '<span>' + r[0].joind + '(' + r[0].joindDay + ')</span><input type="hidden" id=' +
+                            '"emp13-1" value="' + r[0].joind + '">'
+                        );
+                        $('#m-ind').html('<span>' + r[0].joind + '</span>');
+                    } else {
+                        $('#emp13').html('<span></span><input type="hidden" id="emp13-1" value="">');
+                    }
 
-            if (r[0].basem) {
-                $('#emp20').val(r[0].basem);
-            } else {
-                $('#emp20').val('');
-            }
-            if (r[0].kukm) {
-                $('#emp21').val(r[0].kukm);
-            } else {
-                $('#emp21').val('');
-            }
-            if (r[0].gunm) {
-                $('#emp22').val(r[0].gunm);
-            } else {
-                $('#emp22').val('');
-            }
-            if (r[0].gom) {
-                $('#emp23').val(r[0].gom);
-            } else {
-                $('#emp23').val('');
-            }
-            if (r[0].sanm) {
-                $('#emp24').val(r[0].sanm);
-            } else {
-                $('#emp24').val('');
-            }
+                    if (r[0].endd) {
+                        $('#emp14').html(
+                            '<span>' + r[0].endd + '</span><input type="hidden" id="emp14-1" value="' + r[0].endd +
+                            '">'
+                        );
+                    } else {
+                        $('#emp14').html('<span></span><input type="hidden" id="emp14-1" value="">');
+                    }
+                    if (r[0].drvl) {
+                        $('#emp15').html('<span>' + r[0].drvl + '</span>');
+                    } else {
+                        $('#emp15').html('<span></span>');
+                    }
+                    if (r[0].busl) {
+                        $('#emp16').html('<span>' + r[0].busl + '</span>');
+                    } else {
+                        $('#emp16').html('<span></span>');
+                    }
+                    if (r[0].bosum) {
+                        $('#emp17').html(
+                            '<span>' + r[0].bosum + '(' + r[0].bobuj + ')</span><input type="hidden" id="em' +
+                            'p17-1" value="' + r[0].bosum + '"><input type="hidden" id="emp17-2" value="' +
+                            r[0].bobuj + '">'
+                        );
+                    } else {
+                        $('#emp17').html(
+                            '<span></span><input type="hidden" id="emp17-1" value=""><input type="hidden" i' +
+                            'd="emp17-2" value="">'
+                        );
+                    }
+                    if (r[0].bank) {
+                        $('#emp18').html(
+                            '<span>' + r[0].bank + '&nbsp;' + r[0].gye + '&nbsp;' + r[0].gyename + '</span>' +
+                            '<input type="hidden" id="emp18-1" value="' + r[0].bank + '"><input type="hidde' +
+                            'n" id="emp18-2" value="' + r[0].gye + '"><input type="hidden" id="emp18-3" val' +
+                            'ue="' + r[0].gyename + '">'
+                        );
+                    } else {
+                        $('#emp18').html('<span></span>');
+                    }
 
-            if (r[0].img) {
-                updateImg(empFolder + 'img/' + r[0].img, 'empPic');
-                $('#empPic-a').attr('href', empFolder + 'img/' + r[0].img);
-            } else {
-                $('#empPic').attr('src', 'img/employee/emp.png');
-                $('#empPic-a').attr('href', 'img/employee/emp.png');
-            }
-            clkName();
-            getEmpOperListCompa(id.split('cut')[0]);
-            getEmpMoneyListCompa(id.split('cut')[0]);
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
-    })
+                    if (r[0].memo) {
+                        $('#emp19').html('<span>' + r[0].memo + '</span>');
+                    } else {
+                        $('#emp19').html('<span></span>');
+                    }
+
+                    if (r[0].basem) {
+                        $('#emp20').val(r[0].basem);
+                    } else {
+                        $('#emp20').val('');
+                    }
+                    if (r[0].kukm) {
+                        $('#emp21').val(r[0].kukm);
+                    } else {
+                        $('#emp21').val('');
+                    }
+                    if (r[0].gunm) {
+                        $('#emp22').val(r[0].gunm);
+                    } else {
+                        $('#emp22').val('');
+                    }
+                    if (r[0].gom) {
+                        $('#emp23').val(r[0].gom);
+                    } else {
+                        $('#emp23').val('');
+                    }
+                    if (r[0].sanm) {
+                        $('#emp24').val(r[0].sanm);
+                    } else {
+                        $('#emp24').val('');
+                    }
+
+                    if (r[0].img) {
+                        updateImg(empFolder + 'img/' + r[0].img, 'empPic');
+                        $('#empPic-a').attr('href', empFolder + 'img/' + r[0].img);
+                    } else {
+                        $('#empPic').attr('src', 'img/employee/emp.png');
+                        $('#empPic-a').attr('href', 'img/employee/emp.png');
+                    }
+                    clkName();
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
 }
 
 $(document).on('click', '#btn-x', function () {

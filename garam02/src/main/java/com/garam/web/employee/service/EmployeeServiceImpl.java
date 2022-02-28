@@ -4,7 +4,9 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
@@ -250,5 +252,65 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Empsalary> list = employeeMapper.selOutMoney(empsalary);
 
 		return list;
+	}
+
+	@Override
+	public List<EmpRsvtDTO> selectOperMoney(EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeMapper.selectOperMoney(empRsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertInM(List<Map<String, Object>> map) throws Exception {
+
+		for (int i = 0; i < map.size(); i++) {
+			if (map.get(i).get("money").equals("") || map.get(i).get("money").toString().length() == 0) {
+				map.get(i).replace("money", "0");
+			}
+		}
+
+		HashMap<String, Object> inM = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			inM.put("imM", map);
+		}
+
+		int rtn = employeeMapper.insertInM(inM);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertOutM(List<Map<String, Object>> map) throws Exception {
+
+		for (int i = 0; i < map.size(); i++) {
+			if (map.get(i).get("money").equals("") || map.get(i).get("money").toString().length() == 0) {
+				map.get(i).replace("money", "0");
+			}
+		}
+
+		HashMap<String, Object> outM = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			outM.put("outM", map);
+		}
+
+		int rtn = employeeMapper.insertOutM(outM);
+
+		return rtn;
+	}
+
+	@Override
+	public int delInM(Empsalary empsalary) throws Exception {
+
+		int rtn = employeeMapper.delInM(empsalary);
+
+		return rtn;
+	}
+
+	@Override
+	public int delOutM(Empsalary empsalary) throws Exception {
+		int rtn = employeeMapper.delOutM(empsalary);
+
+		return rtn;
 	}
 }

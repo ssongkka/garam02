@@ -1,6 +1,7 @@
 package com.garam.web.employee.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,4 +33,14 @@ public interface EmployeeService {
 	public List<Empsalary> selInMoney(Empsalary empsalary) throws Exception;
 
 	public List<Empsalary> selOutMoney(Empsalary empsalary) throws Exception;
+
+	public List<EmpRsvtDTO> selectOperMoney(EmpRsvtDTO empRsvtDTO) throws Exception;
+
+	public int insertInM(List<Map<String, Object>> map) throws Exception;
+
+	public int insertOutM(List<Map<String, Object>> map) throws Exception;
+
+	public int delInM(Empsalary empsalary) throws Exception;
+
+	public int delOutM(Empsalary empsalary) throws Exception;
 }

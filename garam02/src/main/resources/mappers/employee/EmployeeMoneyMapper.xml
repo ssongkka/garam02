@@ -3,7 +3,32 @@
 <mapper namespace="com.garam.web.employee.mapper.EmployeeMapper">
 
 	<sql id="empMoneyColumns">
+		no, sday, id, separation, date, contents, money, strash
 	</sql>
+
+	<select id="selectOperMoney"
+		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
+		SELECT
+
+		DISTINCT(operation_info.opernum),
+
+		operation_info.atlm
+		FROM operation_info
+
+		WHERE
+
+		operation_info.operid =
+		#{operid}
+
+		AND
+
+		operation_info.operconfirm = #{operconfirm}
+
+		AND
+
+		operation_info.opertrash = #{opertrash}
+	</select>
 
 	<select id="SelectEmpBaseMoney"
 		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
@@ -96,4 +121,83 @@
 
 		personnalminus.sday = #{sday}
 	</select>
+
+	<delete id="delInM"
+		parameterType="com.garam.web.employee.dto.Empsalary">
+		DELETE FROM
+
+		personnalplus
+
+		WHERE
+
+		personnalplus.id = #{id}
+
+		AND
+
+		personnalplus.sday = #{sday};
+	</delete>
+	<delete id="delOutM"
+		parameterType="com.garam.web.employee.dto.Empsalary">
+		DELETE FROM
+
+		personnalminus
+
+		WHERE
+
+		personnalminus.id =
+		#{id}
+
+		AND
+
+		personnalminus.sday = #{sday};
+	</delete>
+
+	<insert id="insertInM" parameterType="java.util.HashMap">
+		INSERT
+
+		INTO
+
+		personnalplus
+		(
+		<include refid="empMoneyColumns" />
+		)
+		VALUES
+
+		<foreach collection="imM" item="value" separator=",">
+			(
+			null,
+			#{value.sday},
+			#{value.id},
+			#{value.separation},
+			#{value.date},
+			#{value.contents},
+			#{value.money},
+			#{value.strash}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertOutM" parameterType="java.util.HashMap">
+		INSERT
+
+		INTO
+
+		personnalminus
+		(
+		<include refid="empMoneyColumns" />
+		)
+		VALUES
+
+		<foreach collection="outM" item="value" separator=",">
+			(
+			null,
+			#{value.sday},
+			#{value.id},
+			#{value.separation},
+			#{value.date},
+			#{value.contents},
+			#{value.money},
+			#{value.strash}
+			)
+		</foreach>
+	</insert>
 </mapper>

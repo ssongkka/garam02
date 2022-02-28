@@ -4,8 +4,8 @@ class dateUtil {
     }
 }
 
-const empFolder = 'http://192.168.35.136:8000/list/HDD2/src/emp/';
-const veFolder = 'http://192.168.35.136:8000/list/HDD2/src/ve/';
+const empFolder = 'http://192.168.35.29:8000/list/HDD2/src/emp/';
+const veFolder = 'http://192.168.35.29:8000/list/HDD2/src/ve/';
 
 const tableCh = '#337ab7';
 
@@ -76,7 +76,6 @@ function LoadingWithMask() {
 
     //마스크 표시
     $('#mask').show();
-
     //로딩중 이미지 표시 $('#loadingImg').show();
 }
 
