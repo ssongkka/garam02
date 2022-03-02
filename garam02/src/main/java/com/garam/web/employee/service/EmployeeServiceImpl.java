@@ -20,6 +20,7 @@ import com.garam.web.Utils.Utils;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
+import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.employee.mapper.EmployeeMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -241,6 +242,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public int empUpOper2(EmpRsvtDTO empRsvtDTO) throws Exception {
+		int rtn = employeeMapper.empUpOper2(empRsvtDTO);
+
+		return rtn;
+	}
+
+	@Override
 	public List<Empsalary> selInMoney(Empsalary empsalary) throws Exception {
 		List<Empsalary> list = employeeMapper.selInMoney(empsalary);
 
@@ -313,4 +321,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return rtn;
 	}
+
+	@Override
+	public List<EmpsalaryAll> selAllMoney(EmpsalaryAll empsalaryAll) throws Exception {
+		List<EmpsalaryAll> list = employeeMapper.selAllMoney(empsalaryAll);
+
+		return list;
+	}
+
+	@Override
+	public int insertAllMoney(EmpsalaryAll empsalaryAll) throws Exception {
+		int rtn = employeeMapper.insertAllMoney(empsalaryAll);
+
+		return rtn;
+	}
+
 }

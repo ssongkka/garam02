@@ -47,6 +47,10 @@ h6 {
     margin-bottom: 0;
 }
 
+.home-main-item-111 h2 {
+    font-weight: 600;
+}
+
 .home-main-item-111:nth-child(1) {
     padding: 0.5rem 0;
     display: flex;
@@ -56,6 +60,7 @@ h6 {
 }
 .home-main-item-111:nth-child(1) h5 {
     font-weight: 600;
+    letter-spacing: 0.3rem;
 }
 .home-main-item-111:nth-child(2) {
     display: flex;

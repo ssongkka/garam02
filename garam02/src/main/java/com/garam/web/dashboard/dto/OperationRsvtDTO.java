@@ -37,7 +37,7 @@ public class OperationRsvtDTO {
 	private String opertype;
 
 	// 운행확정
-	private Integer operconfirm;
+	private String operconfirm;
 
 	// 삭제여부
 	private Integer opertrash;
@@ -130,11 +130,11 @@ public class OperationRsvtDTO {
 		this.opertype = opertype;
 	}
 
-	public Integer getOperconfirm() {
+	public String getOperconfirm() {
 		return operconfirm;
 	}
 
-	public void setOperconfirm(Integer operconfirm) {
+	public void setOperconfirm(String operconfirm) {
 		this.operconfirm = operconfirm;
 	}
 

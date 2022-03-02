@@ -399,11 +399,25 @@ function getEmpInfo(id) {
     tbChoice(id);
     $('#emp-iidd').val(id.split('cut')[0]);
 
-    getEmp1().then(getEmpOperListCompa($('#emp-iidd').val()));
+    LoadingWithMask()
+        .then(getEmp1)
+        .then(getEmpOperCnt)
+        .then(getEmpOper)
+        .then(getAllMList)
+        .then(getEmpInMList)
+        .then(getEmpOutMList)
+        .then(getEmpBaseM)
+        .then(setCheckBox)
+        .then(operMSet)
+        .then(sumInList)
+        .then(sumOutList)
+        .then(sumIN)
+        .then(sumOut)
+        .then(sumAll333)
+        .then(closeLoadingWithMask);
 
     function getEmp1() {
         return new Promise(function (resolve, reject) {
-            LoadingWithMask();
             const url = "/emp/empdetail";
             const headers = {
                 "Content-Type": "application/json",
@@ -589,7 +603,6 @@ function getEmpInfo(id) {
                         $('#empPic').attr('src', 'img/employee/emp.png');
                         $('#empPic-a').attr('href', 'img/employee/emp.png');
                     }
-                    clkName();
                     resolve();
                 },
                 error: (jqXHR) => {

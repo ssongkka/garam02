@@ -1,0 +1,118 @@
+package com.garam.web.employee.dto;
+
+public class EmpsalaryAll {
+	// 봉급번호
+	private Integer salno;
+
+	// 사원번호
+	private String id;
+
+	// 급여년원
+	private String date;
+
+	private Double per;
+
+	private Integer opercnt;
+
+	private Integer opermoney;
+
+	private Integer inm;
+
+	private Integer outm;
+
+	private String empin;
+
+	private String datein;
+
+	// 삭제여부
+	private Integer strash;
+
+	public Integer getSalno() {
+		return salno;
+	}
+
+	public void setSalno(Integer salno) {
+		this.salno = salno;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public Double getPer() {
+		return per;
+	}
+
+	public void setPer(Double per) {
+		this.per = per;
+	}
+
+	public Integer getOpercnt() {
+		return opercnt;
+	}
+
+	public void setOpercnt(Integer opercnt) {
+		this.opercnt = opercnt;
+	}
+
+	public Integer getOpermoney() {
+		return opermoney;
+	}
+
+	public void setOpermoney(Integer opermoney) {
+		this.opermoney = opermoney;
+	}
+
+	public Integer getInm() {
+		return inm;
+	}
+
+	public void setInm(Integer inm) {
+		this.inm = inm;
+	}
+
+	public Integer getOutm() {
+		return outm;
+	}
+
+	public void setOutm(Integer outm) {
+		this.outm = outm;
+	}
+
+	public String getEmpin() {
+		return empin;
+	}
+
+	public void setEmpin(String empin) {
+		this.empin = empin;
+	}
+
+	public String getDatein() {
+		return datein;
+	}
+
+	public void setDatein(String datein) {
+		this.datein = datein;
+	}
+
+	public Integer getStrash() {
+		return strash;
+	}
+
+	public void setStrash(Integer strash) {
+		this.strash = strash;
+	}
+
+}

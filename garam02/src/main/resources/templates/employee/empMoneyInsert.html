@@ -9,6 +9,7 @@
             <div class="operTitle shadow-sm">
                 <div class="operTitle-item">
                     <h4>운행내역</h4>
+                    <input type="hidden" id="emp-sal" value="0">
                 </div>
                 <div class="operTitle-item">
                     <div class="dash-cal-h-money">
@@ -25,6 +26,18 @@
                                 <i class="fas fa-chevron-right fa-lg"></i>
                             </a>
                         </div>
+                    </div>
+                </div>
+                <div class="operTitle-item">
+                    <div class="input-group">
+                        <div class="input-group-addon">비율</div>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="operO"
+                            autocomplete="off"
+                            onfocus="this.select()">
+                        <div class="input-group-addon">&#37;</div>
                     </div>
                 </div>
             </div>
@@ -338,8 +351,7 @@
                                     onfocus="this.select()"></td>
                             </tr>
                             <tr>
-                                <td
-                                    th:text="'운행수당('+ ${#numbers.formatInteger(opt[0].oper*100, 2, 'COMMA')} + '&#37;)'"></td>
+                                <td id="tdPer"></td>
                                 <td class="moneyininin">
                                     <div class="operDis">
                                         <span id="in-operC"></span>

@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $("#operO").attr("disabled", true);
+    $("#operO").val(opt[0].oper * 100);
+
     $("#inp-cont1").attr("disabled", true);
     $("#inp-cont2").attr("disabled", true);
     $("#inp-cont3").attr("disabled", true);
@@ -135,7 +138,7 @@ $(document).on('click', '#fnUpMonth2', function () {
             setYearMonthUp('#yearmonthsMoney2');
             $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
             // getEmpMoneyListCompa($('#emp-iidd').val());
-            getEmpOperListCompa($('#emp-iidd').val());
+            getEmpMoneyListCompa();
         }
     } else {
         alert("급여 지급 월을 확인해주세요.");
@@ -152,7 +155,7 @@ $(document).on('click', '#fnDownMonth2', function () {
         console.log('1');
         // getEmpMoneyListCompa($('#emp-iidd').val());
         console.log('1');
-        getEmpOperListCompa($('#emp-iidd').val());
+        getEmpMoneyListCompa();
         console.log('1');
     }
 });
@@ -162,733 +165,54 @@ $(document).on('change', '#yearmonthsMoney2', function () {
     if (ch) {
         $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
         // getEmpMoneyListCompa($('#emp-iidd').val());
-        getEmpOperListCompa($('#emp-iidd').val());
+        getEmpMoneyListCompa();
     }
 });
 
-function getEmpOperListCompa(id) {
-    const getYM = $('#yearmonthsMoney1').val();
-    const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
+function unclkName() {
+    console.log("이건 몇번이냐");
+    $("#operO").attr("disabled", true);
 
-    const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
+    $("#inp-cont1").attr("disabled", true);
+    $("#inp-cont2").attr("disabled", true);
+    $("#inp-cont3").attr("disabled", true);
+    $("#inp-cont4").attr("disabled", true);
 
-    const yesterday = new Date(oneMonthAgo.setDate(oneMonthAgo.getDate() - 1));
+    $("#inp-cont11").attr("disabled", true);
+    $("#inp-cont12").attr("disabled", true);
+    $("#inp-cont13").attr("disabled", true);
+    $("#inp-cont14").attr("disabled", true);
 
-    const stday = toStringByFormatting(
-        new Date(oneMonthAgo.getFullYear(), oneMonthAgo.getMonth(), 1)
-    );
-    const endday = toStringByFormatting(yesterday); // 어제
+    $("#kukmM").attr("disabled", true);
+    $("#gunmM").attr("disabled", true);
+    $("#gomM").attr("disabled", true);
+    $("#sanmM").attr("disabled", true);
 
-    $('#emp-out-money-tb')
-        .children()
-        .remove();
-    $('#emp-in-money-tb')
-        .children()
-        .remove();
+    $("#in-baseM").attr("disabled", true);
 
-    getEmpOperCnt()
-        .then(getEmpOper)
-        .then(getEmpInMList)
-        .then(getEmpOutMList)
-        .then(getEmpBaseM)
-        .then(sumAll222);
+    $("#insert-outM").prop("disabled", true);
+    $("#insert-inM").prop("disabled", true);
 
-    function getEmpOperCnt() {
-        return new Promise(function (resolve, reject) {
+    $("#fnDownMonth1").attr("disabled", false);
+    $("#fnUpMonth1").attr("disabled", false);
+    $("#fnDownMonth2").attr("disabled", false);
+    $("#fnUpMonth2").attr("disabled", false);
 
-            const url = "/emp/empOperCnt";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-            const params = {
-                "stday": stday,
-                "endday": endday,
-                "operid": id,
-                "opertrash": 1
-            };
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                dataType: "json",
-                data: JSON.stringify(params),
-                success: function (r) {
-                    const map = new Map();
+    $("#yearmonthsMoney1").attr("disabled", false);
+    $("#yearmonthsMoney2").attr("disabled", false);
 
-                    for (let i = 0; i < r.length; i++) {
-                        map.set(r[i].opernum, r[i].cnt);
-                    }
-                    resolve(map);
-                },
-                error: (jqXHR) => {
-                    loginSession(jqXHR.status);
-                }
-            })
-        });
-    }
+    $('#inForm')[0].reset();
+    $('#outForm')[0].reset();
 
-    function getEmpOper(result) {
-        return new Promise(function (resolve, reject) {
-            const url = "/emp/empOper";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-            const params = {
-                "stday": stday,
-                "endday": endday,
-                "operid": id,
-                "opertrash": 1
-            };
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                dataType: "json",
-                data: JSON.stringify(params),
-                success: function (r) {
-
-                    let cnt = 0;
-                    let check = '';
-                    let htmls = '';
-                    if (r.length > 0) {
-
-                        for (let i = 0; i < r.length; i++) {
-                            switch (r[i].opertrash) {
-                                case 0:
-                                    if (result.get(r[i].opernum) > 1) {
-                                        if (r[i].opertype > 1) {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked" disabled="disabled"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>편도</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        } else {
-                                            if (r[i].opernum != check) {
-                                                cnt++;
-                                                htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                                htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                        'd)" checked="checked" disabled="disabled"></td>';
-                                                htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                                htmls += '<td>' + (
-                                                    cnt
-                                                ) + '</td>';
-                                                htmls += '<td>' + r[i]
-                                                    .operday
-                                                    .split('-')[2] + '일</td>';
-                                                htmls += '<td>' + r[i].desty + '</td>';
-                                                htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                                htmls += '<td>' + result.get(r[i].opernum) + '일</td>';
-                                                htmls += '<td>' + r[i].ctmname + '</td>';
-                                                if (r[i].operconfirm) {
-                                                    htmls += '<td>' + r[i].operconfirm + '</td>';
-                                                } else {
-                                                    htmls += '<td></td>';
-                                                }
-                                                htmls += '</tr>';
-                                            }
-                                        }
-                                    } else {
-
-                                        if (r[i].opertype > 1) {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked" disabled="disabled"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>편도</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        } else {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked" disabled="disabled"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>당일</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        }
-                                    }
-                                    break;
-                                case 1:
-                                    if (result.get(r[i].opernum) > 1) {
-                                        if (r[i].opertype > 1) {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>편도</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        } else {
-                                            if (r[i].opernum != check) {
-                                                cnt++;
-                                                htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                                htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                        'd)"></td>';
-                                                htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                                htmls += '<td>' + (
-                                                    cnt
-                                                ) + '</td>';
-                                                htmls += '<td>' + r[i]
-                                                    .operday
-                                                    .split('-')[2] + '일</td>';
-                                                htmls += '<td>' + r[i].desty + '</td>';
-                                                htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                                htmls += '<td>' + result.get(r[i].opernum) + '일</td>';
-                                                htmls += '<td>' + r[i].ctmname + '</td>';
-                                                if (r[i].operconfirm) {
-                                                    htmls += '<td>' + r[i].operconfirm + '</td>';
-                                                } else {
-                                                    htmls += '<td></td>';
-                                                }
-                                                htmls += '</tr>';
-                                            }
-                                        }
-                                    } else {
-
-                                        if (r[i].opertype > 1) {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>편도</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        } else {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>당일</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        }
-                                    }
-                                    break;
-                                case 2:
-                                    if (result.get(r[i].opernum) > 1) {
-                                        if (r[i].opertype > 1) {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>편도</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        } else {
-                                            if (r[i].opernum != check) {
-                                                cnt++;
-                                                htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                                htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                        'd)" checked="checked"></td>';
-                                                htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                                htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                                htmls += '<td>' + (
-                                                    cnt
-                                                ) + '</td>';
-                                                htmls += '<td>' + r[i]
-                                                    .operday
-                                                    .split('-')[2] + '일</td>';
-                                                htmls += '<td>' + r[i].desty + '</td>';
-                                                htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                                htmls += '<td>' + result.get(r[i].opernum) + '일</td>';
-                                                htmls += '<td>' + r[i].ctmname + '</td>';
-                                                if (r[i].operconfirm) {
-                                                    htmls += '<td>' + r[i].operconfirm + '</td>';
-                                                } else {
-                                                    htmls += '<td></td>';
-                                                }
-                                                htmls += '</tr>';
-                                            }
-                                        }
-                                    } else {
-
-                                        if (r[i].opertype > 1) {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>편도</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        } else {
-                                            cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked"></td>';
-                                            htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
-                                            htmls += '<td class="hideTh">' + r[i].operno + '</td>';
-                                            htmls += '<td>' + (
-                                                cnt
-                                            ) + '</td>';
-                                            htmls += '<td>' + r[i]
-                                                .operday
-                                                .split('-')[2] + '일</td>';
-                                            htmls += '<td>' + r[i].desty + '</td>';
-                                            htmls += '<td class="tdRight">' + AddComma(r[i].atlm) + '</td>';
-                                            htmls += '<td>당일</td>';
-                                            htmls += '<td>' + r[i].ctmname + '</td>';
-                                            if (r[i].operconfirm) {
-                                                htmls += '<td>' + r[i].operconfirm + '</td>';
-                                            } else {
-                                                htmls += '<td></td>';
-                                            }
-                                            htmls += '</tr>';
-                                        }
-                                    }
-                                    break;
-
-                                default:
-                                    break;
-                            }
-
-                            check = r[i].opernum;
-                        }
-                    } else {
-                        htmls = `<tr><td colspan="12">운행정보없음</td></tr>`;
-                    }
-                    $('#emp-oper-money-tb').html(htmls);
-                    $('#bgoper1').text(cnt);
-                    checkChAll();
-                    resolve();
-                }
-            })
-        });
-    }
-
-
-    function getEmpInMList(result) {
-        return new Promise(function (resolve, reject) {
-            const url = "/emp/empInMList";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-            const params = {
-                "id": id,
-                "sday": $('#yearmonthsMoney2').val()
-            };
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                dataType: "json",
-                data: JSON.stringify(params),
-                success: function (r) {
-                    if (r.length > 0) {
-                        let httmlll = '';
-                        let cnt = 0;
-                        for (let i = 0; i < r.length; i++) {
-                            if (r[i].separation == '기본급') {
-                                $('#in-baseM').val(AddComma(r[i].money));
-                                switch (r[i].strash) {
-                                    case 0:
-                                        $("#in-baseM").attr("disabled", true);
-                                        break;
-                                    case 1:
-                                        $("#in-baseM").removeAttr("disabled");
-                                        break;
-                                }
-                            } else {
-                                let ddd = '';
-                                if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
-                                    ddd = (r[i].date)
-                                        .split('-')[2]
-                                        .substring('1');
-                                } else {
-                                    ddd = (r[i].date).split('-')[2];
-                                }
-                                httmlll += '<tr>';
-                                httmlll += '<td class="hideTh"></td>';
-                                httmlll += '<td class="hideTh"></td>';
-                                httmlll += '<td class="hideTh"></td>';
-                                httmlll += '<td class="hideTh"></td>';
-                                httmlll += '<td>' + (
-                                    ++cnt
-                                ) + '</td>';
-                                httmlll += '<td>' + ddd + '일</td>';
-                                httmlll += '<td>' + r[i].separation + '</td>';
-                                httmlll += '<td>' + r[i].contents + '</td>';
-                                httmlll += '<td class="tdRight">' + AddComma(r[i].money) + '</td>';
-
-                                switch (r[i].strash) {
-                                    case 0:
-                                        httmlll += '<td>';
-                                        httmlll += '</td>';
-                                        httmlll += '</tr>';
-                                        break;
-                                    case 1:
-                                        httmlll += '<td class="cuor-p" onclick="delTb(this)">';
-                                        httmlll += '<i class="fas fa-minus-square"></i>';
-                                        httmlll += '</td>';
-                                        httmlll += '</tr>';
-                                        break;
-                                }
-                            }
-                        }
-                        console.log(httmlll);
-                        $('#emp-in-money-tb').append(httmlll);
-                        resolve(1);
-                    } else {
-                        resolve(0);
-                    }
-                }
-            })
-        })
-    }
-    function getEmpOutMList(result) {
-        return new Promise(function (resolve, reject) {
-            const url = "/emp/empOutMList";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-            const params = {
-                "id": id,
-                "sday": $('#yearmonthsMoney2').val()
-            };
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                dataType: "json",
-                data: JSON.stringify(params),
-                success: function (r) {
-                    if (r.length > 0) {
-                        let httmll = '';
-                        let cnt = 0;
-                        for (let i = 0; i < r.length; i++) {
-                            let ddd = '';
-                            if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
-                                ddd = (r[i].date)
-                                    .split('-')[2]
-                                    .substring('1');
-                            } else {
-                                ddd = (r[i].date).split('-')[2];
-                            }
-
-                            httmll += '<tr>';
-                            httmll += '<td class="hideTh"></td>';
-                            httmll += '<td class="hideTh"></td>';
-                            httmll += '<td class="hideTh"></td>';
-                            httmll += '<td class="hideTh"></td>';
-                            httmll += '<td>' + (
-                                ++cnt
-                            ) + '</td>';
-                            httmll += '<td>' + ddd + '일</td>';
-                            httmll += '<td>' + r[i].separation + '</td>';
-                            httmll += '<td>' + r[i].contents + '</td>';
-
-                            switch (r[i].contents) {
-                                case '국민연금':
-                                    httmll += '<td><input type="text" class="moneyinput" data-type="currency" id="kukmM" onfo' +
-                                            'cus="this.select()" value="' + AddComma(r[i].money) + '"></td>';
-                                    httmll += '<td>';
-                                    httmll += '</td>';
-                                    httmll += '</tr>';
-                                    break;
-                                case '건강보험':
-                                    httmll += '<td><input type="text" class="moneyinput" data-type="currency" id="gunmM" onfo' +
-                                            'cus="this.select()" value="' + AddComma(r[i].money) + '"></td>';
-                                    httmll += '<td>';
-                                    httmll += '</td>';
-                                    httmll += '</tr>';
-                                    break;
-                                case '고용보험':
-                                    httmll += '<td><input type="text" class="moneyinput" data-type="currency" id="gomM" onfoc' +
-                                            'us="this.select()" value="' + AddComma(r[i].money) + '"></td>';
-                                    httmll += '<td>';
-                                    httmll += '</td>';
-                                    httmll += '</tr>';
-                                    break;
-                                case '산재보험':
-                                    httmll += '<td><input type="text" class="moneyinput" data-type="currency" id="sanmM" onfo' +
-                                            'cus="this.select()" value="' + AddComma(r[i].money) + '"></td>';
-                                    httmll += '<td>';
-                                    httmll += '</td>';
-                                    httmll += '</tr>';
-                                    break;
-                                default:
-                                    httmll += '<td class="tdRight">' + AddComma(r[i].money) + '</td>';
-                                    switch (r[i].strash) {
-                                        case 0:
-                                            httmll += '<td>';
-                                            httmll += '</td>';
-                                            httmll += '</tr>';
-                                            break;
-                                        case 1:
-                                            httmll += '<td class="cuor-p" onclick="delTb(this)">';
-                                            httmll += '<i class="fas fa-minus-square"></i>';
-                                            httmll += '</td>';
-                                            httmll += '</tr>';
-                                            break;
-                                    }
-                                    break;
-                            }
-                        }
-                        $('#emp-out-money-tb').append(httmll);
-                        $("input[data-type='currency']").bind('keyup keydown', function () {
-                            inputNumberFormat(this);
-                        });
-                        let rtn1 = [result, 1]
-                        resolve(rtn1);
-                    } else {
-                        let rtn2 = [result, 0]
-                        resolve(rtn2);
-                    }
-                }
-            })
-        })
-    }
-    function getEmpBaseM(result) {
-        return new Promise(function (resolve, reject) {
-
-            const url = "/emp/empBaseMoney";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-            const params = {
-                "id": id
-            };
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                dataType: "json",
-                data: JSON.stringify(params),
-                success: function (r) {
-
-                    if (parseInt(result[0]) < 1) {
-                        $('#in-baseM').val(AddComma(r[0].basem));
-                    }
-
-                    if (parseInt(result[1]) < 1) {
-                        let htmls = '';
-                        htmls += '<tr>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += '<td>1</td>';
-                        htmls += '<td>1일</td>';
-                        htmls += '<td>보험료</td>';
-                        htmls += '<td>국민연금</td>';
-                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="kukmM" onfo' +
-                                'cus="this.select()" value="' + AddComma(r[0].kukm) + '"></td>';
-                        htmls += '<td></td>';
-                        htmls += '</tr>';
-                        htmls += '<tr>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += '<td>2</td>';
-                        htmls += '<td>1일</td>';
-                        htmls += '<td>보험료</td>';
-                        htmls += '<td>건강보험</td>';
-                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="gunmM" onfo' +
-                                'cus="this.select()" value="' + AddComma(r[0].gunm) + '"></td>';
-                        htmls += '<td></td>';
-                        htmls += '</tr>';
-                        htmls += '<tr>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += '<td>3</td>';
-                        htmls += '<td>1일</td>';
-                        htmls += '<td>보험료</td>';
-                        htmls += '<td>고용보험</td>';
-                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="gomM" onfoc' +
-                                'us="this.select()" value="' + AddComma(r[0].gom) + '"></td>';
-                        htmls += '<td></td>';
-                        htmls += '</tr>';
-                        htmls += '<tr>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += ' <td class="hideTh"></td>';
-                        htmls += '<td>4</td>';
-                        htmls += '<td>1일</td>';
-                        htmls += '<td>보험료</td>';
-                        htmls += '<td>산재보험</td>';
-                        htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="sanmM" onfo' +
-                                'cus="this.select()" value="' + AddComma(r[0].sanm) + '"></td>';
-                        htmls += '<td></td>';
-                        htmls += '</tr>';
-                        $('#emp-out-money-tb').append(htmls);
-                        $("input[data-type='currency']").bind('keyup keydown', function () {
-                            inputNumberFormat(this);
-                        });
-                    }
-                    resolve();
-                }
-            })
-        })
-    }
-    function sumAll222(result) {
-        return new Promise(function (resolve, reject) {
-            closeLoadingWithMask();
-            sumAllpro();
-        })
-    }
+    $('#noSave').hide();
+    $('#yesSave').hide();
+    $('#printbtn').show();
 }
 
-function getEmpMoneyListCompa(id) {}
-
 function clkName() {
+    console.log("저건 몇번이냐");
+    $("#operO").removeAttr("disabled");
+
     $("#inp-cont1").removeAttr("disabled");
     $("#inp-cont2").removeAttr("disabled");
     $("#inp-cont3").removeAttr("disabled");
@@ -923,6 +247,10 @@ function clkName() {
     $("#yearmonthsMoney1").attr("disabled", false);
     $("#yearmonthsMoney2").attr("disabled", false);
 
+    $('#noSave').show();
+    $('#yesSave').show();
+    $('#printbtn').hide();
+
     $('#inForm')[0].reset();
     $('#outForm')[0].reset();
 }
@@ -940,6 +268,9 @@ $(document).on('change', '#gomM', function () {
     sumAllpro();
 });
 $(document).on('change', '#sanmM', function () {
+    sumAllpro();
+});
+$(document).on('change', '#operO', function () {
     sumAllpro();
 });
 
@@ -1010,6 +341,10 @@ function chTr(id) {
     )
     checkChAll();
 }
+
+function chTrNot() {
+    alert("급여마감된 운행정보는 수정 할 수 없습니다.");
+}
 function chCh(id) {
     const iidd = '#' + id;
     if ($(iidd).is(':checked')) {
@@ -1044,7 +379,6 @@ function checkChAll() {
     } else {
         $('#mCh-All').prop("checked", false);
     }
-    // sumAllpro();
 }
 
 function updateOper(id, car, opernum, opertype, operno, day, trash) {
@@ -1096,243 +430,6 @@ function updateOper(id, car, opernum, opertype, operno, day, trash) {
     }
 }
 
-function sumAllpro() {
-    operMSet()
-        .then(sumInList)
-        .then(sumOutList)
-        .then(sumIN)
-        .then(sumOut)
-        .then(sumAll333);
-    function operMSet() {
-        return new Promise(function (resolve, reject) {
-            let money = 0;
-            let chM = 0;
-
-            const url = "/emp/empOperM";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-            const params = {
-                "operid": $('#emp-iidd').val(),
-                "operconfirm": $('#yearmonthsMoney2').val(),
-                "opertrash": 2
-            };
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                dataType: "json",
-                data: JSON.stringify(params),
-                success: function (r) {
-                    for (let i = 0; i < r.length; i++) {
-                        money = money + r[i].atlm;
-                        chM++;
-                    }
-                    $('#in-operM').text(AddComma(money * opt[0].oper));
-                    $('#in-operC').text(chM + '건');
-                    resolve();
-                },
-                error: (jqXHR) => {
-                    loginSession(jqXHR.status);
-                }
-            })
-        })
-    }
-    function sumInList(result) {
-        return new Promise(function (resolve, reject) {
-            const aaa = $('#emp-in-money-tb')
-                .children()
-                .length;
-            let sumGy = 0;
-            let sumGisu = 0;
-            let sumGitaa = 0;
-
-            for (let i = 0; i < aaa; i++) {
-                const ttrr1 = $('#emp-in-money-tb').children()[i];
-                const ttdd11 = $(ttrr1)
-                    .children()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()[0];
-                const ttdd22 = $(ttrr1)
-                    .children()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next();
-
-                switch ($(ttdd11).text()) {
-                    case "경비":
-                        const inpp1 = $(ttdd22).text();
-                        sumGy = sumGy + parseInt(inpp1.replaceAll(',', ''));
-                        break;
-                    case "수당":
-                        const inpp2 = $(ttdd22).text();
-                        sumGisu = sumGisu + parseInt(inpp2.replaceAll(',', ''));
-                        break;
-                    case "기타":
-                        const inpp3 = $(ttdd22).text();
-                        sumGitaa = sumGitaa + parseInt(inpp3.replaceAll(',', ''));
-                        break;
-                }
-            }
-            $('#in-goM').text(AddComma(sumGy));
-            $('#in-gisuM').text(AddComma(sumGisu));
-            $('#in-gitaM').text(AddComma(sumGitaa));
-
-            resolve();
-        })
-    }
-    function sumOutList(result) {
-        return new Promise(function (resolve, reject) {
-            const aaa = $('#emp-out-money-tb')
-                .children()
-                .length;
-            let sumBo = 0;
-            let sumGita = 0;
-            let sumSae = 0;
-            for (let i = 0; i < 4; i++) {
-                const ttrr = $('#emp-out-money-tb').children()[i];
-                const ttdd = $(ttrr)
-                    .children()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .children()[0];
-                const inpp = $(ttdd).val();
-                if (inpp) {
-                    sumBo = sumBo + parseInt(inpp.replaceAll(',', ''));
-                }
-            }
-
-            for (let i = 4; i < aaa; i++) {
-                const ttrr = $('#emp-out-money-tb').children()[i];
-                const ttdd1 = $(ttrr)
-                    .children()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()[0];
-                const ttdd2 = $(ttrr)
-                    .children()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next();
-
-                switch ($(ttdd1).text()) {
-                    case "기타":
-                        const inpp1 = $(ttdd2).text();
-                        sumGita = sumGita + parseInt(inpp1.replaceAll(',', ''));
-                        break;
-                    case "세금":
-                        const inpp2 = $(ttdd2).text();
-                        sumSae = sumSae + parseInt(inpp2.replaceAll(',', ''));
-                        break;
-                }
-            }
-            $('#out-sadea').text(AddComma(sumBo));
-            $('#out-gitaM').text(AddComma(sumGita));
-            $('#out-saeM').text(AddComma(sumSae));
-
-            resolve();
-        })
-    }
-    function sumIN(result) {
-        return new Promise(function (resolve, reject) {
-
-            let base = ($('#in-baseM').val()).replaceAll(',', '');
-            let oper = ($('#in-operM').text()).replaceAll(',', '');
-            let go = ($('#in-goM').text()).replaceAll(',', '');
-            let gisu = ($('#in-gisuM').text()).replaceAll(',', '');
-            let gita = ($('#in-gitaM').text()).replaceAll(',', '');
-
-            if (!base) {
-                base = 0;
-            }
-            if (!oper) {
-                oper = 0;
-            }
-            if (!go) {
-                go = 0;
-            }
-            if (!gisu) {
-                gisu = 0;
-            }
-            if (!gita) {
-                gita = 0;
-            }
-
-            const inAll = parseInt(base) + parseInt(oper) + parseInt(go) + parseInt(gisu) +
-                    parseInt(gita);
-
-            $('#in-inAllM').text(AddComma(inAll));
-            resolve();
-        })
-    }
-    function sumOut(result) {
-        return new Promise(function (resolve, reject) {
-
-            let sadea = ($('#out-sadea').text()).replaceAll(',', '');
-            let gita = ($('#out-gitaM').text()).replaceAll(',', '');
-            let sae = ($('#out-saeM').text()).replaceAll(',', '');
-
-            if (!sadea) {
-                sadea = 0;
-            }
-            if (!gita) {
-                gita = 0;
-            }
-            if (!sae) {
-                sae = 0;
-            }
-
-            const outAll = parseInt(sadea) + parseInt(gita) + parseInt(sae);
-
-            $('#out-outAllM').text(AddComma(outAll));
-            resolve();
-        })
-    }
-    function sumAll333(result) {
-        return new Promise(function (resolve, reject) {
-
-            let inM = ($('#in-inAllM').text()).replaceAll(',', '');
-            let outM = ($('#out-outAllM').text()).replaceAll(',', '');
-
-            if (!inM) {
-                inM = 0;
-            }
-            if (!outM) {
-                outM = 0;
-            }
-
-            const All = parseInt(inM) - parseInt(outM);
-
-            $('#AllM').text(AddComma(All));
-            resolve();
-        })
-    }
-}
-
 function chInDay(params) {
     if ($(params).is(':checked')) {
         $(params)
@@ -1377,89 +474,97 @@ $(document).on('change', '#mCh-All', function () {
 
     if ($(this).is(':checked')) {
         for (let i = 0; i < aaaa.length; i++) {
+
             const bbbb = $(aaaa[i]);
             const cccc = $(bbbb.children().children());
-            $(cccc).prop("checked", true);
-            chInDay(cccc);
 
-            const iiidddddd = $('#emp-iidd').val();
-            const carcarcar = $(cccc)
-                .parent()
-                .next()
-                .text();
-            const typetype = $(cccc)
-                .parent()
-                .next()
-                .next()
-                .text();
-            const opnumnumnum = $(cccc)
-                .parent()
-                .next()
-                .next()
-                .next()
-                .text();
-            const opnononono = $(cccc)
-                .parent()
-                .next()
-                .next()
-                .next()
-                .next()
-                .text();
-            const daydayday = $(cccc)
-                .parent()
-                .next()
-                .next()
-                .next()
-                .next()
-                .next()
-                .next()
-                .next()
-                .next()
-                .next()
-                .next()
-                .next()
-                .text();
-            updateOper(
-                iiidddddd,
-                carcarcar,
-                opnumnumnum,
-                typetype,
-                opnononono,
-                daydayday,
-                2
-            );
+            if (!$(cccc).prop('disabled')) {
+
+                $(cccc).prop("checked", true);
+                chInDay(cccc);
+
+                const iiidddddd = $('#emp-iidd').val();
+                const carcarcar = $(cccc)
+                    .parent()
+                    .next()
+                    .text();
+                const typetype = $(cccc)
+                    .parent()
+                    .next()
+                    .next()
+                    .text();
+                const opnumnumnum = $(cccc)
+                    .parent()
+                    .next()
+                    .next()
+                    .next()
+                    .text();
+                const opnononono = $(cccc)
+                    .parent()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .text();
+                const daydayday = $(cccc)
+                    .parent()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .text();
+                updateOper(
+                    iiidddddd,
+                    carcarcar,
+                    opnumnumnum,
+                    typetype,
+                    opnononono,
+                    daydayday,
+                    2
+                );
+            }
         }
     } else {
         for (let i = 0; i < aaaa.length; i++) {
             const bbbb = $(aaaa[i]);
             const cccc = $(bbbb.children().children());
-            $(cccc).prop("checked", false);
-            chInDay(cccc);
 
-            const iiidddddd = $('#emp-iidd').val();
-            const carcarcar = $(cccc)
-                .parent()
-                .next()
-                .text();
-            const typetype = $(cccc)
-                .parent()
-                .next()
-                .next()
-                .text();
-            const opnumnumnum = $(cccc)
-                .parent()
-                .next()
-                .next()
-                .next()
-                .text();
-            const opnononono = $(cccc)
-                .parent()
-                .next()
-                .next()
-                .next()
-                .next()
-                .text();
-            updateOper(iiidddddd, carcarcar, opnumnumnum, typetype, opnononono, null, 1);
+            if (!$(cccc).prop('disabled')) {
+
+                $(cccc).prop("checked", false);
+                chInDay(cccc);
+                const iiidddddd = $('#emp-iidd').val();
+                const carcarcar = $(cccc)
+                    .parent()
+                    .next()
+                    .text();
+                const typetype = $(cccc)
+                    .parent()
+                    .next()
+                    .next()
+                    .text();
+                const opnumnumnum = $(cccc)
+                    .parent()
+                    .next()
+                    .next()
+                    .next()
+                    .text();
+                const opnononono = $(cccc)
+                    .parent()
+                    .next()
+                    .next()
+                    .next()
+                    .next()
+                    .text();
+                updateOper(iiidddddd, carcarcar, opnumnumnum, typetype, opnononono, null, 1);
+            }
         }
     }
 });
@@ -1590,25 +695,19 @@ function insertInM() {
 
         $('#emp-in-money-tb').append(httmll);
     } else {
-        let st = '';
         if (!$('#inp-cont1').val()) {
-            st += '지급날짜';
+            st += '공제날짜';
+            alert("지급날짜를 입력해주세요.");
+            $('#inp-cont1').focus();
         }
         if (!$('#inp-cont3').val()) {
-            if (st.length > 0) {
-                st += ', 내용'
-            } else {
-                st += '지급내용';
-            }
+            alert("지급내용을 입력해주세요.");
+            $('#inp-cont3').focus();
         }
         if (!$('#inp-cont4').val()) {
-            if (st.length > 0) {
-                st += ', 금액'
-            } else {
-                st += '지급금액';
-            }
+            alert("지급금액을 입력해주세요.");
+            $('#inp-cont4').focus();
         }
-        alert(st + '을 입력해주세요.');
     }
     sumAllpro();
 }
@@ -1639,12 +738,14 @@ function setNum() {
 }
 
 function delTbInM() {
-    if (confirm('지급내역을 모두 삭제하겠습니까?')) {
-        $('#emp-in-money-tb')
-            .children()
-            .remove();
+    if ($('#emp-sal').val() < 1) {
+        if (confirm('지급내역을 모두 삭제하겠습니까?')) {
+            $('#emp-in-money-tb')
+                .children()
+                .remove();
+        }
+        sumAllpro();
     }
-    sumAllpro();
 }
 $(document).on('keydown', '.output-M', function (eInner) {
     const tabi = $(this).attr('tabindex');
@@ -1764,25 +865,19 @@ function insertOutM() {
 
         $('#emp-out-money-tb').append(httmll);
     } else {
-        let st = '';
         if (!$('#inp-cont11').val()) {
             st += '공제날짜';
+            alert("공제날짜를 입력해주세요.");
+            $('#inp-cont11').focus();
         }
         if (!$('#inp-cont13').val()) {
-            if (st.length > 0) {
-                st += ', 내용'
-            } else {
-                st += '공제내용';
-            }
+            alert("공제내용을 입력해주세요.");
+            $('#inp-cont13').focus();
         }
         if (!$('#inp-cont14').val()) {
-            if (st.length > 0) {
-                st += ', 금액'
-            } else {
-                st += '공제금액';
-            }
+            alert("공제금액을 입력해주세요.");
+            $('#inp-cont14').focus();
         }
-        alert(st + '을 입력해주세요.');
     }
     sumAllpro();
 }
@@ -1792,17 +887,19 @@ $(document).on('click', '#insert-outM', function () {
 });
 
 function delTbOutM() {
-    if (confirm('공제내역을 모두 삭제하겠습니까?')) {
-        const aaa = $('#emp-out-money-tb')
-            .children()
-            .length - 4;
-        for (let i = 0; i < aaa; i++) {
-            $('#emp-out-money-tb')
-                .children()[4]
-                .remove();
+    if ($('#emp-sal').val() < 1) {
+        if (confirm('공제내역을 모두 삭제하겠습니까?')) {
+            const aaa = $('#emp-out-money-tb')
+                .children()
+                .length - 4;
+            for (let i = 0; i < aaa; i++) {
+                $('#emp-out-money-tb')
+                    .children()[4]
+                    .remove();
+            }
         }
+        sumAllpro();
     }
-    sumAllpro();
 }
 
 function delTb(params) {
@@ -1829,6 +926,8 @@ $(document).on('click', '#noSave', function () {
 $(document).on('click', '#yesSave', function () {
     const ok = confirm("급여 마감하시겠습니까?\n\n마감된 급여내역은 수정 할 수 없습니다.");
     if (ok) {
+        saveSalary(0);
+
         $('#noSave').hide();
         $('#yesSave').hide();
         $('#printbtn').show();
@@ -1836,15 +935,108 @@ $(document).on('click', '#yesSave', function () {
 });
 
 function saveSalary(sepa) {
-    delInMg()
-        .then(saveInM)
-        .then(delOutMg)
-        .then(saveOutM)
-        .then(choiceEmp);
+
+    if (sepa > 0) {
+        LoadingWithMask()
+            .then(delInMg)
+            .then(saveInM)
+            .then(delOutMg)
+            .then(saveOutM)
+            .then(choiceEmp)
+    } else {
+        LoadingWithMask()
+            .then(delInMg)
+            .then(saveInM)
+            .then(delOutMg)
+            .then(saveOutM)
+            .then(upOper)
+            .then(insertAllM)
+            .then(choiceEmp)
+    }
+
+    function insertAllM(params) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/insertAllM";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const per = $('#operO').val() / 100;
+            const opercnt = $('#in-operC')
+                .text()
+                .split('건')[0];
+            const opermoney = $('#in-operM')
+                .text()
+                .replaceAll(',', '');
+            const inm = $('#in-inAllM')
+                .text()
+                .replaceAll(',', '');
+            const outm = $('#out-outAllM')
+                .text()
+                .replaceAll(',', '');
+
+            const empin = user.position + ' ' + user.name;
+
+            const params = {
+                "id": $('#emp-iidd').val(),
+                "date": $('#yearmonthsMoney2').val(),
+                "per": per,
+                "opercnt": opercnt,
+                "opermoney": opermoney,
+                "inm": inm,
+                "outm": outm,
+                "empin": empin
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r > 0) {
+                        alert("급여내역 마감완료");
+                    } else if (r == 0) {
+                        alert("급여내역 입력 실패!\n\n시스템을 확인해주세요.")
+                    } else if (r == -1) {
+                        alert("급여내역 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    } else if (r == -2) {
+                        alert("급여내역 입력 실패!\n\n시스템을 확인해주세요.")
+                    }
+                    location.reload();
+                }
+            })
+        })
+    }
+
+    function upOper(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empOperUp2";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "operid": $('#emp-iidd').val(),
+                "operconfirm": $('#yearmonthsMoney2').val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    resolve();
+                }
+            })
+        })
+    }
 
     function delInMg() {
         return new Promise(function (resolve, reject) {
-            LoadingWithMask();
             const url = "/emp/empInMDel";
             const headers = {
                 "Content-Type": "application/json",
@@ -1904,14 +1096,6 @@ function saveSalary(sepa) {
                         $(ttdd[5]).text()
                     ).split('일')[0];
                 }
-
-                console.log("id   " + $('#emp-iidd').val());
-                console.log("sday   " + $('#yearmonthsMoney2').val());
-                console.log("separation   " + $(ttdd[6]).text());
-                console.log("date   " + day);
-                console.log("contents   " + $(ttdd[7]).text());
-                console.log("money   " + $(ttdd[8]).text().replaceAll(',', ''));
-                console.log("strash   " + 1);
 
                 const asd = {
                     "id": $('#emp-iidd').val(),
@@ -2009,14 +1193,6 @@ function saveSalary(sepa) {
                         .replaceAll(',', '');
                 }
 
-                console.log("id   " + $('#emp-iidd').val());
-                console.log("sday   " + $('#yearmonthsMoney2').val());
-                console.log("separation   " + $(ttdd[6]).text());
-                console.log("date   " + day);
-                console.log("contents   " + $(ttdd[7]).text());
-                console.log("money   " + mon);
-                console.log("strash   " + 1);
-
                 const asd = {
                     "id": $('#emp-iidd').val(),
                     "sday": $('#yearmonthsMoney2').val(),
@@ -2043,22 +1219,13 @@ function saveSalary(sepa) {
                 success: function (r) {
                     console.log(r);
                     resolve(r);
-                    closeLoadingWithMask();
                 }
             });
         })
     }
 }
-
 function choiceEmp() {
     return new Promise(function (resolve, reject) {
         getEmpInfo($('#emp-iidd').val() + 'cut');
     })
 }
-function sumAll(result) {
-    return new Promise(function (resolve, reject) {
-        sumAllpro();
-    })
-}
-
-function delInM() {}

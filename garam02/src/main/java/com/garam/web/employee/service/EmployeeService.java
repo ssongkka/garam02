@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
+import com.garam.web.employee.dto.EmpsalaryAll;
 
 public interface EmployeeService {
 	public int insertEmp(EmployeeInfoDTO employeeInfoDTO) throws Exception;
@@ -29,6 +30,8 @@ public interface EmployeeService {
 	public List<EmployeeInfoDTO> SelectEmpBaseMoney(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
 	public int empUpOper(EmpRsvtDTO empRsvtDTO) throws Exception;
+	
+	public int empUpOper2(EmpRsvtDTO empRsvtDTO) throws Exception;
 
 	public List<Empsalary> selInMoney(Empsalary empsalary) throws Exception;
 
@@ -43,4 +46,8 @@ public interface EmployeeService {
 	public int delInM(Empsalary empsalary) throws Exception;
 
 	public int delOutM(Empsalary empsalary) throws Exception;
+
+	public List<EmpsalaryAll> selAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
+	
+	public int insertAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
 }

@@ -16,6 +16,7 @@ import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
+import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.employee.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
@@ -93,9 +94,31 @@ public class RestEmployeeController {
 		return rtn;
 	}
 
+	@PostMapping(value = "/empOperUp2")
+	public int empOperUp2(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		int rtn = 0;
+
+		try {
+			rtn = employeeService.empUpOper2(empRsvtDTO);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+
+		return rtn;
+	}
+
 	@PostMapping(value = "/empOperM")
 	public List<EmpRsvtDTO> empOperM(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
 		List<EmpRsvtDTO> list = employeeService.selectOperMoney(empRsvtDTO);
+		return list;
+	}
+
+	@PostMapping(value = "/empAllMList")
+	public List<EmpsalaryAll> empAllMList(@RequestBody EmpsalaryAll empsalaryAll) throws Exception {
+		List<EmpsalaryAll> list = employeeService.selAllMoney(empsalaryAll);
+
 		return list;
 	}
 
@@ -155,5 +178,21 @@ public class RestEmployeeController {
 		int rtn = employeeService.delOutM(empsalary);
 
 		return rtn;
+	}
+
+	@PostMapping(value = "/insertAllM")
+	public int insertAllM(@RequestBody EmpsalaryAll empsalaryAll) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = employeeService.insertAllMoney(empsalaryAll);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+
 	}
 }

@@ -16,7 +16,7 @@
     width: 58rem;
     position: fixed;
     z-index: 950;
-    min-height: calc(100vh - 6rem);
+    min-height: calc(100vh - 4rem);
 }
 .main-aside-item:nth-child(2) {
     flex: 2;

@@ -27,7 +27,7 @@
 
 		AND
 
-		operation_info.opertrash = #{opertrash}
+		operation_info.opertrash != #{opertrash}
 	</select>
 
 	<select id="SelectEmpBaseMoney"
@@ -79,6 +79,27 @@
 
 		opercar
 		= #{opercar}
+	</update>
+	<update id="empUpOper2"
+		parameterType="com.garam.web.employee.dto.EmpRsvtDTO">
+
+		UPDATE
+
+		operation_info
+
+		SET
+
+		opertrash = 0
+
+		WHERE
+
+		operconfirm =
+		#{operconfirm}
+
+		AND
+
+		operid = #{operid}
+
 	</update>
 
 	<select id="selInMoney"
@@ -199,5 +220,59 @@
 			#{value.strash}
 			)
 		</foreach>
+	</insert>
+
+	<select id="selAllMoney"
+		parameterType="com.garam.web.employee.dto.EmpsalaryAll"
+		resultType="com.garam.web.employee.dto.EmpsalaryAll">
+
+		SELECT
+
+		*
+
+		FROM
+
+		personnalsalary
+
+		WHERE
+
+		personnalsalary.id = #{id}
+
+		AND
+
+		personnalsalary.date = #{date}
+	</select>
+	<insert id="insertAllMoney"
+		parameterType="com.garam.web.employee.dto.EmpsalaryAll">
+
+		INSERT INTO
+
+		personnalsalary
+
+		(salno,
+		id,
+		date,
+		per,
+		opercnt,
+		opermoney,
+		inm,
+		outm,
+		empin,
+		datein,
+		strash)
+
+		VALUES
+
+		(null,
+		#{id},
+		#{date},
+		#{per},
+		#{opercnt},
+		#{opermoney},
+		#{inm},
+		#{outm},
+		#{empin},
+		NOW(),
+		1);
 	</insert>
 </mapper>

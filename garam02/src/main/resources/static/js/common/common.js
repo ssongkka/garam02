@@ -48,13 +48,15 @@ $(document).ready(function () {
 });
 
 function LoadingWithMask() {
-    //화면의 높이와 너비를 구합니다.
-    var maskHeight = $(document).height();
-    var maskWidth = window.document.body.clientWidth;
+    return new Promise(function (resolve, reject) {
 
-    //화면에 출력할 마스크를 설정해줍니다.
+        //화면의 높이와 너비를 구합니다.
+        var maskHeight = $(document).height();
+        var maskWidth = window.document.body.clientWidth;
 
-    mask = `<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'>
+        //화면에 출력할 마스크를 설정해줍니다.
+
+        mask = `<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'>
     <div id='loadingImg' style="padding-top: 30vh;>
     <?xml version="1.0" encoding="utf-8"?>
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(0, 0, 0, 0.3); display: block; shape-rendering: auto;" width="150px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
@@ -69,19 +71,24 @@ function LoadingWithMask() {
     </div>
     </div>`;
 
-    //화면에 레이어 추가
-    $('body').append(mask);
-    // .append(loadingImg) 마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
-    $('#mask').css({'width': '100%', 'height': '100vh', 'opacity': '0.3'});
+        //화면에 레이어 추가
+        $('body').append(mask);
+        // .append(loadingImg) 마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+        $('#mask').css({'width': '100%', 'height': '100vh', 'opacity': '0.3'});
 
-    //마스크 표시
-    $('#mask').show();
-    //로딩중 이미지 표시 $('#loadingImg').show();
+        //마스크 표시
+        $('#mask').show();
+        //로딩중 이미지 표시 $('#loadingImg').show();
+        resolve();
+    })
 }
 
 function closeLoadingWithMask() {
-    $('#mask').hide();
-    $('#mask').remove();
+    return new Promise(function (resolve, reject) {
+        $('#mask').hide();
+        $('#mask').remove();
+        resolve();
+    })
 }
 
 function leftPad(value) {

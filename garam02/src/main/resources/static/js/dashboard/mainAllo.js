@@ -778,9 +778,7 @@ function insertOperOne(id, num) {
 }
 
 function mdOneWay(val) {
-    console.log("aasdfasdf   " + val);
     const iidd = '#' + val;
-    console.log("aasdfasdf   " + iidd);
 
     const opernum = $(iidd)
         .parent()
@@ -798,8 +796,7 @@ function mdOneWay(val) {
 
     const params = {
         "opernum": opernum,
-        "operday": tod,
-        "opertrash": 1
+        "operday": tod
     };
 
     $.ajax({
@@ -861,21 +858,41 @@ function mdOneWay(val) {
                             cnt++;
                         }
                     }
-                    if (cnt > 0) {
-                        htmls += '<div class="stWay1" id="st-st-' + (
-                            i + 1
-                        ) + '">';
-                    } else {
-                        if (r[i].name == '타회사') {
-                            htmls += '<div class="stWay3" id="st-st-' + (
+
+                    if (r[i].opertrash == 1) {
+                        if (cnt > 0) {
+                            htmls += '<div class="stWay1" id="st-st-' + (
                                 i + 1
                             ) + '">';
                         } else {
-                            htmls += '<div class="stWay2" id="st-st-' + (
+                            if (r[i].name == '타회사') {
+                                htmls += '<div class="stWay3" id="st-st-' + (
+                                    i + 1
+                                ) + '">';
+                            } else {
+                                htmls += '<div class="stWay2" id="st-st-' + (
+                                    i + 1
+                                ) + '">';
+                            }
+                        }
+                    } else {
+                        if (cnt > 0) {
+                            htmls += '<div class="stWay1" id="st-st-' + (
                                 i + 1
-                            ) + '">';
+                            ) + '" onclick="endAllo()" style="background: #efefef;">';
+                        } else {
+                            if (r[i].name == '타회사') {
+                                htmls += '<div class="stWay3" id="st-st-' + (
+                                    i + 1
+                                ) + '" onclick="endAllo()" style="background: #efefef;">';
+                            } else {
+                                htmls += '<div class="stWay2" id="st-st-' + (
+                                    i + 1
+                                ) + '" onclick="endAllo()" style="background: #efefef;">';
+                            }
                         }
                     }
+
                     htmls += '<span style="margin: 0 3rem;">' + (
                         i + 1
                     ) + '</span>'
@@ -915,35 +932,71 @@ function mdOneWay(val) {
                         ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '" style="background' +
                                 ': transparent;" disabled>';
                     } else {
-                        htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
-                            ++cnt
-                        ) + '" placeholder="' + (
-                            i + 1
-                        ) + '호차" id="' + (
-                            i + 100
-                        ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve +
-                                '">';
-                        htmls += '<input type="hidden" value="' + r[i].opercar + '">';
-                        htmls += '<input type="hidden" value="' + r[i].opercom + '">';
-                        htmls += '<input type="text" class="ve-emp-one" id="' + (
-                            i + 100
-                        ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
-                                '">';
-                        htmls += '<input type="hidden" value="' + r[i].operid + '">';
-                        htmls += '<input type="text" class="ve-m-one" id="' + (
-                            i + 100
-                        ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-                            ++cnt
-                        ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '">';
+                        if (r[i].opertrash == 1) {
+                            htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
+                                ++cnt
+                            ) + '" placeholder="' + (
+                                i + 1
+                            ) + '호차" id="' + (
+                                i + 100
+                            ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve +
+                                    '">';
+                            htmls += '<input type="hidden" value="' + r[i].opercar + '">';
+                            htmls += '<input type="hidden" value="' + r[i].opercom + '">';
+                            htmls += '<input type="text" class="ve-emp-one" id="' + (
+                                i + 100
+                            ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
+                                    '">';
+                            htmls += '<input type="hidden" value="' + r[i].operid + '">';
+                            htmls += '<input type="text" class="ve-m-one" id="' + (
+                                i + 100
+                            ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                ++cnt
+                            ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '">';
+                        } else {
+                            htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
+                                ++cnt
+                            ) + '" placeholder="' + (
+                                i + 1
+                            ) + '호차" id="' + (
+                                i + 100
+                            ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve + '" ' +
+                                    'disabled>';
+                            htmls += '<input type="hidden" value="' + r[i].opercar + '" disabled>';
+                            htmls += '<input type="hidden" value="' + r[i].opercom + '" disabled>';
+                            htmls += '<input type="text" class="ve-emp-one" id="' + (
+                                i + 100
+                            ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
+                                    '" disabled>';
+                            htmls += '<input type="hidden" value="' + r[i].operid + '" disabled>';
+                            htmls += '<input type="text" class="ve-m-one" id="' + (
+                                i + 100
+                            ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                ++cnt
+                            ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '" disabled>';
+                        }
                     }
-                    if (i > 0) {
-                        htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
-                            i + 100
-                        ) + '"><i class="fas fa-times"></i>';
+
+                    if (r[i].opertrash == 1) {
+                        if (i > 0) {
+                            htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+                                i + 100
+                            ) + '"><i class="fas fa-times"></i>';
+                        } else {
+                            htmls += '<button class="onebtn" role="button" id="bt-' + (
+                                i + 100
+                            ) + '" style="opacity: 0;" disabled><i class="fas fa-times"></i>';
+                        }
                     } else {
-                        htmls += '<button class="onebtn" role="button" id="bt-' + (
-                            i + 100
-                        ) + '" style="opacity: 0;" disabled><i class="fas fa-times"></i>';
+                        if (i > 0) {
+                            htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+                                i + 100
+                            ) + '" disabled></i>';
+                        } else {
+                            htmls += '<button class="onebtn" role="button" id="bt-' + (
+                                i + 100
+                            ) + '" style="opacity: 0;" disabled></i>';
+                        }
                     }
 
                     htmls += '</div>';
@@ -1490,10 +1543,6 @@ function getAlloList(day) {
                                 }
                             });
                         }
-                        // if (cnt0 > 0) {     $('#bdggg').attr('class', 'badge badge1'); } if (cnt00 >
-                        // 0) {     $('#bdg1').attr('class', 'badge badge1'); } if (cnt01 > 0) {
-                        // $('#bdg2').attr('class', 'badge badge1'); } if (cnt02 > 0) {
-                        // $('#bdg3').attr('class', 'badge badge1'); }
                         $('#bdggg').text(cnt0);
                         $('#bdg1').text(cnt00);
                         $('#bdg2').text(cnt01);
@@ -1523,8 +1572,7 @@ function getAlloList(day) {
 
                 const params = {
                     "stday": day,
-                    "endday": day,
-                    "opertrash": 1
+                    "endday": day
                 };
 
                 $.ajax({
@@ -1555,6 +1603,80 @@ function getAlloList(day) {
                                     } else {
                                         $(stid).attr('class', 'stWay2');
                                     }
+                                }
+
+                                if (r[i].opertrash == 0 || r[i].opertrash == 2) {
+
+                                    const abc = $(stid)
+                                        .parent()
+                                        .parent()
+                                        .prev()
+                                        .prev()
+                                        .children()[5];
+                                    const bbc1 = $(abc).children()[0];
+                                    const bbc2 = $(abc).children()[1];
+
+                                    $(bbc1).attr("onclick", 'endAllo2()');
+
+                                    $(stid).css('background', '#efefef');
+                                    $(stid).attr('onclick', 'endAllo()');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
                                 }
 
                                 if (r[i].vehicle) {
@@ -1794,15 +1916,12 @@ function delOne(param) {
 }
 
 function getRsvt(id) {
-    console.log('getRsvt   ' + id);
     const iidd = '#' + id;
     const rsvt = $(iidd)
         .parent()
         .parent()
         .prev()
         .val();
-
-    console.log('getRsvt   ' + rsvt);
 
     $('#md-rsvtNum').val(rsvt);
 
@@ -2018,8 +2137,6 @@ function chDateInput() {
 
     const beet = betweenDateNum(std, edd);
 
-    console.log("adsw  " + beet);
-
     if (beet > 1) {
         $("#daynight-1").text(' (' + (
             beet - 1
@@ -2033,4 +2150,11 @@ function chDateInput() {
         $("#daynight-1").text('  도착일을 확인해주세요!!!');
         $("#daynight-1").css('color', 'red');
     }
+}
+
+function endAllo() {
+    alert("해당 승무원의 급여 내역에 임시 저장 또는 마감된 배차입니다.\n\n승무원의 급여 정보를 확인해 주세요.");
+}
+function endAllo2() {
+    alert("급여 내역 임시저장 또는 마감된 배차가 존재하는 운행예약은\n\n수정 할 수 없습니다.");
 }

@@ -611,6 +611,10 @@
         </div>
         <script th:inline="javascript">
             /*<![CDATA[*/
+            const user =/*[[${user}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
             const opt =/*[[${opt}]]*/
             'default';
             /*]]>*/
@@ -639,5 +643,7 @@
         <script src="/js/employee/employeeBody.js"></script>
         <script src="/js/employee/empOper.js"></script>
         <script src="/js/employee/empMoneyInsert.js"></script>
+        <script src="/js/employee/empMoneyInsertGetM.js"></script>
+        <script src="/js/employee/empMoneyInsertSumM.js"></script>
     </body>
 </html>

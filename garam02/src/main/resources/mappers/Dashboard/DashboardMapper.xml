@@ -498,10 +498,6 @@
 		ORDER BY
 		rsvt.ctmno)
 
-		AND
-
-		operation_info.opertrash = #{opertrash}
-
 		ORDER BY
 		operation_info.rsvt;
 	</select>
@@ -569,11 +565,6 @@
 
 		opernum =
 		#{opernum}
-
-		AND
-
-		opertrash =
-		#{opertrash}
 
 		ORDER
 		BY

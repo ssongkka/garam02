@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
+import com.garam.web.employee.dto.EmpsalaryAll;
 
 @Mapper
 public interface EmployeeMapper {
@@ -31,6 +32,8 @@ public interface EmployeeMapper {
 
 	public int empUpOper(EmpRsvtDTO empRsvtDTO) throws Exception;
 
+	public int empUpOper2(EmpRsvtDTO empRsvtDTO) throws Exception;
+
 	public List<Empsalary> selInMoney(Empsalary empsalary) throws Exception;
 
 	public List<Empsalary> selOutMoney(Empsalary empsalary) throws Exception;
@@ -44,4 +47,8 @@ public interface EmployeeMapper {
 	public int delInM(Empsalary empsalary) throws Exception;
 
 	public int delOutM(Empsalary empsalary) throws Exception;
+
+	public List<EmpsalaryAll> selAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
+
+	public int insertAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
 }
