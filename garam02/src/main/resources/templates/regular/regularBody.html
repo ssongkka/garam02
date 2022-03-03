@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <body th:fragment="main-body">
+        <aside class="nomal-aside">
+            <div class="nomal-aside-main">
+                <div class="nomal-aside-btn">
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="md-New">
+                            신규입력&nbsp;<i class="fas fa-plus-square"></i>
+                        </button>
+                    </div>
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="insert-money">
+                            급여입력&nbsp;<i class="fas fa-plus-square"></i>
+                        </button>
+                        <input type="hidden" id="showm" value="0">
+                    </div>
+                </div>
+                <div class="nomal-aside-search">
+                    <div class="hd-search">
+                        <div class="hd-serach-group">
+                            <div class="hd-search-icon fas fa-search"></div>
+                            <input
+                                type="text"
+                                id="emp-search"
+                                autocomplete="off"
+                                oninput="getEmpAll(this.value)"
+                                placeholder="검색">
+                            <button id="btn-x">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="hd-name scBar">
+                    <input type="hidden" id="re-iidd">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs nav-justified evNav shadow-sm" role="tablist">
+                            <li role="presentation" class="active">
+                                <a
+                                    href="#com-go"
+                                    aria-controls="com-go"
+                                    role="tab"
+                                    data-toggle="tab"
+                                    class="tab-flex">
+                                    <span>계약 중</span>
+                                    <span class="badge" id="bgAll">00</span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="hidden-xs">
+                                <a
+                                    href="#com-end"
+                                    aria-controls="com-end"
+                                    role="tab"
+                                    data-toggle="tab"
+                                    class="tab-flex">
+                                    <span>계약 만료</span>
+                                    <span class="badge" id="bgCompa">00</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content hd-tb scBar scBarEmp">
+                            <div role="tabpanel" class="tab-pane fade in active" id="com-go">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable"
+                                    id="ddssaa">
+                                    <colgroup>
+                                        <!-- <col width="25%"/> <col width="15%"/> <col width="15%"/> <col width="20%"/>
+                                        <col width="15%"/> <col width="10%"/> -->
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>차량</th>
+                                            <th class="hidden-xs">소속</th>
+                                            <th class="size-hidden hidden-xs">생년월일</th>
+                                            <th class="size-hidden">나이</th>
+                                            <th class="size-hidden hidden-xs">종류</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reg-tb-com-go"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="com-end">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <!-- <col width="25%"/> <col width="15%"/> <col width="15%"/> <col width="20%"/>
+                                        <col width="15%"/> <col width="10%"/> -->
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>차량</th>
+                                            <th class="hidden-xs">소속</th>
+                                            <th class="size-hidden hidden-xs">생년월일</th>
+                                            <th class="size-hidden">나이</th>
+                                            <th class="size-hidden hidden-xs">종류</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reg-tb-com-end"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="hd-tb-bt"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <header class="nomal-head">
+            <div class="nomal-head-item"></div>
+            <div class="nomal-head-item">
+                <a id="show-aside">
+                    <input type="hidden" value="0" id="show-aside-hd">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </div>
+        </header>
+        <main class="nomal-main">
+            <div class="main-aside">
+                <div class="main-aside-item"></div>
+                <div class="main-aside-item">
+                    <div class="main-aside-item-in card"></div>
+                    <div class="main-aside-item-in card"></div>
+                </div>
+            </div>
+            <div class="main-bside"></div>
+        </main>
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->
+        <div
+            class="modal fade bs-example-modal-lg"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myLargeModalLabel"
+            aria-hidden="true"
+            id="modal-insert">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title fas fa-address-card" id="myModalLabel-insert">Modal title</h4>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btn-insert">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const user =/*[[${user}]]*/
+        'default';
+        /*]]>*/
+        /*<![CDATA[*/
+        const opt =/*[[${opt}]]*/
+        'default';
+        /*]]>*/
+        /*<![CDATA[*/
+        const dbCompa =/*[[${compa}]]*/
+        'default';
+        /*]]>*/
+        /*<![CDATA[*/
+        const dbVe =/*[[${ve}]]*/
+        'default';
+        /*]]>*/
+        /*<![CDATA[*/
+        const dbEmp =/*[[${emp}]]*/
+        'default';
+        /*]]>*/
+    </script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+    <script src="/js/common/summernote-lite.js"></script>
+    <script src="/js/common/summernote-ko-KR.js"></script>
+    <script src="/js/common/common.js"></script>
+    <script src="/js/regular/regularBody.js"></script>
+</body>
+</html>

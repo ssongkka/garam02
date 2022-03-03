@@ -16,7 +16,11 @@ public class CustomerDTO {
 
 	private String tel2;
 
+	private String email;
+
 	private String fax;
+
+	private String companum;
 
 	private String homepage;
 
@@ -25,6 +29,22 @@ public class CustomerDTO {
 	private String detail;
 
 	private Integer trash;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCompanum() {
+		return companum;
+	}
+
+	public void setCompanum(String companum) {
+		this.companum = companum;
+	}
 
 	public Integer getCtmseq() {
 		return ctmseq;

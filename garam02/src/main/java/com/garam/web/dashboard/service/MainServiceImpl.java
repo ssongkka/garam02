@@ -36,26 +36,35 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public int insertCtm(RsvtDTO rsvtDTO) throws Exception {
-		if (rsvtDTO.getCtmaddress().equals("")) {
+		if (rsvtDTO.getCtmaddress() == null || rsvtDTO.getCtmaddress().equals("")) {
 			rsvtDTO.setCtmaddress(null);
 		}
-		if (rsvtDTO.getCtmtel1().equals("")) {
+		if (rsvtDTO.getCtmtel1() == null || rsvtDTO.getCtmtel1().equals("")) {
 			rsvtDTO.setCtmtel1(null);
 		}
-		if (rsvtDTO.getCtmtel2().equals("")) {
+		if (rsvtDTO.getCtmtel2() == null || rsvtDTO.getCtmtel2().equals("")) {
 			rsvtDTO.setCtmtel2(null);
 		}
-		if (rsvtDTO.getCtmfax().equals("")) {
+		if (rsvtDTO.getCtmfax() == null || rsvtDTO.getCtmfax().equals("")) {
 			rsvtDTO.setCtmfax(null);
 		}
-		if (rsvtDTO.getCtmhomepage().equals("")) {
+		if (rsvtDTO.getCtmhomepage() == null || rsvtDTO.getCtmhomepage().equals("")) {
 			rsvtDTO.setCtmhomepage(null);
 		}
-		if (rsvtDTO.getCtmstp().equals("")) {
+		if (rsvtDTO.getCtmstp() == null || rsvtDTO.getCtmstp().equals("")) {
 			rsvtDTO.setCtmstp(null);
 		}
-		if (rsvtDTO.getCtmdetail().equals("")) {
+		if (rsvtDTO.getCtmdetail() == null || rsvtDTO.getCtmdetail().equals("")) {
 			rsvtDTO.setCtmdetail(null);
+		}
+		if (rsvtDTO.getCtmemail() == null || rsvtDTO.getCtmemail().equals("")) {
+			rsvtDTO.setCtmemail(null);
+		}
+		if (rsvtDTO.getCtmcompanum() == null || rsvtDTO.getCtmcompanum().equals("")) {
+			rsvtDTO.setCtmcompanum(null);
+		}
+		if (rsvtDTO.getCtmno() == null || rsvtDTO.getCtmno().equals("")) {
+			rsvtDTO.setCtmno(get_Ctmno());
 		}
 
 		int rtn = rsvtMapper.insertCtm(rsvtDTO);
@@ -95,7 +104,6 @@ public class MainServiceImpl implements MainService {
 		}
 
 		if (rsvtDTO.getRsvt() == null || rsvtDTO.getRsvt().equals("")) {
-			System.out.println(rsvtDTO);
 			rsvtDTO.setRsvt(get_Rsvt(rsvtDTO.getStday().toString()));
 			if (rsvtDTO.getCtmtrash() > 1) {
 				rsvtDTO.setCtmno(get_Ctmno());

@@ -577,6 +577,13 @@ $(document).on('click', '#goVe', function () {
     window.open('/vehicle', '차량 정보');
 });
 
+$(document).on('click', '#goRe', function () {
+    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
+    // window.screenLeft; var yPos = 10;
+
+    window.open('/regular', '차량 정보');
+});
+
 function showDetail(id) {
     const iidd = '#tr-' + id.split('-')[1] + id.split('-')[3];
 

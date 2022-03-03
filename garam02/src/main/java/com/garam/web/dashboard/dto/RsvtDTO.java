@@ -1,7 +1,5 @@
 package com.garam.web.dashboard.dto;
 
-import java.time.LocalDate;
-
 public class RsvtDTO {
 	// 번호
 	private Integer ctmseq;
@@ -22,8 +20,12 @@ public class RsvtDTO {
 	// 전화2
 	private String ctmtel2;
 
+	private String ctmemail;
+
 	// 팩스
 	private String ctmfax;
+
+	private String ctmcompanum;
 
 	// 홈페이지
 	private String ctmhomepage;
@@ -89,6 +91,22 @@ public class RsvtDTO {
 	private Integer confirmm;
 
 	private Integer rsvttrash;
+
+	public String getCtmemail() {
+		return ctmemail;
+	}
+
+	public void setCtmemail(String ctmemail) {
+		this.ctmemail = ctmemail;
+	}
+
+	public String getCtmcompanum() {
+		return ctmcompanum;
+	}
+
+	public void setCtmcompanum(String ctmcompanum) {
+		this.ctmcompanum = ctmcompanum;
+	}
 
 	public Integer getCtmseq() {
 		return ctmseq;

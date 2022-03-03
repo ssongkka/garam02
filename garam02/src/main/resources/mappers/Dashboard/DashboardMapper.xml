@@ -4,9 +4,10 @@
 	namespace="com.garam.web.dashboard.mapper.DashboardMapper">
 
 	<sql id="customerColumns">
-		ctmseq , ctmno , ctmsepa , ctmname , ctmaddress , ctmtel1 ,
-		ctmtel2
-		, ctmfax , ctmhomepage , ctmstp , ctmdetail ,
+		ctmseq , ctmno , ctmsepa , ctmname , ctmaddress , ctmtel1,
+		ctmtel2, ctmemail
+		, ctmfax , ctmcompanum, ctmhomepage , ctmstp ,
+		ctmdetail ,
 		ctmtrash
 	</sql>
 	<sql id="rsvtColumns">
@@ -26,7 +27,7 @@
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
-		<include refid="customerColumns" />
+		*
 
 		FROM customer
 
@@ -38,7 +39,7 @@
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
-		<include refid="customerColumns" />
+		*
 
 		FROM customer
 
@@ -62,7 +63,7 @@
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
-		<include refid="customerColumns" />
+		*
 
 		FROM customer
 
@@ -91,11 +92,14 @@
 		, #{ctmaddress}
 		,
 		#{ctmtel1}
-		,
-		#{ctmtel2}
+		, #{ctmtel2}
+		, #{ctmemail}
 		, #{ctmfax}
-		, #{ctmhomepage}
-		, #{ctmstp}
+		, #{ctmcompanum}
+		,
+		#{ctmhomepage}
+		,
+		#{ctmstp}
 		,
 		#{ctmdetail}
 		, 1

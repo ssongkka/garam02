@@ -807,7 +807,10 @@ function setVeCh() {
         $('#owner').val('미정');
     };
 
+    console.log("String.fromCharCode(160)    " + $('#ve04').children().text());
+
     if ($('#ve04').children().text() != String.fromCharCode(160)) {
+        console.log("String.fromCharCode(160)   " + $('#ve04').children().text());
         $('#id').val($('#ve04').children().text());
     } else {
         $('#id').val('미정');
@@ -968,6 +971,7 @@ function insertVe(tp) {
                 cache: false,
                 timeout: 600000,
                 success: function (r) {
+                    console.log("rrr뭐냐   " + r)
                     resolve(r);
                 },
                 error: (jqXHR) => {
@@ -1123,18 +1127,12 @@ function insertVe(tp) {
 
             vehicle = ve1 + ve2 + ve3 + ve4;
 
-            console.log(vehicle);
-            console.log(msg);
-
             const ownerVal = $('#owner').val();
             const owner = $('#owner option')
                 .filter(function () {
                     return this.value == ownerVal;
                 })
                 .data('value');
-
-            console.log(ownerVal);
-            console.log(owner);
 
             const idVal = $('#id').val();
             const id = $('#id option')
@@ -1143,18 +1141,12 @@ function insertVe(tp) {
                 })
                 .data('value');
 
-            console.log(idVal);
-            console.log(id);
-
             const compaVal = $('#company').val();
             const compa = $('#company option')
                 .filter(function () {
                     return this.value == compaVal;
                 })
                 .data('value');
-
-            console.log("asdddd  " + result);
-            console.log("asdddd  " + tp);
 
             if (msg.length > 0) {
                 alert(msg);

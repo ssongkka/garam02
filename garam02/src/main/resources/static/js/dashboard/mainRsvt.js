@@ -61,7 +61,7 @@ $("#ctmname").change(function () {
         dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
-            if (r[0] != null) {
+            if (r.length > 0) {
                 $('#ctmno').val('');
                 $('#radio0').prop('checked', true);
                 $('#ctmtel1').val('');
@@ -70,6 +70,8 @@ $("#ctmname").change(function () {
                 $('#ctmtel2').val('');
                 $('#ctmfax').val('');
                 $('#ctmaddress').val('');
+                $('#ctmemail').val('');
+                $('#ctmcompanum').val('');
                 $('#ctmhomepage').val('');
 
                 $('#ctmtrash').val(1);
@@ -90,10 +92,12 @@ $("#ctmname").change(function () {
                 $('#ctmtel2').val(r[0].ctmtel2);
                 $('#ctmfax').val(r[0].ctmfax);
                 $('#ctmaddress').val(r[0].ctmaddress);
+                $('#ctmemail').val(r[0].ctmemail);
+                $('#ctmcompanum').val(r[0].ctmcompanum);
                 $('#ctmhomepage').val(r[0].ctmhomepage);
             } else {
-                $('#ctmno').val('0');
-                $('#ctmtrash').val(2);
+                alert("고개정보가 없습니다.\n\n고객정보를 입력해주세요.")
+                $("#ctmname").focus();
             }
         },
         error: (jqXHR) => {
@@ -145,6 +149,8 @@ $(document).on('click', '#eraser', function () {
         $('#ctmtel2').val('');
         $('#ctmfax').val('');
         $('#ctmaddress').val('');
+        $('#ctmemail').val('');
+        $('#ctmcompanum').val('');
         $('#ctmhomepage').val('');
 
         const aaa = document.getElementsByClassName('dash-cal-con-item-t');
@@ -231,4 +237,45 @@ $(document).on('click', '#many-insert', function () {
     // window.screenLeft; var yPos = 10;
 
     window.open('/dashboard/rsvtMany', 'ot');
+});
+
+$(document).on('click', '#customerInsertMo', function () {
+    $('#customerModal').modal('show')
+    $('#modalName').focus();
+});
+$(document).on('click', '#btn-custom-modal', function () {
+
+    const url = "/rsvtmany/insertctm";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+    console.log($('[name=ctmsepa]').val());
+    const params = {
+        "ctmsepa": $('[name=ctmsepa]').val(),
+        "ctmname": $('[name=ctmname]').val(),
+        "ctmaddress": $('[name=ctmaddress]').val(),
+        "ctmstp": $('[name=ctmstp]').val(),
+        "ctmtel1": $('[name=ctmtel1]').val(),
+        "ctmtel2": $('[name=ctmtel2]').val(),
+        "ctmemail": $('[name=ctmemail]').val(),
+        "ctmfax": $('[name=ctmfax]').val(),
+        "ctmcompanum": $('[name=ctmcompanum]').val(),
+        "ctmhomepage": $('[name=ctmhomepage]').val(),
+        "ctmdetail": $('[name=ctmdetail]').val(),
+        "ctmtrash": 1
+    };
+
+    console.log(params);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            alert(r)
+        }
+    });
 });
