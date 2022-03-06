@@ -6,6 +6,21 @@ $(document).ready(function () {
     $("#std").val(day);
     $("#edd").val(day);
     $('#myModal').modal('show')
+
+    $('[data-toggle="tooltip"]').tooltip({
+        container: "body",
+        delay: {
+            "show": 0,
+            "hide": 111000
+        }
+    });
+    $('.tooltip-right').tooltip({
+        placement: 'right',
+        viewport: {
+            selector: 'body',
+            padding: 2
+        }
+    });
 });
 
 $(document).on('click', '#plus-btn', function () {
@@ -496,7 +511,7 @@ function get_Rsvt(ctmseq, stday, index) {
     return rtn;
 }
 
-$("#ctmname").change(function () {
+$(document).on('change', '#ctmname', function () {
 
     var val = $('#ctmname').val();
     var idNum = $('#name-cho option')
@@ -532,6 +547,8 @@ $("#ctmname").change(function () {
                 $('#ctmfax').val('');
                 $('#ctmaddress').val('');
                 $('#ctmhomepage').val('');
+                $('#ctmemail').val('');
+                $('#ctmcompanum').val('');
 
                 $('#ctmtrash').val(1);
                 $('#ctmno').val(r[0].ctmno);
@@ -552,6 +569,8 @@ $("#ctmname").change(function () {
                 $('#ctmfax').val(r[0].ctmfax);
                 $('#ctmaddress').val(r[0].ctmaddress);
                 $('#ctmhomepage').val(r[0].ctmhomepage);
+                $('#ctmemail').val(r[0].ctmemail);
+                $('#ctmcompanum').val(r[0].ctmcompanum);
             } else {
                 $('#ctmno').val('0');
                 $('#ctmtrash').val(2);

@@ -363,11 +363,7 @@ public class RsvtDTO {
 	}
 
 	public String getStt() {
-		if (stt == null || stt.equals("null")) {
-			return "미정";
-		} else {
-			return stt;
-		}
+		return stt;
 	}
 
 	public void setStt(String stt) {
@@ -375,11 +371,7 @@ public class RsvtDTO {
 	}
 
 	public String getEndt() {
-		if (endt == null || endt.equals("null")) {
-			return "미정";
-		} else {
-			return endt;
-		}
+		return endt;
 	}
 
 	public void setEndt(String endt) {

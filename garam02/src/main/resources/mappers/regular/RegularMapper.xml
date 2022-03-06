@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garam.web.regular.mapper.RegularMapper">
+
+	<sql id="regularColumns">
+		regseq, ctmno, conum, regstartd, regendd, regcompany,
+		regaddress, regperson, regphone, regcontract, regnum, regmoney,
+		regmemo, regtrash
+	</sql>
+
+	<select id="selctRegular"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+		SELECT
+
+		*
+
+		FROM
+
+		regular
+
+		<where>
+			<if test="regcompany != null">OR regcompany Like CONCAT('%',#{regcompany},'%') </if>
+		</where>
+	</select>
+
+	<select id="selctRegularInfo"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+		SELECT
+
+		*
+
+		FROM
+
+		regular
+
+		WHERE
+
+		conum = #{conum}
+	</select>
+
+	<select id="selectRegulardetail"
+		parameterType="com.garam.web.regular.dto.RegulardetailDTO"
+		resultType="com.garam.web.regular.dto.RegulardetailDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regulardetail
+
+		WHERE
+
+		conum = #{conum};
+
+	</select>
+
+	<select id="selectRegulardetailInfo"
+		parameterType="com.garam.web.regular.dto.RegulardetailDTO"
+		resultType="com.garam.web.regular.dto.RegulardetailDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regulardetail
+
+		WHERE
+
+		codenum = #{codenum};
+
+	</select>
+
+	<select id="selectRegularcourse"
+		parameterType="com.garam.web.regular.dto.RegularcourseDTO"
+		resultType="com.garam.web.regular.dto.RegularcourseDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regularcourse
+
+		WHERE
+
+		codenum = #{codenum}
+
+	</select>
+
+</mapper>
+

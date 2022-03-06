@@ -32,6 +32,32 @@
     width: 100%;
     height: 16.8rem;
     background: #e6e8ed;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+}
+.title1 {
+    flex: 1;
+    text-align: center;
+}
+
+.title2 {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 5rem;
+}
+
+.title2 blockquote {
+    padding: 0 1.5rem;
+}
+.titlejae {
+    color: #777;
+}
+
+#rgadd {
+    padding-left: 2rem;
 }
 
 .main-aside-item:nth-child(2) {
@@ -43,7 +69,45 @@
 
 .main-aside-item-in:nth-child(1) {
     flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.main-aside-item-in:nth-child(1) h3 {
+    padding: 0;
+    margin: 0;
 }
 .main-aside-item-in:nth-child(2) {
-    flex: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    gap: 2rem;
+}
+.main-aside-item-in:nth-child(2) h3 {
+    padding: 0;
+    margin: 0;
+}
+.main-aside-item-in:nth-child(2) blockquote {
+    padding: 0 1rem;
+    margin: 0;
+}
+
+.contens1 {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.constents11 {
+    display: flex;
+    justify-content: space-between;
+}
+.constents11 blockquote {
+    flex: 1;
+}
+.contens2 {
+    flex: 1;
 }

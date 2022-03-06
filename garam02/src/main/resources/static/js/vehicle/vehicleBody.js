@@ -627,8 +627,6 @@ function getVeInfo(carNumber) {
                     $('#ve13').html('<span>&nbsp;</span>');
                 }
 
-                console.log(r[0].special);
-
                 if (r[0].special) {
                     const sp = r[0]
                         .special
@@ -807,11 +805,14 @@ function setVeCh() {
         $('#owner').val('미정');
     };
 
-    console.log("String.fromCharCode(160)    " + $('#ve04').children().text());
+    console.log("String.fromCharCode(160)    " + $('#ve04').children());
+    const iiddddd = $('#ve04').children();
+    console.log("String.fromCharCode(160)    " + iiddddd[0]);
+    const iiddddd2 = $(iiddddd[0]).text();
+    console.log("String.fromCharCode(160)    " + iiddddd2);
 
-    if ($('#ve04').children().text() != String.fromCharCode(160)) {
-        console.log("String.fromCharCode(160)   " + $('#ve04').children().text());
-        $('#id').val($('#ve04').children().text());
+    if (iiddddd2 != String.fromCharCode(160)) {
+        $('#id').val(iiddddd2);
     } else {
         $('#id').val('미정');
     };

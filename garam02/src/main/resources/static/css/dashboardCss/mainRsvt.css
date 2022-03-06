@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-bottom: 3rem;
 }
 
 .rsvt-form {
@@ -18,17 +19,24 @@
 }
 
 .rsvt hr {
-    margin: 1rem 0;
+    margin-left: 3rem;
 }
 
 .rsvt h3 {
-    margin: 0 0 2rem;
+    margin: 0 0 0 1rem;
+}
+
+.form-group h5 {
+    height: 30px;
+    text-align: left;
+    display: flex;
+    align-items: center;
 }
 
 .rsvt-main {
     flex: 1;
     margin-right: 30rem;
-    padding: 2rem 15rem;
+    padding: 2rem 25rem;
 }
 
 .row {

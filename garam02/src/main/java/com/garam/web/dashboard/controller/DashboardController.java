@@ -64,6 +64,7 @@ public class DashboardController extends UiUtils {
 
 	@PostMapping(value = "/rsvtregister")
 	public String rsvt_Insert(@ModelAttribute("params") final RsvtDTO rsvtDTO, Model model) throws Exception {
+		System.out.println("미정은 어디냐   " + rsvtDTO.getEndt());
 
 		try {
 			int a = rsvtService.insertRsvt(rsvtDTO);
@@ -77,7 +78,7 @@ public class DashboardController extends UiUtils {
 			return ShowMgsRdrt("시스템에 문제가 발생하였습니다", "/dashboard", Method.GET, model);
 		}
 
-		return ShowMgsRdrt("게시글 등록이 완료되었습니다.", "/dashboard", Method.GET, model);
+		return ShowMgsRdrt("운행예약 완료", "/dashboard", Method.GET, model);
 	}
 
 	@PostMapping(value = "/rsvtmanyregister")

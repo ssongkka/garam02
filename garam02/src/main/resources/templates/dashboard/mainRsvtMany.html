@@ -75,17 +75,35 @@
                     <input type="hidden" id="ctmtrash" name="ctmtrash" value="2">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="form-group col-xs-5">
+                            <div class="form-group col-xs-6">
                                 <label class="radio-inline">
-                                    <input type="radio" name="ctmsepa" id="radio0" value="0" checked="checked">
+                                    <input
+                                        type="radio"
+                                        id="radio0"
+                                        name="radio"
+                                        value="0"
+                                        readonly="readonly"
+                                        disabled="disabled">
                                     일반
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="ctmsepa" id="radio1" value="1">
+                                    <input
+                                        type="radio"
+                                        id="radio1"
+                                        name="radio"
+                                        readonly="readonly"
+                                        disabled="disabled"
+                                        value="1">
                                     학단
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="ctmsepa" id="radio2" value="2">
+                                    <input
+                                        type="radio"
+                                        id="radio2"
+                                        name="radio"
+                                        readonly="readonly"
+                                        disabled="disabled"
+                                        value="2">
                                     거래처
                                 </label>
                             </div>
@@ -96,10 +114,10 @@
                                 <label for="ctmname">이름&#42;</label>
                                 <input
                                     type="text"
+                                    onfocus="this.select()"
                                     list="name-cho"
                                     class="form-control input-sm"
                                     id="ctmname"
-                                    name="ctmname"
                                     placeholder="이름을 입력해주세요."
                                     value=""
                                     required="required">
@@ -115,10 +133,7 @@
                                 <a
                                     id="ername"
                                     class="fas fa-times-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                                    data-toggle="tooltip"
-                                    data-placement="bottom"
-                                    data-trigger="hover"
-                                    title="고객정보 지우기"></a>
+                                    title="지우기"></a>
                             </div>
                             <div class="form-group col-xs-6">
                                 <i class="fas fa-phone-alt"></i>
@@ -128,10 +143,8 @@
                                     list="tel1-cho"
                                     class="form-control input-sm"
                                     id="ctmtel1"
-                                    name="ctmtel1"
                                     placeholder="전화번호 형식으로 입력"
-                                    value=""
-                                    required="required">
+                                    readonly="readonly">
                                 <datalist id="tel1-cho"></datalist>
                             </div>
                         </div>
@@ -142,9 +155,9 @@
                                     <label for="ctmstp">출발지</label>
                                     <input
                                         type="text"
+                                        onfocus="this.select()"
                                         class="form-control input-sm"
                                         id="ctmstp"
-                                        name="ctmstp"
                                         placeholder="출발지가 고정된 예약자일 경우 입력"></input>
                                 </div>
                                 <div class="form-group col-xs-12 col-lg-6">
@@ -152,53 +165,69 @@
                                     <label for="ctmdetail">메모</label>
                                     <input
                                         type="text"
+                                        readonly="readonly"
                                         class="form-control input-sm"
-                                        id="ctmdetail"
-                                        name="ctmdetail"></input>
+                                        id="ctmdetail">
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-xs-12 col-lg-6">
                                     <i class="fas fa-phone-alt"></i>
                                     <label for="ctmtel2">비상연락처</label>
                                     <input
                                         type="text"
+                                        readonly="readonly"
                                         class="form-control input-sm"
-                                        id="ctmtel2"
-                                        name="ctmtel2"
-                                        placeholder="010-0000-0000">
+                                        id="ctmtel2">
                                 </div>
-                                <div class="form-group col-xs-6">
-                                    <i class="fas fa-fax"></i>
-                                    <label for="ctmfax">팩스</label>
-                                    <input
-                                        type="text"
-                                        class="form-control input-sm"
-                                        id="ctmfax"
-                                        name="ctmfax"
-                                        placeholder="팩스 번호를 입력해주세요.">
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="form-group col-xs-12 col-lg-6">
                                     <i class="fas fa-map"></i>
                                     <label for="ctmaddress">주소</label>
                                     <input
                                         type="text"
+                                        readonly="readonly"
                                         class="form-control input-sm"
-                                        id="ctmaddress"
-                                        name="ctmaddress"
-                                        placeholder="주소를 입력해주세요.">
+                                        id="ctmaddress">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-lg-6">
+                                    <i class="far fa-envelope"></i>
+                                    <label for="ctmemail">이메일</label>
+                                    <input
+                                        type="text"
+                                        readonly="readonly"
+                                        class="form-control input-sm"
+                                        id="ctmemail">
+                                </div>
+                                <div class="form-group col-xs-12 col-lg-6">
+                                    <i class="far fa-building"></i>
+                                    <label for="ctmcompanum">사업자등록번호</label>
+                                    <input
+                                        type="email"
+                                        readonly="readonly"
+                                        class="form-control input-sm"
+                                        id="ctmcompanum">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-lg-6">
+                                    <i class="fas fa-fax"></i>
+                                    <label for="ctmfax">팩스</label>
+                                    <input
+                                        type="text"
+                                        readonly="readonly"
+                                        class="form-control input-sm"
+                                        id="ctmfax">
                                 </div>
                                 <div class="form-group col-xs-12 col-lg-6">
                                     <i class="fas fa-home"></i>
                                     <label for="ctmhomepage">홈페이지</label>
                                     <input
                                         type="text"
+                                        readonly="readonly"
                                         class="form-control input-sm"
-                                        id="ctmhomepage"
-                                        name="ctmhomepage"
-                                        placeholder="홈페이지 주소를 입력해주세요.">
+                                        id="ctmhomepage">
                                 </div>
                             </div>
                         </div>

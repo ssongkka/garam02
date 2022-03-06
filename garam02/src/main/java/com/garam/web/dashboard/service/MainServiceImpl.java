@@ -1,6 +1,5 @@
 package com.garam.web.dashboard.service;
 
-import java.io.Console;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -74,48 +73,18 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public int insertRsvt(RsvtDTO rsvtDTO) throws Exception {
-
-		int rtn = 0;
-
-		if (rsvtDTO.getCtmaddress().equals("")) {
-			rsvtDTO.setCtmaddress(null);
-		}
-		if (rsvtDTO.getCtmtel1().equals("")) {
-			rsvtDTO.setCtmtel1(null);
-		}
-		if (rsvtDTO.getCtmtel2().equals("")) {
-			rsvtDTO.setCtmtel2(null);
-		}
-		if (rsvtDTO.getCtmfax().equals("")) {
-			rsvtDTO.setCtmfax(null);
-		}
-		if (rsvtDTO.getCtmhomepage().equals("")) {
-			rsvtDTO.setCtmhomepage(null);
-		}
-		if (rsvtDTO.getCtmstp().equals("")) {
-			rsvtDTO.setCtmstp(null);
-		}
-		if (rsvtDTO.getCtmdetail().equals("")) {
-			rsvtDTO.setCtmdetail(null);
-		}
-
+		System.out.println("미정은 어디냐21   " + rsvtDTO.getEndt());
 		if (rsvtDTO.getEndt().equals("")) {
+			System.out.println("미정은 어디냐22   " + rsvtDTO.getEndt());
 			rsvtDTO.setEndt(null);
+			System.out.println("미정은 어디냐23   " + rsvtDTO.getEndt());
 		}
+		System.out.println("미정은 어디냐24   " + rsvtDTO.getEndt());
+		rsvtDTO.setRsvt(get_Rsvt(rsvtDTO.getStday().toString()));
+		System.out.println("미정은 어디냐25   " + rsvtDTO.getEndt());
+		int rtn = rsvtMapper.insertRsvt(rsvtDTO);
+		System.out.println("미정은 어디냐26   " + rsvtDTO.getEndt());
 
-		if (rsvtDTO.getRsvt() == null || rsvtDTO.getRsvt().equals("")) {
-			rsvtDTO.setRsvt(get_Rsvt(rsvtDTO.getStday().toString()));
-			if (rsvtDTO.getCtmtrash() > 1) {
-				rsvtDTO.setCtmno(get_Ctmno());
-				int a = rsvtMapper.insertCtm(rsvtDTO);
-				int b = rsvtMapper.insertRsvt(rsvtDTO);
-				rtn = a * b;
-			} else {
-				rtn = rsvtMapper.insertRsvt(rsvtDTO);
-			}
-
-		} else {
-		}
 		return rtn;
 	}
 

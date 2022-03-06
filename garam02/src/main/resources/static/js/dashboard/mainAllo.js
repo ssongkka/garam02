@@ -1420,8 +1420,20 @@ function getAlloList(day) {
                             htmls += '<small><i class="fas fa-map-pin">&nbsp;</i>' + r[i].rsvpstp + '</small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<small><i class="far fa-clock">&nbsp;</i>' + r[i].stt + '&nbsp;&#47;&nbsp;' + r[i].endt +
-                                    '</small>';
+                            let stttt = '';
+                            let etttt = '';
+                            if (r[i].stt) {
+                                stttt = r[i].stt;
+                            } else {
+                                stttt = '미정'
+                            }
+                            if (r[i].endt) {
+                                etttt = r[i].endt;
+                            } else {
+                                etttt = '미정'
+                            }
+                            htmls += '<small><i class="far fa-clock">&nbsp;</i>' + stttt + '&nbsp;&#47;&nbsp;' +
+                                    etttt + '</small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
 
