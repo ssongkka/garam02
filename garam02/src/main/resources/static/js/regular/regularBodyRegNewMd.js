@@ -1,15 +1,14 @@
-const calen_Rsvt = new cal();
-
 $(document).ready(function () {
-    $("#ctmname").focus();
+    getRegularAll();
+});
 
+$(document).on('click', '#md-rgNew', function () {
     $('#user-plus').hide();
     $('#userPlus').attr(
         'class',
         'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
     );
-
-    dateInput();
+    $('#modal-rginsert').modal('show');
 });
 
 $(document).on('click', '#btnUserPlus', function () {
@@ -30,10 +29,52 @@ $(document).on('click', '#btnUserPlus', function () {
     }
 });
 
-function setStEdDay(day) {
-    $('#stday').val(day);
-    $('#endday').val(day);
-}
+$(document).on('click', '#eraser', function () {
+
+    if (confirm('입력 내용을 지우시겠습니까?')) {
+        $('#ctmno').val('');
+
+        $('#ctmname').val('');
+        $('#ctmtel1').text('');
+        $('#ctmstp').text('');
+        $('#ctmdetail').text('');
+        $('#ctmtel2').text('');
+        $('#ctmfax').text('');
+        $('#ctmaddress').text('');
+        $('#ctmemail').text('');
+        $('#ctmcompanum').text('');
+        $('#ctmhomepage').text('');
+        $('#ctmhomepage').attr('href', '');
+
+        const aaa = document.getElementsByClassName('dash-cal-con-item-t');
+        const bbb = aaa[0].getElementsByTagName('div')[0];
+        const ccc = bbb.childNodes[1];
+        const ddd = ccc.value;
+
+        $('#rsvt').val('');
+
+        $('#stday').val(ddd);
+        $('#endday').val(ddd);
+
+        $('#stt').val('08:30');
+        $('#endt').val('08:30');
+
+        $('#bus').val('대형');
+        $('#num').val('1');
+
+        $('#rsvpstp').val('');
+        $('#desty').val('');
+        $('#rsvtdetail').val('');
+        $('#cont').val('포함');
+        $('#conm').val('');
+
+        $('#daynight').text('');
+
+        $('html').scrollTop(0);
+
+        $("#ctmname").focus();
+    }
+});
 
 $("#ctmname").change(function () {
 
@@ -126,83 +167,6 @@ $("#ctmname").change(function () {
     });
 });
 
-$(document).on('change', '#stday', function () {
-    $("#endday").val($("#stday").val())
-    dateInput();
-});
-
-$(document).on('change', '#endday', function () {
-    dateInput();
-});
-
-function dateInput() {
-    const origin = $("#endday").val();
-    const std = $("#stday").val();
-    const edd = $("#endday").val();
-
-    const beet = betweenDateNum(std, edd);
-
-    if (beet > 1) {
-        $("#daynight").text(' (' + (
-            beet - 1
-        ) + '박' + beet + '일)');
-        $("#daynight").css('color', 'blue');
-    } else if (beet == 1) {
-        $("#daynight").text(' (당일)');
-        $("#daynight").css('color', 'blue');
-    } else {
-        $("#endday").val(origin);
-        $("#daynight").text('  도착일을 확인해주세요!!!');
-        $("#daynight").css('color', 'red');
-    }
-}
-
-$(document).on('click', '#eraser', function () {
-
-    if (confirm('입력 내용을 지우시겠습니까?')) {
-        $('#ctmno').val('0');
-
-        $('#ctmname').val('');
-        $('#ctmtel1').text('');
-        $('#ctmstp').text('');
-        $('#ctmdetail').text('');
-        $('#ctmtel2').text('');
-        $('#ctmfax').text('');
-        $('#ctmaddress').text('');
-        $('#ctmemail').text('');
-        $('#ctmcompanum').text('');
-        $('#ctmhomepage').text('');
-        $('#ctmhomepage').attr('href', '');
-
-        const aaa = document.getElementsByClassName('dash-cal-con-item-t');
-        const bbb = aaa[0].getElementsByTagName('div')[0];
-        const ccc = bbb.childNodes[1];
-        const ddd = ccc.value;
-
-        $('#rsvt').val('');
-
-        $('#stday').val(ddd);
-        $('#endday').val(ddd);
-
-        $('#stt').val('08:30');
-        $('#endt').val('08:30');
-
-        $('#bus').val('대형');
-        $('#num').val('1');
-
-        $('#rsvpstp').val('');
-        $('#desty').val('');
-        $('#rsvtdetail').val('');
-        $('#cont').val('포함');
-        $('#conm').val('');
-
-        $('#daynight').text('');
-
-        $('html').scrollTop(0);
-
-        $("#ctmname").focus();
-    }
-});
 $(document).on('click', '#ername', function () {
     ernm();
 });
@@ -218,7 +182,7 @@ $(document).on('keydown', 'input', function (eInner) {
 
 function ernm() {
     $('#radio0').prop('checked', true);
-    $('#ctmno').val('0');
+    $('#ctmno').val('');
     $('#ctmtrash').val(2);
 
     $('#ctmname').val('');
@@ -232,68 +196,27 @@ function ernm() {
     $('#ctmhomepage').attr('href', '');
 }
 
-$(document).on('click', '#insert-rsvt', function () {
-
-    $('#conm').val($('#conm').val().replaceAll(',', ''));
-    switch ($('#cont').val()) {
-        case '포함':
-            $('#numm').val(Math.floor(($('#conm').val() / 1.1) / $('#num').val()));
-            break;
-        case '카드':
-            $('#numm').val(Math.floor(($('#conm').val() / optCard) / $('#num').val()));
-            break;
-        default:
-            $('#numm').val(Math.floor($('#conm').val() / $('#num').val()));
-            break;
-    }
-    if ($('#ctmname').val() && $('#ctmtel1').val()) {
-        formRsvt.submit();
-    } else {
-        alert("고객정보를 입력해주세요.\n\n고객이름과 연락처는 꼭 입력하셔야합니다.");
-    }
-});
-$(document).on('click', '#many-insert', function () {
-    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
-    // window.screenLeft; var yPos = 10;
-
-    window.open('/dashboard/rsvtMany', 'ot');
-});
-
-$(document).on('click', '#customerInsertMo', function () {
-    $('#customerModal').modal('show')
-    $('#modalName').focus();
-});
-$(document).on('click', '#btn-custom-modal', function () {
-
-    const url = "/rsvtmany/insertctm";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-    console.log($('[name=ctmsepa]').val());
-    const params = {
-        "ctmsepa": $('[name=ctmsepa]').val(),
-        "ctmname": $('[name=ctmname]').val(),
-        "ctmaddress": $('[name=ctmaddress]').val(),
-        "ctmstp": $('[name=ctmstp]').val(),
-        "ctmtel1": $('[name=ctmtel1]').val(),
-        "ctmtel2": $('[name=ctmtel2]').val(),
-        "ctmemail": $('[name=ctmemail]').val(),
-        "ctmfax": $('[name=ctmfax]').val(),
-        "ctmcompanum": $('[name=ctmcompanum]').val(),
-        "ctmhomepage": $('[name=ctmhomepage]').val(),
-        "ctmdetail": $('[name=ctmdetail]').val(),
-        "ctmtrash": 1
-    };
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-        success: function (r) {
-            alert(r)
+$(document).on('change', '#chsame', function () {
+    if ($('#chsame').is(':checked')) {
+        if ($('#ctmno').val().length > 0) {
+            $('#regcompany').val($('#ctmname').val());
+            $('#regaddress').val($('#ctmaddress').text());
+            $('#regphone').val($('#ctmtel1').text());
+        } else {
+            $('#chsame').prop('checked', false);
+            alert("거래처 정보를 먼저 불러와 주세요.");
         }
-    });
+    } else {
+        $('#regcompany').val('');
+        $('#regaddress').val('');
+        $('#regphone').val('');
+    }
+});
+
+$(document).on('click', '#btn-rginsert', function () {
+    $('#regmoney').val($('#regmoney').val().replaceAll(',', ''));
+    console.log($('#regmoney').val());
+    if ($('#ctmno').val().length > 0) {
+        formReg.submit();
+    }
 });

@@ -41,6 +41,7 @@ input:focus {
 .table {
     font-size: 1.3rem;
     background-color: #fff;
+    margin: 0;
 }
 
 .nav-pills > li.active > a,

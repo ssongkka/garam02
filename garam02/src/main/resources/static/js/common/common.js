@@ -475,6 +475,26 @@ function tbChoice(id) {
         .css('color', 'white');
 }
 
+function tbChoiceSe(id) {
+    $('#' + id)
+        .parents()
+        .children('tr')
+        .children('td')
+        .css('background', 'none');
+    $('#' + id)
+        .parents()
+        .children('tr')
+        .children('td')
+        .css('color', 'black');
+
+    $('#' + id)
+        .children('td')
+        .css('background', tableCh);
+    $('#' + id)
+        .children('td')
+        .css('color', 'white');
+}
+
 //숫자만남기고제거
 function onlynumberic(event) {
     event.target.value = event

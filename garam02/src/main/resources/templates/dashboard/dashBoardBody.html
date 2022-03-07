@@ -15,29 +15,22 @@
                     </form>
                 </div>
             </div>
-            <div class="hd-icon">
-                <div>
-                    <i class="far fa-calendar-plus"></i>
-                    <div>빠른예약</div>
-                </div>
-                <div>
-                    <i class="fas fa-bus"></i>
-                    <div>배차</div>
-                </div>
-            </div>
             <div class="hd-user">
                 <div id="detail-user">
-                    <i class="fas fa-user" th:text="${user.position}+'&nbsp;'+${user.name}"></i>
-                </div>
+                    <span th:text="${user.company}+'&nbsp;'+${user.position}+'&nbsp;'+${user.name}"></span></div>
                 <div class="fas fa-bars" id="menu-btn"></div>
             </div>
-            <div class="deail-form">
-                <div>123145124</div>
-                <div>123145124</div>
-                <div>123145124</div>
-                <div>123145124</div>
-                <div>123145124</div>
-                <div>123145124</div>
+            <div class="deail-form card">
+                <div class="deail-form-item">
+                    <a class="fas fa-user-circle">
+                        나의 정보
+                    </a>
+                </div>
+                <div class="deail-form-item">123145124</div>
+                <div class="deail-form-item">123145124</div>
+                <div class="deail-form-item">123145124</div>
+                <div class="deail-form-item">123145124</div>
+                <div class="deail-form-item">123145124</div>
             </div>
         </header>
         <aside class="aside">

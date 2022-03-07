@@ -11,9 +11,11 @@ public interface RegularService {
 
 	public List<RegularDTO> selctRegularInfo(RegularDTO regularDTO) throws Exception;
 
-	public List<RegulardetailDTO> selectRegulardetail(RegulardetailDTO regulardetailDTO) throws Exception;
+	public List<RegulardetailDTO> selectRegulardetail(RegularDTO regularDTO) throws Exception;
 
-	public List<RegulardetailDTO> selectRegulardetailInfo(RegulardetailDTO regulardetailDTO) throws Exception;
+	public List<RegulardetailDTO> selectRegulardetailInfo(RegularDTO regularDTO) throws Exception;
 
-	public List<RegularcourseDTO> selectRegularcourse(RegularcourseDTO regularcourseDTO) throws Exception;
+	public List<RegularcourseDTO> selectRegularcourse(RegularDTO regularDTO) throws Exception;
+
+	public int insertRegular(RegularDTO regularDTO) throws Exception;
 }

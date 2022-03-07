@@ -36,22 +36,22 @@ public class RestRegularController {
 	}
 
 	@PostMapping(value = "/regRegularde")
-	public List<RegulardetailDTO> regRegularde(@RequestBody RegulardetailDTO regulardetailDTO) throws Exception {
-		List<RegulardetailDTO> list = regularService.selectRegulardetail(regulardetailDTO);
+	public List<RegulardetailDTO> regRegularde(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegulardetailDTO> list = regularService.selectRegulardetail(regularDTO);
 
 		return list;
 	}
 
 	@PostMapping(value = "/regRegulardeinfo")
-	public List<RegulardetailDTO> regRegulardeinfo(@RequestBody RegulardetailDTO regulardetailDTO) throws Exception {
-		List<RegulardetailDTO> list = regularService.selectRegulardetailInfo(regulardetailDTO);
+	public List<RegulardetailDTO> regRegulardeinfo(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegulardetailDTO> list = regularService.selectRegulardetailInfo(regularDTO);
 
 		return list;
 	}
 
 	@PostMapping(value = "/regRegularcourse")
-	public List<RegularcourseDTO> regRegularcourse(@RequestBody RegularcourseDTO regularcourseDTO) throws Exception {
-		List<RegularcourseDTO> list = regularService.selectRegularcourse(regularcourseDTO);
+	public List<RegularcourseDTO> regRegularcourse(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularcourseDTO> list = regularService.selectRegularcourse(regularDTO);
 
 		return list;
 	}

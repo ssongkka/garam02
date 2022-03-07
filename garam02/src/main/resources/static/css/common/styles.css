@@ -8,6 +8,7 @@
 :root {
     --main-color: #62207a;
     --sub-color: #DCC4DC;
+    --font-color: #ffffff;
     --color-datk: #1D2231;
     --text-grey: #8390A2;
     --side-size: 250px;
@@ -22,7 +23,7 @@
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    /* transition: 0.2s linear; */
+    transition: 0.1s linear;
 }
 
 html {
@@ -45,9 +46,6 @@ input[type="checkbox"] {
     /* width: 1.5rem; */
     /* height: 1.5rem; */
     cursor: pointer;
-}
-input[type=checkbox]:checked + label {
-    background: var(--main-color);
 }
 
 input[type="text"] {
@@ -264,6 +262,10 @@ th {
 
 .cuor-p {
     cursor: pointer;
+}
+
+.datacurr {
+    text-align: right;
 }
 
 @media (max-width:992px) {

@@ -41,12 +41,30 @@
 	</select>
 
 	<select id="selectRegulardetail"
-		parameterType="com.garam.web.regular.dto.RegulardetailDTO"
-		resultType="com.garam.web.regular.dto.RegulardetailDTO">
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
 
-		*
+		rdseq, conum, codenum, rdname, rdbus, rdgonum,
+		rdoutnum, id, rdmoney, rdaltm, rddow, rdmemo, rdtrash,
+		IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo WHERE employeeinfo.id =
+		regulardetail.id),
+		regulardetail.id) AS name,
+		IFNULL((SELECT
+		employeeinfo.phone1 FROM
+		employeeinfo WHERE employeeinfo.id =
+		regulardetail.id),
+		regulardetail.id) AS phone1,
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.id
+		=
+		regulardetail.id),
+		regulardetail.id) AS
+		vehicle
 
 		FROM
 
@@ -59,12 +77,30 @@
 	</select>
 
 	<select id="selectRegulardetailInfo"
-		parameterType="com.garam.web.regular.dto.RegulardetailDTO"
-		resultType="com.garam.web.regular.dto.RegulardetailDTO">
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
 
-		*
+		rdseq, conum, codenum, rdname, rdbus, rdgonum,
+		rdoutnum, id, rdmoney, rdaltm, rddow, rdmemo, rdtrash,
+		IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo WHERE employeeinfo.id =
+		regulardetail.id),
+		regulardetail.id) AS name,
+		IFNULL((SELECT
+		employeeinfo.phone1 FROM
+		employeeinfo WHERE employeeinfo.id =
+		regulardetail.id),
+		regulardetail.id) AS phone1,
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.id
+		=
+		regulardetail.id),
+		regulardetail.id) AS
+		vehicle
 
 		FROM
 
@@ -77,8 +113,8 @@
 	</select>
 
 	<select id="selectRegularcourse"
-		parameterType="com.garam.web.regular.dto.RegularcourseDTO"
-		resultType="com.garam.web.regular.dto.RegularcourseDTO">
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
 
@@ -92,7 +128,39 @@
 
 		codenum = #{codenum}
 
+		ORDER BY
+		rct
 	</select>
+
+	<insert id="insertRegular"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		INSERT
+
+		INTO
+
+		regular
+
+		VALUES
+
+		(
+		null,
+		#{ctmno},
+		#{conum},
+		#{regstartd},
+		#{regendd},
+		#{regcompany},
+		#{regaddress},
+		#{regperson},
+		#{regphone},
+		#{regcontract},
+		#{regnum},
+		#{regmoney},
+		#{regmemo},
+		1
+		)
+
+	</insert>
 
 </mapper>
 

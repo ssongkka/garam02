@@ -2,10 +2,34 @@ $(document).ready(function () {
     getRegularAll();
 });
 
+$(document).on('click', '#show-aside', function () {
+    let navbar = document.querySelector('.nomal-aside');
+    navbar
+        .classList
+        .toggle('active');
+});
+
 $(document).on('click', '#btn-x', function () {
+    erRc();
     getRegularAll();
     $('#reg-search').val('');
 });
+
+function erRc() {
+    $('#rdname').text('회사');
+    $('#rdbus').text('차량');
+    $('#rddow').text('운행요일');
+    $('#rdgogo').text('출근');
+    $('#rdoutout').text('퇴근');
+    $('#rdid').html('&nbsp;');
+    $('#rdmoney').text(0);
+    $('#rdaltm').text(0);
+    $('#rdmemo').html('&nbsp;');
+
+    $('#rg-tb-de').html(`<tr><td colspan="6">정보 없음</td></tr>`);
+
+    $('#rg-tb-rc').html(`<tr><td colspan="5">정보 없음</td></tr>`);
+}
 
 $(document).on('keydown', 'input', function (eInner) {
     if ($('#reg-search').is(":focus")) {
@@ -18,26 +42,40 @@ $(document).on('keydown', 'input', function (eInner) {
 });
 
 function getRegularInfo(params) {
+    $('#rdname').text('회사');
+    $('#rdbus').text('차량');
+    $('#rddow').text('운행요일');
+    $('#rdgogo').text('출근');
+    $('#rdoutout').text('퇴근');
+    $('#rdid').html('&nbsp;');
+    $('#rdmoney').text(0);
+    $('#rdaltm').text(0);
+    $('#rdmemo').html('&nbsp;');
+
+    tbChoiceSe(params);
     setConnum(params)
+        .then(LoadingWithMask)
         .then(getRegular)
-        .then(getRegularDeAll);
+        .then(getRegularDeAll)
+        .then(closeLoadingWithMask);
     function setConnum(idd) {
         return new Promise(function (resolve, reject) {
             $('#rgconum').val(idd);
-            console.log($('#rgconum').val());
             resolve();
         })
     }
 }
 
 function getRegularDeInfo(params) {
+    tbChoiceSe(params);
     setCodenum(params)
+        .then(LoadingWithMask)
         .then(getRegularDe)
-        .then(getRegularCource);
+        .then(getRegularCource)
+        .then(closeLoadingWithMask);
     function setCodenum(idd) {
         return new Promise(function (resolve, reject) {
             $('#regcodenum').val(idd);
-            console.log($('#regcodenum').val());
             resolve();
         })
     }
@@ -98,6 +136,14 @@ function getRegularAll(name) {
                             break;
                     }
                 }
+
+                if (htmls1.length < 1) {
+                    htmls1 = `<tr><td colspan="3">정보 없음</td></tr>`;
+                }
+                if (htmls2.length < 1) {
+                    htmls2 = `<tr><td colspan="2">정보 없음</td></tr>`;
+                }
+
                 $('#rg-tb-com-go').html(htmls1);
                 $('#rg-tb-com-end').html(htmls2);
                 $('#bggo').text(cnt1);
@@ -174,7 +220,7 @@ function getRegularDeAll(result) {
                 for (let i = 0; i < r.length; i++) {
                     htmls += '<tr id="' + r[i].codenum + '" onclick="getRegularDeInfo(this.id)" style="curso' +
                             'r:pointer">';
-                    htmls += '<td>';
+                    htmls += '<td class="hidden-xs">';
                     htmls += (i + 1);
                     htmls += '</td>';
                     htmls += '<td>';
@@ -183,15 +229,15 @@ function getRegularDeAll(result) {
                     htmls += '<td>';
                     htmls += r[i].rdbus;
                     htmls += '</td>';
-                    htmls += '<td>';
+                    htmls += '<td class="hidden-xs">';
                     htmls += r[i].rdgonum;
                     htmls += '회</td>';
-                    htmls += '<td>';
+                    htmls += '<td class="hidden-xs">';
                     htmls += r[i].rdoutnum;
                     htmls += '회</td>';
                     if (r[i].id) {
                         htmls += '<td>';
-                        htmls += r[i].id;
+                        htmls += r[i].name;
                         htmls += '</td>';
                     } else {
                         htmls += '<td>';
@@ -200,6 +246,11 @@ function getRegularDeAll(result) {
                     }
                     htmls += '</tr>'
                 }
+
+                if (htmls.length < 1) {
+                    htmls = `<tr><td colspan="6">정보 없음</td></tr>`;
+                }
+
                 $('#rg-tb-de').html(htmls);
                 resolve();
             },
@@ -230,16 +281,58 @@ function getRegularDe(result) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
-                $('#rdname').text(r[0].rdname);
+                $('#rdname').html(r[0].rdname);
                 $('#rdbus').text(r[0].rdbus);
-                $('#rddow').text(r[0].rddow);
+
+                const dow = r[0]
+                    .rddow
+                    .split('');
+
+                let ddow = '';
+
+                for (let i = 0; i < dow.length; i++) {
+                    switch (dow[i]) {
+                        case '1':
+                            ddow += '월';
+                            break;
+                        case '2':
+                            ddow += '화';
+                            break;
+                        case '3':
+                            ddow += '수';
+                            break;
+                        case '4':
+                            ddow += '목';
+                            break;
+                        case '5':
+                            ddow += '금';
+                            break;
+                        case '6':
+                            ddow += '토';
+                            break;
+                        case '0':
+                            ddow += '일';
+                            break;
+                    }
+                }
+
+                $('#rddow').text(ddow);
+                $('#rdgogo').text('출근 ' + r[0].rdgonum + '회');
+                $('#rdoutout').text('퇴근 ' + r[0].rdoutnum + '회');
 
                 if (r[0].id) {
-                    $('#rdid').text(r[0].id);
+                    $('#rdid').html(r[0].name);
                 } else {
-                    $('#rdid').text('');
+                    $('#rdid').html('&nbsp;');
                 }
-                // $('#rdidtel').text(r[0].regnum);
+
+                if (r[0].phone1) {
+                    $('#rdidtel').text(r[0].phone1);
+                    $('#rdidtel').attr('href', 'tel:' + r[0].phone1);
+                } else {
+                    $('#rdidtel').html(`&nbsp;`);
+                }
+
                 if (r[0].rdmoney) {
                     $('#rdmoney').text(AddComma(r[0].rdmoney));
                 } else {
@@ -250,6 +343,12 @@ function getRegularDe(result) {
                     $('#rdaltm').text(AddComma(r[0].rdaltm));
                 } else {
                     $('#rdaltm').text(0);
+                }
+
+                if (r[0].rdmemo) {
+                    $('#rdmemo').text(r[0].rdmemo);
+                } else {
+                    $('#rdmemo').html(`&nbsp;`);
                 }
                 resolve();
             }
@@ -277,27 +376,117 @@ function getRegularCource(result) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
-                let htmls = '';
-                for (let i = 0; i < r.length; i++) {
-                    htmls += '<tr>';
-                    htmls += '<td>';
-                    htmls += (i + 1);
-                    htmls += '</td>';
-                    htmls += '<td>'
-                    htmls += r[i].rcsepa;
-                    htmls += '</td>'
-                    htmls += '<td>'
-                    htmls += r[i].rct;
-                    htmls += '</td>'
-                    htmls += '<td>'
-                    htmls += r[i].rcstp;
-                    htmls += '</td>'
-                    htmls += '<td>'
-                    htmls += r[i].rcsepa;
-                    htmls += '</td>'
-                    htmls += '</tr>'
+
+                let sepa = new Array();
+                let sepac = new Array();
+                let cnt = 0;
+
+                for (let k = 0; k < r.length; k++) {
+                    if (k == 0) {
+                        sepa.push(r[k].rcsepa);
+                        cnt++;
+                    } else if (k == r.length - 1) {
+                        sepac.push(cnt);
+                        if (r[k - 1].rcsepa != r[k].rcsepa) {
+                            sepa.push(r[k].rcsepa);
+                            sepac.push(1);
+                        } else {
+                            sepac.push(cnt);
+                        }
+                    } else {
+                        if (r[k - 1].rcsepa != r[k].rcsepa) {
+                            sepa.push(r[k].rcsepa);
+                            cnt = 1;
+                        } else {
+                            cnt++;
+                        }
+                    }
                 }
-                console.log('asdads  ' + htmls);
+
+                let htmls = '';
+                let cntsepa = 0;
+                let ccnntt = 1;
+                for (let i = 0; i < r.length; i++) {
+                    if (ccnntt == 1) {
+                        htmls += '<tr>';
+                        let aaa = '';
+                        if (r[i].rcsepa == 1) {
+                            aaa = '출근';
+                            htmls += '<td rowspan="' + sepac[cntsepa] + '" class="hidden-xs">'
+                            htmls += aaa;
+                            htmls += '</td>'
+                            htmls += '<td class="hidden-xs">';
+                            htmls += ccnntt;
+                            htmls += '</td>';
+                            htmls += '<td class="">'
+                            htmls += r[i].rct;
+                            htmls += '</td>'
+                            htmls += '<td class="">'
+                            htmls += r[i].rcstp;
+                            htmls += '</td>'
+                            htmls += '<td class="">'
+                            if (r[i].rcmemo) {
+                                htmls += r[i].rcmemo;
+                            } else {
+                                htmls += '';
+                            }
+                            htmls += '</td>'
+                            htmls += '</tr>'
+                        } else {
+                            aaa = '퇴근';
+                            htmls += '<td rowspan="' + sepac[cntsepa] + '" class="hidden-xs">'
+                            htmls += aaa;
+                            htmls += '</td>'
+                            htmls += '<td class="hidden-xs">';
+                            htmls += ccnntt;
+                            htmls += '</td>';
+                            htmls += '<td class="">'
+                            htmls += r[i].rct;
+                            htmls += '</td>'
+                            htmls += '<td class="">'
+                            htmls += r[i].rcstp;
+                            htmls += '</td>'
+                            htmls += '<td class="">'
+                            if (r[i].rcmemo) {
+                                htmls += r[i].rcmemo;
+                            } else {
+                                htmls += '';
+                            }
+                            htmls += '</td>'
+                            htmls += '</tr>'
+                        }
+                    } else {
+                        htmls += '<tr>';
+                        htmls += '<td class="hidden-xs">';
+                        htmls += ccnntt;
+                        htmls += '</td>';
+                        htmls += '<td>'
+                        htmls += r[i].rct;
+                        htmls += '</td>'
+                        htmls += '<td>'
+                        htmls += r[i].rcstp;
+                        htmls += '</td>'
+                        htmls += '<td>'
+                        if (r[i].rcmemo) {
+                            htmls += r[i].rcmemo;
+                        } else {
+                            htmls += '';
+                        }
+                        htmls += '</td>'
+                        htmls += '</tr>'
+                    }
+                    if (ccnntt != sepac[cntsepa]) {
+                        ccnntt++;
+                    } else {
+                        cntsepa++;
+                        ccnntt = 1;
+                    }
+                }
+
+                if (htmls.length < 1) {
+                    htmls = `<tr><td colspan="5">정보 없음</td></tr>`;
+                }
+
                 $('#rg-tb-rc').html(htmls);
                 resolve();
             }
