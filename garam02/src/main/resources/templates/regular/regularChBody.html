@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <body th:fragment="main-body">
+        <header>
+            <div class="container" tabindex="-1">
+                <div class="headerD">
+                    <input type="hidden" id="rgconum" name="conum" value="">
+                    <div class="title1">
+                        <div class="title1-item">
+                            <a
+                                class="btn btn-default fas fa-arrow-left"
+                                role="button"
+                                id="md-rgCh"
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="수정"></a>
+                        </div>
+                        <div class="title1-item">
+                            <h2 id="rgcompa">
+                                회사명
+                            </h2>
+                            <h5 id="rgadd">주소</h5>
+                        </div>
+                    </div>
+                    <div class="title2">
+                        <blockquote>
+                            <h5 class="titlejae">계약기간</h5>
+                            <h5 id="rgper">&nbsp;</h5>
+                        </blockquote>
+                        <blockquote>
+                            <h5 class="titlejae">담당자</h5>
+                            <h5>
+                                <span id="rgname">&nbsp;</span>
+                                <span>
+                                    <a id="rgtel">&nbsp;</a>
+                                </span>
+                            </h5>
+                        </blockquote>
+                        <blockquote>
+                            <h5 class="titlejae">운행차량</h5>
+                            <h5 id="rgnum">&nbsp;</h5>
+                        </blockquote>
+                        <blockquote>
+                            <h5 class="titlejae">계약</h5>
+                            <h5>
+                                <span id="rgcon">&nbsp;</span>
+                            </h5>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container cont" tabindex="-1">
+                <div class="cont-item card">
+                    <table class="table table-bordered table-condensed">
+                        <colgroup>
+                            <col width="5%"/>
+                            <col width="20%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="10%"/>
+                            <col width="10%"/>
+                            <col width="10%"/>
+                            <col width="10%"/>
+                        </colgroup>
+                        <thead>
+                            <th>번호</th>
+                            <th>노선명</th>
+                            <th>차량</th>
+                            <th>출근</th>
+                            <th>퇴근</th>
+                            <th>정산형태</th>
+                            <th>계약금액</th>
+                            <th>배차금액(월)</th>
+                            <th>운행차량</th>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td><input class="form-control input-sm" type="text" placeholder="노선명 입력"></td>
+                                <td>
+                                    <select class="form-control input-sm">
+                                        <option value="대형" label="대형"></option>
+                                        <option value="중형" label="중형"></option>
+                                        <option value="우등" label="우등"></option>
+                                        <option value="기타" label="기타"></option>
+                                    </select>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const user =/*[[${user}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const opt =/*[[${opt}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbCompa =/*[[${compa}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbVe =/*[[${ve}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbEmp =/*[[${emp}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const code =/*[[${code}]]*/
+            'default';
+            /*]]>*/
+        </script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+        <script src="/js/common/summernote-lite.js"></script>
+        <script src="/js/common/summernote-ko-KR.js"></script>
+        <script src="/js/common/common.js"></script>
+        <script src="/js/regular/regularBodyCh.js"></script>
+    </body>
+</html>

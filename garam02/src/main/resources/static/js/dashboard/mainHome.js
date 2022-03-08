@@ -567,21 +567,28 @@ $(document).on('click', '#goEmp', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;
 
-    window.open('/employee', '인사 정보')
+    window.open('/employee', '인사정보')
 });
 
 $(document).on('click', '#goVe', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;
 
-    window.open('/vehicle', '차량 정보');
+    window.open('/vehicle', '차량정보');
 });
 
 $(document).on('click', '#goRe', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;
 
-    window.open('/regular', '차량 정보');
+    window.open('/regular', '정기운행정보');
+});
+
+$(document).on('click', '#goCustomer', function () {
+    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
+    // window.screenLeft; var yPos = 10;
+
+    window.open('/customers', '고객정보');
 });
 
 function showDetail(id) {
@@ -597,7 +604,6 @@ function showDetail(id) {
 }
 
 function showDetailSch(id) {
-    console.log('iidd  ' + id);
     const iidd = '#tr-' + id.split('-')[1] + id.split('-')[3];
     let iiiddd = '';
     switch (id.split('-')[1]) {
@@ -613,9 +619,6 @@ function showDetailSch(id) {
     }
 
     const rowSize = $(iiiddd).attr('rowspan');
-    console.log('iidd  ' + iidd);
-    console.log('iidd  ' + iiiddd);
-    console.log('iidd  ' + rowSize);
 
     if ($(iidd).css("display") == "none") {
         const upsize = parseInt(rowSize) + 1;

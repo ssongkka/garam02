@@ -23,7 +23,7 @@
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    transition: 0.1s linear;
+    transition: 0.05s linear;
 }
 
 html {

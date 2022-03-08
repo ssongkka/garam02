@@ -231,7 +231,12 @@
                         <div class="row">
                             <div class="form-group col-xs-6">
                                 <i class="fas fa-calendar-day"></i>
-                                <label for="regstartd">계약시작일</label>
+                                <label for="regstartd">계약시작일
+                                    <label class="checkbox-inline" style="padding-left: 3rem;">
+                                        <input type="checkbox" id="noPeriod" value="option1">
+                                        계약기간없음
+                                    </label>
+                                </label>
                                 <input
                                     type="date"
                                     onfocus="this.select()"
@@ -258,33 +263,6 @@
                         <div class="row">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <label for="regcontract">계약형태</label>
-                                <select
-                                    class="form-control input-sm"
-                                    id="regcontract"
-                                    name="regcontract"
-                                    required="required">
-                                    <option value="계약" label="직접 계약"></option>
-                                    <option value="입찰" label="입찰"></option>
-                                </select>
-                            </div>
-                            <div class="form-group col-xs-12 col-lg-6">
-                                <i class="fas fa-pen"></i>
-                                <label for="regmoney">계약금액</label>
-                                <input
-                                    type="text"
-                                    data-type="currency"
-                                    onfocus="this.select()"
-                                    class="form-control input-sm datacurr"
-                                    id="regmoney"
-                                    name="regmoney"
-                                    value="0"
-                                    required="required">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-xs-12 col-lg-6">
-                                <i class="fas fa-map-marker-alt"></i>
                                 <label for="regnum">운행대수</label>
                                 <select
                                     class="form-control input-sm"
@@ -298,6 +276,33 @@
                                 </select>
                             </div>
                             <div class="form-group col-xs-12 col-lg-6">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <label for="regcontract">계약형태</label>
+                                <select
+                                    class="form-control input-sm"
+                                    id="regcontract"
+                                    name="regcontract"
+                                    required="required">
+                                    <option value="계약" label="직접 계약"></option>
+                                    <option value="입찰" label="입찰"></option>
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-12 col-lg-6" style="display: none;">
+                                <i class="fas fa-pen"></i>
+                                <label for="regmoney">계약금액</label>
+                                <input
+                                    type="hidden"
+                                    data-type="currency"
+                                    onfocus="this.select()"
+                                    class="form-control input-sm datacurr"
+                                    id="regmoney"
+                                    name="regmoney"
+                                    value="0"
+                                    disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-lg-12">
                                 <i class="fas fa-pen"></i>
                                 <label for="regmemo">특이사항</label>
                                 <input

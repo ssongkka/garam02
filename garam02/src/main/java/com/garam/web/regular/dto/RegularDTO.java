@@ -1,11 +1,35 @@
 package com.garam.web.regular.dto;
 
 public class RegularDTO {
+	private Integer ctmseq;
+
+	private String ctmno;
+
+	private Integer sepa;
+
+	private String name;
+
+	private String address;
+
+	private String tel1;
+
+	private String tel2;
+
+	private String email;
+
+	private String fax;
+
+	private String companum;
+
+	private String homepage;
+
+	private String start;
+
+	private String detail;
+
+	private Integer trash;
 	// 번호
 	private Integer regseq;
-
-	// 고객번호
-	private String ctmno;
 
 	// 회사번호
 	private String conum;
@@ -63,6 +87,9 @@ public class RegularDTO {
 	// 사원번호
 	private String id;
 
+	// 계산형태
+	private Integer rdconn;
+
 	// 계약금액
 	private Integer rdmoney;
 
@@ -100,11 +127,11 @@ public class RegularDTO {
 
 	private Integer rctrash;
 
-	private String name;
+	private String idname;
 
-	private String phone1;
+	private String idphone1;
 
-	private String vehicle;
+	private String idvehicle;
 
 	public Integer getRegseq() {
 		return regseq;
@@ -274,6 +301,14 @@ public class RegularDTO {
 		this.id = id;
 	}
 
+	public Integer getRdconn() {
+		return rdconn;
+	}
+
+	public void setRdconn(Integer rdconn) {
+		this.rdconn = rdconn;
+	}
+
 	public Integer getRdmoney() {
 		return rdmoney;
 	}
@@ -394,20 +429,124 @@ public class RegularDTO {
 		this.name = name;
 	}
 
-	public String getPhone1() {
-		return phone1;
+	public Integer getCtmseq() {
+		return ctmseq;
 	}
 
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
+	public void setCtmseq(Integer ctmseq) {
+		this.ctmseq = ctmseq;
 	}
 
-	public String getVehicle() {
-		return vehicle;
+	public Integer getSepa() {
+		return sepa;
 	}
 
-	public void setVehicle(String vehicle) {
-		this.vehicle = vehicle;
+	public void setSepa(Integer sepa) {
+		this.sepa = sepa;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTel1() {
+		return tel1;
+	}
+
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
+	}
+
+	public String getTel2() {
+		return tel2;
+	}
+
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getCompanum() {
+		return companum;
+	}
+
+	public void setCompanum(String companum) {
+		this.companum = companum;
+	}
+
+	public String getHomepage() {
+		return homepage;
+	}
+
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public Integer getTrash() {
+		return trash;
+	}
+
+	public void setTrash(Integer trash) {
+		this.trash = trash;
+	}
+
+	public String getIdname() {
+		return idname;
+	}
+
+	public void setIdname(String idname) {
+		this.idname = idname;
+	}
+
+	public String getIdphone1() {
+		return idphone1;
+	}
+
+	public void setIdphone1(String idphone1) {
+		this.idphone1 = idphone1;
+	}
+
+	public String getIdvehicle() {
+		return idvehicle;
+	}
+
+	public void setIdvehicle(String idvehicle) {
+		this.idvehicle = idvehicle;
 	}
 
 }

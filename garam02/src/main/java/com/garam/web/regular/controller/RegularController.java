@@ -72,4 +72,24 @@ public class RegularController extends UiUtils {
 
 		return ShowMgsRdrt("정기운행 등록 완료", "/regular", Method.GET, model);
 	}
+
+	@PostMapping(value = "/regularCh")
+	public String regularCh(@AuthenticationPrincipal User user, @ModelAttribute("params") final RegularDTO regularDTO,
+			Model model) throws Exception {
+
+		model.addAttribute("user", user);
+
+		List<CompanyDTO> company = companyService.selectCompany();
+		model.addAttribute("company", company);
+
+		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		model.addAttribute("customer", list);
+
+		List<OptDTO> opt = rsvtService.selectOpt();
+		model.addAttribute("opt", opt);
+
+		model.addAttribute("code", regularDTO);
+
+		return "regular/regularCh";
+	}
 }

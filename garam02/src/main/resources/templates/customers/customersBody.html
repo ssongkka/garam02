@@ -33,62 +33,113 @@
                         <ul class="nav nav-tabs nav-justified evNav shadow-sm" role="tablist">
                             <li role="presentation" class="active">
                                 <a
-                                    href="#com-go"
-                                    aria-controls="com-go"
+                                    href="#cusAll"
+                                    aria-controls="cusAll"
                                     role="tab"
                                     data-toggle="tab"
                                     class="tab-flex">
-                                    <span>계약 중</span>
-                                    <span class="badge" id="bggo"></span>
+                                    <span>전체</span>
+                                    <span class="badge" id="bgcusAll">00</span>
                                 </a>
                             </li>
                             <li role="presentation" class="hidden-xs">
                                 <a
-                                    href="#com-end"
-                                    aria-controls="com-end"
+                                    href="#cusIl"
+                                    aria-controls="cusIl"
                                     role="tab"
                                     data-toggle="tab"
                                     class="tab-flex">
-                                    <span>계약 만료</span>
-                                    <span class="badge" id="bgend"></span>
+                                    <span>일반</span>
+                                    <span class="badge" id="bgcusIl">00</span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="hidden-xs">
+                                <a
+                                    href="#cusHak"
+                                    aria-controls="cusHak"
+                                    role="tab"
+                                    data-toggle="tab"
+                                    class="tab-flex">
+                                    <span>학교</span>
+                                    <span class="badge" id="bgcusHak">00</span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="hidden-xs">
+                                <a
+                                    href="#cusGu"
+                                    aria-controls="cusGu"
+                                    role="tab"
+                                    data-toggle="tab"
+                                    class="tab-flex">
+                                    <span>거래처</span>
+                                    <span class="badge" id="bgcusGu">00</span>
                                 </a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content hd-tb scBar scBarEmp">
-                            <div role="tabpanel" class="tab-pane fade in active" id="com-go">
-                                <table
-                                    class="table table-striped table-hover table-bordered table-condensed table-sortable"
-                                    id="ddssaa">
-                                    <colgroup>
-                                        <col width="40%"/>
-                                        <col width="20%"/>
-                                        <col width="40%"/>
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>회사이름</th>
-                                            <th>대수</th>
-                                            <th>담당자</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="rg-tb-com-go"></tbody>
-                                </table>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="com-end">
+                            <div role="tabpanel" class="tab-pane fade in active" id="cusAll">
                                 <table
                                     class="table table-striped table-hover table-bordered table-condensed table-sortable">
                                     <colgroup>
-                                        <col width="60%"/>
-                                        <col width="40%"/>
+                                        <col width="50%"/>
+                                        <col width="50%"/>
                                     </colgroup>
                                     <thead>
                                         <tr>
-                                            <th>회사이름</th>
-                                            <th>계약만료일</th>
+                                            <th>이름</th>
+                                            <th>정보</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="rg-tb-com-end"></tbody>
+                                    <tbody id="cus-tb-all"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="cusIl">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="50%"/>
+                                        <col width="50%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>연락처</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cus-tb-il"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="cusHak">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="50%"/>
+                                        <col width="50%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>학교</th>
+                                            <th>정보</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cus-tb-hak"></tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="cusGu">
+                                <table
+                                    class="table table-striped table-hover table-bordered table-condensed table-sortable">
+                                    <colgroup>
+                                        <col width="50%"/>
+                                        <col width="50%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>거래처</th>
+                                            <th>연락처</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cus-tb-gu"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -109,30 +160,11 @@
         <main class="nomal-main">
             <div class="main-aside">
                 <div class="main-aside-item">
-                    <form
-                        action="/regular/regularCh"
-                        name="formCh"
-                        th:action="@{/regular/regularCh}"
-                        method="post"
-                        autocomplete="off">
-                        <input type="hidden" id="rgconum" name="conum" value="">
-                    </form>
+                    <input type="hidden" id="rgconum" value="">
                     <div class="title1">
-                        <div class="title1-item">
-                            <h2 id="rgcompa">
-                                회사명
-                            </h2>
-                            <h5 id="rgadd">주소</h5>
-                        </div>
-                        <div class="title1-item">
-                            <a
-                                class="btn btn-default fas fa-edit"
-                                role="button"
-                                id="md-rgCh"
-                                data-toggle="tooltip"
-                                data-placement="left"
-                                title="수정"></a>
-                        </div>
+                        <h2 id="rgcompa">
+                            회사명<small style="padding-left: 2rem; color: #888c9b;">주소</small>
+                        </h2>
                     </div>
                     <div class="title2">
                         <blockquote>
@@ -189,6 +221,9 @@
                                 </thead>
                                 <tbody id="rg-tb-de"></tbody>
                             </table>
+                        </div>
+                        <div class="">
+                            <button class="btn btn-default" role="button" id="newNosun" disabled="disabled">Link</button>
                         </div>
                     </div>
                     <div class="main-aside-item-in card">
@@ -256,6 +291,9 @@
                                 </blockquote>
                             </div>
                         </div>
+                        <div class="contens3">
+                            <button class="btn btn-default" role="button" id="newCorse" disabled="disabled">Link</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -293,7 +331,6 @@
         <script src="/js/common/summernote-lite.js"></script>
         <script src="/js/common/summernote-ko-KR.js"></script>
         <script src="/js/common/common.js"></script>
-        <script src="/js/regular/regularBody.js"></script>
-        <script src="/js/regular/regularBodyRegNewMd.js"></script>
+        <script src="/js/customers/customers.js"></script>
     </body>
 </html>

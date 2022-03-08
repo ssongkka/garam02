@@ -1,13 +1,10 @@
-$(document).ready(function () {
-    getRegularAll();
-});
-
 $(document).on('click', '#md-rgNew', function () {
     $('#user-plus').hide();
     $('#userPlus').attr(
         'class',
         'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
     );
+
     $('#modal-rginsert').modal('show');
 });
 
@@ -214,9 +211,103 @@ $(document).on('change', '#chsame', function () {
 });
 
 $(document).on('click', '#btn-rginsert', function () {
-    $('#regmoney').val($('#regmoney').val().replaceAll(',', ''));
-    console.log($('#regmoney').val());
-    if ($('#ctmno').val().length > 0) {
-        formReg.submit();
+    if ($('#ctmno').val().length < 1) {
+        alert("거래처를 입력해주세요.");
+        $('#ctmname').focus();
+        return;
+    }
+    if (!$('#regcompany').val()) {
+        alert("회사이름을 입력해주세요.");
+        $('#regcompany').focus();
+        return;
+    }
+    if (!$('#regaddress').val()) {
+        alert("회사주소를 입력해주세요.");
+        $('#regaddress').focus();
+        return;
+    }
+    if (!$('#regperson').val()) {
+        alert("담당자 또는 담당부서를 입력해주세요.");
+        $('#regperson').focus();
+        return;
+    }
+    if (!$('#regphone').val()) {
+        alert("담당 연락처를 입력해주세요.");
+        $('#regphone').focus();
+        return;
+    }
+    if (!$('#regstartd').val()) {
+        alert("계약시작일을 입력해주세요.");
+        $('#regstartd').focus();
+        return;
+    }
+    if (!$('#chsame').is(':checked') && !$('#regendd').val()) {
+        alert("계약 종료일을 입력해주세요.\n\n계약 종료일이 없으면 '계약기간없음'에 체크해주세요.");
+        $('#regendd').focus();
+        return;
+    }
+    if (!$('#regcontract').val()) {
+        alert("계약형태를 입력해주세요.");
+        $('#regcontract').focus();
+        return;
+    }
+    formReg.submit();
+});
+$(document).on('change', '#regstartd', function () {
+    const tmpd = ($("#regstartd").val()).split('-');
+    console.log(tmpd);
+
+    let date = new Date(tmpd[0], parseInt(tmpd[1]) - 1, tmpd[2]);
+    date.setFullYear(date.getFullYear() + 1);
+    date.setDate(date.getDate() - 1);
+
+    $("#regendd").val(toStringByFormatting(date));
+    dateInput();
+});
+
+$(document).on('change', '#noPeriod', function () {
+    if ($('#noPeriod').is(':checked')) {
+        $("#regendd").val('');
+        $("#daynight").text('');
+        $("#regendd").attr("disabled", true);
+    } else {
+        $("#regendd").attr("disabled", false);
     }
 });
+
+$(document).on('change', '#regendd', function () {
+    dateInput();
+});
+
+function dateInput() {
+    const origin = $("#regendd").val();
+    const std = $("#regstartd").val();
+    const edd = $("#regendd").val();
+
+    const beet = betweenDateNum(std, edd);
+
+    const yyy = parseInt(beet / 365);
+    const mmm = parseInt((beet % 365) / 30);
+    const ddd = parseInt(((beet % 365) % 30));
+
+    let rtn = '';
+
+    if (yyy > 0) {
+        rtn += yyy + '년';
+    }
+    if (mmm > 0) {
+        rtn += mmm + '개월';
+    }
+    if (ddd > 0) {
+        rtn += ddd + '일';
+    }
+
+    if (beet > 1) {
+        $("#daynight").text(rtn);
+        $("#daynight").css('color', 'blue');
+    } else {
+        $("#endday").val(origin);
+        $("#daynight").text('  도착일을 확인해주세요!!!');
+        $("#daynight").css('color', 'red');
+    }
+}

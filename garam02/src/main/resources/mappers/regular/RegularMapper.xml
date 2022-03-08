@@ -35,6 +35,15 @@
 
 		regular
 
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		regular.ctmno =
+		customer.ctmno
+
 		WHERE
 
 		conum = #{conum}
@@ -47,24 +56,36 @@
 		SELECT
 
 		rdseq, conum, codenum, rdname, rdbus, rdgonum,
-		rdoutnum, id, rdmoney, rdaltm, rddow, rdmemo, rdtrash,
+		rdoutnum, opercar, rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
+
 		IFNULL((SELECT
 		employeeinfo.name FROM
-		employeeinfo WHERE employeeinfo.id =
-		regulardetail.id),
-		regulardetail.id) AS name,
+		employeeinfo WHERE employeeinfo.id
+		=
+		(SELECT id FROM vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		regulardetail.opercar)),
+		regulardetail.opercar) AS idname,
+
 		IFNULL((SELECT
 		employeeinfo.phone1 FROM
-		employeeinfo WHERE employeeinfo.id =
-		regulardetail.id),
-		regulardetail.id) AS phone1,
+		employeeinfo WHERE
+		employeeinfo.id =
+		(SELECT id FROM vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		regulardetail.opercar)),
+		regulardetail.opercar)
+		AS idphone1,
+
 		IFNULL((SELECT
 		vehicleinfo.vehicle FROM
-		vehicleinfo WHERE vehicleinfo.id
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
 		=
-		regulardetail.id),
-		regulardetail.id) AS
-		vehicle
+		regulardetail.opercar),
+		regulardetail.opercar) AS
+		idvehicle
 
 		FROM
 
@@ -83,24 +104,36 @@
 		SELECT
 
 		rdseq, conum, codenum, rdname, rdbus, rdgonum,
-		rdoutnum, id, rdmoney, rdaltm, rddow, rdmemo, rdtrash,
+		rdoutnum, opercar, rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
+
 		IFNULL((SELECT
 		employeeinfo.name FROM
-		employeeinfo WHERE employeeinfo.id =
-		regulardetail.id),
-		regulardetail.id) AS name,
+		employeeinfo WHERE employeeinfo.id
+		=
+		(SELECT id FROM vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		regulardetail.opercar)),
+		regulardetail.opercar) AS idname,
+
 		IFNULL((SELECT
 		employeeinfo.phone1 FROM
-		employeeinfo WHERE employeeinfo.id =
-		regulardetail.id),
-		regulardetail.id) AS phone1,
+		employeeinfo WHERE
+		employeeinfo.id =
+		(SELECT id FROM vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		regulardetail.opercar)),
+		regulardetail.opercar)
+		AS idphone1,
+
 		IFNULL((SELECT
 		vehicleinfo.vehicle FROM
-		vehicleinfo WHERE vehicleinfo.id
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
 		=
-		regulardetail.id),
-		regulardetail.id) AS
-		vehicle
+		regulardetail.opercar),
+		regulardetail.opercar) AS
+		idvehicle
 
 		FROM
 

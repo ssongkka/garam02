@@ -16,7 +16,7 @@ $(document).on('click', '#btn-x', function () {
 });
 
 function erRc() {
-    $('#rdname').text('노선명');
+    $('#rdname').text('회사');
     $('#rdbus').text('차량');
     $('#rddow').text('운행요일');
     $('#rdgogo').text('출근');
@@ -42,7 +42,15 @@ $(document).on('keydown', 'input', function (eInner) {
 });
 
 function getRegularInfo(params) {
-    erRc();
+    $('#rdname').text('회사');
+    $('#rdbus').text('차량');
+    $('#rddow').text('운행요일');
+    $('#rdgogo').text('출근');
+    $('#rdoutout').text('퇴근');
+    $('#rdid').html('&nbsp;');
+    $('#rdmoney').text(0);
+    $('#rdaltm').text(0);
+    $('#rdmemo').html('&nbsp;');
 
     tbChoiceSe(params);
     setConnum(params)
@@ -167,7 +175,9 @@ function getRegular(result) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
-                $('#rgcompa').html(r[0].regcompany);
+                $('#rgcompa').html(
+                    r[0].regcompany + '<small id="rgadd">' + r[0].regaddress + '</small>'
+                );
                 $('#rgadd').text(r[0].regaddress);
                 $('#rgper').text(r[0].regstartd + ' ~ ' + r[0].regendd);
                 $('#rgname').text(r[0].regperson);
@@ -175,6 +185,9 @@ function getRegular(result) {
                 $('#rgtel').attr('href', 'tel:' + r[0].regphone);
                 $('#rgnum').text(r[0].regnum + '대');
                 $('#rgcon').text(r[0].regcontract);
+                $('#rgmoney').html(
+                    '<span>&#8361;</span><span>' + r[0].regmoney + '</span>'
+                );
                 resolve();
             }
         })
@@ -224,7 +237,7 @@ function getRegularDeAll(result) {
                     htmls += '회</td>';
                     if (r[i].id) {
                         htmls += '<td>';
-                        htmls += r[i].idname;
+                        htmls += r[i].name;
                         htmls += '</td>';
                     } else {
                         htmls += '<td>';
@@ -307,23 +320,17 @@ function getRegularDe(result) {
                 $('#rdgogo').text('출근 ' + r[0].rdgonum + '회');
                 $('#rdoutout').text('퇴근 ' + r[0].rdoutnum + '회');
 
-                if (r[0].idname) {
-                    $('#rdid').html(r[0].idname);
+                if (r[0].id) {
+                    $('#rdid').html(r[0].name);
                 } else {
                     $('#rdid').html('&nbsp;');
                 }
 
-                if (r[0].idphone1) {
-                    $('#rdidtel').text(r[0].idphone1);
-                    $('#rdidtel').attr('href', 'tel:' + r[0].idphone1);
+                if (r[0].phone1) {
+                    $('#rdidtel').text(r[0].phone1);
+                    $('#rdidtel').attr('href', 'tel:' + r[0].phone1);
                 } else {
                     $('#rdidtel').html(`&nbsp;`);
-                }
-
-                if (r[0].idvehicle) {
-                    $('#rdve').text(r[0].idvehicle);
-                } else {
-                    $('#rdve').html(`&nbsp;`);
                 }
 
                 if (r[0].rdmoney) {
@@ -375,30 +382,26 @@ function getRegularCource(result) {
                 let cnt = 0;
 
                 for (let k = 0; k < r.length; k++) {
-                    console.log("r[k].rcsepa  " + r[k].rcsepa);
                     if (k == 0) {
                         sepa.push(r[k].rcsepa);
                         cnt++;
                     } else if (k == r.length - 1) {
+                        sepac.push(cnt);
                         if (r[k - 1].rcsepa != r[k].rcsepa) {
                             sepa.push(r[k].rcsepa);
                             sepac.push(1);
                         } else {
-                            sepac.push(++cnt);
+                            sepac.push(cnt);
                         }
                     } else {
                         if (r[k - 1].rcsepa != r[k].rcsepa) {
                             sepa.push(r[k].rcsepa);
-                            sepac.push(cnt);
                             cnt = 1;
                         } else {
                             cnt++;
                         }
                     }
                 }
-
-                console.log("sepa  " + sepa);
-                console.log("sepac  " + sepac);
 
                 let htmls = '';
                 let cntsepa = 0;
@@ -490,11 +493,3 @@ function getRegularCource(result) {
         })
     });
 }
-
-$(document).on('click', '#md-rgCh', function () {
-    if (!$('#rgconum').val()) {
-        alert("정기운행정보를 선택해주세요.");
-        return;
-    }
-    formCh.submit();
-});
