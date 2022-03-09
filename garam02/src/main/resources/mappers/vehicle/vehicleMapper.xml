@@ -49,15 +49,29 @@
 
 	<update id="updateVe"
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
-		UPDATE vehicleinfo SET vehicle = #{vehicle}, company = #{company},
+		UPDATE
+
+		vehicleinfo
+
+		SET
+
+		vehicle = #{vehicle},
+		company = #{company},
 		owner =
-		#{owner}, id = #{id}, bus = #{bus}, brand = #{brand}, vename =
-		#{vename}, grade
-		= #{grade}, fuel = #{fuel}, num = #{num}, color =
-		#{color}, carn =
+		#{owner},
+		id = #{id},
+		bus = #{bus},
+		brand = #{brand},
+		vename = #{vename},
+		grade = #{grade},
+		fuel = #{fuel},
+		num = #{num},
+		color = #{color},
+		carn =
 		#{carn},
-		regist = #{regist}, expire = #{expire}, price
-		= #{price},
+		regist = #{regist},
+		expire = #{expire},
+		price = #{price},
 
 		<if test="img1 != null and img1 != '' ">
 			img1 = #{img1},
@@ -70,7 +84,9 @@
 		</if>
 		special = #{special}
 
-		WHERE carnumber = #{carNumber};
+		WHERE
+
+		carnumber = #{carNumber};
 	</update>
 
 	<update id="updateVePDF"

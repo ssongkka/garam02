@@ -55,6 +55,10 @@ input[type="text"] {
     ime-mode: active;
 }
 
+input[data-type='currency'] {
+    text-align: right;
+}
+
 th {
     text-align: center;
     vertical-align: middle;

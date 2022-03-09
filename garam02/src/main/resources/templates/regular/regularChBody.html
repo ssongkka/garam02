@@ -4,7 +4,7 @@
         <header>
             <div class="container" tabindex="-1">
                 <div class="headerD">
-                    <input type="hidden" id="rgconum" name="conum" value="">
+                    <input type="hidden" id="rgconum" name="conum" th:value="${code.conum}">
                     <div class="title1">
                         <div class="title1-item">
                             <a
@@ -52,89 +52,252 @@
         </header>
         <main>
             <div class="container cont" tabindex="-1">
+                <input type="hidden" id="regcodenum" value="">
                 <div class="cont-item card">
-                    <table class="table table-bordered table-condensed">
-                        <colgroup>
-                            <col width="5%"/>
-                            <col width="20%"/>
-                            <col width="5%"/>
-                            <col width="5%"/>
-                            <col width="5%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                        </colgroup>
-                        <thead>
-                            <th>번호</th>
-                            <th>노선명</th>
-                            <th>차량</th>
-                            <th>출근</th>
-                            <th>퇴근</th>
-                            <th>정산형태</th>
-                            <th>계약금액</th>
-                            <th>배차금액(월)</th>
-                            <th>운행차량</th>
-                        </thead>
-                        <tbody>
-
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td><input class="form-control input-sm" type="text" placeholder="노선명 입력"></td>
-                                <td>
-                                    <select class="form-control input-sm">
-                                        <option value="대형" label="대형"></option>
-                                        <option value="중형" label="중형"></option>
-                                        <option value="우등" label="우등"></option>
-                                        <option value="기타" label="기타"></option>
-                                    </select>
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-                    </table>
+                    <div class="cont-item1">
+                        <table class="table table-bordered rg-tb-ch">
+                            <colgroup>
+                                <col width="4%"/>
+                                <col width="4%"/>
+                                <col width="15%"/>
+                                <col width="9%"/>
+                                <col width="9%"/>
+                                <col width="9%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="4%"/>
+                                <col width="3%"/>
+                                <col width="3%"/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">삭제</th>
+                                    <th rowspan="2">번호</th>
+                                    <th>노선명</th>
+                                    <th>차량</th>
+                                    <th>출근</th>
+                                    <th>퇴근</th>
+                                    <th colspan="2">계약</th>
+                                    <th>배차금액(월)</th>
+                                    <th>운행차량</th>
+                                    <th rowspan="2">노선</th>
+                                    <th rowspan="2" colspan="2">이동</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rgch-tbb"></tbody>
+                        </table>
+                        <datalist id="car-info">
+                            <option
+                                th:each="ve : ${ve}"
+                                th:value="${ve.vehicle2}"
+                                th:label="${ve.vehicle2}"
+                                th:data-value="${ve.carNumber}"
+                                th:data-owner="${ve.owner}"></option>
+                            <option
+                                th:each="othercompa : ${othercompa}"
+                                th:value="${othercompa.ctmname}"
+                                th:label="${othercompa.ctmname}"
+                                th:data-value="${othercompa.ctmname}"
+                                th:data-owner="${othercompa.ctmname}"></option>
+                        </datalist>
+                    </div>
+                    <div class="cont-item2">
+                        <div class="cont-item-foot">
+                            <button type="button" class="btn btn-primary" id="insertPlus">
+                                <i class="fas fa-plus"></i>&nbsp;추&nbsp;&nbsp;가</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </main>
+            <!-- Modal -->
+            <div
+                class="modal fade"
+                id="regModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body rcBody">
+                            <div class="rcBody-item form-group">
+                                <label for="chchchch">운행 요일 선택</label>
+                                <div id="chchchch">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chDow1" value="1">
+                                        월
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chDow2" value="2">
+                                        화
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chDow3" value="3">
+                                        수
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chDow4" value="4">
+                                        목
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chDow5" value="5">
+                                        금
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chDow6" value="6">
+                                        토
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chDow0" value="0">
+                                        일
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="rcBody-item form-group">
+                                <label for="gogogogogo">출근</label>
+                                <div id="gogogogogo">
+                                    <table class="table table-bordered">
+                                        <colgroup>
+                                            <col width="10%"/>
+                                            <col width="18%"/>
+                                            <col width="45%"/>
+                                            <col width="20%"/>
+                                            <col width="7%"/>
+                                        </colgroup>
+                                        <thead>
+                                            <th>번호</th>
+                                            <th>시간</th>
+                                            <th>장소</th>
+                                            <th>메모</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="time" class="input-sm" id="">
+                                                    </div>
+                                                </td>
+                                                <td><input type="text" class="input-sm" id=""></td>
+                                                <td><input type="text" class="input-sm" id=""></td>.
+                                                <td>
+                                                    <button class="btn btn1">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="time" class="input-sm" id="">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="input-sm" id="" readonly="readonly" value="도착">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="input-sm" id="">
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="rcBody-item form-group">
+                                <label for="goutgoutgout">퇴근</label>
+                                <div id="goutgoutgout">
+                                    <table class="table table-bordered">
+                                        <colgroup>
+                                            <col width="10%"/>
+                                            <col width="18%"/>
+                                            <col width="52%"/>
+                                            <col width="20%"/>
+                                        </colgroup>
+                                        <thead>
+                                            <th>번호</th>
+                                            <th>시간</th>
+                                            <th>장소</th>
+                                            <th>메모</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="time" class="input-sm" id="">
+                                                    </div>
+                                                </td>
+                                                <td><input type="text" class="input-sm" id=""></td>
+                                                <td><input type="text" class="input-sm" id=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="time" class="input-sm" id="">
+                                                    </div>
+                                                </td>
+                                                <td><input type="text" class="input-sm" id="" readonly="readonly" value="운행종료"></td>
+                                                <td><input type="text" class="input-sm" id=""></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
 
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            const user =/*[[${user}]]*/
-            'default';
-            /*]]>*/
-            /*<![CDATA[*/
-            const opt =/*[[${opt}]]*/
-            'default';
-            /*]]>*/
-            /*<![CDATA[*/
-            const dbCompa =/*[[${compa}]]*/
-            'default';
-            /*]]>*/
-            /*<![CDATA[*/
-            const dbVe =/*[[${ve}]]*/
-            'default';
-            /*]]>*/
-            /*<![CDATA[*/
-            const dbEmp =/*[[${emp}]]*/
-            'default';
-            /*]]>*/
-            /*<![CDATA[*/
-            const code =/*[[${code}]]*/
-            'default';
-            /*]]>*/
-        </script>
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                const user =/*[[${user}]]*/
+                'default';
+                /*]]>*/
+                /*<![CDATA[*/
+                const opt =/*[[${opt}]]*/
+                'default';
+                /*]]>*/
+                /*<![CDATA[*/
+                const dbCompa =/*[[${compa}]]*/
+                'default';
+                /*]]>*/
+                /*<![CDATA[*/
+                const dbVe =/*[[${ve}]]*/
+                'default';
+                /*]]>*/
+                /*<![CDATA[*/
+                const dbEmp =/*[[${emp}]]*/
+                'default';
+                /*]]>*/
+                /*<![CDATA[*/
+                const code =/*[[${code}]]*/
+                'default';
+                /*]]>*/
+            </script>
+            <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+            <script
+                src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+            <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
-        <script src="/js/common/summernote-lite.js"></script>
-        <script src="/js/common/summernote-ko-KR.js"></script>
-        <script src="/js/common/common.js"></script>
-        <script src="/js/regular/regularBodyCh.js"></script>
-    </body>
-</html>
+            <script src="/js/common/summernote-lite.js"></script>
+            <script src="/js/common/summernote-ko-KR.js"></script>
+            <script src="/js/common/common.js"></script>
+            <script src="/js/regular/regularBodyCh.js"></script>
+        </body>
+    </html>

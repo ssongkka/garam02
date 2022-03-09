@@ -57,7 +57,7 @@ public class RegularController extends UiUtils {
 	}
 
 	@PostMapping(value = "/regularRegister")
-	public String rsvt_Insert(@ModelAttribute("params") final RegularDTO regularDTO, Model model) throws Exception {
+	public String regularRegister(@ModelAttribute("params") final RegularDTO regularDTO, Model model) throws Exception {
 		try {
 			int a = regularService.insertRegular(regularDTO);
 			if (a < 1) {
@@ -79,14 +79,23 @@ public class RegularController extends UiUtils {
 
 		model.addAttribute("user", user);
 
-		List<CompanyDTO> company = companyService.selectCompany();
-		model.addAttribute("company", company);
-
 		List<RsvtDTO> list = rsvtService.selectCustomerAll();
 		model.addAttribute("customer", list);
 
+		List<CompanyDTO> compa = companyService.selectCompany();
+		model.addAttribute("compa", compa);
+
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
+
 		List<OptDTO> opt = rsvtService.selectOpt();
 		model.addAttribute("opt", opt);
+
+		List<RsvtDTO> othercompa = rsvtService.selectCustomerOtherCompa();
+		model.addAttribute("othercompa", othercompa);
 
 		model.addAttribute("code", regularDTO);
 

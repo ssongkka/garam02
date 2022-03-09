@@ -1,6 +1,5 @@
 package com.garam.web.employee.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
@@ -30,7 +28,6 @@ public class RestEmployeeController {
 
 	@PostMapping(value = "/empInsert")
 	public int empInsert(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
-		System.out.println("asdfasdf " + employeeInfoDTO.getTp());
 		int rtn = employeeService.insertEmp(employeeInfoDTO);
 
 		return rtn;

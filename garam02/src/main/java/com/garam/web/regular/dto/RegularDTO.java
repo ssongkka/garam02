@@ -71,6 +71,9 @@ public class RegularDTO {
 
 	// 운행번호
 	private String codenum;
+	// 출근횟수
+
+	private Integer rdnum;
 
 	// 노선이름
 	private String rdname;
@@ -86,6 +89,9 @@ public class RegularDTO {
 
 	// 사원번호
 	private String id;
+
+	// 사원번호
+	private String opercar;
 
 	// 계산형태
 	private Integer rdconn;
@@ -132,6 +138,14 @@ public class RegularDTO {
 	private String idphone1;
 
 	private String idvehicle;
+
+	public String getOpercar() {
+		return opercar;
+	}
+
+	public void setOpercar(String opercar) {
+		this.opercar = opercar;
+	}
 
 	public Integer getRegseq() {
 		return regseq;
@@ -259,6 +273,14 @@ public class RegularDTO {
 
 	public void setCodenum(String codenum) {
 		this.codenum = codenum;
+	}
+
+	public Integer getRdnum() {
+		return rdnum;
+	}
+
+	public void setRdnum(Integer rdnum) {
+		this.rdnum = rdnum;
 	}
 
 	public String getRdname() {

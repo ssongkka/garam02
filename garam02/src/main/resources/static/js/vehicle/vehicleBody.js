@@ -732,7 +732,7 @@ $(document).on('click', '#btn-x', function () {
 
 $(document).on('click', '#md-Ch', function () {
     if ($('#ve00').val()) {
-        $('#modal-insert').modal('show')
+        $('#modal-insert').modal({backdrop: 'static', keyboard: false});
         $('#myModalLabel-insert').text('  차량 정보 수정');
         setVeCh();
     } else {
@@ -741,20 +741,20 @@ $(document).on('click', '#md-Ch', function () {
 });
 
 $(document).on('click', '#md-New', function () {
-    $('#modal-insert').modal('show')
+    $('#modal-insert').modal({backdrop: 'static', keyboard: false});
     $('#myModalLabel-insert').text('  차량 정보 신규 입력');
     setEmpClr();
 });
 
 $(document).on('click', '#md-File', function () {
-    $('#modal-file').modal('show')
+    $('#modal-file').modal({backdrop: 'static', keyboard: false});
     $('#myModalLabel-file').text('  차량명세서 생성');
 });
 
 $(document).on('click', '#md-Juk', function () {
     $('#juk-frame').attr('src', veFolder + 'choice.pdf');
     $('#juk-selector').val('');
-    $('#modal-juk').modal('show')
+    $('#modal-juk').modal({backdrop: 'static', keyboard: false});
     $('#myModalLabel-juk').text('  교통안전정보 통보서 입력');
 });
 
@@ -1247,7 +1247,7 @@ $(document).on('click', '#btn-pdf-d', function () {
 });
 
 $(document).on('click', '#btn-reg', function () {
-    $('#modal-reg').modal('show')
+    $('#modal-reg').modal({backdrop: 'static', keyboard: false});
     $('#myModalLabel-reg').text(
         '  ' + $('#ve02').children().text() + ' 자동차등록증 조회 및 입력'
     );
@@ -1255,7 +1255,7 @@ $(document).on('click', '#btn-reg', function () {
 });
 
 $(document).on('click', '#btn-insu', function () {
-    $('#modal-insu').modal('show')
+    $('#modal-insu').modal({backdrop: 'static', keyboard: false});
     $('#myModalLabel-insu').text(
         '  ' + $('#ve02').children().text() + ' 보험가입증명서 조회 및 입력'
     );

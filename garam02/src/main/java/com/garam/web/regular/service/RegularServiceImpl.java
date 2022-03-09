@@ -1,7 +1,9 @@
 package com.garam.web.regular.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -61,8 +63,6 @@ public class RegularServiceImpl implements RegularService {
 
 		regularDTO.setConum(get_dingding("Reg"));
 
-		System.out.println(regularDTO.getConum());
-
 		int rtn = regularMapper.insertRegular(regularDTO);
 
 		return rtn;
@@ -86,6 +86,40 @@ public class RegularServiceImpl implements RegularService {
 
 		String day = LocalDate.now().toString().replaceAll("-", "").substring(2);
 		return code + day + "-" + str;
+	}
+
+	@Override
+	public int insertRegulardetail(RegularDTO regularDTO) throws Exception {
+		regularDTO.setCodenum(get_dingding("RDe"));
+		int rtn = regularMapper.insertRegulardetail(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRegulardetail(RegularDTO regularDTO) throws Exception {
+		int rtn = regularMapper.updateRegulardetail(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRegulardetailOder(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> rde = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rde.put("rde", map);
+		}
+
+		int rtn = regularMapper.updateRegulardetailOder(rde);
+
+		return rtn;
+	}
+
+	@Override
+	public int delRegulardetail(RegularDTO regularDTO) throws Exception {
+		int rtn = regularMapper.delRegulardetail(regularDTO);
+
+		return rtn;
 	}
 
 }

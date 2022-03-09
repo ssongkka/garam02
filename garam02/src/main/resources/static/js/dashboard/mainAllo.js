@@ -809,7 +809,7 @@ function mdOneWay(val) {
         success: function (r) {
 
             if (r.length > 0) {
-                $('#modal-one').modal('show')
+                $('#modal-one').modal({backdrop: 'static', keyboard: false});
                 const rsvt = $(iidd)
                     .parent()
                     .parent()
@@ -1972,8 +1972,7 @@ function getRsvt(id) {
             chDateInput();
         }
     });
-
-    $('#modal-rsvt').modal('show');
+    $('#modal-rsvt').modal({backdrop: 'static', keyboard: false});
 }
 
 $(document).on('click', '#btn-rsvt-insert', function () {

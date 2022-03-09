@@ -636,7 +636,7 @@ $(document).on('click', '#md-Ch', function () {
     if ($('#emp00').val()) {
         setEmpCh();
         $('#myModalLabel-insert').text('  승무원 정보 수정');
-        $('#modal-insert').modal('show')
+        $('#modal-insert').modal({backdrop: 'static', keyboard: false});
     } else {
         alert('수정 할 승무원정보를 선택해주세요.');
     }
@@ -645,7 +645,7 @@ $(document).on('click', '#md-Ch', function () {
 $(document).on('click', '#md-New', function () {
     setEmpClr();
     $('#myModalLabel-insert').text('  신규 승무원 정보 입력');
-    $('#modal-insert').modal('show')
+    $('#modal-insert').modal({backdrop: 'static', keyboard: false});
 });
 
 $(document).on('click', '#insert-money', function () {
@@ -855,6 +855,14 @@ function insertEmp(tp) {
         if (iimmgg == '1') {
             inimg = iidd + '.PNG';
         }
+
+        let trash = 0;
+        if ($('#endd').val()) {
+            trash = 0;
+        } else {
+            trash = 1;
+        }
+
         const params = {
             "tp": tp,
             "id": iidd,
@@ -882,6 +890,7 @@ function insertEmp(tp) {
             "gunm": $('#gunm').val(),
             "gom": $('#gom').val(),
             "sanm": $('#sanm').val(),
+            "trash": trash,
             "img": inimg
         };
         $.ajax({

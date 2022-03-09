@@ -36,7 +36,7 @@
 
 		SELECT
 
-		baseM, kukM, gunM, goM, sanM
+		basem, kukm, gunm, gom, sanm
 
 		FROM
 

@@ -4,19 +4,19 @@
 
 	<sql id="empColumns">
 		employeeinfo.id, employeeinfo.company, employeeinfo.kind,
-		employeeinfo.joind, employeeinfo.endD, employeeinfo.name,
+		employeeinfo.joind, employeeinfo.endd, employeeinfo.name,
 		employeeinfo.gender, employeeinfo.birthday, employeeinfo.phone1,
 		employeeinfo.phone2,
 		employeeinfo.address, employeeinfo.garage,
-		employeeinfo.bosuM,
-		employeeinfo.bobuJ, employeeinfo.drvL,
-		employeeinfo.busL, employeeinfo.memo, employeeinfo.bank,
+		employeeinfo.bosum,
+		employeeinfo.bobuj, employeeinfo.drvl,
+		employeeinfo.busl, employeeinfo.memo, employeeinfo.bank,
 		employeeinfo.gye,
 		employeeinfo.gyename,
-		employeeinfo.baseM,
-		employeeinfo.kukM,
-		employeeinfo.gunM, employeeinfo.goM,
-		employeeinfo.sanM, employeeinfo.img, employeeinfo.trash,
+		employeeinfo.basem,
+		employeeinfo.kukm,
+		employeeinfo.gunm, employeeinfo.gom,
+		employeeinfo.sanm, employeeinfo.img, employeeinfo.trash,
 		vehicleinfo.carnumber,
 		vehicleinfo.vehicle
 	</sql>
@@ -31,7 +31,7 @@
 		company,
 		kind,
 		joind,
-		endD,
+		endd,
 		name,
 		gender,
 		birthday,
@@ -39,19 +39,19 @@
 		phone2,
 		address,
 		garage,
-		bosuM,
-		bobuJ,
-		drvL,
-		busL,
+		bosum,
+		bobuj,
+		drvl,
+		busl,
 		memo,
 		bank,
 		gye,
 		gyename,
-		baseM,
-		kukM,
-		gunM,
-		goM,
-		sanM,
+		basem,
+		kukm,
+		gunm,
+		gom,
+		sanm,
 		img,
 		trash)
 
@@ -98,39 +98,31 @@
 		SET
 
 		company = #{company},
-		kind =
-		#{kind},
+		kind = #{kind},
 		joind =
 		#{joind},
-		endD = #{endd},
+		endd = #{endd},
 		name = #{name},
-		gender =
-		#{gender},
+		gender = #{gender},
 		birthday =
 		#{birthday},
-		phone1 =
-		#{phone1},
+		phone1 = #{phone1},
 		phone2 = #{phone2},
-		address = #{address},
+		address =
+		#{address},
 		garage = #{garage},
-		bosuM = #{bosum},
-		bobuJ =
-		#{bobuj},
-		drvL = #{drvl},
-		busL = #{busl},
+		bosum = #{bosum},
+		bobuj = #{bobuj},
+		drvl =
+		#{drvl},
+		busl = #{busl},
 		memo = #{memo},
 		bank = #{bank},
 		gye = #{gye},
-		gyename =
-		#{gyename},
-		baseM = #{basem},
-		kukM = #{kukm},
-		gunM = #{gunm},
-		goM =
-		#{gom},
-		sanM = #{sanm},
+		gyename = #{gyename},
+		trash = #{trash},
 		<if test="img != null and img != '' ">img = #{img},</if>
-		trash = #{trash}
+		id = #{id}
 
 		WHERE
 

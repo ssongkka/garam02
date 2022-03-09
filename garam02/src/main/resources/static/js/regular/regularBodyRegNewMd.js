@@ -5,7 +5,7 @@ $(document).on('click', '#md-rgNew', function () {
         'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
     );
 
-    $('#modal-rginsert').modal('show');
+    $('#modal-rginsert').modal({backdrop: 'static', keyboard: false});
 });
 
 $(document).on('click', '#btnUserPlus', function () {

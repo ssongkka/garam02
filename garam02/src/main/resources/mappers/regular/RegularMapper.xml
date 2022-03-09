@@ -57,15 +57,19 @@
 
 		rdseq, conum, codenum, rdname, rdbus, rdgonum,
 		rdoutnum, opercar, rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
+		rdnum,
 
 		IFNULL((SELECT
 		employeeinfo.name FROM
-		employeeinfo WHERE employeeinfo.id
+		employeeinfo WHERE
+		employeeinfo.id
 		=
-		(SELECT id FROM vehicleinfo WHERE vehicleinfo.carnumber
+		(SELECT id FROM vehicleinfo WHERE
+		vehicleinfo.carnumber
 		=
 		regulardetail.opercar)),
-		regulardetail.opercar) AS idname,
+		regulardetail.opercar)
+		AS idname,
 
 		IFNULL((SELECT
 		employeeinfo.phone1 FROM
@@ -93,7 +97,9 @@
 
 		WHERE
 
-		conum = #{conum};
+		conum = #{conum}
+
+		ORDER BY rdnum
 
 	</select>
 
@@ -105,15 +111,19 @@
 
 		rdseq, conum, codenum, rdname, rdbus, rdgonum,
 		rdoutnum, opercar, rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
+		rdnum,
 
 		IFNULL((SELECT
 		employeeinfo.name FROM
-		employeeinfo WHERE employeeinfo.id
+		employeeinfo WHERE
+		employeeinfo.id
 		=
-		(SELECT id FROM vehicleinfo WHERE vehicleinfo.carnumber
+		(SELECT id FROM vehicleinfo WHERE
+		vehicleinfo.carnumber
 		=
 		regulardetail.opercar)),
-		regulardetail.opercar) AS idname,
+		regulardetail.opercar)
+		AS idname,
 
 		IFNULL((SELECT
 		employeeinfo.phone1 FROM
@@ -141,7 +151,9 @@
 
 		WHERE
 
-		codenum = #{codenum};
+		codenum = #{codenum}
+
+		ORDER BY rdnum
 
 	</select>
 
@@ -195,5 +207,96 @@
 
 	</insert>
 
+	<insert id="insertRegulardetail"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		INSERT
+
+		INTO
+
+		regulardetail
+
+		VALUES
+
+		(
+		null,
+		#{conum},
+		#{codenum},
+		100,
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		1
+		)
+	</insert>
+
+	<update id="updateRegulardetail"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		UPDATE
+
+		regulardetail
+
+		SET
+
+		<if test="rdnum != null and rdnum != '' ">rdnum = #{rdnum},</if>
+		<if test="rdname != null and rdname != '' ">rdname = #{rdname},</if>
+		<if test="rdbus != null and rdbus != '' ">rdbus = #{rdbus},</if>
+		<if test="rdgonum != null">rdgonum = #{rdgonum},</if>
+		<if test="rdoutnum != null">rdoutnum = #{rdoutnum},</if>
+		<if test="rdconn != null and rdconn != '' ">rdconn = #{rdconn},</if>
+		<if test="rdmoney != null">rdmoney = #{rdmoney},</if>
+		<if test="rdaltm != null">rdaltm = #{rdaltm},</if>
+		<if test="rddow != null and rddow != '' ">rddow = #{rddow},</if>
+		<if test="rdmemo != null and rdmemo != '' ">rdmemo = #{rdmemo},</if>
+		<if test="opercar != null and opercar != '' ">opercar = #{opercar},</if>
+		rdtrash = #{rdtrash}
+
+		WHERE
+
+		codenum = #{codenum}
+
+	</update>
+
+	<update id="updateRegulardetailOder"
+		parameterType="java.util.HashMap">
+		<foreach collection="rde" item="value" index="index"
+			separator=";">
+			UPDATE
+
+			regulardetail
+
+			SET
+
+			rdnum = #{value.rdnum}
+
+			WHERE
+
+			codenum =
+			#{value.codenum}
+		</foreach>
+	</update>
+
+	<delete id="delRegulardetail"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		DELETE
+
+		FROM
+
+		regulardetail
+
+		WHERE
+
+		codenum = #{codenum}
+
+	</delete>
 </mapper>
 

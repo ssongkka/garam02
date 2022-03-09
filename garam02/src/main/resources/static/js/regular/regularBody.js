@@ -104,13 +104,25 @@ function getRegularAll(name) {
                             htmls1 += '<tr id="' + r[i].conum + '" onclick="getRegularInfo(this.id)" style="cursor:po' +
                                     'inter">';
                             htmls1 += '<td>';
-                            htmls1 += r[i].regcompany;
+                            if (r[i].regcompany) {
+                                htmls1 += r[i].regcompany;
+                            } else {
+                                htmls1 += '';
+                            }
                             htmls1 += '</td>';
                             htmls1 += '<td>';
-                            htmls1 += r[i].regnum;
+                            if (r[i].regnum) {
+                                htmls1 += r[i].regnum;
+                            } else {
+                                htmls1 += '';
+                            }
                             htmls1 += '대</td>';
                             htmls1 += '<td>';
-                            htmls1 += r[i].regperson;
+                            if (r[i].regperson) {
+                                htmls1 += r[i].regperson;
+                            } else {
+                                htmls1 += '';
+                            }
                             htmls1 += '</td>';
                             htmls1 += '</tr>'
                             break;
@@ -119,10 +131,18 @@ function getRegularAll(name) {
                             htmls2 += '<tr id="' + r[i].conum + '" onclick="getRegularInfo(this.id)" style="cursor:po' +
                                     'inter">';
                             htmls2 += '<td>';
-                            htmls2 += r[i].regcompany;
+                            if (r[i].regcompany) {
+                                htmls1 += r[i].regcompany;
+                            } else {
+                                htmls1 += '';
+                            }
                             htmls2 += '</td>';
                             htmls2 += '<td>';
-                            htmls2 += r[i].regendd;
+                            if (r[i].regendd) {
+                                htmls1 += r[i].regendd;
+                            } else {
+                                htmls1 += '';
+                            }
                             htmls2 += '</td>';
                             htmls2 += '</tr>'
                             break;
@@ -194,8 +214,6 @@ function getRegularDeAll(result) {
             "conum": $('#rgconum').val()
         };
 
-        console.log(params);
-
         $.ajax({
             url: url,
             type: "POST",
@@ -211,26 +229,42 @@ function getRegularDeAll(result) {
                     htmls += (i + 1);
                     htmls += '</td>';
                     htmls += '<td>';
-                    htmls += r[i].rdname;
+                    if (r[i].rdname) {
+                        htmls += r[i].rdname;
+                    } else {
+                        htmls += '';
+                    }
                     htmls += '</td>';
                     htmls += '<td>';
-                    htmls += r[i].rdbus;
+                    if (r[i].rdbus) {
+                        htmls += r[i].rdbus;
+                    } else {
+                        htmls += '';
+                    }
                     htmls += '</td>';
                     htmls += '<td class="hidden-xs">';
-                    htmls += r[i].rdgonum;
-                    htmls += '회</td>';
-                    htmls += '<td class="hidden-xs">';
-                    htmls += r[i].rdoutnum;
-                    htmls += '회</td>';
-                    if (r[i].id) {
-                        htmls += '<td>';
-                        htmls += r[i].idname;
-                        htmls += '</td>';
+                    if (r[i].rdgonum) {
+                        htmls += r[i].rdgonum;
+                        htmls += ' 회</td>';
                     } else {
-                        htmls += '<td>';
                         htmls += '';
                         htmls += '</td>';
                     }
+                    htmls += '<td class="hidden-xs">';
+                    if (r[i].rdoutnum) {
+                        htmls += r[i].rdoutnum;
+                        htmls += ' 회</td>';
+                    } else {
+                        htmls += '';
+                        htmls += '</td>';
+                    }
+                    htmls += '<td>';
+                    if (r[i].id) {
+                        htmls += r[i].idname;
+                    } else {
+                        htmls += '';
+                    }
+                    htmls += '</td>';
                     htmls += '</tr>'
                 }
 
@@ -268,44 +302,61 @@ function getRegularDe(result) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
-                $('#rdname').html(r[0].rdname);
-                $('#rdbus').text(r[0].rdbus);
-
-                const dow = r[0]
-                    .rddow
-                    .split('');
-
                 let ddow = '';
-
-                for (let i = 0; i < dow.length; i++) {
-                    switch (dow[i]) {
-                        case '1':
-                            ddow += '월';
-                            break;
-                        case '2':
-                            ddow += '화';
-                            break;
-                        case '3':
-                            ddow += '수';
-                            break;
-                        case '4':
-                            ddow += '목';
-                            break;
-                        case '5':
-                            ddow += '금';
-                            break;
-                        case '6':
-                            ddow += '토';
-                            break;
-                        case '0':
-                            ddow += '일';
-                            break;
+                if (r[0].rddow) {
+                    const dow = r[0]
+                        .rddow
+                        .split('');
+                    for (let i = 0; i < dow.length; i++) {
+                        switch (dow[i]) {
+                            case '1':
+                                ddow += '월';
+                                break;
+                            case '2':
+                                ddow += '화';
+                                break;
+                            case '3':
+                                ddow += '수';
+                                break;
+                            case '4':
+                                ddow += '목';
+                                break;
+                            case '5':
+                                ddow += '금';
+                                break;
+                            case '6':
+                                ddow += '토';
+                                break;
+                            case '0':
+                                ddow += '일';
+                                break;
+                        }
                     }
                 }
 
+                if (r[0].rdname) {
+                    $('#rdname').text(r[0].rdname);
+                } else {
+                    $('#rdname').text('미정');
+                }
+                if (r[0].rdbus) {
+                    $('#rdbus').text(r[0].rdbus);
+                } else {
+                    $('#rdbus').html('&nbsp;');
+                }
+
                 $('#rddow').text(ddow);
-                $('#rdgogo').text('출근 ' + r[0].rdgonum + '회');
-                $('#rdoutout').text('퇴근 ' + r[0].rdoutnum + '회');
+
+                if (r[0].rdgonum) {
+                    $('#rdgogo').text('출근 ' + r[0].rdgonum + '회');
+                } else {
+                    $('#rdgogo').text('');
+                }
+                if (r[0].rdoutnum) {
+                    $('#rdoutout').text('퇴근 ' + r[0].rdoutnum + '회');
+                } else {
+                    $('#rdoutout').text('');
+                }
 
                 if (r[0].idname) {
                     $('#rdid').html(r[0].idname);

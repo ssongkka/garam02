@@ -702,7 +702,12 @@ function getEmpBaseM(result) {
             success: function (r) {
 
                 if (parseInt(result[0]) < 1) {
-                    $('#in-baseM').val(AddComma(r[0].basem));
+                    console.log("r[0].basem  " + r[0].basem);
+                    if (r[0].basem) {
+                        $('#in-baseM').val(AddComma(r[0].basem));
+                    } else {
+                        $('#in-baseM').val(0);
+                    }
                 }
 
                 if (parseInt(result[1]) < 1) {

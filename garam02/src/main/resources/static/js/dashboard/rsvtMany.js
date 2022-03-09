@@ -5,7 +5,7 @@ $(document).ready(function () {
     const day = toStringByFormatting(new Date());
     $("#std").val(day);
     $("#edd").val(day);
-    $('#myModal').modal('show')
+    $('#myModal').modal({backdrop: 'static', keyboard: false});
 
     $('[data-toggle="tooltip"]').tooltip({
         container: "body",

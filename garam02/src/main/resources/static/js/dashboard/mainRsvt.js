@@ -246,7 +246,7 @@ $(document).on('click', '#insert-rsvt', function () {
             $('#numm').val(Math.floor($('#conm').val() / $('#num').val()));
             break;
     }
-    if ($('#ctmname').val() && $('#ctmtel1').val()) {
+    if ($('#ctmname').val() && $('#ctmtel1').text()) {
         formRsvt.submit();
     } else {
         alert("고객정보를 입력해주세요.\n\n고객이름과 연락처는 꼭 입력하셔야합니다.");
@@ -260,7 +260,7 @@ $(document).on('click', '#many-insert', function () {
 });
 
 $(document).on('click', '#customerInsertMo', function () {
-    $('#customerModal').modal('show')
+    $('#customerModal').modal({backdrop: 'static', keyboard: false});
     $('#modalName').focus();
 });
 $(document).on('click', '#btn-custom-modal', function () {
