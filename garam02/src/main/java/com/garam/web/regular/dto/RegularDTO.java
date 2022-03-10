@@ -55,9 +55,6 @@ public class RegularDTO {
 	// 계약형태
 	private String regcontract;
 
-	// 대수
-	private Integer regnum;
-
 	// 계약금액
 	private Integer regmoney;
 
@@ -80,12 +77,6 @@ public class RegularDTO {
 
 	// 차량구분
 	private String rdbus;
-
-	// 출근횟수
-	private Integer rdgonum;
-
-	// 퇴근횟수
-	private Integer rdoutnum;
 
 	// 사원번호
 	private String id;
@@ -227,14 +218,6 @@ public class RegularDTO {
 		this.regcontract = regcontract;
 	}
 
-	public Integer getRegnum() {
-		return regnum;
-	}
-
-	public void setRegnum(Integer regnum) {
-		this.regnum = regnum;
-	}
-
 	public Integer getRegmoney() {
 		return regmoney;
 	}
@@ -297,22 +280,6 @@ public class RegularDTO {
 
 	public void setRdbus(String rdbus) {
 		this.rdbus = rdbus;
-	}
-
-	public Integer getRdgonum() {
-		return rdgonum;
-	}
-
-	public void setRdgonum(Integer rdgonum) {
-		this.rdgonum = rdgonum;
-	}
-
-	public Integer getRdoutnum() {
-		return rdoutnum;
-	}
-
-	public void setRdoutnum(Integer rdoutnum) {
-		this.rdoutnum = rdoutnum;
 	}
 
 	public String getId() {

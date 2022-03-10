@@ -4,8 +4,9 @@
 
 	<sql id="regularColumns">
 		regseq, ctmno, conum, regstartd, regendd, regcompany,
-		regaddress, regperson, regphone, regcontract, regnum, regmoney,
-		regmemo, regtrash
+		regaddress, regperson, regphone, regcontract, regmoney,
+		regmemo,
+		regtrash
 	</sql>
 
 	<select id="selctRegular"
@@ -55,8 +56,8 @@
 
 		SELECT
 
-		rdseq, conum, codenum, rdname, rdbus, rdgonum,
-		rdoutnum, opercar, rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
+		rdseq, conum, codenum, rdname, rdbus, opercar,
+		rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
 		rdnum,
 
 		IFNULL((SELECT
@@ -64,7 +65,8 @@
 		employeeinfo WHERE
 		employeeinfo.id
 		=
-		(SELECT id FROM vehicleinfo WHERE
+		(SELECT id
+		FROM vehicleinfo WHERE
 		vehicleinfo.carnumber
 		=
 		regulardetail.opercar)),
@@ -109,8 +111,8 @@
 
 		SELECT
 
-		rdseq, conum, codenum, rdname, rdbus, rdgonum,
-		rdoutnum, opercar, rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
+		rdseq, conum, codenum, rdname, rdbus, opercar,
+		rdmoney, rdaltm, rddow, rdmemo, rdtrash, rdconn,
 		rdnum,
 
 		IFNULL((SELECT
@@ -118,7 +120,8 @@
 		employeeinfo WHERE
 		employeeinfo.id
 		=
-		(SELECT id FROM vehicleinfo WHERE
+		(SELECT id
+		FROM vehicleinfo WHERE
 		vehicleinfo.carnumber
 		=
 		regulardetail.opercar)),
@@ -174,7 +177,7 @@
 		codenum = #{codenum}
 
 		ORDER BY
-		rct
+		rct, rcnum
 	</select>
 
 	<insert id="insertRegular"
@@ -231,10 +234,71 @@
 		null,
 		null,
 		null,
-		null,
-		null,
 		1
-		)
+		);
+
+		INSERT
+
+		INTO
+
+		regularcourse
+
+		VALUES
+
+		(
+		null,
+		#{codenum},
+		#{idname},
+		1,
+		1,
+		0,
+		null,
+		null,
+		'출근출발',
+		1
+		);
+
+		INSERT
+
+		INTO
+
+		regularcourse
+
+		VALUES
+
+		(
+		null,
+		#{codenum},
+		#{idphone1},
+		1,
+		1,
+		50,
+		null,
+		null,
+		'도착',
+		1
+		);
+
+		INSERT
+
+		INTO
+
+		regularcourse
+
+		VALUES
+
+		(
+		null,
+		#{codenum},
+		#{idvehicle},
+		2,
+		2,
+		100,
+		null,
+		null,
+		'퇴근출발',
+		1
+		);
 	</insert>
 
 	<update id="updateRegulardetail"
@@ -249,8 +313,6 @@
 		<if test="rdnum != null and rdnum != '' ">rdnum = #{rdnum},</if>
 		<if test="rdname != null and rdname != '' ">rdname = #{rdname},</if>
 		<if test="rdbus != null and rdbus != '' ">rdbus = #{rdbus},</if>
-		<if test="rdgonum != null">rdgonum = #{rdgonum},</if>
-		<if test="rdoutnum != null">rdoutnum = #{rdoutnum},</if>
 		<if test="rdconn != null and rdconn != '' ">rdconn = #{rdconn},</if>
 		<if test="rdmoney != null">rdmoney = #{rdmoney},</if>
 		<if test="rdaltm != null">rdaltm = #{rdaltm},</if>
@@ -262,6 +324,24 @@
 		WHERE
 
 		codenum = #{codenum}
+
+	</update>
+
+	<update id="delOperCar"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		UPDATE
+
+		regulardetail
+
+		SET
+
+		opercar = null
+
+		WHERE
+
+		codenum =
+		#{codenum}
 
 	</update>
 
@@ -296,7 +376,6 @@
 		WHERE
 
 		codenum = #{codenum}
-
 	</delete>
 </mapper>
 

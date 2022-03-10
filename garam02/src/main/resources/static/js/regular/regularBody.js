@@ -193,7 +193,6 @@ function getRegular(result) {
                 $('#rgname').text(r[0].regperson);
                 $('#rgtel').text(r[0].regphone);
                 $('#rgtel').attr('href', 'tel:' + r[0].regphone);
-                $('#rgnum').text(r[0].regnum + '대');
                 $('#rgcon').text(r[0].regcontract);
                 resolve();
             }
@@ -243,21 +242,11 @@ function getRegularDeAll(result) {
                     }
                     htmls += '</td>';
                     htmls += '<td class="hidden-xs">';
-                    if (r[i].rdgonum) {
-                        htmls += r[i].rdgonum;
-                        htmls += ' 회</td>';
-                    } else {
-                        htmls += '';
-                        htmls += '</td>';
-                    }
+                    htmls += '';
+                    htmls += '</td>';
                     htmls += '<td class="hidden-xs">';
-                    if (r[i].rdoutnum) {
-                        htmls += r[i].rdoutnum;
-                        htmls += ' 회</td>';
-                    } else {
-                        htmls += '';
-                        htmls += '</td>';
-                    }
+                    htmls += '';
+                    htmls += '</td>';
                     htmls += '<td>';
                     if (r[i].id) {
                         htmls += r[i].idname;
@@ -347,17 +336,6 @@ function getRegularDe(result) {
 
                 $('#rddow').text(ddow);
 
-                if (r[0].rdgonum) {
-                    $('#rdgogo').text('출근 ' + r[0].rdgonum + '회');
-                } else {
-                    $('#rdgogo').text('');
-                }
-                if (r[0].rdoutnum) {
-                    $('#rdoutout').text('퇴근 ' + r[0].rdoutnum + '회');
-                } else {
-                    $('#rdoutout').text('');
-                }
-
                 if (r[0].idname) {
                     $('#rdid').html(r[0].idname);
                 } else {
@@ -432,6 +410,7 @@ function getRegularCource(result) {
                         cnt++;
                     } else if (k == r.length - 1) {
                         if (r[k - 1].rcsepa != r[k].rcsepa) {
+                            sepac.push(cnt);
                             sepa.push(r[k].rcsepa);
                             sepac.push(1);
                         } else {
@@ -467,10 +446,19 @@ function getRegularCource(result) {
                             htmls += ccnntt;
                             htmls += '</td>';
                             htmls += '<td class="">'
-                            htmls += r[i].rct;
+
+                            if (r[i].rct) {
+                                htmls += r[i].rct;
+                            } else {
+                                htmls += '';
+                            }
                             htmls += '</td>'
                             htmls += '<td class="">'
-                            htmls += r[i].rcstp;
+                            if (r[i].rcstp) {
+                                htmls += r[i].rcstp;
+                            } else {
+                                htmls += '';
+                            }
                             htmls += '</td>'
                             htmls += '<td class="">'
                             if (r[i].rcmemo) {
@@ -489,10 +477,18 @@ function getRegularCource(result) {
                             htmls += ccnntt;
                             htmls += '</td>';
                             htmls += '<td class="">'
-                            htmls += r[i].rct;
+                            if (r[i].rct) {
+                                htmls += r[i].rct;
+                            } else {
+                                htmls += '';
+                            }
                             htmls += '</td>'
                             htmls += '<td class="">'
-                            htmls += r[i].rcstp;
+                            if (r[i].rcstp) {
+                                htmls += r[i].rcstp;
+                            } else {
+                                htmls += '';
+                            }
                             htmls += '</td>'
                             htmls += '<td class="">'
                             if (r[i].rcmemo) {
@@ -509,10 +505,18 @@ function getRegularCource(result) {
                         htmls += ccnntt;
                         htmls += '</td>';
                         htmls += '<td>'
-                        htmls += r[i].rct;
+                        if (r[i].rct) {
+                            htmls += r[i].rct;
+                        } else {
+                            htmls += '';
+                        }
                         htmls += '</td>'
                         htmls += '<td>'
-                        htmls += r[i].rcstp;
+                        if (r[i].rcstp) {
+                            htmls += r[i].rcstp;
+                        } else {
+                            htmls += '';
+                        }
                         htmls += '</td>'
                         htmls += '<td>'
                         if (r[i].rcmemo) {

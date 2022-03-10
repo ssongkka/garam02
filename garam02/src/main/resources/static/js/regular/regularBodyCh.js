@@ -6,7 +6,7 @@ function getTrHtmls() {
     const htmls = `<tr>
     <td>
         <button class="btn" onclick="delTr(this)">
-            <i class="far fa-times-circle"></i>
+        <i class="fas fa-minus"></i>
         </button>
     </td>
     <td>
@@ -24,36 +24,6 @@ function getTrHtmls() {
             <option value="중형" label="중형"></option>
             <option value="우등" label="우등"></option>
             <option value="기타" label="기타"></option>
-        </select>
-    </td>
-    <td>
-        <select class="form-control input-sm rgip upclasse">
-            <option value="0" label="0 회"></option>
-            <option value="1" label="1 회"></option>
-            <option value="2" label="2 회"></option>
-            <option value="3" label="3 회"></option>
-            <option value="4" label="4 회"></option>
-            <option value="5" label="5 회"></option>
-            <option value="6" label="6 회"></option>
-            <option value="7" label="7 회"></option>
-            <option value="8" label="8 회"></option>
-            <option value="9" label="9 회"></option>
-            <option value="10" label="10 회"></option>
-        </select>
-    </td>
-    <td>
-        <select class="form-control input-sm rgip upclasse">
-            <option value="0" label="0 회"></option>
-            <option value="1" label="1 회"></option>
-            <option value="2" label="2 회"></option>
-            <option value="3" label="3 회"></option>
-            <option value="4" label="4 회"></option>
-            <option value="5" label="5 회"></option>
-            <option value="6" label="6 회"></option>
-            <option value="7" label="7 회"></option>
-            <option value="8" label="8 회"></option>
-            <option value="9" label="9 회"></option>
-            <option value="10" label="10 회"></option>
         </select>
     </td>
     <td>
@@ -86,20 +56,26 @@ function getTrHtmls() {
         placeholder="차량번호">
     </td>
     <td>
+        <button class="clve" role="button" style="background: transparent; color:gray;"><i class="fas fa-times"></i></button>
+    </td>
+    <td></td>
+    <td>
         <button class="btn btn1 btn-success">
             <i class="fas fa-list-ul"></i>
         </button>
     </td>
     <td>
-    <button class="btn btn1 btn-default" onclick="up(this)">
-            <i class="far fa-arrow-alt-circle-up"></i>
-    </button>
+        <button class="btn btn1 btn-default" onclick="up(this)">
+           <i class="fas fa-angle-up"></i></i>
+       </button>
     </td>
     <td>
-    <button class="btn btn1 btn-default" onclick="down(this)">
-            <i class="far fa-arrow-alt-circle-down"></i>
-    </button>
+         <button class="btn btn1 btn-default" onclick="down(this)">
+            <i class="fas fa-angle-down"></i></i>
+         </button>
     </td>
+    <td class="thNone"></td>
+    <td class="thNone"></td>
 </tr>`
     return htmls;
 }
@@ -200,7 +176,6 @@ function getRegular(result) {
                 $('#rgname').text(r[0].regperson);
                 $('#rgtel').text(r[0].regphone);
                 $('#rgtel').attr('href', 'tel:' + r[0].regphone);
-                $('#rgnum').text(r[0].regnum + '대');
                 $('#rgcon').text(r[0].regcontract);
                 resolve();
             }
@@ -262,19 +237,10 @@ function getRegularDeAll(result) {
                                 const dd = $($(tmp).children()[5]).children();
                                 const ee = $($(tmp).children()[6]).children();
                                 const ff = $($(tmp).children()[7]).children();
-                                const gg = $($(tmp).children()[8]).children();
-                                const hh = $($(tmp).children()[9]).children();
+                                const gg = $($(tmp).children()[9]).children();
                                 const ii = $($(tmp).children()[10]).children();
-
-                                $(aa).attr('tabindex', cntTab1++);
-                                $(bb).attr('tabindex', cntTab1++);
-                                $(cc).attr('tabindex', cntTab1++);
-                                $(dd).attr('tabindex', cntTab1++);
-                                $(ee).attr('tabindex', cntTab1++);
-                                $(ff).attr('tabindex', cntTab1++);
-                                $(gg).attr('tabindex', cntTab1++);
-                                $(hh).attr('tabindex', cntTab1++);
-                                $(ii).attr('tabindex', cntTab1++);
+                                const jj = $($(tmp).children()[13]).children();
+                                const kk = $($(tmp).children()[14]).children();
 
                                 if (r[k].rdname) {
                                     $(aa).val(r[k].rdname);
@@ -282,31 +248,34 @@ function getRegularDeAll(result) {
                                 if (r[k].rdbus) {
                                     $(bb).val(r[k].rdbus);
                                 }
-                                if (r[k].rdgonum) {
-                                    $(cc).val(r[k].rdgonum);
-                                }
-                                if (r[k].rdoutnum) {
-                                    $(dd).val(r[k].rdoutnum);
-                                }
                                 if (r[k].rdconn) {
-                                    $(ee).val(r[k].rdconn);
+                                    $(cc).val(r[k].rdconn);
                                 }
                                 if (r[k].rdmoney) {
-                                    $(ff).val(AddComma(r[k].rdmoney));
+                                    $(dd).val(AddComma(r[k].rdmoney));
                                 }
                                 if (r[k].rdaltm) {
-                                    $(gg).val(AddComma(r[k].rdaltm));
+                                    $(ee).val(AddComma(r[k].rdaltm));
                                 }
                                 if (r[k].idvehicle) {
                                     if (isNaN((r[k].idvehicle).substring((r[k].idvehicle).length - 4))) {
-                                        $(hh).val(r[k].idvehicle);
+                                        $(ff).val(r[k].idvehicle);
                                     } else {
-                                        $(hh).val((r[k].idvehicle).substring((r[k].idvehicle).length - 4));
+                                        $(ff).val((r[k].idvehicle).substring((r[k].idvehicle).length - 4));
                                     }
+                                }
+                                if (r[k].idname) {
+                                    $($(tmp).children()[9]).text(r[k].idname);
                                 }
                                 if (r[k].codenum) {
                                     $(ii).attr('id', r[k].codenum);
                                     $(ii).attr('onclick', 'getRecou(this.id)');
+                                }
+                                if (r[k].rddow) {
+                                    $($(tmp).children()[13]).text(r[k].rddow);
+                                }
+                                if (r[k].rdmemo) {
+                                    $($(tmp).children()[14]).text(r[k].rdmemo);
                                 }
                                 break;
                             case 2:
@@ -327,6 +296,512 @@ function getRegularInfo() {
         .then(getRegularDeAll)
         .then(chNum)
         .then(closeLoadingWithMask);
+}
+
+function getRecou(iidd) {
+    LoadingWithMask()
+        .then(erAll)
+        .then(setTb)
+        .then(getCo)
+        .then(modalSS)
+        .then(closeLoadingWithMask);
+
+    function erAll(params) {
+        return new Promise(function (resolve, reject) {
+            $('#gogogogogo')
+                .children()
+                .remove();
+            $('#goutgoutgout')
+                .children()
+                .remove();
+            resolve();
+        })
+    }
+
+    function setTb(result) {
+        return new Promise(function (resolve, reject) {
+            const iiddd = '#' + iidd;
+            const tmp = $(iiddd)
+                .parents()
+                .parents()[0];
+            const hh = $(tmp).children()[2];
+            const hh1 = $(hh).children();
+            const jj = $(tmp).children()[13];
+            const jj1 = $(jj);
+            const aa = $(tmp).children()[14];
+            const aa1 = $(aa).children();
+
+            const dow = $(jj1).text();
+            const memomo = $(aa1).text();
+
+            const ddaayy = dow.split('');
+
+            if ($(hh1).val()) {
+                $('#regModalLabel').text($(hh1).val() + ' 노선정보');
+            } else {
+                $('#regModalLabel').text('노선명 미정(노선명을 입력해주세요.)');
+            }
+
+            $('#chDow1').prop("checked", false);
+            $('#chDow2').prop("checked", false);
+            $('#chDow3').prop("checked", false);
+            $('#chDow4').prop("checked", false);
+            $('#chDow5').prop("checked", false);
+            $('#chDow6').prop("checked", false);
+            $('#chDow0').prop("checked", false);
+            for (let i = 0; i < ddaayy.length; i++) {
+                console.log(ddaayy[i]);
+                switch (ddaayy[i]) {
+                    case '1':
+                        console.log("glasdgg");
+                        $('#chDow1').prop("checked", true);
+                        break;
+                    case '2':
+                        $('#chDow2').prop("checked", true);
+                        break;
+                    case '3':
+                        $('#chDow3').prop("checked", true);
+                        break;
+                    case '4':
+                        $('#chDow4').prop("checked", true);
+                        break;
+                    case '5':
+                        $('#chDow5').prop("checked", true);
+                        break;
+                    case '6':
+                        $('#chDow6').prop("checked", true);
+                        break;
+                    case '0':
+                        $('#chDow0').prop("checked", true);
+                        break;
+                }
+            }
+            $('#rdememoo').val(memomo);
+            resolve();
+        });
+    }
+    function getCo(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/reg/regRegularcourse";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "codenum": iidd
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r.length > 0) {
+
+                        let gout = new Array();
+                        let goutcnt = new Array();
+                        let goutsepa = new Array();
+
+                        for (let k = 0; k < r.length; k++) {
+                            let cnt = 0;
+                            for (let j = 0; j < gout.length; j++) {
+                                if (r[k].goutnum == gout[j]) {
+                                    cnt++;
+                                }
+                            }
+                            if (cnt < 1) {
+                                gout.push(r[k].goutnum);
+                            }
+                        }
+
+                        for (let k = 0; k < gout.length; k++) {
+                            let cnt = 0;
+                            for (let j = 0; j < r.length; j++) {
+                                if (r[j].goutnum == gout[k]) {
+                                    cnt++;
+                                }
+                            }
+                            goutcnt.push(cnt);
+                        }
+
+                        for (let k = 0; k < gout.length; k++) {
+                            let cnt = 0;
+                            for (let j = 0; j < r.length; j++) {
+                                if (r[j].goutnum == gout[k]) {
+                                    cnt = r[j].rcsepa;
+                                }
+                            }
+                            goutsepa.push(cnt);
+                        }
+
+                        for (let k = 0; k < goutsepa.length; k++) {
+                            switch (goutsepa[k]) {
+                                case 1:
+                                    $('#gogogogogo').append(getGoGoTb(gout[k]));
+                                    break;
+                                case 2:
+                                    $('#goutgoutgout').append(getOutOutTb(gout[k]));
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        for (let k = 0; k < gout.length; k++) {
+                            let htmlgo = '';
+                            let htmlout = '';
+                            let cntgo = 1;
+                            let cntout = 1;
+                            for (let i = 0; i < r.length; i++) {
+                                if (gout[k] == r[i].goutnum) {
+                                    switch (r[i].rcsepa) {
+                                        case 1:
+                                            switch (r[i].rcnum) {
+                                                case 0:
+                                                    htmlgo += '<tr>';
+                                                    htmlgo += '<td class="thNone">';
+                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td></td>';
+                                                    htmlgo += '<td>' + cntgo++ + '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<div class="input-group" > ';
+                                                    htmlgo += '<input type="time" class="input-sm" value ="';
+                                                    if (r[i].rct) {
+                                                        htmlgo += r[i].rct;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</div>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcstp) {
+                                                        htmlgo += r[i].rcstp;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcmemo) {
+                                                        htmlgo += r[i].rcmemo;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '</tr>';
+                                                    break;
+                                                case 50:
+                                                    htmlgo += '<tr>';
+                                                    htmlgo += '<td class="thNone">';
+                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td></td>';
+                                                    htmlgo += '<td>' + cntgo++ + '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<div class="input-group"> ';
+                                                    htmlgo += ' <input type="time" class="input-sm" value="';
+                                                    if (r[i].rct) {
+                                                        htmlgo += r[i].rct;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</div>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class = "input-sm" value = "';
+                                                    if (r[i].rcstp) {
+                                                        htmlgo += r[i].rcstp;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcmemo) {
+                                                        htmlgo += r[i].rcmemo;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '</tr>';
+                                                    break;
+                                                default:
+                                                    htmlgo += '<tr>';
+                                                    htmlgo += '<td class="thNone">';
+                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<button class="btn btnn" onclick="" > ';
+                                                    htmlgo += '<i class="fas fa-minus"></i></button>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>' + cntgo++ + '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<div class="input-group"> ';
+                                                    htmlgo += '<input type="time" class="input-sm" value="';
+                                                    if (r[i].rct) {
+                                                        htmlgo += r[i].rct;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</div>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcstp) {
+                                                        htmlgo += r[i].rcstp;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcmemo) {
+                                                        htmlgo += r[i].rcmemo;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<button class="btn btnn">';
+                                                    htmlgo += '<i class="fas fa-angle-up"></i></button>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<button class="btn btnn">';
+                                                    htmlgo += '<i class="fas fa-angle-down"></i></button>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '</tr>';
+                                                    break;
+                                            }
+                                            break;
+                                        case 2:
+                                            switch (r[i].rcnum) {
+                                                case 100:
+                                                    htmlgo += '<tr>';
+                                                    htmlgo += '<td class="thNone">';
+                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td></td>';
+                                                    htmlgo += '<td>' + cntgo++ + '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<div class="input-group" > ';
+                                                    htmlgo += '<input type="time" class="input-sm" value ="';
+                                                    if (r[i].rct) {
+                                                        htmlgo += r[i].rct;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</div>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcstp) {
+                                                        htmlgo += r[i].rcstp;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcmemo) {
+                                                        htmlgo += r[i].rcmemo;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '</tr>';
+                                                    break;
+                                                default:
+                                                    htmlgo += '<tr>';
+                                                    htmlgo += '<td class="thNone">';
+                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<button class="btn btnn" onclick="" > ';
+                                                    htmlgo += ' <i class="fas fa-minus"></i></button>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>' + cntgo++ + '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<div class="input-group"> ';
+                                                    htmlgo += '<input type="time" class="input-sm" value="';
+                                                    if (r[i].rct) {
+                                                        htmlgo += r[i].rct;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</div>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcstp) {
+                                                        htmlgo += r[i].rcstp;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    if (r[i].rcmemo) {
+                                                        htmlgo += r[i].rcmemo;
+                                                    } else {
+                                                        htmlgo += '';
+                                                    }
+                                                    htmlgo += '">';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<button class="btn btnn">';
+                                                    htmlgo += '<i class="fas fa-angle-up"></i></button>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '<td>';
+                                                    htmlgo += '<button class="btn btnn">';
+                                                    htmlgo += '<i class="fas fa-angle-down"></i></button>';
+                                                    htmlgo += '</td>';
+                                                    htmlgo += '</tr>';
+                                                    break;
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                            if (goutsepa[k] == 1) {
+                                const tbiidd = '#tbgo' + gout[k];
+                                $(tbiidd).html(htmlgo);
+                            } else {
+                                const tbiidd = '#tbout' + gout[k];
+                                $(tbiidd).html(htmlgo);
+                            }
+                        }
+                    }
+                    resolve();
+                }
+            })
+        });
+    }
+    function modalSS(result) {
+        return new Promise(function (resolve, reject) {
+            $('#regModal').modal({backdrop: 'static', keyboard: false});
+            resolve();
+        })
+    }
+}
+
+function aaa(params) {
+    console.log(params);
+}
+
+function getGoGoTb(param) {
+    const gotb = `<div class="gogo-item">
+    <div class="gogo-item1">
+        <table class="table table-bordered" id="gotb` +
+            param +
+            `">
+            <colgroup>
+                <col width="7%"/>
+                <col width="7%"/>
+                <col width="15%"/>
+                <col width="42%"/>
+                <col width="19%"/>
+                <col width="5%"/>
+                <col width="5%"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="thNone"></th>
+                    <th>삭제</th>
+                    <th>번호</th>
+                    <th>시간</th>
+                    <th>장소</th>
+                    <th>메모</th>
+                    <th colspan="2">이동</th>
+                </tr>
+            </thead>
+            <tbody id="tbgo` +
+            param +
+            `"></tbody>
+        </table>
+    </div>
+    <div class="gogo-item2">
+         <button type="button" class="btn btn-warning" id="insertCo">
+             <i class="far fa-trash-alt"></i>&nbsp;삭&nbsp;&nbsp;제
+        </button>
+        <button type="button" class="btn btn-primary" id="insertCo">
+             <i class="fas fa-plus"></i>&nbsp;정류소&nbsp;추가
+        </button>
+    </div>
+</div>`;
+    return gotb;
+}
+function getOutOutTb(param) {
+    const gotb = `<div class="gogo-item">
+    <div class="gogo-item1">
+        <table class="table table-bordered" id="outtb` +
+            param +
+            `">
+            <colgroup>
+                <col width="7%"/>
+                <col width="7%"/>
+                <col width="15%"/>
+                <col width="42%"/>
+                <col width="19%"/>
+                <col width="5%"/>
+                <col width="5%"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="thNone"></th>
+                    <th>삭제</th>
+                    <th>번호</th>
+                    <th>시간</th>
+                    <th>장소</th>
+                    <th>메모</th>
+                    <th colspan="2">이동</th>
+                </tr>
+            </thead>
+            <tbody id="tbout` +
+            param +
+            `"></tbody>
+        </table>
+    </div>
+    <div class="gogo-item2">
+        <button type="button" class="btn btn-warning" id="insertCo">
+            <i class="far fa-trash-alt"></i>&nbsp;삭&nbsp;&nbsp;제
+        </button>
+        <button type="button" class="btn btn-primary" id="insertCo">
+            <i class="fas fa-plus"></i>&nbsp;정류소&nbsp;추가
+        </button>
+    </div>
+</div>`;
+    return gotb;
 }
 
 function up(params) {
@@ -462,10 +937,12 @@ $(document).on('keydown', '.upclas', function (eInner) {
         updateRegularDe(this);
     }
 })
-
 $(document).on('change', '.upclasse', function () {
     updateRegularDe(this);
 });
+$(document).on('click', '.clve', function (eInner) {
+    delOperCar(this);
+})
 
 function updateRegularDe(papa) {
     LoadingWithMask()
@@ -494,12 +971,10 @@ function updateRegularDe(papa) {
         const ff1 = $(ff).children();
         const gg = $(tmp).children()[8];
         const gg1 = $(gg).children();
-        const hh = $(tmp).children()[9];
-        const hh1 = $(hh).children();
         const ii = $(tmp).children()[10];
         const ii1 = $(ii).children();
 
-        var val = $(hh1).val();
+        var val = $(ff1).val();
         var carnum = $('#car-info option')
             .filter(function () {
                 return this.value == val;
@@ -518,17 +993,58 @@ function updateRegularDe(papa) {
                 "rdnum": $(jj).text(),
                 "rdname": $(aa1).val(),
                 "rdbus": $(bb1).val(),
-                "rdgonum": $(cc1).val(),
-                "rdoutnum": $(dd1).val(),
-                "rdconn": $(ee1).val(),
-                "rdmoney": ($(ff1).val()).replace(',', ''),
-                "rdaltm": ($(gg1).val()).replace(',', ''),
+                "rdconn": $(cc1).val(),
+                "rdmoney": ($(dd1).val()).replace(',', ''),
+                "rdaltm": ($(ee1).val()).replace(',', ''),
                 "opercar": carnum,
                 "rdtrash": 1
             };
 
-            console.log(params);
-            console.log(" $(jj)   " + $(jj).text());
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r == 0) {
+                        alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                    } else if (r == -1) {
+                        alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    } else if (r == -2) {
+                        alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                    }
+                    resolve();
+                }
+            })
+        });
+    }
+}
+
+function delOperCar(papa) {
+    LoadingWithMask()
+        .then(deldelcar)
+        .then(getRegular)
+        .then(getRegularDeAll)
+        .then(chNum)
+        .then(closeLoadingWithMask);
+    function deldelcar(result) {
+        const tmp = $(papa)
+            .parents()
+            .parents()[0];
+        const ii = $(tmp).children()[10];
+        const ii1 = $(ii).children();
+
+        return new Promise(function (resolve, reject) {
+            const url = "/reg/delOperCar";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "codenum": $(ii1).attr('id')
+            };
 
             $.ajax({
                 url: url,
@@ -594,6 +1110,35 @@ function delRegularDe(code, trash) {
     }
 }
 
-function getRecou(params) {
-    $('#regModal').modal({backdrop: 'static', keyboard: false});
+$(document).on('click', '#insertCo', function () {
+    const ttrrr = `<tr>
+    <td>
+        <button class="btn btn1">
+            <i class="fas fa-minus"></i>
+        </button>
+    </td>
+    <td>1</td>
+    <td>
+        <div class="input-group">
+            <input type="time" class="input-sm" id="">
+        </div>
+    </td>
+    <td><input type="text" class="input-sm" id=""></td>
+    <td><input type="text" class="input-sm" id=""></td>
+    </tr>`;
+
+    $('#trGoEnd').before(ttrrr);
+    chchNum();
+});
+
+function chchNum() {
+    const size = $('#rcou-tbb1')
+        .children()
+        .length;
+    console.log(size);
+    for (let i = 0; i < size; i++) {
+        const aaa = $('#rcou-tbb1').children()[i];
+        const bbb = $(aaa).children()[1];
+        $(bbb).text(i + 1);
+    }
 }

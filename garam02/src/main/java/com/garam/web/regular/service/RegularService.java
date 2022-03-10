@@ -26,5 +26,7 @@ public interface RegularService {
 
 	public int updateRegulardetailOder(List<Map<String, Object>> map) throws Exception;
 
+	public int delOperCar(RegularDTO regularDTO) throws Exception;
+
 	public int delRegulardetail(RegularDTO regularDTO) throws Exception;
 }

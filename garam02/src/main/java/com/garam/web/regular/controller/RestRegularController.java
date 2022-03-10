@@ -114,6 +114,21 @@ public class RestRegularController {
 		return rst;
 	}
 
+	@PostMapping(value = "/delOperCar")
+	public int delOperCar(@RequestBody RegularDTO regularDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = regularService.delOperCar(regularDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
 	@PostMapping(value = "/updateRegulardetailOrder")
 	public int updateRegulardetailOrder(@RequestBody List<Map<String, Object>> map) throws Exception {
 		int rst = 0;
@@ -127,4 +142,5 @@ public class RestRegularController {
 		}
 		return rst;
 	}
+
 }

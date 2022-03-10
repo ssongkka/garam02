@@ -30,6 +30,8 @@ public interface RegularMapper {
 
 	public int updateRegulardetailOder(HashMap<String, Object> map) throws Exception;
 
+	public int delOperCar(RegularDTO regularDTO) throws Exception;
+
 	public int delRegulardetail(RegularDTO regularDTO) throws Exception;
 
 }

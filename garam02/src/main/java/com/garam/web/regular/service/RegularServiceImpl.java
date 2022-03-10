@@ -91,6 +91,9 @@ public class RegularServiceImpl implements RegularService {
 	@Override
 	public int insertRegulardetail(RegularDTO regularDTO) throws Exception {
 		regularDTO.setCodenum(get_dingding("RDe"));
+		regularDTO.setIdname(get_dingding("RCo"));
+		regularDTO.setIdphone1(get_dingding("RCo"));
+		regularDTO.setIdvehicle(get_dingding("RCo"));
 		int rtn = regularMapper.insertRegulardetail(regularDTO);
 
 		return rtn;
@@ -111,6 +114,13 @@ public class RegularServiceImpl implements RegularService {
 		}
 
 		int rtn = regularMapper.updateRegulardetailOder(rde);
+
+		return rtn;
+	}
+
+	@Override
+	public int delOperCar(RegularDTO regularDTO) throws Exception {
+		int rtn = regularMapper.delOperCar(regularDTO);
 
 		return rtn;
 	}
