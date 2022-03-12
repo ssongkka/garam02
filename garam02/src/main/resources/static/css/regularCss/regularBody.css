@@ -198,12 +198,9 @@ h4 {
     width: 10%;
 }
 .tg-tb-01 col:nth-child(4) {
-    width: 10%;
+    width: 20%;
 }
 .tg-tb-01 col:nth-child(5) {
-    width: 10%;
-}
-.tg-tb-01 col:nth-child(6) {
     width: 20%;
 }
 
@@ -313,13 +310,16 @@ h4 {
     }
 
     .tg-tb-01 col:nth-child(1) {
-        width: 50%;
+        width: 40%;
     }
     .tg-tb-01 col:nth-child(2) {
-        width: 20%;
+        width: 10%;
     }
     .tg-tb-01 col:nth-child(3) {
         width: 30%;
+    }
+    .tg-tb-01 col:nth-child(4) {
+        width: 20%;
     }
 
     .tg-tb-02 col:nth-child(1) {

@@ -96,7 +96,7 @@ public class RegularDTO {
 	// 운행요일
 	private String rddow;
 
-	private Integer rdmemo;
+	private String rdmemo;
 
 	private Integer rdtrash;
 
@@ -322,11 +322,11 @@ public class RegularDTO {
 		this.rddow = rddow;
 	}
 
-	public Integer getRdmemo() {
+	public String getRdmemo() {
 		return rdmemo;
 	}
 
-	public void setRdmemo(Integer rdmemo) {
+	public void setRdmemo(String rdmemo) {
 		this.rdmemo = rdmemo;
 	}
 

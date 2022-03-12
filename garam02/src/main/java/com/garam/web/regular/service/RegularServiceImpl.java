@@ -132,4 +132,47 @@ public class RegularServiceImpl implements RegularService {
 		return rtn;
 	}
 
+	@Override
+	public int insertRegulardetailGO(RegularDTO regularDTO) throws Exception {
+		regularDTO.setIdname(get_dingding("RCo"));
+		regularDTO.setIdphone1(get_dingding("RCo"));
+		int rtn = regularMapper.insertRegulardetailGO(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertRegulardetailOUT(RegularDTO regularDTO) throws Exception {
+		regularDTO.setIdname(get_dingding("RCo"));
+		int rtn = regularMapper.insertRegulardetailOUT(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertRegularCoo(RegularDTO regularDTO) throws Exception {
+		regularDTO.setCoconum(get_dingding("RCo"));
+		int rtn = regularMapper.insertRegularCoo(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int delRegularCoo(RegularDTO regularDTO) throws Exception {
+		int rtn = regularMapper.delRegularCoo(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRegularcourse(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> rde = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rde.put("regco", map);
+		}
+
+		int rtn = regularMapper.updateRegularcourse(rde);
+
+		return rtn;
+	}
 }

@@ -45,6 +45,8 @@ $(document).ready(function () {
             padding: 2
         }
     });
+
+    $('input').attr('autocomplete', 'off');
 });
 
 function LoadingWithMask() {

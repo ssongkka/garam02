@@ -1,5 +1,6 @@
 package com.garam.web.regular.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,14 @@ public interface RegularService {
 	public int delOperCar(RegularDTO regularDTO) throws Exception;
 
 	public int delRegulardetail(RegularDTO regularDTO) throws Exception;
+
+	public int insertRegulardetailGO(RegularDTO regularDTO) throws Exception;
+
+	public int insertRegulardetailOUT(RegularDTO regularDTO) throws Exception;
+
+	public int insertRegularCoo(RegularDTO regularDTO) throws Exception;
+
+	public int delRegularCoo(RegularDTO regularDTO) throws Exception;
+
+	public int updateRegularcourse(List<Map<String, Object>> map) throws Exception;
 }

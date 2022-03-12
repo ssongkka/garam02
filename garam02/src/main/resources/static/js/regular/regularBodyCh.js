@@ -205,6 +205,7 @@ function getRegularDeAll(result) {
                 $('#rgch-tbb')
                     .children()
                     .remove();
+                $('#rgnum').text(r.length + '대');
                 if (r.length > 0) {
 
                     for (let i = 0; i < r.length; i++) {
@@ -331,53 +332,76 @@ function getRecou(iidd) {
             const aa = $(tmp).children()[14];
             const aa1 = $(aa).children();
 
-            const dow = $(jj1).text();
-            const memomo = $(aa1).text();
-
-            const ddaayy = dow.split('');
-
             if ($(hh1).val()) {
                 $('#regModalLabel').text($(hh1).val() + ' 노선정보');
             } else {
                 $('#regModalLabel').text('노선명 미정(노선명을 입력해주세요.)');
             }
 
-            $('#chDow1').prop("checked", false);
-            $('#chDow2').prop("checked", false);
-            $('#chDow3').prop("checked", false);
-            $('#chDow4').prop("checked", false);
-            $('#chDow5').prop("checked", false);
-            $('#chDow6').prop("checked", false);
-            $('#chDow0').prop("checked", false);
-            for (let i = 0; i < ddaayy.length; i++) {
-                console.log(ddaayy[i]);
-                switch (ddaayy[i]) {
-                    case '1':
-                        console.log("glasdgg");
-                        $('#chDow1').prop("checked", true);
-                        break;
-                    case '2':
-                        $('#chDow2').prop("checked", true);
-                        break;
-                    case '3':
-                        $('#chDow3').prop("checked", true);
-                        break;
-                    case '4':
-                        $('#chDow4').prop("checked", true);
-                        break;
-                    case '5':
-                        $('#chDow5').prop("checked", true);
-                        break;
-                    case '6':
-                        $('#chDow6').prop("checked", true);
-                        break;
-                    case '0':
-                        $('#chDow0').prop("checked", true);
-                        break;
+            $('#modalcodenum').val(iidd);
+
+            const url = "/reg/regRegulardeinfo";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "codenum": $('#modalcodenum').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    let dow = '';
+                    const memomo = r[0].rdmemo;
+                    let ddaayy = '';
+
+                    if (r[0].rddow) {
+                        dow = r[0].rddow;
+                        ddaayy = dow.split('');
+                    }
+
+                    $('#chDow1').prop("checked", false);
+                    $('#chDow2').prop("checked", false);
+                    $('#chDow3').prop("checked", false);
+                    $('#chDow4').prop("checked", false);
+                    $('#chDow5').prop("checked", false);
+                    $('#chDow6').prop("checked", false);
+                    $('#chDow0').prop("checked", false);
+                    for (let i = 0; i < ddaayy.length; i++) {
+                        switch (ddaayy[i]) {
+                            case '1':
+                                $('#chDow1').prop("checked", true);
+                                break;
+                            case '2':
+                                $('#chDow2').prop("checked", true);
+                                break;
+                            case '3':
+                                $('#chDow3').prop("checked", true);
+                                break;
+                            case '4':
+                                $('#chDow4').prop("checked", true);
+                                break;
+                            case '5':
+                                $('#chDow5').prop("checked", true);
+                                break;
+                            case '6':
+                                $('#chDow6').prop("checked", true);
+                                break;
+                            case '0':
+                                $('#chDow0').prop("checked", true);
+                                break;
+                        }
+                    }
+                    $('#rdememoo').val(memomo);
+                    resolve();
                 }
-            }
-            $('#rdememoo').val(memomo);
-            resolve();
+            });
         });
     }
     function getCo(result) {
@@ -463,13 +487,13 @@ function getRecou(iidd) {
                                                 case 0:
                                                     htmlgo += '<tr>';
                                                     htmlgo += '<td class="thNone">';
-                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += r[i].coconum + '//' + r[i].rcseq + '//' + r[i].rcnum;
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td></td>';
                                                     htmlgo += '<td>' + cntgo++ + '</td>';
                                                     htmlgo += '<td>';
                                                     htmlgo += '<div class="input-group" > ';
-                                                    htmlgo += '<input type="time" class="input-sm" value ="';
+                                                    htmlgo += '<input type="time" class="input-sm upcotm" value ="';
                                                     if (r[i].rct) {
                                                         htmlgo += r[i].rct;
                                                     } else {
@@ -479,7 +503,7 @@ function getRecou(iidd) {
                                                     htmlgo += '</div>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcstp) {
                                                         htmlgo += r[i].rcstp;
                                                     } else {
@@ -488,30 +512,26 @@ function getRecou(iidd) {
                                                     htmlgo += '">';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcmemo) {
                                                         htmlgo += r[i].rcmemo;
                                                     } else {
                                                         htmlgo += '';
                                                     }
                                                     htmlgo += '">';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '</tr>';
                                                     break;
                                                 case 50:
                                                     htmlgo += '<tr>';
                                                     htmlgo += '<td class="thNone">';
-                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += r[i].coconum + '//' + r[i].rcseq + '//' + r[i].rcnum;
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td></td>';
                                                     htmlgo += '<td>' + cntgo++ + '</td>';
                                                     htmlgo += '<td>';
                                                     htmlgo += '<div class="input-group"> ';
-                                                    htmlgo += ' <input type="time" class="input-sm" value="';
+                                                    htmlgo += ' <input type="time" class="input-sm upcotm" value="';
                                                     if (r[i].rct) {
                                                         htmlgo += r[i].rct;
                                                     } else {
@@ -521,7 +541,7 @@ function getRecou(iidd) {
                                                     htmlgo += '</div>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class = "input-sm" value = "';
+                                                    htmlgo += '<input type="text" class = "input-sm upco" value = "';
                                                     if (r[i].rcstp) {
                                                         htmlgo += r[i].rcstp;
                                                     } else {
@@ -530,33 +550,29 @@ function getRecou(iidd) {
                                                     htmlgo += '">';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcmemo) {
                                                         htmlgo += r[i].rcmemo;
                                                     } else {
                                                         htmlgo += '';
                                                     }
                                                     htmlgo += '">';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '</tr>';
                                                     break;
                                                 default:
                                                     htmlgo += '<tr>';
                                                     htmlgo += '<td class="thNone">';
-                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += r[i].coconum + '//' + r[i].rcseq + '//' + r[i].rcnum;
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<button class="btn btnn" onclick="" > ';
+                                                    htmlgo += '<button class="btn btnn delcode"> ';
                                                     htmlgo += '<i class="fas fa-minus"></i></button>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>' + cntgo++ + '</td>';
                                                     htmlgo += '<td>';
                                                     htmlgo += '<div class="input-group"> ';
-                                                    htmlgo += '<input type="time" class="input-sm" value="';
+                                                    htmlgo += '<input type="time" class="input-sm upcotm" value="';
                                                     if (r[i].rct) {
                                                         htmlgo += r[i].rct;
                                                     } else {
@@ -566,7 +582,7 @@ function getRecou(iidd) {
                                                     htmlgo += '</div>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcstp) {
                                                         htmlgo += r[i].rcstp;
                                                     } else {
@@ -575,21 +591,13 @@ function getRecou(iidd) {
                                                     htmlgo += '">';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcmemo) {
                                                         htmlgo += r[i].rcmemo;
                                                     } else {
                                                         htmlgo += '';
                                                     }
                                                     htmlgo += '">';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
-                                                    htmlgo += '<button class="btn btnn">';
-                                                    htmlgo += '<i class="fas fa-angle-up"></i></button>';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
-                                                    htmlgo += '<button class="btn btnn">';
-                                                    htmlgo += '<i class="fas fa-angle-down"></i></button>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '</tr>';
                                                     break;
@@ -600,13 +608,13 @@ function getRecou(iidd) {
                                                 case 100:
                                                     htmlgo += '<tr>';
                                                     htmlgo += '<td class="thNone">';
-                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += r[i].coconum + '//' + r[i].rcseq + '//' + r[i].rcnum;
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td></td>';
                                                     htmlgo += '<td>' + cntgo++ + '</td>';
                                                     htmlgo += '<td>';
                                                     htmlgo += '<div class="input-group" > ';
-                                                    htmlgo += '<input type="time" class="input-sm" value ="';
+                                                    htmlgo += '<input type="time" class="input-sm upcotm" value ="';
                                                     if (r[i].rct) {
                                                         htmlgo += r[i].rct;
                                                     } else {
@@ -616,7 +624,7 @@ function getRecou(iidd) {
                                                     htmlgo += '</div>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcstp) {
                                                         htmlgo += r[i].rcstp;
                                                     } else {
@@ -625,33 +633,29 @@ function getRecou(iidd) {
                                                     htmlgo += '">';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcmemo) {
                                                         htmlgo += r[i].rcmemo;
                                                     } else {
                                                         htmlgo += '';
                                                     }
                                                     htmlgo += '">';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '</tr>';
                                                     break;
                                                 default:
                                                     htmlgo += '<tr>';
                                                     htmlgo += '<td class="thNone">';
-                                                    htmlgo += r[i].coconum;
+                                                    htmlgo += r[i].coconum + '//' + r[i].rcseq + '//' + r[i].rcnum;
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<button class="btn btnn" onclick="" > ';
+                                                    htmlgo += '<button class="btn btnn delcode"> ';
                                                     htmlgo += ' <i class="fas fa-minus"></i></button>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>' + cntgo++ + '</td>';
                                                     htmlgo += '<td>';
                                                     htmlgo += '<div class="input-group"> ';
-                                                    htmlgo += '<input type="time" class="input-sm" value="';
+                                                    htmlgo += '<input type="time" class="input-sm upcotm" value="';
                                                     if (r[i].rct) {
                                                         htmlgo += r[i].rct;
                                                     } else {
@@ -661,7 +665,7 @@ function getRecou(iidd) {
                                                     htmlgo += '</div>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcstp) {
                                                         htmlgo += r[i].rcstp;
                                                     } else {
@@ -670,21 +674,13 @@ function getRecou(iidd) {
                                                     htmlgo += '">';
                                                     htmlgo += '</td>';
                                                     htmlgo += '<td>';
-                                                    htmlgo += '<input type="text" class="input-sm" value="';
+                                                    htmlgo += '<input type="text" class="input-sm upco" value="';
                                                     if (r[i].rcmemo) {
                                                         htmlgo += r[i].rcmemo;
                                                     } else {
                                                         htmlgo += '';
                                                     }
                                                     htmlgo += '">';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
-                                                    htmlgo += '<button class="btn btnn">';
-                                                    htmlgo += '<i class="fas fa-angle-up"></i></button>';
-                                                    htmlgo += '</td>';
-                                                    htmlgo += '<td>';
-                                                    htmlgo += '<button class="btn btnn">';
-                                                    htmlgo += '<i class="fas fa-angle-down"></i></button>';
                                                     htmlgo += '</td>';
                                                     htmlgo += '</tr>';
                                                     break;
@@ -715,14 +711,10 @@ function getRecou(iidd) {
     }
 }
 
-function aaa(params) {
-    console.log(params);
-}
-
 function getGoGoTb(param) {
     const gotb = `<div class="gogo-item">
     <div class="gogo-item1">
-        <table class="table table-bordered" id="gotb` +
+        <table class="table table-bordered table-striped" id="gotb` +
             param +
             `">
             <colgroup>
@@ -730,9 +722,7 @@ function getGoGoTb(param) {
                 <col width="7%"/>
                 <col width="15%"/>
                 <col width="42%"/>
-                <col width="19%"/>
-                <col width="5%"/>
-                <col width="5%"/>
+                <col width="29%"/>
             </colgroup>
             <thead>
                 <tr>
@@ -742,7 +732,6 @@ function getGoGoTb(param) {
                     <th>시간</th>
                     <th>장소</th>
                     <th>메모</th>
-                    <th colspan="2">이동</th>
                 </tr>
             </thead>
             <tbody id="tbgo` +
@@ -751,10 +740,10 @@ function getGoGoTb(param) {
         </table>
     </div>
     <div class="gogo-item2">
-         <button type="button" class="btn btn-warning" id="insertCo">
+         <button type="button" class="btn btn-warning delCo">
              <i class="far fa-trash-alt"></i>&nbsp;삭&nbsp;&nbsp;제
         </button>
-        <button type="button" class="btn btn-primary" id="insertCo">
+        <button type="button" class="btn btn-primary insertCo">
              <i class="fas fa-plus"></i>&nbsp;정류소&nbsp;추가
         </button>
     </div>
@@ -764,7 +753,7 @@ function getGoGoTb(param) {
 function getOutOutTb(param) {
     const gotb = `<div class="gogo-item">
     <div class="gogo-item1">
-        <table class="table table-bordered" id="outtb` +
+        <table class="table table-bordered table-striped" id="outtb` +
             param +
             `">
             <colgroup>
@@ -772,9 +761,7 @@ function getOutOutTb(param) {
                 <col width="7%"/>
                 <col width="15%"/>
                 <col width="42%"/>
-                <col width="19%"/>
-                <col width="5%"/>
-                <col width="5%"/>
+                <col width="29%"/>
             </colgroup>
             <thead>
                 <tr>
@@ -784,7 +771,6 @@ function getOutOutTb(param) {
                     <th>시간</th>
                     <th>장소</th>
                     <th>메모</th>
-                    <th colspan="2">이동</th>
                 </tr>
             </thead>
             <tbody id="tbout` +
@@ -793,10 +779,10 @@ function getOutOutTb(param) {
         </table>
     </div>
     <div class="gogo-item2">
-        <button type="button" class="btn btn-warning" id="insertCo">
+        <button type="button" class="btn btn-warning delCo">
             <i class="far fa-trash-alt"></i>&nbsp;삭&nbsp;&nbsp;제
         </button>
-        <button type="button" class="btn btn-primary" id="insertCo">
+        <button type="button" class="btn btn-primary insertCo">
             <i class="fas fa-plus"></i>&nbsp;정류소&nbsp;추가
         </button>
     </div>
@@ -870,8 +856,6 @@ function updateRegularDeOrder(result) {
             "X-HTTP-Method-Override": "POST"
         };
 
-        console.log("parapara   " + params);
-
         $.ajax({
             url: url,
             type: "POST",
@@ -940,6 +924,7 @@ $(document).on('keydown', '.upclas', function (eInner) {
 $(document).on('change', '.upclasse', function () {
     updateRegularDe(this);
 });
+
 $(document).on('click', '.clve', function (eInner) {
     delOperCar(this);
 })
@@ -1068,7 +1053,6 @@ function delOperCar(papa) {
 }
 
 function delRegularDe(code, trash) {
-
     LoadingWithMask()
         .then(gogodel)
         .then(getRegular)
@@ -1110,35 +1094,515 @@ function delRegularDe(code, trash) {
     }
 }
 
-$(document).on('click', '#insertCo', function () {
-    const ttrrr = `<tr>
-    <td>
-        <button class="btn btn1">
-            <i class="fas fa-minus"></i>
-        </button>
-    </td>
-    <td>1</td>
-    <td>
-        <div class="input-group">
-            <input type="time" class="input-sm" id="">
-        </div>
-    </td>
-    <td><input type="text" class="input-sm" id=""></td>
-    <td><input type="text" class="input-sm" id=""></td>
-    </tr>`;
+$(document).on('click', '#plusgoTb', function () {
+    const size = getTbSize();
 
-    $('#trGoEnd').before(ttrrr);
-    chchNum();
+    const url = "/reg/insertregRegularcourseGo";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+    const params = {
+        "codenum": $('#modalcodenum').val(),
+        "goutnum": size
+    };
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r == 0) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("노선정보 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else {
+                getRecou($('#modalcodenum').val());
+            }
+        }
+    })
+
 });
+
+$(document).on('click', '#plusoutTb', function () {
+    const size = getTbSize();
+
+    const url = "/reg/insertregRegularcourseOut";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+    const params = {
+        "codenum": $('#modalcodenum').val(),
+        "goutnum": size
+    };
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r == 0) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("노선정보 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else {
+                getRecou($('#modalcodenum').val());
+            }
+        }
+    })
+});
+
+function getTbSize() {
+    const gosize = $('#gogogogogo')
+        .children()
+        .length;
+    const outsize = $('#goutgoutgout')
+        .children()
+        .length;
+
+    let tmparr = new Array();
+
+    for (let i = 0; i < gosize; i++) {
+        const aaa = $('#gogogogogo').children()[i];
+        const bbb = $(aaa)
+            .children()
+            .children()[0];
+        const numnumnum = ($(bbb).attr('id')).substring(($(bbb).attr('id')).length - 1);
+        tmparr.push(numnumnum);
+    }
+    for (let i = 0; i < outsize; i++) {
+        const aaa = $('#goutgoutgout').children()[i];
+        const bbb = $(aaa)
+            .children()
+            .children()[0];
+        const numnumnum = ($(bbb).attr('id')).substring(($(bbb).attr('id')).length - 1);
+        tmparr.push(numnumnum);
+    }
+
+    let max = 0;
+    for (let k = 0; k < tmparr.length; k++) {
+        if (max < tmparr[k]) {
+            max = tmparr[k];
+        }
+    }
+
+    const size = parseInt(max) + 1;
+
+    return size;
+}
 
 function chchNum() {
     const size = $('#rcou-tbb1')
         .children()
         .length;
-    console.log(size);
     for (let i = 0; i < size; i++) {
         const aaa = $('#rcou-tbb1').children()[i];
         const bbb = $(aaa).children()[1];
         $(bbb).text(i + 1);
     }
 }
+
+$(document).on('click', '.insertCo', function (eInner) {
+    const aaa = $(this)
+        .parents()
+        .prev()
+        .children()[0];
+    const bbb = $(aaa).children()[2];
+    const goutnumm = ($(aaa).attr('id')).substring(($(aaa).attr('id')).length - 1);
+
+    let rcnumm = 0;
+    let rcsepa = 0;
+
+    const tmp = $(bbb).children();
+    const tmpSize = $(tmp).length;
+
+    let tmparr = new Array();
+
+    let timet = '';
+
+    for (let i = 0; i < tmpSize; i++) {
+        const aaaa = $(tmp[i]).children()[0];
+        const bbbb = ($(aaaa).text()).split("//")[2];
+
+        if (i == (tmpSize - 2)) {
+            const cccc = $(tmp[i]).children()[3];
+            const cccc1 = $(cccc).children();
+            const cccc2 = $(cccc1).children();
+            const cccc3 = $(cccc2).val();
+
+            timet = cccc3;
+        }
+        tmparr.push(bbbb);
+    }
+
+    let max = 0;
+
+    for (let k = 0; k < tmparr.length; k++) {
+        if (tmparr[k] != 0 && tmparr[k] != 50 && tmparr[k] > max) {
+            max = tmparr[k];
+        }
+    }
+
+    if (($(aaa).attr('id')).includes('gotb')) {
+        rcsepa = 1;
+        rcnumm = parseInt(max) + 1
+    } else {
+        rcsepa = 2;
+        rcnumm = parseInt(max) + 1
+    }
+
+    const url = "/reg/insertregRegularcourse";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+    const params = {
+        "codenum": $('#modalcodenum').val(),
+        "goutnum": goutnumm,
+        "rcsepa": rcsepa,
+        "rcnum": rcnumm,
+        "rct": timet
+    };
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r == 0) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("노선정보 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else {
+                getRecou($('#modalcodenum').val());
+            }
+        }
+    })
+})
+
+$(document).on('click', '.btnn', function (eInner) {
+    const aaa = $(this)
+        .parents()
+        .prev()[0];
+    const coconumm = ($(aaa).text()).split('//')[1];
+
+    const url = "/reg/delRegularcourse";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    const params = {
+        "rcseq": coconumm
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r == 0) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("노선정보 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else {
+                getRecou($('#modalcodenum').val());
+            }
+        }
+    })
+
+})
+
+$(document).on('click', '.delCo', function (eInner) {
+    const aaa = $(this)
+        .parents()
+        .prev()[0];
+    const bbb = $(aaa).children();
+    const goutnummmm = ($(bbb).attr('id')).substring(
+        ($(bbb).attr('id')).length - 1
+    );;
+
+    const url = "/reg/delRegularcourse";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    const params = {
+        "codenum": $('#modalcodenum').val(),
+        "goutnum": goutnummmm
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r == 0) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("노선정보 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+            } else {
+                getRecou($('#modalcodenum').val());
+            }
+        }
+    })
+})
+
+$(document).on('click', '[name = "chDow"]', function (eInner) {
+    let dow = '';
+    $('input:checkbox[name="chDow"]').each(function () {
+        if (this.checked) {
+            dow += this.value;
+        }
+    });
+
+    const url = "/reg/updateRegulardetail";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+    const params = {
+        "codenum": $('#modalcodenum').val(),
+        "rddow": dow,
+        "rdtrash": 1
+    };
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {
+            if (r == 0) {
+                alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+            } else if (r == -1) {
+                alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+            } else if (r == -2) {
+                alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+            } else {
+                getRecou($('#modalcodenum').val());
+            }
+        }
+    })
+})
+
+$(document).on('keydown', '#rdememoo', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        const memo = $(this).val();
+
+        const url = "/reg/updateRegulardetail";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "codenum": $('#modalcodenum').val(),
+            "rdmemo": memo
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r == 0) {
+                    alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+                } else if (r == -1) {
+                    alert("노선정보 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == -2) {
+                    alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+                } else {
+                    getRecou($('#modalcodenum').val());
+                }
+            }
+        })
+    }
+})
+
+$(document).on('keydown', '.upco', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        const aaa = $(this)
+            .parents()
+            .parents()
+            .parents();
+
+        const size = $(aaa[0])
+            .children()
+            .length;
+
+        let params = new Array();
+
+        for (let i = 0; i < size; i++) {
+            const tmp = $(aaa[0]).children()[i];
+
+            const aaa222 = $(tmp).children()[3];
+            const aaa333 = $(aaa222).children();
+            const aaa444 = $(aaa333).children();
+            const aaa555 = $(aaa444).val();
+
+            if (!aaa555) {
+                alert('시간을 입력해주세요.');
+                $(ccc1).focus();
+                return;
+            }
+
+            const bbb111 = $(tmp).children()[4];
+            const bbb222 = $(bbb111).children();
+            const bbb333 = $(bbb222).val();
+
+            const ccc111 = $(tmp).children()[5];
+            const ccc222 = $(ccc111).children();
+            const ccc333 = $(ccc222).val();
+
+            const ddd111 = $(tmp).children()[0];
+            const ddd222 = $(ddd111).text();
+            const ddd333 = (ddd222).split('//')[1];
+
+            console.log(aaa555);
+            console.log(bbb333);
+            console.log(ccc333);
+            console.log(ddd333);
+
+            const asd = {
+                "rcseq": ddd333,
+                "rct": aaa555,
+                "rcstp": bbb333,
+                "rcmemo": ccc333,
+                "rctrash": 1
+            };
+            params.push(asd);
+        }
+        console.log(params);
+
+        const url = "/reg/updateRegularcourse";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r == 0) {
+                    alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+                } else if (r == -1) {
+                    alert(" 노선정보 삭제 실패 !\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == - 2) {
+                    alert(" 노선정보 삭제 실패 !\n\n시스템을 확인해주세요.")
+                } else {
+                    getRecou($('#modalcodenum').val());
+                }
+            }
+        })
+    }
+});
+
+$(document).on('keydown', '.upcotm', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        const aaa = $(this)
+            .parents()
+            .parents()
+            .parents()
+            .parents();
+
+        const size = $(aaa[0])
+            .children()
+            .length;
+
+        let params = new Array();
+
+        for (let i = 0; i < size; i++) {
+            const tmp = $(aaa[0]).children()[i];
+
+            const aaa222 = $(tmp).children()[3];
+            const aaa333 = $(aaa222).children();
+            const aaa444 = $(aaa333).children();
+            const aaa555 = $(aaa444).val();
+
+            if (!aaa555) {
+                alert('시간을 입력해주세요.');
+                $(ccc1).focus();
+                return;
+            }
+
+            const bbb111 = $(tmp).children()[4];
+            const bbb222 = $(bbb111).children();
+            const bbb333 = $(bbb222).val();
+
+            const ccc111 = $(tmp).children()[5];
+            const ccc222 = $(ccc111).children();
+            const ccc333 = $(ccc222).val();
+
+            const ddd111 = $(tmp).children()[0];
+            const ddd222 = $(ddd111).text();
+            const ddd333 = (ddd222).split('//')[1];
+
+            console.log(aaa555);
+            console.log(bbb333);
+            console.log(ccc333);
+            console.log(ddd333);
+
+            const asd = {
+                "rcseq": ddd333,
+                "rct": aaa555,
+                "rcstp": bbb333,
+                "rcmemo": ccc333,
+                "rctrash": 1
+            };
+            params.push(asd);
+        }
+        console.log(params);
+
+        const url = "/reg/updateRegularcourse";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r == 0) {
+                    alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+                } else if (r == -1) {
+                    alert(" 노선정보 삭제 실패 !\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == - 2) {
+                    alert(" 노선정보 삭제 실패 !\n\n시스템을 확인해주세요.")
+                } else {
+                    getRecou($('#modalcodenum').val());
+                }
+            }
+        })
+    }
+})

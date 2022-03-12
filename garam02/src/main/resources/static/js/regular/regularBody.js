@@ -19,8 +19,6 @@ function erRc() {
     $('#rdname').text('노선명');
     $('#rdbus').text('차량');
     $('#rddow').text('운행요일');
-    $('#rdgogo').text('출근');
-    $('#rdoutout').text('퇴근');
     $('#rdid').html('&nbsp;');
     $('#rdmoney').text(0);
     $('#rdaltm').text(0);
@@ -221,46 +219,61 @@ function getRegularDeAll(result) {
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls = '';
+                let cnt = 0;
                 for (let i = 0; i < r.length; i++) {
-                    htmls += '<tr id="' + r[i].codenum + '" onclick="getRegularDeInfo(this.id)" style="curso' +
-                            'r:pointer">';
-                    htmls += '<td class="hidden-xs">';
-                    htmls += (i + 1);
-                    htmls += '</td>';
-                    htmls += '<td>';
-                    if (r[i].rdname) {
-                        htmls += r[i].rdname;
-                    } else {
-                        htmls += '';
+                    switch (r[i].rdtrash) {
+                        case 1:
+                            cnt++;
+                            htmls += '<tr id="' + r[i].codenum + '" onclick="getRegularDeInfo(this.id)" style="curso' +
+                                    'r:pointer">';
+                            htmls += '<td class="hidden-xs">';
+                            htmls += (i + 1);
+                            htmls += '</td>';
+                            htmls += '<td>';
+                            if (r[i].rdname) {
+                                htmls += r[i].rdname;
+                            } else {
+                                htmls += '';
+                            }
+                            htmls += '</td>';
+                            htmls += '<td>';
+                            if (r[i].rdbus) {
+                                htmls += r[i].rdbus;
+                            } else {
+                                htmls += '';
+                            }
+                            htmls += '</td>';
+                            htmls += '<td>';
+                            if (r[i].idvehicle) {
+                                if (isNaN((r[i].idvehicle).substring((r[i].idvehicle).length - 4))) {
+                                    htmls += r[i].idvehicle;
+                                } else {
+                                    htmls += (r[i].idvehicle).substring((r[i].idvehicle).length - 4);
+                                }
+                            } else {
+                                htmls += '';
+                            }
+                            htmls += '</td>';
+                            htmls += '<td>';
+                            if (r[i].idname) {
+                                htmls += r[i].idname;
+                            } else {
+                                htmls += '';
+                            }
+                            htmls += '</td>';
+                            htmls += '</tr>'
+                            break;
+
+                        default:
+                            break;
                     }
-                    htmls += '</td>';
-                    htmls += '<td>';
-                    if (r[i].rdbus) {
-                        htmls += r[i].rdbus;
-                    } else {
-                        htmls += '';
-                    }
-                    htmls += '</td>';
-                    htmls += '<td class="hidden-xs">';
-                    htmls += '';
-                    htmls += '</td>';
-                    htmls += '<td class="hidden-xs">';
-                    htmls += '';
-                    htmls += '</td>';
-                    htmls += '<td>';
-                    if (r[i].id) {
-                        htmls += r[i].idname;
-                    } else {
-                        htmls += '';
-                    }
-                    htmls += '</td>';
-                    htmls += '</tr>'
                 }
 
                 if (htmls.length < 1) {
                     htmls = `<tr><td colspan="6">정보 없음</td></tr>`;
                 }
 
+                $('#rgnum').text(cnt + '대');
                 $('#rg-tb-de').html(htmls);
                 resolve();
             },
@@ -426,9 +439,6 @@ function getRegularCource(result) {
                         }
                     }
                 }
-
-                console.log("sepa  " + sepa);
-                console.log("sepac  " + sepac);
 
                 let htmls = '';
                 let cntsepa = 0;

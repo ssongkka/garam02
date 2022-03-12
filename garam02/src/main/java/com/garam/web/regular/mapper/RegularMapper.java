@@ -34,4 +34,13 @@ public interface RegularMapper {
 
 	public int delRegulardetail(RegularDTO regularDTO) throws Exception;
 
+	public int insertRegulardetailGO(RegularDTO regularDTO) throws Exception;
+
+	public int insertRegulardetailOUT(RegularDTO regularDTO) throws Exception;
+
+	public int insertRegularCoo(RegularDTO regularDTO) throws Exception;
+
+	public int delRegularCoo(RegularDTO regularDTO) throws Exception;
+
+	public int updateRegularcourse(HashMap<String, Object> map) throws Exception;
 }
