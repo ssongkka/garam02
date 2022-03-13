@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.service.MainService;
 import com.lowagie.text.Anchor;
@@ -135,5 +136,26 @@ public class RestMainAlloController {
 			rst = -2;
 		}
 		return rst;
+	}
+
+	@PostMapping(value = "/reg")
+	public List<RegularOperDTO> reg(@RequestBody RegularOperDTO regularOperDTO) throws Exception {
+		List<RegularOperDTO> list = rsvtService.selectReg(regularOperDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/regDe")
+	public List<RegularOperDTO> regDe(@RequestBody RegularOperDTO regularOperDTO) throws Exception {
+		List<RegularOperDTO> list = rsvtService.selectRegDe(regularOperDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/regCoo")
+	public List<RegularOperDTO> regCoo(@RequestBody RegularOperDTO regularOperDTO) throws Exception {
+		List<RegularOperDTO> list = rsvtService.selectRegCoo(regularOperDTO);
+
+		return list;
 	}
 }

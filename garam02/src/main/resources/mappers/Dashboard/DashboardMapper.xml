@@ -614,4 +614,90 @@
 		opt;
 	</select>
 
+	<select id="selectReg"
+		parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
+		resultType="com.garam.web.dashboard.dto.RegularOperDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regular
+
+		WHERE
+
+		regular.regtrash = 1
+
+	</select>
+	<select id="selectRegDe"
+		parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
+		resultType="com.garam.web.dashboard.dto.RegularOperDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regulardetail
+
+		LEFT JOIN
+
+		regular
+
+		ON
+
+		regular.conum =
+		regulardetail.conum
+
+		WHERE
+
+		regular.regtrash = 1
+
+		AND
+
+		regulardetail.rdtrash =
+		1
+
+	</select>
+	<select id="selectRegCoo"
+		parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
+		resultType="com.garam.web.dashboard.dto.RegularOperDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regularcourse
+
+		LEFT JOIN
+
+		regulardetail
+
+		ON
+
+		regulardetail.codenum =
+		regularcourse.codenum
+
+		WHERE
+
+		regulardetail.rdtrash = 1
+
+		AND
+
+		regularcourse.rctrash = 1
+
+		GROUP BY
+
+		regularcourse.goutnum, regularcourse.codenum
+
+		ORDER BY
+
+		regularcourse.codenum, regularcourse.goutnum
+
+	</select>
 </mapper>

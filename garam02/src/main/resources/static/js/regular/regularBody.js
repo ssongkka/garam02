@@ -236,7 +236,7 @@ function getRegularDeAll(result) {
                                 htmls += '';
                             }
                             htmls += '</td>';
-                            htmls += '<td>';
+                            htmls += '<td class="hidden-xs">';
                             if (r[i].rdbus) {
                                 htmls += r[i].rdbus;
                             } else {
@@ -463,7 +463,7 @@ function getRegularCource(result) {
                                 htmls += '';
                             }
                             htmls += '</td>'
-                            htmls += '<td class="">'
+                            htmls += '<td class="thLeft">'
                             if (r[i].rcstp) {
                                 htmls += r[i].rcstp;
                             } else {
@@ -493,7 +493,7 @@ function getRegularCource(result) {
                                 htmls += '';
                             }
                             htmls += '</td>'
-                            htmls += '<td class="">'
+                            htmls += '<td class="thLeft">'
                             if (r[i].rcstp) {
                                 htmls += r[i].rcstp;
                             } else {
@@ -521,7 +521,7 @@ function getRegularCource(result) {
                             htmls += '';
                         }
                         htmls += '</td>'
-                        htmls += '<td>'
+                        htmls += '<td class="thLeft">'
                         if (r[i].rcstp) {
                             htmls += r[i].rcstp;
                         } else {

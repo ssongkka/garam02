@@ -572,6 +572,7 @@ function insertOper(id, num) {
         });
     })
 }
+
 function insertOperOne(id, num) {
     return new Promise(function (resolve, reject) {
         let veIn = '';
@@ -1110,9 +1111,146 @@ function plusOneWay(num) {
 }
 
 function getAlloList(day) {
-    getCustomer()
+    LoadingWithMask()
+        .then(setCaldays)
+        .then(getCustomer)
         .then(getRsvt)
-        .then(getOper);
+        .then(getOper)
+        .then(getReg)
+        .then(getRegDe)
+        .then(getRegCoo)
+        .then(closeLoadingWithMask);
+
+    function setCaldays(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/calendar/event";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "stD": day
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let mid = '';
+                    let cal = '';
+                    const idd = '#dash-week-';
+                    if (r.length > 0) {
+                        if (r[0].holiday) {
+                            mid += '<p>' + r[0].holiday + '</p>';
+                        }
+                        if (r[0].anniversary) {
+                            mid += '<p>' + r[0].anniversary + '</p>';
+                        }
+                        if (r[0].season) {
+                            mid += '<p>' + r[0].season + '</p>';
+                        }
+                        if (r[0].etc) {
+                            mid += '<p>' + r[0].etc + '</p>';
+                        }
+
+                        if (!mid) {
+                            mid += `<p>이벤트 없음</p>`;
+                        }
+
+                        if (!!r[0].lunarCal) {
+                            cal = '음력 ' + r[0].lunarCal;
+                        } else {
+                            cal = '음력 정보없음';
+                        }
+
+                        for (let i = 0; i < r.length; i++) {
+
+                            $(idd + (i + 1) + '1').html(
+                                '<h5>' + calen.getDayOfWeek(new Date(r[i].solarCal).getDay()) + '</h5>'
+                            );
+
+                            $(idd + (i + 1) + '2').html(
+                                '<h2>' + new Date(r[i].solarCal).getDate() + '</h2>'
+                            );
+                            $(idd + (i + 1) + '5').val(r[i].solarCal);
+
+                            switch (new Date(r[i].solarCal).getDay()) {
+                                case 0:
+                                    $(idd + (i + 1) + '1').css('color', '#CF2F11');
+                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
+                                    break;
+                                case 6:
+                                    $(idd + (i + 1) + '1').css('color', '#4B89DC');
+                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(75, 137, 220, 0.5)');
+                                    break;
+                                default:
+                                    $(idd + (i + 1) + '1').css('color', 'black');
+                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
+                                    break;
+                            }
+
+                            if (r[i].holiday) {
+                                $(idd + (i + 1) + '3').html('<h5>' + r[i].holiday + '</h5>');
+                            } else {
+                                $(idd + (i + 1) + '3').html('<h5>&ndash;</h5>');
+                            }
+
+                            if (r[i].holiday) {
+                                $(idd + (i + 1) + '1').css('color', '#CF2F11');
+                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
+                            }
+                        }
+
+                    } else {
+                        mid += `<p>이벤트 없음</p>`;
+                        cal = '음력 정보없음';
+
+                        for (let i = 0; i < 7; i++) {
+                            let ddd = new Date(day);
+
+                            ddd1 = ddd.setDate(ddd.getDate() + i);
+
+                            $(idd + (i + 1) + '1').html(
+                                '<h5>' + calen.getDayOfWeek(new Date(ddd1).getDay()) + '</h5>'
+                            );
+
+                            $(idd + (i + 1) + '2').html('<h2>' + new Date(ddd1).getDate() + '</h2>');
+
+                            $(idd + (i + 1) + '3').html('<h5>&ndash;</h5>');
+
+                            $(idd + (i + 1) + '5').val(toStringByFormatting(new Date(ddd1)));
+
+                            switch (new Date(ddd1).getDay()) {
+                                case 0:
+                                    $(idd + (i + 1) + '1').css('color', '#CF2F11');
+                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
+                                    break;
+                                case 6:
+                                    $(idd + (i + 1) + '1').css('color', '#4B89DC');
+                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(75, 137, 220, 0.5)');
+                                    break;
+                                default:
+                                    $(idd + (i + 1) + '1').css('color', 'black');
+                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
+                                    break;
+                            }
+                        }
+                    }
+                    $('#midday').html(mid);
+                    $('#cal1').html(cal);
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            });
+        });
+    }
 
     function getCustomer() {
         return new Promise(function (resolve, reject) {
@@ -1759,6 +1897,7 @@ function getAlloList(day) {
 
             } else {}
             $('[tabindex=0]').focus();
+            resolve();
         });
     }
 
@@ -1777,6 +1916,270 @@ function getAlloList(day) {
                 $('[tabindex=' + tabindex + ']').focus();
             }
         });
+    }
+
+    function getReg(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/allo/reg";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {};
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = '';
+
+                    if (r.length > 0) {
+                        for (let i = 0; i < r.length; i++) {
+                            let tteell1 = '';
+                            let dayssss = '';
+                            let ddetail = '';
+
+                            if (r[i].regphone) {
+                                tteell1 = '<span><a href="tel:' + r[i].regphone + '">' + r[i].regphone + '</a><' +
+                                        '/span>';
+                            } else {
+                                tteell1 = '<span>연락처 없음</span>';
+                            }
+                            if (r[i].regendd) {
+                                dayssss = '<span>' + r[i].regstartd + ' ~ ' + r[i].regendd + '</span>';
+                            } else {
+                                dayssss = '<span>' + r[i].regstartd + '부터</span>';
+                            }
+                            if (r[i].regmemo) {
+                                ddetail = '<span>' + r[i].regmemo + '</span>';
+                            }
+
+                            htmls += '<div class="card allo-card1">';
+                            htmls += '<input type="hidden" id="regseqq" value="' + r[i].regseq + '">';
+                            htmls += '<input type="hidden" id="regctm' + (
+                                i + 1
+                            ) + '" value="' + r[i].ctmno + '">';
+                            htmls += '<input type="hidden" id="regconum' + (
+                                i + 1
+                            ) + '" value="' + r[i].conum + '">';
+                            htmls += '<div class="ctm-ttt1"><div class="ctm-ttt-item1"><i class="fas fa-user-check" ' +
+                                    'style="letter-spacing: 0.3rem;">' + r[i].regcompany + '</i></div>';
+                            // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
+                            // '</div>';
+                            htmls += '<div class="ctm-ttt-item1">';
+                            htmls += tteell1;
+                            htmls += '</div>';
+                            htmls += '<div class="ctm-ttt-item1">';
+                            htmls += dayssss;
+                            htmls += '</div>';
+                            htmls += '<div class="ctm-ttt-item1">';
+                            htmls += ddetail;
+                            htmls += '</div>';
+                            htmls += '</div>';
+                            htmls += '<div class="rv1" id="regrv' + r[i].regseq + '">';
+                            htmls += '</div>';
+                            htmls += '</div>';
+                        }
+                        $('#allocont4').html(htmls);
+                    } else {
+                        const cont = '금일 운행정보 없음';
+                        $('#allocont4').html(
+                            '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                            ';"><p>' + cont + '</p></div>'
+                        );
+                    }
+                    resolve();
+                }
+            })
+        })
+    }
+
+    function getRegDe(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/allo/regDe";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {};
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = '';
+                    if (r.length > 0) {
+                        const size = $('#allocont4')
+                            .children()
+                            .length;
+
+                        for (let i = 0; i < r.length; i++) {
+                            htmls = `<div class="regCont">
+                            <input type="hidden" value="` +
+                                    r[i].rdseq +
+                                    `">
+                            <input type="hidden" value="` + r[i].conum +
+                                    `">
+                            <input type="hidden" value="` + r[i].codenum +
+                                    `">
+                            <input type="hidden" value="` + r[i].rdnum +
+                                    `">
+                            <div class="regCont-item">
+                                <blockquote>` +
+                                    r[i].rdname +
+                                    `</blockquote>
+                            </div>
+                            <div class="regCont-item"></div>
+                            <div class="regCont-item">
+                                <button class="btn">aaa</button>
+                            </div>
+                            </div>`;
+
+                            for (let k = 0; k < size; k++) {
+                                const aaaa = '#regconum' + (
+                                    parseInt(k) + 1
+                                );
+
+                                const bbbb = '#regrv' + k;
+
+                                if ($(aaaa).val() == r[i].conum) {
+                                    $(bbbb).append(htmls);
+                                }
+                            }
+                        }
+                    } else {}
+                    resolve();
+                }
+            })
+        })
+    }
+    function getRegCoo(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/allo/regCoo";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {};
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    const size = $('#allocont4')
+                        .children()
+                        .length;
+
+                    let htmls = '';
+
+                    for (let i = 0; i < r.length; i++) {
+
+                        let goout = '';
+
+                        switch (r[i].rcsepa) {
+                            case 1:
+                                goout = '출';
+                                break;
+                            case 2:
+                                goout = '퇴';
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        htmls = ` <div class="regAllo col-xs-6 col-lg-4">
+                        <div class="stWay">
+                        <div class="rsgAllo-item">
+                            <input type="hidden" value="` +
+                                r[i].rcseq +
+                                `">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="hidden" value="` +
+                                r[i].codenum +
+                                `">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="hidden" value="` +
+                                r[i].coconum +
+                                `">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <span class="onebtn2">` +
+                                goout +
+                                `</span>
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="text" list="car-info">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="hidden" value="">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="hidden" value="">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="text" list="per-info">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="hidden" value="">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <input type="hidden" value="` +
+                                r[i].opercar +
+                                `">
+                        </div>
+                        <div class="rsgAllo-item">
+                            <button class="onebtn2">a</button>
+                        </div>
+                        </div>
+                    </div>`;
+
+                        for (let j = 0; j < size; j++) {
+
+                            const aaa = $('#allocont4').children()[j];
+                            const bbb = $(aaa).children()[4];
+                            const ccc = $(bbb)
+                                .children()
+                                .length;
+                            console.log("bbb " + bbb);
+                            console.log("bbb " + ccc);
+
+                            for (let k = 0; k < ccc; k++) {
+                                const dddd = $(bbb).children()[k];
+                                const eeee = $(dddd).children()[2];
+                                const ffff = $(eeee).val();
+                                const ininin = $(dddd).children()[5];
+
+                                if (r[i].codenum == ffff) {
+                                    $(ininin).append(htmls);
+                                }
+
+                                console.log(ffff);
+                            }
+                        }
+                    }
+                    resolve();
+                }
+            })
+        })
     }
 }
 

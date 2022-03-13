@@ -276,6 +276,10 @@ th {
     display: none;
 }
 
+.table > tbody > tr > .thLeft {
+    text-align: left;
+}
+
 .cupoint {
     cursor: pointer;
 }

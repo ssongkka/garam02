@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.garam.web.dashboard.dto.OptDTO;
+import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.mapper.DashboardMapper;
 
@@ -290,5 +291,26 @@ public class MainServiceImpl implements MainService {
 		int rtn = rsvtMapper.delRsvt(rsvtDTO);
 
 		return rtn;
+	}
+
+	@Override
+	public List<RegularOperDTO> selectReg(RegularOperDTO regularOperDTO) throws Exception {
+		List<RegularOperDTO> list = rsvtMapper.selectReg(regularOperDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RegularOperDTO> selectRegDe(RegularOperDTO regularOperDTO) throws Exception {
+		List<RegularOperDTO> list = rsvtMapper.selectRegDe(regularOperDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RegularOperDTO> selectRegCoo(RegularOperDTO regularOperDTO) throws Exception {
+		List<RegularOperDTO> list = rsvtMapper.selectRegCoo(regularOperDTO);
+
+		return list;
 	}
 }

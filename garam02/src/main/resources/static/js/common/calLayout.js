@@ -145,9 +145,6 @@ function setCalWhite(e) {
         .val()
         .split('-')[1];
 
-    console.log("mmm1  " + aaa);
-    console.log("mmm2  " + bbb);
-
     if (bbb) {
         if (aaa == bbb) {
             $("#yearMonth").val(day.substring(0, 7));
@@ -158,7 +155,7 @@ function setCalWhite(e) {
 
     $("#yearMonthDay").val(day);
     setBigDay(day);
-    setCaldays(day);
+    // setCaldays(day);
     getAlloList(day);
     setStEdDay(day);
 
@@ -174,7 +171,7 @@ function setCalWhite1(day) {
     $("#yearMonth").val(day.substring(0, 7));
     $("#yearMonthDay").val(day);
     setBigDay(day);
-    setCaldays(day);
+    // setCaldays(day);
     getAlloList(day);
     setStEdDay(day);
 
@@ -420,136 +417,6 @@ function makeCal(nowD, day) {
         })
     }
     return rtn;
-}
-
-function setCaldays(st) {
-    return new Promise(function (resolve, reject) {
-        const url = "/calendar/event";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
-
-        const params = {
-            "stD": st
-        };
-
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
-
-            success: function (r) {
-                let mid = '';
-                let cal = '';
-                const idd = '#dash-week-';
-                if (r.length > 0) {
-                    if (r[0].holiday) {
-                        mid += '<p>' + r[0].holiday + '</p>';
-                    }
-                    if (r[0].anniversary) {
-                        mid += '<p>' + r[0].anniversary + '</p>';
-                    }
-                    if (r[0].season) {
-                        mid += '<p>' + r[0].season + '</p>';
-                    }
-                    if (r[0].etc) {
-                        mid += '<p>' + r[0].etc + '</p>';
-                    }
-
-                    if (!mid) {
-                        mid += `<p>이벤트 없음</p>`;
-                    }
-
-                    if (!!r[0].lunarCal) {
-                        cal = '음력 ' + r[0].lunarCal;
-                    } else {
-                        cal = '음력 정보없음';
-                    }
-
-                    for (let i = 0; i < r.length; i++) {
-
-                        $(idd + (i + 1) + '1').html(
-                            '<h5>' + calen.getDayOfWeek(new Date(r[i].solarCal).getDay()) + '</h5>'
-                        );
-
-                        $(idd + (i + 1) + '2').html(
-                            '<h2>' + new Date(r[i].solarCal).getDate() + '</h2>'
-                        );
-                        $(idd + (i + 1) + '5').val(r[i].solarCal);
-
-                        switch (new Date(r[i].solarCal).getDay()) {
-                            case 0:
-                                $(idd + (i + 1) + '1').css('color', '#CF2F11');
-                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
-                                break;
-                            case 6:
-                                $(idd + (i + 1) + '1').css('color', '#4B89DC');
-                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(75, 137, 220, 0.5)');
-                                break;
-                            default:
-                                $(idd + (i + 1) + '1').css('color', 'black');
-                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
-                                break;
-                        }
-
-                        if (r[i].holiday) {
-                            $(idd + (i + 1) + '3').html('<h5>' + r[i].holiday + '</h5>');
-                        } else {
-                            $(idd + (i + 1) + '3').html('<h5>&ndash;</h5>');
-                        }
-
-                        if (r[i].holiday) {
-                            $(idd + (i + 1) + '1').css('color', '#CF2F11');
-                            $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
-                        }
-                    }
-
-                } else {
-                    mid += `<p>이벤트 없음</p>`;
-                    cal = '음력 정보없음';
-
-                    for (let i = 0; i < 7; i++) {
-                        let ddd = new Date(st);
-
-                        ddd1 = ddd.setDate(ddd.getDate() + i);
-
-                        $(idd + (i + 1) + '1').html(
-                            '<h5>' + calen.getDayOfWeek(new Date(ddd1).getDay()) + '</h5>'
-                        );
-
-                        $(idd + (i + 1) + '2').html('<h2>' + new Date(ddd1).getDate() + '</h2>');
-
-                        $(idd + (i + 1) + '3').html('<h5>&ndash;</h5>');
-
-                        $(idd + (i + 1) + '5').val(toStringByFormatting(new Date(ddd1)));
-
-                        switch (new Date(ddd1).getDay()) {
-                            case 0:
-                                $(idd + (i + 1) + '1').css('color', '#CF2F11');
-                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
-                                break;
-                            case 6:
-                                $(idd + (i + 1) + '1').css('color', '#4B89DC');
-                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(75, 137, 220, 0.5)');
-                                break;
-                            default:
-                                $(idd + (i + 1) + '1').css('color', 'black');
-                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
-                                break;
-                        }
-                    }
-                }
-                $('#midday').html(mid);
-                $('#cal1').html(cal);
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
-        });
-    });
 }
 
 $(

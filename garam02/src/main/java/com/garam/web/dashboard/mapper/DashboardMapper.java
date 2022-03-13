@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.garam.web.dashboard.dto.OptDTO;
+import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 
 @Mapper
@@ -47,4 +48,10 @@ public interface DashboardMapper {
 	public List<RsvtDTO> selectOneWayOper(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<OptDTO> selectOpt() throws Exception;
+
+	public List<RegularOperDTO> selectReg(RegularOperDTO regularOperDTO) throws Exception;
+
+	public List<RegularOperDTO> selectRegDe(RegularOperDTO regularOperDTO) throws Exception;
+
+	public List<RegularOperDTO> selectRegCoo(RegularOperDTO regularOperDTO) throws Exception;
 }

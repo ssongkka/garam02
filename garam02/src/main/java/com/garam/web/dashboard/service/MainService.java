@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.garam.web.dashboard.dto.OptDTO;
+import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 
 public interface MainService {
@@ -42,4 +43,10 @@ public interface MainService {
 	public List<RsvtDTO> selectOneWayOper(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<OptDTO> selectOpt() throws Exception;
+
+	public List<RegularOperDTO> selectReg(RegularOperDTO regularOperDTO) throws Exception;
+
+	public List<RegularOperDTO> selectRegDe(RegularOperDTO regularOperDTO) throws Exception;
+
+	public List<RegularOperDTO> selectRegCoo(RegularOperDTO regularOperDTO) throws Exception;
 }

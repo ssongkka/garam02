@@ -1217,39 +1217,36 @@ $(document).on('click', '.insertCo', function (eInner) {
     const bbb = $(aaa).children()[2];
     const goutnumm = ($(aaa).attr('id')).substring(($(aaa).attr('id')).length - 1);
 
+    console.log(aaa);
+    const eeee = $(aaa).children()[2];
+    console.log(eeee);
+
+    upcource(eeee);
+
     let rcnumm = 0;
     let rcsepa = 0;
-
     const tmp = $(bbb).children();
     const tmpSize = $(tmp).length;
-
     let tmparr = new Array();
-
     let timet = '';
-
     for (let i = 0; i < tmpSize; i++) {
         const aaaa = $(tmp[i]).children()[0];
         const bbbb = ($(aaaa).text()).split("//")[2];
-
         if (i == (tmpSize - 2)) {
             const cccc = $(tmp[i]).children()[3];
             const cccc1 = $(cccc).children();
             const cccc2 = $(cccc1).children();
             const cccc3 = $(cccc2).val();
-
             timet = cccc3;
         }
         tmparr.push(bbbb);
     }
-
     let max = 0;
-
     for (let k = 0; k < tmparr.length; k++) {
         if (tmparr[k] != 0 && tmparr[k] != 50 && tmparr[k] > max) {
             max = tmparr[k];
         }
     }
-
     if (($(aaa).attr('id')).includes('gotb')) {
         rcsepa = 1;
         rcnumm = parseInt(max) + 1
@@ -1257,7 +1254,6 @@ $(document).on('click', '.insertCo', function (eInner) {
         rcsepa = 2;
         rcnumm = parseInt(max) + 1
     }
-
     const url = "/reg/insertregRegularcourse";
     const headers = {
         "Content-Type": "application/json",
@@ -1278,11 +1274,11 @@ $(document).on('click', '.insertCo', function (eInner) {
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
-                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+                alert("노선정보 삭제 실패 !\n\n시스템을 확인해주세요.")
             } else if (r == -1) {
-                alert("노선정보 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                alert(" 노선정보 삭제 실패 !\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
             } else if (r == -2) {
-                alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+                alert(" 노선정보 삭제 실패 !\n\n시스템을 확인해주세요.")
             } else {
                 getRecou($('#modalcodenum').val());
             }
@@ -1418,7 +1414,8 @@ $(document).on('keydown', '#rdememoo', function (eInner) {
 
         const params = {
             "codenum": $('#modalcodenum').val(),
-            "rdmemo": memo
+            "rdmemo": memo,
+            "rdtrash": 1
         };
 
         $.ajax({
@@ -1450,77 +1447,7 @@ $(document).on('keydown', '.upco', function (eInner) {
             .parents()
             .parents();
 
-        const size = $(aaa[0])
-            .children()
-            .length;
-
-        let params = new Array();
-
-        for (let i = 0; i < size; i++) {
-            const tmp = $(aaa[0]).children()[i];
-
-            const aaa222 = $(tmp).children()[3];
-            const aaa333 = $(aaa222).children();
-            const aaa444 = $(aaa333).children();
-            const aaa555 = $(aaa444).val();
-
-            if (!aaa555) {
-                alert('시간을 입력해주세요.');
-                $(ccc1).focus();
-                return;
-            }
-
-            const bbb111 = $(tmp).children()[4];
-            const bbb222 = $(bbb111).children();
-            const bbb333 = $(bbb222).val();
-
-            const ccc111 = $(tmp).children()[5];
-            const ccc222 = $(ccc111).children();
-            const ccc333 = $(ccc222).val();
-
-            const ddd111 = $(tmp).children()[0];
-            const ddd222 = $(ddd111).text();
-            const ddd333 = (ddd222).split('//')[1];
-
-            console.log(aaa555);
-            console.log(bbb333);
-            console.log(ccc333);
-            console.log(ddd333);
-
-            const asd = {
-                "rcseq": ddd333,
-                "rct": aaa555,
-                "rcstp": bbb333,
-                "rcmemo": ccc333,
-                "rctrash": 1
-            };
-            params.push(asd);
-        }
-        console.log(params);
-
-        const url = "/reg/updateRegularcourse";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
-            success: function (r) {
-                if (r == 0) {
-                    alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
-                } else if (r == -1) {
-                    alert(" 노선정보 삭제 실패 !\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-                } else if (r == - 2) {
-                    alert(" 노선정보 삭제 실패 !\n\n시스템을 확인해주세요.")
-                } else {
-                    getRecou($('#modalcodenum').val());
-                }
-            }
-        })
+        upcource(aaa[0]);
     }
 });
 
@@ -1533,76 +1460,88 @@ $(document).on('keydown', '.upcotm', function (eInner) {
             .parents()
             .parents();
 
-        const size = $(aaa[0])
-            .children()
-            .length;
-
-        let params = new Array();
-
-        for (let i = 0; i < size; i++) {
-            const tmp = $(aaa[0]).children()[i];
-
-            const aaa222 = $(tmp).children()[3];
-            const aaa333 = $(aaa222).children();
-            const aaa444 = $(aaa333).children();
-            const aaa555 = $(aaa444).val();
-
-            if (!aaa555) {
-                alert('시간을 입력해주세요.');
-                $(ccc1).focus();
-                return;
-            }
-
-            const bbb111 = $(tmp).children()[4];
-            const bbb222 = $(bbb111).children();
-            const bbb333 = $(bbb222).val();
-
-            const ccc111 = $(tmp).children()[5];
-            const ccc222 = $(ccc111).children();
-            const ccc333 = $(ccc222).val();
-
-            const ddd111 = $(tmp).children()[0];
-            const ddd222 = $(ddd111).text();
-            const ddd333 = (ddd222).split('//')[1];
-
-            console.log(aaa555);
-            console.log(bbb333);
-            console.log(ccc333);
-            console.log(ddd333);
-
-            const asd = {
-                "rcseq": ddd333,
-                "rct": aaa555,
-                "rcstp": bbb333,
-                "rcmemo": ccc333,
-                "rctrash": 1
-            };
-            params.push(asd);
-        }
-        console.log(params);
-
-        const url = "/reg/updateRegularcourse";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
-            success: function (r) {
-                if (r == 0) {
-                    alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
-                } else if (r == -1) {
-                    alert(" 노선정보 삭제 실패 !\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-                } else if (r == - 2) {
-                    alert(" 노선정보 삭제 실패 !\n\n시스템을 확인해주세요.")
-                } else {
-                    getRecou($('#modalcodenum').val());
-                }
-            }
-        })
+        upcource(aaa[0]);
     }
 })
+
+function upcource(ppp) {
+    LoadingWithMask()
+        .then(upupupgogogogo)
+        .then(closeLoadingWithMask);;
+    function upupupgogogogo() {
+        return new Promise(function (resolve, reject) {
+            console.log("aaa   " + ppp);
+
+            const size = $(ppp)
+                .children()
+                .length;
+            console.log("aaa   " + size);
+
+            let params = new Array();
+
+            for (let i = 0; i < size; i++) {
+                const tmp = $(ppp).children()[i];
+
+                console.log("aaa   " + tmp);
+                const aaa222 = $(tmp).children()[3];
+                const aaa333 = $(aaa222).children();
+                const aaa444 = $(aaa333).children();
+                const aaa555 = $(aaa444).val();
+
+                if (!aaa555) {
+                    alert('시간을 입력해주세요.');
+                    $(aaa444).focus();
+                    return;
+                }
+
+                const bbb111 = $(tmp).children()[4];
+                const bbb222 = $(bbb111).children();
+                const bbb333 = $(bbb222).val();
+
+                const ccc111 = $(tmp).children()[5];
+                const ccc222 = $(ccc111).children();
+                const ccc333 = $(ccc222).val();
+
+                const ddd111 = $(tmp).children()[0];
+                const ddd222 = $(ddd111).text();
+                const ddd333 = (ddd222).split('//')[1];
+
+                const asd = {
+                    "rcseq": ddd333,
+                    "rct": aaa555,
+                    "rcstp": bbb333,
+                    "rcmemo": ccc333,
+                    "rctrash": 1
+                };
+                params.push(asd);
+            }
+            console.log(params);
+
+            const url = "/reg/updateRegularcourse";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r == 0) {
+                        alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
+                    } else if (r == -1) {
+                        alert(" 노선정보 삭제 실패 !\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    } else if (r == - 2) {
+                        alert(" 노선정보 삭제 실패 !\n\n시스템을 확인해주세요.")
+                    } else {
+                        getRecou($('#modalcodenum').val());
+                        resolve();
+                    }
+                }
+            })
+        })
+    }
+
+}
