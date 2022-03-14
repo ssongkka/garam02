@@ -1,4 +1,6 @@
 $(document).ready(function () {});
+var modalone = new bootstrap.Modal(document.getElementById('modal-one'));
+var modalrsvt = new bootstrap.Modal(document.getElementById('modal-rsvt'));
 
 $(document).on('keydown', 'input', function (eInner) {
     var keyValue = eInner.which; //enter key
@@ -56,7 +58,6 @@ $(document).on('keydown', '.ve-car', function (eInner) {
             .next()
             .val(carowner);
         const iidd = '#' + $(this).attr('id');
-        console.log("rrrrr " + iidd);
 
         ve02(carnum);
 
@@ -233,10 +234,6 @@ $(document).on('keydown', '.ve-car-one', function (eInner) {
                                     insertOperOne(iidd, 1);
                                 } else {
                                     const tbi = $(iidd).attr('tabindex');
-                                    console.log("aaaaa  " + tbi);
-                                    console.log("aaaaa  " + (
-                                        parseInt(tbi) + 1
-                                    ));
                                     $('[tabindex=' + (
                                         parseInt(tbi) + 1
                                     ) + ']').focus();
@@ -342,15 +339,10 @@ $(document).on('keydown', '.ve-m', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         const iidd = '#' + $(this).attr('id');
-        console.log(
-            checkAllo('#' + $(iidd).prev().prev().prev().prev().prev().attr('id'))
-        );
         if (checkAllo('#' + $(iidd).prev().prev().prev().prev().prev().attr('id'))) {
             insertOper(iidd, 3);
         } else {
             const tbi = $(iidd).attr('tabindex');
-            console.log(tbi);
-            console.log(parseInt(tbi) + 1);
             $('[tabindex=' + (
                 parseInt(tbi) + 1
             ) + ']').focus();
@@ -676,17 +668,6 @@ function insertOperOne(id, num) {
         const tod = $('#btn-tod').val();
         const ed = $('#btn-ed').val();
 
-        console.log('rsvt  ' + rsvt);
-        console.log('opernum  ' + opernum);
-        console.log('호차  ' + hoCha);
-        console.log('hoho  ' + hoho);
-        console.log('veIn  ' + veIn);
-        console.log('compaIn  ' + compaIn);
-        console.log('empIn  ' + empIn);
-        console.log('mIn  ' + mIn);
-        console.log('tod  ' + tod);
-        console.log('ed  ' + ed);
-
         let params = new Array();
         const beetween = betweenDateNum(tod, ed);
 
@@ -726,7 +707,6 @@ function insertOperOne(id, num) {
 
             success: function (r) {
                 if (r.length > 0) {
-                    console.log("ddddd   " + r[0].opernum);
                     $(id)
                         .parent()
                         .prev()
@@ -788,7 +768,6 @@ function mdOneWay(val) {
         .val();
 
     const tod = $($(iidd).parent().parent().parent().prev().prev().children()[6]).val();
-    console.log("aasdfasdf   " + tod);
     const url = "/allo/oneway";
     const headers = {
         "Content-Type": "application/json",
@@ -810,7 +789,7 @@ function mdOneWay(val) {
         success: function (r) {
 
             if (r.length > 0) {
-                $('#modal-one').modal({backdrop: 'static', keyboard: false});
+                modalone.show();
                 const rsvt = $(iidd)
                     .parent()
                     .parent()
@@ -845,7 +824,7 @@ function mdOneWay(val) {
 
                 let mmm;
                 for (let i = 0; i < r.length; i++) {
-                    htmls += '<div class="allo-allo-item col-xs-12 col-lg-4" style="width: 100%;">';
+                    htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-4" style="width: 100%;">';
                     htmls += '<input type="hidden" value="' + rsvt + '">';
                     htmls += '<input type="hidden" value="' + opernum + '">';
                     htmls += '<input type="hidden" value="' + tod + '">';
@@ -854,7 +833,6 @@ function mdOneWay(val) {
 
                     let cnt = 0;
                     for (let j = 0; j < dbCompa.length; j++) {
-                        console.log(dbCompa[j].company == r[i].opercom);
                         if (dbCompa[j].company == r[i].opercom) {
                             cnt++;
                         }
@@ -1009,24 +987,9 @@ function mdOneWay(val) {
                 $("input[data-type='currency']").bind('keyup keydown', function () {
                     inputNumberFormat(this);
                 });
-                $('[data-toggle="tooltip"]').tooltip({
-                    container: "body",
-                    delay: {
-                        "show": 0,
-                        "hide": 111000
-                    }
-                });
-                $('.tooltip-right').tooltip({
-                    placement: 'right',
-                    viewport: {
-                        selector: 'body',
-                        padding: 2
-                    }
-                });
             } else {
                 alert('첫번째 운행 할 차량을 먼저 배차해주세요.');
             }
-
         }
     })
 }
@@ -1038,20 +1001,18 @@ $(document).on('click', '#btn-one-plus', function () {
 });
 
 $(document).on('click', '#btn-one-plus-close', function () {
-    $('#modal-one').modal('hide');
+    modalone.hide();
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
 });
 
 function plusOneWay(num) {
-    console.log("cnt   " + num);
 
     if (num <= 5) {
         let cnt = (2 * num) - 1;
-        console.log("cnt   " + cnt);
 
         let htmls = '';
 
-        htmls += '<div class="allo-allo-item col-xs-12 col-lg-4" style="width: 100%;">';
+        htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-4" style="width: 100%;">';
         htmls += '<input type="hidden" value="' + $('#btn-rsvt').val() + '">';
         htmls += '<input type="hidden" value="' + $('#btn-opernum').val() + '">';
         htmls += '<input type="hidden" value="' + $('#btn-tod').val() + '">';
@@ -1089,20 +1050,6 @@ function plusOneWay(num) {
 
         $("input[data-type='currency']").bind('keyup keydown', function () {
             inputNumberFormat(this);
-        });
-        $('[data-toggle="tooltip"]').tooltip({
-            container: "body",
-            delay: {
-                "show": 0,
-                "hide": 111000
-            }
-        });
-        $('.tooltip-right').tooltip({
-            placement: 'right',
-            viewport: {
-                selector: 'body',
-                padding: 2
-            }
         });
     } else {
         alert("편도 운행은 5회까지만 추가 할 수 있습니다.");
@@ -1146,20 +1093,20 @@ function getAlloList(day) {
                     const idd = '#dash-week-';
                     if (r.length > 0) {
                         if (r[0].holiday) {
-                            mid += '<p>' + r[0].holiday + '</p>';
+                            mid += '<span>' + r[0].holiday + '</span>';
                         }
                         if (r[0].anniversary) {
-                            mid += '<p>' + r[0].anniversary + '</p>';
+                            mid += '<span>' + r[0].anniversary + '</span>';
                         }
                         if (r[0].season) {
-                            mid += '<p>' + r[0].season + '</p>';
+                            mid += '<span>' + r[0].season + '</span>';
                         }
                         if (r[0].etc) {
-                            mid += '<p>' + r[0].etc + '</p>';
+                            mid += '<span>' + r[0].etc + '</span>';
                         }
 
                         if (!mid) {
-                            mid += `<p>이벤트 없음</p>`;
+                            mid += `<span>이벤트 없음</span>`;
                         }
 
                         if (!!r[0].lunarCal) {
@@ -1303,7 +1250,7 @@ function getAlloList(day) {
                             switch (r[i].ctmsepa) {
 
                                 case 0:
-                                    htmls += '<div class="card allo-card">';
+                                    htmls += '<div class="card-song allo-card">';
                                     htmls += '<input type="hidden" id="rvctm' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmseq + '">';
@@ -1311,7 +1258,7 @@ function getAlloList(day) {
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
                                     htmls += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-user-check" st' +
-                                            'yle="letter-spacing: 0.3rem;">' + r[i].ctmname + '</i></div>';
+                                            'yle="letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname + '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls += '<div class="ctm-ttt-item">';
@@ -1324,8 +1271,9 @@ function getAlloList(day) {
                                     htmls += ddetail;
                                     htmls += '</div>';
                                     htmls += '<div class="ctm-ttt-item">';
-                                    htmls += '<button class="btn btn-default allo-detail-item-1" data-toggle="tooltip" data-' +
-                                            'placement="left" title="일괄 입금내역 입력"><i class="fas fa-won-sign"></i></button>';
+                                    htmls += '<button class="btn btn-default allo-detail-item-1 card-song" data-bs-toggle="t' +
+                                            'ooltip" data-bs-placement="top" title="일괄 입금내역 입력"><i class="fas fa-won-sign">' +
+                                            '</i></button>';
                                     htmls += '</div>';
                                     htmls += '</div>';
                                     htmls += '<div class="rv" id="rv' + r[i].ctmseq + '">';
@@ -1334,7 +1282,7 @@ function getAlloList(day) {
 
                                     break;
                                 case 1:
-                                    htmls2 += '<div class="card allo-card">';
+                                    htmls2 += '<div class="card-song allo-card">';
                                     htmls2 += '<input type="hidden" id="rvctm' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmseq + '">';
@@ -1342,7 +1290,7 @@ function getAlloList(day) {
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
                                     htmls2 += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-school" style=' +
-                                            '"letter-spacing: 0.3rem;">' + r[i].ctmname + '</i></div>';
+                                            '"letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname + '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls2 += '<div class="ctm-ttt-item">';
@@ -1355,8 +1303,9 @@ function getAlloList(day) {
                                     htmls2 += ddetail;
                                     htmls2 += '</div>';
                                     htmls2 += '<div class="ctm-ttt-item">';
-                                    htmls2 += '<button class="btn btn-default allo-detail-item-1" data-toggle="tooltip" data-' +
-                                            'placement="left" title="일괄 입금내역 입력"><i class="fas fa-won-sign"></i></button>';
+                                    htmls2 += '<button class="btn btn-default allo-detail-item-1 card-song" data-bs-toggle="t' +
+                                            'ooltip" data-bs-placement="top" title="일괄 입금내역 입력"><i class="fas fa-won-sign">' +
+                                            '</i></button>';
                                     htmls2 += '</div>';
                                     htmls2 += '</div>';
                                     htmls2 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
@@ -1365,7 +1314,7 @@ function getAlloList(day) {
 
                                     break;
                                 case 2:
-                                    htmls3 += '<div class="card allo-card">';
+                                    htmls3 += '<div class="card-song allo-card">';
                                     htmls3 += '<input type="hidden" id="rvctm' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmseq + '">';
@@ -1373,7 +1322,7 @@ function getAlloList(day) {
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
                                     htmls3 += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-file-signature' +
-                                            '" style="letter-spacing: 0.3rem;">' + r[i].ctmname + '</i></div>';
+                                            '" style="letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname + '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls3 += '<div class="ctm-ttt-item">';
@@ -1386,8 +1335,9 @@ function getAlloList(day) {
                                     htmls3 += ddetail;
                                     htmls3 += '</div>';
                                     htmls3 += '<div class="ctm-ttt-item">';
-                                    htmls3 += '<button class="btn btn-default allo-detail-item-1" data-toggle="tooltip" data-' +
-                                            'placement="left" title="일괄 입금내역 입력"><i class="fas fa-won-sign"></i></button>';
+                                    htmls3 += '<button class="btn btn-default allo-detail-item-1 card-song" data-bs-toggle="t' +
+                                            'ooltip" data-bs-placement="top" title="일괄 입금내역 입력"><i class="fas fa-won-sign">' +
+                                            '</i></button>';
                                     htmls3 += '</div>';
                                     htmls3 += '</div>';
                                     htmls3 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
@@ -1468,6 +1418,9 @@ function getAlloList(day) {
                             );
                         }
                     }
+                    var tooltipTriggerList = []
+                        .slice
+                        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
                 }
             })
         });
@@ -1539,7 +1492,7 @@ function getAlloList(day) {
 
                             let htmls = '';
 
-                            htmls += '<div class="card allo-card-in">';
+                            htmls += '<div class="card-song allo-card-in">';
                             htmls += '<input type="hidden" id="oprsvtseq-' + r[i].rsvtseq + '" value="' + r[i].rsvt +
                                     '">';
                             htmls += '<div class="allo-detail">';
@@ -1552,7 +1505,7 @@ function getAlloList(day) {
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
                             htmls += '<small><mark><i class="fas fa-bus">&nbsp;</i>' + r[i].bus + '</mark>&nbsp;&nbs' +
-                                    'p;<span class="badge">' + r[i].num + '</span></small>';
+                                    'p;<span class="badge bg-secondary">' + r[i].num + '</span></small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
                             htmls += '<small><i class="fas fa-map-pin">&nbsp;</i>' + r[i].rsvpstp + '</small>';
@@ -1581,10 +1534,10 @@ function getAlloList(day) {
                             htmls += '<small>' + r[i].cont + '</small> ';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<button class="btn btn-default allo-detail-item-1" id="btn-1-' + r[i].rsvtseq +
+                            htmls += '<button class="btn btn-default allo-detail-item-1 card-song" id="btn-1-' + r[i].rsvtseq +
                                     '-' + i + '" onclick="getRsvt(this.id)"><i class="fas fa-pencil-alt"></i></butt' +
                                     'on>';
-                            htmls += '<button class="btn btn-default allo-detail-item-2" id="btn-2-' + r[i].rsvtseq +
+                            htmls += '<button class="btn btn-default allo-detail-item-2 card-song" id="btn-2-' + r[i].rsvtseq +
                                     '-' + i + '" onclick="getRsvtM(this.id)"><i class="fas fa-won-sign"></i></butto' +
                                     'n>';
                             htmls += '</div>';
@@ -1617,7 +1570,7 @@ function getAlloList(day) {
                                         tbii = tbi3++;
                                         break;
                                 }
-                                htmls += '<div class="allo-allo-item col-xs-12 col-lg-4">';
+                                htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-4">';
                                 htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
                                     k + 1
                                 ) + '">';
@@ -1631,10 +1584,10 @@ function getAlloList(day) {
                                 cnt++;
 
                                 if (suk.length > 0) {
-                                    htmls += '<button class="onebtn tooltip-right" role="button" id="bt-' + (
+                                    htmls += '<button class="onebtn" role="button" id="bt-' + (
                                         cnt - 1
-                                    ) + '" data-toggle="tooltip" data-placement="left" title="숙박 운행은 편도 운행이 가능하지 않습' +
-                                            '니다."><i class="fas fa-ban"></i></button>';
+                                    ) + '" data-bs-toggle="tooltip" data-bs-placement="left" title="숙박 운행은 편도 운행이 가' +
+                                            '능하지 않습니다."><i class="fas fa-ban"></i></button>';
                                 } else {
                                     htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
                                         cnt - 1
@@ -1677,20 +1630,6 @@ function getAlloList(day) {
                             $('#rv' + result[j]).html(ctmseqHtml[j]);
                             $("input[data-type='currency']").bind('keyup keydown', function () {
                                 inputNumberFormat(this);
-                            });
-                            $('[data-toggle="tooltip"]').tooltip({
-                                container: "body",
-                                delay: {
-                                    "show": 0,
-                                    "hide": 111000
-                                }
-                            });
-                            $('.tooltip-right').tooltip({
-                                placement: 'right',
-                                viewport: {
-                                    selector: 'body',
-                                    padding: 2
-                                }
                             });
                         }
                         $('#bdggg').text(cnt0);
@@ -1959,7 +1898,7 @@ function getAlloList(day) {
                                 ddetail = '<span>' + r[i].regmemo + '</span>';
                             }
 
-                            htmls += '<div class="card allo-card1">';
+                            htmls += '<div class="card-song allo-card1">';
                             htmls += '<input type="hidden" id="regseqq" value="' + r[i].regseq + '">';
                             htmls += '<input type="hidden" id="regctm' + (
                                 i + 1
@@ -2159,8 +2098,6 @@ function getAlloList(day) {
                             const ccc = $(bbb)
                                 .children()
                                 .length;
-                            console.log("bbb " + bbb);
-                            console.log("bbb " + ccc);
 
                             for (let k = 0; k < ccc; k++) {
                                 const dddd = $(bbb).children()[k];
@@ -2172,7 +2109,6 @@ function getAlloList(day) {
                                     $(ininin).append(htmls);
                                 }
 
-                                console.log(ffff);
                             }
                         }
                     }
@@ -2271,8 +2207,6 @@ function delOne(param) {
         const tod = $('#btn-tod').val();
         const ed = $('#btn-ed').val();
 
-        // console.log('tod  ' + tod); console.log('ed  ' + ed);
-
         let params = new Array();
         const beetween = betweenDateNum(tod, ed);
 
@@ -2287,11 +2221,6 @@ function delOne(param) {
                 "opertype": hoho
             };
             params.push(asd);
-
-            console.log('opernum  ' + opernum);
-            console.log('호차  ' + hoCha);
-            console.log('opertype  ' + hoho);
-            console.log('operday  ' + ddd);
         }
 
         const url = "/allo/del";
@@ -2316,7 +2245,12 @@ function delOne(param) {
                         .parent()
                         .remove();
                 } else if (r == 0) {
-                    alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                    let size = $('#btn-size').val();
+                    $('#btn-size').val(--size);
+                    $('#' + param)
+                        .parent()
+                        .parent()
+                        .remove();
                 } else if (r == -1) {
                     alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
                 } else if (r == -2) {
@@ -2356,10 +2290,6 @@ function getRsvt(id) {
         dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
-            console.log("good  " + r);
-            console.log("good  " + r.length);
-            console.log("good  " + r[0].rsvt);
-
             $('#stday-1').val(r[0].stday);
             $('#endday-1').val(r[0].endday);
             $('#bus-1').val(r[0].bus);
@@ -2375,7 +2305,7 @@ function getRsvt(id) {
             chDateInput();
         }
     });
-    $('#modal-rsvt').modal({backdrop: 'static', keyboard: false});
+    modalrsvt.show();
 }
 
 $(document).on('click', '#btn-rsvt-insert', function () {
@@ -2441,7 +2371,7 @@ $(document).on('click', '#btn-rsvt-insert', function () {
             success: function (r) {
                 if (r > 0) {
                     alert("운행정보가 수정되었습니다.\n\n배차정보를 다시 입력해주세요.");
-                    $('#modal-rsvt').modal('hide');
+                    modalrsvt.hide();
                     setCalWhite($('.dash-cal-con-item-t').attr('id'));
                 } else if (r == 0) {
                     alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
@@ -2459,7 +2389,7 @@ $(document).on('click', '#btn-rsvt-insert', function () {
 });
 
 $(document).on('click', '#btn-rsvt-close', function () {
-    $('#modal-rsvt').modal('hide');
+    modalrsvt.hide();
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
 });
 
@@ -2482,7 +2412,7 @@ $(document).on('click', '#btn-rsvt-cancle', function () {
         success: function (r) {
             if (r > 0) {
                 alert("예약정보 및 해당 예약의 배차가 취소되었습니다.");
-                $('#modal-rsvt').modal('hide');
+                modalrsvt.hide();
                 setCalWhite($('.dash-cal-con-item-t').attr('id'));
             } else if (r == 0) {
                 alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
@@ -2516,7 +2446,7 @@ $(document).on('click', '#btn-rsvt-del', function () {
         success: function (r) {
             if (r > 0) {
                 alert("예약정보 및 해당 예약의 배차가 삭제되었습니다.");
-                $('#modal-rsvt').modal('hide');
+                modalrsvt.hide();
                 setCalWhite($('.dash-cal-con-item-t').attr('id'));
             } else if (r == 0) {
                 alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
@@ -2545,9 +2475,6 @@ function chDateInput() {
     const origin = $("#endday-1").val();
     const std = $("#stday-1").val();
     const edd = $("#endday-1").val();
-
-    console.log("adsw  " + std);
-    console.log("adsw  " + edd);
 
     const beet = betweenDateNum(std, edd);
 

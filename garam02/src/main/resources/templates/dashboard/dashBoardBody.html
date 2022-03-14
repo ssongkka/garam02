@@ -3,9 +3,7 @@
     <body th:fragment="main-body">
         <header class="header">
             <div class="logo">
-                <a href="#">
-                    <img src="img1.png" alt="">
-                </a>
+                <object type="image/svg+xml" data="img/company/1.svg">현재 브라우저는 iframe을 지원하지 않습니다.</object>
             </div>
             <div class="hd-search">
                 <div class="he-serach-group">
@@ -17,10 +15,12 @@
             </div>
             <div class="hd-user">
                 <div id="detail-user">
-                    <span th:text="${user.company}+'&nbsp;'+${user.position}+'&nbsp;'+${user.name}"></span></div>
+                    <span class="detail-user-1" th:text="${user.company}"></span>
+                    <span class="detail-user-2" th:text="${user.position}"></span>
+                    <span class="detail-user-3" th:text="${user.name}"></span></div>
                 <div class="fas fa-bars" id="menu-btn"></div>
             </div>
-            <div class="deail-form card">
+            <div class="deail-form card-song">
                 <div class="deail-form-item">
                     <a class="fas fa-user-circle">
                         나의 정보
@@ -36,7 +36,7 @@
         <aside class="aside">
             <div class="ad-cal">
                 <input type="hidden" id="today">
-                <div class="ad-cal-items ad-cal-items-1 card" id="calendar">
+                <div class="ad-cal-items ad-cal-items-1 card-song" id="calendar">
                     <div class="dash-cal">
                         <div class="dash-cal-h">
                             <div class="">
@@ -55,29 +55,22 @@
                             <div class="dash-cal-h-item dash-cal-h-item4">
                                 <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
                                 control-id="ControlID-1">어제</button> -->
-                                <button type="button" class="btn btn-default btn-xs" id="btnToD">오늘</button>
-                                <button type="button" class="btn btn-default btn-xs" id="btnTomD">내일</button>
+                                <button type="button" class="btn btn-secondary btn-xs" id="btnToD">오늘</button>
+                                <button type="button" class="btn btn-secondary btn-xs" id="btnTomD">내일</button>
                             </div>
                         </div>
                         <div class="dash-cal-con" id="dash-cal-contents"></div>
                     </div>
                 </div>
-                <div class="ad-cal-items ad-cal-items-2 card">
+                <div class="ad-cal-items ad-cal-items-2 card-song">
                     <blockquote>
-                        <p id="bigDay">2021년 11월 25일 목요일</p>
+                        <p id="bigDay">&nbsp;</p>
                         <footer>
-                            <cite title="Source Title" id="cal1">음력 2021-10-21</cite>
+                            <cite title="Source Title" id="cal1">&nbsp;</cite>
                         </footer>
                     </blockquote>
                 </div>
-                <div class="ad-cal-items ad-cal-items-3 card" id="numday">
-                    <blockquote>
-                        <p id="numday1">대형 35대</p>
-                        <p id="numday2">중형</p>
-                        <p id="numday3">우등</p>
-                    </blockquote>
-                </div>
-                <div class="ad-cal-items ad-cal-items-4 card">
+                <div class="ad-cal-items ad-cal-items-4 card-song">
                     <blockquote id="midday"></blockquote>
                 </div>
             </div>
@@ -85,7 +78,7 @@
         <main class="main">
             <div class="tab-pane" role="tabpanel">
                 <div class="dd-main-nav">
-                    <div class="dash-cal-d card" id="dash-phone">
+                    <div class="card-song dash-cal-d" id="dash-phone">
                         <div class="dash-cal-d-item">
                             <a class="btn" id="fnDownDay">
                                 <i class="fas fa-chevron-left fa-lg"></i>
@@ -102,24 +95,58 @@
                         <div class="dash-cal-d-item dash-cal-d-item4">
                             <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
                             control-id="ControlID-1">어제</button> -->
-                            <button type="button" class="btn btn-default btn-xs" id="btnToD">오늘</button>
-                            <button type="button" class="btn btn-default btn-xs" id="btnTomD">내일</button>
+                            <button type="button" class="btn btn-secondary btn-xs" id="btnToD">오늘</button>
+                            <button type="button" class="btn btn-secondary btn-xs" id="btnTomD">내일</button>
                         </div>
                     </div>
                     <!-- Nav tabs -->
                     <div>
                         <ul class="nav nav-pills nav-justified dd-nav" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">home</a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link active"
+                                    id="pills-home-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#home"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home"
+                                    aria-selected="true">home</button>
                             </li>
-                            <li role="presentation">
-                                <a href="#rsvt" aria-controls="rsvt" role="tab" data-toggle="tab">운행예약</a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-profile-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#rsvt"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false">운행예약</button>
                             </li>
-                            <li role="presentation">
-                                <a href="#allo" aria-controls="allo" role="tab" data-toggle="tab">예약관리&nbsp;&nbsp;<span class="badge" id="bdggg">0</span></a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-profile-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#allo"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false">
+                                    예약관리<span class="badge bg-secondary" id="bdggg"></span>
+                                </button>
                             </li>
-                            <li role="presentation">
-                                <a href="#manage" aria-controls="manage" role="tab" data-toggle="tab">예약관리</a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-profile-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#manage"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false">예약관리</button>
                             </li>
                         </ul>
                     </div>
@@ -128,20 +155,27 @@
                 <div class="tab-content tab-cont">
                     <div
                         th:insert="dashboard/mainHome :: main-home"
+                        class="tab-pane fade show active"
+                        id="home"
                         role="tabpanel"
-                        class="tab-pane fade in active"
-                        id="home"></div>
+                        aria-labelledby="pills-home-tab"></div>
                     <div
                         th:insert="dashboard/mainRsvt :: main-rsvt"
+                        class="tab-pane fade"
+                        id="rsvt"
                         role="tabpanel"
-                        class="rsvt row tab-pane fade"
-                        id="rsvt"></div>
+                        aria-labelledby="pills-rsvt-tab"></div>
                     <div
                         th:insert="dashboard/mainAllo :: main-allo"
-                        role="tabpanel"
                         class="tab-pane fade"
-                        id="allo"></div>
-                    <div role="tabpanel" class="tab-pane fade" id="manage"></div>
+                        id="allo"
+                        role="tabpanel"
+                        aria-labelledby="pills-allo-tab"></div>
+                    <div
+                        class="tab-pane fade"
+                        id="manage"
+                        role="tabpanel"
+                        aria-labelledby="pills-manage-tab"></div>
                 </div>
             </div>
         </main>
@@ -167,9 +201,10 @@
         </script>
 
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="/js/common/bootstrap.js"></script>
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+        <script src="/js/boot/bootstrap.js"></script>
+        <script src="/js/boot/bootstrap.bundle.js"></script>
+        <script src="/js/boot/all.js"></script>
         <script src="/js/common/summernote-lite.js"></script>
         <script src="/js/common/summernote-ko-KR.js"></script>
         <script src="/js/common/common.js"></script>

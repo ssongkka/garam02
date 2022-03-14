@@ -351,7 +351,7 @@
     text-align: right;
 }
 
-@media (max-width:992px) {
+@media (max-width:768px) {
     .moneyInsertEmp {
         flex-direction: column;
     }

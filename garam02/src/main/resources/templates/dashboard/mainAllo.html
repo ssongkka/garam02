@@ -5,33 +5,70 @@
         <div class="allo-main">
             <div role="tabpanel">
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs nav-justified dd-nav" role="tablist">
-                    <li role="presentation" class="active">
-                        <a href="#iltab" aria-controls="home" role="tab" data-toggle="tab">일반&nbsp;&nbsp;<span class="badge" id="bdg1">0</span></a>
+                <ul class="nav nav-tabs nav-justified dd-allo-nav" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link active"
+                            id="iltab-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#iltab"
+                            type="button"
+                            role="tab"
+                            aria-controls="iltab"
+                            aria-selected="true">일반&nbsp;&nbsp;<span class="badge bg-secondary" id="bdg1">0</span></button>
                     </li>
-                    <li role="presentation">
-                        <a href="#jaktab" aria-controls="profile" role="tab" data-toggle="tab">학생단체&nbsp;&nbsp;<span class="badge" id="bdg2">0</span></a>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="jaktab-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#jaktab"
+                            type="button"
+                            role="tab"
+                            aria-controls="jaktab"
+                            aria-selected="false">학생단체&nbsp;&nbsp;<span class="badge bg-secondary" id="bdg2">0</span></button>
                     </li>
-                    <li role="presentation">
-                        <a href="#gutab" aria-controls="messages" role="tab" data-toggle="tab">거래처&nbsp;&nbsp;<span class="badge" id="bdg3">0</span></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#goouttab" aria-controls="settings" role="tab" data-toggle="tab">Settings&nbsp;&nbsp;<span class="badge" id="bdg4">0</span></a>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="gutab-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#gutab"
+                            type="button"
+                            role="tab"
+                            aria-controls="gutab"
+                            aria-selected="false">거래처&nbsp;&nbsp;<span class="badge bg-secondary" id="bdg3">0</span></button>
                     </li>
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="iltab">
+                <div class="tab-content" id="myTabContent">
+                    <div
+                        class="tab-pane fade show active"
+                        id="iltab"
+                        role="tabpanel"
+                        aria-labelledby="home-tab">
                         <div class="allocont" id="allocont1"></div>
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="jaktab">
+                    <div
+                        class="tab-pane fade"
+                        id="jaktab"
+                        role="tabpanel"
+                        aria-labelledby="profile-tab">
                         <div class="allocont" id="allocont2"></div>
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="gutab">
+                    <div
+                        class="tab-pane fade"
+                        id="gutab"
+                        role="tabpanel"
+                        aria-labelledby="profile-tab">
                         <div class="allocont" id="allocont3"></div>
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="goouttab">
+                    <div
+                        class="tab-pane fade"
+                        id="goouttab"
+                        role="tabpanel"
+                        aria-labelledby="profile-tab">
                         <div class="allocont" id="allocont4"></div>
                     </div>
                 </div>
@@ -65,50 +102,56 @@
         </div>
         <!-- Modal -->
         <div
-            style="background: transparent;"
             class="modal fade"
             id="modal-one"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
             tabindex="-1"
-            role="dialog"
-            aria-labelledby="myModalLabel"
+            aria-labelledby="staticBackdropLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="md-one-hd">Modal title</h4>
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                         <input type="hidden" id="btn-size" value="1">
                         <input type="hidden" id="btn-hoho" value="1">
                         <input type="hidden" id="btn-rsvt" value="1">
                         <input type="hidden" id="btn-opernum" value="1">
                         <input type="hidden" id="btn-tod" value="1">
                         <input type="hidden" id="btn-ed" value="1">
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body md-one-bdc" id="md-one-bd"></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="btn-one-plus-close">닫기</button>
-                        <button type="button" class="btn btn-default" id="btn-one-plus">운행 추가</button>
+                        <button type="button" class="btn btn-secondary" id="btn-one-plus-close">Close</button>
+                        <button type="button" class="btn btn-primary" id="btn-one-plus">Understood</button>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- Modal -->
         <div
             style="background: transparent;"
-            class="modal fade"
             id="modal-rsvt"
+            class="modal fade"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
             tabindex="-1"
-            role="dialog"
-            aria-labelledby="myModalLabel"
+            aria-labelledby="staticBackdropLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="md-rsvt-hd">Modal title</h4>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        <h5 class="modal-title" id="md-rsvt-hd">Modal title</h5>
                         <input type="hidden" id="md-rsvtNum" value="">
                     </div>
                     <div class="modal-body md-rsvt-bdc" id="md-rsvt-bd">
@@ -120,7 +163,7 @@
                                     id="empin-1"
                                     name="empin"
                                     th:value="${user.position}+'&nbsp;'+${user.name}">
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-calendar-day"></i>
                                     <label for="stday-1">출발일</label>
                                     <input
@@ -130,7 +173,7 @@
                                         name="stday"
                                         required="required">
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-calendar-day"></i>
                                     <label for="endday-1">
                                         <span>도착일</span><span id="daynight-1">(당일)</span></label>
@@ -143,7 +186,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-bus"></i>
                                     <label for="bus-1">차&nbsp;량</label>
                                     <select id="bus-1" name="bus" class="form-control input-sm">
@@ -153,7 +196,7 @@
                                         <option value="기타">기타</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-equals"></i>
                                     <label for="num-1">대&nbsp;수</label>
                                     <select id="num-1" name="num" class="form-control input-sm">
@@ -165,31 +208,31 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="far fa-clock"></i>
                                     <label for="stt-1">출발시간</label>
                                     <input type="time" class="form-control input-sm" id="stt-1" name="stt">
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="far fa-clock"></i>
                                     <label for="endt-1">종료시간</label>
                                     <input type="time" class="form-control input-sm" id="endt-1" name="endt">
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-map-marker-alt"></i>
                                     <label for="rsvpstp-1">출발장소(모두기입)</label>
                                     <textarea id="rsvpstp-1" name="rsvpstp" class="form-control"></textarea>
                                 </div>
-                                <div class="form-group col-xs-12 col-lg-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-map-marked-alt"></i>
                                     <label for="desty-1">목적지 및 경유지</label>
                                     <textarea id="desty-1" name="desty" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-12">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="far fa-bookmark"></i>
                                     <label for="rsvtdetail-1">특이사항</label>
                                     <input
@@ -201,7 +244,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-calculator"></i>
                                     <label for="cont-1">부가세</label>
                                     <select id="cont-1" name="cont" class="form-control input-sm">
@@ -210,7 +253,7 @@
                                         <option value="카드">카드</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-12 col-xl-6">
                                     <i class="fas fa-won-sign"></i>
                                     <label for="conm-1">운행금액</label>
                                     <input
@@ -224,10 +267,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-12 text-right">
+                                <div class="form-group col-md-12 text-right">
                                     <span class="text-right">수정 후 배차정보가 초기화됩니다.</span>
                                 </div>
-                                <div class="form-group col-xs-12 text-right">
+                                <div class="form-group col-md-12 text-right">
                                     <span class="text-right">배차정보를 다시 입력해주세요.</span>
                                 </div>
                             </div>

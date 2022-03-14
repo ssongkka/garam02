@@ -10,44 +10,16 @@ const veFolder = 'http://192.168.35.29:8000/list/HDD2/src/ve/';
 const tableCh = '#337ab7';
 
 $(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip({
-        container: "body",
-        delay: {
-            "show": 0,
-            "hide": 111000
-        }
-    });
-    $('.tooltip-right').tooltip({
-        placement: 'right',
-        viewport: {
-            selector: 'body',
-            padding: 2
-        }
-    });
-    $('.tooltip-bottom').tooltip({
-        placement: 'bottom',
-        viewport: {
-            selector: 'body',
-            padding: 2
-        }
-    });
-    $('.tooltip-viewport-right').tooltip({
-        placement: 'right',
-        viewport: {
-            selector: '.container-viewport',
-            padding: 2
-        }
-    });
-    $('.tooltip-viewport-bottom').tooltip({
-        placement: 'bottom',
-        viewport: {
-            selector: '.container-viewport',
-            padding: 2
-        }
-    });
 
     $('input').attr('autocomplete', 'off');
 });
+
+var tooltipTriggerList = []
+    .slice
+    .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
 
 function LoadingWithMask() {
     return new Promise(function (resolve, reject) {

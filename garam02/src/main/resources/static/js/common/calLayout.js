@@ -155,7 +155,6 @@ function setCalWhite(e) {
 
     $("#yearMonthDay").val(day);
     setBigDay(day);
-    // setCaldays(day);
     getAlloList(day);
     setStEdDay(day);
 
@@ -171,7 +170,6 @@ function setCalWhite1(day) {
     $("#yearMonth").val(day.substring(0, 7));
     $("#yearMonthDay").val(day);
     setBigDay(day);
-    // setCaldays(day);
     getAlloList(day);
     setStEdDay(day);
 
@@ -186,7 +184,7 @@ function setCalWhite1(day) {
 function setBigDay(day) {
     const tmpArr = day.split("-");
 
-    const date = new Date(tmpArr[0], tmpArr[1] + 1, tmpArr[2]);
+    const date = new Date(tmpArr[0], parseInt(tmpArr[1]) - 1, tmpArr[2]);
 
     $('#bigDay').empty();
     $('#bigDay').prepend(

@@ -4,28 +4,19 @@ $(document).ready(function () {
     $("#ctmname").focus();
 
     $('#user-plus').hide();
-    $('#userPlus').attr(
-        'class',
-        'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
-    );
+    $('#userPlus').attr('class', 'btn btn-secondary');
 
     dateInput();
 });
 
-$(document).on('click', '#btnUserPlus', function () {
+$(document).on('click', '#userPlus', function () {
     if ($('#user-plus').is(":visible")) {
         $('#user-plus').hide();
-        $('#userPlus').attr(
-            'class',
-            'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
-        );
+        $('#userPlus').attr('class', 'btn btn-secondary');
         $('#userPlus').attr('title', '고객정보 지우기');
     } else {
         $('#user-plus').show();
-        $('#userPlus').attr(
-            'class',
-            'fas fa-minus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
-        );
+        $('#userPlus').attr('class', 'btn btn-secondary');
         $('#userPlus').attr('title', '닫기');
     }
 });
@@ -260,7 +251,10 @@ $(document).on('click', '#many-insert', function () {
 });
 
 $(document).on('click', '#customerInsertMo', function () {
-    $('#customerModal').modal({backdrop: 'static', keyboard: false});
+    // $('#customerModal').modal({backdrop: 'static', keyboard: false});
+    var myModal = new bootstrap.Modal(document.getElementById('customerModal'));
+    myModal.show();
+    myModal.handleUpdate();
     $('#modalName').focus();
 });
 $(document).on('click', '#btn-custom-modal', function () {

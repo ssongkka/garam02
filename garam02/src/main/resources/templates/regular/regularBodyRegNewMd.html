@@ -5,19 +5,22 @@
     <!-- Modal -->
     <div
         th:fragment="reg-MD-Reginsert"
-        class="modal fade bs-example-modal-lg"
+        class="modal fade"
+        id="modal-rginsert"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
         tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-        id="modal-rginsert">
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title fas fa-pen-square">&nbsp;&nbsp;신규 정기운행 입력</h4>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                    <h5 class="modal-title fas fa-pen-square">&nbsp;&nbsp;신규 정기운행 입력</h5>
                 </div>
                 <div class="modal-rgbody">
                     <form
@@ -89,9 +92,8 @@
                                 <a
                                     id="ername"
                                     class="fas fa-times-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                                    data-toggle="tooltip"
-                                    data-placement="bottom"
-                                    data-trigger="hover"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
                                     title="고객정보 지우기"></a>
                             </div>
                             <div class="form-group col-xs-10 col-lg-5 rsvtPer">
@@ -104,8 +106,8 @@
                                 <a
                                     id="userPlus"
                                     class="fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                                    data-toggle="tooltip"
-                                    data-placement="bottom"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
                                     title="고객정보 지우기"></a>
                             </div>
                         </div>
@@ -318,7 +320,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">닫&nbsp;&nbsp;기</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;&nbsp;기</button>
                     <button type="button" class="btn btn-primary" id="btn-rginsert">신규 입력</button>
                 </div>
             </div>

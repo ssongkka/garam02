@@ -72,11 +72,11 @@ function cardVeEmpMake() {
         htmlsVe += '<div class="home-main-item-222">';
         htmlsVe += '<span class="home-main-item-222-span">' + dbCompa[i].company + '</span>';
         htmlsVe += '<span class="home-main-item-222-span">' + cntVe1[i] + '</span>';
-        htmlsVe += '<span class="home-main-item-222-span"><span data-toggle="tooltip" data-placeme' +
-                'nt="left" title="대형">' + cntVe2[i] + '</span><span>/</span><span data-toggle="' +
-                'tooltip" data-placement="left" title="중형">' + cntVe3[i] + '</span><span>/</spa' +
-                'n><span data-toggle="tooltip" data-placement="left" title="우등">' + cntVe4[i] +
-                '</span></span>';
+        htmlsVe += '<span class="home-main-item-222-span"><span data-bs-toggle="tooltip" data-bs-p' +
+                'lacement="left" title="대형">' + cntVe2[i] + '</span><span>/</span><span data-bs' +
+                '-toggle="tooltip" data-bs-placement="left" title="중형">' + cntVe3[i] + '</span>' +
+                '<span>/</span><span data-bs-toggle="tooltip" data-bs-placement="left" title="우' +
+                '등">' + cntVe4[i] + '</span></span>';
         htmlsVe += '</div>';
     }
     htmlsVe += '</div>';
@@ -89,11 +89,11 @@ function cardVeEmpMake() {
         htmlsEmp += '<div class="home-main-item-222">';
         htmlsEmp += '<span class="home-main-item-222-span">' + dbCompa[i].company + '</span>';
         htmlsEmp += '<span class="home-main-item-222-span">' + cntEmp1[i] + '</span>';
-        htmlsEmp += '<span class="home-main-item-222-span"><span data-toggle="tooltip" data-placeme' +
-                'nt="left" title="회사">' + cntEmp2[i] + '</span><span>/</span><span data-toggle=' +
-                '"tooltip" data-placement="left" title="개인">' + cntEmp3[i] + '</span><span>/</s' +
-                'pan><span data-toggle="tooltip" data-placement="left" title="예비">' +
-                cntEmp4[i] + '</span></span>';
+        htmlsEmp += '<span class="home-main-item-222-span"><span data-bs-toggle="tooltip" data-bs-p' +
+                'lacement="left" title="회사">' + cntEmp2[i] + '</span><span>/</span><span data-b' +
+                's-toggle="tooltip" data-bs-placement="left" title="개인">' + cntEmp3[i] + '</spa' +
+                'n><span>/</span><span data-bs-toggle="tooltip" data-bs-placement="left" title=' +
+                '"예비">' + cntEmp4[i] + '</span></span>';
         htmlsEmp += '</div>';
     }
     htmlsEmp += '</div>';

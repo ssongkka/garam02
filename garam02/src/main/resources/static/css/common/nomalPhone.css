@@ -1,4 +1,4 @@
-@media (max-width:992px) {
+@media (max-width:768px) {
     .nomal-head {
         position: fixed;
         z-index: 1050;
@@ -9,8 +9,9 @@
 
         background: var(--main-color);
     }
-    .nomal-head i {
+    .nomal-head svg {
         color: var(--sub-color);
+        font-size: 3rem;
     }
     .nomal-head-item {
         display: flex;
@@ -19,7 +20,10 @@
     .nomal-head-item:nth-child(1) {
         flex: 1;
     }
-    .nomal-head-item:nth-child(2) {}
+    .nomal-head-item:nth-child(2) {
+        display: flex;
+        align-items: center;
+    }
     .nomal-head a {
         font-size: 3rem;
     }

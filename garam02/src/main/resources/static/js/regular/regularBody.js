@@ -226,7 +226,7 @@ function getRegularDeAll(result) {
                             cnt++;
                             htmls += '<tr id="' + r[i].codenum + '" onclick="getRegularDeInfo(this.id)" style="curso' +
                                     'r:pointer">';
-                            htmls += '<td class="hidden-xs">';
+                            htmls += '<td class="">';
                             htmls += (i + 1);
                             htmls += '</td>';
                             htmls += '<td>';
@@ -236,7 +236,7 @@ function getRegularDeAll(result) {
                                 htmls += '';
                             }
                             htmls += '</td>';
-                            htmls += '<td class="hidden-xs">';
+                            htmls += '<td class="">';
                             if (r[i].rdbus) {
                                 htmls += r[i].rdbus;
                             } else {
@@ -449,10 +449,10 @@ function getRegularCource(result) {
                         let aaa = '';
                         if (r[i].rcsepa == 1) {
                             aaa = '출근';
-                            htmls += '<td rowspan="' + sepac[cntsepa] + '" class="hidden-xs">'
+                            htmls += '<td rowspan="' + sepac[cntsepa] + '" class="">'
                             htmls += aaa;
                             htmls += '</td>'
-                            htmls += '<td class="hidden-xs">';
+                            htmls += '<td class="">';
                             htmls += ccnntt;
                             htmls += '</td>';
                             htmls += '<td class="">'
@@ -480,10 +480,10 @@ function getRegularCource(result) {
                             htmls += '</tr>'
                         } else {
                             aaa = '퇴근';
-                            htmls += '<td rowspan="' + sepac[cntsepa] + '" class="hidden-xs">'
+                            htmls += '<td rowspan="' + sepac[cntsepa] + '" class="">'
                             htmls += aaa;
                             htmls += '</td>'
-                            htmls += '<td class="hidden-xs">';
+                            htmls += '<td class="">';
                             htmls += ccnntt;
                             htmls += '</td>';
                             htmls += '<td class="">'
@@ -511,7 +511,7 @@ function getRegularCource(result) {
                         }
                     } else {
                         htmls += '<tr>';
-                        htmls += '<td class="hidden-xs">';
+                        htmls += '<td class="">';
                         htmls += ccnntt;
                         htmls += '</td>';
                         htmls += '<td>'

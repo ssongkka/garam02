@@ -20,7 +20,7 @@
 }
 
 .allocont {
-    padding: 8rem 10rem 0;
+    padding: 6rem 10rem 0;
 }
 
 .allo-card {
@@ -151,6 +151,11 @@
     height: 100%;
 }
 
+.mark,
+mark {
+    font-size: 1.6rem;
+}
+
 .allo-allo-item input {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -217,6 +222,7 @@
 }
 
 .no-allo {
+    margin-top: 1rem;
     padding: 3rem;
     text-align: center;
     display: flex;
@@ -224,6 +230,10 @@
     align-items: center;
     gap: 1rem;
     font-size: 1.8rem;
+}
+
+.allo-detail svg {
+    margin-right: 1rem;
 }
 
 .md-one-bdc {
@@ -241,6 +251,9 @@
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
+}
+.allo-detail-item:nth-child(6) svg {
+    margin: 0;
 }
 .allo-detail-item:nth-child(7) {
     text-align: right;
@@ -340,25 +353,6 @@
 
 .regTb {}
 
-.regTb col:nth-child(1) {
-    width: 10%;
-}
-.regTb col:nth-child(2) {
-    width: 40%;
-}
-.regTb col:nth-child(3) {
-    width: 5%;
-}
-.regTb col:nth-child(4) {
-    width: 20%;
-}
-.regTb col:nth-child(5) {
-    width: 20%;
-}
-.regTb col:nth-child(6) {
-    width: 5%;
-}
-
 .regCont {
     display: flex;
     gap: 2rem;
@@ -409,6 +403,11 @@
 .rsgAllo-item:nth-child(10) {}
 .rsgAllo-item:nth-child(11) {}
 
+.dd-allo-nav {
+    width: 100%;
+    display: flex;
+}
+
 @media (max-width:1024px) {
     .allo {
         flex-direction: column;
@@ -432,7 +431,7 @@
         grid-column-end: 4;
         grid-row-start: 2;
         grid-row-end: 3;
-        padding-left: 2rem;
+        padding-left: 1rem;
     }
     .allo-detail-item:nth-child(3) {
         grid-column-start: 1;
@@ -508,6 +507,160 @@
         grid-row-start: 1;
         grid-row-end: 2;
         text-align: right;
+    }
+
+    .dd-allo-nav {
+        flex-direction: row;
+    }
+
+    .allocont {
+        padding: 0;
+    }
+
+    .allo-side {
+        width: 100%;
+        position: relative;
+    }
+    .allo-main {
+        margin-right: 0;
+        padding: 1rem;
+    }
+
+    .allo small {
+        padding: 0;
+    }
+
+    .allo-card {
+        padding: 2rem 1rem;
+    }
+
+    .allo-card h4 {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: left;
+        padding-left: 2rem;
+    }
+
+    .rsvtCh-form {
+        gap: 0;
+        padding: 0.5rem;
+    }
+
+    .mf-ch-rsvt {
+        display: flex;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    #modal-rsvt .modal-dialog {
+        margin: 8rem auto;
+    }
+}
+
+@media (max-width:768px) {
+    .allo {
+        flex-direction: column;
+    }
+
+    .allo-main ul {
+        position: relative;
+        padding: 0;
+        z-index: 1000;
+    }
+
+    .allo-detail {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .allo-detail-item:nth-child(1) {}
+    .allo-detail-item:nth-child(2) {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        padding-left: 1.6rem;
+    }
+    .allo-detail-item:nth-child(3) {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        padding-left: 2rem;
+    }
+    .allo-detail-item:nth-child(4) {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 4;
+        grid-row-end: 5;
+        padding-left: 2rem;
+    }
+    .allo-detail-item:nth-child(5) {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 5;
+        grid-row-end: 6;
+        padding-left: 2rem;
+    }
+    .allo-detail-item:nth-child(6) {}
+    .allo-detail-item-1 {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+    }
+    .allo-detail-item-2 {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+    }
+    .allo-detail-item:nth-child(7) {}
+
+    .ctm-ttt {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 0.5rem;
+        padding: 0 1rem 2rem 2rem;
+    }
+
+    .ctm-ttt-item:nth-child(1) {
+        font-size: 1.8rem;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+    .ctm-ttt-item:nth-child(2) {
+        font-size: 1.5rem;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    .ctm-ttt-item:nth-child(3) {
+        font-size: 1.5rem;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+    .ctm-ttt-item:nth-child(4) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 4;
+        grid-row-end: 5;
+    }
+    .ctm-ttt-item:nth-child(5) {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        text-align: right;
+    }
+
+    .dd-allo-nav {
+        flex-direction: column;
     }
 
     .allocont {

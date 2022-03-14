@@ -38,20 +38,13 @@
 .dash-cal-d {
     display: flex;
     justify-content: space-between;
+    display: none;
 }
 
-.dash-cal-d-item:nth-child(1) {
-    width: 100%;
-}
-.dash-cal-d-item:nth-child(2) {
-    width: 100%;
-}
-.dash-cal-d-item:nth-child(3) {
-    width: 100%;
-}
-.dash-cal-d-item:nth-child(4) {
-    width: 100%;
-}
+.dash-cal-d-item:nth-child(1) {}
+.dash-cal-d-item:nth-child(2) {}
+.dash-cal-d-item:nth-child(3) {}
+.dash-cal-d-item:nth-child(4) {}
 
 .dash-cal-h-item {
     text-align: center;
@@ -142,10 +135,6 @@
     gap: 0.3rem;
 }
 
-.dash-cal-d {
-    display: none;
-}
-
 #btnYesD {}
 #btnToD {}
 #btnTomD {}
@@ -154,6 +143,24 @@
     .dash-phone-fix {}
     .dash-cal-d {
         display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem;
+        border-radius: 0;
+        justify-content: center;
+
+        left: 0;
+        right: 0;
+    }
+}
+
+@media (max-width:768px) {
+    .dash-phone-fix {}
+    .dash-cal-d {
+        display: flex;
+        flex-direction: row;
         justify-content: space-evenly;
         align-items: center;
         text-align: center;

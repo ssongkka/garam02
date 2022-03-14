@@ -11,8 +11,8 @@
                                 class="btn btn-default fas fa-arrow-left"
                                 role="button"
                                 id="md-rgCh"
-                                data-toggle="tooltip"
-                                data-placement="left"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="left"
                                 title="뒤로"></a>
                         </div>
                         <div class="title1-item">
@@ -51,45 +51,47 @@
         <main>
             <div class="container cont" tabindex="-1">
                 <input type="hidden" id="regcodenum" value="">
-                <div class="cont-item card">
+                <div class="cont-item card-song">
                     <div class="cont-item1">
-                        <table class="table table-striped rg-tb-ch">
-                            <colgroup>
-                                <col width="4%"/>
-                                <col width="4%"/>
-                                <col width="17%"/>
-                                <col width="8%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="14%"/>
-                                <col width="3%"/>
-                                <col width="10%"/>
-                                <col width="4%"/>
-                                <col width="3%"/>
-                                <col width="3%"/>
-                                <col width="0%"/>
-                                <col width="0%"/>
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>삭제</th>
-                                    <th>번호</th>
-                                    <th>노선명</th>
-                                    <th>차량</th>
-                                    <th>계약</th>
-                                    <th>계약금액</th>
-                                    <th>배차금액(월)</th>
-                                    <th colspan="2">운행차량</th>
-                                    <th>승무원</th>
-                                    <th>노선</th>
-                                    <th colspan="2">이동</th>
-                                    <th class="thNone"></th>
-                                    <th class="thNone"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="rgch-tbb"></tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-striped rg-tb-ch">
+                                <colgroup>
+                                    <col width="4%"/>
+                                    <col width="4%"/>
+                                    <col width="17%"/>
+                                    <col width="8%"/>
+                                    <col width="10%"/>
+                                    <col width="10%"/>
+                                    <col width="10%"/>
+                                    <col width="14%"/>
+                                    <col width="3%"/>
+                                    <col width="10%"/>
+                                    <col width="4%"/>
+                                    <col width="3%"/>
+                                    <col width="3%"/>
+                                    <col width="0%"/>
+                                    <col width="0%"/>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>삭제</th>
+                                        <th>번호</th>
+                                        <th>노선명</th>
+                                        <th>차량</th>
+                                        <th>계약</th>
+                                        <th>계약금액</th>
+                                        <th>배차금액(월)</th>
+                                        <th colspan="2">운행차량</th>
+                                        <th>승무원</th>
+                                        <th>노선</th>
+                                        <th colspan="2">이동</th>
+                                        <th class="thNone"></th>
+                                        <th class="thNone"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rgch-tbb"></tbody>
+                            </table>
+                        </div>
                         <datalist id="car-info">
                             <option
                                 th:each="ve : ${ve}"
@@ -117,23 +119,26 @@
         </main>
         <!-- Modal -->
         <div
-            class="modal fade"
             id="regModal"
+            class="modal fade"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
             tabindex="-1"
-            role="dialog"
-            aria-labelledby="myModalLabel"
+            aria-labelledby="staticBackdropLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="regModalLabel">Modal title</h4>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        <h5 class="modal-title" id="regModalLabel">Modal title</h5>
                         <input type="hidden" id="modalcodenum" value="">
                     </div>
                     <div class="modal-body rcBody">
-                        <div class="rcBody-item form-group card">
+                        <div class="rcBody-item form-group card-song">
                             <label for="chchchch">운행 요일</label>
                             <div id="chchchch">
                                 <label class="checkbox-inline">
@@ -166,7 +171,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="rcBody-item form-group card">
+                        <div class="rcBody-item form-group card-song">
                             <label for="chchchch">노선 특이사항</label>
                             <div id="chchchch">
                                 <input
@@ -176,20 +181,20 @@
                                     placeholder="특이사항입력">
                             </div>
                         </div>
-                        <div class="rcBody-item form-group card">
+                        <div class="rcBody-item form-group card-song">
                             <label for="gogogogogo">출근</label>
                             <button type="button" class="btn btn-default btngout" id="plusgoTb">
                                 <i class="fas fa-plus"></i>&nbsp;출근추가</button>
                             <div id="gogogogogo"></div>
                         </div>
-                        <div class="rcBody-item form-group card">
+                        <div class="rcBody-item form-group card-song">
                             <label for="goutgoutgout">퇴근</label>
                             <button type="button" class="btn btn-default btngout" id="plusoutTb">
                                 <i class="fas fa-plus"></i>&nbsp;퇴근추가</button>
                             <div id="goutgoutgout"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -223,8 +228,10 @@
             /*]]>*/
         </script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="/js/common/bootstrap.js"></script>
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script src="/js/boot/bootstrap.js"></script>
+        <script src="/js/boot/bootstrap.esm.js"></script>
+        <script src="/js/boot/bootstrap.bundle.js"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
         <script src="/js/common/summernote-lite.js"></script>

@@ -5,22 +5,7 @@ $(document).ready(function () {
     const day = toStringByFormatting(new Date());
     $("#std").val(day);
     $("#edd").val(day);
-    $('#myModal').modal({backdrop: 'static', keyboard: false});
-
-    $('[data-toggle="tooltip"]').tooltip({
-        container: "body",
-        delay: {
-            "show": 0,
-            "hide": 111000
-        }
-    });
-    $('.tooltip-right').tooltip({
-        placement: 'right',
-        viewport: {
-            selector: 'body',
-            padding: 2
-        }
-    });
+    // $('#myModal').modal({backdrop: 'static', keyboard: false});
 });
 
 $(document).on('click', '#plus-btn', function () {

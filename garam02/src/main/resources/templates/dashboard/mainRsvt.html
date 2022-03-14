@@ -2,9 +2,9 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <div th:fragment="main-rsvt" class="rsvt">
         <div class="rsvt-main">
-            <div class="rsvt-form card">
+            <div class="rsvt-form card-song">
                 <div class="rsvt-cst">
-                    <h3>
+                    <h2>
                         1.고객 정보
                         <small>
                             <label class="radio-inline">
@@ -35,103 +35,111 @@
                                 거래처
                             </label>
                         </small>
-                    </h3>
-                    <div>
-                        <a class="fas fa-plus btn btn-default" id="customerInsertMo">
-                            &nbsp;고객정보입력</a>
-                        <a class="fas fa-list hidden-xs btn btn-default" id="many-insert">&nbsp;&nbsp;일괄입력</a>
+                    </h2>
+                    <div style="display: flex; flex-direction: row; gap: 1rem;">
+                        <a class="btn btn-secondary" id="customerInsertMo">
+                            <span>
+                                <i class="fas fa-plus"></i>&nbsp;고객정보입력</span>
+                        </a>
+                        <a class=" btn btn-secondary" id="many-insert">
+                            <span>
+                                <i class="fas fa-list"></i>&nbsp;일괄입력</span>
+                        </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-xs-10 col-lg-5">
-                        <i class="fas fa-book-open"></i>
+                    <div class="form-group col-sm-12 col-md-6">
+                        <i class="fa-solid fa-user-tie"></i>
                         <label for="ctmname">이름&#42;</label>
-                        <input
-                            type="text"
-                            onfocus="this.select()"
-                            list="name-cho"
-                            class="form-control input-sm"
-                            id="ctmname"
-                            placeholder="이름을 입력해주세요."
-                            value=""
-                            required="required">
-                        <datalist id="name-cho">
-                            <option
-                                th:each="custom : ${customer}"
-                                th:value="${custom.ctmname}"
-                                th:label="${custom.ctmtel1}"
-                                th:data-value="${custom.ctmno}"></option>
-
-                        </datalist>
+                        <div style="display: flex; flex-direction: row;">
+                            <input
+                                type="text"
+                                onfocus="this.select()"
+                                list="name-cho"
+                                class="form-control"
+                                id="ctmname"
+                                placeholder="이름을 입력해주세요."
+                                value=""
+                                required="required">
+                            <datalist id="name-cho">
+                                <option
+                                    th:each="custom : ${customer}"
+                                    th:value="${custom.ctmname}"
+                                    th:label="${custom.ctmtel1}"
+                                    th:data-value="${custom.ctmno}"></option>
+                            </datalist>
+                            <a
+                                id="ername"
+                                class="btn btn-secondary"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="고객정보 지우기">
+                                <span class="fa-solid fa-square-xmark"></span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="form-group col-xs-2 col-lg-1" id="">
-                        <a
-                            id="ername"
-                            class="fas fa-times-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            data-trigger="hover"
-                            title="고객정보 지우기"></a>
-                    </div>
-                    <div class="form-group col-xs-10 col-lg-5 rsvtPer">
-                        <i class="fas fa-phone-alt"></i>
+                    <div class="form-group col-sm-12 col-md-6 rsvtPer">
+                        <i class="fa-solid fa-square-phone"></i>
                         <label for="tel1">연락처&#42;</label>
-                        <h5 id="ctmtel1"></h5>
-                        <datalist id="tel1-cho"></datalist>
-                    </div>
-                    <div class="form-group col-xs-2 col-lg-1" id="btnUserPlus">
-                        <a
-                            id="userPlus"
-                            class="fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="고객정보 지우기"></a>
+                        <div style="display: flex; flex-direction: row;">
+                            <h5 id="ctmtel1"></h5>
+                            <datalist id="tel1-cho"></datalist>
+                            <a
+                                id="userPlus"
+                                class="btn btn-secondary"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="추가정보 보기">
+                                <span class="fas fa-plus-circle"></span>
+
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div id="user-plus">
                     <div class="row">
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-map-marker-alt"></i>
                             <label for="ctmstp">출발지</label>
                             <h5 id="ctmstp"></h5>
                         </div>
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-pen"></i>
                             <label for="ctmdetail">메모</label>
                             <h5 id="ctmdetail"></h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-phone-alt"></i>
                             <label for="ctmtel2">비상연락처</label>
                             <h5 id="ctmtel2"></h5>
                         </div>
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-map"></i>
                             <label for="ctmaddress">주소</label>
                             <h5 id="ctmaddress"></h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="far fa-envelope"></i>
                             <label for="ctmemail">이메일</label>
                             <h5 id="ctmemail"></h5>
                         </div>
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="far fa-building"></i>
                             <label for="ctmcompanum">사업자등록번호</label>
                             <h5 id="ctmcompanum"></h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-fax"></i>
                             <label for="ctmfax">팩스</label>
                             <h5 id="ctmfax"></h5>
                         </div>
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-home"></i>
                             <label for="ctmhomepage">홈페이지</label>
                             <h5>
@@ -152,10 +160,10 @@
                     <input type="hidden" id="ctmno" name="ctmno" value="0">
                     <input type="hidden" id="ctmtrash" name="ctmtrash" value="2">
                     <div class="rsvt-cst">
-                        <h3>
+                        <h2>
                             2.운행 내용
                             <small>Secondary text</small>
-                        </h3>
+                        </h2>
                     </div>
                     <div class="row">
                         <input type="hidden" id="rsvt" name="rsvt" value="">
@@ -164,45 +172,45 @@
                             id="empin"
                             name="empin"
                             th:value="${user.position}+'&nbsp;'+${user.name}">
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-calendar-day"></i>
                             <label for="stday">출발일</label>
                             <input
                                 type="date"
                                 onfocus="this.select()"
-                                class="form-control input-sm"
+                                class="form-control"
                                 id="stday"
                                 name="stday"
                                 required="required">
                         </div>
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-calendar-day"></i>
                             <label for="endday">
                                 <span>도착일</span><span id="daynight">(당일)</span></label>
                             <input
                                 type="date"
                                 onfocus="this.select()"
-                                class="form-control input-sm"
+                                class="form-control"
                                 id="endday"
                                 name="endday"
                                 required="required">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-bus"></i>
                             <label for="bus">차&nbsp;량</label>
-                            <select id="bus" name="bus" class="form-control input-sm">
+                            <select id="bus" name="bus" class="form-control">
                                 <option value="대형">대형(45인승)</option>
                                 <option value="중형">중형(25인승)</option>
                                 <option value="우등">우등(28인승)</option>
                                 <option value="기타">기타</option>
                             </select>
                         </div>
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-equals"></i>
                             <label for="num">대&nbsp;수</label>
-                            <select id="num" name="num" class="form-control input-sm">
+                            <select id="num" name="num" class="form-control">
                                 <option
                                     th:each="i : ${#numbers.sequence(1, 50)}"
                                     th:value="${i}"
@@ -211,59 +219,59 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="far fa-clock"></i>
                             <label for="stt">출발시간</label>
                             <input
                                 type="time"
                                 onfocus="this.select()"
-                                class="form-control input-sm"
+                                class="form-control"
                                 id="stt"
                                 name="stt"
                                 value="08:30">
                         </div>
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="far fa-clock"></i>
                             <label for="endt">종료시간</label>
-                            <input type="time" class="form-control input-sm" id="endt" name="endt">
+                            <input type="time" class="form-control" id="endt" name="endt">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-map-marker-alt"></i>
                             <label for="rsvpstp">출발장소(모두기입)</label>
                             <textarea id="rsvpstp" name="rsvpstp" class="form-control"></textarea>
                         </div>
-                        <div class="form-group col-xs-12 col-lg-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-map-marked-alt"></i>
                             <label for="desty">목적지 및 경유지</label>
                             <textarea id="desty" name="desty" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12">
+                        <div class="form-group col-sm-12">
                             <i class="far fa-bookmark"></i>
                             <label for="rsvtdetail">특이사항</label>
                             <input
                                 type="text"
                                 onfocus="this.select()"
-                                class="form-control input-sm"
+                                class="form-control"
                                 id="rsvtdetail"
                                 name="rsvtdetail"
                                 placeholder="특이사항을 입력해주세요.">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-calculator"></i>
                             <label for="cont">부가세</label>
-                            <select id="cont" name="cont" class="form-control input-sm">
+                            <select id="cont" name="cont" class="form-control">
                                 <option value="포함">포함</option>
                                 <option value="미포함">미포함</option>
                                 <option value="카드">카드</option>
                             </select>
                         </div>
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-sm-12 col-md-6">
                             <i class="fas fa-won-sign"></i>
                             <label for="conm">운행금액</label>
                             <input
@@ -272,15 +280,14 @@
                                 id="conm"
                                 name="conm"
                                 data-type="currency"
-                                class="form-control input-sm"
+                                class="form-control"
                                 value="0"
                                 placeholder="운행 금액 입력">
                             <input type="hidden" id="numm" name="numm">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 1rem;">
-                        <div class="col-xs-12 form-flex">
-
+                        <div class="col-md-12 form-flex">
                             <button type="button" class="btn btn-secondary btn-sm rsvt-btn" id="eraser">지우기</button>
                             <button type="button" class="btn btn-primary btn-sm rsvt-btn" id="insert-rsvt">입&nbsp;&nbsp;력</button>
                         </div>
@@ -289,53 +296,72 @@
             </div>
         </div>
         <div class="allo-side">asdasdasd</div>
+
         <div
             class="modal fade"
             id="customerModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
             tabindex="-1"
-            role="dialog"
-            aria-labelledby="myModalLabel"
+            aria-labelledby="staticBackdropLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg" style="margin-top: 10rem;">
+            <div
+                class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <div class="rsvt-cst">
-                            <h3>고객정보 입력</h3>
-                        </div>
+                        <h5 class="modal-title">신규고객정보입력</h5>
+                        <input type="hidden" id="ctmno" name="ctmno" value="0">
+                        <input type="hidden" id="ctmtrash" name="ctmtrash" value="2">
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
-                    <input type="hidden" id="ctmno" name="ctmno" value="0">
-                    <input type="hidden" id="ctmtrash" name="ctmtrash" value="2">
                     <div class="modal-body">
-                        <form class="rsvt-form card" id="formCutomerIn" autocomplete="off">
+                        <form class="rsvt-form card-song" id="formCutomerIn" autocomplete="off">
                             <div class="row">
                                 <div class="form-group col-xs-12 col-lg-6">
                                     <h4 style="text-align: left; margin-bottom: 2rem;">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="ctmsepa" value="0" checked="checked">
-                                            일반
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="ctmsepa" value="1">
-                                            학생단체
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="ctmsepa" value="2">
-                                            거래처
-                                        </label>
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                class="form-check-input"
+                                                id="inlineCheckbox1"
+                                                type="radio"
+                                                name="ctmsepa"
+                                                value="0"
+                                                checked="checked">
+                                            <label class="form-check-label" for="inlineCheckbox1">일반</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                class="form-check-input"
+                                                id="inlineCheckbox2"
+                                                type="radio"
+                                                name="ctmsepa"
+                                                value="1">
+                                            <label class="form-check-label" for="inlineCheckbox2">학생단체</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                class="form-check-input"
+                                                id="inlineCheckbox3"
+                                                type="radio"
+                                                name="ctmsepa"
+                                                value="2">
+                                            <label class="form-check-label" for="inlineCheckbox3">거래처</label>
+                                        </div>
                                     </h4>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-book-open"></i>
+                                <div class="form-group col-sm-12 col-md-6">
+                                    <i class="fa-solid fa-user-tie"></i>
                                     <label for="ctmname">이름&#42;</label>
                                     <input
                                         type="text"
                                         onfocus="this.select()"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         name="ctmname"
                                         id="modalName"
                                         placeholder="이름을 입력해주세요."
@@ -348,7 +374,7 @@
                                     <input
                                         type="text"
                                         onfocus="this.select()"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         name="ctmtel1"
                                         placeholder="전화번호 형식으로 입력"
                                         value=""
@@ -363,7 +389,7 @@
                                         <input
                                             type="text"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmstp"
                                             placeholder="출발지가 고정된 예약자일 경우 입력"></input>
                                     </div>
@@ -373,7 +399,7 @@
                                         <input
                                             type="text"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmdetail"></input>
                                     </div>
                                 </div>
@@ -384,7 +410,7 @@
                                         <input
                                             type="text"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmtel2"
                                             placeholder="010-0000-0000">
                                     </div>
@@ -394,7 +420,7 @@
                                         <input
                                             type="text"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmaddress"
                                             placeholder="주소를 입력해주세요.">
                                     </div>
@@ -406,7 +432,7 @@
                                         <input
                                             type="text"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmemail"
                                             placeholder="mail@mail.com">
                                     </div>
@@ -416,7 +442,7 @@
                                         <input
                                             type="email"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmcompanum"
                                             placeholder="사업자등록번호 형식으로 입력해주세요.">
                                     </div>
@@ -428,7 +454,7 @@
                                         <input
                                             type="text"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmfax"
                                             placeholder="팩스 번호를 입력해주세요.">
                                     </div>
@@ -438,7 +464,7 @@
                                         <input
                                             type="text"
                                             onfocus="this.select()"
-                                            class="form-control input-sm"
+                                            class="form-control"
                                             name="ctmhomepage"
                                             placeholder="홈페이지 주소를 입력해주세요.">
                                     </div>
@@ -447,8 +473,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">닫&nbsp;&nbsp;기</button>
-                        <button type="button" class="btn btn-primary" id="btn-custom-modal">입&nbsp;&nbsp;력</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btn-custom-modal">Understood</button>
                     </div>
                 </div>
             </div>

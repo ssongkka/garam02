@@ -72,13 +72,13 @@ function getEmpAll(name) {
                         htmls += '</td>'
                     }
                     if (r[i].kind) {
-                        htmls += '<td class="hidden-xs">'
+                        htmls += '<td class="">'
                         htmls += '<span>'
                         htmls += r[i].kind;
                         htmls += '</span>'
                         htmls += '</td>'
                     } else {
-                        htmls += '<td class="hidden-xs">'
+                        htmls += '<td class="">'
                         htmls += '<span>'
                         htmls += '</span>'
                         htmls += '</td>'
@@ -86,13 +86,13 @@ function getEmpAll(name) {
 
                     if ($('#showm').val() == '0') {
                         if (r[i].birthday) {
-                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<td class="size-hidden ">'
                             htmls += '<span>'
                             htmls += r[i].birthday;
                             htmls += '</span>'
                             htmls += '</td>'
                         } else {
-                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<td class="size-hidden ">'
                             htmls += '<span>'
                             htmls += '</span>'
                             htmls += '</td>'
@@ -111,13 +111,13 @@ function getEmpAll(name) {
                         }
 
                         if (r[i].bus) {
-                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<td class="size-hidden ">'
                             htmls += '<span>'
                             htmls += r[i].bus;
                             htmls += '</span>'
                             htmls += '</td>'
                         } else {
-                            htmls += '<td class="size-hidden hidden-xs">'
+                            htmls += '<td class="size-hidden ">'
                             htmls += '<span>'
                             htmls += '</span>'
                             htmls += '</td>'
@@ -148,13 +148,13 @@ function getEmpAll(name) {
                         htmlsOutman += '</td>'
                     }
                     if (r[i].birthday) {
-                        htmlsOutman += '<td class="hidden-xs">'
+                        htmlsOutman += '<td class="">'
                         htmlsOutman += '<span>'
                         htmlsOutman += r[i].birthday;
                         htmlsOutman += '</span>'
                         htmlsOutman += '</td>'
                     } else {
-                        htmlsOutman += '<td class="hidden-xs">'
+                        htmlsOutman += '<td class="">'
                         htmlsOutman += '<span>'
                         htmlsOutman += '</span>'
                         htmlsOutman += '</td>'

@@ -4,138 +4,175 @@
     <div th:fragment="main-home" class="main-home">
         <div class="home-main">
             <div class="home-main-item-4">
-                <div class="tab-pane card home-tap" role="tabpanel">
+                <div class="tab-pane card-song home-tap" role="tabpanel">
                     <div class="card-title home-main-item-444" id="all-title">운행정보</div>
                     <div class="home-main-item-444">
                         <ul class="nav nav-pills nav-justified home-nav" role="tablist">
-                            <li role="presentation" class="active">
-                                <a
-                                    href="#normal"
-                                    aria-controls="normal"
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link active"
+                                    id="normal-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#normal"
+                                    type="button"
                                     role="tab"
-                                    data-toggle="tab"
-                                    id="normal-title">일반<span class="badge">0</span></a>
+                                    aria-controls="pills-home"
+                                    aria-selected="true">일반<span class="badge bg-secondary">0</span></button>
                             </li>
-                            <li role="presentation" class="">
-                                <a
-                                    href="#school"
-                                    aria-controls="school"
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="school-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#school"
+                                    type="button"
                                     role="tab"
-                                    data-toggle="tab"
-                                    id="school-title">학생단체<span class="badge">0</span></a>
+                                    aria-controls="pills-school"
+                                    aria-selected="false">학생단체<span class="badge bg-secondary">0</span></button>
                             </li>
-                            <li role="presentation" class="">
-                                <a
-                                    href="#account"
-                                    aria-controls="account"
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="account-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#account"
+                                    type="button"
                                     role="tab"
-                                    data-toggle="tab"
-                                    id="account-title">거래처<span class="badge">0</span></a>
+                                    aria-controls="pills-account"
+                                    aria-selected="false">거래처<span class="badge bg-secondary">0</span></button>
                             </li>
-                            <li role="presentation" class="">
-                                <a href="#go" aria-controls="go" role="tab" data-toggle="tab" id="go-title">정기운행<span class="badge">0</span></a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="go-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#go"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-go"
+                                    aria-selected="false">정기운행<span class="badge">0</span></button>
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-content" style="padding: 0rem;">
-                        <div role="tabpanel" class="tab-pane fade in active" id="normal">
-                            <table class="table table-bordered table-condensed home-tb">
-                                <colgroup>
-                                    <col width="14%"/>
-                                    <col width="23%"/>
-                                    <col width="5%"/>
-                                    <col width="5%"/>
-                                    <col width="10%"/>
-                                    <col width="23%"/>
-                                    <col width="10%"/>
+                    <div class="tab-content">
+                        <div
+                            class="tab-pane fade show active"
+                            id="normal"
+                            role="tabpanel"
+                            aria-labelledby="pills-home-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-sm home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
 
-                                </colgroup>
-
-                                <thead>
-                                    <tr>
-                                        <th>고객정보</th>
-                                        <th>목적지</th>
-                                        <th>차량</th>
-                                        <th>대수</th>
-                                        <th>금액</th>
-                                        <th class="hidden-xs">출발지</th>
-                                        <th class="hidden-xs">출발시간</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="home-tb-normal">
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>고객정보</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>금액</th>
+                                            <th>출발장소</th>
+                                            <th>출발시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-normal">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="school">
-                            <table class="table table-striped table-bordered table-condensed home-tb">
-                                <colgroup>
-                                    <col width="14%"/>
-                                    <col width="5%"/>
-                                    <col width="5%"/>
-                                    <col width="23%"/>
-                                    <col width="23%"/>
-                                    <col width="10%"/>
-                                    <col width="10%"/>
+                        <div
+                            class="tab-pane fade"
+                            id="school"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-sm home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
 
-                                </colgroup>
-
-                                <thead>
-                                    <tr>
-                                        <th>학교</th>
-                                        <th>목적지</th>
-                                        <th>차량</th>
-                                        <th>대수</th>
-                                        <th class="hidden-xs">출발시간</th>
-                                        <th class="hidden-xs">출발장소</th>
-                                        <th class="hidden-xs">금액</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="home-tb-school">
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>학교</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>출발시간</th>
+                                            <th>출발장소</th>
+                                            <th>금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-school">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="account">
-                            <table class="table table-striped table-bordered table-condensed home-tb">
-                                <colgroup>
-                                    <col width="14%"/>
-                                    <col width="23%"/>
-                                    <col width="5%"/>
-                                    <col width="5%"/>
-                                    <col width="10%"/>
-                                    <col width="23%"/>
-                                    <col width="10%"/>
-                                </colgroup>
+                        <div
+                            class="tab-pane fade"
+                            id="account"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-sm home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
 
-                                <thead>
-                                    <tr>
-                                        <th>거래처</th>
-                                        <th>목적지</th>
-                                        <th>차량</th>
-                                        <th>대수</th>
-                                        <th>금액</th>
-                                        <th class="hidden-xs">출발지</th>
-                                        <th class="hidden-xs">출발시간</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="home-tb-account">
-                                    <tr>
-                                        <td colspan="7"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>거래처</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>금액</th>
+                                            <th>출발장소</th>
+                                            <th>출발시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-account">
+                                        <tr>
+                                            <td colspan="7"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="go">dddd</div>
+                        <div
+                            class="tab-pane fade"
+                            id="go"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">dddd</div>
                     </div>
                 </div>
             </div>
             <div class="home-main-item-1">
-                <div class="home-main-item-11 card" id="dash-week-10">
+                <div class="home-main-item-11 card-song" id="dash-week-10">
                     <div class="home-main-item-111 card-title" id="dash-week-11">
                         <h5>&nbsp;</h5>
                     </div>
@@ -150,7 +187,7 @@
                     </div>
                     <input type="hidden" id="dash-week-15">
                 </div>
-                <div class="home-main-item-11 card" id="dash-week-20">
+                <div class="home-main-item-11 card-song" id="dash-week-20">
                     <div class="home-main-item-111 card-title" id="dash-week-21">
                         <h5>&nbsp;</h5>
                     </div>
@@ -165,7 +202,7 @@
                     </div>
                     <input type="hidden" id="dash-week-25">
                 </div>
-                <div class="home-main-item-11 card" id="dash-week-30">
+                <div class="home-main-item-11 card-song" id="dash-week-30">
                     <div class="home-main-item-111 card-title" id="dash-week-31">
                         <h5>&nbsp;</h5>
                     </div>
@@ -180,7 +217,7 @@
                     </div>
                     <input type="hidden" id="dash-week-35">
                 </div>
-                <div class="home-main-item-11 card" id="dash-week-40">
+                <div class="home-main-item-11 card-song" id="dash-week-40">
                     <div class="home-main-item-111 card-title" id="dash-week-41">
                         <h5>&nbsp;</h5>
                     </div>
@@ -195,7 +232,7 @@
                     </div>
                     <input type="hidden" id="dash-week-45">
                 </div>
-                <div class="home-main-item-11 card" id="dash-week-50">
+                <div class="home-main-item-11 card-song" id="dash-week-50">
                     <div class="home-main-item-111 card-title" id="dash-week-51">
                         <h5>&nbsp;</h5>
                     </div>
@@ -210,7 +247,7 @@
                     </div>
                     <input type="hidden" id="dash-week-55">
                 </div>
-                <div class="home-main-item-11 card" id="dash-week-60">
+                <div class="home-main-item-11 card-song" id="dash-week-60">
                     <div class="home-main-item-111 card-title" id="dash-week-61">
                         <h5>&nbsp;</h5>
                     </div>
@@ -225,7 +262,7 @@
                     </div>
                     <input type="hidden" id="dash-week-65">
                 </div>
-                <div class="home-main-item-11 card" id="dash-week-70">
+                <div class="home-main-item-11 card-song" id="dash-week-70">
                     <div class="home-main-item-111 card-title" id="dash-week-71">
                         <h5>&nbsp;</h5>
                     </div>
@@ -242,19 +279,19 @@
                 </div>
             </div>
             <div class="home-main-item-2">
-                <div class="home-main-item-22 card" id="card-ve"></div>
-                <div class="home-main-item-22 card" id="card-emp"></div>
+                <div class="home-main-item-22 card-song" id="card-ve"></div>
+                <div class="home-main-item-22 card-song" id="card-emp"></div>
                 <div class="home-main-item-22-1">
-                    <a class="home-main-item-22-1-item card" id="goEmp">
+                    <a class="home-main-item-22-1-item card-song" id="goEmp">
                         인사정보
                     </a>
-                    <a class="home-main-item-22-1-item card" id="goVe">
+                    <a class="home-main-item-22-1-item card-song" id="goVe">
                         차량정보
                     </a>
-                    <a class="home-main-item-22-1-item card" id="goRe">
+                    <a class="home-main-item-22-1-item card-song" id="goRe">
                         정기운행정보
                     </a>
-                    <a class="home-main-item-22-1-item card" id="goCustomer">
+                    <a class="home-main-item-22-1-item card-song" id="goCustomer">
                         고객정보
                     </a>
                 </div>

@@ -65,13 +65,13 @@
     padding-left: 2rem;
     font-size: 1.5rem;
 }
+.hd-search .hd-search-icon svg {
+    margin-top: 0.8rem;
+}
 
 .hd-search input {
     width: 100%;
     background: transparent;
-    height: 3rem;
-    display: flex;
-    align-items: center;
     margin-left: 1rem;
     margin-right: 2rem;
     border: none;
@@ -83,21 +83,15 @@
 
 .hd-serach-group {
     display: flex;
+    height: 100%;
 }
 
 .hd-serach-group button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 0 1rem;
     z-index: 0;
-    height: 29px;
 }
 
-.hd-serach-group :first-child {
-    display: flex;
-    align-items: center;
-}
+.hd-serach-group :first-child {}
 
 .hd-name {}
 

@@ -14,7 +14,7 @@
             <div class="tab-pane" role="tabpanel">
                 <div class="dd-main-nav">
                     <!-- Nav tabs -->
-                    <ul class="dd-nav card" role="tablist">
+                    <ul class="dd-nav card-song" role="tablist">
                         <li role="presentation" class="active">
                             <a href="#rsvt" aria-controls="rsvt" role="tab" data-toggle="tab">확인</a>
                         </li>
@@ -32,7 +32,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="rsvt row tab-pane" id="rsvt">
-                        <div class="rsvt-l card">
+                        <div class="rsvt-l card-song">
                             <!-- <form th:action="@{/rsvt/rsvtregister}" method="post" autocomplete="off">
                             -->
                             <form
@@ -94,8 +94,8 @@
                                         <a
                                             id="ername"
                                             class="fas fa-times-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                                            data-toggle="tooltip"
-                                            data-placement="bottom"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
                                             data-trigger="hover"
                                             title="고객정보 지우기"></a>
                                     </div>
@@ -117,8 +117,8 @@
                                         <a
                                             id="userPlus"
                                             class="fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                                            data-toggle="tooltip"
-                                            data-placement="bottom"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
                                             title="고객정보 지우기"></a>
                                     </div>
                                 </div>

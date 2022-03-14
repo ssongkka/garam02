@@ -27,11 +27,16 @@
 }
 
 html {
+    font-size: 62.5%;
     overflow-y: scroll;
 }
 
 body {
     font-family: "NotoSans";
+}
+
+section {
+    padding: 2rem 7%;
 }
 
 a {
@@ -40,6 +45,7 @@ a {
 
 input {
     z-index: 800;
+    font-size: 1.5rem;
 }
 
 input[type="checkbox"] {
@@ -100,7 +106,7 @@ th {
     align-items: center;
 }
 
-.card {
+.card-song {
     border: none;
     border-radius: 0.25rem;
     box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
@@ -112,6 +118,7 @@ th {
     border-radius: 0.25rem 0.25rem 0 0;
     box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
     background: white;
+    margin: 0;
 }
 
 .ck-editor__editable {
@@ -217,6 +224,7 @@ th {
     padding: 1rem;
     box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5);
 }
+
 .dd-nav hr {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -226,6 +234,17 @@ th {
 
 .dd-nav li {
     flex: 1;
+}
+
+.dd-nav .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: var(--sub-color);
+    background-color: var(--main-color);
+    border-radius: 0.3rem;
+}
+
+.dd-nav .nav-link {
+    color: var(--main-color);
 }
 
 .home-nav {
@@ -245,11 +264,14 @@ th {
     margin-bottom: 0;
 }
 
-.home-nav > li.active > a,
-.home-nav > li.active > a:focus,
-.home-nav > li.active > a:hover {
+.home-nav .nav-link.active,
+.home-nav .show > .nav-link {
     color: var(--main-color);
     background-color: var(--sub-color);
+}
+
+.home-nav .nav-link {
+    color: var(--main-color);
 }
 
 .home-nav > li+li {
@@ -284,14 +306,32 @@ th {
     cursor: pointer;
 }
 
-@media (max-width:992px) {
-    .dd-main-nav .nav > li > a {
-        padding: 1rem 0.1rem;
+.table {
+    letter-spacing: 0.1rem;
+}
+
+object {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+}
+
+@media (max-width:1024px) {
+    .card-song {
+        border-radius: 0;
     }
-    .dd-nav li > a {
-        padding: 1rem 0;
+}
+
+@media (max-width:768px) {
+    .home-nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
-    .home-nav li > a {
+    .table {
+        width: 73rem;
+    }
+
+    .dd-nav .nav-link {
         padding: 1rem 0;
     }
 }

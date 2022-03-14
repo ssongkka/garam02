@@ -83,11 +83,11 @@ function cardVeEmpMake() {
         htmlsVe += '<div class="home-main-item-222">';
         htmlsVe += '<span class="home-main-item-222-span">' + dbCompa[i].company + '</span>';
         htmlsVe += '<span class="home-main-item-222-span">' + cntVe1[i] + '</span>';
-        htmlsVe += '<span class="home-main-item-222-span"><span data-toggle="tooltip" data-placeme' +
-                'nt="left" title="대형">' + cntVe2[i] + '</span><span>/</span><span data-toggle="' +
-                'tooltip" data-placement="left" title="중형">' + cntVe3[i] + '</span><span>/</spa' +
-                'n><span data-toggle="tooltip" data-placement="left" title="우등">' + cntVe4[i] +
-                '</span></span>';
+        htmlsVe += '<span class="home-main-item-222-span"><span data-bs-toggle="tooltip" data-bs-p' +
+                'lacement="top" title="대형">' + cntVe2[i] + '</span><span>/</span><span data-bs-' +
+                'toggle="tooltip" data-bs-placement="top" title="중형">' + cntVe3[i] + '</span><s' +
+                'pan>/</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="우등">' +
+                cntVe4[i] + '</span></span>';
         htmlsVe += '</div>';
     }
     htmlsVe += '</div>';
@@ -100,17 +100,23 @@ function cardVeEmpMake() {
         htmlsEmp += '<div class="home-main-item-222">';
         htmlsEmp += '<span class="home-main-item-222-span">' + dbCompa[i].company + '</span>';
         htmlsEmp += '<span class="home-main-item-222-span">' + cntEmp1[i] + '</span>';
-        htmlsEmp += '<span class="home-main-item-222-span"><span data-toggle="tooltip" data-placeme' +
-                'nt="left" title="회사">' + cntEmp2[i] + '</span><span>/</span><span data-toggle=' +
-                '"tooltip" data-placement="left" title="개인">' + cntEmp3[i] + '</span><span>/</s' +
-                'pan><span data-toggle="tooltip" data-placement="left" title="예비">' +
-                cntEmp4[i] + '</span></span>';
+        htmlsEmp += '<span class="home-main-item-222-span"><span data-bs-toggle="tooltip" data-bs-p' +
+                'lacement="top" title="회사">' + cntEmp2[i] + '</span><span>/</span><span data-bs' +
+                '-toggle="tooltip" data-bs-placement="top" title="개인">' + cntEmp3[i] + '</span>' +
+                '<span>/</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="예비' +
+                '">' + cntEmp4[i] + '</span></span>';
         htmlsEmp += '</div>';
     }
     htmlsEmp += '</div>';
 
     $('#card-ve').html(htmlsVe);
     $('#card-emp').html(htmlsEmp);
+    var tooltipTriggerList = []
+        .slice
+        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 }
 
 function getRsvtList(r, day) {
@@ -152,8 +158,8 @@ function getRsvtList(r, day) {
                 const idd1 = 'td' + cnt11;
 
                 if (i == 0 || cnt11 == 1) {
-                    htmlsHome += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-home-' + idd1 + '-' +
-                            i + '" onclick="showDetailSch(this.id)">';
+                    htmlsHome += '<tr style="cursor: pointer; background: #0000000d;" id="tr-home-' + idd1 +
+                            '-' + i + '" onclick="showDetailSch(this.id)">';
                     htmlsHome += '<td id="td' + cnt11 + '-hhh">';
                     htmlsHome += r[i].ctmname;
                     htmlsHome += '</td>';
@@ -169,7 +175,7 @@ function getRsvtList(r, day) {
                                 cnt11 - 1
                             ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsHome += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-home-td' + (
+                            htmlsHome += '<tr style="cursor: pointer; background: #0000000d;" id="tr-home-td' + (
                                 cnt11 - 1
                             ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         }
@@ -185,8 +191,8 @@ function getRsvtList(r, day) {
                             htmlsHome += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-home-' + idd1 + '-' +
                                     i + '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsHome += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-home-' + idd1 + '-' +
-                                    i + '" onclick="showDetailSch(this.id)">';
+                            htmlsHome += '<tr style="cursor: pointer; background: #0000000d;" id="tr-home-' + idd1 +
+                                    '-' + i + '" onclick="showDetailSch(this.id)">';
                         }
 
                         htmlsHome += '<td id="td' + cnt11 + '-hhh">';
@@ -212,15 +218,15 @@ function getRsvtList(r, day) {
                 htmlsHome += r[i].num;
                 htmlsHome += '</td>';
 
-                htmlsHome += '<td class="" style="text-align: right; padding-right: 2rem;">';
+                htmlsHome += '<td class="">';
                 htmlsHome += AddComma(r[i].conm);
                 htmlsHome += '</td>';
 
-                htmlsHome += '<td class="hidden-xs" style="text-align: left; padding-left: 2rem;">';
+                htmlsHome += '<td class="">';
                 htmlsHome += r[i].rsvpstp;
                 htmlsHome += '</td>';
 
-                htmlsHome += '<td class="hidden-xs">';
+                htmlsHome += '<td class="">';
                 htmlsHome += r[i].stt;
                 htmlsHome += '</td>';
                 htmlsHome += '</tr>';
@@ -280,8 +286,8 @@ function getRsvtList(r, day) {
                 const idd2 = 'td' + cnt21;
 
                 if (i == 0 || cnt21 == 1) {
-                    htmlsSchool += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-sch-' + idd2 + '-' + i +
-                            '" onclick="showDetailSch(this.id)">';
+                    htmlsSchool += '<tr style="cursor: pointer; background: #0000000d;" id="tr-sch-' + idd2 + '-' +
+                            i + '" onclick="showDetailSch(this.id)">';
                     htmlsSchool += '<td id="td' + cnt21 + '-sss">';
                     htmlsSchool += r[i].ctmname;
                     htmlsSchool += '</td>';
@@ -297,7 +303,7 @@ function getRsvtList(r, day) {
                                 cnt21 - 1
                             ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsSchool += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-sch-td' + (
+                            htmlsSchool += '<tr style="cursor: pointer; background: #0000000d;" id="tr-sch-td' + (
                                 cnt21 - 1
                             ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         }
@@ -311,8 +317,8 @@ function getRsvtList(r, day) {
                             htmlsSchool += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-sch-' + idd2 + '-' + i +
                                     '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsSchool += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-sch-' + idd2 + '-' + i +
-                                    '" onclick="showDetailSch(this.id)">';
+                            htmlsSchool += '<tr style="cursor: pointer; background: #0000000d;" id="tr-sch-' + idd2 + '-' +
+                                    i + '" onclick="showDetailSch(this.id)">';
                         }
 
                         htmlsSchool += '<td id="td' + cnt21 + '-sss">';
@@ -338,15 +344,15 @@ function getRsvtList(r, day) {
                 htmlsSchool += r[i].num;
                 htmlsSchool += '</td>';
 
-                htmlsSchool += '<td class="hidden-xs">';
+                htmlsSchool += '<td class="">';
                 htmlsSchool += r[i].stt;
                 htmlsSchool += '</td>';
 
-                htmlsSchool += '<td class="hidden-xs" style="text-align: left; padding-left: 2rem;">';
+                htmlsSchool += '<td class="">';
                 htmlsSchool += r[i].rsvpstp;
                 htmlsSchool += '</td>';
 
-                htmlsSchool += '<td class="hidden-xs" style="text-align: right; padding-right: 2rem;">';
+                htmlsSchool += '<td class="">';
                 htmlsSchool += AddComma(r[i].conm);
                 htmlsSchool += '</td>';
                 htmlsSchool += '</tr>';
@@ -358,8 +364,8 @@ function getRsvtList(r, day) {
                 const idd3 = 'td' + cnt21;
 
                 if (i == 0 || cnt31 == 1) {
-                    htmlsaccount += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-acc-' + idd3 + '-' + i +
-                            '" onclick="showDetailSch(this.id)">';
+                    htmlsaccount += '<tr style="cursor: pointer; background: #0000000d;" id="tr-acc-' + idd3 + '-' +
+                            i + '" onclick="showDetailSch(this.id)">';
                     htmlsaccount += '<td id="td' + cnt31 + '-aaa">';
                     htmlsaccount += r[i].ctmname;
                     htmlsaccount += '</td>';
@@ -375,7 +381,7 @@ function getRsvtList(r, day) {
                                 cnt31 - 1
                             ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsaccount += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-acc-td' + (
+                            htmlsaccount += '<tr style="cursor: pointer; background: #0000000d;" id="tr-acc-td' + (
                                 cnt31 - 1
                             ) + '-' + i + '" onclick="showDetailSch(this.id)">';
                         }
@@ -389,8 +395,8 @@ function getRsvtList(r, day) {
                             htmlsaccount += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-acc-' + idd3 + '-' + i +
                                     '" onclick="showDetailSch(this.id)">';
                         } else {
-                            htmlsaccount += '<tr style="cursor: pointer; background: #F9F9F9;" id="tr-acc-' + idd3 + '-' + i +
-                                    '" onclick="showDetailSch(this.id)">';
+                            htmlsaccount += '<tr style="cursor: pointer; background: #0000000d;" id="tr-acc-' + idd3 + '-' +
+                                    i + '" onclick="showDetailSch(this.id)">';
                         }
 
                         htmlsaccount += '<td id="td' + cnt31 + '-aaa">';
@@ -416,15 +422,15 @@ function getRsvtList(r, day) {
                 htmlsaccount += r[i].num;
                 htmlsaccount += '</td>';
 
-                htmlsaccount += '<td class="" style="text-align: right; padding-right: 2rem;">';
+                htmlsaccount += '<td class="">';
                 htmlsaccount += AddComma(r[i].conm);
                 htmlsaccount += '</td>';
 
-                htmlsaccount += '<td class="hidden-xs" style="text-align: left; padding-left: 2rem;">';
+                htmlsaccount += '<td class="">';
                 htmlsaccount += r[i].rsvpstp;
                 htmlsaccount += '</td>';
 
-                htmlsaccount += '<td class="hidden-xs">';
+                htmlsaccount += '<td class="">';
                 htmlsaccount += r[i].stt;
                 htmlsaccount += '</td>';
                 htmlsaccount += '</tr>';
@@ -435,18 +441,20 @@ function getRsvtList(r, day) {
     }
 
     $('#all-title').html(
-        '운행정보&nbsp;<span class="badge">' + cntAll + '</span>'
+        '운행정보&nbsp;<span class="badge bg-secondary">' + cntAll + '</span>'
     );
     $('#normal-title').html(
-        '일반&nbsp;<span class="badge">' + cntHome + '</span>'
+        '일반&nbsp;<span class="badge bg-secondary">' + cntHome + '</span>'
     );
     $('#school-title').html(
-        '학생단체&nbsp;<span class="badge">' + cntSchool + '</span>'
+        '학생단체&nbsp;<span class="badge bg-secondary">' + cntSchool + '</span>'
     );
     $('#account-title').html(
-        '거래처&nbsp;<span class="badge">' + cntaccount + '</span>'
+        '거래처&nbsp;<span class="badge bg-secondary">' + cntaccount + '</span>'
     );
-    $('#go-title').html('정기운행&nbsp;<span class="badge">' + 0 + '</span>');
+    $('#go-title').html(
+        '정기운행&nbsp;<span class="badge bg-secondary">' + 0 + '</span>'
+    );
 
     const noRsvt = '<tr><td colspan="7">운행 정보 없음</td></tr>';
 
@@ -553,12 +561,6 @@ function getMidCnt(day, i) {
             const rtn = cnt45 + ' / ' + cnt25 + ' / ' + cnt28;
 
             $(idd + (i + 1) + '4').html('<h5>' + rtn + '</h5>');
-
-            if (i == 0) {
-                $('#numday1').text('대형 ' + cnt45 + '대');
-                $('#numday2').text('중형 ' + cnt25 + '대');
-                $('#numday3').text('우등 ' + cnt28 + '대');
-            }
         }
     });
 }

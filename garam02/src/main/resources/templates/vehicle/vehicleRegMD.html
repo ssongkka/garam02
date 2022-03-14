@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
     <!-- Modal -->
     <div
         th:fragment="ve-MD-reg"
-        class="modal fade bs-example-modal-lg"
+        class="modal fade"
+        id="modal-reg"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
         tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-        id="modal-reg">
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title fas fa-file-alt" id="myModalLabel-reg">Modal title</h4>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                    <h5 class="modal-title fas fa-file-alt" id="myModalLabel-reg">Modal title</h5>
                 </div>
                 <div class="modal-body mdb-reg">
                     <div class="mdb-reg-item">
@@ -37,8 +39,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">닫&nbsp;&nbsp;&nbsp;&nbsp;기</button>
-                    <button type="button" class="btn btn-primary" id="reg-insert">&nbsp;&nbsp;입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;력&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;&nbsp;기</button>
+                    <button type="button" class="btn btn-primary" id="reg-insert">입&nbsp;&nbsp;력</button>
                 </div>
             </div>
         </div>
