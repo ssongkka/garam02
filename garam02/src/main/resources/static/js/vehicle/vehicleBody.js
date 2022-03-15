@@ -1,6 +1,17 @@
 const good = '1px solid #ccc';
 const bad = '2px solid rgba(255, 0, 0, 0.5)';
 
+var myModalInsert = new bootstrap.Modal(
+    document.getElementById('modal-insert')
+);
+
+var myModalFile = new bootstrap.Modal(document.getElementById('modal-file'));
+
+var myModalReg = new bootstrap.Modal(document.getElementById('modal-reg'));
+var myModalInsu = new bootstrap.Modal(document.getElementById('modal-insu'));
+
+var myModalJuk = new bootstrap.Modal(document.getElementById('modal-juk'));
+
 $(document).ready(function () {
     getVeAll();
 });
@@ -524,191 +535,194 @@ function getVeAll(vehicle) {
 }
 
 function getVeInfo(carNumber) {
-    return new Promise(function (resolve, reject) {
+    LoadingWithMask()
+        .then(get)
+        .then(closeLoadingWithMask);
 
-        tbChoice(carNumber);
+    function get(result) {
+        return new Promise(function (resolve, reject) {
+            tbChoice(carNumber);
 
-        const url = "/ve/vedetail";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
-        const params = {
-            "carNumber": carNumber.split('cut')[0]
-        };
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
-            success: function (r) {
-                $('#ve00').val(r[0].carNumber);
+            const url = "/ve/vedetail";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+            const params = {
+                "carNumber": carNumber.split('cut')[0]
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    console.log("헤이요");
+                    $('#ve00').val(r[0].carNumber);
 
-                const veLen = r[0].vehicle.length - 4;
-                const ve1 = r[0]
-                    .vehicle
-                    .substring(veLen);
-                const ve2 = r[0]
-                    .vehicle
-                    .substring(0, veLen);
+                    const veLen = r[0].vehicle.length - 4;
+                    const ve1 = r[0]
+                        .vehicle
+                        .substring(veLen);
+                    const ve2 = r[0]
+                        .vehicle
+                        .substring(0, veLen);
 
-                $('#ve01').html('<span>' + ve2 + '</span>');
-                $('#ve02').html('<span>' + r[0].vehicle + '</span>');
+                    $('#ve01').html('<span>' + ve2 + '</span>');
+                    $('#ve02').html('<span>' + r[0].vehicle + '</span>');
 
-                if (r[0].bus) {
-                    $('#ve03').html('<span>' + r[0].bus + '(' + r[0].num + '인승)</span>');
-                } else {
-                    $('#ve03').html('<span>&nbsp;</span>');
-                }
-                if (r[0].name) {
-                    $('#ve04').html('<span>' + r[0].name + '</span>');
-                } else {
-                    $('#ve04').html('<span>&nbsp;</span>');
-                }
-                if (r[0].company) {
-                    $('#ve20').html('<span>' + r[0].company + '</span>');
-                } else {
-                    $('#ve20').html('<span>&nbsp;</span>');
-                }
-                if (r[0].owner) {
-                    $('#ve05').html('<span>' + r[0].owner + '</span>');
-                } else {
-                    $('#ve05').html('<span>&nbsp;</span>');
-                }
-                if (r[0].brand) {
-                    $('#ve06').html('<span>' + r[0].brand + '</span>');
-                } else {
-                    $('#ve06').html('<span>&nbsp;</span>');
-                }
-                if (r[0].vename) {
-                    $('#ve07').html('<span>' + r[0].vename + '</span>');
-                } else {
-                    $('#ve07').html('<span>&nbsp;</span>');
-                }
-                if (r[0].grade) {
-                    $('#ve08').html('<span>' + r[0].grade + '</span>');
-                } else {
-                    $('#ve08').html('<span>&nbsp;</span>');
-                }
-                if (r[0].num) {
-                    $('#ve09').html('<span>' + r[0].num + '인승</span>');
-                } else {
-                    $('#ve09').html('<span>&nbsp;</span>');
-                }
-                if (r[0].fuel) {
-                    $('#ve10').html('<span>' + r[0].fuel + '</span>');
-                } else {
-                    $('#ve10').html('<span>&nbsp;</span>');
-                }
-                if (r[0].regist) {
-                    $('#ve11').html('<span>' + r[0].regist + '</span>');
-                } else {
-                    $('#ve11').html('<span>&nbsp;</span>');
-                }
-                if (r[0].expire) {
-                    $('#ve12').html('<span>' + r[0].expire + '</span>');
-                } else {
-                    $('#ve12').html('<span>&nbsp;</span>');
-                }
-                if (r[0].carn) {
-                    $('#ve19').html('<span>' + r[0].carn + '</span>');
-                } else {
-                    $('#ve19').html('<span>&nbsp;</span>');
-                }
-                if (r[0].price) {
-                    $('#ve13').html('<span>&#8361;' + AddComma(r[0].price) + '</span>');
-                } else {
-                    $('#ve13').html('<span>&nbsp;</span>');
-                }
-
-                if (r[0].special) {
-                    const sp = r[0]
-                        .special
-                        .split('\n');
-
-                    let spec = '';
-
-                    for (let i = 0; i < sp.length; i++) {
-                        spec += '<p>' + sp[i] + '</p>'
+                    if (r[0].bus) {
+                        $('#ve03').html('<span>' + r[0].bus + '(' + r[0].num + '인승)</span>');
+                    } else {
+                        $('#ve03').html('<span>&nbsp;</span>');
                     }
-                    $('#ve15').html(spec);
-                } else {
-                    $('#ve15').html('<span>&nbsp;</span>');
-                }
-                if (r[0].color) {
-                    $('#ve14').attr(
-                        'style',
-                        'background: ' + r[0].color + '; color: rgba(0, 0, 0, 0);border-radius: 3px;'
-                    );
-                    $('#ve14-1').val(r[0].color);
-                } else {
-                    $('#ve14').attr(
-                        'style',
-                        'background: rgba(0, 0, 0, 0); color: rgba(0, 0, 0, 0);border-radius: 3px;'
-                    );
-                    $('#ve14-1').val('');
-                }
+                    if (r[0].name) {
+                        $('#ve04').html('<span>' + r[0].name + '</span>');
+                    } else {
+                        $('#ve04').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].company) {
+                        $('#ve20').html('<span>' + r[0].company + '</span>');
+                    } else {
+                        $('#ve20').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].owner) {
+                        $('#ve05').html('<span>' + r[0].owner + '</span>');
+                    } else {
+                        $('#ve05').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].brand) {
+                        $('#ve06').html('<span>' + r[0].brand + '</span>');
+                    } else {
+                        $('#ve06').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].vename) {
+                        $('#ve07').html('<span>' + r[0].vename + '</span>');
+                    } else {
+                        $('#ve07').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].grade) {
+                        $('#ve08').html('<span>' + r[0].grade + '</span>');
+                    } else {
+                        $('#ve08').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].num) {
+                        $('#ve09').html('<span>' + r[0].num + '인승</span>');
+                    } else {
+                        $('#ve09').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].fuel) {
+                        $('#ve10').html('<span>' + r[0].fuel + '</span>');
+                    } else {
+                        $('#ve10').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].regist) {
+                        $('#ve11').html('<span>' + r[0].regist + '</span>');
+                    } else {
+                        $('#ve11').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].expire) {
+                        $('#ve12').html('<span>' + r[0].expire + '</span>');
+                    } else {
+                        $('#ve12').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].carn) {
+                        $('#ve19').html('<span>' + r[0].carn + '</span>');
+                    } else {
+                        $('#ve19').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].price) {
+                        $('#ve13').html('<span>&#8361;' + AddComma(r[0].price) + '</span>');
+                    } else {
+                        $('#ve13').html('<span>&nbsp;</span>');
+                    }
 
-                if (r[0].img1) {
-                    updateImg(veFolder + 'img/' + r[0].img1, 've16');
-                    $('#ve16-1').attr('href', veFolder + 'img/' + r[0].img1);
-                } else {
-                    $('#ve16').attr('src', 'img/vehicle/bus1.png');
-                    $('#ve16-1').attr('href', 'img/vehicle/bus1.png');
-                }
-                if (r[0].img2) {
-                    updateImg(veFolder + 'img/' + r[0].img2, 've17');
-                    $('#ve17-1').attr('href', veFolder + 'img/' + r[0].img2);
-                } else {
-                    $('#ve17').attr('src', 'img/vehicle/bus2.png');
-                    $('#ve17-1').attr('href', 'img/vehicle/bus2.png');
-                }
-                if (r[0].img3) {
-                    updateImg(veFolder + 'img/' + r[0].img3, 've18');
-                    $('#ve18-1').attr('href', veFolder + 'img/' + r[0].img3);
-                } else {
-                    $('#ve18').attr('src', 'img/vehicle/bus3.png');
-                    $('#ve18-1').attr('href', 'img/vehicle/bus3.png');
-                }
+                    if (r[0].special) {
+                        const sp = r[0]
+                            .special
+                            .split('\n');
 
-                if (r[0].reg) {
-                    $('#ve21').html(
-                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span class' +
-                        '="tct-item-btn-item">차량등록증</span><span class="tct-item-btn-item">' + r[0].regd +
-                        '</span><span class="tct-item-btn-item"><i class="fas fa-file-upload"></i></spa' +
-                        'n></a>'
-                    );
-                    $('#ve21-1').val(r[0].reg);
-                } else {
-                    $('#ve21').html(
-                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span>없&nbs' +
-                        'p;음</span><i class="fas fa-file-upload"></i></a>'
-                    );
-                    $('#ve21-1').val('');
-                }
+                        let spec = '';
 
-                if (r[0].insu) {
-                    $('#ve22').html(
-                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span clas' +
-                        's="tct-item-btn-item">보험증서</span><span class="tct-item-btn-item">' + r[0].insud +
-                        '</span><span class="tct-item-btn-item"><i class="fas fa-file-upload"></i></spa' +
-                        'n></a>'
-                    );
-                    $('#ve22-1').val(r[0].insu);
-                } else {
-                    $('#ve22').html(
-                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span>없&nb' +
-                        'sp;음</span><i class="fas fa-file-upload"></i></a>'
-                    );
-                    $('#ve22-1').val('');
+                        for (let i = 0; i < sp.length; i++) {
+                            spec += '<p>' + sp[i] + '</p>'
+                        }
+                        $('#ve15').html('<span>' + r[0].special + '</span>');
+                    } else {
+                        $('#ve15').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].color) {
+                        $('#ve14').attr(
+                            'style',
+                            'background: ' + r[0].color + '; color: rgba(0, 0, 0, 0);border-radius: 3px;'
+                        );
+                        $('#ve14-1').val(r[0].color);
+                    } else {
+                        $('#ve14').attr(
+                            'style',
+                            'background: rgba(0, 0, 0, 0); color: rgba(0, 0, 0, 0);border-radius: 3px;'
+                        );
+                        $('#ve14-1').val('');
+                    }
+
+                    if (r[0].img1) {
+                        updateImg(veFolder + 'img/' + r[0].img1, 've16');
+                        $('#ve16-1').attr('href', veFolder + 'img/' + r[0].img1);
+                    } else {
+                        $('#ve16').attr('src', 'img/vehicle/bus1.png');
+                        $('#ve16-1').attr('href', 'img/vehicle/bus1.png');
+                    }
+                    if (r[0].img2) {
+                        updateImg(veFolder + 'img/' + r[0].img2, 've17');
+                        $('#ve17-1').attr('href', veFolder + 'img/' + r[0].img2);
+                    } else {
+                        $('#ve17').attr('src', 'img/vehicle/bus2.png');
+                        $('#ve17-1').attr('href', 'img/vehicle/bus2.png');
+                    }
+                    if (r[0].img3) {
+                        updateImg(veFolder + 'img/' + r[0].img3, 've18');
+                        $('#ve18-1').attr('href', veFolder + 'img/' + r[0].img3);
+                    } else {
+                        $('#ve18').attr('src', 'img/vehicle/bus3.png');
+                        $('#ve18-1').attr('href', 'img/vehicle/bus3.png');
+                    }
+
+                    if (r[0].reg) {
+                        $('#ve21').html(
+                            '<button class="btn btn-success tct-item-btn" role="button" id="btn-reg">' +
+                            r[0].regd + '</button>'
+                        );
+                        $('#ve21-1').val(r[0].reg);
+                    } else {
+                        $('#ve21').html(
+                            '<button class="btn btn-light tct-item-btn" role="button" id="btn-reg">없&nbsp;음' +
+                            '</button>'
+                        );
+                        $('#ve21-1').val('');
+                    }
+
+                    if (r[0].insu) {
+                        $('#ve22').html(
+                            '<button class="btn btn-success tct-item-btn" role="button" id="btn-insu">' +
+                            r[0].insud + '</button>'
+                        );
+                        $('#ve22-1').val(r[0].insu);
+                    } else {
+                        $('#ve22').html(
+                            '<button class="btn btn-light tct-item-btn" role="button" id="btn-insu">없&nbsp;' +
+                            '음</button>'
+                        );
+                        $('#ve22-1').val('');
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
-        })
-    });
+            })
+            resolve();
+        });
+    }
 }
 
 $(document).on('keydown', 'input', function (eInner) {
@@ -728,8 +742,9 @@ $(document).on('click', '#btn-x', function () {
 
 $(document).on('click', '#md-Ch', function () {
     if ($('#ve00').val()) {
-        $('#modal-insert').modal({backdrop: 'static', keyboard: false});
-        $('#myModalLabel-insert').text('  차량 정보 수정');
+        // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
+        myModalInsert.show()
+        $('#modal-insert-mh').text('차량 정보 수정');
         setVeCh();
     } else {
         alert('수정 할 차량을 선택해주세요.');
@@ -737,21 +752,24 @@ $(document).on('click', '#md-Ch', function () {
 });
 
 $(document).on('click', '#md-New', function () {
-    $('#modal-insert').modal({backdrop: 'static', keyboard: false});
-    $('#myModalLabel-insert').text('  차량 정보 신규 입력');
+    // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
+    myModalInsert.show()
+    $('#modal-insert-mh').text('차량 정보 신규 입력');
     setEmpClr();
 });
 
 $(document).on('click', '#md-File', function () {
-    $('#modal-file').modal({backdrop: 'static', keyboard: false});
-    $('#myModalLabel-file').text('  차량명세서 생성');
+    // $('#modal-file').modal({backdrop: 'static', keyboard: false});
+    myModalFile.show()
+    $('#modal-file-mh').text('차량명세서 생성');
 });
 
 $(document).on('click', '#md-Juk', function () {
+    // $('#modal-juk').modal({backdrop: 'static', keyboard: false});
+    myModalJuk.show();
     $('#juk-frame').attr('src', veFolder + 'choice.pdf');
     $('#juk-selector').val('');
-    $('#modal-juk').modal({backdrop: 'static', keyboard: false});
-    $('#myModalLabel-juk').text('  교통안전정보 통보서 입력');
+    $('#modal-juk-mh').text('교통안전정보 통보서 입력');
 });
 
 $('#imgSelector1').change(function () {
@@ -766,22 +784,36 @@ $('#imgSelector3').change(function () {
 
 function setVeCh() {
     setBorder();
+
+    $("#carn").attr("disabled", true);
+    if (dbCompa.length > 1) {
+        $("#vehicle-1").attr("disabled", false);
+        $("#vehicle-2").attr("disabled", false);
+        $("#vehicle-3").attr("disabled", false);
+        $("#vehicle-4").attr("disabled", false);
+        $("#company").attr("disabled", false);
+    } else {
+        $("#vehicle-1").attr("disabled", true);
+        $("#vehicle-2").attr("disabled", true);
+        $("#vehicle-3").attr("disabled", true);
+        $("#vehicle-4").attr("disabled", true);
+        $("#company").attr("disabled", true);
+    }
+
     if ($('#ve00').val()) {
         $('#vecarn').val($('#ve00').val());
     } else {
         $('#vecarn').val('');
     }
 
-    const ve = $('#ve01')
+    const ve = $('#ve02')
         .children()
         .text();
 
     const ve1 = ve.substring(0, 2);
     const ve2 = ve.substring(2, 4);
-    const ve3 = ve.substring(4);
-    const ve4 = $('#ve02')
-        .children()
-        .text();
+    const ve3 = ve.substring(4, 5);
+    const ve4 = ve.substring(5);
 
     $('#vehicle-1').val(ve1);
     $('#vehicle-2').val(ve2);
@@ -789,7 +821,6 @@ function setVeCh() {
     $('#vehicle-4').val(ve4);
 
     if ($('#ve20').children().text() != String.fromCharCode(160)) {
-        console.log($('#ve20').children().text());
         $('#company').val($('#ve20').children().text());
     } else {
         $('#company').val('');
@@ -801,11 +832,8 @@ function setVeCh() {
         $('#owner').val('미정');
     };
 
-    console.log("String.fromCharCode(160)    " + $('#ve04').children());
     const iiddddd = $('#ve04').children();
-    console.log("String.fromCharCode(160)    " + iiddddd[0]);
     const iiddddd2 = $(iiddddd[0]).text();
-    console.log("String.fromCharCode(160)    " + iiddddd2);
 
     if (iiddddd2 != String.fromCharCode(160)) {
         $('#id').val(iiddddd2);
@@ -814,7 +842,14 @@ function setVeCh() {
     };
 
     if ($('#ve03').children().text() != String.fromCharCode(160)) {
-        $('#bus').val($('#ve03').children().text());
+        const buss = ($('#ve03').children().text()).substring(0, 2);
+        const numm = ($('#ve03').children().text())
+            .substring(2)
+            .replaceAll('(', '')
+            .replaceAll(')', '')
+            .replaceAll('인승', '');
+        $('#bus').val(buss);
+        $('#num').val(numm);
     } else {
         $('#bus').val('대형');
     };
@@ -855,12 +890,6 @@ function setVeCh() {
         $('#expire').val('');
     };
 
-    if ($('#ve09').children().text() != String.fromCharCode(160)) {
-        $('#num').val($('#ve09').children().text().split('인승')[0]);
-    } else {
-        $('#num').val('');
-    };
-
     if ($('#ve10').children().text() != String.fromCharCode(160)) {
         $('#fuel').val($('#ve10').children().text());
     } else {
@@ -872,8 +901,6 @@ function setVeCh() {
     } else {
         $('#price').val('');
     };
-
-    console.log($('#ve14-1').val());
 
     if ($('#ve14-1').val()) {
         $('#color').val($('#ve14-1').val());
@@ -894,6 +921,14 @@ function setVeCh() {
 
 function setEmpClr() {
     setBorder();
+
+    $("#vehicle-1").attr("disabled", false);
+    $("#vehicle-2").attr("disabled", false);
+    $("#vehicle-3").attr("disabled", false);
+    $("#vehicle-4").attr("disabled", false);
+    $("#company").attr("disabled", false);
+    $("#carn").attr("disabled", false);
+
     $('#vecarn').val('');
 
     $('#ve-pic-pre1').attr('src', 'img/vehicle/bus1.png');
@@ -1229,7 +1264,8 @@ $(document).on('click', '#btn-excel-d', function () {
     );
     $('#down-form').attr('action', '/vehicle/excelDown');
     $('#down-form').submit();
-    $('#modal-file').modal('hide');
+    myModalFile.hide();
+    // $('#modal-file').modal('hide');
 });
 
 $(document).on('click', '#btn-pdf-d', function () {
@@ -1239,20 +1275,23 @@ $(document).on('click', '#btn-pdf-d', function () {
     );
     $('#down-form').attr('action', '/vehicle/pdfDown');
     $('#down-form').submit();
+    myModalFile.hide();
     $('#modal-file').modal('hide');
 });
 
 $(document).on('click', '#btn-reg', function () {
-    $('#modal-reg').modal({backdrop: 'static', keyboard: false});
-    $('#myModalLabel-reg').text(
+    // $('#modal-reg').modal({backdrop: 'static', keyboard: false});
+    myModalReg.show();
+    $('#modal-reg-mh').text(
         '  ' + $('#ve02').children().text() + ' 자동차등록증 조회 및 입력'
     );
     setReg();
 });
 
 $(document).on('click', '#btn-insu', function () {
-    $('#modal-insu').modal({backdrop: 'static', keyboard: false});
-    $('#myModalLabel-insu').text(
+    // $('#modal-insu').modal({backdrop: 'static', keyboard: false});
+    myModalInsu.show();
+    $('#modal-insu-mh').text(
         '  ' + $('#ve02').children().text() + ' 보험가입증명서 조회 및 입력'
     );
     setInsu();

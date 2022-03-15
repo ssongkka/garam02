@@ -14,12 +14,12 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h5 class="modal-title" id="modal-insert-mh">Modal title</h5>
                     <button
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
-                    <h5 class="modal-title fas fa-bus" id="myModalLabel-insert">Modal title</h5>
                 </div>
                 <div class="modal-body">
                     <div class="ve-insert-pic">
@@ -79,13 +79,13 @@
                         </form>
                     </div>
                     <hr>
-                    <div class="ve-insert">
-                        <div class="form-group col-md-4">
+                    <div class="ve-insert row">
+                        <div class="form-group col-md-4 emp-insert-item">
                             <label>기본정보</label>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="vehicle-1">차량번호&nbsp;&#42;</label>
-                            <select class="form-control input-sm" id="vehicle-1">
+                            <label for="vehicle-1" class="form-label">차량번호&nbsp;&#42;</label>
+                            <select class="form-select" id="vehicle-1">
                                 <option selected="selected">대구</option>
                                 <option>경북</option>
                                 <option>경남</option>
@@ -105,8 +105,8 @@
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="vehicle-2">&nbsp;</label>
-                            <select class="form-control input-sm" id="vehicle-2">
+                            <label for="vehicle-2" class="form-label">&nbsp;</label>
+                            <select class="form-select" id="vehicle-2">
                                 <option selected="selected">70</option>
                                 <option>71</option>
                                 <option>72</option>
@@ -120,8 +120,8 @@
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="vehicle-3">&nbsp;</label>
-                            <select class="form-control input-sm" id="vehicle-3">
+                            <label for="vehicle-3" class="form-label">&nbsp;</label>
+                            <select class="form-select" id="vehicle-3">
                                 <option selected="selected">바</option>
                                 <option>아</option>
                                 <option>사</option>
@@ -129,10 +129,10 @@
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="vehicle-4">&nbsp;</label>
+                            <label for="vehicle-4" class="form-label">&nbsp;</label>
                             <input
                                 type="text"
-                                class="form-control input-sm"
+                                class="form-control"
                                 id="vehicle-4"
                                 max="9999"
                                 maxlength="4"
@@ -140,13 +140,13 @@
                                 autocomplete='off'>
                         </div>
                     </div>
-                    <div class="ve-insert">
+                    <div class="ve-insert row">
                         <div class="form-group col-md-4">
-                            <label></label>
+                            <label class="form-label"></label>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="company">회사&nbsp;&#42;</label>
-                            <select class="form-control input-sm" id="company">
+                            <label for="company" class="form-label">회사&nbsp;&#42;</label>
+                            <select class="form-select" id="company">
                                 <option
                                     th:each="company : ${company}"
                                     th:value="${company.company}"
@@ -156,13 +156,13 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="ve-insert">
-                        <div class="form-group col-md-4">
-                            <label for="vehicle-4">소속정보</label>
+                    <div class="ve-insert row">
+                        <div class="form-group col-md-4 emp-insert-item">
+                            <label for="vehicle-4" class="form-label">소속정보</label>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="owner">소속</label>
-                            <select class="form-control input-sm" id="owner">
+                            <label for="owner" class="form-label">소속</label>
+                            <select class="form-select" id="owner">
                                 <option selected="selected" value="미정" label="미정" data-value="미정"></option>
                                 <option
                                     th:each="company : ${company}"
@@ -178,8 +178,8 @@
 
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="id">승무원</label>
-                            <select class="form-control input-sm" id="id">
+                            <label for="id" class="form-label">승무원</label>
+                            <select class="form-select" id="id">
                                 <option selected="selected" value="미정" label="미정" data-value="미정"></option>
                                 <option
                                     th:each="emp : ${emp}"
@@ -190,21 +190,22 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="ve-insert">
-                        <div class="form-group col-md-4">
-                            <label>차량정보</label>
+                    <div class="ve-insert row">
+                        <div class="form-group col-md-4 emp-insert-item">
+                            <label class="form-label">차량정보</label>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="bus">종류</label>
-                            <select class="form-control input-sm" id="bus">
+                            <label for="bus" class="form-label">종류</label>
+                            <select class="form-select" id="bus">
                                 <option selected="selected">대형</option>
                                 <option>중형</option>
                                 <option>우등</option>
+                                <option>기타</option>
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="brand">제조사</label>
-                            <input list="brandlist" class="form-control input-sm" id="brand">
+                            <label for="brand" class="form-label">제조사</label>
+                            <input list="brandlist" class="form-control" id="brand">
                             <datalist id="brandlist">
                                 <option value="현대" label="현대"></option>
                                 <option value="기아" label="기아"></option>
@@ -212,16 +213,16 @@
                             </datalist>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="vename">차명&nbsp;&#42;
+                            <label for="vename" class="form-label">차명&nbsp;&#42;
                             </label>
-                            <input type="text" class="form-control input-sm" id="vename" autocomplete='off'>
+                            <input type="text" class="form-control" id="vename" autocomplete='off'>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="grade">등급</label>
+                            <label for="grade" class="form-label">등급</label>
                             <input
                                 list="gradelist"
                                 type="text"
-                                class="form-control input-sm"
+                                class="form-control"
                                 id="grade"
                                 autocomplete='off'>
                             <datalist id="gradelist">
@@ -248,76 +249,75 @@
                             </datalist>
                         </div>
                     </div>
-                    <div class="ve-insert">
+                    <div class="ve-insert row">
                         <div class="form-group col-md-4">
-                            <label for="vehicle-4">&nbsp;</label>
+                            <label for="vehicle-4" class="form-label">&nbsp;</label>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="carn">차대번호&nbsp;&#42;
+                            <label for="carn" class="form-label">차대번호&nbsp;&#42;
                             </label>
-                            <input type="text" class="form-control input-sm" id="carn" autocomplete='off'>
+                            <input type="text" class="form-control" id="carn" autocomplete='off'>
                         </div>
                     </div>
 
-                    <div class="ve-insert">
+                    <div class="ve-insert row">
                         <div class="form-group col-md-4">
-                            <label for="vehicle-4">&nbsp;</label>
+                            <label for="vehicle-4" class="form-label">&nbsp;</label>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="regist">차량등록일&nbsp;&#42;
+                            <label for="regist" class="form-label">차량등록일&nbsp;&#42;
                             </label>
-                            <input type="date" class="form-control input-sm" id="regist">
+                            <input type="date" class="form-control" id="regist">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="expire">차량만료일&nbsp;&#42;
+                            <label for="expire" class="form-label">차량만료일&nbsp;&#42;
                             </label>
-                            <input type="date" class="form-control input-sm" id="expire">
+                            <input type="date" class="form-control" id="expire">
                         </div>
                     </div>
-                    <div class="ve-insert">
+                    <div class="ve-insert row">
                         <div class="form-group col-md-4">
-                            <label for="vehicle-4">&nbsp;</label>
+                            <label for="vehicle-4" class="form-label">&nbsp;</label>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="num">승차인원&nbsp;&#42;
+                            <label for="num" class="form-label">승차인원&nbsp;&#42;
                             </label>
-                            <input type="text" class="form-control input-sm" id="num" autocomplete='off'>
+                            <input type="text" class="form-control" id="num" autocomplete='off'>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="fuel">연료&nbsp;&#42;
+                            <label for="fuel" class="form-label">연료&nbsp;&#42;
                             </label>
-                            <select class="form-control input-sm" id="fuel">
+                            <select class="form-select" id="fuel">
                                 <option selected="selected">경유</option>
                                 <option>CNG</option>
                                 <option>전기</option>
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="price">출고(취득)가격&nbsp;&#42;
+                            <label for="price" class="form-label">출고(취득)가격&nbsp;&#42;
                             </label>
                             <input
                                 type="text"
                                 data-type="currency"
                                 style="text-align: right;"
-                                class="form-control input-sm"
+                                class="form-control"
                                 id="price">
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="color">색상
+                            <label for="color" class="form-label">색상
                             </label>
-                            <input type="color" class="form-control input-sm" id="color">
+                            <input type="color" class="form-control" id="color">
                         </div>
                     </div>
                     <hr>
-                    <div class="ve-insert">
-                        <div class="form-group col-md-4">
-                            <label>특이사항</label>
+                    <div class="ve-insert row">
+                        <div class="form-group col-md-4 emp-insert-item">
+                            <label class="form-label">특이사항</label>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="special">특이사항
+                            <label for="special" class="form-label">특이사항
                             </label>
-                            <textarea type="text" class="form-control input-sm" id="special" rows="5"></textarea>
-
+                            <textarea type="text" class="form-control" id="special" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer mdf-insert">
@@ -325,10 +325,10 @@
                             <button type="button" class="btn btn-warning">차량 만료</button>
                         </div>
                         <div class="modal-btn">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;&nbsp;기</button>
+                            <button type="button" class="btn btn-primary" id="btn-insert">입&nbsp;&nbsp;력</button>
                         </div>
                         <div class="modal-btn">
-                            <button type="button" class="btn btn-primary" id="btn-insert">입&nbsp;&nbsp;력</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;&nbsp;기</button>
                         </div>
                     </div>
                 </div>

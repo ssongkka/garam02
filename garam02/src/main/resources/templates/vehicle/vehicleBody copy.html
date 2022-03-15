@@ -459,6 +459,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="ve-cont card-song">
                 <div class="main-aside-item card-song">
                     <div role="tabpanel">
                         <!-- Nav tabs -->
@@ -466,68 +468,73 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link active"
+                                    id="mainoper-home-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#veMain"
+                                    data-bs-target="#mainoper"
                                     type="button"
                                     role="tab"
-                                    aria-controls="veMain-home"
+                                    aria-controls="mainoper-home"
                                     aria-selected="true">Home</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
+                                    id="operemp-profile-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#operve"
+                                    data-bs-target="#operemp"
                                     type="button"
                                     role="tab"
-                                    aria-controls="operve-profile"
+                                    aria-controls="operemp-profile"
                                     aria-selected="false">운행내역</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
+                                    id="moneyemp-profile-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#moneyve"
+                                    data-bs-target="#moneyemp"
                                     type="button"
                                     role="tab"
-                                    aria-controls="moneyve-profile"
+                                    aria-controls="moneyemp-profile"
                                     aria-selected="false">급여</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
+                                    id="infoemp-profile-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#infove"
+                                    data-bs-target="#infoemp"
                                     type="button"
                                     role="tab"
-                                    aria-controls="infove-profile"
+                                    aria-controls="infoemp-profile"
                                     aria-selected="false">Settings</button>
                             </li>
                         </ul>
+
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div
-                                th:insert="vehicle/vehicleHome :: ve-home"
+                                th:insert="vehicle/empHome :: emp-home"
                                 class="tab-pane fade show active"
-                                id="veMain"
+                                id="mainoper"
                                 role="tabpanel"
                                 aria-labelledby="pills-mainoper-tab"></div>
                             <div
-                                th:insert="vehicle/vehicleOper :: ve-oper"
+                                th:insert="vehicle/empOper :: emp-oper"
                                 class="tab-pane fade"
-                                id="operve"
+                                id="operemp"
                                 role="tabpanel"
                                 aria-labelledby="pills-operemp-tab"></div>
                             <div
-                                th:insert="vehicle/vehicleMoney :: ve-money"
+                                th:insert="vehicle/empMoney :: emp-money"
                                 class="tab-pane fade"
-                                id="moneyve"
+                                id="moneyemp"
                                 role="tabpanel"
                                 aria-labelledby="pills-moneyemp-tab"></div>
                             <div
-                                th:insert="vehicle/vehicleInfo :: ve-info"
+                                th:insert="vehicle/empInfo :: emp-info"
                                 class="tab-pane fade"
-                                id="infove"
+                                id="infoemp"
                                 role="tabpanel"
                                 aria-labelledby="pills-infoemp-tab"></div>
                         </div>

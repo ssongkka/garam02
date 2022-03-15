@@ -22,8 +22,6 @@
     flex: 2;
     min-height: calc(100vh - 6rem);
     padding-top: 2rem 0;
-
-    width: 100%;
     margin-left: 60rem;
 }
 
@@ -103,7 +101,7 @@
 
 .main-aside-item-add {
     display: grid;
-    grid-template-columns: 80px auto;
+    grid-template-columns: 1fr 2.5fr;
     row-gap: 2rem;
     column-gap: 1rem;
     align-items: center;
@@ -153,6 +151,7 @@
     padding: 1rem 2rem;
     margin: 0;
     font-size: 1.4rem;
+    flex: 1;
 }
 
 .cardImg {
@@ -208,31 +207,6 @@
 
     .emp-nth {
         padding: 2rem;
-    }
-
-    .emp-nth:nth-child(1) {
-        order: 1;
-    }
-    .emp-nth:nth-child(2) {
-        order: 3;
-    }
-    .emp-nth:nth-child(3) {
-        order: 4;
-    }
-    .emp-nth:nth-child(4) {
-        order: 5;
-    }
-    .emp-nth:nth-child(5) {
-        order: 6;
-    }
-    .emp-nth:nth-child(6) {
-        order: 7;
-    }
-    .emp-nth:nth-child(7) {
-        order: 2;
-        display: block;
-        align-items: center;
-        padding: 0;
     }
 
     .emp-insert {

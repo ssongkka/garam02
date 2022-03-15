@@ -316,6 +316,19 @@ object {
     padding: 0.5rem;
 }
 
+#mask {
+    position: absolute;
+    z-index: 9000;
+    background-color: #00000033;
+    display: none;
+    left: 0;
+    top: 0;
+}
+
+#mask svg {
+    min-height: calc(100% - 30rem);
+}
+
 @media (max-width:1024px) {
     .card-song {
         border-radius: 0;

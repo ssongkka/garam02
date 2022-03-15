@@ -30,25 +30,122 @@ function LoadingWithMask() {
 
         //화면에 출력할 마스크를 설정해줍니다.
 
-        mask = `<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'>
-    <div id='loadingImg' style="padding-top: 30vh;>
-    <?xml version="1.0" encoding="utf-8"?>
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(0, 0, 0, 0.3); display: block; shape-rendering: auto;" width="150px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-    <circle cx="50" cy="50" r="0" fill="none" stroke="#e90c59" stroke-width="10">
-    <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="0s"></animate>
-    <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="0s"></animate>
-    </circle><circle cx="50" cy="50" r="0" fill="none" stroke="#46dff0" stroke-width="10">
-    <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="-0.5s"></animate>
-    <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="-0.5s"></animate>
-    </circle>
+        mask = `<div id='mask'>
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        style="margin: auto; background: none; display: block; shape-rendering: auto;"
+        width="100px"
+        height="100px"
+        viewbox="0 0 100 100"
+        preserveaspectratio="xMidYMid">
+        <circle cx="84" cy="50" r="10" fill="#f05125">
+            <animate
+                attributename="r"
+                repeatcount="indefinite"
+                dur="0.4166666666666667s"
+                calcmode="spline"
+                keytimes="0;1"
+                values="10;0"
+                keysplines="0 0.5 0.5 1"
+                begin="0s"/>
+            <animate
+                attributename="fill"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="discrete"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="#f05125;#32a0da;#7fbb42;#fdb813;#f05125"
+                begin="0s"/>
+        </circle>
+        <circle cx="16" cy="50" r="10" fill="#f05125">
+            <animate
+                attributename="r"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="0;0;10;10;10"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="0s"/>
+            <animate
+                attributename="cx"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="16;16;16;50;84"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="0s"/>
+        </circle>
+        <circle cx="50" cy="50" r="10" fill="#fdb813">
+            <animate
+                attributename="r"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="0;0;10;10;10"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="-0.4166666666666667s"/>
+            <animate
+                attributename="cx"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="16;16;16;50;84"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="-0.4166666666666667s"/>
+        </circle>
+        <circle cx="84" cy="50" r="10" fill="#7fbb42">
+            <animate
+                attributename="r"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="0;0;10;10;10"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="-0.8333333333333334s"/>
+            <animate
+                attributename="cx"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="16;16;16;50;84"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="-0.8333333333333334s"/>
+        </circle>
+        <circle cx="16" cy="50" r="10" fill="#32a0da">
+            <animate
+                attributename="r"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="0;0;10;10;10"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="-1.25s"/>
+            <animate
+                attributename="cx"
+                repeatcount="indefinite"
+                dur="1.6666666666666667s"
+                calcmode="spline"
+                keytimes="0;0.25;0.5;0.75;1"
+                values="16;16;16;50;84"
+                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                begin="-1.25s"/>
+        </circle>
+        <!-- [ldio] generated by https://loading.io/ -->
     </svg>
-    </div>
     </div>`;
 
         //화면에 레이어 추가
         $('body').append(mask);
         // .append(loadingImg) 마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
-        $('#mask').css({'width': '100%', 'height': '100vh', 'opacity': '0.3'});
+        $('#mask').css({'width': '100%', 'height': '100%'});
 
         //마스크 표시
         $('#mask').show();

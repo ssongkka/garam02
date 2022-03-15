@@ -25,6 +25,11 @@
     margin-bottom: 1rem;
 }
 
+.dashImg {
+    height: 100%;
+    object-fit: contain;
+}
+
 .heading {
     text-align: center;
     color: #fff;

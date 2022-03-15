@@ -1,4 +1,4 @@
-r<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <body th:fragment="main-body">
         <aside class="nomal-aside">
@@ -50,8 +50,10 @@ r<!DOCTYPE html>
                                     role="tab"
                                     aria-controls="all"
                                     aria-selected="true">
-                                    <span>전체</span>
-                                    <span class="badge bg-secondary" id="bgAll">00</span>
+                                    <div class="tab-flex-ve">
+                                        <span>전체</span>
+                                        <span class="badge bg-secondary" id="bgAll">00</span>
+                                    </div>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -64,8 +66,10 @@ r<!DOCTYPE html>
                                     role="tab"
                                     aria-controls="compa"
                                     aria-selected="false">
-                                    <span>회사</span>
-                                    <span class="badge bg-secondary" id="bgCompa">00</span>
+                                    <div class="tab-flex-ve">
+                                        <span>회사</span>
+                                        <span class="badge bg-secondary" id="bgCompa">00</span>
+                                    </div>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -78,8 +82,10 @@ r<!DOCTYPE html>
                                     role="tab"
                                     aria-controls="solo"
                                     aria-selected="false">
-                                    <span>개인</span>
-                                    <span class="badge bg-secondary" id="bgSolo">00</span>
+                                    <div class="tab-flex-ve">
+                                        <span>개인</span>
+                                        <span class="badge bg-secondary" id="bgSolo">00</span>
+                                    </div>
 
                                 </button>
                             </li>
@@ -93,8 +99,10 @@ r<!DOCTYPE html>
                                     role="tab"
                                     aria-controls="yeb"
                                     aria-selected="false">
-                                    <span>예비</span>
-                                    <span class="badge bg-secondary" id="bgYeb">00</span>
+                                    <div class="tab-flex-ve">
+                                        <span>예비</span>
+                                        <span class="badge bg-secondary" id="bgYeb">00</span>
+                                    </div>
                                 </button>
                             </li>
                             <li class="nav-item size-hidden" role="presentation">
@@ -107,8 +115,10 @@ r<!DOCTYPE html>
                                     role="tab"
                                     aria-controls="outman"
                                     aria-selected="false">
-                                    <span>퇴사</span>
-                                    <span class="badge bg-secondary" id="bgOutman">00</span>
+                                    <div class="tab-flex-ve">
+                                        <span>퇴사</span>
+                                        <span class="badge bg-secondary" id="bgOutman">00</span>
+                                    </div>
                                 </button>
                             </li>
                         </ul>
@@ -358,17 +368,49 @@ r<!DOCTYPE html>
                     <div role="tabpanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-pills nav-justified dd-nav dd-nav2" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#mainoper" aria-controls="mainoper" role="tab" data-toggle="tab">Home</a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link active"
+                                    id="mainoper-home-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#mainoper"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="mainoper-home"
+                                    aria-selected="true">Home</button>
                             </li>
-                            <li role="presentation">
-                                <a href="#operemp" aria-controls="operemp" role="tab" data-toggle="tab">운행내역</a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="operemp-profile-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#operemp"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="operemp-profile"
+                                    aria-selected="false">운행내역</button>
                             </li>
-                            <li role="presentation">
-                                <a href="#moneyemp" aria-controls="moneyemp" role="tab" data-toggle="tab">급여</a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="moneyemp-profile-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#moneyemp"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="moneyemp-profile"
+                                    aria-selected="false">급여</button>
                             </li>
-                            <li role="presentation">
-                                <a href="#infoemp" aria-controls="infoemp" role="tab" data-toggle="tab">Settings</a>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="infoemp-profile-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#infoemp"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="infoemp-profile"
+                                    aria-selected="false">Settings</button>
                             </li>
                         </ul>
 
@@ -376,24 +418,28 @@ r<!DOCTYPE html>
                         <div class="tab-content">
                             <div
                                 th:insert="employee/empHome :: emp-home"
+                                class="tab-pane fade show active"
+                                id="mainoper"
                                 role="tabpanel"
-                                class="tab-pane fade in active"
-                                id="mainoper"></div>
+                                aria-labelledby="pills-mainoper-tab"></div>
                             <div
                                 th:insert="employee/empOper :: emp-oper"
-                                role="tabpanel"
                                 class="tab-pane fade"
-                                id="operemp"></div>
+                                id="operemp"
+                                role="tabpanel"
+                                aria-labelledby="pills-operemp-tab"></div>
                             <div
                                 th:insert="employee/empMoney :: emp-money"
-                                role="tabpanel"
                                 class="tab-pane fade"
-                                id="moneyemp"></div>
+                                id="moneyemp"
+                                role="tabpanel"
+                                aria-labelledby="pills-moneyemp-tab"></div>
                             <div
                                 th:insert="employee/empInfo :: emp-info"
-                                role="tabpanel"
                                 class="tab-pane fade"
-                                id="infoemp"></div>
+                                id="infoemp"
+                                role="tabpanel"
+                                aria-labelledby="pills-infoemp-tab"></div>
                         </div>
                     </div>
                 </div>
