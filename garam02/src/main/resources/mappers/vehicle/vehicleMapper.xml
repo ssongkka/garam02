@@ -138,7 +138,7 @@
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
-		SELECT vehicleinfo.carnumber, vehicleinfo.vehicle,
+		SELECT vehicleinfo.carnumber, vehicleinfo.vehicle, vehicleinfo.num,
 		vehicleinfo.company,
 		IFNULL((SELECT employeeinfo.name FROM employeeinfo
 		WHERE

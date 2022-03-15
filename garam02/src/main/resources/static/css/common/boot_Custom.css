@@ -24,7 +24,11 @@ p {
     margin: 0;
 }
 
-.form-control {
+.customRange1,
+.form-check,
+.form-control,
+.form-select,
+.input-group-text {
     font-size: 1.3rem;
 }
 

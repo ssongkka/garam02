@@ -133,8 +133,8 @@ function getVeAll(vehicle) {
                     if (r[i].bus) {
                         htmls += '<td>'
                         htmls += '<span>'
-                        htmls += r[i].bus;
-                        htmls += '</span>'
+                        htmls += r[i].num;
+                        htmls += '인승</span>'
                         htmls += '</td>'
                     } else {
                         htmls += '<td>'
@@ -180,8 +180,8 @@ function getVeAll(vehicle) {
                     if (r[i].bus) {
                         htmlsEnd += '<td>'
                         htmlsEnd += '<span>'
-                        htmlsEnd += r[i].bus;
-                        htmlsEnd += '</span>'
+                        htmlsEnd += r[i].num;
+                        htmlsEnd += '인승</span>'
                         htmlsEnd += '</td>'
                     } else {
                         htmlsEnd += '<td>'
@@ -239,8 +239,8 @@ function getVeAll(vehicle) {
                     if (r[i].bus) {
                         htmlsDae += '<td>'
                         htmlsDae += '<span>'
-                        htmlsDae += r[i].bus;
-                        htmlsDae += '</span>'
+                        htmlsDae += r[i].num;
+                        htmlsDae += '인승</span>'
                         htmlsDae += '</td>'
                     } else {
                         htmlsDae += '<td>'
@@ -298,8 +298,8 @@ function getVeAll(vehicle) {
                     if (r[i].bus) {
                         htmlsJung += '<td>'
                         htmlsJung += '<span>'
-                        htmlsJung += r[i].bus;
-                        htmlsJung += '</span>'
+                        htmlsJung += r[i].num;
+                        htmlsJung += '인승</span>'
                         htmlsJung += '</td>'
                     } else {
                         htmlsJung += '<td>'
@@ -357,8 +357,8 @@ function getVeAll(vehicle) {
                     if (r[i].bus) {
                         htmlsUdong += '<td>'
                         htmlsUdong += '<span>'
-                        htmlsUdong += r[i].bus;
-                        htmlsUdong += '</span>'
+                        htmlsUdong += r[i].num;
+                        htmlsUdong += '인승</span>'
                         htmlsUdong += '</td>'
                     } else {
                         htmlsUdong += '<td>'
@@ -416,8 +416,8 @@ function getVeAll(vehicle) {
                     if (r[i].bus) {
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span>'
-                        htmlsCompa += r[i].bus;
-                        htmlsCompa += '</span>'
+                        htmlsCompa += r[i].num;
+                        htmlsCompa += '인승</span>'
                         htmlsCompa += '</td>'
                     } else {
                         htmlsCompa += '<td>'
@@ -476,8 +476,8 @@ function getVeAll(vehicle) {
                     if (r[i].bus) {
                         htmlsGae += '<td>'
                         htmlsGae += '<span>'
-                        htmlsGae += r[i].bus;
-                        htmlsGae += '</span>'
+                        htmlsGae += r[i].num;
+                        htmlsGae += '인승</span>'
                         htmlsGae += '</td>'
                     } else {
                         htmlsGae += '<td>'
@@ -554,20 +554,15 @@ function getVeInfo(carNumber) {
                     .substring(0, veLen);
 
                 $('#ve01').html('<span>' + ve2 + '</span>');
-                $('#ve02').html('<span>' + ve1 + '</span>');
+                $('#ve02').html('<span>' + r[0].vehicle + '</span>');
 
                 if (r[0].bus) {
-                    $('#ve03').html('<span>' + r[0].bus + '</span>');
+                    $('#ve03').html('<span>' + r[0].bus + '(' + r[0].num + '인승)</span>');
                 } else {
                     $('#ve03').html('<span>&nbsp;</span>');
                 }
                 if (r[0].name) {
-                    $('#ve04').html(
-                        '<span>' + r[0].name + '</span><span class="nohide-tel">' + r[0].phone1 + '</sp' +
-                        'an><span class="hide-ve-tel"><a href="tel:' + r[0].phone1 + '"><i class="fas f' +
-                        'a-phone"></i></a></span><span class="hide-ve-tel"><a href="sms:' + r[0].phone1 +
-                        '"><i class="fas fa-envelope"></i></a></span>'
-                    );
+                    $('#ve04').html('<span>' + r[0].name + '</span>');
                 } else {
                     $('#ve04').html('<span>&nbsp;</span>');
                 }
@@ -679,31 +674,32 @@ function getVeInfo(carNumber) {
 
                 if (r[0].reg) {
                     $('#ve21').html(
-                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span>' +
-                        r[0].regd + '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-upload"></i></a>'
+                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span class' +
+                        '="tct-item-btn-item">차량등록증</span><span class="tct-item-btn-item">' + r[0].regd +
+                        '</span><span class="tct-item-btn-item"><i class="fas fa-file-upload"></i></spa' +
+                        'n></a>'
                     );
                     $('#ve21-1').val(r[0].reg);
                 } else {
                     $('#ve21').html(
                         '<a class="btn btn-default tct-item-btn" role="button" id="btn-reg"><span>없&nbs' +
-                        'p;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-uplo' +
-                        'ad"></i></a>'
+                        'p;음</span><i class="fas fa-file-upload"></i></a>'
                     );
                     $('#ve21-1').val('');
                 }
 
                 if (r[0].insu) {
                     $('#ve22').html(
-                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span>' +
-                        r[0].insud +
-                        '&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-upload"></i></a>'
+                        '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span clas' +
+                        's="tct-item-btn-item">보험증서</span><span class="tct-item-btn-item">' + r[0].insud +
+                        '</span><span class="tct-item-btn-item"><i class="fas fa-file-upload"></i></spa' +
+                        'n></a>'
                     );
                     $('#ve22-1').val(r[0].insu);
                 } else {
                     $('#ve22').html(
                         '<a class="btn btn-default tct-item-btn" role="button" id="btn-insu"><span>없&nb' +
-                        'sp;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;</span><i class="fas fa-file-upl' +
-                        'oad"></i></a>'
+                        'sp;음</span><i class="fas fa-file-upload"></i></a>'
                     );
                     $('#ve22-1').val('');
                 }

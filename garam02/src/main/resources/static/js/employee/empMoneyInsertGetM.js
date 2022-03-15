@@ -115,6 +115,8 @@ function getEmpOper(result) {
                 if (r.length > 0) {
 
                     for (let i = 0; i < r.length; i++) {
+                        console.log("result    " + r[i].opernum);
+                        console.log("result    " + result.get(r[i].opernum));
                         switch (r[i].opertrash) {
                             case 0:
                                 if (result.get(r[i].opernum) > 1) {

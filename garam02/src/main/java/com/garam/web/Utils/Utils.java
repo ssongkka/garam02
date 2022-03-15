@@ -40,7 +40,12 @@ public class Utils {
 
 			Period period = hiredDate.until(today);
 
-			rtn = period.getYears() + "년 " + period.getMonths() + "개월";
+			if (period.getYears() > 0) {
+				rtn = period.getYears() + "년 " + period.getMonths() + "개월";
+			} else {
+				rtn = period.getMonths() + "개월";
+			}
+
 		}
 
 		return rtn;

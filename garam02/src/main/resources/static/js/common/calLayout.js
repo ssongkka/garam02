@@ -145,13 +145,7 @@ function setCalWhite(e) {
         .val()
         .split('-')[1];
 
-    if (bbb) {
-        if (aaa == bbb) {
-            $("#yearMonth").val(day.substring(0, 7));
-        }
-    } else {
-        $("#yearMonth").val(day.substring(0, 7));
-    }
+    $("#yearMonth").val(day.substring(0, 7));
 
     $("#yearMonthDay").val(day);
     setBigDay(day);

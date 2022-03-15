@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+r<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <body th:fragment="main-body">
         <aside class="nomal-aside">
@@ -40,7 +40,7 @@
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified evNav shadow-sm" role="tablist">
-                            <li class="nav-item" role="presentation">
+                            <li class="nav-item size-hidden" role="presentation">
                                 <button
                                     class="nav-link active tab-flex"
                                     id="all-tab"
@@ -83,7 +83,7 @@
 
                                 </button>
                             </li>
-                            <li class="nav-item" role="presentation">
+                            <li class="nav-item size-hidden" role="presentation">
                                 <button
                                     class="nav-link tab-flex"
                                     id="yeb-tab"
@@ -97,7 +97,7 @@
                                     <span class="badge bg-secondary" id="bgYeb">00</span>
                                 </button>
                             </li>
-                            <li class="nav-item" role="presentation">
+                            <li class="nav-item size-hidden" role="presentation">
                                 <button
                                     class="nav-link tab-flex"
                                     id="outman-tab"
@@ -132,9 +132,9 @@
                                                 <th>이름</th>
                                                 <th>차량</th>
                                                 <th>소속</th>
-                                                <th class="size-hidden ">생년월일</th>
+                                                <th class="size-hidden">생년월일</th>
                                                 <th class="size-hidden">나이</th>
-                                                <th class="size-hidden ">종류</th>
+                                                <th class="size-hidden">종류</th>
                                             </tr>
                                         </thead>
                                         <tbody id="emp-tb-all"></tbody>
@@ -157,10 +157,10 @@
                                             <tr>
                                                 <th>이름</th>
                                                 <th>차량</th>
-                                                <th>>소속</th>
-                                                <th class="size-hidden ">생년월일</th>
+                                                <th>소속</th>
+                                                <th class="size-hidden">생년월일</th>
                                                 <th class="size-hidden">나이</th>
-                                                <th class="size-hidden ">종류</th>
+                                                <th class="size-hidden">종류</th>
                                             </tr>
                                         </thead>
                                         <tbody id="emp-tb-compa"></tbody>
@@ -179,10 +179,10 @@
                                             <tr>
                                                 <th>이름</th>
                                                 <th>차량</th>
-                                                <th>>소속</th>
-                                                <th class="size-hidden ">생년월일</th>
+                                                <th>소속</th>
+                                                <th class="size-hidden">생년월일</th>
                                                 <th class="size-hidden">나이</th>
-                                                <th class="size-hidden ">종류</th>
+                                                <th class="size-hidden">종류</th>
                                             </tr>
                                         </thead>
                                         <tbody id="emp-tb-solo"></tbody>
@@ -201,7 +201,7 @@
                                             <tr>
                                                 <th>이름</th>
                                                 <th>소속</th>
-                                                <th>>생년월일</th>
+                                                <th>생년월일</th>
                                                 <th>나이</th>
                                             </tr>
                                         </thead>
@@ -225,7 +225,7 @@
                                             <tr>
                                                 <th>이름</th>
                                                 <th>소속</th>
-                                                <th>>생년월일</th>
+                                                <th>생년월일</th>
                                                 <th>나이</th>
                                             </tr>
                                         </thead>
@@ -417,12 +417,12 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h2 class="modal-title" id="staticBackdropLabel">Modal title</h2>
                         <button
                             type="button"
                             class="btn-close"
                             data-bs-dismiss="modal"
                             aria-label="Close"></button>
-                        <h5 class="modal-title fas fa-address-card" id="myModalLabel-insert">Modal title</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
@@ -434,7 +434,7 @@
                                     id="emp-pic-pre"
                                     alt=""
                                     class="cardImg img-thumbnail">
-                                <form action="" id="emp-form">
+                                <form class="row" action="" id="emp-form">
                                     <div class="form-group" style="padding-top: 1rem;">
                                         <label class="file-la" for="imgSelector">사진 파일선택</label>
                                         <input
@@ -447,31 +447,31 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="emp-insert-item">
+                            <div class="emp-insert-item row" style="margin-left: 1rem;">
                                 <div class="form-group col-md-4">
-                                    <label for="name">이름</label>
+                                    <label class="form-label" for="name">이름</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
                                         style="ime-mode: active"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="name"
                                         name="name">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="birthday">생년월일</label>
-                                    <input type="date" class="form-control input-sm" id="birthday" name="birthday">
+                                    <label class="form-label" for="birthday">생년월일</label>
+                                    <input type="date" class="form-control" id="birthday" name="birthday">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="gender">성별</label>
-                                    <select class="form-control input-sm" id="gender" name="gender">
+                                    <label class="form-label" for="gender">성별</label>
+                                    <select class="form-select" id="gender" name="gender">
                                         <option>남</option>
                                         <option>여</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="company">회사</label>
-                                    <select class="form-control input-sm" id="company" name="company">
+                                    <label class="form-label" for="company">회사</label>
+                                    <select class="form-select" id="company" name="company">
                                         <option>미정</option>
                                         <option
                                             th:each="company : ${company}"
@@ -481,105 +481,106 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="kind">구분</label>
-                                    <select class="form-control input-sm" id="kind" name="kind">
+                                    <label class="form-label" for="kind">구분</label>
+                                    <select class="form-select" id="kind" name="kind">
                                         <option>회사</option>
                                         <option>개인</option>
                                         <option>예비</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="phone1">연락처</label>
+                                    <label class="form-label" for="phone1">연락처</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="phone1"
-                                        name="phone1">
+                                        name="phone1"
+                                        placeholder="010-0000-0000">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="phone2">비상연락처</label>
+                                    <label class="form-label" for="phone2">비상연락처</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="phone2"
                                         name="phone2">
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
+                        <div class="emp-insert row">
                             <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
+                            <div class="emp-insert-item row">
                                 <div class="form-group col-md-12">
-                                    <label for="address">주소</label>
+                                    <label class="form-label" for="address">주소</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="address"
                                         name="address">
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="garage">차고지</label>
+                                    <label class="form-label" for="garage">차고지</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="garage"
                                         name="garage">
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
+                        <div class="emp-insert row">
                             <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
+                            <div class="emp-insert-item row">
                                 <div class="form-group col-md-6">
-                                    <label for="joind">입사일</label>
-                                    <input type="date" class="form-control input-sm" id="joind" name="joind">
+                                    <label class="form-label" for="joind">입사일</label>
+                                    <input type="date" class="form-control" id="joind" name="joind">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="endd">퇴사일*(입력시 퇴사 처림됨)</label>
-                                    <input type="date" class="form-control input-sm" id="endd" name="endd">
+                                    <label class="form-label" for="endd">퇴사일*(입력시 퇴사 처림됨)</label>
+                                    <input type="date" class="form-control" id="endd" name="endd">
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
+                        <div class="emp-insert row">
                             <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
+                            <div class="emp-insert-item row">
                                 <div class="form-group col-md-6">
-                                    <label for="drvl">면허번호</label>
+                                    <label class="form-label" for="drvl">면허번호</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="drvl"
                                         name="drvl">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="busl">버스자격증번호</label>
+                                    <label class="form-label" for="busl">버스자격증번호</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="busl"
                                         name="busl">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="bosum">보수교육일</label>
+                                    <label class="form-label" for="bosum">보수교육일</label>
                                     <input
                                         type="date"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="bosum"
                                         name="bosum">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="bobuj">보수교육</label>
-                                    <select class="form-control input-sm" id="bobuj" name="bobuj">
+                                    <label class="form-label" for="bobuj">보수교육</label>
+                                    <select class="form-select" id="bobuj" name="bobuj">
                                         <option>없음</option>
                                         <option>신규</option>
                                         <option>보수</option>
@@ -588,48 +589,43 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
+                        <div class="emp-insert row">
                             <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
+                            <div class="emp-insert-item row">
                                 <div class="form-group col-md-4">
-                                    <label for="bank">은행</label>
+                                    <label class="form-label" for="bank">은행</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="bank"
                                         name="bank">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="gye">계좌번호</label>
-                                    <input
-                                        type="text"
-                                        autocomplete="off"
-                                        class="form-control input-sm"
-                                        id="gye"
-                                        name="gye">
+                                    <label class="form-label" for="gye">계좌번호</label>
+                                    <input type="text" autocomplete="off" class="form-control" id="gye" name="gye">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="gyename">예금주</label>
+                                    <label class="form-label" for="gyename">예금주</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="gyename"
                                         name="gyename">
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <div class="emp-insert">
+                        <div class="emp-insert row" style="margin-bottom: 2rem;">
                             <div class="emp-insert-item">기본정보</div>
-                            <div class="emp-insert-item">
+                            <div class="emp-insert-item row">
                                 <div class="form-group col-md-12">
-                                    <label for="memo">메모</label>
+                                    <label class="form-label" for="memo">메모</label>
                                     <input
                                         type="text"
                                         autocomplete="off"
-                                        class="form-control input-sm"
+                                        class="form-control"
                                         id="memo"
                                         name="memo">
                                     <input type="hidden" id="basem" value="0">
@@ -641,8 +637,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" id="btn-insert">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>

@@ -336,12 +336,8 @@
 
 		operation_info.operid = #{operid}
 
-		AND
-
-		operation_info.opertrash =
-		#{opertrash}
-
-		GROUP BY operation_info.opernum)
+		GROUP BY
+		operation_info.opernum)
 
 		AND
 

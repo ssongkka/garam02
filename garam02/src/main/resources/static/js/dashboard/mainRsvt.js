@@ -251,7 +251,6 @@ $(document).on('click', '#many-insert', function () {
 });
 
 $(document).on('click', '#customerInsertMo', function () {
-    // $('#customerModal').modal({backdrop: 'static', keyboard: false});
     var myModal = new bootstrap.Modal(document.getElementById('customerModal'));
     myModal.show();
     myModal.handleUpdate();

@@ -634,18 +634,21 @@ $('#imgSelector').change(function () {
 
 $(document).on('click', '#md-Ch', function () {
     if ($('#emp00').val()) {
+        // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
+        var myModal = new bootstrap.Modal(document.getElementById('modal-insert'));
+        myModal.show();
+        $('#staticBackdropLabel').text('  승무원 정보 수정');
         setEmpCh();
-        $('#myModalLabel-insert').text('  승무원 정보 수정');
-        $('#modal-insert').modal({backdrop: 'static', keyboard: false});
     } else {
         alert('수정 할 승무원정보를 선택해주세요.');
     }
-
 });
 $(document).on('click', '#md-New', function () {
     setEmpClr();
-    $('#myModalLabel-insert').text('  신규 승무원 정보 입력');
-    $('#modal-insert').modal({backdrop: 'static', keyboard: false});
+    var myModal = new bootstrap.Modal(document.getElementById('modal-insert'));
+    myModal.show();
+    $('#staticBackdropLabel').text('  신규 승무원 정보 입력');
+    // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
 });
 
 $(document).on('click', '#insert-money', function () {
