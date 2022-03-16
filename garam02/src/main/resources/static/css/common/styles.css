@@ -23,7 +23,7 @@
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    transition: 0.05s linear;
+    /* transition: 0.05s linear; */
 }
 
 html {
@@ -68,6 +68,10 @@ input[data-type='currency'] {
 th {
     text-align: center;
     vertical-align: middle;
+}
+
+svg {
+    font-size: 1.5rem;
 }
 
 .scBar::-webkit-scrollbar {

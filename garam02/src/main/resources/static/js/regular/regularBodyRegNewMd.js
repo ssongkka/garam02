@@ -1,11 +1,12 @@
+var myModalRginsert = new bootstrap.Modal(document.getElementById('modal-rginsert'))
+
 $(document).on('click', '#md-rgNew', function () {
+    myModalRginsert.show();
     $('#user-plus').hide();
     $('#userPlus').attr(
         'class',
         'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
     );
-
-    $('#modal-rginsert').modal({backdrop: 'static', keyboard: false});
 });
 
 $(document).on('click', '#btnUserPlus', function () {
@@ -191,6 +192,11 @@ function ernm() {
     $('#ctmaddress').text('');
     $('#ctmhomepage').text('');
     $('#ctmhomepage').attr('href', '');
+
+    $('#regcompany').val('');
+    $('#regaddress').val('');
+    $('#regperson').val('');
+    $('#ctmnregphoneame').val('');
 }
 
 $(document).on('change', '#chsame', function () {

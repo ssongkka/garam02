@@ -205,6 +205,21 @@ h4 {
     padding-left: 1rem;
 }
 
+#formregin {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#formregin h5 {
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+#formregin label {
+    font-size: 1.5rem;
+}
+
 @media (max-width:768px) {
 
     h2 {

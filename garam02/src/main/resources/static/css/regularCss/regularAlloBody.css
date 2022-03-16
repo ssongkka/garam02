@@ -1,0 +1,55 @@
+@charset "UTF-8";
+body {
+    background: #f6f7f9;
+}
+
+header {
+    background: #e6e8ed;
+    display: flex;
+    align-items: center;
+    padding: 2rem 3rem;
+    gap: 3rem;
+}
+
+main {
+    min-height: calc(100vh - 20rem);
+}
+
+.main-reg-main {
+    padding: 2rem 1rem;
+}
+
+.dash-cal-h {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dash-cal-h-item {
+    display: flex;
+    align-items: center;
+}
+
+.dash-cal-h-item input {
+    background: transparent;
+}
+
+#regCompa-tab {
+    display: flex;
+    gap: 2rem;
+}
+
+.allocur {
+    cursor: alias;
+}
+
+.btn-xs {
+    font-size: 1.3rem;
+    padding: 0.1rem 0.3rem;
+}
+
+@media (max-width:768px) {
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

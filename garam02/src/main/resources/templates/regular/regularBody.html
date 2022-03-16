@@ -13,7 +13,9 @@
                 <div class="nomal-aside-search">
                     <div class="hd-search">
                         <div class="hd-serach-group">
-                            <div class="hd-search-icon fas fa-search"></div>
+                            <div class="hd-search-icon">
+                                <i class=" fas fa-search"></i>
+                            </div>
                             <input
                                 type="text"
                                 id="reg-search"
@@ -31,32 +33,42 @@
                     <div role="tabpanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified evNav shadow-sm" role="tablist">
-                            <li role="presentation" class="active">
-                                <a
-                                    href="#com-go"
-                                    aria-controls="com-go"
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link active"
+                                    id="com-go-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#com-go"
+                                    type="button"
                                     role="tab"
-                                    data-toggle="tab"
-                                    class="tab-flex">
+                                    aria-controls="com-go"
+                                    aria-selected="true">
                                     <span>계약 중</span>
                                     <span class="badge bg-secondary" id="bggo"></span>
-                                </a>
+                                </button>
                             </li>
-                            <li role="presentation" class="">
-                                <a
-                                    href="#com-end"
-                                    aria-controls="com-end"
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="com-end-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#com-end"
+                                    type="button"
                                     role="tab"
-                                    data-toggle="tab"
-                                    class="tab-flex">
+                                    aria-controls="com-end"
+                                    aria-selected="false">
                                     <span>계약 만료</span>
                                     <span class="badge bg-secondary" id="bgend"></span>
-                                </a>
+                                </button>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content hd-tb scBar scBarEmp">
-                            <div role="tabpanel" class="tab-pane fade in active" id="com-go">
+                            <div
+                                class="tab-pane fade show active"
+                                id="com-go"
+                                role="tabpanel"
+                                aria-labelledby="com-go-tab">
                                 <div class="table-responsive">
                                     <table
                                         class="table table-striped table-hover table-bordered table-sm table-sortable"
@@ -77,7 +89,11 @@
                                     </table>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="com-end">
+                            <div
+                                class="tab-pane fade"
+                                id="com-end"
+                                role="tabpanel"
+                                aria-labelledby="com-end-tab">
                                 <div class="table-responsive">
                                     <table
                                         class="table table-striped table-hover table-bordered table-sm table-sortable">
@@ -172,8 +188,7 @@
                         </div>
                         <div class="nosunTb">
                             <div class="table-responsive">
-                                <table
-                                    class="table table-striped table-hover table-bordered table-sm tg-tb-01">
+                                <table class="table table-striped table-hover table-bordered table-sm tg-tb-01">
                                     <colgroup>
                                         <col/>
                                         <col/>
@@ -184,9 +199,9 @@
                                     </colgroup>
                                     <thead>
                                         <tr>
-                                            <th>>번호</th>
+                                            <th>번호</th>
                                             <th>노선이름</th>
-                                            <th>>차량</th>
+                                            <th>차량</th>
                                             <th>운행</th>
                                             <th>승무원</th>
                                         </tr>
@@ -220,8 +235,8 @@
                                     </colgroup>
                                     <thead>
                                         <tr>
-                                            <th>>구분</th>
-                                            <th>>번호</th>
+                                            <th>구분</th>
+                                            <th>번호</th>
                                             <th>시간</th>
                                             <th>장소</th>
                                             <th>비고</th>
@@ -292,8 +307,8 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
         <script src="/js/boot/bootstrap.js"></script>
-        <script src="/js/boot/bootstrap.esm.js"></script>
         <script src="/js/boot/bootstrap.bundle.js"></script>
+        <script src="/js/boot/all.js"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
         <script src="/js/common/summernote-lite.js"></script>

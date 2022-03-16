@@ -207,6 +207,7 @@
     flex-direction: column;
     gap: 2rem;
     padding: 1rem 1rem 2rem;
+    height: 100%;
 }
 
 .ad-cal-items {
@@ -233,12 +234,16 @@
 
 .ad-cal-items-3 blockquote {
     font-size: 1.4rem;
-    /* font-weight: 600; */
 }
 
 .ad-cal-items-4 blockquote {
     font-size: 1.4rem;
-    /* font-weight: 500; */
+}
+
+.ad-cal-cals {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 blockquote {

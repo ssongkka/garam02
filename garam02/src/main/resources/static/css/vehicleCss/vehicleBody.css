@@ -13,12 +13,6 @@
     gap: 2rem;
 }
 
-.main-aside-item-head {
-    display: flex;
-    padding: 2rem;
-    flex-direction: row;
-}
-
 .main-aside-item-head-item:nth-child(1) {
     width: 150px;
 }

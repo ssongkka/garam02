@@ -36,43 +36,46 @@
         <aside class="aside">
             <div class="ad-cal">
                 <input type="hidden" id="today">
-                <div class="ad-cal-items ad-cal-items-1 card-song" id="calendar">
-                    <div class="dash-cal">
-                        <div class="dash-cal-h">
-                            <div class="">
-                                <a class="btn" id="fnDownMonth">
-                                    <i class="fas fa-chevron-left fa-lg"></i>
-                                </a>
+                <div class="ad-cal-cals">
+                    <div class="ad-cal-items ad-cal-items-1 card-song" id="calendar">
+                        <div class="dash-cal">
+                            <div class="dash-cal-h">
+                                <div class="">
+                                    <a class="btn" id="fnDownMonth">
+                                        <i class="fas fa-chevron-left fa-lg"></i>
+                                    </a>
+                                </div>
+                                <div class="dash-cal-h-item dash-cal-h-item2" id="">
+                                    <strong><input type="month" id="yearMonth" value=""></strong>
+                                </div>
+                                <div class="">
+                                    <a class="btn" id="fnUpMonth">
+                                        <i class="fas fa-chevron-right fa-lg"></i>
+                                    </a>
+                                </div>
+                                <div class="dash-cal-h-item dash-cal-h-item4">
+                                    <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
+                                    control-id="ControlID-1">어제</button> -->
+                                    <button type="button" class="btn btn-secondary btn-xs" id="btnToD">오늘</button>
+                                    <button type="button" class="btn btn-secondary btn-xs" id="btnTomD">내일</button>
+                                </div>
                             </div>
-                            <div class="dash-cal-h-item dash-cal-h-item2" id="">
-                                <strong><input type="month" id="yearMonth" value=""></strong>
-                            </div>
-                            <div class="">
-                                <a class="btn" id="fnUpMonth">
-                                    <i class="fas fa-chevron-right fa-lg"></i>
-                                </a>
-                            </div>
-                            <div class="dash-cal-h-item dash-cal-h-item4">
-                                <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
-                                control-id="ControlID-1">어제</button> -->
-                                <button type="button" class="btn btn-secondary btn-xs" id="btnToD">오늘</button>
-                                <button type="button" class="btn btn-secondary btn-xs" id="btnTomD">내일</button>
-                            </div>
+                            <div class="dash-cal-con" id="dash-cal-contents"></div>
                         </div>
-                        <div class="dash-cal-con" id="dash-cal-contents"></div>
+                    </div>
+                    <div class="ad-cal-items ad-cal-items-2 card-song">
+                        <blockquote>
+                            <p id="bigDay">&nbsp;</p>
+                            <footer>
+                                <cite title="Source Title" id="cal1">&nbsp;</cite>
+                            </footer>
+                        </blockquote>
+                    </div>
+                    <div class="ad-cal-items ad-cal-items-4 card-song">
+                        <blockquote id="midday"></blockquote>
                     </div>
                 </div>
-                <div class="ad-cal-items ad-cal-items-2 card-song">
-                    <blockquote>
-                        <p id="bigDay">&nbsp;</p>
-                        <footer>
-                            <cite title="Source Title" id="cal1">&nbsp;</cite>
-                        </footer>
-                    </blockquote>
-                </div>
-                <div class="ad-cal-items ad-cal-items-4 card-song">
-                    <blockquote id="midday"></blockquote>
-                </div>
+                <div class="ad-cal-comp"></div>
             </div>
         </aside>
         <main class="main">

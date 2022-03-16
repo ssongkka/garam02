@@ -289,7 +289,7 @@ function makeCal(nowD, day) {
                     if (stD.getDay() == 6) {
                         htmls += ' style="color: #4B89DC;"';
                     } else if (stD.getDay() == 0) {
-                        htmls += 'style="color: #CF2F11;"';
+                        htmls += ' style="color: #CF2F11;"';
                     }
                 } else {
                     if (stD.getDay() == 6) {

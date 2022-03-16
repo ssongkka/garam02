@@ -56,6 +56,23 @@ public class RegularController extends UiUtils {
 		return "regular/regular";
 	}
 
+	@GetMapping(value = "/regularAllo")
+	public String regularAllo(@AuthenticationPrincipal User user, Model model) throws Exception {
+
+		model.addAttribute("user", user);
+
+		List<CompanyDTO> company = companyService.selectCompany();
+		model.addAttribute("company", company);
+
+		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		model.addAttribute("customer", list);
+
+		List<OptDTO> opt = rsvtService.selectOpt();
+		model.addAttribute("opt", opt);
+
+		return "regular/regularAllo";
+	}
+
 	@PostMapping(value = "/regularRegister")
 	public String regularRegister(@ModelAttribute("params") final RegularDTO regularDTO, Model model) throws Exception {
 		try {

@@ -690,28 +690,28 @@ function getVeInfo(carNumber) {
 
                     if (r[0].reg) {
                         $('#ve21').html(
-                            '<button class="btn btn-success tct-item-btn" role="button" id="btn-reg">' +
-                            r[0].regd + '</button>'
+                            '<button class="btn btn-outline-success tct-item-btn" role="button" id="btn-reg' +
+                            '">' + r[0].regd + '<i class="bi bi-filetype-pdf"></i></button>'
                         );
                         $('#ve21-1').val(r[0].reg);
                     } else {
                         $('#ve21').html(
-                            '<button class="btn btn-light tct-item-btn" role="button" id="btn-reg">없&nbsp;음' +
-                            '</button>'
+                            '<button class="btn btn-outline-secondary tct-item-btn" role="button" id="btn-r' +
+                            'eg">없&nbsp;음</button>'
                         );
                         $('#ve21-1').val('');
                     }
 
                     if (r[0].insu) {
                         $('#ve22').html(
-                            '<button class="btn btn-success tct-item-btn" role="button" id="btn-insu">' +
-                            r[0].insud + '</button>'
+                            '<button class="btn btn-outline-success tct-item-btn" role="button" id="btn-ins' +
+                            'u">' + r[0].insud + '<i class="bi bi-filetype-pdf"></i></button>'
                         );
                         $('#ve22-1').val(r[0].insu);
                     } else {
                         $('#ve22').html(
-                            '<button class="btn btn-light tct-item-btn" role="button" id="btn-insu">없&nbsp;' +
-                            '음</button>'
+                            '<button class="btn btn-outline-secondary tct-item-btn" role="button" id="btn-i' +
+                            'nsu">없&nbsp;음</button>'
                         );
                         $('#ve22-1').val('');
                     }
@@ -941,7 +941,7 @@ function setEmpClr() {
     $("#vehicle-1 option:eq(0)").prop("selected", true);
     $("#vehicle-2 option:eq(0)").prop("selected", true);
     $("#vehicle-3 option:eq(0)").prop("selected", true);
-    $('#vehicle-4').val('0000');
+    $('#vehicle-4').val('');
 
     $("#company option:eq(0)").prop("selected", true);
 
@@ -1458,4 +1458,8 @@ $(document).on('click', '#juk-insert', function () {
     } else {
         alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
     }
+});
+
+$(document).on('change', '#company', function () {
+    $('#owner').val($('#company').val());
 });

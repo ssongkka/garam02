@@ -573,3 +573,31 @@ function onlynumberic(event) {
         .value
         .replace(/[^0-9]/g, "");
 }
+
+function getDayOfWeek(num) {
+    let rtn = "";
+
+    switch (num) {
+        case 1:
+            rtn = "월요일";
+            return rtn;
+        case 2:
+            rtn = "화요일";
+            return rtn;
+        case 3:
+            rtn = "수요일";
+            return rtn;
+        case 4:
+            rtn = "목요일";
+            return rtn;
+        case 5:
+            rtn = "금요일";
+            return rtn;
+        case 6:
+            rtn = "토요일";
+            return rtn;
+        default:
+            rtn = "일요일";
+            return rtn;
+    }
+}

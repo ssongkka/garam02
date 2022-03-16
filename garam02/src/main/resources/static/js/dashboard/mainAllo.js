@@ -1570,7 +1570,7 @@ function getAlloList(day) {
                                         tbii = tbi3++;
                                         break;
                                 }
-                                htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-4">';
+                                htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-3">';
                                 htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
                                     k + 1
                                 ) + '">';
@@ -1594,8 +1594,8 @@ function getAlloList(day) {
                                     ) + '"><i class="far fa-list-alt"></i></button>';
                                 }
 
-                                htmls += '<input autocomplete="off" type="text" class="ve-car" list="car-info" tabindex=' +
-                                        '"' + (
+                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                        'ist="car-info" tabindex="' + (
                                     tbi
                                 ) + '" placeholder="' + (
                                     k + 1
@@ -1606,8 +1606,8 @@ function getAlloList(day) {
                                 htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
                                         '"per-info" tabindex="-1" placeholder="승무원">';
                                 htmls += '<input type="hidden" id="" value="0">';
-                                htmls += '<input autocomplete="off" type="text" class="ve-m" id="' + cnt + 'm" onfocus="' +
-                                        'this.select()" data-type="currency" tabindex="' + (
+                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                        '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
                                     tbii
                                 ) + '" placeholder="배차금액">';
                                 htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
@@ -2499,3 +2499,10 @@ function endAllo() {
 function endAllo2() {
     alert("급여 내역 임시저장 또는 마감된 배차가 존재하는 운행예약은\n\n수정 할 수 없습니다.");
 }
+
+$(document).on('click', '#regallo-tab', function () {
+    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
+    // window.screenLeft; var yPos = 10;
+
+    window.open('/regular/regularAllo', '정기운행배차');
+});

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <body th:fragment="main-body">
+        <header>
+            <div>
+                <div class="dash-cal-h">
+                    <div class="">
+                        <a class="btn" id="fnDownMonth">
+                            <i class="fas fa-chevron-left fa-lg"></i>
+                        </a>
+                    </div>
+                    <div class="dash-cal-h-item dash-cal-h-item2" id="">
+                        <strong><input type="month" id="yearMonth" value=""></strong>
+                    </div>
+                    <div class="">
+                        <a class="btn" id="fnUpMonth">
+                            <i class="fas fa-chevron-right fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul class="nav nav-pills" id="regCompa-tab" role="tablist"></ul>
+            </div>
+            <div>
+                <button class="btn btn-success">일괄배차</button>
+            </div>
+        </header>
+        <main>
+            <div class="main-reg-main table-responsive">
+                <input type="hidden" value="" id="rgconum">
+                <table class="table table-bordered table-striped tbRegAllo">
+                    <colgroup>
+                        <col width="5%"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                        <col width="auto"/>
+                    </colgroup>
+                    <thead id="thDays"></thead>
+                    <tbody id="tbAllo"></tbody>
+                    <tfoot id="tfBtn"></tfoot>
+                </table>
+            </div>
+
+            <div
+                class="modal fade"
+                id="regAlloMd"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="staticBackdropLabel">Modal title</h3>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const user =/*[[${user}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const opt =/*[[${opt}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbCompa =/*[[${compa}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbVe =/*[[${ve}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbEmp =/*[[${emp}]]*/
+            'default';
+            /*]]>*/
+        </script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script src="/js/boot/bootstrap.js"></script>
+        <script src="/js/boot/bootstrap.bundle.js"></script>
+        <script src="/js/boot/all.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+        <script src="/js/common/summernote-lite.js"></script>
+        <script src="/js/common/summernote-ko-KR.js"></script>
+        <script src="/js/common/common.js"></script>
+        <script src="/js/regular/regularAlloBody.js"></script>
+    </body>
+</html>

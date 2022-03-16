@@ -652,25 +652,43 @@ $(document).on('click', '#md-New', function () {
 });
 
 $(document).on('click', '#insert-money', function () {
-
-    if ($('#empNomal').is(':visible')) {
-        $('#showm').val('1');
-        $('#insert-money').html(`일반입력&nbsp;<i class="fas fa-plus-square"></i>`);
-        $('#empNomal').hide();
-        $('#empMoney').show();
-        $('.size-hidden').hide();
-        $('.nomal-aside').css('width', '30rem');
-        $('.nomal-main').css('padding-left', '30rem');
-    } else {
-        $('#showm').val('0');
-        $('#insert-money').html(`급여입력&nbsp;<i class="fas fa-plus-square"></i>`);
-        $('#empNomal').show();
-        $('#empMoney').hide();
-        $('.size-hidden').show();
-        $('.nomal-aside').css('width', '50rem');
-        $('.nomal-main').css('padding-left', '50rem');
+    cssTst()
+        .then(cont)
+        .then(cssTed);
+    function cssTst() {
+        return new Promise(function (resolve, reject) {
+            $('body').css('transition', '0.1s linear');
+            resolve();
+        })
     }
-
+    function cont() {
+        return new Promise(function (resolve, reject) {
+            if ($('#empNomal').is(':visible')) {
+                $('#showm').val('1');
+                $('#insert-money').html(`일반입력&nbsp;<i class="fas fa-plus-square"></i>`);
+                $('#empNomal').hide();
+                $('#empMoney').show();
+                $('.size-hidden').hide();
+                $('.nomal-aside').css('width', '30rem');
+                $('.nomal-main').css('padding-left', '30rem');
+            } else {
+                $('#showm').val('0');
+                $('#insert-money').html(`급여입력&nbsp;<i class="fas fa-plus-square"></i>`);
+                $('#empNomal').show();
+                $('#empMoney').hide();
+                $('.size-hidden').show();
+                $('.nomal-aside').css('width', '50rem');
+                $('.nomal-main').css('padding-left', '50rem');
+            }
+            resolve();
+        })
+    }
+    function cssTed() {
+        return new Promise(function (resolve, reject) {
+            $('body').css('transition', 'none');
+            resolve();
+        })
+    }
 });
 
 function setEmpCh() {
