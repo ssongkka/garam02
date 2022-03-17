@@ -74,6 +74,19 @@
 		AS idname,
 
 		IFNULL((SELECT
+		employeeinfo.id FROM
+		employeeinfo WHERE
+		employeeinfo.id
+		=
+		(SELECT id
+		FROM vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		regulardetail.opercar)),
+		regulardetail.opercar)
+		AS idid,
+
+		IFNULL((SELECT
 		employeeinfo.phone1 FROM
 		employeeinfo WHERE
 		employeeinfo.id =
@@ -91,7 +104,16 @@
 		=
 		regulardetail.opercar),
 		regulardetail.opercar) AS
-		idvehicle
+		idvehicle,
+
+		IFNULL((SELECT
+		vehicleinfo.owner FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		regulardetail.opercar),
+		regulardetail.opercar) AS
+		idcompa
 
 		FROM
 
@@ -129,6 +151,19 @@
 		AS idname,
 
 		IFNULL((SELECT
+		employeeinfo.id FROM
+		employeeinfo WHERE
+		employeeinfo.id
+		=
+		(SELECT id
+		FROM vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		regulardetail.opercar)),
+		regulardetail.opercar)
+		AS idid,
+
+		IFNULL((SELECT
 		employeeinfo.phone1 FROM
 		employeeinfo WHERE
 		employeeinfo.id =
@@ -146,7 +181,16 @@
 		=
 		regulardetail.opercar),
 		regulardetail.opercar) AS
-		idvehicle
+		idvehicle,
+
+		IFNULL((SELECT
+		vehicleinfo.owner FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		regulardetail.opercar),
+		regulardetail.opercar) AS
+		idcompa
 
 		FROM
 
@@ -179,6 +223,51 @@
 		ORDER BY
 		rct, goutnum, rcnum
 	</select>
+
+	<select id="selectRegularcourseAllo"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regularcourse
+
+		LEFT JOIN
+
+		regulardetail
+
+		ON
+
+		regulardetail.codenum =
+		regularcourse.codenum
+
+		WHERE
+
+		regularcourse.conum =
+		#{conum}
+
+		AND
+
+		regulardetail.rdtrash = 1
+
+		AND
+
+		regularcourse.rctrash = 1
+
+		GROUP
+		BY
+
+		regularcourse.goutnum, regularcourse.codenum
+
+		ORDER BY
+
+		regularcourse.codenum, regularcourse.goutnum
+	</select>
+
 
 	<insert id="insertRegular"
 		parameterType="com.garam.web.regular.dto.RegularDTO">
@@ -392,6 +481,33 @@
 		null,
 		1
 		);
+	</insert>
+
+	<insert id="insertRegOperAllo" parameterType="java.util.HashMap">
+
+		INSERT
+
+		INTO
+
+		operation_reg
+
+		VALUES
+		<foreach collection="allo" item="value" separator=",">
+			(
+			null,
+			#{value.regopernum},
+			#{value.conum},
+			#{value.codenum},
+			#{value.regoperday},
+			#{value.regoperno},
+			#{value.regopercom},
+			#{value.regopercar},
+			#{value.regoperid},
+			#{value.regorcar},
+			#{value.regoperconfirm},
+			1
+			)
+		</foreach>
 	</insert>
 
 	<update id="updateRegulardetail"

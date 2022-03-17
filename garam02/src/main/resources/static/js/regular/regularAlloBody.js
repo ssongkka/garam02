@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $("#btnAllAllo").prop("disabled", true);
+
     nowMinth();
     setRegDays();
     getRegularAll();
@@ -6,6 +8,9 @@ $(document).ready(function () {
 
 var myModalRegAlloMd = new bootstrap.Modal(
     document.getElementById('regAlloMd')
+);
+var myModalRegAllAlloMd = new bootstrap.Modal(
+    document.getElementById('regAllAlloMd')
 );
 
 function nowMinth() {
@@ -36,14 +41,18 @@ function nowMinth() {
 }
 
 $(document).on('click', '#show-aside', function () {});
+
 $(document).on('change', '#yearMonth', function () {
     if ($('#rgconum').val()) {
         LoadingWithMask()
+            .then(getRegularAll)
             .then(setRegDays)
             .then(getRegularDeAll)
+            .then(getRegularCooAll)
             .then(closeLoadingWithMask);
     } else {
         LoadingWithMask()
+            .then(getRegularAll)
             .then(setRegDays)
             .then(closeLoadingWithMask);
     }
@@ -57,11 +66,14 @@ $(document).on('click', '#fnDownMonth', function () {
 
     if ($('#rgconum').val()) {
         LoadingWithMask()
+            .then(getRegularAll)
             .then(setRegDays)
             .then(getRegularDeAll)
+            .then(getRegularCooAll)
             .then(closeLoadingWithMask);
     } else {
         LoadingWithMask()
+            .then(getRegularAll)
             .then(setRegDays)
             .then(closeLoadingWithMask);
     }
@@ -81,11 +93,14 @@ $(document).on('click', '#fnUpMonth', function () {
 
         if ($('#rgconum').val()) {
             LoadingWithMask()
+                .then(getRegularAll)
                 .then(setRegDays)
                 .then(getRegularDeAll)
+                .then(getRegularCooAll)
                 .then(closeLoadingWithMask);
         } else {
             LoadingWithMask()
+                .then(getRegularAll)
                 .then(setRegDays)
                 .then(closeLoadingWithMask);
         }
@@ -140,35 +155,113 @@ function setRegDays() {
                     nnn = ++cont;
                 }
 
-                switch (dow) {
-                    case 0:
-                        htmlsday1 += '<th style="color: #4B89DC;">' + (
-                            nnn
-                        ) + '일</th>';
-                        htmlsday2 += '<th style="color: #4B89DC;">' + getDayOfWeek(dow) + '</th>';
-                        htmlsday3 += '<th style="color: #4B89DC;">' + toStringByFormatting(
-                            new Date(tmpd)
-                        ) + '</th>';
-                        htmlsday4 += '<th style="color: #4B89DC;">' + dow + '</th>';
-                        break;
-                    case 6:
-                        htmlsday1 += '<th style="color: #CF2F11;">' + (
-                            nnn
-                        ) + '일</th>';
-                        htmlsday2 += '<th style="color: #CF2F11;">' + getDayOfWeek(dow) + '</th>';
-                        htmlsday3 += '<th style="color: #CF2F11;">' + toStringByFormatting(
-                            new Date(tmpd)
-                        ) + '</th>';
-                        htmlsday4 += '<th style="color: #CF2F11;">' + dow + '</th>';
-                        break;
-                    default:
-                        htmlsday1 += '<th>' + (
-                            nnn
-                        ) + '일</th>';
-                        htmlsday2 += '<th>' + getDayOfWeek(dow) + '</th>';
-                        htmlsday3 += '<th>' + toStringByFormatting(new Date(tmpd)) + '</th>';
-                        htmlsday4 += '<th>' + dow + '</th>';
-                        break;
+                const thisDD = toStringByFormatting(new Date(tmpd));
+                const stDD = $('#stDD').text();
+                const edDD = $('#edDD').text();
+
+                const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1] + stDD.split(
+                    '-'
+                )[2]);
+                const edDDDDnum = parseInt(
+                    edDD.split('-')[0] + edDD.split('-')[1] + edDD.split(
+                        '-'
+                    )[2]
+                );
+                const thisDDDDDnum = parseInt(
+                    thisDD.split('-')[0] + thisDD.split('-')[1] + thisDD.split('-')[2]
+                );
+
+                const tmpNowDd = toStringByFormatting(new Date());
+                const nowDayday = parseInt(
+                    tmpNowDd.split('-')[0] + tmpNowDd.split('-')[1] + tmpNowDd.split('-')[2]
+                );
+
+                const tmpShowd = toStringByFormatting(new Date(tmpd));
+                const showDayday = parseInt(
+                    tmpShowd.split('-')[0] + tmpShowd.split('-')[1] + tmpShowd.split('-')[2]
+                );
+
+                function getDDD() {
+                    switch (dow) {
+                        case 0:
+                            htmlsday1 += '<th style="color: #CF2F11;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #CF2F11;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #CF2F11;">' + toStringByFormatting(
+                                new Date(tmpd)
+                            ) + '</th>';
+                            htmlsday4 += '<th style="color: #CF2F11;">' + dow + '</th>';
+                            break;
+                        case 6:
+                            htmlsday1 += '<th style="color: #4B89DC;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #4B89DC;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #4B89DC;">' + toStringByFormatting(
+                                new Date(tmpd)
+                            ) + '</th>';
+                            htmlsday4 += '<th style="color: #4B89DC;">' + dow + '</th>';
+                            break;
+                        default:
+                            htmlsday1 += '<th>' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th>' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th>' + toStringByFormatting(new Date(tmpd)) + '</th>';
+                            htmlsday4 += '<th>' + dow + '</th>';
+                            break;
+                    }
+                }
+                function getNoDDD() {
+                    switch (dow) {
+                        case 0:
+                            htmlsday1 += '<th style="color: #CF2F11; opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #CF2F11; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
+                            break;
+                        case 6:
+                            htmlsday1 += '<th style="color: #4B89DC; opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #4B89DC; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
+                            break;
+                        default:
+                            htmlsday1 += '<th style="opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="opacity: 0.3;"></th>';
+                            break;
+                    }
+                }
+
+                if (nowDayday >= showDayday) {
+                    if ($('#rgconum').val()) {
+                        if ($('#edDD').text()) {
+                            if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
+                                getDDD();
+                            } else {
+                                getNoDDD();
+                            }
+                        } else {
+                            if (stDDDnum <= thisDDDDDnum) {
+                                getDDD();
+                            } else {
+                                getNoDDD();
+                            }
+                        }
+                    } else {
+                        getDDD();
+                    }
+                } else {
+                    getNoDDD();
                 }
             } else {
                 htmlsday1 += '<th style="opacity: 0;">잉요일</th>';
@@ -184,6 +277,7 @@ function setRegDays() {
 
         const htmls = htmlsday1 + htmlsday2 + htmlsday3 + htmlsday4;
 
+        $('#tbAllo').html('');
         $('#thDays').html(htmls);
         resolve();
     })
@@ -214,20 +308,75 @@ function getRegularAll() {
                     for (let i = 0; i < r.length; i++) {
                         let act = 'class="nav-link"';
 
-                        htmls += `<li class="nav-item regAll" role="presentation">
-                        <input type="hidden" value="` +
-                                r[i].conum +
-                                `">
-                        <button
-                            ` + act +
-                                `
-                            data-bs-toggle="pill"
-                            type="button"
-                            role="tab"
-                            aria-selected="true">` +
-                                r[i].regcompany +
-                                `</button>
-                    </li>`;
+                        let edddddd = '';
+
+                        if (r[i].regendd) {
+                            edddddd = r[i].regendd;
+                        }
+
+                        const thisDD = toStringByFormatting(new Date($("#yearMonth").val()));
+                        const stDD = r[i].regstartd;
+                        const edDD = edddddd;
+
+                        const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1]);
+                        const edDDDDnum = parseInt(edDD.split('-')[0] + edDD.split('-')[1]);
+                        const thisDDDDDnum = parseInt(thisDD.split('-')[0] + thisDD.split('-')[1]);
+
+                        console.log("stDDDnum  " + stDDDnum);
+                        console.log("edDDDDnum  " + edDDDDnum);
+                        console.log("thisDDDDDnum  " + thisDDDDDnum);
+
+                        if (edddddd) {
+                            if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
+                                htmls += `<li class="nav-item regAll" role="presentation">
+                                <input type="hidden" value="` +
+                                        r[i].conum +
+                                        `">
+                                <input type="hidden" value="` + r[i].regstartd +
+                                        `">
+                                <input type="hidden" value="` +
+                                        edddddd +
+                                        `">
+                                <input type="hidden" value="` + r[i].regaddress +
+                                        `">
+                                <button
+                                    ` +
+                                        act +
+                                        `
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-selected="true">` +
+                                        r[i].regcompany +
+                                        `</button>
+                            </li>`;
+                            }
+                        } else {
+                            if (stDDDnum <= thisDDDDDnum) {
+                                htmls += `<li class="nav-item regAll" role="presentation">
+                                <input type="hidden" value="` +
+                                        r[i].conum +
+                                        `">
+                                <input type="hidden" value="` + r[i].regstartd +
+                                        `">
+                                <input type="hidden" value="` +
+                                        edddddd +
+                                        `">
+                                <input type="hidden" value="` + r[i].regaddress +
+                                        `">
+                                <button
+                                    ` +
+                                        act +
+                                        `
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-selected="true">` +
+                                        r[i].regcompany +
+                                        `</button>
+                            </li>`;
+                            }
+                        }
                     }
                 } else {}
 
@@ -242,14 +391,34 @@ function getRegularAll() {
 }
 
 $(document).on('click', '.regAll', function () {
+    $("#btnAllAllo").prop("disabled", false);
 
     const aaa = $(this).children()[0];
     const iidd = $(aaa).val();
-    $('#rgconum').val(iidd);
+
+    const aaa1 = $(this).children()[1];
+    const aaa2 = $(this).children()[2];
+    const aaa3 = $(this).children()[3];
+
+    const bbb1 = $(aaa1).val();
+    const bbb2 = $(aaa2).val();
+    const bbb3 = $(aaa3).val();
+
+    function setInfofo() {
+        return new Promise(function (resolve, reject) {
+            $('#rgconum').val(iidd);
+            $('#stDD').text(bbb1);
+            $('#edDD').text(bbb2);
+            $('#adD').text(bbb3);
+            resolve();
+        })
+    }
 
     LoadingWithMask()
+        .then(setInfofo)
         .then(setRegDays)
         .then(getRegularDeAll)
+        .then(getRegularCooAll)
         .then(closeLoadingWithMask);
 });
 
@@ -278,17 +447,40 @@ function getRegularDeAll() {
                 if (r.length > 0) {
                     for (let i = 0; i < r.length; i++) {
                         if (r[i].rdtrash > 0) {
+
                             htmls += '<tr>';
                             htmls += '<td class="text-truncate">';
-                            htmls += '<input type="hidden" value="' + r[i].codenum + '">';
                             htmls += '<input type="hidden" value="' + r[i].rdnum + '">';
+                            htmls += '<input type="hidden" value="' + r[i].codenum + '">';
+                            htmls += '<input type="hidden" value="">';
+                            htmls += '<input type="hidden" value="">';
+                            if (r[i].opercar) {
+                                htmls += '<input type="hidden" value="' + r[i].opercar + '">';
+                                htmls += '<input type="hidden" value="' + r[i].idcompa + '">';
+                                htmls += '<input type="hidden" value="' + r[i].idid + '">';
+                            } else {
+                                htmls += '<input type="hidden" value="">';
+                                htmls += '<input type="hidden" value="">';
+                                htmls += '<input type="hidden" value="">';
+                            }
+
+                            if (r[i].rddow) {
+                                htmls += '<input type="hidden" value="' + r[i].rddow + '">';
+                            } else {
+                                htmls += '<input type="hidden" value="">';
+                            }
+
                             htmls += r[i].rdname;
                             htmls += '</td>';
 
                             let cont = 0;
                             for (let k = 0; k < 31; k++) {
-                                if (cont < parseInt(fnEndDay())) {
 
+                                const thaaa = $('#thDays').children()[3];
+                                const thbbb = $(thaaa).children()[k];
+                                const downum = $(thbbb).text();
+
+                                if (cont < parseInt(fnEndDay())) {
                                     const tmpNowDd = toStringByFormatting(new Date());
                                     const nowDayday = parseInt(
                                         tmpNowDd.split('-')[0] + tmpNowDd.split('-')[1] + tmpNowDd.split('-')[2]
@@ -303,37 +495,58 @@ function getRegularDeAll() {
                                         tmpShowd.split('-')[0] + tmpShowd.split('-')[1] + tmpShowd.split('-')[2]
                                     );
 
-                                    if (nowDayday >= showDayday) {
-                                        htmls += '<td class="text-truncate user-select-none allocur" onclick="checkAllo(this)" o' +
-                                                'ndblclick="getAllo(this)">';
-                                        htmls += '<input type="hidden" value="' + toStringByFormatting(new Date(tmpd)) + '">';
-                                        htmls += '<input type="hidden" value="' + r[i].codenum + '">';
-                                        if (r[i].opercar) {
-                                            htmls += '<input type="hidden" value="' + r[i].opercar + '">';
+                                    const stDD = $('#stDD').text();
+                                    const edDD = $('#edDD').text();
 
-                                            if (isNaN(r[i].idvehicle.substring(r[i].idvehicle.length - 4))) {
-                                                htmls += r[i]
-                                                    .idvehicle
-                                                    .replaceAll('고속', '')
-                                                    .replaceAll('관광', '')
-                                                    .replaceAll('여행사', '');
+                                    const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1] + stDD.split(
+                                        '-'
+                                    )[2]);
+                                    const edDDDDnum = parseInt(
+                                        edDD.split('-')[0] + edDD.split('-')[1] + edDD.split(
+                                            '-'
+                                        )[2]
+                                    );
+
+                                    if (nowDayday >= showDayday) {
+                                        if ($('#rgconum').val()) {
+                                            if ($('#edDD').text()) {
+                                                if (stDDDnum <= showDayday && showDayday <= edDDDDnum) {
+
+                                                    htmls += '<td class="text-truncate user-select-none allocur" onclick="checkAllo(this)" o' +
+                                                            'ndblclick="getAllo(this)">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '</td>';
+                                                } else {
+                                                    htmls += '<td class="allocur-no">';
+                                                    htmls += '</td>';
+                                                }
                                             } else {
-                                                htmls += r[i]
-                                                    .idvehicle
-                                                    .substring(r[i].idvehicle.length - 4);
+                                                if (stDDDnum <= showDayday) {
+                                                    htmls += '<td class="text-truncate user-select-none allocur" onclick="checkAllo(this)" o' +
+                                                            'ndblclick="getAllo(this)">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '</td>';
+                                                } else {
+                                                    htmls += '<td class="allocur-no">';
+                                                    htmls += '</td>';
+                                                }
                                             }
                                         } else {
-                                            htmls += '<input type="hidden" value="">';
-                                            htmls += '';
+                                            htmls += '<td class="allocur-no">';
+                                            htmls += '</td>';
                                         }
-                                        htmls += '</td>';
                                     } else {
-                                        htmls += '<td>';
+                                        htmls += '<td class="allocur-no">';
                                         htmls += '</td>';
                                     }
-
                                 } else {
-                                    htmls += '<td>';
+                                    htmls += '<td class="allocur-no">';
                                     htmls += '</td>';
                                 }
                                 cont++;
@@ -361,10 +574,44 @@ function getRegularDeAll() {
                                 tmpShowd.split('-')[0] + tmpShowd.split('-')[1] + tmpShowd.split('-')[2]
                             );
 
+                            const stDD = $('#stDD').text();
+                            const edDD = $('#edDD').text();
+
+                            const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1] + stDD.split(
+                                '-'
+                            )[2]);
+                            const edDDDDnum = parseInt(
+                                edDD.split('-')[0] + edDD.split('-')[1] + edDD.split(
+                                    '-'
+                                )[2]
+                            );
+
                             if (nowDayday >= showDayday) {
-                                htmlsFoot += '<th>';
-                                htmlsFoot += '<button type="button" class="btn btn-outline-secondary btn-xs">배차</button>';
-                                htmlsFoot += '</th>';
+
+                                if ($('#rgconum').val()) {
+                                    if ($('#edDD').text()) {
+                                        if (stDDDnum <= showDayday && showDayday <= edDDDDnum) {
+                                            htmlsFoot += '<th>';
+                                            htmlsFoot += '<button type="button" class="btn btn-outline-secondary btn-xs">배차</button>';
+                                            htmlsFoot += '</th>';
+                                        } else {
+                                            htmlsFoot += '<th>';
+                                            htmlsFoot += '</th>';
+                                        }
+                                    } else {
+                                        if (stDDDnum <= showDayday) {
+                                            htmlsFoot += '<th>';
+                                            htmlsFoot += '<button type="button" class="btn btn-outline-secondary btn-xs">배차</button>';
+                                            htmlsFoot += '</th>';
+                                        } else {
+                                            htmlsFoot += '<th>';
+                                            htmlsFoot += '</th>';
+                                        }
+                                    }
+                                } else {
+                                    htmlsFoot += '<th>';
+                                    htmlsFoot += '</th>';
+                                }
                             } else {
                                 htmlsFoot += '<th>';
                                 htmlsFoot += '</th>';
@@ -379,7 +626,6 @@ function getRegularDeAll() {
                     htmlsFoot += '</tr>';
                 }
 
-                console.log(htmlsFoot);
                 $('#tbAllo').html(htmls);
                 $('#tfBtn').html(htmlsFoot);
                 resolve();
@@ -390,6 +636,419 @@ function getRegularDeAll() {
         })
     });
 }
+
+function getRegularCooAll() {
+    return new Promise(function (resolve, reject) {
+
+        const url = "/reg/getRegularcourseAllo";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "conum": $('#rgconum').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r.length > 0) {
+                    const size1 = $('#tbAllo')
+                        .children()
+                        .length;
+
+                    for (let k = 0; k < size1; k++) {
+                        const aaa = $('#tbAllo').children()[k];
+                        for (let j = 0; j < 32; j++) {
+                            const bbb = $(aaa).children()[j];
+                            const ccc = $(bbb).children()[1];
+                            const conummm = $(ccc).val();
+
+                            let goutn = '';
+                            let seppa = '';
+
+                            for (let i = 0; i < r.length; i++) {
+                                if (conummm === r[i].codenum) {
+                                    goutn += r[i].goutnum;
+                                    seppa += r[i].rcsepa;
+                                }
+                            }
+                            const ddd = $(bbb).children()[2];
+                            $(ddd).val(goutn);
+
+                            const eee = $(bbb).children()[3];
+                            $(eee).val(seppa);
+                        }
+                    }
+                }
+                resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    });
+}
+
+function showAlloChModal(param) {
+    let htmlEmp = '<option value=""></option>';
+    let htmlVe = '<option value=""></option>';
+    let htmlOthercompa = '';
+    for (let i = 0; i < dbEmp.length; i++) {
+        if (dbEmp[i].trash > 0) {
+            htmlEmp += `<option value="` + dbEmp[i].id + `" label="` + dbEmp[i].name +
+                    `" data-value="` + dbEmp[i].id + `"></option>`;
+        }
+    }
+
+    for (let i = 0; i < dbVe.length; i++) {
+        if (dbVe[i].trash > 0) {
+            htmlVe += `<option value="` + dbVe[i].carNumber + `" label="` + (
+                dbVe[i].vehicle
+            ).substring((dbVe[i].vehicle).length - 4) + `" data-value="` + dbVe[i].carNumber +
+                    `"></option>`;
+        }
+    }
+
+    for (let i = 0; i < dbothercompa.length; i++) {
+        if (dbothercompa[i].ctmtrash > 0) {
+            htmlOthercompa += `<option value="` + dbothercompa[i].ctmname + `" label="` +
+                    dbothercompa[i].ctmname + `" data-value="` + dbothercompa[i].ctmname +
+                    `"></option>`;
+        }
+    }
+
+    const size = $('#tbAllo')
+        .children()
+        .length;
+
+    $('#regAllAlloMdMb').html('');
+
+    for (let i = 0; i < size; i++) {
+        let htmlMd = '';
+
+        const aaa = $('#tbAllo').children()[i];
+        const bbb = $(aaa).children()[0];
+        const ccc = $(bbb).children()[4];
+        const fff = $(bbb).children()[5];
+        const ddd = $(bbb).children()[6];
+        const eee = $(bbb).children()[1];
+        const ggg = $(bbb).children()[7];
+
+        const nosunname = $(bbb).text();
+        const veve = $(ccc).val();
+        const comcompa = $(fff).val();
+        const idid = $(ddd).val();
+        const conumnum = $(eee).val();
+        const dowwww = $(ggg).val();
+
+        let veE = '';
+        let idE = '';
+
+        for (let j = 0; j < dbVe.length; j++) {
+            if (veve == dbVe[j].carNumber) {
+                veE = dbVe[j].carNumber;
+            } else {
+                if (veve == dbothercompa[i].ctmname) {
+                    veE = dbothercompa[i].ctmname;
+                }
+            }
+        }
+        for (let j = 0; j < dbEmp.length; j++) {
+            if (idid == dbEmp[j].id) {
+                idE = dbEmp[j].id;
+            } else {
+                if (idid == dbothercompa[i].ctmname) {
+                    idE = dbothercompa[i].ctmname;
+                }
+            }
+        }
+
+        htmlMd = `
+    <div class="row mb-3">
+        <label for="" class="col-sm-4 col-form-label" style="text-align: right;">` +
+                nosunname +
+                `</label>
+        <div class="col-sm-4">
+            <select class="form-select mdVeCho">
+            ` +
+                htmlVe + htmlOthercompa +
+                `
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-select">
+            ` +
+                htmlEmp + htmlOthercompa +
+                `
+            </select>
+        </div>
+        <div>
+            <input type="hidden" value="` +
+                comcompa +
+                `">
+        </div>
+        <div>
+            <input type="hidden" value="` +
+                conumnum +
+                `">
+        </div>
+        <div>
+            <input type="hidden" value="` +
+                dowwww + `">
+        </div>
+    </div>`
+
+        $('#regAllAlloMdMb').append(htmlMd);
+
+        const ttmp = $('#regAllAlloMdMb').children()[i];
+        const ttmp1 = $(ttmp).children()[1];
+        const ttmp2 = $(ttmp1).children()[0];
+        $(ttmp2).val(veE);
+        const ttmp11 = $(ttmp).children()[2];
+        const ttmp22 = $(ttmp11).children();
+        $(ttmp22).val(idE);
+    }
+
+    const pre = `<hr>
+    <ol>
+        <li>
+            ` + ($("#yearMonth").val()).split(
+        '-'
+    )[0] + `년 ` + ($("#yearMonth").val()).split('-')[1] + `월` +
+            `, 배차되지 않은 날짜에 모두 배차됩니다.
+        </li>
+        <li>
+            차량 변경시 해당 노선에 고정 운행 차량이 됩니다.
+        </li>
+    </ol>`;
+
+    $('#regAllAlloMdMb').append(pre);
+
+    $('#alloDayMd').val(param);
+    myModalRegAllAlloMd.show();
+}
+
+$(document).on('click', '#btnAllAllo', function () {
+    showAlloChModal('');
+});
+
+$(document).on('change', '.mdVeCho', function () {
+
+    const aaa = $(this)
+        .parent()
+        .next()
+        .next();
+    const aaa1 = $(this)
+        .parent()
+        .next();
+
+    const bbb = $(aaa).children();
+    const bbb1 = $(aaa1).children();
+
+    if ($(this).val()) {
+        let compayo = '';
+        for (let i = 0; i < dbVe.length; i++) {
+            if (dbVe[i].carNumber === $(this).val()) {
+                if (dbVe[i].owner) {
+                    compayo = dbVe[i].owner;
+                }
+            }
+        }
+
+        let idyo = '';
+        for (let i = 0; i < dbVe.length; i++) {
+            if (dbVe[i].carNumber === $(this).val()) {
+                if (dbVe[i].id) {
+                    idyo = dbVe[i].id;
+                }
+            }
+        }
+
+        if (!compayo && !idyo) {
+            $(bbb).val($(this).val());
+            $(bbb1).val($(this).val());
+        } else {
+            $(bbb).val(compayo);
+            $(bbb1).val(idyo);
+        }
+    } else {
+        $(bbb).val('');
+        $(bbb1).val('');
+    }
+});
+
+function insertAllo1() {
+    return new Promise(function (resolve, reject) {
+
+        const url = "/reg/insertRegOper1";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        let params = new Array();
+
+        const size1 = $('#tbAllo')
+            .children()
+            .length;
+
+        for (let k = 0; k < size1; k++) {
+            const aaa = $('#tbAllo').children()[k];
+            for (let j = 1; j <= 31; j++) {
+                const bbb = $(aaa).children()[j];
+                const ccc = $(bbb).children()[1];
+                const conummm = $(ccc).val();
+
+                const ddd = $(bbb).children()[2];
+                const eee = $(bbb).children()[3];
+
+                const aaa111 = $(bbb).children()[0];
+                const dayy = $(aaa111).val();
+
+                const goutArr = ($(ddd).val()).split('');
+                const sepaArr = ($(eee).val()).split('');
+
+                for (let i = 0; i < goutArr.length; i++) {
+                    const asd = {
+                        "regopernum": opernum,
+                        "conum": $('#rgconum').val(),
+                        "codenum": conummm,
+                        "regoperday": dayy,
+                        "regoperno": goutArr[i],
+                        "regopercom": hoho,
+                        "regopercar": hoho,
+                        "regoperid": hoho,
+                        "regorcar": hoho
+                    };
+                    params.push(asd);
+                }
+            }
+        }
+
+        // $.ajax({     url: url,     type: "POST",     headers: headers,     dataType:
+        // "json",     data: JSON.stringify(params),     success: function (r) {},
+        // error: (jqXHR) => {         loginSession(jqXHR.status);     } })
+    });
+}
+
+$(document).on('click', '#btnMdAll', function () {
+    if ($('#alloDayMd').val()) {} else {
+
+        let arrVe = new Array();
+        let arrId = new Array();
+        let arrCompa = new Array();
+        let arrCode = new Array();
+        let arrDow = new Array();
+
+        const mdSize = $('#regAllAlloMdMb')
+            .children()
+            .length;
+
+        for (let i = 0; i < mdSize; i++) {
+
+            const ttmp = $('#regAllAlloMdMb').children()[i];
+            const ttmp1 = $(ttmp).children()[1];
+            const ttmp2 = $(ttmp1).children();
+
+            const ttmp11 = $(ttmp).children()[2];
+            const ttmp22 = $(ttmp11).children();
+
+            const ttmp111 = $(ttmp).children()[3];
+            const ttmp222 = $(ttmp111).children();
+
+            const ttmp1111 = $(ttmp).children()[4];
+            const ttmp2222 = $(ttmp1111).children();
+
+            const ttmp11111 = $(ttmp).children()[5];
+            const ttmp22222 = $(ttmp11111).children();
+
+            if (($(ttmp2).val() && !$(ttmp22).val()) || (!$(ttmp2).val() && $(ttmp22).val())) {
+                alert("차량과 승무원을 같이 입력해주세요.\n\n차량과 승무원 중 하나만 입력 할 수 없습니다.");
+                return;
+            }
+
+            if ($(ttmp2).val() && $(ttmp22).val() && $(ttmp222).val() && $(ttmp2222).val() && $(ttmp22222).val()) {
+                arrVe.push($(ttmp2).val());
+                arrId.push($(ttmp22).val());
+                arrCompa.push($(ttmp222).val());
+                arrCode.push($(ttmp2222).val());
+                arrDow.push($(ttmp22222).val());
+            }
+        }
+
+        let params = new Array();
+
+        const size1 = $('#tbAllo')
+            .children()
+            .length;
+
+        for (let k = 0; k < size1; k++) {
+            const aaa = $('#tbAllo').children()[k];
+            const tmpor = $(aaa).children()[0];
+            const orgin = $(tmpor).children()[4];
+            const realOri = $(orgin).val();
+
+            const orgin1 = $(tmpor).children()[1];
+            const conummm = $(orgin1).val();
+
+            const orgin2 = $(tmpor).children()[2];
+            const goutArr = ($(orgin2).val()).split('');
+
+            const aaa1 = $('#thDays').children()[3];
+            const aaa11 = $('#thDays').children()[2];
+
+            for (let j = 1; j <= 31; j++) {
+                for (let l = 0; l < arrCode.length; l++) {
+                    if (arrCode[l] == conummm) {
+                        const ttmmppp = $(aaa1).children()[j - 1];
+                        const thDow = $(ttmmppp).text();
+                        const ttmmppp1 = $(aaa11).children()[j - 1];
+                        const dayy = $(ttmmppp1).text();
+
+                        const tmpNowDd = toStringByFormatting(new Date());
+                        const nowDayday = parseInt(
+                            tmpNowDd.split('-')[0] + tmpNowDd.split('-')[1] + tmpNowDd.split('-')[2]
+                        );
+
+                        const showDayday = parseInt(
+                            dayy.split('-')[0] + dayy.split('-')[1] + dayy.split(
+                                '-'
+                            )[2]
+                        );
+
+                        if (nowDayday >= showDayday) {
+                            if (arrDow[k].includes(thDow)) {
+                                "야호"
+                                for (let i = 0; i < goutArr.length; i++) {
+                                    const asd = {
+                                        "regopernum": 1,
+                                        "conum": $('#rgconum').val(),
+                                        "codenum": conummm,
+                                        "regoperday": dayy,
+                                        "regoperno": goutArr[i],
+                                        "regopercom": arrCompa[k],
+                                        "regopercar": arrVe[k],
+                                        "regoperid": arrId[k],
+                                        "regorcar": realOri
+                                    };
+                                    params.push(asd);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        console.log(params);
+    }
+
+});
 
 function checkAllo(param) {
 
@@ -426,6 +1085,8 @@ function checkAllo(param) {
     day2.css('background', '#fcf8e3');
     nocun.css('background', '#fcf8e3');
     $(param).css('background', '#fcf8e3');
+
+    insertAllo1();
 }
 
 function getAllo(param) {

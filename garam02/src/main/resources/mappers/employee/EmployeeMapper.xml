@@ -182,12 +182,12 @@
 
 		SELECT
 
-		*
+		employeeinfo.*
 
 		FROM
 		employeeinfo
 
-		ORDER BY name;
+		ORDER BY name
 	</select>
 
 	<select id="selectEmpName"

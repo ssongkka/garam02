@@ -126,9 +126,13 @@ public class RegularDTO {
 
 	private String idname;
 
+	private String idid;
+
 	private String idphone1;
 
 	private String idvehicle;
+
+	private String idcompa;
 
 	public String getOpercar() {
 		return opercar;
@@ -536,6 +540,22 @@ public class RegularDTO {
 
 	public void setIdvehicle(String idvehicle) {
 		this.idvehicle = idvehicle;
+	}
+
+	public String getIdcompa() {
+		return idcompa;
+	}
+
+	public void setIdcompa(String idcompa) {
+		this.idcompa = idcompa;
+	}
+
+	public String getIdid() {
+		return idid;
+	}
+
+	public void setIdid(String idid) {
+		this.idid = idid;
 	}
 
 }

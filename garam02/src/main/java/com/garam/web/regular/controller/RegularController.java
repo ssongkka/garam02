@@ -67,6 +67,15 @@ public class RegularController extends UiUtils {
 		List<RsvtDTO> list = rsvtService.selectCustomerAll();
 		model.addAttribute("customer", list);
 
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
+
+		List<RsvtDTO> othercompa = rsvtService.selectCustomerOtherCompa();
+		model.addAttribute("othercompa", othercompa);
+
 		List<OptDTO> opt = rsvtService.selectOpt();
 		model.addAttribute("opt", opt);
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.regular.dto.RegularDTO;
 import com.garam.web.regular.dto.RegularcourseDTO;
 import com.garam.web.regular.dto.RegulardetailDTO;
@@ -40,4 +41,8 @@ public interface RegularService {
 	public int delRegularCoo(RegularDTO regularDTO) throws Exception;
 
 	public int updateRegularcourse(List<Map<String, Object>> map) throws Exception;
+
+	public List<RegularDTO> selectRegularcourseAllo(RegularDTO regularDTO) throws Exception;
+
+	public int insertRegOperAllo(List<Map<String, Object>> map) throws Exception;
 }

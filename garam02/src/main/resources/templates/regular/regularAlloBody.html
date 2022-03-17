@@ -23,7 +23,20 @@
                 <ul class="nav nav-pills" id="regCompa-tab" role="tablist"></ul>
             </div>
             <div>
-                <button class="btn btn-success">일괄배차</button>
+                <button class="btn btn-success" id="btnAllAllo">일괄배차</button>
+            </div>
+            <div class="deTail">
+                <div class="deTail-item">
+                    <blockquote>계약기간</blockquote>
+                    <span id="stDD"></span>
+                    <span>부터</span>
+                    <span id="edDD"></span>
+                    <span>까지</span>
+                </div>
+                <div class="deTail-item">
+                    <blockquote>주소</blockquote>
+                    <span id="adD"></span>
+                </div>
             </div>
         </header>
         <main>
@@ -81,19 +94,45 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="staticBackdropLabel">Modal title</h3>
+                            <h3 class="modal-title">Modal title</h3>
                             <button
                                 type="button"
                                 class="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
+                        <div class="modal-body"></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="modal fade"
+                id="regAllAlloMd"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="staticBackdropLabel">Modal title</h3>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            <input type="hidden" id="alloDayMd" value="">
+                        </div>
+                        <div class="modal-body" id="regAllAlloMdMb"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnMdAll">입력</button>
                         </div>
                     </div>
                 </div>
@@ -119,6 +158,10 @@
             /*]]>*/
             /*<![CDATA[*/
             const dbEmp =/*[[${emp}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbothercompa =/*[[${othercompa}]]*/
             'default';
             /*]]>*/
         </script>

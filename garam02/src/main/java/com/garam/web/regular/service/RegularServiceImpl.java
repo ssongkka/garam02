@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.regular.dto.RegularDTO;
 import com.garam.web.regular.dto.RegularcourseDTO;
 import com.garam.web.regular.dto.RegulardetailDTO;
@@ -172,6 +173,25 @@ public class RegularServiceImpl implements RegularService {
 		}
 
 		int rtn = regularMapper.updateRegularcourse(rde);
+
+		return rtn;
+	}
+
+	@Override
+	public List<RegularDTO> selectRegularcourseAllo(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = regularMapper.selectRegularcourseAllo(regularDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertRegOperAllo(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> allo = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			allo.put("allo", map);
+		}
+
+		int rtn = regularMapper.insertRegOperAllo(allo);
 
 		return rtn;
 	}

@@ -220,4 +220,25 @@ public class RestRegularController {
 		return rst;
 	}
 
+	@PostMapping(value = "/getRegularcourseAllo")
+	public List<RegularDTO> getRegularcourseAllo(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = regularService.selectRegularcourseAllo(regularDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/insertRegOper1")
+	public int insertRegOper1(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = regularService.insertRegOperAllo(map);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
 }
