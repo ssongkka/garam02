@@ -1,3 +1,5 @@
+var myModalRegModal = new bootstrap.Modal(document.getElementById('regModal'));
+
 $(document).ready(function () {
     getRegularInfo();
 });
@@ -19,7 +21,7 @@ function getTrHtmls() {
         type="text"
         placeholder="노선명 입력"></td>
     <td>
-        <select class="form-control input-sm rgip upclasse">
+        <select class="form-select input-sm rgip upclasse">
             <option value="대형" label="대형"></option>
             <option value="중형" label="중형"></option>
             <option value="우등" label="우등"></option>
@@ -27,7 +29,7 @@ function getTrHtmls() {
         </select>
     </td>
     <td>
-        <select class="form-control input-sm rgip upclasse">
+        <select class="form-select input-sm rgip upclasse">
             <option value="0" label="미정"></option>
             <option value="1" label="월고정"></option>
             <option value="2" label="운행횟수"></option>
@@ -205,7 +207,10 @@ function getRegularDeAll(result) {
                 $('#rgch-tbb')
                     .children()
                     .remove();
-                $('#rgnum').text(r.length + '대');
+                let cnt1 = 0;
+                let cnt2 = 0;
+
+                let cntTab1 = 1;
                 if (r.length > 0) {
 
                     for (let i = 0; i < r.length; i++) {
@@ -221,11 +226,6 @@ function getRegularDeAll(result) {
                                 break;
                         }
                     }
-
-                    let cnt1 = 0;
-                    let cnt2 = 0;
-
-                    let cntTab1 = 1;
 
                     for (let k = 0; k < r.length; k++) {
                         switch (r[k].rdtrash) {
@@ -285,6 +285,7 @@ function getRegularDeAll(result) {
                         }
                     }
                 } else {}
+                $('#rgnum').text(cnt1 + '대');
                 resolve();
             }
         })
@@ -309,12 +310,8 @@ function getRecou(iidd) {
 
     function erAll(params) {
         return new Promise(function (resolve, reject) {
-            $('#gogogogogo')
-                .children()
-                .remove();
-            $('#goutgoutgout')
-                .children()
-                .remove();
+            $('#gogogogogo').html('');
+            $('#goutgoutgout').html('');
             resolve();
         })
     }
@@ -425,62 +422,52 @@ function getRecou(iidd) {
                 success: function (r) {
                     if (r.length > 0) {
 
-                        let gout = new Array();
-                        let goutcnt = new Array();
-                        let goutsepa = new Array();
-
-                        for (let k = 0; k < r.length; k++) {
-                            let cnt = 0;
-                            for (let j = 0; j < gout.length; j++) {
-                                if (r[k].goutnum == gout[j]) {
-                                    cnt++;
-                                }
-                            }
-                            if (cnt < 1) {
-                                gout.push(r[k].goutnum);
-                            }
+                        const tmp1 = new Array();
+                        const tmp2 = new Array();
+                        let tmpSepa = 0;
+                        for (let i = 0; i < r.length; i++) {
+                            tmp1.push(r[i].goutnum);
                         }
 
-                        for (let k = 0; k < gout.length; k++) {
-                            let cnt = 0;
-                            for (let j = 0; j < r.length; j++) {
-                                if (r[j].goutnum == gout[k]) {
-                                    cnt++;
+                        const arrUnique = [...new Set(tmp1)];
+
+                        for (let i = 0; i < arrUnique.length; i++) {
+                            for (let k = 0; k < r.length; k++) {
+                                if (arrUnique[i] === r[k].goutnum) {
+                                    tmpSepa = r[k].rcsepa;
                                 }
                             }
-                            goutcnt.push(cnt);
+                            tmp2.push(tmpSepa);
                         }
 
-                        for (let k = 0; k < gout.length; k++) {
-                            let cnt = 0;
-                            for (let j = 0; j < r.length; j++) {
-                                if (r[j].goutnum == gout[k]) {
-                                    cnt = r[j].rcsepa;
-                                }
-                            }
-                            goutsepa.push(cnt);
-                        }
+                        console.log(arrUnique);
+                        console.log(tmp2);
 
-                        for (let k = 0; k < goutsepa.length; k++) {
-                            switch (goutsepa[k]) {
+                        let gogogohtmls = '';
+                        let outouthtmls = '';
+                        for (let k = 0; k < tmp2.length; k++) {
+                            switch (tmp2[k]) {
                                 case 1:
-                                    $('#gogogogogo').append(getGoGoTb(gout[k]));
+                                    gogogohtmls += getGoGoTb(arrUnique[k]);
                                     break;
                                 case 2:
-                                    $('#goutgoutgout').append(getOutOutTb(gout[k]));
+                                    outouthtmls += getOutOutTb(arrUnique[k]);
                                     break;
                                 default:
                                     break;
                             }
                         }
 
-                        for (let k = 0; k < gout.length; k++) {
+                        $('#gogogogogo').html(gogogohtmls);
+                        $('#goutgoutgout').html(outouthtmls);
+
+                        for (let k = 0; k < arrUnique.length; k++) {
                             let htmlgo = '';
                             let htmlout = '';
                             let cntgo = 1;
                             let cntout = 1;
                             for (let i = 0; i < r.length; i++) {
-                                if (gout[k] == r[i].goutnum) {
+                                if (arrUnique[k] == r[i].goutnum) {
                                     switch (r[i].rcsepa) {
                                         case 1:
                                             switch (r[i].rcnum) {
@@ -689,11 +676,11 @@ function getRecou(iidd) {
                                     }
                                 }
                             }
-                            if (goutsepa[k] == 1) {
-                                const tbiidd = '#tbgo' + gout[k];
+                            if (tmp2[k] == 1) {
+                                const tbiidd = '#tbgo' + arrUnique[k];
                                 $(tbiidd).html(htmlgo);
                             } else {
-                                const tbiidd = '#tbout' + gout[k];
+                                const tbiidd = '#tbout' + arrUnique[k];
                                 $(tbiidd).html(htmlgo);
                             }
                         }
@@ -705,7 +692,8 @@ function getRecou(iidd) {
     }
     function modalSS(result) {
         return new Promise(function (resolve, reject) {
-            $('#regModal').modal({backdrop: 'static', keyboard: false});
+            // $('#regModal').modal({backdrop: 'static', keyboard: false});
+            myModalRegModal.show();
             resolve();
         })
     }
@@ -727,8 +715,8 @@ function getGoGoTb(param) {
             <thead>
                 <tr>
                     <th class="thNone"></th>
-                    <th>삭제</th>
-                    <th>번호</th>
+                    <th><i class="fas fa-minus"></i></th>
+                    <th>#</th>
                     <th>시간</th>
                     <th>장소</th>
                     <th>메모</th>
@@ -766,8 +754,8 @@ function getOutOutTb(param) {
             <thead>
                 <tr>
                     <th class="thNone"></th>
-                    <th>삭제</th>
-                    <th>번호</th>
+                    <th><i class="fas fa-minus"></i></th>
+                    <th>#</th>
                     <th>시간</th>
                     <th>장소</th>
                     <th>메모</th>
@@ -1103,6 +1091,7 @@ $(document).on('click', '#plusgoTb', function () {
         "X-HTTP-Method-Override": "POST"
     };
     const params = {
+        "conum": $('#rgconum').val(),
         "codenum": $('#modalcodenum').val(),
         "goutnum": size
     };
@@ -1136,6 +1125,7 @@ $(document).on('click', '#plusoutTb', function () {
         "X-HTTP-Method-Override": "POST"
     };
     const params = {
+        "conum": $('#rgconum').val(),
         "codenum": $('#modalcodenum').val(),
         "goutnum": size
     };
@@ -1217,9 +1207,7 @@ $(document).on('click', '.insertCo', function (eInner) {
     const bbb = $(aaa).children()[2];
     const goutnumm = ($(aaa).attr('id')).substring(($(aaa).attr('id')).length - 1);
 
-    console.log(aaa);
     const eeee = $(aaa).children()[2];
-    console.log(eeee);
 
     upcource(eeee);
 
@@ -1243,8 +1231,8 @@ $(document).on('click', '.insertCo', function (eInner) {
     }
     let max = 0;
     for (let k = 0; k < tmparr.length; k++) {
-        if (tmparr[k] != 0 && tmparr[k] != 50 && tmparr[k] > max) {
-            max = tmparr[k];
+        if (parseInt(tmparr[k]) != 0 && parseInt(tmparr[k]) != 50 && parseInt(tmparr[k]) > max) {
+            max = parseInt(tmparr[k]);
         }
     }
     if (($(aaa).attr('id')).includes('gotb')) {
@@ -1260,6 +1248,7 @@ $(document).on('click', '.insertCo', function (eInner) {
         "X-HTTP-Method-Override": "POST"
     };
     const params = {
+        "conum": $('#rgconum').val(),
         "codenum": $('#modalcodenum').val(),
         "goutnum": goutnumm,
         "rcsepa": rcsepa,
@@ -1339,6 +1328,7 @@ $(document).on('click', '.delCo', function (eInner) {
     };
 
     const params = {
+        "conum": $('#rgconum').val(),
         "codenum": $('#modalcodenum').val(),
         "goutnum": goutnummmm
     };
@@ -1470,19 +1460,16 @@ function upcource(ppp) {
         .then(closeLoadingWithMask);;
     function upupupgogogogo() {
         return new Promise(function (resolve, reject) {
-            console.log("aaa   " + ppp);
 
             const size = $(ppp)
                 .children()
                 .length;
-            console.log("aaa   " + size);
 
             let params = new Array();
 
             for (let i = 0; i < size; i++) {
                 const tmp = $(ppp).children()[i];
 
-                console.log("aaa   " + tmp);
                 const aaa222 = $(tmp).children()[3];
                 const aaa333 = $(aaa222).children();
                 const aaa444 = $(aaa333).children();
@@ -1515,7 +1502,6 @@ function upcource(ppp) {
                 };
                 params.push(asd);
             }
-            console.log(params);
 
             const url = "/reg/updateRegularcourse";
             const headers = {

@@ -49,6 +49,7 @@ $(document).on('change', '#yearMonth', function () {
             .then(setRegDays)
             .then(getRegularDeAll)
             .then(getRegularCooAll)
+            .then(getRegularAlloCa)
             .then(closeLoadingWithMask);
     } else {
         LoadingWithMask()
@@ -70,6 +71,7 @@ $(document).on('click', '#fnDownMonth', function () {
             .then(setRegDays)
             .then(getRegularDeAll)
             .then(getRegularCooAll)
+            .then(getRegularAlloCa)
             .then(closeLoadingWithMask);
     } else {
         LoadingWithMask()
@@ -97,6 +99,7 @@ $(document).on('click', '#fnUpMonth', function () {
                 .then(setRegDays)
                 .then(getRegularDeAll)
                 .then(getRegularCooAll)
+                .then(getRegularAlloCa)
                 .then(closeLoadingWithMask);
         } else {
             LoadingWithMask()
@@ -322,10 +325,6 @@ function getRegularAll() {
                         const edDDDDnum = parseInt(edDD.split('-')[0] + edDD.split('-')[1]);
                         const thisDDDDDnum = parseInt(thisDD.split('-')[0] + thisDD.split('-')[1]);
 
-                        console.log("stDDDnum  " + stDDDnum);
-                        console.log("edDDDDnum  " + edDDDDnum);
-                        console.log("thisDDDDDnum  " + thisDDDDDnum);
-
                         if (edddddd) {
                             if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
                                 htmls += `<li class="nav-item regAll" role="presentation">
@@ -378,8 +377,7 @@ function getRegularAll() {
                             }
                         }
                     }
-                } else {}
-
+                }
                 $('#regCompa-tab').html(htmls);
                 resolve();
             },
@@ -419,6 +417,7 @@ $(document).on('click', '.regAll', function () {
         .then(setRegDays)
         .then(getRegularDeAll)
         .then(getRegularCooAll)
+        .then(getRegularAlloCa)
         .then(closeLoadingWithMask);
 });
 
@@ -476,7 +475,7 @@ function getRegularDeAll() {
                             let cont = 0;
                             for (let k = 0; k < 31; k++) {
 
-                                const thaaa = $('#thDays').children()[3];
+                                const thaaa = $('#thDays').children()[2];
                                 const thbbb = $(thaaa).children()[k];
                                 const downum = $(thbbb).text();
 
@@ -514,10 +513,15 @@ function getRegularDeAll() {
 
                                                     htmls += '<td class="text-truncate user-select-none allocur" onclick="checkAllo(this)" o' +
                                                             'ndblclick="getAllo(this)">';
+                                                    htmls += '<input type="hidden" value="' + downum + '">';
+                                                    htmls += '<input type="hidden" value="' + r[i].codenum + '">';
                                                     htmls += '<input type="hidden" value="">';
                                                     htmls += '<input type="hidden" value="">';
                                                     htmls += '<input type="hidden" value="">';
                                                     htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="' + r[i].rddow + '">';
                                                     htmls += '</td>';
                                                 } else {
                                                     htmls += '<td class="allocur-no">';
@@ -527,10 +531,15 @@ function getRegularDeAll() {
                                                 if (stDDDnum <= showDayday) {
                                                     htmls += '<td class="text-truncate user-select-none allocur" onclick="checkAllo(this)" o' +
                                                             'ndblclick="getAllo(this)">';
+                                                    htmls += '<input type="hidden" value="' + downum + '">';
+                                                    htmls += '<input type="hidden" value="' + r[i].codenum + '">';
+                                                    htmls += '<input type="hidden" value="' + r[i].rddow + '">';
                                                     htmls += '<input type="hidden" value="">';
                                                     htmls += '<input type="hidden" value="">';
                                                     htmls += '<input type="hidden" value="">';
                                                     htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="">';
+                                                    htmls += '<input type="hidden" value="' + r[i].rddow + '">';
                                                     htmls += '</td>';
                                                 } else {
                                                     htmls += '<td class="allocur-no">';
@@ -559,6 +568,10 @@ function getRegularDeAll() {
                     htmlsFoot += '<th></th>';
                     let cont1 = 0;
                     for (let k = 0; k < 31; k++) {
+                        const thaaa = $('#thDays').children()[2];
+                        const thbbb = $(thaaa).children()[k];
+                        const downum = $(thbbb).text();
+
                         if (cont1 < parseInt(fnEndDay())) {
                             const tmpNowDd = toStringByFormatting(new Date());
                             const nowDayday = parseInt(
@@ -587,12 +600,13 @@ function getRegularDeAll() {
                             );
 
                             if (nowDayday >= showDayday) {
-
                                 if ($('#rgconum').val()) {
                                     if ($('#edDD').text()) {
                                         if (stDDDnum <= showDayday && showDayday <= edDDDDnum) {
                                             htmlsFoot += '<th>';
-                                            htmlsFoot += '<button type="button" class="btn btn-outline-secondary btn-xs">배차</button>';
+                                            htmlsFoot += '<button type="button" class="btn btn-outline-secondary btn-xs" onclick="showDa' +
+                                                    'yAllo(this)">배차</button>';
+                                            htmlsFoot += '<input type="hidden" value="' + downum + '">';
                                             htmlsFoot += '</th>';
                                         } else {
                                             htmlsFoot += '<th>';
@@ -601,7 +615,9 @@ function getRegularDeAll() {
                                     } else {
                                         if (stDDDnum <= showDayday) {
                                             htmlsFoot += '<th>';
-                                            htmlsFoot += '<button type="button" class="btn btn-outline-secondary btn-xs">배차</button>';
+                                            htmlsFoot += '<button type="button" class="btn btn-outline-secondary btn-xs" onclick="showDa' +
+                                                    'yAllo(this)">배차</button>';
+                                            htmlsFoot += '<input type="hidden" value="' + downum + '">';
                                             htmlsFoot += '</th>';
                                         } else {
                                             htmlsFoot += '<th>';
@@ -695,14 +711,99 @@ function getRegularCooAll() {
     });
 }
 
+function getRegularAlloCa() {
+    return new Promise(function (resolve, reject) {
+
+        const url = "/reg/selectRegOperList1";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const ddd = new Date($("#yearMonth").val());
+        const dddP = ddd.setMonth(ddd.getMonth() + 1);
+
+        let eee = new Date(dddP);
+        eee = eee.setDate(eee.getDate() - 1);
+
+        const datSt = toStringByFormatting(new Date($("#yearMonth").val()));
+        const datEd = toStringByFormatting(new Date(eee));
+
+        const params = {
+            "conum": $('#rgconum').val(),
+            "regstartd": datSt,
+            "regendd": datEd
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                const thSize = $('#tbAllo')
+                    .children()
+                    .length;
+                if (r.length > 0) {
+                    for (let k = 0; k < thSize; k++) {
+                        const aaa = $('#tbAllo').children()[k];
+
+                        for (let j = 1; j <= 31; j++) {
+                            const bbb = $(aaa).children()[j];
+                            const ccc0 = $(bbb).children()[0];
+                            const ccc1 = $(bbb).children()[1];
+                            const ccc2 = $(bbb).children()[2];
+                            const ccc3 = $(bbb).children()[3];
+                            const ccc4 = $(bbb).children()[4];
+                            const ccc5 = $(bbb).children()[5];
+                            const ccc6 = $(bbb).children()[6];
+                            const ccc7 = $(bbb).children()[7];
+                            const ccc8 = $(bbb).children()[8];
+
+                            const dddayTh = $(ccc0).val();
+                            const codenumnums = $(ccc1).val();
+
+                            for (let i = 0; i < r.length; i++) {
+                                if (dddayTh === r[i].regoperday && codenumnums === r[i].codenum) {
+                                    let carcar = '';
+                                    if (isNaN((r[i].idvehicle).substring((r[i].idvehicle).length - 4))) {
+                                        carcar = r[i]
+                                            .idvehicle
+                                            .replaceAll('고속', '')
+                                            .replaceAll('관광', '')
+                                            .replaceAll('여행사', '')
+                                            .replaceAll('(주)', '');
+                                    } else {
+                                        carcar = (r[i].idvehicle).substring((r[i].idvehicle).length - 4);
+                                    }
+                                    $(ccc4).val(r[i].regopernum);
+                                    $(ccc5).val(r[i].regopercar);
+                                    $(ccc6).val(r[i].regopercom);
+                                    $(ccc7).val(r[i].regoperid);
+                                    $(bbb).append(carcar);
+                                }
+                            }
+                        }
+                    }
+                }
+                resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    });
+}
+
 function showAlloChModal(param) {
     let htmlEmp = '<option value=""></option>';
     let htmlVe = '<option value=""></option>';
+
     let htmlOthercompa = '';
     for (let i = 0; i < dbEmp.length; i++) {
         if (dbEmp[i].trash > 0) {
             htmlEmp += `<option value="` + dbEmp[i].id + `" label="` + dbEmp[i].name +
-                    `" data-value="` + dbEmp[i].id + `"></option>`;
+                    `" data-value="` + dbEmp[i].id + `">` + dbEmp[i].name + `</option>`;
         }
     }
 
@@ -711,15 +812,16 @@ function showAlloChModal(param) {
             htmlVe += `<option value="` + dbVe[i].carNumber + `" label="` + (
                 dbVe[i].vehicle
             ).substring((dbVe[i].vehicle).length - 4) + `" data-value="` + dbVe[i].carNumber +
-                    `"></option>`;
+                    `">` + (dbVe[i].vehicle).substring((dbVe[i].vehicle).length - 4) +
+                    `</option>`;
         }
     }
 
     for (let i = 0; i < dbothercompa.length; i++) {
         if (dbothercompa[i].ctmtrash > 0) {
             htmlOthercompa += `<option value="` + dbothercompa[i].ctmname + `" label="` +
-                    dbothercompa[i].ctmname + `" data-value="` + dbothercompa[i].ctmname +
-                    `"></option>`;
+                    dbothercompa[i].ctmname + `" data-value="` + dbothercompa[i].ctmname + `">` +
+                    dbothercompa[i].ctmname + `</option>`;
         }
     }
 
@@ -740,12 +842,18 @@ function showAlloChModal(param) {
         const eee = $(bbb).children()[1];
         const ggg = $(bbb).children()[7];
 
+        const ch1 = $(bbb).children()[2];
+        const ch2 = $(bbb).children()[3];
+
         const nosunname = $(bbb).text();
         const veve = $(ccc).val();
         const comcompa = $(fff).val();
         const idid = $(ddd).val();
         const conumnum = $(eee).val();
         const dowwww = $(ggg).val();
+
+        const chReal1 = $(ch1).val();
+        const chReal2 = $(ch2).val();
 
         let veE = '';
         let idE = '';
@@ -769,41 +877,72 @@ function showAlloChModal(param) {
             }
         }
 
-        htmlMd = `
-    <div class="row mb-3">
-        <label for="" class="col-sm-4 col-form-label" style="text-align: right;">` +
-                nosunname +
-                `</label>
-        <div class="col-sm-4">
-            <select class="form-select mdVeCho">
-            ` +
-                htmlVe + htmlOthercompa +
-                `
+        if (chReal1 || chReal2) {
+            htmlMd = `
+        <div class="row mb-3">
+            <label for="" class="col-sm-4 col-form-label" style="text-align: right;">` +
+                    nosunname +
+                    `</label>
+            <div class="col-sm-4">
+                <select class="form-select mdVeCho">
+                ` +
+                    htmlVe + htmlOthercompa +
+                    `
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-select">
+                ` +
+                    htmlEmp + htmlOthercompa +
+                    `
+                </select>
+            </div>
+            <div>
+                <input type="hidden" value="` +
+                    comcompa +
+                    `">
+            </div>
+            <div>
+                <input type="hidden" value="` +
+                    conumnum +
+                    `">
+            </div>
+            <div>
+                <input type="hidden" value="` +
+                    dowwww +
+                    `">
+            </div>
+        </div>`
+        } else {
+            htmlMd = `
+        <div class="row mb-3">
+            <label for="" class="col-sm-4 col-form-label" style="text-align: right;" data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="노선 운행정보가없습니다.\n운행정보를입력해주세요.">` +
+                    nosunname +
+                    `</label>
+            <div class="col-sm-4">
+                <select class="form-select mdVeCho" disabled="disabled" data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="노선 운행정보가없습니다.\n운행정보를입력해주세요.">
             </select>
-        </div>
-        <div class="col-sm-4">
-            <select class="form-select">
-            ` +
-                htmlEmp + htmlOthercompa +
-                `
-            </select>
-        </div>
-        <div>
-            <input type="hidden" value="` +
-                comcompa +
-                `">
-        </div>
-        <div>
-            <input type="hidden" value="` +
-                conumnum +
-                `">
-        </div>
-        <div>
-            <input type="hidden" value="` +
-                dowwww + `">
-        </div>
-    </div>`
-
+            </div>
+            <div class="col-sm-4">
+                <select class="form-select" disabled="disabled" data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="노선 운행정보가없습니다.\n운행정보를입력해주세요."></select>
+            </div>
+            <div>
+                <input type="hidden" value="" disabled="disabled">
+            </div>
+            <div>
+                <input type="hidden" value="" disabled="disabled">
+            </div>
+            <div>
+                <input type="hidden" value="" disabled="disabled">
+            </div>
+        </div>`
+        }
         $('#regAllAlloMdMb').append(htmlMd);
 
         const ttmp = $('#regAllAlloMdMb').children()[i];
@@ -815,28 +954,70 @@ function showAlloChModal(param) {
         $(ttmp22).val(idE);
     }
 
-    const pre = `<hr>
-    <ol>
+    let pre = `<hr>
+    <ol>`;
+
+    if (param) {
+
+        pre += `
         <li>
-            ` + ($("#yearMonth").val()).split(
-        '-'
-    )[0] + `년 ` + ($("#yearMonth").val()).split('-')[1] + `월` +
-            `, 배차되지 않은 날짜에 모두 배차됩니다.
+            ` + param.split('-')[0] + '년 ' + param.split(
+            '-'
+        )[1] + '월 ' + param.split('-')[2] + '일' +
+                `, 배차되지 않은 노선에 일괄적으로 배차됩니다.
+        </li>
+        <li>
+        차량 변경시 해당 노선에 고정 운행 차량이 됩니다.
+    </li>
+    <li>
+        차량과 승무원 모두 선택하셔야합니다.
+    </li>
+    <li>
+        차량과 승무원에 '빈칸'으로 선택하면 해당 노선은 배차되지 않습니다.
+    </li>
+</ol>`;
+
+    } else {
+        pre += `
+        <li>
+            ` + ($("#yearMonth").val()).split('-')[0] + `년 ` + (
+            $("#yearMonth").val()
+        ).split('-')[1] + `월` +
+                `, 배차되지 않은 날짜에 일괄적으로 배차됩니다.
         </li>
         <li>
             차량 변경시 해당 노선에 고정 운행 차량이 됩니다.
         </li>
+        <li>
+            차량과 승무원 모두 선택하셔야합니다.
+        </li>
+        <li>
+            차량과 승무원에 '빈칸'으로 선택하면 해당 노선은 배차되지 않습니다.
+        </li>
     </ol>`;
+    }
 
     $('#regAllAlloMdMb').append(pre);
 
     $('#alloDayMd').val(param);
+    var tooltipTriggerList = []
+        .slice
+        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
     myModalRegAllAlloMd.show();
 }
 
 $(document).on('click', '#btnAllAllo', function () {
     showAlloChModal('');
 });
+
+function showDayAllo(params) {
+    const dayy = $($(params).next()).val();
+
+    showAlloChModal(dayy);
+}
 
 $(document).on('change', '.mdVeCho', function () {
 
@@ -938,106 +1119,159 @@ function insertAllo1() {
 }
 
 $(document).on('click', '#btnMdAll', function () {
-    if ($('#alloDayMd').val()) {} else {
 
-        let arrVe = new Array();
-        let arrId = new Array();
-        let arrCompa = new Array();
-        let arrCode = new Array();
-        let arrDow = new Array();
+    let arrVe = new Array();
+    let arrId = new Array();
+    let arrCompa = new Array();
+    let arrCode = new Array();
+    let arrDow = new Array();
 
-        const mdSize = $('#regAllAlloMdMb')
-            .children()
-            .length;
+    const mdSize = $('#regAllAlloMdMb')
+        .children()
+        .length;
 
-        for (let i = 0; i < mdSize; i++) {
+    for (let i = 0; i < mdSize; i++) {
 
-            const ttmp = $('#regAllAlloMdMb').children()[i];
-            const ttmp1 = $(ttmp).children()[1];
-            const ttmp2 = $(ttmp1).children();
+        const ttmp = $('#regAllAlloMdMb').children()[i];
+        const ttmp1 = $(ttmp).children()[1];
+        const ttmp2 = $(ttmp1).children();
 
-            const ttmp11 = $(ttmp).children()[2];
-            const ttmp22 = $(ttmp11).children();
+        const ttmp11 = $(ttmp).children()[2];
+        const ttmp22 = $(ttmp11).children();
 
-            const ttmp111 = $(ttmp).children()[3];
-            const ttmp222 = $(ttmp111).children();
+        const ttmp111 = $(ttmp).children()[3];
+        const ttmp222 = $(ttmp111).children();
 
-            const ttmp1111 = $(ttmp).children()[4];
-            const ttmp2222 = $(ttmp1111).children();
+        const ttmp1111 = $(ttmp).children()[4];
+        const ttmp2222 = $(ttmp1111).children();
 
-            const ttmp11111 = $(ttmp).children()[5];
-            const ttmp22222 = $(ttmp11111).children();
+        const ttmp11111 = $(ttmp).children()[5];
+        const ttmp22222 = $(ttmp11111).children();
 
-            if (($(ttmp2).val() && !$(ttmp22).val()) || (!$(ttmp2).val() && $(ttmp22).val())) {
-                alert("차량과 승무원을 같이 입력해주세요.\n\n차량과 승무원 중 하나만 입력 할 수 없습니다.");
-                return;
-            }
-
-            if ($(ttmp2).val() && $(ttmp22).val() && $(ttmp222).val() && $(ttmp2222).val() && $(ttmp22222).val()) {
-                arrVe.push($(ttmp2).val());
-                arrId.push($(ttmp22).val());
-                arrCompa.push($(ttmp222).val());
-                arrCode.push($(ttmp2222).val());
-                arrDow.push($(ttmp22222).val());
-            }
+        if (($(ttmp2).val() && !$(ttmp22).val()) || (!$(ttmp2).val() && $(ttmp22).val())) {
+            alert("차량과 승무원을 같이 입력해주세요.\n\n차량과 승무원 중 하나만 입력 할 수 없습니다.");
+            return;
         }
 
-        let params = new Array();
+        if ($(ttmp2).val() && $(ttmp22).val() && $(ttmp222).val() && $(ttmp2222).val() && $(ttmp22222).val()) {
+            arrVe.push($(ttmp2).val());
+            arrId.push($(ttmp22).val());
+            arrCompa.push($(ttmp222).val());
+            arrCode.push($(ttmp2222).val());
+            arrDow.push($(ttmp22222).val());
+        }
+    }
 
-        const size1 = $('#tbAllo')
-            .children()
-            .length;
+    let params = new Array();
+
+    const size1 = $('#tbAllo')
+        .children()
+        .length;
+
+    if ($('#alloDayMd').val()) {
+        const dayy = $('#alloDayMd').val();
 
         for (let k = 0; k < size1; k++) {
             const aaa = $('#tbAllo').children()[k];
             const tmpor = $(aaa).children()[0];
             const orgin = $(tmpor).children()[4];
             const realOri = $(orgin).val();
-
             const orgin1 = $(tmpor).children()[1];
             const conummm = $(orgin1).val();
-
             const orgin2 = $(tmpor).children()[2];
             const goutArr = ($(orgin2).val()).split('');
+            for (let l = 0; l < arrCode.length; l++) {
+                if (arrCode[l] == conummm) {
+                    const ddaaa = $('#thDays').children()[2];
+                    let nums = 0;
+                    for (let l2 = 0; l2 < 31; l2++) {
+                        const ddaaa1 = $(ddaaa).children()[l2];
+                        const thDDaay = $(ddaaa1).text();
+                        if (thDDaay === dayy) {
+                            nums = l2;
+                        }
+                    }
+                    const igu = $(aaa).children()[nums + 1];
+                    const igu1 = $(igu).children()[4];
+                    const chDay = $(igu1).val();
+                    if (!chDay) {
+                        const numnumsss = getRegOperNum();
+                        for (let i = 0; i < goutArr.length; i++) {
+                            const asd = {
+                                "regopernum": numnumsss,
+                                "conum": $('#rgconum').val(),
+                                "codenum": conummm,
+                                "regoperday": dayy,
+                                "regoperno": goutArr[i],
+                                "regopercom": arrCompa[l],
+                                "regopercar": arrVe[l],
+                                "regoperid": arrId[l],
+                                "regorcar": realOri
+                            };
+                            params.push(asd);
+                        }
+                    }
+                }
+            }
+        }
+    } else {
 
-            const aaa1 = $('#thDays').children()[3];
-            const aaa11 = $('#thDays').children()[2];
+        const ddaaa = $('#thDays').children()[2];
+        const ddaaa1 = $('#thDays').children()[3];
+        const dayArr = $(ddaaa).children();
+        const dayArr1 = $(ddaaa1).children();
 
-            for (let j = 1; j <= 31; j++) {
-                for (let l = 0; l < arrCode.length; l++) {
-                    if (arrCode[l] == conummm) {
-                        const ttmmppp = $(aaa1).children()[j - 1];
-                        const thDow = $(ttmmppp).text();
-                        const ttmmppp1 = $(aaa11).children()[j - 1];
-                        const dayy = $(ttmmppp1).text();
+        let arrDay = new Array();
+        for (let i = 0; i < dayArr.length; i++) {
+            if ($(dayArr[i]).text()) {
+                arrDay.push($(dayArr[i]).text());
+            }
+        }
 
-                        const tmpNowDd = toStringByFormatting(new Date());
-                        const nowDayday = parseInt(
-                            tmpNowDd.split('-')[0] + tmpNowDd.split('-')[1] + tmpNowDd.split('-')[2]
-                        );
+        let arrDay1 = new Array();
+        for (let i = 0; i < dayArr1.length; i++) {
+            if ($(dayArr1[i]).text()) {
+                arrDay1.push($(dayArr1[i]).text());
+            }
+        }
 
-                        const showDayday = parseInt(
-                            dayy.split('-')[0] + dayy.split('-')[1] + dayy.split(
-                                '-'
-                            )[2]
-                        );
+        for (let k = 0; k < size1; k++) {
+            const aaa = $('#tbAllo').children()[k];
+            const tmpor = $(aaa).children()[0];
+            const orgin = $(tmpor).children()[4];
+            const realOri = $(orgin).val();
+            const orgin1 = $(tmpor).children()[1];
+            const conummm = $(orgin1).val();
+            const orgin2 = $(tmpor).children()[2];
+            const goutArr = ($(orgin2).val()).split('');
+            for (let l = 0; l < arrCode.length; l++) {
+                if (arrCode[l] == conummm) {
+                    for (let j = 0; j < arrDay.length; j++) {
+                        for (let l2 = 1; l2 <= 31; l2++) {
+                            const ttt = $(aaa).children()[l2];
+                            const ttt1 = $(ttt).children()[4];
+                            const ttt2 = $(ttt).children()[0];
+                            const regopern = $(ttt1).val();
+                            const regdays = $(ttt2).val();
+                            const dayy = arrDay[j];
 
-                        if (nowDayday >= showDayday) {
-                            if (arrDow[k].includes(thDow)) {
-                                "야호"
-                                for (let i = 0; i < goutArr.length; i++) {
-                                    const asd = {
-                                        "regopernum": 1,
-                                        "conum": $('#rgconum').val(),
-                                        "codenum": conummm,
-                                        "regoperday": dayy,
-                                        "regoperno": goutArr[i],
-                                        "regopercom": arrCompa[k],
-                                        "regopercar": arrVe[k],
-                                        "regoperid": arrId[k],
-                                        "regorcar": realOri
-                                    };
-                                    params.push(asd);
+                            if (!regopern && (regdays === dayy)) {
+                                if (arrDow[l].includes(arrDay1[j])) {
+                                    const numnumsss = getRegOperNum();
+                                    for (let i = 0; i < goutArr.length; i++) {
+                                        const asd = {
+                                            "regopernum": numnumsss,
+                                            "conum": $('#rgconum').val(),
+                                            "codenum": conummm,
+                                            "regoperday": dayy,
+                                            "regoperno": goutArr[i],
+                                            "regopercom": arrCompa[l],
+                                            "regopercar": arrVe[l],
+                                            "regoperid": arrId[l],
+                                            "regorcar": realOri
+                                        };
+                                        params.push(asd);
+                                    }
                                 }
                             }
                         }
@@ -1045,10 +1279,46 @@ $(document).on('click', '#btnMdAll', function () {
                 }
             }
         }
-        console.log(params);
+    }
+    console.log(params);
+    const url = "/reg/insertRegOper1";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function (r) {}
+    })
+});
+
+function getRegOperNum() {
+    let str = "";
+
+    for (let i = 0; i < 6; i++) {
+        switch (parseInt((Math.random() * 3) + 1)) {
+            case 1:
+                str += parseInt(Math.random() * 9);
+                break;
+            case 2:
+                str += String.fromCharCode(parseInt((Math.random() * 26) + 65));
+                break;
+            case 3:
+                str += String.fromCharCode(parseInt((Math.random() * 26) + 97));
+                break;
+        }
     }
 
-});
+    const day = toStringByFormatting(new Date())
+        .replaceAll("-", "")
+        .substring(2);
+    return "OR-" + day + "-" + str;
+}
 
 function checkAllo(param) {
 
@@ -1085,8 +1355,6 @@ function checkAllo(param) {
     day2.css('background', '#fcf8e3');
     nocun.css('background', '#fcf8e3');
     $(param).css('background', '#fcf8e3');
-
-    insertAllo1();
 }
 
 function getAllo(param) {

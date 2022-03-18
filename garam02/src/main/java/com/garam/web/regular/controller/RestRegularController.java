@@ -100,15 +100,6 @@ public class RestRegularController {
 	@PostMapping(value = "/updateRegulardetail")
 	public int updateRegulardetail(@RequestBody RegularDTO regularDTO) throws Exception {
 
-		System.out.println(regularDTO.getCodenum());
-		System.out.println(regularDTO.getRdnum());
-		System.out.println(regularDTO.getRdbus());
-		System.out.println(regularDTO.getRdconn());
-		System.out.println(regularDTO.getRdmoney());
-		System.out.println(regularDTO.getRdaltm());
-		System.out.println(regularDTO.getOpercar());
-		System.out.println(regularDTO.getRdtrash());
-
 		int rst = 0;
 		try {
 			rst = regularService.updateRegulardetail(regularDTO);
@@ -241,4 +232,12 @@ public class RestRegularController {
 		}
 		return rst;
 	}
+
+	@PostMapping(value = "/selectRegOperList1")
+	public List<RegularDTO> selectRegOperList1(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = regularService.selectRegOperList1(regularDTO);
+
+		return list;
+	}
+
 }

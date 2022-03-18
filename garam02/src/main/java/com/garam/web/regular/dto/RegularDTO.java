@@ -134,6 +134,35 @@ public class RegularDTO {
 
 	private String idcompa;
 
+	private Long operregseq;
+
+	// 정기운행번호
+	private String regopernum;
+
+	// 운행일
+	private String regoperday;
+
+	// 운행번호
+	private Integer regoperno;
+
+	// 운행회사
+	private String regopercom;
+
+	// 운행차량
+	private String regopercar;
+
+	// 운행승무원
+	private String regoperid;
+
+	// 고정차량
+	private String regorcar;
+
+	// 운행확정
+	private String regoperconfirm;
+
+	// 삭제여부
+	private Integer regopertrash;
+
 	public String getOpercar() {
 		return opercar;
 	}
@@ -556,6 +585,86 @@ public class RegularDTO {
 
 	public void setIdid(String idid) {
 		this.idid = idid;
+	}
+
+	public Long getOperregseq() {
+		return operregseq;
+	}
+
+	public void setOperregseq(Long operregseq) {
+		this.operregseq = operregseq;
+	}
+
+	public String getRegopernum() {
+		return regopernum;
+	}
+
+	public void setRegopernum(String regopernum) {
+		this.regopernum = regopernum;
+	}
+
+	public String getRegoperday() {
+		return regoperday;
+	}
+
+	public void setRegoperday(String regoperday) {
+		this.regoperday = regoperday;
+	}
+
+	public Integer getRegoperno() {
+		return regoperno;
+	}
+
+	public void setRegoperno(Integer regoperno) {
+		this.regoperno = regoperno;
+	}
+
+	public String getRegopercom() {
+		return regopercom;
+	}
+
+	public void setRegopercom(String regopercom) {
+		this.regopercom = regopercom;
+	}
+
+	public String getRegopercar() {
+		return regopercar;
+	}
+
+	public void setRegopercar(String regopercar) {
+		this.regopercar = regopercar;
+	}
+
+	public String getRegoperid() {
+		return regoperid;
+	}
+
+	public void setRegoperid(String regoperid) {
+		this.regoperid = regoperid;
+	}
+
+	public String getRegorcar() {
+		return regorcar;
+	}
+
+	public void setRegorcar(String regorcar) {
+		this.regorcar = regorcar;
+	}
+
+	public String getRegoperconfirm() {
+		return regoperconfirm;
+	}
+
+	public void setRegoperconfirm(String regoperconfirm) {
+		this.regoperconfirm = regoperconfirm;
+	}
+
+	public Integer getRegopertrash() {
+		return regopertrash;
+	}
+
+	public void setRegopertrash(Integer regopertrash) {
+		this.regopertrash = regopertrash;
 	}
 
 }

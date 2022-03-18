@@ -268,6 +268,46 @@
 		regularcourse.codenum, regularcourse.goutnum
 	</select>
 
+	<select id="selectRegOperList1"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		operation_reg.*,
+
+		IFNULL((SELECT
+		vehicleinfo.vehicle
+		FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_reg.regopercar),
+		operation_reg.regopercar) AS
+		idvehicle
+
+
+		FROM
+
+		operation_reg
+
+		WHERE
+
+		operation_reg.conum =
+		#{conum}
+
+		AND
+
+		operation_reg.regoperday BETWEEN
+		#{regstartd} AND
+		#{regendd}
+
+		GROUP BY
+
+		operation_reg.regopernum
+
+	</select>
+
 
 	<insert id="insertRegular"
 		parameterType="com.garam.web.regular.dto.RegularDTO">
@@ -336,6 +376,7 @@
 
 		(
 		null,
+		#{conum},
 		#{codenum},
 		#{idname},
 		1,
@@ -357,6 +398,7 @@
 
 		(
 		null,
+		#{conum},
 		#{codenum},
 		#{idphone1},
 		1,
@@ -378,6 +420,7 @@
 
 		(
 		null,
+		#{conum},
 		#{codenum},
 		#{idvehicle},
 		2,
@@ -402,6 +445,7 @@
 
 		(
 		null,
+		#{conum},
 		#{codenum},
 		#{idname},
 		#{goutnum},
@@ -423,6 +467,7 @@
 
 		(
 		null,
+		#{conum},
 		#{codenum},
 		#{idphone1},
 		#{goutnum},
@@ -447,6 +492,7 @@
 
 		(
 		null,
+		#{conum},
 		#{codenum},
 		#{idname},
 		#{goutnum},
@@ -471,14 +517,15 @@
 
 		(
 		null,
+		#{conum},
 		#{codenum},
 		#{coconum},
 		#{goutnum},
 		#{rcsepa},
 		#{rcnum},
 		#{rct},
-		null,
-		null,
+		'',
+		'',
 		1
 		);
 	</insert>

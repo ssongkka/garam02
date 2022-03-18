@@ -262,6 +262,7 @@ h4 {
 
     .main-aside-item-in:nth-child(1),
     .main-aside-item-in:nth-child(2) {
+        max-width: calc(100vw - 2rem);
         padding: 2rem 1rem;
         gap: 2rem;
     }
