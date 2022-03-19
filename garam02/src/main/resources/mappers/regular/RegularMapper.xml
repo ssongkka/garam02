@@ -308,6 +308,52 @@
 
 	</select>
 
+	<select id="selectRegOperDe"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		operation_reg
+
+		WHERE
+
+		operation_reg.codenum =
+		#{codenum}
+
+		AND
+
+		operation_reg.regoperday = #{regoperday}
+	</select>
+
+	<select id="selectRegularcourseDeAllo"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regularcourse
+
+		WHERE
+
+		codenum = #{codenum}
+
+		GROUP BY
+		regularcourse.goutnum
+
+		ORDER BY
+		rct, goutnum, rcnum
+
+	</select>
+
 
 	<insert id="insertRegular"
 		parameterType="com.garam.web.regular.dto.RegularDTO">
@@ -641,6 +687,33 @@
 
 			codenum =
 			#{value.codenum}
+		</foreach>
+	</update>
+
+	<update id="updateRegOperList1"
+		parameterType="java.util.HashMap">
+		<foreach collection="reg" item="value" index="index"
+			separator=";">
+
+			UPDATE
+
+			operation_reg
+
+			SET
+
+			regoperno =
+			#{value.regoperno},
+			regopercom =
+			#{value.regopercom},
+			regopercar =
+			#{value.regopercar},
+			regoperid =
+			#{value.regoperid}
+
+			WHERE
+
+			operregseq =
+			#{value.operregseq}
 		</foreach>
 	</update>
 

@@ -49,4 +49,6 @@ public interface RegularMapper {
 	public int insertRegOperAllo(HashMap<String, Object> map) throws Exception;
 
 	public List<RegularDTO> selectRegOperList1(RegularDTO regularDTO) throws Exception;
+
+	public List<RegularDTO> selectRegOperDe(RegularDTO regularDTO) throws Exception;
 }

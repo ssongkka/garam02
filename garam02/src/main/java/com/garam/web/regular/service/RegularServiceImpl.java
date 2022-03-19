@@ -202,4 +202,11 @@ public class RegularServiceImpl implements RegularService {
 
 		return list;
 	}
+
+	@Override
+	public List<RegularDTO> selectRegOperDe(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = regularMapper.selectRegOperDe(regularDTO);
+
+		return list;
+	}
 }

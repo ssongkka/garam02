@@ -421,6 +421,15 @@ $(document).on('click', '.regAll', function () {
         .then(closeLoadingWithMask);
 });
 
+function afterinsert() {
+    LoadingWithMask()
+        .then(setRegDays)
+        .then(getRegularDeAll)
+        .then(getRegularCooAll)
+        .then(getRegularAlloCa)
+        .then(closeLoadingWithMask);
+}
+
 function getRegularDeAll() {
     return new Promise(function (resolve, reject) {
 
@@ -798,8 +807,8 @@ function getRegularAlloCa() {
 function showAlloChModal(param) {
     let htmlEmp = '<option value=""></option>';
     let htmlVe = '<option value=""></option>';
-
     let htmlOthercompa = '';
+
     for (let i = 0; i < dbEmp.length; i++) {
         if (dbEmp[i].trash > 0) {
             htmlEmp += `<option value="` + dbEmp[i].id + `" label="` + dbEmp[i].name +
@@ -1064,58 +1073,30 @@ $(document).on('change', '.mdVeCho', function () {
     }
 });
 
-function insertAllo1() {
+function insertAllo1111() {
     return new Promise(function (resolve, reject) {
-
-        const url = "/reg/insertRegOper1";
+        const url = "/reg/selectRegOperList1";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
 
-        let params = new Array();
-
-        const size1 = $('#tbAllo')
-            .children()
-            .length;
-
-        for (let k = 0; k < size1; k++) {
-            const aaa = $('#tbAllo').children()[k];
-            for (let j = 1; j <= 31; j++) {
-                const bbb = $(aaa).children()[j];
-                const ccc = $(bbb).children()[1];
-                const conummm = $(ccc).val();
-
-                const ddd = $(bbb).children()[2];
-                const eee = $(bbb).children()[3];
-
-                const aaa111 = $(bbb).children()[0];
-                const dayy = $(aaa111).val();
-
-                const goutArr = ($(ddd).val()).split('');
-                const sepaArr = ($(eee).val()).split('');
-
-                for (let i = 0; i < goutArr.length; i++) {
-                    const asd = {
-                        "regopernum": opernum,
-                        "conum": $('#rgconum').val(),
-                        "codenum": conummm,
-                        "regoperday": dayy,
-                        "regoperno": goutArr[i],
-                        "regopercom": hoho,
-                        "regopercar": hoho,
-                        "regoperid": hoho,
-                        "regorcar": hoho
-                    };
-                    params.push(asd);
-                }
+        const params = {
+            "codenum": $('#rgconum').val(),
+            "regoperday": datEd
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {},
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
-        }
-
-        // $.ajax({     url: url,     type: "POST",     headers: headers,     dataType:
-        // "json",     data: JSON.stringify(params),     success: function (r) {},
-        // error: (jqXHR) => {         loginSession(jqXHR.status);     } })
-    });
+        })
+    })
 }
 
 $(document).on('click', '#btnMdAll', function () {
@@ -1293,7 +1274,21 @@ $(document).on('click', '#btnMdAll', function () {
         headers: headers,
         dataType: "json",
         data: JSON.stringify(params),
-        success: function (r) {}
+        success: function (r) {
+            if (r > 0) {
+                alert(r + "건의 운행정보가 저장되었습니다.");
+                myModalRegAllAlloMd.hide();
+                afterinsert();
+            } else if (r === -1) {
+                alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                myModalRegAllAlloMd.hide();
+                afterinsert();
+            } else if (r === -2) {
+                alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                myModalRegAllAlloMd.hide();
+                afterinsert();
+            }
+        }
     })
 });
 
@@ -1321,7 +1316,6 @@ function getRegOperNum() {
 }
 
 function checkAllo(param) {
-
     const aaa = $(param).parent()[0];
     const aaa1 = $(aaa).children()[0];
     const nocun = $(aaa1);
@@ -1358,7 +1352,443 @@ function checkAllo(param) {
 }
 
 function getAllo(param) {
+    const aaa0 = $(param).children()[0];
+    const aaa1 = $(param).children()[1];
+    const aaa2 = $(param).children()[2];
+    const aaa3 = $(param).children()[3];
+    const aaa4 = $(param).children()[4];
+    const aaa5 = $(param).children()[5];
+    const aaa6 = $(param).children()[6];
+    const aaa7 = $(param).children()[7];
+    const aaa8 = $(param).children()[8];
+
+    LoadingWithMask()
+        .then(setAlloModalDeCont)
+        .then(getRegOperAlloDe)
+        .then(closeLoadingWithMask);
+
+    function setAlloModalDeCont(result) {
+        return new Promise(function (resolve, reject) {
+
+            const eee = $(param).parent();
+            const eee1 = $(eee).children()[0];
+
+            if (!$(aaa2).val()) {
+                alert(
+                    "'" + $(eee1).text() + "'노선의 운행정보가없습니다.\n\n운행정보 수정에서 해당 노선의 운행정보를 입력해주세요."
+                );
+                return;
+            }
+
+            const bbb0 = $('#regAlloDeTi')
+                .next()
+                .next();
+            const bbb1 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next();
+            const bbb2 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next()
+                .next();
+            const bbb3 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next()
+                .next()
+                .next();
+            const bbb4 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next();
+            const bbb5 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next();
+            const bbb6 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next();
+            const bbb7 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next();
+            const bbb8 = $('#regAlloDeTi')
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next()
+                .next();
+
+            const eee2 = $(eee1).children()[4]
+            const eee3 = $(eee1).children()[5]
+            const eee4 = $(eee1).children()[6]
+
+            $(bbb0).val($(aaa0).val());
+            $(bbb1).val($(aaa1).val());
+            $(bbb2).val($(aaa2).val());
+            $(bbb3).val($(aaa3).val());
+            $(bbb4).val($(aaa4).val());
+            $(bbb5).val($(eee2).val());
+            $(bbb6).val($(eee3).val());
+            $(bbb7).val($(eee4).val());
+            $(bbb8).val($(aaa8).val());
+
+            const dowww = getDayOfWeek(new Date($(aaa0).val()).getDay());
+
+            const tttit = $(eee1).text() + ` <small>` + $(aaa0).val() + ` ` + dowww +
+                    `</small>`;
+
+            $('#regAlloDeTi').html(tttit);
+
+            let htmlEmp = '<option value=""></option>';
+            let htmlVe = '<option value=""></option>';
+            let htmlOthercompa = '';
+
+            for (let i = 0; i < dbEmp.length; i++) {
+                if (dbEmp[i].trash > 0) {
+                    htmlEmp += `<option value="` + dbEmp[i].id + `" label="` + dbEmp[i].name +
+                            `" data-value="` + dbEmp[i].id + `">` + dbEmp[i].name + `</option>`;
+                }
+            }
+
+            for (let i = 0; i < dbVe.length; i++) {
+                if (dbVe[i].trash > 0) {
+                    htmlVe += `<option value="` + dbVe[i].carNumber + `" label="` + (
+                        dbVe[i].vehicle
+                    ).substring((dbVe[i].vehicle).length - 4) + `" data-value="` + dbVe[i].carNumber +
+                            `">` + (dbVe[i].vehicle).substring((dbVe[i].vehicle).length - 4) +
+                            `</option>`;
+                }
+            }
+
+            for (let i = 0; i < dbothercompa.length; i++) {
+                if (dbothercompa[i].ctmtrash > 0) {
+                    htmlOthercompa += `<option value="` + dbothercompa[i].ctmname + `" label="` +
+                            dbothercompa[i].ctmname + `" data-value="` + dbothercompa[i].ctmname + `">` +
+                            dbothercompa[i].ctmname + `</option>`;
+                }
+            }
+
+            const goutArr = ($(aaa2).val()).split('');
+            const sepaArr = ($(aaa3).val()).split('');
+
+            $('#regAlloDeMd').html('');
+
+            for (let i = 0; i < sepaArr.length; i++) {
+                let htmlMd = '';
+                switch (sepaArr[i]) {
+                    case '1':
+                        htmlMd = `
+                <div class="row mb-3">
+                    <label for="" class="col-sm-4 col-form-label" style="text-align: right;">` +
+                                (i + 1) + `. 출근` +
+                                `</label>
+                    <div class="col-sm-4">
+                        <select class="form-select mdVeCho">
+                        ` +
+                                htmlVe + htmlOthercompa +
+                                `
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-select">
+                        ` +
+                                htmlEmp + htmlOthercompa +
+                                `
+                        </select>
+                    </div>
+                    <div>
+                        <input type="hidden" value="">
+                    </div>
+                    <div>
+                        <input type="hidden" value="` +
+                                $(aaa1).val() +
+                                `">
+                    </div>
+                    <div>
+                        <input type="hidden" value="` +
+                                goutArr[i] +
+                                `">
+                    </div>
+                    <div>
+                        <input type="hidden" value="">
+                    </div>
+                </div>`
+                        break;
+                    case '2':
+                        htmlMd = `
+                <div class="row mb-3">
+                    <label for="" class="col-sm-4 col-form-label" style="text-align: right;">` +
+                                (i + 1) + `. 퇴근` +
+                                `</label>
+                    <div class="col-sm-4">
+                        <select class="form-select mdVeCho">
+                        ` +
+                                htmlVe + htmlOthercompa +
+                                `
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-select">
+                        ` +
+                                htmlEmp + htmlOthercompa +
+                                `
+                        </select>
+                    </div>
+                    <div>
+                        <input type="hidden" value="">
+                    </div>
+                    <div>
+                        <input type="hidden" value="` +
+                                $(aaa1).val() +
+                                `">
+                    </div>
+                    <div>
+                        <input type="hidden" value="` +
+                                goutArr[i] +
+                                `">
+                    </div>
+                    <div>
+                        <input type="hidden" value="">
+                    </div>
+                </div>`
+                        break;
+                }
+                $('#regAlloDeMd').append(htmlMd);
+
+                const ttmp = $('#regAlloDeMd').children()[i];
+                const ttmp1 = $(ttmp).children()[1];
+                const ttmp2 = $(ttmp1).children();
+                $(ttmp2).val($(eee2).val());
+                const ttmp11 = $(ttmp).children()[2];
+                const ttmp22 = $(ttmp11).children();
+                $(ttmp22).val($(eee4).val());
+                const ttmp111 = $(ttmp).children()[3];
+                const ttmp221 = $(ttmp111).children();
+                $(ttmp221).val($(eee3).val());
+            }
+            resolve();
+        })
+    }
+
+    function getRegOperAlloDe(params) {
+        return new Promise(function (resolve, reject) {
+            const url = "/reg/selectRegOperDe";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "codenum": $(aaa1).val(),
+                "regoperday": $(aaa0).val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    console.log(r);
+
+                    const aa = $('#regAlloDeMd')
+                        .children()
+                        .length;
+
+                    for (let k = 0; k < aa; k++) {
+                        const bb = $('#regAlloDeMd').children()[k];
+                        const bb1 = $(bb).children()[1];
+                        const bb11 = $(bb1).children();
+                        const bb2 = $(bb).children()[2];
+                        const bb22 = $(bb2).children();
+                        const bb3 = $(bb).children()[3];
+                        const bb33 = $(bb3).children();
+                        const bb4 = $(bb).children()[4];
+                        const bb44 = $(bb4).children();
+                        const bb5 = $(bb).children()[5];
+                        const bb55 = $(bb5).children();
+                        const bb6 = $(bb).children()[6];
+                        const bb66 = $(bb6).children();
+
+                        const rdnumm = $(bb55).val();
+
+                        for (let i = 0; i < r.length; i++) {
+                            console.log("rdnumm   " + rdnumm);
+                            console.log("r[i].regoperno  " + r[i].regoperno);
+                            console.log("r[i].regoperno  " + rdnumm == r[i].regoperno);
+                            if (rdnumm == r[i].regoperno) {
+                                $(bb11).val(r[i].regopercar);
+                                $(bb22).val(r[i].regoperid);
+                                $(bb33).val(r[i].regopercom);
+                                $(bb66).val(r[i].operregseq);
+                            }
+                        }
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
     myModalRegAlloMd.show();
+}
+
+$(document).on('click', '#insertAlloDe', function () {
+    insertRegAlloDe();
+});
+
+function insertRegAlloDe(result) {
+    return new Promise(function (resolve, reject) {
+
+        let params = new Array();
+
+        const bbb0 = $('#regAlloDeTi')
+            .next()
+            .next();
+        const bbb7 = $('#regAlloDeTi')
+            .next()
+            .next()
+            .next()
+            .next()
+            .next()
+            .next()
+            .next();
+        const bbb6 = $('#regAlloDeTi')
+            .next()
+            .next()
+            .next()
+            .next()
+            .next()
+            .next();
+
+        const aa = $('#regAlloDeMd')
+            .children()
+            .length;
+
+        let url = "";
+
+        let numnumsss = '';
+        if ($(bbb6).val()) {
+            numnumsss = $(bbb6).val();
+            url = "";
+            for (let i = 0; i < aa; i++) {
+                const bb = $('#regAlloDeMd').children()[i];
+                const bb1 = $(bb).children()[1];
+                const bb11 = $(bb1).children();
+                const bb2 = $(bb).children()[2];
+                const bb22 = $(bb2).children();
+                const bb3 = $(bb).children()[3];
+                const bb33 = $(bb3).children();
+                const bb4 = $(bb).children()[4];
+                const bb44 = $(bb4).children();
+                const bb5 = $(bb).children()[5];
+                const bb55 = $(bb5).children();
+                const bb6 = $(bb).children()[6];
+                const bb66 = $(bb6).children();
+
+                const asd = {
+                    "regopernum": numnumsss,
+                    "operregseq": $(bb66).val(),
+                    "regoperno": $(bb55).val(),
+                    "regopercom": $(bb33).val(),
+                    "regopercar": $(bb11).val(),
+                    "regoperid": $(bb22).val(),
+                    "regorcar": $(bbb7).val()
+                };
+                params.push(asd);
+            }
+        } else {
+            numnumsss = getRegOperNum();
+            url = "/reg/insertRegOper1";
+            for (let i = 0; i < aa; i++) {
+                const bb = $('#regAlloDeMd').children()[i];
+                const bb1 = $(bb).children()[1];
+                const bb11 = $(bb1).children();
+                const bb2 = $(bb).children()[2];
+                const bb22 = $(bb2).children();
+                const bb3 = $(bb).children()[3];
+                const bb33 = $(bb3).children();
+                const bb4 = $(bb).children()[4];
+                const bb44 = $(bb4).children();
+                const bb5 = $(bb).children()[5];
+                const bb55 = $(bb5).children();
+                const bb6 = $(bb).children()[6];
+                const bb66 = $(bb6).children();
+
+                const asd = {
+                    "regopernum": numnumsss,
+                    "conum": $('#rgconum').val(),
+                    "codenum": $(bb44).val(),
+                    "regoperday": $(bbb0).val(),
+                    "regoperno": $(bb55).val(),
+                    "regopercom": $(bb33).val(),
+                    "regopercar": $(bb11).val(),
+                    "regoperid": $(bb22).val(),
+                    "regorcar": $(bbb7).val()
+                };
+                params.push(asd);
+            }
+        }
+
+        console.log(params);
+
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r > 0) {
+                    alert(r + "건의 운행정보가 저장되었습니다.");
+                    myModalRegAlloMd.hide();
+                    afterinsert();
+                } else if (r === -1) {
+                    alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                    myModalRegAlloMd.hide();
+                    afterinsert();
+                } else if (r === -2) {
+                    alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                    myModalRegAlloMd.hide();
+                    afterinsert();
+                }
+            }
+        })
+
+    })
 }
 
 function fnEndDay() {

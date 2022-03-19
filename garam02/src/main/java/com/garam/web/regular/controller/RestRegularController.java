@@ -240,4 +240,11 @@ public class RestRegularController {
 		return list;
 	}
 
+	@PostMapping(value = "/selectRegOperDe")
+	public List<RegularDTO> selectRegOperDe(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = regularService.selectRegOperDe(regularDTO);
+
+		return list;
+	}
+
 }
