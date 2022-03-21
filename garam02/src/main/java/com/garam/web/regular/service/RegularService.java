@@ -46,6 +46,8 @@ public interface RegularService {
 
 	public int insertRegOperAllo(List<Map<String, Object>> map) throws Exception;
 
+	public int updateRegOperList1(List<Map<String, Object>> map) throws Exception;
+
 	public List<RegularDTO> selectRegOperList1(RegularDTO regularDTO) throws Exception;
 
 	public List<RegularDTO> selectRegOperDe(RegularDTO regularDTO) throws Exception;

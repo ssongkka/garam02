@@ -2,6 +2,7 @@ package com.garam.web.regular.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -47,6 +48,8 @@ public interface RegularMapper {
 	public List<RegularDTO> selectRegularcourseAllo(RegularDTO regularDTO) throws Exception;
 
 	public int insertRegOperAllo(HashMap<String, Object> map) throws Exception;
+
+	public int updateRegOperList1(List<Map<String, Object>> map) throws Exception;
 
 	public List<RegularDTO> selectRegOperList1(RegularDTO regularDTO) throws Exception;
 

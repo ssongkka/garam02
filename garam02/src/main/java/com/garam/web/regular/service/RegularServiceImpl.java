@@ -209,4 +209,11 @@ public class RegularServiceImpl implements RegularService {
 
 		return list;
 	}
+
+	@Override
+	public int updateRegOperList1(List<Map<String, Object>> map) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

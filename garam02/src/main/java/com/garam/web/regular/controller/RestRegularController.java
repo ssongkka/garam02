@@ -247,4 +247,19 @@ public class RestRegularController {
 		return list;
 	}
 
+	@PostMapping(value = "/updateRegOperList1")
+	public int updateRegOperList1(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = regularService.updateRegOperList1(map);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
 }

@@ -1668,7 +1668,8 @@ $(document).on('click', '#insertAlloDe', function () {
 function insertRegAlloDe(result) {
     return new Promise(function (resolve, reject) {
 
-        let params = new Array();
+        let paramsIn = new Array();
+        let paramsUp = new Array();
 
         const bbb0 = $('#regAlloDeTi')
             .next()
@@ -1695,25 +1696,23 @@ function insertRegAlloDe(result) {
 
         let url = "";
 
-        let numnumsss = '';
-        if ($(bbb6).val()) {
-            numnumsss = $(bbb6).val();
-            url = "";
-            for (let i = 0; i < aa; i++) {
-                const bb = $('#regAlloDeMd').children()[i];
-                const bb1 = $(bb).children()[1];
-                const bb11 = $(bb1).children();
-                const bb2 = $(bb).children()[2];
-                const bb22 = $(bb2).children();
-                const bb3 = $(bb).children()[3];
-                const bb33 = $(bb3).children();
-                const bb4 = $(bb).children()[4];
-                const bb44 = $(bb4).children();
-                const bb5 = $(bb).children()[5];
-                const bb55 = $(bb5).children();
-                const bb6 = $(bb).children()[6];
-                const bb66 = $(bb6).children();
+        const numnumsss = $(bbb6).val();
+        for (let i = 0; i < aa; i++) {
+            const bb = $('#regAlloDeMd').children()[i];
+            const bb1 = $(bb).children()[1];
+            const bb11 = $(bb1).children();
+            const bb2 = $(bb).children()[2];
+            const bb22 = $(bb2).children();
+            const bb3 = $(bb).children()[3];
+            const bb33 = $(bb3).children();
+            const bb4 = $(bb).children()[4];
+            const bb44 = $(bb4).children();
+            const bb5 = $(bb).children()[5];
+            const bb55 = $(bb5).children();
+            const bb6 = $(bb).children()[6];
+            const bb66 = $(bb6).children();
 
+            if ($(bb66).val()) {
                 const asd = {
                     "regopernum": numnumsss,
                     "operregseq": $(bb66).val(),
@@ -1723,26 +1722,8 @@ function insertRegAlloDe(result) {
                     "regoperid": $(bb22).val(),
                     "regorcar": $(bbb7).val()
                 };
-                params.push(asd);
-            }
-        } else {
-            numnumsss = getRegOperNum();
-            url = "/reg/insertRegOper1";
-            for (let i = 0; i < aa; i++) {
-                const bb = $('#regAlloDeMd').children()[i];
-                const bb1 = $(bb).children()[1];
-                const bb11 = $(bb1).children();
-                const bb2 = $(bb).children()[2];
-                const bb22 = $(bb2).children();
-                const bb3 = $(bb).children()[3];
-                const bb33 = $(bb3).children();
-                const bb4 = $(bb).children()[4];
-                const bb44 = $(bb4).children();
-                const bb5 = $(bb).children()[5];
-                const bb55 = $(bb5).children();
-                const bb6 = $(bb).children()[6];
-                const bb66 = $(bb6).children();
-
+                paramsUp.push(asd);
+            } else {
                 const asd = {
                     "regopernum": numnumsss,
                     "conum": $('#rgconum').val(),
@@ -1754,40 +1735,84 @@ function insertRegAlloDe(result) {
                     "regoperid": $(bb22).val(),
                     "regorcar": $(bbb7).val()
                 };
-                params.push(asd);
+                paramsIn.push(asd);
             }
+
         }
 
-        console.log(params);
+        console.log("파람아아아   " + params);
 
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
-            success: function (r) {
-                if (r > 0) {
-                    alert(r + "건의 운행정보가 저장되었습니다.");
-                    myModalRegAlloMd.hide();
-                    afterinsert();
-                } else if (r === -1) {
-                    alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                    myModalRegAlloMd.hide();
-                    afterinsert();
-                } else if (r === -2) {
-                    alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                    myModalRegAlloMd.hide();
-                    afterinsert();
-                }
-            }
-        })
+        if (paramsIn && paramsUp) {
+            insett().then(updatt);
+        } else if (paramsIn && !paramsUp) {
+            insett();
+        } else if (!paramsIn && paramsUp) {
+            updatt();
+        }
 
+        function insett() {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: "/reg/insertRegOper1",
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(paramsIn),
+                    success: function (r) {
+                        if (r > 0) {
+                            const al = r + '건의 운행정보가 저장되었습니다.';
+                            alert(al);
+                            myModalRegAlloMd.hide();
+                            resolve(al);
+                        } else if (r === -1) {
+                            alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                            myModalRegAlloMd.hide();
+                            afterinsert();
+                            resolve();
+                        } else if (r === -2) {
+                            alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                            myModalRegAlloMd.hide();
+                            afterinsert();
+                            resolve();
+                        } else {
+                            afterinsert();
+                            resolve();
+                        }
+                    }
+                })
+            })
+        }
+        function updatt(result) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: "/reg/updateRegOperList1",
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(paramsUp),
+                    success: function (r) {
+                        if (r > 0) {
+                            const al = r + '건의 운행정보가 수정되었습니다.\n\n' + result;
+                            alert(al);
+                            myModalRegAlloMd.hide();
+                        } else if (r === -1) {
+                            alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                            myModalRegAlloMd.hide();
+                        } else if (r === -2) {
+                            alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
+                            myModalRegAlloMd.hide();
+                        }
+                        afterinsert();
+                        resolve();
+                    }
+                })
+            })
+        }
     })
 }
 
