@@ -701,8 +701,6 @@
 
 			SET
 
-			regoperno =
-			#{value.regoperno},
 			regopercom =
 			#{value.regopercom},
 			regopercar =
@@ -748,6 +746,19 @@
 			<if test="goutnum != null">AND goutnum = #{goutnum}
 			</if>
 		</where>
+	</delete>
+	<delete id="delRegOperList1" parameterType="java.util.HashMap">
+		<foreach collection="regdel" item="value" index="index"
+			separator=";">
+			DELETE FROM
+
+			operation_reg
+
+			WHERE
+
+			operregseq =
+			#{value.operregseq}
+		</foreach>
 	</delete>
 </mapper>
 

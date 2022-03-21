@@ -262,4 +262,19 @@ public class RestRegularController {
 		return rst;
 	}
 
+	@PostMapping(value = "/delRegOperList1")
+	public int delRegOperList1(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = regularService.delRegOperList1(map);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
 }

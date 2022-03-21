@@ -887,6 +887,7 @@ function showAlloChModal(param) {
         }
 
         if (chReal1 || chReal2) {
+
             htmlMd = `
         <div class="row mb-3">
             <label for="" class="col-sm-4 col-form-label" style="text-align: right;">` +
@@ -1615,8 +1616,6 @@ function getAllo(param) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log(r);
-
                     const aa = $('#regAlloDeMd')
                         .children()
                         .length;
@@ -1639,14 +1638,41 @@ function getAllo(param) {
                         const rdnumm = $(bb55).val();
 
                         for (let i = 0; i < r.length; i++) {
-                            console.log("rdnumm   " + rdnumm);
-                            console.log("r[i].regoperno  " + r[i].regoperno);
-                            console.log("r[i].regoperno  " + rdnumm == r[i].regoperno);
                             if (rdnumm == r[i].regoperno) {
                                 $(bb11).val(r[i].regopercar);
                                 $(bb22).val(r[i].regoperid);
                                 $(bb33).val(r[i].regopercom);
                                 $(bb66).val(r[i].operregseq);
+
+                                for (let j = 0; j < dbCompa.length; j++) {
+                                    let ggg = '';
+
+                                    for (let j2 = 0; j2 < dbVe.length; j2++) {
+                                        if (dbVe[j2].carNumber == $(bb11).val()) {
+                                            ggg = dbVe.vehicle;
+                                        }
+                                    }
+
+                                    if (dbCompa[j].company == r[i].regopercom) {
+                                        $(bb11).css('border-color', '#96ceb4');
+                                        $(bb22).css('border-color', '#96ceb4');
+                                        break;
+                                    } else {
+                                        if (!$(bb11).val()) {
+                                            $(bb11).css('border-color', '#black');
+                                            $(bb22).css('border-color', '#black');
+                                            break;
+                                        } else if (ggg) {
+                                            $(bb11).css('border-color', '#ffad60');
+                                            $(bb22).css('border-color', '#ffad60');
+                                            break;
+                                        } else {
+                                            $(bb11).css('border-color', '#d9534f');
+                                            $(bb22).css('border-color', '#d9534f');
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1670,6 +1696,7 @@ function insertRegAlloDe(result) {
 
         let paramsIn = new Array();
         let paramsUp = new Array();
+        let paramsDel = new Array();
 
         const bbb0 = $('#regAlloDeTi')
             .next()
@@ -1694,8 +1721,6 @@ function insertRegAlloDe(result) {
             .children()
             .length;
 
-        let url = "";
-
         const numnumsss = $(bbb6).val();
         for (let i = 0; i < aa; i++) {
             const bb = $('#regAlloDeMd').children()[i];
@@ -1713,49 +1738,102 @@ function insertRegAlloDe(result) {
             const bb66 = $(bb6).children();
 
             if ($(bb66).val()) {
-                const asd = {
-                    "regopernum": numnumsss,
-                    "operregseq": $(bb66).val(),
-                    "regoperno": $(bb55).val(),
-                    "regopercom": $(bb33).val(),
-                    "regopercar": $(bb11).val(),
-                    "regoperid": $(bb22).val(),
-                    "regorcar": $(bbb7).val()
-                };
-                paramsUp.push(asd);
+                if (!$(bb11).val() && !$(bb22).val() && !$(bb33).val()) {
+                    const asd = {
+                        "operregseq": $(bb66).val()
+                    };
+                    paramsDel.push(asd);
+                } else {
+                    const asd = {
+                        "regopernum": numnumsss,
+                        "operregseq": $(bb66).val(),
+                        "regoperno": $(bb55).val(),
+                        "regopercom": $(bb33).val(),
+                        "regopercar": $(bb11).val(),
+                        "regoperid": $(bb22).val(),
+                        "regorcar": $(bbb7).val()
+                    };
+                    paramsUp.push(asd);
+                }
             } else {
-                const asd = {
-                    "regopernum": numnumsss,
-                    "conum": $('#rgconum').val(),
-                    "codenum": $(bb44).val(),
-                    "regoperday": $(bbb0).val(),
-                    "regoperno": $(bb55).val(),
-                    "regopercom": $(bb33).val(),
-                    "regopercar": $(bb11).val(),
-                    "regoperid": $(bb22).val(),
-                    "regorcar": $(bbb7).val()
-                };
-                paramsIn.push(asd);
+                if ($(bb11).val() && $(bb22).val() && $(bb33).val()) {
+                    const asd = {
+                        "regopernum": numnumsss,
+                        "conum": $('#rgconum').val(),
+                        "codenum": $(bb44).val(),
+                        "regoperday": $(bbb0).val(),
+                        "regoperno": $(bb55).val(),
+                        "regopercom": $(bb33).val(),
+                        "regopercar": $(bb11).val(),
+                        "regoperid": $(bb22).val(),
+                        "regorcar": $(bbb7).val()
+                    };
+                    paramsIn.push(asd);
+                }
             }
 
         }
 
-        console.log("파람아아아   " + params);
+        console.log(paramsIn);
+        console.log(paramsUp);
+        console.log(paramsDel);
 
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
 
-        if (paramsIn && paramsUp) {
-            insett().then(updatt);
-        } else if (paramsIn && !paramsUp) {
-            insett();
-        } else if (!paramsIn && paramsUp) {
-            updatt();
+        if (paramsIn.length > 0 && paramsUp.length > 0 && paramsDel.length > 0) {
+            dell()
+                .then(insett)
+                .then(updatt)
+                .then(showAlets);;
+        } else if (paramsIn.length > 0 && paramsUp.length < 1 && paramsDel.length < 1) {
+            insett().then(showAlets);
+        } else if (paramsIn.length < 1 && paramsUp.length > 0 && paramsDel.length < 1) {
+            updatt().then(showAlets);
+        } else if (paramsIn.length > 0 && paramsUp.length > 0 && paramsDel.length < 1) {
+            insett()
+                .then(updatt)
+                .then(showAlets);
+        } else if (paramsIn.length < 1 && paramsUp.length < 1 && paramsDel.length > 0) {
+            dell().then(showAlets);
+        } else if (paramsIn.length > 0 && paramsUp.length < 1 && paramsDel.length > 0) {
+            dell()
+                .then(insett)
+                .then(showAlets);
+        } else if (paramsIn.length < 1 && paramsUp.length > 0 && paramsDel.length > 0) {
+            dell()
+                .then(updatt)
+                .then(showAlets);
         }
 
-        function insett() {
+        function dell() {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: "/reg/delRegOperList1",
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(paramsDel),
+                    success: function (r) {
+                        if (r > 0) {
+                            const al = r + '건의 운행정보가 삭제되었습니다.';
+                            resolve(al);
+                        } else if (r === -1) {
+                            const al = r + '데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.';
+                            resolve(al);
+                        } else if (r === -2) {
+                            const al = r + '시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.';
+                            resolve(al);
+                        } else {
+                            resolve();
+                        }
+                    }
+                })
+            })
+        }
+        function insett(result) {
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     url: "/reg/insertRegOper1",
@@ -1765,24 +1843,31 @@ function insertRegAlloDe(result) {
                     data: JSON.stringify(paramsIn),
                     success: function (r) {
                         if (r > 0) {
-                            const al = r + '건의 운행정보가 저장되었습니다.';
-                            alert(al);
-                            myModalRegAlloMd.hide();
+                            let al = '';
+                            if (result) {
+                                al = r + '건의 운행정보가 저장되었습니다.\n\n' + result;
+                            } else {
+                                al = r + '건의 운행정보가 저장되었습니다.';
+                            }
                             resolve(al);
                         } else if (r === -1) {
-                            alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                            myModalRegAlloMd.hide();
-                            afterinsert();
-                            resolve();
+                            let al = '';
+                            if (result) {
+                                al = r + '데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.\n\n' + result;
+                            } else {
+                                al = r + '데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.';
+                            }
+                            resolve(al);
                         } else if (r === -2) {
-                            alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                            myModalRegAlloMd.hide();
-                            afterinsert();
-                            resolve();
-                        } else {
-                            afterinsert();
-                            resolve();
+                            let al = '';
+                            if (result) {
+                                al = r + '시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.\n\n' + result;
+                            } else {
+                                al = r + '시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.';
+                            }
+                            resolve(al);
                         }
+                        resolve();
                     }
                 })
             })
@@ -1797,20 +1882,42 @@ function insertRegAlloDe(result) {
                     data: JSON.stringify(paramsUp),
                     success: function (r) {
                         if (r > 0) {
-                            const al = r + '건의 운행정보가 수정되었습니다.\n\n' + result;
-                            alert(al);
-                            myModalRegAlloMd.hide();
+                            let al = '';
+                            if (result) {
+                                al = r + '건의 운행정보가 수정되었습니다.\n\n' + result;
+                            } else {
+                                al = r + '건의 운행정보가 수정되었습니다.';
+                            }
+                            resolve(al);
                         } else if (r === -1) {
-                            alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                            myModalRegAlloMd.hide();
+                            let al = '';
+                            if (result) {
+                                al = r + '데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.\n\n' + result;
+                            } else {
+                                al = r + '데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.';
+                            }
+                            resolve(al);
                         } else if (r === -2) {
-                            alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                            myModalRegAlloMd.hide();
+                            let al = '';
+                            if (result) {
+                                al = r + '시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.\n\n' + result;
+                            } else {
+                                al = r + '시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.';
+                            }
+                            resolve(al);
                         }
-                        afterinsert();
                         resolve();
                     }
                 })
+            })
+        }
+
+        function showAlets(result) {
+            return new Promise(function (resolve, reject) {
+                alert(result);
+                afterinsert();
+                myModalRegAlloMd.hide();
+                resolve();
             })
         }
     })

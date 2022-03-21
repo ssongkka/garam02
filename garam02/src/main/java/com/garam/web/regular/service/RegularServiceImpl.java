@@ -212,8 +212,26 @@ public class RegularServiceImpl implements RegularService {
 
 	@Override
 	public int updateRegOperList1(List<Map<String, Object>> map) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		HashMap<String, Object> reg = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			reg.put("reg", map);
+		}
+
+		int rtn = regularMapper.updateRegOperList1(reg);
+
+		return rtn;
+	}
+
+	@Override
+	public int delRegOperList1(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> regdel = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			regdel.put("regdel", map);
+		}
+
+		int rtn = regularMapper.delRegOperList1(regdel);
+
+		return rtn;
 	}
 
 }
