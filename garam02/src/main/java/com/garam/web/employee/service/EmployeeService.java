@@ -9,6 +9,7 @@ import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
+import com.garam.web.regular.dto.RegularDTO;
 
 public interface EmployeeService {
 	public int insertEmp(EmployeeInfoDTO employeeInfoDTO) throws Exception;
@@ -30,7 +31,7 @@ public interface EmployeeService {
 	public List<EmployeeInfoDTO> SelectEmpBaseMoney(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
 	public int empUpOper(EmpRsvtDTO empRsvtDTO) throws Exception;
-	
+
 	public int empUpOper2(EmpRsvtDTO empRsvtDTO) throws Exception;
 
 	public List<Empsalary> selInMoney(Empsalary empsalary) throws Exception;
@@ -48,6 +49,12 @@ public interface EmployeeService {
 	public int delOutM(Empsalary empsalary) throws Exception;
 
 	public List<EmpsalaryAll> selAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
-	
+
 	public int insertAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
+
+	public List<RegularDTO> selEmpRegOperList(RegularDTO regularDTO) throws Exception;
+
+	public List<RegularDTO> selEmpRegOperList1(RegularDTO regularDTO) throws Exception;
+
+	public List<RegularDTO> selEmpRegOperList2(RegularDTO regularDTO) throws Exception;
 }

@@ -768,30 +768,61 @@ function getRegularAlloCa() {
                             const ccc6 = $(bbb).children()[6];
                             const ccc7 = $(bbb).children()[7];
                             const ccc8 = $(bbb).children()[8];
+                            const ccc9 = $(bbb).children()[9];
 
                             const dddayTh = $(ccc0).val();
                             const codenumnums = $(ccc1).val();
 
+                            let carT = '';
+                            let opernumT = '';
+                            let opercarT = '';
+                            let opercomT = '';
+                            let operidT = '';
+
+                            let tmpMin = 100;
+
+                            let tmlCar = new Array();
+
                             for (let i = 0; i < r.length; i++) {
                                 if (dddayTh === r[i].regoperday && codenumnums === r[i].codenum) {
-                                    let carcar = '';
-                                    if (isNaN((r[i].idvehicle).substring((r[i].idvehicle).length - 4))) {
-                                        carcar = r[i]
-                                            .idvehicle
-                                            .replaceAll('고속', '')
-                                            .replaceAll('관광', '')
-                                            .replaceAll('여행사', '')
-                                            .replaceAll('(주)', '');
-                                    } else {
-                                        carcar = (r[i].idvehicle).substring((r[i].idvehicle).length - 4);
+                                    if (r[i].regoperno < tmpMin) {
+                                        tmpMin = r[i].regoperno;
+                                        let carcar = '';
+                                        if (isNaN((r[i].idvehicle).substring((r[i].idvehicle).length - 4))) {
+                                            carcar = r[i]
+                                                .idvehicle
+                                                .replaceAll('고속', '')
+                                                .replaceAll('관광', '')
+                                                .replaceAll('여행사', '')
+                                                .replaceAll('(주)', '');
+                                        } else {
+                                            carcar = (r[i].idvehicle).substring((r[i].idvehicle).length - 4);
+                                        }
+                                        carT = carcar;
+
+                                        opernumT = r[i].regopernum;
+                                        opercarT = r[i].regopercar;
+                                        opercomT = r[i].regopercom;
+                                        operidT = r[i].regoperid;
+
                                     }
-                                    $(ccc4).val(r[i].regopernum);
-                                    $(ccc5).val(r[i].regopercar);
-                                    $(ccc6).val(r[i].regopercom);
-                                    $(ccc7).val(r[i].regoperid);
-                                    $(bbb).append(carcar);
+                                    tmlCar.push(r[i].regopercar);
                                 }
                             }
+                            $(ccc4).val(opernumT);
+                            $(ccc5).val(opercarT);
+                            $(ccc6).val(opercomT);
+                            $(ccc7).val(operidT);
+                            $(bbb).append(carT);
+
+                            const arrUnique = [...new Set(tmlCar)];
+
+                            if (arrUnique.length > 1) {
+                                $(bbb).css('color', '#FF4040');
+                            } else {
+                                $(bbb).css('color', 'none');
+                            }
+
                         }
                     }
                 }
@@ -1363,23 +1394,24 @@ function getAllo(param) {
     const aaa7 = $(param).children()[7];
     const aaa8 = $(param).children()[8];
 
-    LoadingWithMask()
-        .then(setAlloModalDeCont)
-        .then(getRegOperAlloDe)
-        .then(closeLoadingWithMask);
+    if (!$(aaa2).val()) {
+        const eee = $(param).parent();
+        const eee1 = $(eee).children()[0];
+        alert(
+            "'" + $(eee1).text() + "'노선의 운행정보가없습니다.\n\n운행정보 수정에서 해당 노선의 운행정보를 입력해주세요."
+        );
+    } else {
+        LoadingWithMask()
+            .then(setAlloModalDeCont)
+            .then(getRegOperAlloDe)
+            .then(closeLoadingWithMask);
+    }
 
     function setAlloModalDeCont(result) {
         return new Promise(function (resolve, reject) {
 
             const eee = $(param).parent();
             const eee1 = $(eee).children()[0];
-
-            if (!$(aaa2).val()) {
-                alert(
-                    "'" + $(eee1).text() + "'노선의 운행정보가없습니다.\n\n운행정보 수정에서 해당 노선의 운행정보를 입력해주세요."
-                );
-                return;
-            }
 
             const bbb0 = $('#regAlloDeTi')
                 .next()
@@ -1649,9 +1681,10 @@ function getAllo(param) {
 
                                     for (let j2 = 0; j2 < dbVe.length; j2++) {
                                         if (dbVe[j2].carNumber == $(bb11).val()) {
-                                            ggg = dbVe.vehicle;
+                                            ggg = dbVe[j2].vehicle;
                                         }
                                     }
+                                    console.log("ggg   " + ggg);
 
                                     if (dbCompa[j].company == r[i].regopercom) {
                                         $(bb11).css('border-color', '#96ceb4');
@@ -1676,6 +1709,7 @@ function getAllo(param) {
                             }
                         }
                     }
+                    myModalRegAlloMd.show();
                     resolve();
                 },
                 error: (jqXHR) => {
@@ -1684,7 +1718,7 @@ function getAllo(param) {
             })
         })
     }
-    myModalRegAlloMd.show();
+
 }
 
 $(document).on('click', '#insertAlloDe', function () {
@@ -1773,10 +1807,6 @@ function insertRegAlloDe(result) {
             }
 
         }
-
-        console.log(paramsIn);
-        console.log(paramsUp);
-        console.log(paramsDel);
 
         const headers = {
             "Content-Type": "application/json",

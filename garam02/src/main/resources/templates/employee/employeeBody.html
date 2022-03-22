@@ -445,11 +445,69 @@
                 </div>
             </div>
             <div
+                class="offcanvas offcanvas-bottom"
+                data-bs-scroll="true"
+                data-bs-backdrop="false"
+                tabindex="-1"
+                id="oper3"
+                aria-labelledby="offcanvasTopLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasTopLabel">Offcanvas top</h5>
+                    <button
+                        type="button"
+                        class="btn-close text-reset"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body-regOper">
+                    <div class="main-EmpReg-main">
+                        <table class="table table-bordered table-striped tbEmpRegAllo">
+                            <colgroup>
+                                <col width="5%"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                                <col width="auto"/>
+                            </colgroup>
+                            <thead id="thDays"></thead>
+                            <tbody id="tbAllo"></tbody>
+                            <tfoot id="tfBtn"></tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div
                 th:insert="employee/empMoneyInsert :: emp-money-in"
                 class="main-adise-money"
                 id="empMoney"></div>
         </main>
-        <!-- Button trigger modal -->
 
         <!-- Modal -->
         <div

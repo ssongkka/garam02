@@ -16,6 +16,7 @@ import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.employee.service.EmployeeService;
+import com.garam.web.regular.dto.RegularDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -190,6 +191,26 @@ public class RestEmployeeController {
 			rst = -2;
 		}
 		return rst;
+	}
 
+	@PostMapping(value = "/empRegOper")
+	public List<RegularDTO> selRegOperList(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeService.selEmpRegOperList(regularDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empRegOper1")
+	public List<RegularDTO> selRegOperList1(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeService.selEmpRegOperList1(regularDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empRegOper2")
+	public List<RegularDTO> selEmpRegOperList2(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeService.selEmpRegOperList2(regularDTO);
+
+		return list;
 	}
 }

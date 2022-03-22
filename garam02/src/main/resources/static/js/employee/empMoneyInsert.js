@@ -83,6 +83,13 @@ $(document).ready(function () {
     }
 });
 
+$(document).on('click', '#oper3-tab', function () {
+    var myOffcanvas = document.getElementById('oper3')
+    var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+
+    bsOffcanvas.show();
+});
+
 function setYearMonthUp(params) {
     const getYM = $(params).val();
     const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
@@ -148,15 +155,9 @@ $(document).on('click', '#fnUpMonth2', function () {
 $(document).on('click', '#fnDownMonth2', function () {
     const ch = confirm("급여 월을 변경하시겠습니까?\n\n저장되지 않은 정보는 사라집니다.");
     if (ch) {
-        console.log('1');
         setYearMonthDown('#yearmonthsMoney2');
-        console.log('1');
         $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
-        console.log('1');
-        // getEmpMoneyListCompa($('#emp-iidd').val());
-        console.log('1');
         getEmpMoneyListCompa();
-        console.log('1');
     }
 });
 
@@ -170,7 +171,6 @@ $(document).on('change', '#yearmonthsMoney2', function () {
 });
 
 function unclkName() {
-    console.log("이건 몇번이냐");
     $("#operO").attr("disabled", true);
 
     $("#inp-cont1").attr("disabled", true);
@@ -210,7 +210,6 @@ function unclkName() {
 }
 
 function clkName() {
-    console.log("저건 몇번이냐");
     $("#operO").removeAttr("disabled");
 
     $("#inp-cont1").removeAttr("disabled");
@@ -412,7 +411,6 @@ function updateOper(id, car, opernum, opertype, operno, day, trash) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log("결론은?   " + r);
                     resolve(r);
                 },
                 error: (jqXHR) => {
@@ -721,9 +719,7 @@ function setNum() {
         .children()
         .length;
     const ininin = $('#emp-in-money-tb').children();
-    console.log(ininin);
     for (let i = 0; i < ininin.length; i++) {
-        console.log($(ininin[i]).children());
         const tttt = $(ininin[i]).children();
         $(tttt[4]).text(i + 1);
     }
@@ -731,7 +727,6 @@ function setNum() {
     $('#emp-out-money-tb')
 
     for (let i = 0; i < outout.length; i++) {
-        console.log($(outout[i]).children());
         const tttt1 = $(outout[i]).children();
         $(tttt1[4]).text(i + 1);
     }
@@ -1079,7 +1074,6 @@ function saveSalary(sepa) {
             const size = $('#emp-in-money-tb')
                 .children()
                 .length;
-            console.log("size  " + size);
 
             for (let i = 0; i < size; i++) {
                 const ttrr = $('#emp-in-money-tb').children()[i];
@@ -1161,7 +1155,6 @@ function saveSalary(sepa) {
             const size = $('#emp-out-money-tb')
                 .children()
                 .length;
-            console.log("size  " + size);
 
             for (let i = 0; i < size; i++) {
                 const ttrr = $('#emp-out-money-tb').children()[i];
@@ -1217,7 +1210,6 @@ function saveSalary(sepa) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log(r);
                     resolve(r);
                 }
             });
@@ -1227,5 +1219,176 @@ function saveSalary(sepa) {
 function choiceEmp() {
     return new Promise(function (resolve, reject) {
         getEmpInfo($('#emp-iidd').val() + 'cut');
+    })
+}
+
+function setEmpRegDays() {
+    return new Promise(function (resolve, reject) {
+
+        const ddd = new Date($("#yearmonthsMoney1").val());
+        const dddP = ddd.setMonth(ddd.getMonth() + 1);
+
+        let eee = new Date(ddd);
+        eee = eee.setDate(eee.getDate() - 1);
+
+        const dday1 = toStringByFormatting(new Date(eee));
+
+        const endDay = dday1.split('-')[2];
+
+        let htmlsday1 = '';
+        let htmlsday2 = '';
+        let htmlsday3 = '';
+        let htmlsday4 = '';
+
+        htmlsday1 += '<tr>';
+        htmlsday1 += '<th rowspan="3">노선</th>';
+
+        htmlsday2 += '<tr>';
+        htmlsday3 += '<tr class="thNone">';
+        htmlsday4 += '<tr class="thNone">';
+
+        let cont = 0;
+
+        let dow = 0;
+
+        for (let i = 0; i < 31; i++) {
+            if (cont < parseInt(endDay)) {
+                const tmpd = new Date($("#yearmonthsMoney1").val()).setDate(
+                    new Date($("#yearmonthsMoney1").val()).getDate() + cont
+                );
+                dow = new Date(tmpd).getDay();
+
+                let nnn = '';
+                if (cont < 9) {
+                    nnn = '0' + ++cont;
+                } else {
+                    nnn = ++cont;
+                }
+
+                const thisDD = toStringByFormatting(new Date(tmpd));
+                const stDD = $('#stDD').text();
+                const edDD = $('#edDD').text();
+
+                const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1] + stDD.split(
+                    '-'
+                )[2]);
+                const edDDDDnum = parseInt(
+                    edDD.split('-')[0] + edDD.split('-')[1] + edDD.split(
+                        '-'
+                    )[2]
+                );
+                const thisDDDDDnum = parseInt(
+                    thisDD.split('-')[0] + thisDD.split('-')[1] + thisDD.split('-')[2]
+                );
+
+                const tmpNowDd = toStringByFormatting(new Date());
+                const nowDayday = parseInt(
+                    tmpNowDd.split('-')[0] + tmpNowDd.split('-')[1] + tmpNowDd.split('-')[2]
+                );
+
+                const tmpShowd = toStringByFormatting(new Date(tmpd));
+                const showDayday = parseInt(
+                    tmpShowd.split('-')[0] + tmpShowd.split('-')[1] + tmpShowd.split('-')[2]
+                );
+
+                function getDDD() {
+                    switch (dow) {
+                        case 0:
+                            htmlsday1 += '<th style="color: #CF2F11;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #CF2F11;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #CF2F11;">' + toStringByFormatting(
+                                new Date(tmpd)
+                            ) + '</th>';
+                            htmlsday4 += '<th style="color: #CF2F11;">' + dow + '</th>';
+                            break;
+                        case 6:
+                            htmlsday1 += '<th style="color: #4B89DC;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #4B89DC;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #4B89DC;">' + toStringByFormatting(
+                                new Date(tmpd)
+                            ) + '</th>';
+                            htmlsday4 += '<th style="color: #4B89DC;">' + dow + '</th>';
+                            break;
+                        default:
+                            htmlsday1 += '<th>' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th>' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th>' + toStringByFormatting(new Date(tmpd)) + '</th>';
+                            htmlsday4 += '<th>' + dow + '</th>';
+                            break;
+                    }
+                }
+                function getNoDDD() {
+                    switch (dow) {
+                        case 0:
+                            htmlsday1 += '<th style="color: #CF2F11; opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #CF2F11; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
+                            break;
+                        case 6:
+                            htmlsday1 += '<th style="color: #4B89DC; opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #4B89DC; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
+                            break;
+                        default:
+                            htmlsday1 += '<th style="opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="opacity: 0.3;"></th>';
+                            break;
+                    }
+                }
+
+                if (nowDayday >= showDayday) {
+                    if ($('#rgconum').val()) {
+                        if ($('#edDD').text()) {
+                            if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
+                                getDDD();
+                            } else {
+                                getNoDDD();
+                            }
+                        } else {
+                            if (stDDDnum <= thisDDDDDnum) {
+                                getDDD();
+                            } else {
+                                getNoDDD();
+                            }
+                        }
+                    } else {
+                        getDDD();
+                    }
+                } else {
+                    getNoDDD();
+                }
+            } else {
+                htmlsday1 += '<th style="opacity: 0;">잉요일</th>';
+                htmlsday2 += '<th style="opacity: 0;">잉요일</th>';
+                htmlsday3 += '<th style="opacity: 0;">잉요일</th>';
+                htmlsday4 += '<th style="opacity: 0;">잉요일</th>';
+            }
+        }
+        htmlsday1 += '</tr>';
+        htmlsday2 += '</tr>';
+        htmlsday3 += '</tr>';
+        htmlsday4 += '</tr>';
+
+        const htmls = htmlsday1 + htmlsday2 + htmlsday3 + htmlsday4;
+
+        $('#tbAllo').html('');
+        $('#thDays').html(htmls);
+        resolve();
     })
 }

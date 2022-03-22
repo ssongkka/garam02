@@ -601,3 +601,24 @@ function getDayOfWeek(num) {
             return rtn;
     }
 }
+
+function getStDEnD(params) {
+    const getYM = params;
+    const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
+
+    const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
+
+    const yesterday = new Date(oneMonthAgo.setDate(oneMonthAgo.getDate() - 1));
+
+    const stday = toStringByFormatting(
+        new Date(oneMonthAgo.getFullYear(), oneMonthAgo.getMonth(), 1)
+    );
+    const endday = toStringByFormatting(yesterday);
+
+    let returnArr = new Array();
+
+    returnArr.push(stday);
+    returnArr.push(endday);
+
+    return returnArr;
+}

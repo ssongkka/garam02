@@ -365,6 +365,33 @@
     text-align: right;
 }
 
+.offcanvas-body-regOper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 1rem 3rem;
+}
+
+.offcanvas-body-regOper {
+    flex: 1;
+}
+
+.main-EmpReg-main {
+    height: 100%;
+}
+
+.offcanvas-bottom {
+    height: auto;
+}
+.trRegEmp span {
+    padding-left: 3rem;
+}
+
+.trRegEmp:first-child {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
 #AllM,
 #in-inAllM,
 #out-outAllM {

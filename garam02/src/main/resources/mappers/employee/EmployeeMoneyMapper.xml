@@ -143,6 +143,163 @@
 		personnalminus.sday = #{sday}
 	</select>
 
+	<select id="selRegOperList"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		operation_reg.*
+
+		FROM
+
+		operation_reg
+
+		WHERE
+
+		operation_reg.regoperid =
+		#{regoperid}
+
+		AND
+
+		operation_reg.regoperday
+		BETWEEN
+		#{regstartd} AND
+		#{regendd}
+
+		GROUP BY
+		operation_reg.conum,
+		operation_reg.codenum
+	</select>
+	<select id="selEmpRegOperList"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		operation_reg.*
+
+		FROM
+
+		operation_reg
+
+		WHERE
+
+		operation_reg.regoperid =
+		#{regoperid}
+
+		AND
+
+		operation_reg.regoperday
+		BETWEEN
+		#{regstartd} AND
+		#{regendd}
+
+		GROUP BY
+		operation_reg.conum,
+		operation_reg.codenum
+	</select>
+	<select id="selEmpRegOperList1"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		regularcourse
+
+		WHERE
+
+		regularcourse.conum = #{conum}
+		AND
+		regularcourse.codenum = #{codenum}
+
+		GROUP BY
+		regularcourse.goutnum
+
+		ORDER BY
+		regularcourse.rct
+	</select>
+
+	<select id="selEmpRegOperList2"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		operation_reg.*,
+		regular.*,
+		regulardetail.*,
+
+		IFNULL((SELECT
+		vehicleinfo.vehicle
+		FROM
+		vehicleinfo
+		WHERE
+		vehicleinfo.carnumber
+		=
+		operation_reg.regopercar),
+		operation_reg.regopercar) AS
+		idvehicle,
+
+		IFNULL((SELECT
+		vehicleinfo.id
+		FROM
+		vehicleinfo
+		WHERE
+		vehicleinfo.carnumber
+		=
+		operation_reg.regopercar),
+		operation_reg.regopercar) AS
+		idid,
+
+		IFNULL((SELECT
+		employeeinfo.name
+		FROM
+		employeeinfo
+		WHERE
+		employeeinfo.id
+		=
+		operation_reg.regoperid),
+		operation_reg.regoperid) AS
+		idname
+
+		FROM
+
+		operation_reg
+
+		LEFT JOIN
+
+		regular
+
+		ON
+
+		operation_reg.conum = regular.conum
+
+		LEFT JOIN
+
+		regulardetail
+
+		ON
+
+		operation_reg.codenum = regulardetail.codenum
+
+		WHERE
+
+		operation_reg.regoperid =
+		#{regoperid}
+
+		AND
+
+		operation_reg.regoperday
+		BETWEEN
+		#{regstartd} AND
+		#{regendd}
+	</select>
+
 	<delete id="delInM"
 		parameterType="com.garam.web.employee.dto.Empsalary">
 		DELETE FROM

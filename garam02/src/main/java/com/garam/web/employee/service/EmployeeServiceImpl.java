@@ -22,6 +22,7 @@ import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.employee.mapper.EmployeeMapper;
+import com.garam.web.regular.dto.RegularDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -334,6 +335,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 		int rtn = employeeMapper.insertAllMoney(empsalaryAll);
 
 		return rtn;
+	}
+
+	@Override
+	public List<RegularDTO> selEmpRegOperList(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeMapper.selEmpRegOperList(regularDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RegularDTO> selEmpRegOperList1(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeMapper.selEmpRegOperList1(regularDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RegularDTO> selEmpRegOperList2(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeMapper.selEmpRegOperList2(regularDTO);
+
+		return list;
 	}
 
 }

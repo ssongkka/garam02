@@ -9,6 +9,7 @@ import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
+import com.garam.web.regular.dto.RegularDTO;
 
 @Mapper
 public interface EmployeeMapper {
@@ -51,4 +52,10 @@ public interface EmployeeMapper {
 	public List<EmpsalaryAll> selAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
 
 	public int insertAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
+
+	public List<RegularDTO> selEmpRegOperList(RegularDTO regularDTO) throws Exception;
+
+	public List<RegularDTO> selEmpRegOperList1(RegularDTO regularDTO) throws Exception;
+
+	public List<RegularDTO> selEmpRegOperList2(RegularDTO regularDTO) throws Exception;
 }

@@ -302,9 +302,6 @@
 		#{regstartd} AND
 		#{regendd}
 
-		GROUP BY
-
-		operation_reg.regopernum
 
 	</select>
 

@@ -2,6 +2,9 @@ function getEmpMoneyListCompa() {
     LoadingWithMask()
         .then(getEmpOperCnt)
         .then(getEmpOper)
+        .then(setEmpRegDays)
+        .then(getEmpRegOper)
+        .then(getEmpRegOper1)
         .then(getAllMList)
         .then(getEmpInMList)
         .then(getEmpOutMList)
@@ -20,6 +23,9 @@ function getEmpOperListCompa() {
     LoadingWithMask()
         .then(getEmpOperCnt)
         .then(getEmpOper)
+        .then(setEmpRegDays)
+        .then(getEmpRegOper)
+        .then(getEmpRegOper1)
         .then(setCheckBox)
         .then(operMSet)
         .then(sumInList)
@@ -33,17 +39,7 @@ function getEmpOperListCompa() {
 function getEmpOperCnt() {
     return new Promise(function (resolve, reject) {
 
-        const getYM = $('#yearmonthsMoney1').val();
-        const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
-
-        const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
-
-        const yesterday = new Date(oneMonthAgo.setDate(oneMonthAgo.getDate() - 1));
-
-        const stday = toStringByFormatting(
-            new Date(oneMonthAgo.getFullYear(), oneMonthAgo.getMonth(), 1)
-        );
-        const endday = toStringByFormatting(yesterday);
+        const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
         const url = "/emp/empOperCnt";
         const headers = {
@@ -51,8 +47,8 @@ function getEmpOperCnt() {
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "stday": stday,
-            "endday": endday,
+            "stday": arrDay[0],
+            "endday": arrDay[1],
             "operid": $('#emp-iidd').val()
         };
         $.ajax({
@@ -79,17 +75,7 @@ function getEmpOperCnt() {
 function getEmpOper(result) {
     return new Promise(function (resolve, reject) {
 
-        const getYM = $('#yearmonthsMoney1').val();
-        const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
-
-        const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
-
-        const yesterday = new Date(oneMonthAgo.setDate(oneMonthAgo.getDate() - 1));
-
-        const stday = toStringByFormatting(
-            new Date(oneMonthAgo.getFullYear(), oneMonthAgo.getMonth(), 1)
-        );
-        const endday = toStringByFormatting(yesterday);
+        const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
         const url = "/emp/empOper";
         const headers = {
@@ -97,8 +83,8 @@ function getEmpOper(result) {
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "stday": stday,
-            "endday": endday,
+            "stday": arrDay[0],
+            "endday": arrDay[1],
             "operid": $('#emp-iidd').val()
         };
         $.ajax({
@@ -115,8 +101,6 @@ function getEmpOper(result) {
                 if (r.length > 0) {
 
                     for (let i = 0; i < r.length; i++) {
-                        console.log("result    " + r[i].opernum);
-                        console.log("result    " + result.get(r[i].opernum));
                         switch (r[i].opertrash) {
                             case 0:
                                 if (result.get(r[i].opernum) > 1) {
@@ -461,6 +445,182 @@ function getEmpOper(result) {
         })
     });
 }
+
+function getEmpRegOper(result) {
+    return new Promise(function (resolve, reject) {
+
+        const arrDay = getStDEnD($('#yearmonthsMoney1').val());
+
+        const url = "/emp/empRegOper";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        const params = {
+            "regoperid": $('#emp-iidd').val(),
+            "regstartd": arrDay[0],
+            "regendd": arrDay[1]
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                let goodArr = new Array();
+                for (let i = 0; i < r.length; i++) {
+                    let tmpArr = new Array();
+                    tmpArr.push(r[i].conum);
+                    tmpArr.push(r[i].codenum);
+                    goodArr.push(getEmpRegOperCour(tmpArr));
+                }
+                resolve(goodArr);
+            }
+        })
+    })
+}
+function getEmpRegOper1(result) {
+    return new Promise(function (resolve, reject) {
+        console.log(result);
+        const arrDay = getStDEnD($('#yearmonthsMoney1').val());
+
+        const url = "/emp/empRegOper2";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        const params = {
+            "regoperid": $('#emp-iidd').val(),
+            "regstartd": arrDay[0],
+            "regendd": arrDay[1]
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                let htmlRegOper = '';
+                if (r.length > 0) {
+
+                    let arrTmpConum = new Array();
+                    for (let i = 0; i < r.length; i++) {
+                        arrTmpConum.push(r[i].conum);
+                    }
+
+                    const uniqueConum = [...new Set(arrTmpConum)];
+
+                    for (let k = 0; k < uniqueConum.length; k++) {
+
+                        let coNa = '';
+                        let coAdd = '';
+                        let coNosun = '';
+                        for (let i = 0; i < r.length; i++) {
+                            if (uniqueConum[k] == r[i].conum) {
+                                coNa = r[i].regcompany;
+                                coAdd = r[i].regaddress;
+
+                                break;
+                            }
+                        }
+                        for (let l = 0; l < result.length; l++) {
+                            for (let p = 0; p < r.length; p++) {
+                                if (r[p].codenum == result[l][0][1]) {
+                                    coNosun = r[p].rdname;
+                                }
+                            }
+                            let tmpThHtml = `<tr><td class="trRegEmp" colspan="32" style="
+                            text-align: left;
+                        "><span>` +
+                                    coNa + `</span><span>` + coNosun + `</span></td></tr>`;
+                            let tmpTdHtml = '';
+                            for (let l2 = 0; l2 < result[l].length; l2++) {
+                                if (uniqueConum[k] == result[l][l2][0]) {
+                                    tmpTdHtml += `<tr>`;
+                                    tmpTdHtml += `<td>`;
+
+                                    switch (result[l][l2][3]) {
+                                        case 1:
+                                            tmpTdHtml += `출근`;
+                                            break;
+                                        case 2:
+                                            tmpTdHtml += `퇴근`;
+                                            break;
+                                    }
+                                    tmpTdHtml += `</td>`;
+
+                                    const aaa = $('#thDays').children()[2];
+                                    const aaa1 = $(aaa).children();
+
+                                    for (let i2 = 0; i2 < 31; i2++) {
+                                        let car = '';
+                                        const dday = $(aaa1[i2]).text();
+                                        for (let i = 0; i < r.length; i++) {
+                                            if (dday == r[i].regoperday && result[l][l2][0] == r[i].conum && result[l][l2][1] == r[i].codenum && result[l][l2][2] == r[i].regoperno) {
+                                                car = (r[i].idvehicle).substring((r[i].idvehicle).length - 4);
+                                            }
+                                        }
+                                        tmpTdHtml += `<td>`;
+                                        tmpTdHtml += car;
+                                        tmpTdHtml += `</td>`;
+                                    }
+                                    tmpTdHtml += `</tr>`;
+                                } else {
+                                    tmpThHtml = ``;
+                                }
+                            }
+                            htmlRegOper += tmpThHtml + tmpTdHtml;
+                        }
+                    }
+                } else {
+                    htmlRegOper = `
+                    <tr>
+                        <td colspan="32">
+                        정기운행 정보없음
+                        </td>
+                    </tr>`;
+                }
+                $('#tbAllo').html(htmlRegOper);
+                resolve();
+            }
+        })
+    })
+}
+function getEmpRegOperCour(arrTmp) {
+    const url = "/emp/empRegOper1";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+    const params = {
+        "conum": arrTmp[0],
+        "codenum": arrTmp[1]
+    };
+    let tmpArr = new Array();
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        async: false,
+        success: function (r) {
+            for (let i = 0; i < r.length; i++) {
+                let ttmmppArr = new Array();
+                ttmmppArr.push(r[i].conum);
+                ttmmppArr.push(r[i].codenum);
+                ttmmppArr.push(r[i].goutnum);
+                ttmmppArr.push(r[i].rcsepa);
+
+                tmpArr.push(ttmmppArr);
+            }
+        }
+    })
+    return tmpArr;
+}
+
 function getAllMList(result) {
     return new Promise(function (resolve, reject) {
         const url = "/emp/empAllMList";
@@ -704,7 +864,6 @@ function getEmpBaseM(result) {
             success: function (r) {
 
                 if (parseInt(result[0]) < 1) {
-                    console.log("r[0].basem  " + r[0].basem);
                     if (r[0].basem) {
                         $('#in-baseM').val(AddComma(r[0].basem));
                     } else {
