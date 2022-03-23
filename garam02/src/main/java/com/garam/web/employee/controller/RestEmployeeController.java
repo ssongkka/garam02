@@ -86,9 +86,17 @@ public class RestEmployeeController {
 	}
 
 	@PostMapping(value = "/empOperUp")
-	public int empOperUp(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
-		int rtn = employeeService.empUpOper(empRsvtDTO);
+	public int empOperUp(@RequestBody List<Map<String, Object>> map) throws Exception {
 
+		int rtn = 0;
+
+		try {
+			rtn = employeeService.empUpOper(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
 		return rtn;
 	}
 
@@ -212,5 +220,41 @@ public class RestEmployeeController {
 		List<RegularDTO> list = employeeService.selEmpRegOperList2(regularDTO);
 
 		return list;
+	}
+
+	@PostMapping(value = "/empAllAllo")
+	public List<EmpRsvtDTO> selectEmpAllAllo(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeService.selectEmpAllAllo(empRsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empAllAllo1")
+	public List<RegularDTO> selectEmpAllAllo1(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeService.selectEmpAllAllo1(regularDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/updateRegOper")
+	public int updateRegOper(@RequestBody RegularDTO regularDTO) throws Exception {
+		int rtn = employeeService.updateRegOper(regularDTO);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/updateRegOper1")
+	public int updateRegOper1(@RequestBody RegularDTO regularDTO) throws Exception {
+
+		int rtn = employeeService.updateRegOper1(regularDTO);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/updateEmpMoneys")
+	public int updateEmpMoneys(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		int rtn = employeeService.updateEmpMoneys(employeeInfoDTO);
+
+		return rtn;
 	}
 }

@@ -31,7 +31,7 @@ public interface EmployeeMapper {
 
 	public List<EmployeeInfoDTO> SelectEmpBaseMoney(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
-	public int empUpOper(EmpRsvtDTO empRsvtDTO) throws Exception;
+	public int empUpOper(HashMap<String, Object> map) throws Exception;
 
 	public int empUpOper2(EmpRsvtDTO empRsvtDTO) throws Exception;
 
@@ -58,4 +58,14 @@ public interface EmployeeMapper {
 	public List<RegularDTO> selEmpRegOperList1(RegularDTO regularDTO) throws Exception;
 
 	public List<RegularDTO> selEmpRegOperList2(RegularDTO regularDTO) throws Exception;
+
+	public List<EmpRsvtDTO> selectEmpAllAllo(EmpRsvtDTO empRsvtDTO) throws Exception;
+
+	public List<RegularDTO> selectEmpAllAllo1(RegularDTO regularDTO) throws Exception;
+
+	public int updateRegOper(RegularDTO regularDTO) throws Exception;
+
+	public int updateRegOper1(RegularDTO regularDTO) throws Exception;
+
+	public int updateEmpMoneys(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 }

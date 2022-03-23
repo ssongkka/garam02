@@ -310,9 +310,7 @@ svg {
     cursor: pointer;
 }
 
-.table {
-    letter-spacing: 0.1rem;
-}
+.table {}
 
 object {
     width: 100%;

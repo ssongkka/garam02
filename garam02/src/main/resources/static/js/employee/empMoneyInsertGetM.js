@@ -1,16 +1,19 @@
 function getEmpMoneyListCompa() {
     LoadingWithMask()
+        .then(getAllMList)
         .then(getEmpOperCnt)
         .then(getEmpOper)
         .then(setEmpRegDays)
         .then(getEmpRegOper)
         .then(getEmpRegOper1)
-        .then(getAllMList)
+        .then(getEmpAllAllOper1)
+        .then(getEmpAllAllOper2)
         .then(getEmpInMList)
         .then(getEmpOutMList)
         .then(getEmpBaseM)
         .then(setCheckBox)
         .then(operMSet)
+        .then(operRegMSet)
         .then(sumInList)
         .then(sumOutList)
         .then(sumIN)
@@ -26,8 +29,11 @@ function getEmpOperListCompa() {
         .then(setEmpRegDays)
         .then(getEmpRegOper)
         .then(getEmpRegOper1)
+        .then(getEmpAllAllOper1)
+        .then(getEmpAllAllOper2)
         .then(setCheckBox)
         .then(operMSet)
+        .then(operRegMSet)
         .then(sumInList)
         .then(sumOutList)
         .then(sumIN)
@@ -38,6 +44,8 @@ function getEmpOperListCompa() {
 
 function getEmpOperCnt() {
     return new Promise(function (resolve, reject) {
+        $('#emp-in-money-tb').html('');
+        $('#emp-out-money-tb').html('');
 
         const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
@@ -446,6 +454,177 @@ function getEmpOper(result) {
     });
 }
 
+function setEmpRegDays() {
+    return new Promise(function (resolve, reject) {
+
+        const ddd = new Date($("#yearmonthsMoney1").val());
+        const dddP = ddd.setMonth(ddd.getMonth() + 1);
+
+        let eee = new Date(ddd);
+        eee = eee.setDate(eee.getDate() - 1);
+
+        const dday1 = toStringByFormatting(new Date(eee));
+
+        const endDay = dday1.split('-')[2];
+
+        let htmlsday1 = '';
+        let htmlsday2 = '';
+        let htmlsday3 = '';
+        let htmlsday4 = '';
+
+        htmlsday1 += '<tr>';
+        htmlsday1 += '<th rowspan="3">구분</th>';
+
+        htmlsday2 += '<tr>';
+        htmlsday3 += '<tr class="thNone">';
+        htmlsday4 += '<tr class="thNone">';
+
+        let cont = 0;
+
+        let dow = 0;
+
+        for (let i = 0; i < 31; i++) {
+            if (cont < parseInt(endDay)) {
+                const tmpd = new Date($("#yearmonthsMoney1").val()).setDate(
+                    new Date($("#yearmonthsMoney1").val()).getDate() + cont
+                );
+                dow = new Date(tmpd).getDay();
+
+                let nnn = '';
+                if (cont < 9) {
+                    nnn = '0' + ++cont;
+                } else {
+                    nnn = ++cont;
+                }
+
+                const thisDD = toStringByFormatting(new Date(tmpd));
+                const stDD = $('#stDD').text();
+                const edDD = $('#edDD').text();
+
+                const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1] + stDD.split(
+                    '-'
+                )[2]);
+                const edDDDDnum = parseInt(
+                    edDD.split('-')[0] + edDD.split('-')[1] + edDD.split(
+                        '-'
+                    )[2]
+                );
+                const thisDDDDDnum = parseInt(
+                    thisDD.split('-')[0] + thisDD.split('-')[1] + thisDD.split('-')[2]
+                );
+
+                const tmpNowDd = toStringByFormatting(new Date());
+                const nowDayday = parseInt(
+                    tmpNowDd.split('-')[0] + tmpNowDd.split('-')[1] + tmpNowDd.split('-')[2]
+                );
+
+                const tmpShowd = toStringByFormatting(new Date(tmpd));
+                const showDayday = parseInt(
+                    tmpShowd.split('-')[0] + tmpShowd.split('-')[1] + tmpShowd.split('-')[2]
+                );
+
+                function getDDD() {
+                    switch (dow) {
+                        case 0:
+                            htmlsday1 += '<th style="color: #CF2F11;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #CF2F11;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #CF2F11;">' + toStringByFormatting(
+                                new Date(tmpd)
+                            ) + '</th>';
+                            htmlsday4 += '<th style="color: #CF2F11;">' + dow + '</th>';
+                            break;
+                        case 6:
+                            htmlsday1 += '<th style="color: #4B89DC;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #4B89DC;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #4B89DC;">' + toStringByFormatting(
+                                new Date(tmpd)
+                            ) + '</th>';
+                            htmlsday4 += '<th style="color: #4B89DC;">' + dow + '</th>';
+                            break;
+                        default:
+                            htmlsday1 += '<th>' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th>' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th>' + toStringByFormatting(new Date(tmpd)) + '</th>';
+                            htmlsday4 += '<th>' + dow + '</th>';
+                            break;
+                    }
+                }
+                function getNoDDD() {
+                    switch (dow) {
+                        case 0:
+                            htmlsday1 += '<th style="color: #CF2F11; opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #CF2F11; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
+                            break;
+                        case 6:
+                            htmlsday1 += '<th style="color: #4B89DC; opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="color: #4B89DC; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
+                            break;
+                        default:
+                            htmlsday1 += '<th style="opacity: 0.3;">' + (
+                                nnn
+                            ) + '일</th>';
+                            htmlsday2 += '<th style="opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
+                            htmlsday3 += '<th style="opacity: 0.3;"></th>';
+                            htmlsday4 += '<th style="opacity: 0.3;"></th>';
+                            break;
+                    }
+                }
+
+                if (nowDayday >= showDayday) {
+                    if ($('#rgconum').val()) {
+                        if ($('#edDD').text()) {
+                            if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
+                                getDDD();
+                            } else {
+                                getNoDDD();
+                            }
+                        } else {
+                            if (stDDDnum <= thisDDDDDnum) {
+                                getDDD();
+                            } else {
+                                getNoDDD();
+                            }
+                        }
+                    } else {
+                        getDDD();
+                    }
+                } else {
+                    getNoDDD();
+                }
+            } else {
+                htmlsday1 += '<th style="opacity: 0;">잉요일</th>';
+                htmlsday2 += '<th style="opacity: 0;">잉요일</th>';
+                htmlsday3 += '<th style="opacity: 0;">잉요일</th>';
+                htmlsday4 += '<th style="opacity: 0;">잉요일</th>';
+            }
+        }
+        htmlsday1 += '</tr>';
+        htmlsday2 += '</tr>';
+        htmlsday3 += '</tr>';
+        htmlsday4 += '</tr>';
+
+        const htmls = htmlsday1 + htmlsday2 + htmlsday3 + htmlsday4;
+
+        $('#tbAllo').html('');
+        $('#thDays').html(htmls);
+        resolve();
+    })
+}
+
 function getEmpRegOper(result) {
     return new Promise(function (resolve, reject) {
 
@@ -482,7 +661,14 @@ function getEmpRegOper(result) {
 }
 function getEmpRegOper1(result) {
     return new Promise(function (resolve, reject) {
-        console.log(result);
+
+        const ymsp = ($('#yearmonthsMoney1').val()).split('-');
+
+        $('#oper3Label').html(
+            `<span>` + ymsp[0] + '년 ' + ymsp[1] + '월' + `</span><span>승무원 ` + $($('#m-name').children()).text() +
+            `</span><span>정기운행 정보</span>`
+        );
+
         const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
         const url = "/emp/empRegOper2";
@@ -539,16 +725,19 @@ function getEmpRegOper1(result) {
                             for (let l2 = 0; l2 < result[l].length; l2++) {
                                 if (uniqueConum[k] == result[l][l2][0]) {
                                     tmpTdHtml += `<tr>`;
-                                    tmpTdHtml += `<td>`;
+                                    tmpTdHtml += `<td class="user-select-none">`;
+
+                                    let goout = '';
 
                                     switch (result[l][l2][3]) {
                                         case 1:
-                                            tmpTdHtml += `출근`;
+                                            goout = `출근`;
                                             break;
                                         case 2:
-                                            tmpTdHtml += `퇴근`;
+                                            goout = `퇴근`;
                                             break;
                                     }
+                                    tmpTdHtml += goout;
                                     tmpTdHtml += `</td>`;
 
                                     const aaa = $('#thDays').children()[2];
@@ -556,14 +745,73 @@ function getEmpRegOper1(result) {
 
                                     for (let i2 = 0; i2 < 31; i2++) {
                                         let car = '';
+                                        let inday = '';
+                                        let incompa = '';
+                                        let innosun = '';
+                                        let ingout = '';
+                                        let inopernum = '';
+                                        let inconfirm = '';
+                                        let intrash = null;
+                                        let inoregpernum = '';
                                         const dday = $(aaa1[i2]).text();
                                         for (let i = 0; i < r.length; i++) {
                                             if (dday == r[i].regoperday && result[l][l2][0] == r[i].conum && result[l][l2][1] == r[i].codenum && result[l][l2][2] == r[i].regoperno) {
                                                 car = (r[i].idvehicle).substring((r[i].idvehicle).length - 4);
+                                                inday = dday;
+                                                incompa = coNa;
+                                                innosun = coNosun;
+                                                inopernum = r[i].operregseq;
+                                                ingout = goout;
+                                                if (r[i].regoperconfirm) {
+                                                    inconfirm = r[i].regoperconfirm;
+                                                } else {
+                                                    inconfirm = ``;
+                                                }
+                                                intrash = r[i].regopertrash;
+                                                inoregpernum = r[i].regopernum;
                                             }
                                         }
-                                        tmpTdHtml += `<td>`;
+
+                                        switch (intrash) {
+                                            case 0:
+                                                tmpTdHtml += `<td class="user-select-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="마감된 배차는 수정 할 수 없습니다."`;
+                                                tmpTdHtml += `style="background: #198754; color:#ffffff">`
+                                                break;
+                                            case 2:
+                                                if (car) {
+                                                    if ($('#emp-sal').val() > 0) {
+                                                        tmpTdHtml += `<td class="user-select-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="마감된 급여정보는 수정 할 수 없습니다." `;
+                                                    } else {
+                                                        tmpTdHtml += `<td class="user-select-none chreginM" `;
+                                                    }
+                                                } else {
+                                                    tmpTdHtml += `<td class="user-select-none" `;
+                                                }
+                                                tmpTdHtml += `style="background: #ffc107; color:#ffffff">`
+                                                break;
+                                            default:
+                                                if (car) {
+                                                    if ($('#emp-sal').val() > 0) {
+                                                        tmpTdHtml += `<td class="user-select-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="마감된 급여정보는 수정 할 수 없습니다."" `;
+                                                    } else {
+                                                        tmpTdHtml += `<td class="user-select-none chreginM" `;
+                                                    }
+                                                } else {
+                                                    tmpTdHtml += `<td class="user-select-none" `;
+                                                }
+                                                tmpTdHtml += `style="background: none;">`
+                                                break;
+                                        }
+
                                         tmpTdHtml += car;
+                                        tmpTdHtml += `<input type="hidden" value="` + inday + `">`;
+                                        tmpTdHtml += `<input type="hidden" value="` + incompa + `">`;
+                                        tmpTdHtml += `<input type="hidden" value="` + innosun + `">`;
+                                        tmpTdHtml += `<input type="hidden" value="` + ingout + `">`;
+                                        tmpTdHtml += `<input type="hidden" value="` + inopernum + `">`;
+                                        tmpTdHtml += `<input type="hidden" value="` + inconfirm + `">`;
+                                        tmpTdHtml += `<input type="hidden" value="` + intrash + `">`;
+                                        tmpTdHtml += `<input type="hidden" value="` + inoregpernum + `">`;
                                         tmpTdHtml += `</td>`;
                                     }
                                     tmpTdHtml += `</tr>`;
@@ -583,6 +831,164 @@ function getEmpRegOper1(result) {
                     </tr>`;
                 }
                 $('#tbAllo').html(htmlRegOper);
+                var tooltipTriggerList = []
+                    .slice
+                    .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                })
+                resolve();
+            }
+        })
+    })
+}
+function getEmpAllAllOper1(result) {
+    return new Promise(function (resolve, reject) {
+
+        const arrDay = getStDEnD($('#yearmonthsMoney2').val());
+
+        const url = "/emp/empAllAllo";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        const params = {
+            "operid": $('#emp-iidd').val(),
+            "operconfirm": $('#yearmonthsMoney2').val()
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                let htmlsTb = ``;
+                for (let i = 0; i < r.length; i++) {
+                    htmlsTb += `<tr>`
+                    htmlsTb += `<td>` + (i + 1) + `</td>`;
+                    htmlsTb += `<td>`;
+                    htmlsTb += r[i].operday;
+                    htmlsTb += `</td>`;
+                    htmlsTb += `<td>`;
+                    htmlsTb += r[i].desty;
+                    htmlsTb += `</td>`;
+                    htmlsTb += `<td>`;
+                    htmlsTb += r[i].ctmname;
+                    htmlsTb += `</td>`;
+                    htmlsTb += `<td class="tdRight">`;
+                    htmlsTb += AddComma(r[i].atlm);
+                    htmlsTb += `</td>`;
+                    htmlsTb += `</tr>`
+                }
+                $('#offAlloInTb').html(htmlsTb);
+                resolve();
+            }
+        })
+    })
+}
+function getEmpAllAllOper3(result) {
+    return new Promise(function (resolve, reject) {
+
+        const arrDay = getStDEnD($('#yearmonthsMoney2').val());
+
+        const url = "/emp/empAllAllo";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        const params = {
+            "operid": $('#emp-iidd').val(),
+            "operconfirm": $('#yearmonthsMoney2').val()
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                let htmlsTb = ``;
+                for (let i = 0; i < r.length; i++) {
+                    htmlsTb += `<tr>`
+                    htmlsTb += `<td>` + (i + 1) + `</td>`;
+                    htmlsTb += `<td>`;
+                    htmlsTb += r[i].operday;
+                    htmlsTb += `</td>`;
+                    htmlsTb += `<td>`;
+                    htmlsTb += r[i].desty;
+                    htmlsTb += `</td>`;
+                    htmlsTb += `<td>`;
+                    htmlsTb += r[i].ctmname;
+                    htmlsTb += `</td>`;
+                    htmlsTb += `<td class="tdRight">`;
+                    htmlsTb += AddComma(r[i].atlm);
+                    htmlsTb += `</td>`;
+                    htmlsTb += `</tr>`
+                }
+                $('#offAlloInTb').html(htmlsTb);
+                resolve();
+            }
+        })
+    })
+}
+function getEmpAllAllOper2(result) {
+    return new Promise(function (resolve, reject) {
+
+        const arrDay = getStDEnD($('#yearmonthsMoney2').val());
+
+        const url = "/emp/empAllAllo1";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        const params = {
+            "regoperid": $('#emp-iidd').val(),
+            "regoperconfirm": $('#yearmonthsMoney2').val(),
+            "regstartd": arrDay[0],
+            "regendd": arrDay[1]
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                let cnt = 0;
+
+                let htmlsTb = ``;
+                let htmlsTb1 = ``;
+                for (let i = 0; i < r.length; i++) {
+                    cnt++;
+                    htmlsTb += `<tr>`
+                    htmlsTb += `<td class="hideTh">` + r[i].operregseq + `</td>`;
+                    htmlsTb += `<td class="hideTh">` + r[i].regopernum + `</td>`;
+                    htmlsTb += `<td class="hideTh">` + r[i].conum + `</td>`;
+                    htmlsTb += `<td class="hideTh">` + r[i].codenum + `</td>`;
+                    htmlsTb += `<td>` + (i + 1) + `</td>`;
+                    htmlsTb += `<td>` + r[i].regoperday + `</td>`;
+                    htmlsTb += `<td>` + r[i].regcompany + `</td>`;
+                    htmlsTb += `<td>` + r[i].rdname + `</td>`;
+
+                    htmlsTb += `<td><input type="text" class="regmoney" data-type="currency" onfocus="this.select()" value="` +
+                            AddComma(r[i].regoperatlm) + `"></td>`;
+                    htmlsTb += `<td>` + r[i].regoperconfirm + `</td>`;
+                    htmlsTb += `</tr>`
+
+                    htmlsTb1 += `<tr>`
+                    htmlsTb1 += `<td>` + (i + 1) + `</td>`;
+                    htmlsTb1 += `<td>` + r[i].regoperday + `</td>`;
+                    htmlsTb1 += `<td>` + r[i].regcompany + `</td>`;
+                    htmlsTb1 += `<td>` + r[i].rdname + `</td>`;
+                    htmlsTb1 += `<td class="tdRight">` + AddComma(r[i].regoperatlm) + `</td>`;
+                    htmlsTb1 += `</tr>`
+
+                }
+                $('#emp-reg-money-tb').html(htmlsTb);
+                $('#bgoper2').text(cnt);
+                $('#offAlloRegInTb').html(htmlsTb1);
                 resolve();
             }
         })
@@ -642,12 +1048,11 @@ function getAllMList(result) {
                 if (r.length > 0) {
                     $('#operO').val(r[0].per * 100);
                     $('#emp-sal').val(1);
-                    resolve();
                 } else {
                     $('#operO').val(opt[0].oper * 100);
                     $('#emp-sal').val(0);
-                    resolve();
                 }
+                resolve();
             }
         })
     })
@@ -921,8 +1326,8 @@ function getEmpBaseM(result) {
                     htmls += '<td>1일</td>';
                     htmls += '<td>보험료</td>';
                     htmls += '<td>산재보험</td>';
-                    htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="sanmM" onfo' +
-                            'cus="this.select()" value="' + AddComma(r[0].sanm) + '"></td>';
+                    htmls += '<td><input type="text" class="" data-type="currency" id="sanmM" onfocus="this.' +
+                            'select()" value="' + AddComma(r[0].sanm) + '"></td>';
                     htmls += '<td></td>';
                     htmls += '</tr>';
                     $('#emp-out-money-tb').append(htmls);

@@ -401,17 +401,20 @@ function getEmpInfo(id) {
 
     LoadingWithMask()
         .then(getEmp1)
+        .then(getAllMList)
         .then(getEmpOperCnt)
         .then(getEmpOper)
         .then(setEmpRegDays)
         .then(getEmpRegOper)
         .then(getEmpRegOper1)
-        .then(getAllMList)
+        .then(getEmpAllAllOper1)
+        .then(getEmpAllAllOper2)
         .then(getEmpInMList)
         .then(getEmpOutMList)
         .then(getEmpBaseM)
         .then(setCheckBox)
         .then(operMSet)
+        .then(operRegMSet)
         .then(sumInList)
         .then(sumOutList)
         .then(sumIN)
@@ -674,6 +677,7 @@ $(document).on('click', '#insert-money', function () {
                 $('.size-hidden').hide();
                 $('.nomal-aside').css('width', '30rem');
                 $('.nomal-main').css('padding-left', '30rem');
+                $('#compa-tab').click();
             } else {
                 $('#showm').val('0');
                 $('#insert-money').html(`급여입력&nbsp;<i class="fas fa-plus-square"></i>`);
@@ -682,6 +686,7 @@ $(document).on('click', '#insert-money', function () {
                 $('.size-hidden').show();
                 $('.nomal-aside').css('width', '50rem');
                 $('.nomal-main').css('padding-left', '50rem');
+                $('#all-tab').click();
             }
             resolve();
         })
@@ -820,7 +825,6 @@ function insertEmp(tp) {
                 cache: false,
                 timeout: 600000,
                 success: function (r) {
-                    console.log(r);
                     resolve(r);
                 },
                 error: (jqXHR) => {
@@ -852,7 +856,6 @@ function insertEmp(tp) {
                     alert("인터넷 연결 상태를 확인해주세요.\n반복적으로 이 메세지가 발생하면 담당자에게 문의해주세요.");
                 } else {
                     if ($('#endd').val()) {
-                        console.log("asdasd  " + $('#endd').val());
                         if (confirm(
                             $('#name').val() + " 승무원을 퇴사 처리하시겠습니까?\n\n('퇴사일'을 입력하면 해당 승무원은 퇴사 처리됩니다.)"
                         )) {

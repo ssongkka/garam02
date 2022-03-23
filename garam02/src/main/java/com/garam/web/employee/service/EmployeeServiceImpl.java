@@ -236,13 +236,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public int empUpOper(EmpRsvtDTO empRsvtDTO) throws Exception {
-		int rtn = employeeMapper.empUpOper(empRsvtDTO);
-
-		return rtn;
-	}
-
-	@Override
 	public int empUpOper2(EmpRsvtDTO empRsvtDTO) throws Exception {
 		int rtn = employeeMapper.empUpOper2(empRsvtDTO);
 
@@ -358,4 +351,51 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return list;
 	}
 
+	@Override
+	public List<EmpRsvtDTO> selectEmpAllAllo(EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeMapper.selectEmpAllAllo(empRsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RegularDTO> selectEmpAllAllo1(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeMapper.selectEmpAllAllo1(regularDTO);
+
+		return list;
+	}
+
+	@Override
+	public int updateRegOper(RegularDTO regularDTO) throws Exception {
+		int rtn = employeeMapper.updateRegOper(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int empUpOper(List<Map<String, Object>> map) throws Exception {
+
+		HashMap<String, Object> upoper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			upoper.put("upoper", map);
+		}
+
+		int rtn = employeeMapper.empUpOper(upoper);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRegOper1(RegularDTO regularDTO) throws Exception {
+		int rtn = employeeMapper.updateRegOper1(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateEmpMoneys(EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		int rtn = employeeMapper.updateEmpMoneys(employeeInfoDTO);
+
+		return rtn;
+	}
 }

@@ -1,6 +1,7 @@
 function sumAllpro() {
     LoadingWithMask()
         .then(operMSet)
+        .then(operRegMSet)
         .then(sumInList)
         .then(sumOutList)
         .then(sumIN)
@@ -31,10 +32,61 @@ function operMSet() {
             data: JSON.stringify(params),
             success: function (r) {
                 for (let i = 0; i < r.length; i++) {
-                    money = money + r[i].atlm;
+                    money = money + parseInt(r[i].atlm);
                     chM++;
                 }
-                $('#in-operM').text(AddComma(Math.trunc(money * ($('#operO').val() / 100))));
+
+                const tmp = new Array();
+                tmp.push(money);
+                tmp.push(chM);
+
+                resolve(tmp);
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    })
+}
+function operRegMSet(result) {
+    return new Promise(function (resolve, reject) {
+        const arrDay = getStDEnD($('#yearmonthsMoney2').val());
+
+        let money = 0;
+        let chM = 0;
+
+        const url = "/emp/empAllAllo1";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+        const params = {
+            "regoperid": $('#emp-iidd').val(),
+            "regoperconfirm": $('#yearmonthsMoney2').val(),
+            "regstartd": arrDay[0],
+            "regendd": arrDay[1]
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+
+                console.log(result[0]);
+                console.log(result[1]);
+
+                for (let i = 0; i < r.length; i++) {
+                    money = money + parseInt(r[i].regoperatlm);
+                    chM++;
+                }
+
+                money = money + parseInt(result[0]);
+                chM = chM + parseInt(result[1]);
+                $('#in-operM').text(
+                    AddComma(Math.trunc(money * (parseInt($('#operO').val()) / 100)))
+                );
                 $('#in-operC').text(chM + '건');
                 $('#tdPer').text('운행수당(' + $('#operO').val() + '%)');
                 resolve();

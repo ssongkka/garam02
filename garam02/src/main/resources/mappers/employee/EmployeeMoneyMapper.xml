@@ -29,6 +29,29 @@
 
 		operation_info.opertrash != #{opertrash}
 	</select>
+	<select id="selectRegOperMoney"
+		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
+		SELECT
+
+		DISTINCT(operation_info.opernum),
+
+		operation_info.atlm
+		FROM operation_info
+
+		WHERE
+
+		operation_info.operid =
+		#{operid}
+
+		AND
+
+		operation_info.operconfirm = #{operconfirm}
+
+		AND
+
+		operation_info.opertrash != #{opertrash}
+	</select>
 
 	<select id="SelectEmpBaseMoney"
 		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
@@ -47,38 +70,65 @@
 		employeeinfo.id = #{id}
 	</select>
 
-	<update id="empUpOper"
-		parameterType="com.garam.web.employee.dto.EmpRsvtDTO">
+	<update id="empUpOper" parameterType="java.util.HashMap">
+
+		<foreach collection="upoper" item="value" index="index"
+			separator=";">
+
+			UPDATE
+
+			operation_info
+
+			SET
+
+			operconfirm = #{value.operconfirm},
+			opertrash = #{value.opertrash}
+
+			WHERE
+
+			opernum = #{value.opernum}
+
+			AND
+
+			operno = #{value.operno}
+
+			AND
+
+			opertype = #{value.opertype}
+
+			AND
+
+			operid =
+			#{value.operid}
+
+			AND
+
+			opercar
+			= #{value.opercar}
+		</foreach>
+	</update>
+
+	<update id="updateRegOper1"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
 
 		UPDATE
 
-		operation_info
+		operation_reg
 
 		SET
 
-		operconfirm = #{operconfirm},
-		opertrash = #{opertrash}
+		regopertrash = 0
 
 		WHERE
 
-		opernum = #{opernum}
+		regoperconfirm =
+		#{regoperconfirm}
 
 		AND
 
-		operno = #{operno}
+		regoperid =
+		#{regoperid}
 
-		AND
-
-		opertype = #{opertype}
-
-		AND
-
-		operid = #{operid}
-
-		AND
-
-		opercar
-		= #{opercar}
 	</update>
 	<update id="empUpOper2"
 		parameterType="com.garam.web.employee.dto.EmpRsvtDTO">
@@ -99,6 +149,59 @@
 		AND
 
 		operid = #{operid}
+	</update>
+
+	<update id="updateRegOper"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		UPDATE
+
+		operation_reg
+
+		SET
+
+		<if test="regopertrash != null and regopertrash != ''">
+			regopertrash =
+			#{regopertrash},
+		</if>
+
+		regoperconfirm =
+		#{regoperconfirm},
+
+
+		regoperatlm =
+		#{regoperatlm}
+
+		WHERE
+
+		regopernum =
+		#{regopernum}
+
+		AND
+
+		regoperid =
+		#{regoperid}
+	</update>
+
+	<update id="updateEmpMoneys"
+		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+
+		UPDATE
+
+		employeeinfo
+
+		SET
+
+		employeeinfo.basem = #{basem},
+		employeeinfo.kukm = #{kukm},
+		employeeinfo.gunm = #{gunm},
+		employeeinfo.gom = #{gom},
+		employeeinfo.sanm = #{sanm}
+
+		WHERE
+
+		employeeinfo.id = #{id}
+
 
 	</update>
 
@@ -170,6 +273,10 @@
 		GROUP BY
 		operation_reg.conum,
 		operation_reg.codenum
+
+		ORDER BY
+		operation_reg.regoperday,
+		operation_reg.regoperno
 	</select>
 	<select id="selEmpRegOperList"
 		parameterType="com.garam.web.regular.dto.RegularDTO"
@@ -198,6 +305,10 @@
 		GROUP BY
 		operation_reg.conum,
 		operation_reg.codenum
+
+		ORDER BY
+		operation_reg.operregseq,
+		operation_reg.regoperday
 	</select>
 	<select id="selEmpRegOperList1"
 		parameterType="com.garam.web.regular.dto.RegularDTO"
@@ -221,7 +332,7 @@
 		regularcourse.goutnum
 
 		ORDER BY
-		regularcourse.rct
+		regularcourse.rct, regularcourse.goutnum
 	</select>
 
 	<select id="selEmpRegOperList2"
@@ -298,8 +409,205 @@
 		BETWEEN
 		#{regstartd} AND
 		#{regendd}
+
+		ORDER BY
+		operation_reg.regoperday,
+		regulardetail.rdnum,
+		operation_reg.operregseq
+
 	</select>
 
+	<select id="selectEmpAllAllo"
+		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
+
+		SELECT
+		rsvt.rsvtseq, rsvt.desty, rsvt.stday, rsvt.endday,
+		operation_info.operseq,
+		operation_info.opernum,
+		operation_info.rsvt,
+		operation_info.operday,
+		operation_info.operno,
+		rsvt.numm,
+		operation_info.atlm,
+		operation_info.opertype,
+		operation_info.operid,
+		operation_info.opercar,
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar),
+		operation_info.opercar)
+		AS
+		vehicle,
+		(SELECT
+		customer.ctmname FROM
+		customer
+		WHERE
+		customer.ctmno
+		=
+		rsvt.ctmno)
+		AS
+		ctmname,
+		operation_info.operconfirm,
+		operation_info.opertrash
+
+		FROM
+
+		operation_info
+		left
+		join rsvt on
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		WHERE
+
+		operation_info.operid = #{operid}
+
+		AND
+
+		operation_info.operconfirm = #{operconfirm}
+
+		AND
+
+		operation_info.dayst
+		=
+		1
+
+		ORDER BY
+		rsvt.stday,
+		operation_info.opernum,
+		operation_info.operday,
+		rsvt.stt;
+
+	</select>
+
+	<select id="selectEmpAllAllo1"
+		parameterType="com.garam.web.regular.dto.RegularDTO"
+		resultType="com.garam.web.regular.dto.RegularDTO">
+
+		SELECT
+
+		operation_reg.*,
+		regular.*,
+		regulardetail.*,
+
+		IFNULL((SELECT
+		vehicleinfo.vehicle
+		FROM
+		vehicleinfo
+		WHERE
+		vehicleinfo.carnumber
+		=
+		operation_reg.regopercar),
+		operation_reg.regopercar) AS
+		idvehicle,
+
+		IFNULL((SELECT
+		vehicleinfo.id
+		FROM
+		vehicleinfo
+		WHERE
+		vehicleinfo.carnumber
+		=
+		operation_reg.regopercar),
+		operation_reg.regopercar) AS
+		idid,
+
+		IFNULL((SELECT
+		employeeinfo.name
+		FROM
+		employeeinfo
+		WHERE
+		employeeinfo.id
+		=
+		operation_reg.regoperid),
+		operation_reg.regoperid) AS
+		idname,
+
+		IFNULL((SELECT
+		regularcourse.rcsepa
+		FROM
+		regularcourse
+		WHERE
+		regularcourse.conum
+		=
+		operation_reg.conum
+		AND
+		regularcourse.codenum
+		=
+		operation_reg.codenum
+		AND
+		regularcourse.goutnum
+		=
+		operation_reg.regoperno
+		GROUP BY
+		operation_reg.regoperno
+		),
+		operation_reg.regoperid) AS
+		rcsepa
+
+		FROM
+
+		operation_reg
+
+		LEFT JOIN
+
+		regular
+
+		ON
+
+		operation_reg.conum = regular.conum
+
+		LEFT JOIN
+
+		regulardetail
+
+		ON
+
+		operation_reg.codenum = regulardetail.codenum
+
+		WHERE
+
+		operation_reg.regoperid =
+		#{regoperid}
+
+		AND
+
+		operation_reg.regoperconfirm =
+		#{regoperconfirm}
+
+		GROUP BY
+		operation_reg.regopernum
+
+		ORDER BY
+		operation_reg.regoperday,
+		regulardetail.rdnum,
+		operation_reg.operregseq
+	</select>
+
+	<select id="selAllMoney"
+		parameterType="com.garam.web.employee.dto.EmpsalaryAll"
+		resultType="com.garam.web.employee.dto.EmpsalaryAll">
+
+		SELECT
+
+		*
+
+		FROM
+
+		personnalsalary
+
+		WHERE
+
+		personnalsalary.id = #{id}
+
+		AND
+
+		personnalsalary.date = #{date}
+	</select>
 	<delete id="delInM"
 		parameterType="com.garam.web.employee.dto.Empsalary">
 		DELETE FROM
@@ -379,26 +687,6 @@
 		</foreach>
 	</insert>
 
-	<select id="selAllMoney"
-		parameterType="com.garam.web.employee.dto.EmpsalaryAll"
-		resultType="com.garam.web.employee.dto.EmpsalaryAll">
-
-		SELECT
-
-		*
-
-		FROM
-
-		personnalsalary
-
-		WHERE
-
-		personnalsalary.id = #{id}
-
-		AND
-
-		personnalsalary.date = #{date}
-	</select>
 	<insert id="insertAllMoney"
 		parameterType="com.garam.web.employee.dto.EmpsalaryAll">
 
@@ -432,4 +720,5 @@
 		NOW(),
 		1);
 	</insert>
+	
 </mapper>

@@ -68,7 +68,6 @@
     margin-left: 62rem;
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 6rem);
 }
 .moneyInsertEmp-item:nth-child(2) .table {
     border-color: #f5f5f5;
@@ -79,7 +78,6 @@
     flex-direction: column;
     gap: 1rem;
     padding-bottom: 1rem;
-    min-height: calc(100vh - 35.3rem);
 }
 
 .moneyInsertEmp-End {
@@ -153,8 +151,18 @@
     display: flex;
 }
 
+#in-operB {
+    width: 20%;
+    text-align: center;
+}
+#in-operB .btn {
+    padding: 0 0.5rem;
+    font-size: 0;
+    color: #198754;
+    border-color: #198754;
+}
 #in-operC {
-    width: 40%;
+    width: 30%;
 }
 #in-operM {
     flex: 1;
@@ -365,6 +373,18 @@
     text-align: right;
 }
 
+.offAll {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-EmpAllo-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
 .offcanvas-body-regOper {
     display: flex;
     flex-direction: column;
@@ -383,19 +403,43 @@
 .offcanvas-bottom {
     height: auto;
 }
+
+.offcanvas-end {
+    width: 490px;
+}
+
 .trRegEmp span {
-    padding-left: 3rem;
+    padding-left: 2rem;
 }
 
 .trRegEmp:first-child {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 600;
+}
+
+#oper3Label {
+    font-weight: 600;
+}
+
+#oper3Label span {
+    padding-left: 2rem;
 }
 
 #AllM,
 #in-inAllM,
 #out-outAllM {
     font-size: 1.5rem;
+}
+
+.regmoney {
+    font-size: 1.3rem;
+    width: 100%;
+}
+
+.offAll1-item:nth-child(2) {
+    min-height: calc(100vh - 60rem);
+    max-height: calc(100vh - 60rem);
+    overflow-y: auto;
 }
 
 @media (max-width:768px) {

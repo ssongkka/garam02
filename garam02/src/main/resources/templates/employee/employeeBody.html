@@ -452,7 +452,7 @@
                 id="oper3"
                 aria-labelledby="offcanvasTopLabel">
                 <div class="offcanvas-header">
-                    <h5 id="offcanvasTopLabel">Offcanvas top</h5>
+                    <h3 id="oper3Label"></h3>
                     <button
                         type="button"
                         class="btn-close text-reset"
@@ -500,6 +500,80 @@
                             <tbody id="tbAllo"></tbody>
                             <tfoot id="tfBtn"></tfoot>
                         </table>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="offcanvas offcanvas-end"
+                data-bs-scroll="true"
+                data-bs-backdrop="false"
+                tabindex="-1"
+                id="offAlloIn"
+                aria-labelledby="offcanvasTopLabel">
+                <div class="offcanvas-header">
+                    <h3 id="offAlloInLabel"></h3>
+                    <button
+                        type="button"
+                        class="btn-close text-reset"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body-regOper">
+                    <div class="main-EmpAllo-main">
+                        <div class="offAll1">
+                            <div class="offAll1-item">
+                                <h3>일반운행 목록</h3>
+                            </div>
+                            <div class="offAll1-item scBar">
+                                <table class="table table-bordered table-striped tbEmpRegAllo">
+                                    <colgroup>
+                                        <col width="5%"/>
+                                        <col width="20%"/>
+                                        <col width="30%"/>
+                                        <col width="30%"/>
+                                        <col width="15%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>운행일</th>
+                                            <th>목적지</th>
+                                            <th>출발지</th>
+                                            <th>금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="offAlloInTb"></tbody>
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="offAll2">
+                            <div class="offAll2-item">
+                                <h3>정기운행 목록</h3>
+                            </div>
+                            <div class="offAll2-item scBar">
+                                <table class="table table-bordered table-striped tbEmpRegAllo">
+                                    <colgroup>
+                                        <col width="5%"/>
+                                        <col width="20%"/>
+                                        <col width="30%"/>
+                                        <col width="30%"/>
+                                        <col width="15%"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>운행일</th>
+                                            <th>회사</th>
+                                            <th>노선</th>
+                                            <th>금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="offAlloRegInTb"></tbody>
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

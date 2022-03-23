@@ -1,3 +1,9 @@
+var myOffcanvas = document.getElementById('oper3');
+var oper3Offcanvas = new bootstrap.Offcanvas(myOffcanvas);
+
+var myOffcanvas = document.getElementById('offAlloIn');
+var offAlloInOffcanvas = new bootstrap.Offcanvas(myOffcanvas);
+
 $(document).ready(function () {
     $("#operO").attr("disabled", true);
     $("#operO").val(opt[0].oper * 100);
@@ -84,10 +90,13 @@ $(document).ready(function () {
 });
 
 $(document).on('click', '#oper3-tab', function () {
-    var myOffcanvas = document.getElementById('oper3')
-    var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+    const aaa = $('#oper3').css('visibility');
 
-    bsOffcanvas.show();
+    if (aaa == 'hidden') {
+        oper3Offcanvas.show();
+    } else {
+        oper3Offcanvas.hide();
+    }
 });
 
 function setYearMonthUp(params) {
@@ -122,7 +131,6 @@ $(document).on('click', '#fnUpMonth1', function () {
         alert("운행 월을 확인해주세요.");
     }
 });
-
 $(document).on('click', '#fnDownMonth1', function () {
     setYearMonthDown('#yearmonthsMoney1');
     getEmpOperListCompa($('#emp-iidd').val());
@@ -329,15 +337,21 @@ function chTr(id) {
         .next()
         .next()
         .text();
-    updateOper(
-        iiidddddd,
-        carcarcar,
-        opnumnumnum,
-        typetype,
-        opnononono,
-        daydayday,
-        trta
-    )
+
+    const tmpArr = new Array();
+    const tmpArr1 = new Array();
+
+    tmpArr1.push(opnumnumnum);
+    tmpArr1.push(opnononono);
+    tmpArr1.push(typetype);
+    tmpArr1.push(iiidddddd);
+    tmpArr1.push(carcarcar);
+    tmpArr1.push(daydayday);
+    tmpArr1.push(trta);
+
+    tmpArr.push(tmpArr1);
+
+    updateOper(tmpArr);
     checkChAll();
 }
 
@@ -380,29 +394,56 @@ function checkChAll() {
     }
 }
 
-function updateOper(id, car, opernum, opertype, operno, day, trash) {
-    upSql().then(setSumm);
+function updateOper(cont) {
+    LoadingWithMask()
+        .then(upSql)
+        .then(getAllMList)
+        .then(getEmpOperCnt)
+        .then(getEmpOper)
+        .then(setEmpRegDays)
+        .then(getEmpRegOper)
+        .then(getEmpRegOper1)
+        .then(getEmpAllAllOper1)
+        .then(getEmpAllAllOper2)
+        .then(getEmpInMList)
+        .then(getEmpOutMList)
+        .then(getEmpBaseM)
+        .then(setCheckBox)
+        .then(operMSet)
+        .then(operRegMSet)
+        .then(sumInList)
+        .then(sumOutList)
+        .then(sumIN)
+        .then(sumOut)
+        .then(sumAll333)
+        .then(closeLoadingWithMask);
 
     function upSql() {
         return new Promise(function (resolve, reject) {
-            if (!day) {
-                day = null;
-            }
 
             const url = "/emp/empOperUp";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
             };
-            const params = {
-                "opernum": opernum,
-                "operno": operno,
-                "opertype": opertype,
-                "operid": id,
-                "opercar": car,
-                "operconfirm": day,
-                "opertrash": trash
-            };
+
+            let params = new Array();
+
+            for (let i = 0; i < cont.length; i++) {
+                if (!cont[i][5]) {
+                    cont[i][5] = null;
+                }
+                const asd = {
+                    "opernum": cont[i][0],
+                    "operno": cont[i][1],
+                    "opertype": cont[i][2],
+                    "operid": cont[i][3],
+                    "opercar": cont[i][4],
+                    "operconfirm": cont[i][5],
+                    "opertrash": cont[i][6]
+                };
+                params.push(asd);
+            }
 
             $.ajax({
                 url: url,
@@ -471,6 +512,7 @@ $(document).on('change', '#mCh-All', function () {
         .children();
 
     if ($(this).is(':checked')) {
+        const tmpArr = new Array();
         for (let i = 0; i < aaaa.length; i++) {
 
             const bbbb = $(aaaa[i]);
@@ -518,18 +560,23 @@ $(document).on('change', '#mCh-All', function () {
                     .next()
                     .next()
                     .text();
-                updateOper(
-                    iiidddddd,
-                    carcarcar,
-                    opnumnumnum,
-                    typetype,
-                    opnononono,
-                    daydayday,
-                    2
-                );
+                const tmpArr1 = new Array();
+
+                tmpArr1.push(opnumnumnum);
+                tmpArr1.push(opnononono);
+                tmpArr1.push(typetype);
+                tmpArr1.push(iiidddddd);
+                tmpArr1.push(carcarcar);
+                tmpArr1.push(daydayday);
+                tmpArr1.push(2);
+
+                tmpArr.push(tmpArr1);
             }
         }
+        updateOper(tmpArr);
+
     } else {
+        const tmpArr = new Array();
         for (let i = 0; i < aaaa.length; i++) {
             const bbbb = $(aaaa[i]);
             const cccc = $(bbbb.children().children());
@@ -561,9 +608,21 @@ $(document).on('change', '#mCh-All', function () {
                     .next()
                     .next()
                     .text();
-                updateOper(iiidddddd, carcarcar, opnumnumnum, typetype, opnononono, null, 1);
+
+                const tmpArr1 = new Array();
+
+                tmpArr1.push(opnumnumnum);
+                tmpArr1.push(opnononono);
+                tmpArr1.push(typetype);
+                tmpArr1.push(iiidddddd);
+                tmpArr1.push(carcarcar);
+                tmpArr1.push(null);
+                tmpArr1.push(1);
+
+                tmpArr.push(tmpArr1);
             }
         }
+        updateOper(tmpArr);
     }
 });
 
@@ -945,6 +1004,8 @@ function saveSalary(sepa) {
             .then(delOutMg)
             .then(saveOutM)
             .then(upOper)
+            .then(upRegOper)
+            .then(upEmpMoneys)
             .then(insertAllM)
             .then(choiceEmp)
     }
@@ -1005,6 +1066,35 @@ function saveSalary(sepa) {
         })
     }
 
+    function upEmpMoneys(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/updateEmpMoneys";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "basem": ($('#in-baseM').val()).replaceAll(',', ''),
+                "kukm": ($('#kukmM').val()).replaceAll(',', ''),
+                "gunm": ($('#gunmM').val()).replaceAll(',', ''),
+                "gom": ($('#gomM').val()).replaceAll(',', ''),
+                "sanm": ($('#sanmM').val()).replaceAll(',', ''),
+                "id": $('#emp-iidd').val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    resolve();
+                }
+            })
+        })
+    }
+
     function upOper(result) {
         return new Promise(function (resolve, reject) {
             const url = "/emp/empOperUp2";
@@ -1017,6 +1107,32 @@ function saveSalary(sepa) {
                 "operid": $('#emp-iidd').val(),
                 "operconfirm": $('#yearmonthsMoney2').val()
             };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    resolve();
+                }
+            })
+        })
+    }
+
+    function upRegOper(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/updateRegOper1";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "regoperconfirm": $('#yearmonthsMoney2').val(),
+                "regoperid": $('#emp-iidd').val()
+            };
+
             $.ajax({
                 url: url,
                 type: "POST",
@@ -1117,7 +1233,6 @@ function saveSalary(sepa) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log(r);
                     resolve(r);
                 }
             });
@@ -1222,173 +1337,211 @@ function choiceEmp() {
     })
 }
 
-function setEmpRegDays() {
-    return new Promise(function (resolve, reject) {
+$(document).on('dblclick', '.chreginM', function () {
 
-        const ddd = new Date($("#yearmonthsMoney1").val());
-        const dddP = ddd.setMonth(ddd.getMonth() + 1);
+    const aaa = $(this).children()[4];
+    const aaaseq = $(aaa).val();
 
-        let eee = new Date(ddd);
-        eee = eee.setDate(eee.getDate() - 1);
+    const bbb = $(this).children()[7];
+    const bbb1 = $(bbb).val();
 
-        const dday1 = toStringByFormatting(new Date(eee));
+    const ccc = $(this).children()[5];
+    const ccc1 = $(ccc).val();
 
-        const endDay = dday1.split('-')[2];
+    if (ccc1) {
+        LoadingWithMask()
+            .then(upRegAlloOut)
+            .then(getAllMList)
+            .then(getEmpOperCnt)
+            .then(getEmpOper)
+            .then(setEmpRegDays)
+            .then(getEmpRegOper)
+            .then(getEmpRegOper1)
+            .then(getEmpAllAllOper1)
+            .then(getEmpAllAllOper2)
+            .then(getEmpInMList)
+            .then(getEmpOutMList)
+            .then(getEmpBaseM)
+            .then(setCheckBox)
+            .then(operMSet)
+            .then(operRegMSet)
+            .then(sumInList)
+            .then(sumOutList)
+            .then(sumIN)
+            .then(sumOut)
+            .then(sumAll333)
+            .then(closeLoadingWithMask);
+    } else {
+        LoadingWithMask()
+            .then(upRegAlloIn)
+            .then(getAllMList)
+            .then(getEmpOperCnt)
+            .then(getEmpOper)
+            .then(setEmpRegDays)
+            .then(getEmpRegOper)
+            .then(getEmpRegOper1)
+            .then(getEmpAllAllOper1)
+            .then(getEmpAllAllOper2)
+            .then(getEmpInMList)
+            .then(getEmpOutMList)
+            .then(getEmpBaseM)
+            .then(setCheckBox)
+            .then(operMSet)
+            .then(operRegMSet)
+            .then(sumInList)
+            .then(sumOutList)
+            .then(sumIN)
+            .then(sumOut)
+            .then(sumAll333)
+            .then(closeLoadingWithMask);
+    }
 
-        let htmlsday1 = '';
-        let htmlsday2 = '';
-        let htmlsday3 = '';
-        let htmlsday4 = '';
+    function upRegAlloIn(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/updateRegOper";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
 
-        htmlsday1 += '<tr>';
-        htmlsday1 += '<th rowspan="3">노선</th>';
-
-        htmlsday2 += '<tr>';
-        htmlsday3 += '<tr class="thNone">';
-        htmlsday4 += '<tr class="thNone">';
-
-        let cont = 0;
-
-        let dow = 0;
-
-        for (let i = 0; i < 31; i++) {
-            if (cont < parseInt(endDay)) {
-                const tmpd = new Date($("#yearmonthsMoney1").val()).setDate(
-                    new Date($("#yearmonthsMoney1").val()).getDate() + cont
-                );
-                dow = new Date(tmpd).getDay();
-
-                let nnn = '';
-                if (cont < 9) {
-                    nnn = '0' + ++cont;
-                } else {
-                    nnn = ++cont;
+            const params = {
+                "regoperconfirm": $('#yearmonthsMoney2').val(),
+                "regopertrash": 2,
+                "regoperatlm": opt[0].regm,
+                "regopernum": bbb1,
+                "regoperid": $('#emp-iidd').val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    resolve();
                 }
+            })
+        })
+    }
+    function upRegAlloOut(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/updateRegOper";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
 
-                const thisDD = toStringByFormatting(new Date(tmpd));
-                const stDD = $('#stDD').text();
-                const edDD = $('#edDD').text();
+            const params = {
+                "regoperconfirm": null,
+                "regopertrash": 1,
+                "regoperatlm": 0,
+                "regopernum": bbb1,
+                "regoperid": $('#emp-iidd').val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    resolve();
+                }
+            })
+        })
+    }
+});
 
-                const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1] + stDD.split(
-                    '-'
-                )[2]);
-                const edDDDDnum = parseInt(
-                    edDD.split('-')[0] + edDD.split('-')[1] + edDD.split(
-                        '-'
-                    )[2]
-                );
-                const thisDDDDDnum = parseInt(
-                    thisDD.split('-')[0] + thisDD.split('-')[1] + thisDD.split('-')[2]
-                );
+$(document).on('click', '#offAlloInBtn', function () {
+    const aaa = $('#offAlloIn').css('visibility');
 
-                const tmpNowDd = toStringByFormatting(new Date());
-                const nowDayday = parseInt(
-                    tmpNowDd.split('-')[0] + tmpNowDd.split('-')[1] + tmpNowDd.split('-')[2]
-                );
+    if (aaa == 'hidden') {
+        offAlloInOffcanvas.show();
+    } else {
+        offAlloInOffcanvas.hide();
+    }
+});
 
-                const tmpShowd = toStringByFormatting(new Date(tmpd));
-                const showDayday = parseInt(
-                    tmpShowd.split('-')[0] + tmpShowd.split('-')[1] + tmpShowd.split('-')[2]
-                );
+$(document).on('keydown', '.regmoney', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        const moneyy = ($(this).val()).replaceAll(',', '');
 
-                function getDDD() {
-                    switch (dow) {
-                        case 0:
-                            htmlsday1 += '<th style="color: #CF2F11;">' + (
-                                nnn
-                            ) + '일</th>';
-                            htmlsday2 += '<th style="color: #CF2F11;">' + getDayOfWeek(dow) + '</th>';
-                            htmlsday3 += '<th style="color: #CF2F11;">' + toStringByFormatting(
-                                new Date(tmpd)
-                            ) + '</th>';
-                            htmlsday4 += '<th style="color: #CF2F11;">' + dow + '</th>';
-                            break;
-                        case 6:
-                            htmlsday1 += '<th style="color: #4B89DC;">' + (
-                                nnn
-                            ) + '일</th>';
-                            htmlsday2 += '<th style="color: #4B89DC;">' + getDayOfWeek(dow) + '</th>';
-                            htmlsday3 += '<th style="color: #4B89DC;">' + toStringByFormatting(
-                                new Date(tmpd)
-                            ) + '</th>';
-                            htmlsday4 += '<th style="color: #4B89DC;">' + dow + '</th>';
-                            break;
-                        default:
-                            htmlsday1 += '<th>' + (
-                                nnn
-                            ) + '일</th>';
-                            htmlsday2 += '<th>' + getDayOfWeek(dow) + '</th>';
-                            htmlsday3 += '<th>' + toStringByFormatting(new Date(tmpd)) + '</th>';
-                            htmlsday4 += '<th>' + dow + '</th>';
-                            break;
+        const aaa = $(this).parent();
+        const aaa1 = $(aaa)
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev();
+
+        const aaa11 = $(aaa).next();
+
+        const aaa2 = $(aaa1).text();
+        const aaa22 = $(aaa11).text();
+
+        const aaa3 = $(aaa)
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev()
+            .prev();
+        const aaa33 = $(aaa3).text();
+
+        LoadingWithMask()
+            .then(upRegAlloM)
+            .then(getAllMList)
+            .then(getEmpOperCnt)
+            .then(getEmpOper)
+            .then(setEmpRegDays)
+            .then(getEmpRegOper)
+            .then(getEmpRegOper1)
+            .then(getEmpAllAllOper1)
+            .then(getEmpAllAllOper2)
+            .then(getEmpInMList)
+            .then(getEmpOutMList)
+            .then(getEmpBaseM)
+            .then(setCheckBox)
+            .then(operMSet)
+            .then(operRegMSet)
+            .then(sumInList)
+            .then(sumOutList)
+            .then(sumIN)
+            .then(sumOut)
+            .then(sumAll333)
+            .then(closeLoadingWithMask);
+
+        function upRegAlloM(result) {
+            return new Promise(function (resolve, reject) {
+                const url = "/emp/updateRegOper";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                const params = {
+                    "regoperconfirm": aaa22,
+                    "regoperatlm": moneyy,
+                    "regopernum": aaa33,
+                    "regoperid": $('#emp-iidd').val()
+                };
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+                    success: function (r) {
+                        resolve();
                     }
-                }
-                function getNoDDD() {
-                    switch (dow) {
-                        case 0:
-                            htmlsday1 += '<th style="color: #CF2F11; opacity: 0.3;">' + (
-                                nnn
-                            ) + '일</th>';
-                            htmlsday2 += '<th style="color: #CF2F11; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
-                            htmlsday3 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
-                            htmlsday4 += '<th style="color: #CF2F11; opacity: 0.3;"></th>';
-                            break;
-                        case 6:
-                            htmlsday1 += '<th style="color: #4B89DC; opacity: 0.3;">' + (
-                                nnn
-                            ) + '일</th>';
-                            htmlsday2 += '<th style="color: #4B89DC; opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
-                            htmlsday3 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
-                            htmlsday4 += '<th style="color: #4B89DC; opacity: 0.3;"></th>';
-                            break;
-                        default:
-                            htmlsday1 += '<th style="opacity: 0.3;">' + (
-                                nnn
-                            ) + '일</th>';
-                            htmlsday2 += '<th style="opacity: 0.3;">' + getDayOfWeek(dow) + '</th>';
-                            htmlsday3 += '<th style="opacity: 0.3;"></th>';
-                            htmlsday4 += '<th style="opacity: 0.3;"></th>';
-                            break;
-                    }
-                }
-
-                if (nowDayday >= showDayday) {
-                    if ($('#rgconum').val()) {
-                        if ($('#edDD').text()) {
-                            if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
-                                getDDD();
-                            } else {
-                                getNoDDD();
-                            }
-                        } else {
-                            if (stDDDnum <= thisDDDDDnum) {
-                                getDDD();
-                            } else {
-                                getNoDDD();
-                            }
-                        }
-                    } else {
-                        getDDD();
-                    }
-                } else {
-                    getNoDDD();
-                }
-            } else {
-                htmlsday1 += '<th style="opacity: 0;">잉요일</th>';
-                htmlsday2 += '<th style="opacity: 0;">잉요일</th>';
-                htmlsday3 += '<th style="opacity: 0;">잉요일</th>';
-                htmlsday4 += '<th style="opacity: 0;">잉요일</th>';
-            }
+                })
+            })
         }
-        htmlsday1 += '</tr>';
-        htmlsday2 += '</tr>';
-        htmlsday3 += '</tr>';
-        htmlsday4 += '</tr>';
-
-        const htmls = htmlsday1 + htmlsday2 + htmlsday3 + htmlsday4;
-
-        $('#tbAllo').html('');
-        $('#thDays').html(htmls);
-        resolve();
-    })
-}
+    }
+});

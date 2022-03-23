@@ -154,6 +154,9 @@ public class RegularDTO {
 	// 운행승무원
 	private String regoperid;
 
+	// 배차금액
+	private String regoperatlm;
+
 	// 고정차량
 	private String regorcar;
 
@@ -641,6 +644,14 @@ public class RegularDTO {
 
 	public void setRegoperid(String regoperid) {
 		this.regoperid = regoperid;
+	}
+
+	public String getRegoperatlm() {
+		return regoperatlm;
+	}
+
+	public void setRegoperatlm(String regoperatlm) {
+		this.regoperatlm = regoperatlm;
 	}
 
 	public String getRegorcar() {

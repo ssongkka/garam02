@@ -593,6 +593,7 @@
 			#{value.regopercom},
 			#{value.regopercar},
 			#{value.regoperid},
+			0,
 			#{value.regorcar},
 			#{value.regoperconfirm},
 			1
