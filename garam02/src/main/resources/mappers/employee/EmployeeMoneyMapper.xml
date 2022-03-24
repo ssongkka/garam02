@@ -720,5 +720,4 @@
 		NOW(),
 		1);
 	</insert>
-	
 </mapper>

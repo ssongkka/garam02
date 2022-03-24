@@ -1276,7 +1276,6 @@ $(document).on('click', '#btn-pdf-d', function () {
     $('#down-form').attr('action', '/vehicle/pdfDown');
     $('#down-form').submit();
     myModalFile.hide();
-    $('#modal-file').modal('hide');
 });
 
 $(document).on('click', '#btn-reg', function () {

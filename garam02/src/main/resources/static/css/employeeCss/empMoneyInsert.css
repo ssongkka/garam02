@@ -9,7 +9,7 @@
 }
 
 .main-adise-money {
-    padding: 3rem;
+    padding: 2rem;
 }
 
 .main-adise-money h4 {
@@ -58,14 +58,16 @@
 .moneyInsertEmp-item:nth-child(1) {
     display: flex;
     flex-direction: column;
-    width: 60rem;
-    position: fixed;
-    z-index: 950;
-    min-height: calc(100vh - 6rem);
+    flex: 4;
+    /* width: 60rem; */
+    /* position: fixed; */
+    /* z-index: 950; */
+    /* min-height: calc(100vh - 6rem); */
 }
 .moneyInsertEmp-item:nth-child(2) {
-    width: 100%;
-    margin-left: 62rem;
+    /* width: 100%; */
+    /* margin-left: 62rem; */
+    flex: 5;
     display: flex;
     flex-direction: column;
 }
@@ -195,8 +197,8 @@
 
 .operCont {
     margin-top: 0.3rem;
-    overflow-y: scroll;
-    max-height: calc(100vh - 22rem);
+    /* overflow-y: scroll; */
+    /* max-height: calc(100vh - 22rem); */
 }
 
 .dash-cal-h-money {
@@ -437,8 +439,13 @@
 }
 
 .offAll1-item:nth-child(2) {
-    min-height: calc(100vh - 60rem);
-    max-height: calc(100vh - 60rem);
+    min-height: calc(100vh - 50rem);
+    max-height: calc(100vh - 50rem);
+    overflow-y: auto;
+}
+.offAll2-item:nth-child(2) {
+    min-height: calc(100vh - 59rem);
+    max-height: calc(100vh - 59rem);
     overflow-y: auto;
 }
 

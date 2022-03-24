@@ -1,5 +1,6 @@
 package com.garam.web.employee.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,4 +69,6 @@ public interface EmployeeService {
 	public int updateRegOper1(RegularDTO regularDTO) throws Exception;
 
 	public int updateEmpMoneys(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public File empSalaryPdf(String id, String date, String ve) throws Exception;
 }

@@ -44,9 +44,6 @@ function getEmpOperListCompa() {
 
 function getEmpOperCnt() {
     return new Promise(function (resolve, reject) {
-        $('#emp-in-money-tb').html('');
-        $('#emp-out-money-tb').html('');
-
         const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
         const url = "/emp/empOperCnt";
@@ -1048,9 +1045,17 @@ function getAllMList(result) {
                 if (r.length > 0) {
                     $('#operO').val(r[0].per * 100);
                     $('#emp-sal').val(1);
+                    $('#inBtnGroup').html(
+                        `<a type="button" class="btn btn-light" id="printbtn">인&nbsp;쇄&nbsp;<i class="fas fa-print"></i>
+                    </a>`
+                    );
                 } else {
                     $('#operO').val(opt[0].oper * 100);
                     $('#emp-sal').val(0);
+                    $('#inBtnGroup').html(
+                        `<a type="button" class="btn btn-warning" id="noSave">임시저장</a>
+                    <a type="button" class="btn btn-success" id="yesSave">급여마감</a>`
+                    );
                 }
                 resolve();
             }
@@ -1095,13 +1100,19 @@ function getEmpInMList(result) {
                             }
                         } else {
                             let ddd = '';
-                            if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
-                                ddd = (r[i].date)
-                                    .split('-')[2]
-                                    .substring('1');
+
+                            if (r[i].date) {
+                                if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
+                                    ddd = (r[i].date)
+                                        .split('-')[2]
+                                        .substring('1') + '일';
+                                } else {
+                                    ddd = (r[i].date).split('-')[2] + '일';
+                                }
                             } else {
-                                ddd = (r[i].date).split('-')[2];
+                                ddd = '-';
                             }
+
                             httmlll += '<tr>';
                             httmlll += '<td class="hideTh"></td>';
                             httmlll += '<td class="hideTh"></td>';
@@ -1110,7 +1121,7 @@ function getEmpInMList(result) {
                             httmlll += '<td>' + (
                                 ++cnt
                             ) + '</td>';
-                            httmlll += '<td>' + ddd + '일</td>';
+                            httmlll += '<td>' + ddd + '</td>';
                             httmlll += '<td>' + r[i].separation + '</td>';
                             httmlll += '<td>' + r[i].contents + '</td>';
                             httmlll += '<td class="tdRight">' + AddComma(r[i].money) + '</td>';
@@ -1167,12 +1178,16 @@ function getEmpOutMList(result) {
                     let cnt = 0;
                     for (let i = 0; i < r.length; i++) {
                         let ddd = '';
-                        if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
-                            ddd = (r[i].date)
-                                .split('-')[2]
-                                .substring('1');
+                        if (r[i].date) {
+                            if ((r[i].date).split('-')[2].substring('0', '1') == '0') {
+                                ddd = (r[i].date)
+                                    .split('-')[2]
+                                    .substring('1') + '일';
+                            } else {
+                                ddd = (r[i].date).split('-')[2] + '일';
+                            }
                         } else {
-                            ddd = (r[i].date).split('-')[2];
+                            ddd = '-';
                         }
 
                         httmll += '<tr>';
@@ -1183,7 +1198,7 @@ function getEmpOutMList(result) {
                         httmll += '<td>' + (
                             ++cnt
                         ) + '</td>';
-                        httmll += '<td>' + ddd + '일</td>';
+                        httmll += '<td>' + ddd + '</td>';
                         httmll += '<td>' + r[i].separation + '</td>';
                         httmll += '<td>' + r[i].contents + '</td>';
 

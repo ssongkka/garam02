@@ -28,9 +28,6 @@ $(document).ready(function () {
     $("#insert-outM").prop("disabled", true);
     $("#insert-inM").prop("disabled", true);
 
-    $("#yesSave").attr("disabled", true);
-    $("#noSave").attr("disabled", true);
-
     $("#fnDownMonth1").attr("disabled", true);
     $("#fnUpMonth1").attr("disabled", true);
     $("#fnDownMonth2").attr("disabled", true);
@@ -38,8 +35,6 @@ $(document).ready(function () {
 
     $("#yearmonthsMoney1").attr("disabled", true);
     $("#yearmonthsMoney2").attr("disabled", true);
-
-    $('#printbtn').hide();
 
     const nownownow = toStringByFormatting(new Date());
 
@@ -212,9 +207,6 @@ function unclkName() {
     $('#inForm')[0].reset();
     $('#outForm')[0].reset();
 
-    $('#noSave').hide();
-    $('#yesSave').hide();
-    $('#printbtn').show();
 }
 
 function clkName() {
@@ -243,9 +235,6 @@ function clkName() {
     $("#insert-outM").prop("disabled", false);
     $("#insert-inM").prop("disabled", false);
 
-    $("#yesSave").removeAttr("disabled");
-    $("#noSave").removeAttr("disabled");
-
     $("#fnDownMonth1").attr("disabled", false);
     $("#fnUpMonth1").attr("disabled", false);
     $("#fnDownMonth2").attr("disabled", false);
@@ -253,10 +242,6 @@ function clkName() {
 
     $("#yearmonthsMoney1").attr("disabled", false);
     $("#yearmonthsMoney2").attr("disabled", false);
-
-    $('#noSave').show();
-    $('#yesSave').show();
-    $('#printbtn').hide();
 
     $('#inForm')[0].reset();
     $('#outForm')[0].reset();
@@ -642,8 +627,7 @@ $(document).on('keydown', '.input-M', function (eInner) {
     if (keyValue == 13) {
         switch (tabi) {
             case "1":
-
-                if (parseInt($(this).val()) > 0 && parseInt($(this).val()) <= lastD) {
+                if (parseInt($(this).val()) >= 0 && parseInt($(this).val()) <= lastD) {
                     $('[tabindex=2]').focus();
                 } else {
                     const ddday = endday.split('-')[1] + '월은 ' + lastD + '까지입니다.'
@@ -670,8 +654,24 @@ $(document).on('keydown', '.input-M', function (eInner) {
                 $('[tabindex=3]').focus();
                 break;
             case "3":
-                insertInM();
-                $('[tabindex=1]').focus();
+                const aaa = $(this).parent();
+                const aaa1 = $(aaa)
+                    .prev()
+                    .prev()
+                    .prev();
+                const aaa2 = $(aaa1).children();
+                const aaa3 = $(aaa2).val();
+                console.log(aaa3);
+
+                if (parseInt($(aaa2).val()) >= 0 && parseInt($(aaa2).val()) <= lastD) {
+                    insertInM();
+                    $('[tabindex=1]').focus();
+                } else {
+                    const ddday = endday.split('-')[1] + '월은 ' + lastD + '까지입니다.'
+                    alert("날짜를 확인해주세요.\n\n" + ddday);
+                    $(aaa2).val('');
+                    $(aaa2).focus();
+                }
                 break;
         }
 
@@ -741,7 +741,13 @@ function insertInM() {
         httmll += '<td class="hideTh"></td>';
         httmll += '<td class="hideTh"></td>';
         httmll += '<td>' + size + '</td>';
-        httmll += '<td>' + conttt1 + '일</td>';
+
+        if (conttt1 == '0') {
+            httmll += '<td>-</td>';
+        } else {
+            httmll += '<td>' + conttt1 + '일</td>';
+        }
+
         httmll += '<td>' + conttt2 + '</td>';
         httmll += '<td>' + conttt3 + '</td>';
         httmll += '<td class="tdRight">' + AddComma(conttt4) + '</td>';
@@ -803,22 +809,23 @@ function delTbInM() {
 }
 $(document).on('keydown', '.output-M', function (eInner) {
     const tabi = $(this).attr('tabindex');
+    const getYM = $('#yearmonthsMoney2').val();
+    const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
+
+    const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
+
+    const yesterday = new Date(oneMonthAgo.setDate(oneMonthAgo.getDate() - 1));
+
+    const endday = toStringByFormatting(yesterday); // 어제
+
+    const lastD = endday.split('-')[2];
+
     var keyValue = eInner.which;
     if (keyValue == 13) {
         switch (tabi) {
             case "11":
-                const getYM = $('#yearmonthsMoney2').val();
-                const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
 
-                const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
-
-                const yesterday = new Date(oneMonthAgo.setDate(oneMonthAgo.getDate() - 1));
-
-                const endday = toStringByFormatting(yesterday); // 어제
-
-                const lastD = endday.split('-')[2];
-
-                if (parseInt($(this).val()) > 0 && parseInt($(this).val()) <= lastD) {
+                if (parseInt($(this).val()) >= 0 && parseInt($(this).val()) <= lastD) {
                     $('[tabindex=12]').focus();
                 } else {
                     const ddday = endday.split('-')[1] + '월은 ' + lastD + '까지입니다.'
@@ -837,8 +844,24 @@ $(document).on('keydown', '.output-M', function (eInner) {
                 $('[tabindex=13]').focus();
                 break;
             case "13":
-                insertOutM();
-                $('[tabindex=11]').focus();
+                const aaa = $(this).parent();
+                const aaa1 = $(aaa)
+                    .prev()
+                    .prev()
+                    .prev();
+                const aaa2 = $(aaa1).children();
+                const aaa3 = $(aaa2).val();
+                console.log(aaa3);
+
+                if (parseInt($(aaa2).val()) >= 0 && parseInt($(aaa2).val()) <= lastD) {
+                    insertOutM();
+                    $('[tabindex=11]').focus();
+                } else {
+                    const ddday = endday.split('-')[1] + '월은 ' + lastD + '까지입니다.'
+                    alert("날짜를 확인해주세요.\n\n" + ddday);
+                    $(aaa2).val('');
+                    $(aaa2).focus();
+                }
                 break;
         }
 
@@ -908,7 +931,12 @@ function insertOutM() {
         httmll += '<td class="hideTh"></td>';
         httmll += '<td class="hideTh"></td>';
         httmll += '<td>' + size + '</td>';
-        httmll += '<td>' + conttt1 + '일</td>';
+
+        if (conttt1 == '0') {
+            httmll += '<td>-</td>';
+        } else {
+            httmll += '<td>' + conttt1 + '일</td>';
+        }
         httmll += '<td>' + conttt2 + '</td>';
         httmll += '<td>' + conttt3 + '</td>';
         httmll += '<td class="tdRight">' + AddComma(conttt4) + '</td>';
@@ -975,17 +1003,37 @@ function delTb(params) {
 }
 
 $(document).on('click', '#noSave', function () {
-    saveSalary(1);
+    const ok = confirm("임시저장 하시겠습니까?\n\n임시저장된 급여내역은 급여내역서를 발급할 수 없습니다. 마감을 해주세요.");
+    if (ok) {
+        saveSalary(1);
+    }
 });
 $(document).on('click', '#yesSave', function () {
     const ok = confirm("급여 마감하시겠습니까?\n\n마감된 급여내역은 수정 할 수 없습니다.");
     if (ok) {
         saveSalary(0);
-
-        $('#noSave').hide();
-        $('#yesSave').hide();
-        $('#printbtn').show();
     }
+});
+$(document).on('click', '#printbtn', function () {
+    console.log("하이");
+
+    let veh = '';
+    for (let i = 0; i < dbVe.length; i++) {
+        if (dbVe[i].id = $('#emp-iidd').val()) {
+            veh = dbVe[i].vehicle2;
+        }
+    }
+
+    $('#pdfid').val($('#emp-iidd').val());
+    $('#pdfdate').val($('#yearmonthsMoney2').val());
+    $('#pdfve').val(veh);
+
+    alert(
+        "'" + $('#yearmonthsMoney2').val() + "'의 급여명세서\nPDF 파일이 다운로드 됩니다.\n\n다운로드 완료 후 " +
+        "'다운로드 폴더'를 확인해주세요."
+    );
+    $('#pdf-form').attr('action', '/employee/pdfDown');
+    $('#pdf-form').submit();
 });
 
 function saveSalary(sepa) {
@@ -996,7 +1044,26 @@ function saveSalary(sepa) {
             .then(saveInM)
             .then(delOutMg)
             .then(saveOutM)
-            .then(choiceEmp)
+            .then(getAllMList)
+            .then(getEmpOperCnt)
+            .then(getEmpOper)
+            .then(setEmpRegDays)
+            .then(getEmpRegOper)
+            .then(getEmpRegOper1)
+            .then(getEmpAllAllOper1)
+            .then(getEmpAllAllOper2)
+            .then(getEmpInMList)
+            .then(getEmpOutMList)
+            .then(getEmpBaseM)
+            .then(setCheckBox)
+            .then(operMSet)
+            .then(operRegMSet)
+            .then(sumInList)
+            .then(sumOutList)
+            .then(sumIN)
+            .then(sumOut)
+            .then(sumAll333)
+            .then(closeLoadingWithMask);
     } else {
         LoadingWithMask()
             .then(delInMg)
@@ -1007,7 +1074,26 @@ function saveSalary(sepa) {
             .then(upRegOper)
             .then(upEmpMoneys)
             .then(insertAllM)
-            .then(choiceEmp)
+            .then(getAllMList)
+            .then(getEmpOperCnt)
+            .then(getEmpOper)
+            .then(setEmpRegDays)
+            .then(getEmpRegOper)
+            .then(getEmpRegOper1)
+            .then(getEmpAllAllOper1)
+            .then(getEmpAllAllOper2)
+            .then(getEmpInMList)
+            .then(getEmpOutMList)
+            .then(getEmpBaseM)
+            .then(setCheckBox)
+            .then(operMSet)
+            .then(operRegMSet)
+            .then(sumInList)
+            .then(sumOutList)
+            .then(sumIN)
+            .then(sumOut)
+            .then(sumAll333)
+            .then(closeLoadingWithMask);
     }
 
     function insertAllM(params) {
@@ -1053,14 +1139,17 @@ function saveSalary(sepa) {
                 success: function (r) {
                     if (r > 0) {
                         alert("급여내역 마감완료");
+                        resolve();
                     } else if (r == 0) {
                         alert("급여내역 입력 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
                     } else if (r == -1) {
                         alert("급여내역 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                        location.reload();
                     } else if (r == -2) {
                         alert("급여내역 입력 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
                     }
-                    location.reload();
                 }
             })
         })
@@ -1181,7 +1270,7 @@ function saveSalary(sepa) {
                 "id": $('#emp-iidd').val(),
                 "sday": $('#yearmonthsMoney2').val(),
                 "separation": '기본급',
-                "date": $('#yearmonthsMoney2').val() + '-01',
+                "date": null,
                 "contents": '기본급',
                 "money": ($('#in-baseM').val()).replaceAll(',', ''),
                 "strash": sepa
@@ -1197,14 +1286,18 @@ function saveSalary(sepa) {
 
                 let day = '';
 
-                if (($(ttdd[5]).text()).split('일')[0].length == 1) {
-                    day = $('#yearmonthsMoney2').val() + '-0' + (
-                        $(ttdd[5]).text()
-                    ).split('일')[0];
+                if ($(ttdd[5]).text() == '-') {
+                    day = null;
                 } else {
-                    day = $('#yearmonthsMoney2').val() + '-' + (
-                        $(ttdd[5]).text()
-                    ).split('일')[0];
+                    if (($(ttdd[5]).text()).split('일')[0].length == 1) {
+                        day = $('#yearmonthsMoney2').val() + '-0' + (
+                            $(ttdd[5]).text()
+                        ).split('일')[0];
+                    } else {
+                        day = $('#yearmonthsMoney2').val() + '-' + (
+                            $(ttdd[5]).text()
+                        ).split('일')[0];
+                    }
                 }
 
                 const asd = {
@@ -1277,15 +1370,18 @@ function saveSalary(sepa) {
 
                 let day = '';
 
-                if (($(ttdd[5]).text()).split('일')[0].length == 1) {
-                    day = $('#yearmonthsMoney2').val() + '-0' + (
-                        $(ttdd[5]).text()
-                    ).split('일')[0];
+                if ($(ttdd[5]).text() == '-') {
+                    day = null;
                 } else {
-                    day = $('#yearmonthsMoney2').val() + '-' + (
-                        $(ttdd[5]).text()
-                    ).split('일')[0];
-
+                    if (($(ttdd[5]).text()).split('일')[0].length == 1) {
+                        day = $('#yearmonthsMoney2').val() + '-0' + (
+                            $(ttdd[5]).text()
+                        ).split('일')[0];
+                    } else {
+                        day = $('#yearmonthsMoney2').val() + '-' + (
+                            $(ttdd[5]).text()
+                        ).split('일')[0];
+                    }
                 }
 
                 let mon = 0;
