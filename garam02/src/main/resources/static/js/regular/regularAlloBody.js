@@ -1,9 +1,11 @@
 $(document).ready(function () {
     $("#btnAllAllo").prop("disabled", true);
 
-    nowMinth();
-    setRegDays();
-    getRegularAll();
+    LoadingWithMask()
+        .then(nowMinth)
+        .then(setRegDays)
+        .then(getRegularAll)
+        .then(closeLoadingWithMask);
 });
 
 var myModalRegAlloMd = new bootstrap.Modal(
@@ -14,30 +16,34 @@ var myModalRegAllAlloMd = new bootstrap.Modal(
 );
 
 function nowMinth() {
-    const nownownow = toStringByFormatting(new Date());
+    return new Promise(function (resolve, reject) {
+        const nownownow = toStringByFormatting(new Date());
 
-    if (nownownow.split('-')[2] >= 1 && nownownow.split('-')[2] <= 10) {
-        const now = new Date();
-        const oneMonthAgo = new Date(now.setMonth(now.getMonth() - 1));
-        const fff = toStringByFormatting(oneMonthAgo);
+        if (nownownow.split('-')[2] >= 1 && nownownow.split('-')[2] <= 10) {
+            const now = new Date();
+            const oneMonthAgo = new Date(now.setMonth(now.getMonth() - 1));
+            const fff = toStringByFormatting(oneMonthAgo);
 
-        const nownownows = toStringByFormatting(now);
-        const nowMonth = new Date(
-            nownownows.split('-')[0],
-            nownownows.split('-')[1] - 1,
-            1
-        );
+            const nownownows = toStringByFormatting(now);
+            const nowMonth = new Date(
+                nownownows.split('-')[0],
+                nownownows.split('-')[1] - 1,
+                1
+            );
 
-        const oneMonthAgo1 = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
-        const fff1 = toStringByFormatting(oneMonthAgo1);
-        $('#yearMonth').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
-        $('#yearMonth').attr('max', fff1.split('-')[0] + '-' + fff1.split('-')[1]);
-    } else {
-        $('#yearMonth').val(nownownow.split('-')[0] + '-' + nownownow.split('-')[1]);
-        $('#yearMonth').attr('max', nownownow.split('-')[0] + '-' + nownownow.split(
-            '-'
-        )[1]);
-    }
+            const oneMonthAgo1 = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
+            const fff1 = toStringByFormatting(oneMonthAgo1);
+            $('#yearMonth').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
+            $('#yearMonth').attr('max', fff1.split('-')[0] + '-' + fff1.split('-')[1]);
+        } else {
+            $('#yearMonth').val(nownownow.split('-')[0] + '-' + nownownow.split('-')[1]);
+            $('#yearMonth').attr('max', nownownow.split('-')[0] + '-' + nownownow.split(
+                '-'
+            )[1]);
+        }
+
+        resolve();
+    })
 }
 
 $(document).on('click', '#show-aside', function () {});

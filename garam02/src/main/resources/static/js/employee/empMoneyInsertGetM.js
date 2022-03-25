@@ -1046,7 +1046,7 @@ function getAllMList(result) {
                     $('#operO').val(r[0].per * 100);
                     $('#emp-sal').val(1);
                     $('#inBtnGroup').html(
-                        `<a type="button" class="btn btn-light" id="printbtn">인&nbsp;쇄&nbsp;<i class="fas fa-print"></i>
+                        `<a type="button" class="btn btn-info" id="printbtn">급여명세서 생성&nbsp;<i class="fa-solid fa-file-circle-plus"></i></i>
                     </a>`
                     );
                 } else {
@@ -1299,7 +1299,7 @@ function getEmpBaseM(result) {
                     htmls += ' <td class="hideTh"></td>';
                     htmls += ' <td class="hideTh"></td>';
                     htmls += '<td>1</td>';
-                    htmls += '<td>1일</td>';
+                    htmls += '<td>-</td>';
                     htmls += '<td>보험료</td>';
                     htmls += '<td>국민연금</td>';
                     htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="kukmM" onfo' +
@@ -1312,7 +1312,7 @@ function getEmpBaseM(result) {
                     htmls += ' <td class="hideTh"></td>';
                     htmls += ' <td class="hideTh"></td>';
                     htmls += '<td>2</td>';
-                    htmls += '<td>1일</td>';
+                    htmls += '<td>-</td>';
                     htmls += '<td>보험료</td>';
                     htmls += '<td>건강보험</td>';
                     htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="gunmM" onfo' +
@@ -1325,7 +1325,7 @@ function getEmpBaseM(result) {
                     htmls += ' <td class="hideTh"></td>';
                     htmls += ' <td class="hideTh"></td>';
                     htmls += '<td>3</td>';
-                    htmls += '<td>1일</td>';
+                    htmls += '<td>-</td>';
                     htmls += '<td>보험료</td>';
                     htmls += '<td>고용보험</td>';
                     htmls += '<td><input type="text" class="moneyinput" data-type="currency" id="gomM" onfoc' +
@@ -1338,7 +1338,7 @@ function getEmpBaseM(result) {
                     htmls += ' <td class="hideTh"></td>';
                     htmls += ' <td class="hideTh"></td>';
                     htmls += '<td>4</td>';
-                    htmls += '<td>1일</td>';
+                    htmls += '<td>-</td>';
                     htmls += '<td>보험료</td>';
                     htmls += '<td>산재보험</td>';
                     htmls += '<td><input type="text" class="" data-type="currency" id="sanmM" onfocus="this.' +

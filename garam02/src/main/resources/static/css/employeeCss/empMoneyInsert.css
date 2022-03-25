@@ -143,6 +143,9 @@
 #in-baseM {
     letter-spacing: 0.1rem;
     height: 18px;
+
+    font-size: 1.3rem;
+    color: black;
 }
 
 .moneys {
@@ -192,7 +195,7 @@
     gap: 2rem;
 }
 .operTitle-item:nth-child(3) a {
-    width: 10rem;
+    width: 15rem;
 }
 
 .operCont {
@@ -266,19 +269,21 @@
 
 .insert-name-item {
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem;
     border: 1px solid #ddd;
 }
 
 .insert-name-item:nth-child(2),
 .insert-name-item:nth-child(4),
-.insert-name-item:nth-child(6) {
+.insert-name-item:nth-child(6),
+.insert-name-item:nth-child(8) {
     flex: 1;
-    max-width: 20%;
+    max-width: 10%;
 }
 .insert-name-item:nth-child(3),
 .insert-name-item:nth-child(5),
-.insert-name-item:nth-child(7) {
+.insert-name-item:nth-child(7),
+.insert-name-item:nth-child(9) {
     flex: 1;
     max-width: auto;
 }

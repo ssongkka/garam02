@@ -1,32 +1,25 @@
 package com.garam.web.employee.service;
 
 import java.io.BufferedInputStream;
+import java.io.Console;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.pdfbox.contentstream.operator.text.SetCharSpacing;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.garam.web.Utils.FTPManager;
-import com.garam.web.Utils.NameUtils;
 import com.garam.web.Utils.PDFUtil;
 import com.garam.web.Utils.Utils;
-import com.garam.web.Utils.pdfFooter;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
@@ -34,7 +27,6 @@ import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.employee.mapper.EmployeeMapper;
 import com.garam.web.regular.dto.RegularDTO;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -43,7 +35,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.parser.Line;
 
 import lombok.RequiredArgsConstructor;
 
@@ -110,9 +101,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		if (employeeInfoDTO.getEndd() == null || employeeInfoDTO.getEndd().equals("")) {
 			employeeInfoDTO.setEndd(null);
-			System.out.println("없는데");
-		} else {
-			System.out.println("뭐지  " + employeeInfoDTO.getEndd());
 		}
 		if (employeeInfoDTO.getPhone2() == null || employeeInfoDTO.getPhone2().equals("")) {
 			employeeInfoDTO.setPhone2(null);
@@ -421,7 +409,250 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public File empSalaryPdf(String id, String date, String ve) throws Exception {
+	public File empSalaryPdf(String id, String date, String ve, String name) throws Exception {
+
+		EmpsalaryAll tmp_EmpsalaryAll = new EmpsalaryAll();
+		tmp_EmpsalaryAll.setId(id);
+		tmp_EmpsalaryAll.setDate(date);
+
+		List<EmpsalaryAll> empsalaryAll = employeeMapper.selAllMoney(tmp_EmpsalaryAll);
+
+		Empsalary tmp_Empsalary_In = new Empsalary();
+		tmp_Empsalary_In.setId(id);
+		tmp_Empsalary_In.setSday(date);
+
+		List<Empsalary> empsalary_In = employeeMapper.selInMoney(tmp_Empsalary_In);
+
+		Empsalary tmp_Empsalary_Out = new Empsalary();
+		tmp_Empsalary_Out.setId(id);
+		tmp_Empsalary_Out.setSday(date);
+
+		List<Empsalary> empsalary_Out = employeeMapper.selOutMoney(tmp_Empsalary_Out);
+
+		HashMap<Integer, String> out0 = new HashMap<Integer, String>();
+		HashMap<Integer, String> out00 = new HashMap<Integer, String>();
+		HashMap<Integer, String> out1 = new HashMap<Integer, String>();
+		HashMap<Integer, String> out11 = new HashMap<Integer, String>();
+
+		int outCnt0 = 0;
+
+		for (int i = 0; i < empsalary_Out.size(); i++) {
+			if (empsalary_Out.get(i).getContents().equals("국민연금")) {
+				out0.put(0, "국민연금");
+				out00.put(0, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				out1.put(0, "국민연금");
+				out11.put(0, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+			}
+			if (empsalary_Out.get(i).getContents().equals("건강보험")) {
+				out0.put(1, "건강보험");
+				out00.put(1, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				out1.put(1, "건강보험");
+				out11.put(1, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+			}
+			if (empsalary_Out.get(i).getContents().equals("고용보험")) {
+				out0.put(2, "고용보험");
+				out00.put(2, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				out1.put(2, "고용보험");
+				out11.put(2, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+			}
+			if (empsalary_Out.get(i).getContents().equals("산재보험")) {
+				out0.put(3, "산재보험");
+				out00.put(3, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				out1.put(3, "산재보험");
+				out11.put(3, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+			}
+		}
+
+		int outCnt1 = 0;
+		int cntO = 0;
+		for (int i = 0; i < empsalary_Out.size(); i++) {
+			if (empsalary_Out.get(i).getSeparation().equals("보험료")) {
+
+				switch (empsalary_Out.get(i).getContents()) {
+				case "국민연금":
+					break;
+				case "건강보험":
+					break;
+				case "고용보험":
+					break;
+				case "산재보험":
+					break;
+				default:
+					if (empsalary_Out.get(i).getDate() != null) {
+						out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+								+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
+					} else {
+						out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+					}
+					out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+					outCnt1 = outCnt1 + empsalary_Out.get(i).getMoney();
+					break;
+				}
+			}
+		}
+
+		out1.put(4, "기타보험료");
+		out11.put(4, Utils.coma_Money_Int(outCnt1));
+
+		int outCnt2 = 0;
+		for (int i = 0; i < empsalary_Out.size(); i++) {
+			if (empsalary_Out.get(i).getSeparation().equals("세금")) {
+				if (empsalary_Out.get(i).getDate() != null) {
+					out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+							+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
+				} else {
+					out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+				}
+				out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				outCnt2 = outCnt2 + empsalary_Out.get(i).getMoney();
+			}
+		}
+
+		out1.put(5, "세금");
+		out11.put(5, Utils.coma_Money_Int(outCnt2));
+
+		int outCnt3 = 0;
+		for (int i = 0; i < empsalary_Out.size(); i++) {
+			if (empsalary_Out.get(i).getSeparation().equals("운행")) {
+				if (empsalary_Out.get(i).getDate() != null) {
+					out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+							+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
+				} else {
+					out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+				}
+				out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				outCnt3 = outCnt3 + empsalary_Out.get(i).getMoney();
+			}
+		}
+
+		out1.put(6, "운행");
+		out11.put(6, Utils.coma_Money_Int(outCnt3));
+
+		int outCnt4 = 0;
+		for (int i = 0; i < empsalary_Out.size(); i++) {
+			if (empsalary_Out.get(i).getSeparation().equals("기타")) {
+				if (empsalary_Out.get(i).getDate() != null) {
+					out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+							+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
+				} else {
+					out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+				}
+				out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				outCnt4 = outCnt4 + empsalary_Out.get(i).getMoney();
+			}
+		}
+		out1.put(7, "기타");
+		out11.put(7, Utils.coma_Money_Int(outCnt4));
+
+		HashMap<Integer, String> in0 = new HashMap<Integer, String>();
+		HashMap<Integer, String> in00 = new HashMap<Integer, String>();
+		HashMap<Integer, String> in1 = new HashMap<Integer, String>();
+		HashMap<Integer, String> in11 = new HashMap<Integer, String>();
+
+		int inCnt0 = 0;
+
+		for (int i = 0; i < empsalary_In.size(); i++) {
+			if (empsalary_In.get(i).getSeparation().equals("기본급")) {
+				inCnt0 = inCnt0 + empsalary_In.get(i).getMoney();
+			}
+		}
+		in0.put(0, "기본급");
+		in00.put(0, Utils.coma_Money_Int(inCnt0));
+		in1.put(0, "기본급");
+		in11.put(0, Utils.coma_Money_Int(inCnt0));
+
+		in0.put(1, "운행수당");
+		in00.put(1, Utils.coma_Money_Int(empsalaryAll.get(0).getOpermoney()));
+		in1.put(1, "운행수당");
+		in11.put(1, Utils.coma_Money_Int(empsalaryAll.get(0).getOpermoney()));
+
+		int inCnt1 = 0;
+
+		for (int i = 0; i < empsalary_In.size(); i++) {
+			if (empsalary_In.get(i).getSeparation().equals("경비")) {
+				inCnt1 = inCnt1 + empsalary_In.get(i).getMoney();
+			}
+		}
+		in0.put(2, "경비");
+		in00.put(2, Utils.coma_Money_Int(inCnt1));
+		in1.put(2, "경비");
+		in11.put(2, Utils.coma_Money_Int(inCnt1));
+
+		int inCnt2 = 0;
+		int inCnt3 = 0;
+
+		int cnt = 0;
+		for (int i = 0; i < empsalary_In.size(); i++) {
+			if (empsalary_In.get(i).getSeparation().equals("수당") || empsalary_In.get(i).getSeparation().equals("기타")) {
+				System.out.println(empsalary_In.get(i).getSeparation());
+				if (empsalary_In.get(i).getDate() != null) {
+					in0.put(3 + cnt, empsalary_In.get(i).getContents() + "("
+							+ empsalary_In.get(i).getDate().split("-")[2] + "일)");
+				} else {
+					in0.put(3 + cnt, empsalary_In.get(i).getContents());
+				}
+				in00.put(3 + cnt++, Utils.coma_Money_Int(empsalary_In.get(i).getMoney()));
+			}
+			if (empsalary_In.get(i).getSeparation().equals("수당")) {
+				inCnt2 = inCnt2 + empsalary_In.get(i).getMoney();
+			}
+			if (empsalary_In.get(i).getSeparation().equals("기타")) {
+				inCnt3 = inCnt3 + empsalary_In.get(i).getMoney();
+			}
+		}
+
+		if (inCnt2 > 0) {
+			in1.put(3, "수당");
+			in11.put(3, Utils.coma_Money_Int(inCnt2));
+			if (inCnt2 > 0) {
+				in1.put(4, "기타");
+				in11.put(4, Utils.coma_Money_Int(inCnt3));
+			}
+		} else {
+			if (inCnt2 > 0) {
+				in1.put(3, "기타");
+				in11.put(3, Utils.coma_Money_Int(inCnt3));
+			}
+		}
+
+		int sizeIn = 9 - in0.size();
+		int sizeOut = 9 - out0.size();
+
+		int sizeIn00 = in0.size();
+		for (int i = 0; i < sizeIn; i++) {
+			in0.put(sizeIn00 + i, " ");
+			in00.put(sizeIn00 + i, " ");
+		}
+
+		int sizeO00 = out0.size();
+		for (int i = 0; i < sizeOut; i++) {
+			out0.put(sizeO00 + i, " ");
+			out00.put(sizeO00 + i, " ");
+		}
+
+		int sizeIn1 = 9 - in1.size();
+		int sizeOut1 = 9 - out1.size();
+
+		int sizeIn11 = in1.size();
+		for (int i = 0; i < sizeIn1; i++) {
+			in1.put(sizeIn11 + i, " ");
+			in11.put(sizeIn11 + i, " ");
+		}
+
+		int sizeO11 = out1.size();
+		for (int i = 0; i < sizeOut1; i++) {
+			out1.put(sizeO11 + i, " ");
+			out11.put(sizeO11 + i, " ");
+		}
+
+		System.out.println("in0  " + in0);
+		System.out.println("in00  " + in00);
+		System.out.println("in1  " + in1);
+		System.out.println("in11  " + in11);
+		System.out.println("out0  " + out0);
+		System.out.println("out00  " + out00);
+		System.out.println("out1  " + out1);
+		System.out.println("out11  " + out11);
 
 		ArrayList<ArrayList<String>> arrRtn = getPdfCont(id, date);
 
@@ -436,39 +667,52 @@ public class EmployeeServiceImpl implements EmployeeService {
 			document.setPageSize(PageSize.A4);
 			document.setMargins(15, 15, 40, 15);
 
-			Font font = pdfU.getMalgun(15f);
+			Font font = pdfU.getMalgunBold(16f);
 			Font font1 = pdfU.getMalgun(6.7f);
 
-			PdfPTable table_Head = new PdfPTable(new float[] { 1f });
+			Font fontB = pdfU.getMalgunBold(8f);
+			Font fontM = pdfU.getMalgun(8f);
+
+			PdfPTable table_Head = new PdfPTable(new float[] { 9f, 1f });
 			table_Head.setWidthPercentage(100);
 
 			String salDay = date.split("-")[0] + "년 " + date.split("-")[1] + "월";
 			font.setStyle(Font.BOLD);
-			PdfPCell head_Cell = new PdfPCell(new Paragraph(salDay + " 급여내역서           " + ve, font));
+			PdfPCell head_Cell1 = new PdfPCell(new Paragraph(salDay + "   급 여 내 역 서", font));
+			PdfPCell head_Cell2 = new PdfPCell(new Paragraph(ve, font));
 
-			head_Cell.setBackgroundColor(new BaseColor(217, 217, 217));
-			head_Cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			head_Cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			head_Cell.setFixedHeight(50);
-			head_Cell.setPaddingBottom(4);
-			table_Head.addCell(head_Cell);
+			head_Cell1.setBackgroundColor(new BaseColor(217, 217, 217));
+			head_Cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			head_Cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			head_Cell1.setFixedHeight(50);
+			head_Cell1.setPaddingBottom(4);
+			head_Cell1.setPaddingLeft(50);
+			head_Cell1.disableBorderSide(8);
+			table_Head.addCell(head_Cell1);
+
+			head_Cell2.setBackgroundColor(new BaseColor(217, 217, 217));
+			head_Cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			head_Cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			head_Cell2.setFixedHeight(50);
+			head_Cell2.setPaddingBottom(4);
+			head_Cell2.disableBorderSide(4);
+			table_Head.addCell(head_Cell2);
 
 			PdfPTable table = new PdfPTable(new float[] { 2f, 6f, 2f, 2f, 4f });
 			table.setWidthPercentage(100);
-
 			PdfPCell[] cell = new PdfPCell[5];
 
 			font1.setStyle(Font.BOLD);
 
-			cell[0] = new PdfPCell(new Paragraph("날  짜", font1));
-			cell[1] = new PdfPCell(new Paragraph("운 행 구 간", font1));
-			cell[2] = new PdfPCell(new Paragraph("금  액", font1));
-			cell[3] = new PdfPCell(new Paragraph("경  비", font1));
-			cell[4] = new PdfPCell(new Paragraph("비  고", font1));
+			cell[0] = new PdfPCell(new Paragraph("날    짜", fontB));
+			cell[1] = new PdfPCell(new Paragraph("운  행  구  간", fontB));
+			cell[2] = new PdfPCell(new Paragraph("금    액", fontB));
+			cell[3] = new PdfPCell(new Paragraph("경    비", fontB));
+			cell[4] = new PdfPCell(new Paragraph("비    고", fontB));
 
 			for (int i = 0; i < cell.length; i++) {
-				cell[i].setBackgroundColor(new BaseColor(242, 242, 242));
-				cell[i].setFixedHeight(15);
+				cell[i].setBackgroundColor(new BaseColor(217, 217, 217));
+				cell[i].setFixedHeight(20);
 				cell[i].setPaddingBottom(4);
 				cell[i].setHorizontalAlignment(Element.ALIGN_CENTER);
 				cell[i].setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -513,15 +757,148 @@ public class EmployeeServiceImpl implements EmployeeService {
 				}
 			}
 
+			PdfPTable table_head2 = new PdfPTable(new float[] { 1f, 1f });
+			table_head2.setWidthPercentage(100);
+
+			PdfPCell[] cell_Head2 = new PdfPCell[2];
+
+			cell_Head2[0] = new PdfPCell(new Paragraph("지  급  내  역", fontB));
+			cell_Head2[1] = new PdfPCell(new Paragraph("공  제  내  역", fontB));
+
+			for (int i = 0; i < cell_Head2.length; i++) {
+				cell_Head2[i].setBackgroundColor(new BaseColor(217, 217, 217));
+				cell_Head2[i].setFixedHeight(20);
+				cell_Head2[i].setPaddingBottom(4);
+				cell_Head2[i].setHorizontalAlignment(Element.ALIGN_CENTER);
+				cell_Head2[i].setVerticalAlignment(Element.ALIGN_MIDDLE);
+				table_head2.addCell(cell_Head2[i]);
+			}
+
+			PdfPTable table_cont2 = new PdfPTable(new float[] { 1f, 1f, 1f, 1f });
+			table_cont2.setWidthPercentage(100);
+
+			PdfPCell[] cell_cont2 = new PdfPCell[4];
+
+			if (in0.size() < 10 || out0.size() < 10) {
+				for (int i = 0; i < 9; i++) {
+					cell_cont2[0] = new PdfPCell(new Paragraph(in0.get(i), fontM));
+					cell_cont2[1] = new PdfPCell(new Paragraph(in00.get(i), fontM));
+					cell_cont2[2] = new PdfPCell(new Paragraph(out0.get(i), fontM));
+					cell_cont2[3] = new PdfPCell(new Paragraph(out00.get(i), fontM));
+
+					for (int j = 0; j < cell_cont2.length; j++) {
+						cell_cont2[j].setFixedHeight(16);
+						cell_cont2[j].setPaddingBottom(4);
+						if (j % 2 == 0) {
+							cell_cont2[j].setHorizontalAlignment(Element.ALIGN_CENTER);
+						} else {
+							cell_cont2[j].setHorizontalAlignment(Element.ALIGN_RIGHT);
+							cell_cont2[j].setPaddingRight(10);
+						}
+						cell_cont2[j].setVerticalAlignment(Element.ALIGN_MIDDLE);
+						table_cont2.addCell(cell_cont2[j]);
+					}
+				}
+
+			} else {
+				for (int i = 0; i < 9; i++) {
+					cell_cont2[0] = new PdfPCell(new Paragraph(in1.get(i), fontM));
+					cell_cont2[1] = new PdfPCell(new Paragraph(in11.get(i), fontM));
+					cell_cont2[2] = new PdfPCell(new Paragraph(out1.get(i), fontM));
+					cell_cont2[3] = new PdfPCell(new Paragraph(out11.get(i), fontM));
+
+					for (int j = 0; j < cell_cont2.length; j++) {
+						cell_cont2[j].setFixedHeight(16);
+						cell_cont2[j].setPaddingBottom(4);
+						if (j % 2 == 0) {
+							cell_cont2[j].setHorizontalAlignment(Element.ALIGN_CENTER);
+						} else {
+							cell_cont2[j].setHorizontalAlignment(Element.ALIGN_RIGHT);
+							cell_cont2[j].setPaddingRight(10);
+						}
+						cell_cont2[j].setVerticalAlignment(Element.ALIGN_MIDDLE);
+						table_cont2.addCell(cell_cont2[j]);
+					}
+				}
+			}
+
+			cell_cont2[0] = new PdfPCell(new Paragraph("지  급  총  액", fontB));
+			cell_cont2[1] = new PdfPCell(new Paragraph(Utils.coma_Money_Int(empsalaryAll.get(0).getInm()), fontB));
+			cell_cont2[2] = new PdfPCell(new Paragraph("공  제  총  액", fontB));
+			cell_cont2[3] = new PdfPCell(new Paragraph(Utils.coma_Money_Int(empsalaryAll.get(0).getOutm()), fontB));
+
+			cell_cont2[0].setFixedHeight(20);
+			cell_cont2[0].setPaddingBottom(4);
+			cell_cont2[0].setHorizontalAlignment(Element.ALIGN_CENTER);
+			cell_cont2[0].setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell_cont2[0].setBackgroundColor(new BaseColor(217, 217, 217));
+
+			cell_cont2[2].setFixedHeight(20);
+			cell_cont2[2].setPaddingBottom(4);
+			cell_cont2[2].setHorizontalAlignment(Element.ALIGN_CENTER);
+			cell_cont2[2].setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell_cont2[2].setBackgroundColor(new BaseColor(217, 217, 217));
+
+			cell_cont2[1].setFixedHeight(20);
+			cell_cont2[1].setPaddingBottom(4);
+			cell_cont2[1].setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell_cont2[1].setPaddingRight(10);
+			cell_cont2[1].setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+			cell_cont2[3].setFixedHeight(20);
+			cell_cont2[3].setPaddingBottom(4);
+			cell_cont2[3].setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell_cont2[3].setPaddingRight(10);
+			cell_cont2[3].setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+			table_cont2.addCell(cell_cont2[0]);
+			table_cont2.addCell(cell_cont2[1]);
+			table_cont2.addCell(cell_cont2[2]);
+			table_cont2.addCell(cell_cont2[3]);
+
+			PdfPTable table_foot = new PdfPTable(new float[] { 1f, 1f });
+			table_foot.setWidthPercentage(100);
+
+			PdfPCell[] cell_foot = new PdfPCell[3];
+
+			fontB = pdfU.getMalgunBold(10f);
+
+			cell_foot[0] = new PdfPCell(new Paragraph("지  급  액", fontB));
+			cell_foot[0].setBackgroundColor(new BaseColor(217, 217, 217));
+			char a = 92;
+			cell_foot[1] = new PdfPCell(new Paragraph(
+					a + " " + Utils.coma_Money_Int(empsalaryAll.get(0).getInm() - empsalaryAll.get(0).getOutm()),
+					fontB));
+			cell_foot[2] = new PdfPCell(new Paragraph(name + " (인) ", fontB));
+
+			cell_foot[0].setRowspan(2);
+
+			for (int j = 0; j < cell_foot.length; j++) {
+				cell_foot[j].setFixedHeight(20);
+				cell_foot[j].setPaddingBottom(4);
+				cell_foot[j].setHorizontalAlignment(Element.ALIGN_CENTER);
+				cell_foot[j].setVerticalAlignment(Element.ALIGN_MIDDLE);
+			}
+
+			table_foot.addCell(cell_foot[0]);
+			table_foot.addCell(cell_foot[1]);
+			table_foot.addCell(cell_foot[2]);
+
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
 
 			document.open();
 
 			document.add(table_Head);
-//			document.add(pdfU.getBlank(20f));
+			document.add(pdfU.getBlank(10f));
 
 			table.setHeaderRows(1);
 			document.add(table);
+
+			document.add(pdfU.getBlank(10f));
+
+			document.add(table_head2);
+			document.add(table_cont2);
+			document.add(table_foot);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -535,23 +912,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	private ArrayList<ArrayList<String>> getPdfCont(String id, String date) throws Exception {
-		EmpsalaryAll tmp_EmpsalaryAll = new EmpsalaryAll();
-		tmp_EmpsalaryAll.setId(id);
-		tmp_EmpsalaryAll.setDate(date);
-
-		List<EmpsalaryAll> empsalaryAll = employeeMapper.selAllMoney(tmp_EmpsalaryAll);
 
 		Empsalary tmp_Empsalary_In = new Empsalary();
 		tmp_Empsalary_In.setId(id);
 		tmp_Empsalary_In.setSday(date);
 
 		List<Empsalary> empsalary_In = employeeMapper.selInMoney(tmp_Empsalary_In);
-
-		Empsalary tmp_Empsalary_Out = new Empsalary();
-		tmp_Empsalary_Out.setId(id);
-		tmp_Empsalary_Out.setSday(date);
-
-		List<Empsalary> empsalary_Out = employeeMapper.selOutMoney(tmp_Empsalary_Out);
 
 		EmpRsvtDTO tmp_EmpRsvtDTO = new EmpRsvtDTO();
 		tmp_EmpRsvtDTO.setOperid(id);
@@ -705,8 +1071,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 
 			for (int j = 0; j < mapInM.size(); j++) {
-				System.out.println("mapInM  " + mapInM);
-				System.out.println("tmpDay  " + tmpDay);
 				if (mapInM.get(j).equals(tmpDay)) {
 					arr3.add(j);
 					cnt1++;
@@ -741,12 +1105,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 				tmpArr555.add(mapInM1.get(arr3.get(0)));
 			}
 		}
-		System.out.println(4);
-		System.out.println("tmpArr111   " + tmpArr111);
-		System.out.println("tmpArr222   " + tmpArr222);
-		System.out.println("tmpArr333   " + tmpArr333);
-		System.out.println("tmpArr444   " + tmpArr444);
-		System.out.println("tmpArr555   " + tmpArr555);
 
 		arrRtn.add(tmpArr111);
 		arrRtn.add(tmpArr222);

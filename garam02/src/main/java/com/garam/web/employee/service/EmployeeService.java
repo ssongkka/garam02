@@ -70,5 +70,5 @@ public interface EmployeeService {
 
 	public int updateEmpMoneys(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
-	public File empSalaryPdf(String id, String date, String ve) throws Exception;
+	public File empSalaryPdf(String id, String date, String ve, String name) throws Exception;
 }

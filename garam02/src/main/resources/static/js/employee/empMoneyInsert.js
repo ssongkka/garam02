@@ -1015,18 +1015,27 @@ $(document).on('click', '#yesSave', function () {
     }
 });
 $(document).on('click', '#printbtn', function () {
-    console.log("하이");
+
+    console.log($('#emp-iidd').val());
 
     let veh = '';
     for (let i = 0; i < dbVe.length; i++) {
-        if (dbVe[i].id = $('#emp-iidd').val()) {
+        if (dbVe[i].id == $('#emp-iidd').val()) {
             veh = dbVe[i].vehicle2;
+        }
+    }
+
+    let na = '';
+    for (let o = 0; o < dbEmp.length; o++) {
+        if (dbEmp[o].id == $('#emp-iidd').val()) {
+            na = dbEmp[o].name;
         }
     }
 
     $('#pdfid').val($('#emp-iidd').val());
     $('#pdfdate').val($('#yearmonthsMoney2').val());
     $('#pdfve').val(veh);
+    $('#pdname').val(na);
 
     alert(
         "'" + $('#yearmonthsMoney2').val() + "'의 급여명세서\nPDF 파일이 다운로드 됩니다.\n\n다운로드 완료 후 " +

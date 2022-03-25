@@ -1,6 +1,5 @@
 package com.garam.web.login.entity;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -26,9 +25,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class User implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -48,9 +44,11 @@ public class User implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private PowerRole power;
 
-	private LocalDateTime inserday;
+	private String inserday;
 
-	private LocalDateTime outday;
+	private String outday;
+
+	private Integer color;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

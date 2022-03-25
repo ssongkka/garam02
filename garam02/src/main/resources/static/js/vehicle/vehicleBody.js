@@ -13,7 +13,9 @@ var myModalInsu = new bootstrap.Modal(document.getElementById('modal-insu'));
 var myModalJuk = new bootstrap.Modal(document.getElementById('modal-juk'));
 
 $(document).ready(function () {
-    getVeAll();
+    LoadingWithMask()
+        .then(getVeAll)
+        .then(closeLoadingWithMask);
 });
 
 $('#sel-ve-1').change(function () {
@@ -73,464 +75,467 @@ $(document).on('click', '#show-aside', function () {
 });
 
 function getVeAll(vehicle) {
-    const url = "/ve/veAll";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
+    return new Promise(function (resolve, reject) {
+        const url = "/ve/veAll";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
 
-    const params = {
-        "vehicle": vehicle
-    };
+        const params = {
+            "vehicle": vehicle
+        };
 
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
 
-        success: function (r) {
+            success: function (r) {
 
-            let cnt = 0;
-            let cntEnd = 0;
-            let cntDae = 0;
-            let cntJung = 0;
-            let cntUdong = 0;
-            let cntCompa = 0;
-            let cntGae = 0;
+                let cnt = 0;
+                let cntEnd = 0;
+                let cntDae = 0;
+                let cntJung = 0;
+                let cntUdong = 0;
+                let cntCompa = 0;
+                let cntGae = 0;
 
-            let htmls = '';
-            let htmlsEnd = '';
-            let htmlsDae = '';
-            let htmlsJung = '';
-            let htmlsUdong = '';
-            let htmlsCompa = '';
-            let htmlsGae = '';
-            for (let i = 0; i < r.length; i++) {
-                if (r[i].trash == 1) {
-                    cnt++;
-                    htmls += '<tr id="' + r[i].carNumber + 'cut" onclick="getVeInfo(this.id)" style="cursor:' +
-                            'pointer;">';
-                    htmls += '<td>'
-                    htmls += '<span class="tr-ve">'
-                    htmls += r[i].vehicle2;
-                    htmls += '</span>'
-                    htmls += '</td>'
-                    if (r[i].name) {
+                let htmls = '';
+                let htmlsEnd = '';
+                let htmlsDae = '';
+                let htmlsJung = '';
+                let htmlsUdong = '';
+                let htmlsCompa = '';
+                let htmlsGae = '';
+                for (let i = 0; i < r.length; i++) {
+                    if (r[i].trash == 1) {
+                        cnt++;
+                        htmls += '<tr id="' + r[i].carNumber + 'cut" onclick="getVeInfo(this.id)" style="cursor:' +
+                                'pointer;">';
                         htmls += '<td>'
-                        htmls += '<span class="tr-emp">'
-                        htmls += r[i].name;
+                        htmls += '<span class="tr-ve">'
+                        htmls += r[i].vehicle2;
                         htmls += '</span>'
                         htmls += '</td>'
-                    } else {
-                        htmls += '<td>'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
+                        if (r[i].name) {
+                            htmls += '<td>'
+                            htmls += '<span class="tr-emp">'
+                            htmls += r[i].name;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td>'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+                        if (r[i].owner) {
+                            htmls += '<td class="">'
+                            htmls += '<span>'
+                            htmls += r[i].owner;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td class="">'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmls += '<td>'
+                            htmls += '<span>'
+                            htmls += r[i].num;
+                            htmls += '인승</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td>'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+                        if (r[i].regist) {
+                            htmls += '<td class="">'
+                            htmls += '<span>'
+                            htmls += r[i].regist;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td class="">'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+                        htmls += '</tr>'
                     }
-                    if (r[i].owner) {
-                        htmls += '<td class="">'
-                        htmls += '<span>'
-                        htmls += r[i].owner;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td class="">'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmls += '<td>'
-                        htmls += '<span>'
-                        htmls += r[i].num;
-                        htmls += '인승</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td>'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    }
-                    if (r[i].regist) {
-                        htmls += '<td class="">'
-                        htmls += '<span>'
-                        htmls += r[i].regist;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    } else {
-                        htmls += '<td class="">'
-                        htmls += '<span>'
-                        htmls += '</span>'
-                        htmls += '</td>'
-                    }
-                    htmls += '</tr>'
-                }
-                if (r[i].trash == 0) {
-                    cntEnd++;
-                    htmlsEnd += '<tr id="' + r[i].carNumber + 'cutEnd" onclick="getVeInfo(this.id)" style="curs' +
-                            'or:pointer;">';
-                    htmlsEnd += '<td>'
-                    htmlsEnd += '<span class="tr-ve">'
-                    htmlsEnd += r[i].vehicle2;
-                    htmlsEnd += '</span>'
-                    htmlsEnd += '</td>'
-                    if (r[i].owner) {
+                    if (r[i].trash == 0) {
+                        cntEnd++;
+                        htmlsEnd += '<tr id="' + r[i].carNumber + 'cutEnd" onclick="getVeInfo(this.id)" style="curs' +
+                                'or:pointer;">';
                         htmlsEnd += '<td>'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += r[i].owner;
+                        htmlsEnd += '<span class="tr-ve">'
+                        htmlsEnd += r[i].vehicle2;
                         htmlsEnd += '</span>'
                         htmlsEnd += '</td>'
-                    } else {
-                        htmlsEnd += '<td>'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += '</span>'
-                        htmlsEnd += '</td>'
+                        if (r[i].owner) {
+                            htmlsEnd += '<td>'
+                            htmlsEnd += '<span>'
+                            htmlsEnd += r[i].owner;
+                            htmlsEnd += '</span>'
+                            htmlsEnd += '</td>'
+                        } else {
+                            htmlsEnd += '<td>'
+                            htmlsEnd += '<span>'
+                            htmlsEnd += '</span>'
+                            htmlsEnd += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsEnd += '<td>'
+                            htmlsEnd += '<span>'
+                            htmlsEnd += r[i].num;
+                            htmlsEnd += '인승</span>'
+                            htmlsEnd += '</td>'
+                        } else {
+                            htmlsEnd += '<td>'
+                            htmlsEnd += '<span>'
+                            htmlsEnd += '</span>'
+                            htmlsEnd += '</td>'
+                        }
+                        if (r[i].regist) {
+                            htmlsEnd += '<td class="">'
+                            htmlsEnd += '<span>'
+                            htmlsEnd += r[i].regist;
+                            htmlsEnd += '</span>'
+                            htmlsEnd += '</td>'
+                        } else {
+                            htmlsEnd += '<td class="">'
+                            htmlsEnd += '<span>'
+                            htmlsEnd += '</span>'
+                            htmlsEnd += '</td>'
+                        }
+                        htmlsEnd += '</tr>'
                     }
-                    if (r[i].bus) {
-                        htmlsEnd += '<td>'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += r[i].num;
-                        htmlsEnd += '인승</span>'
-                        htmlsEnd += '</td>'
-                    } else {
-                        htmlsEnd += '<td>'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += '</span>'
-                        htmlsEnd += '</td>'
-                    }
-                    if (r[i].regist) {
-                        htmlsEnd += '<td class="">'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += r[i].regist;
-                        htmlsEnd += '</span>'
-                        htmlsEnd += '</td>'
-                    } else {
-                        htmlsEnd += '<td class="">'
-                        htmlsEnd += '<span>'
-                        htmlsEnd += '</span>'
-                        htmlsEnd += '</td>'
-                    }
-                    htmlsEnd += '</tr>'
-                }
-                if (r[i].bus == '대형' && r[i].trash == 1) {
-                    cntDae++;
-                    htmlsDae += '<tr id="' + r[i].carNumber + 'cutDae" onclick="getVeInfo(this.id)" style="curs' +
-                            'or:pointer;">';
-                    htmlsDae += '<td>'
-                    htmlsDae += '<span class="tr-ve">'
-                    htmlsDae += r[i].vehicle2;
-                    htmlsDae += '</span>'
-                    htmlsDae += '</td>'
-                    if (r[i].name) {
+                    if (r[i].bus == '대형' && r[i].trash == 1) {
+                        cntDae++;
+                        htmlsDae += '<tr id="' + r[i].carNumber + 'cutDae" onclick="getVeInfo(this.id)" style="curs' +
+                                'or:pointer;">';
                         htmlsDae += '<td>'
-                        htmlsDae += '<span class="tr-emp">'
-                        htmlsDae += r[i].name;
+                        htmlsDae += '<span class="tr-ve">'
+                        htmlsDae += r[i].vehicle2;
                         htmlsDae += '</span>'
                         htmlsDae += '</td>'
-                    } else {
-                        htmlsDae += '<td>'
-                        htmlsDae += '<span>'
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
+                        if (r[i].name) {
+                            htmlsDae += '<td>'
+                            htmlsDae += '<span class="tr-emp">'
+                            htmlsDae += r[i].name;
+                            htmlsDae += '</span>'
+                            htmlsDae += '</td>'
+                        } else {
+                            htmlsDae += '<td>'
+                            htmlsDae += '<span>'
+                            htmlsDae += '</span>'
+                            htmlsDae += '</td>'
+                        }
+                        if (r[i].owner) {
+                            htmlsDae += '<td class="">'
+                            htmlsDae += '<span>'
+                            htmlsDae += r[i].owner;
+                            htmlsDae += '</span>'
+                            htmlsDae += '</td>'
+                        } else {
+                            htmlsDae += '<td class="">'
+                            htmlsDae += '<span>'
+                            htmlsDae += '</span>'
+                            htmlsDae += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsDae += '<td>'
+                            htmlsDae += '<span>'
+                            htmlsDae += r[i].num;
+                            htmlsDae += '인승</span>'
+                            htmlsDae += '</td>'
+                        } else {
+                            htmlsDae += '<td>'
+                            htmlsDae += '<span>'
+                            htmlsDae += '</span>'
+                            htmlsDae += '</td>'
+                        }
+                        if (r[i].regist) {
+                            htmlsDae += '<td class="">'
+                            htmlsDae += '<span>'
+                            htmlsDae += r[i].regist;
+                            htmlsDae += '</span>'
+                            htmlsDae += '</td>'
+                        } else {
+                            htmlsDae += '<td class="">'
+                            htmlsDae += '<span>'
+                            htmlsDae += '</span>'
+                            htmlsDae += '</td>'
+                        }
+                        htmlsDae += '</tr>'
                     }
-                    if (r[i].owner) {
-                        htmlsDae += '<td class="">'
-                        htmlsDae += '<span>'
-                        htmlsDae += r[i].owner;
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
-                    } else {
-                        htmlsDae += '<td class="">'
-                        htmlsDae += '<span>'
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsDae += '<td>'
-                        htmlsDae += '<span>'
-                        htmlsDae += r[i].num;
-                        htmlsDae += '인승</span>'
-                        htmlsDae += '</td>'
-                    } else {
-                        htmlsDae += '<td>'
-                        htmlsDae += '<span>'
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
-                    }
-                    if (r[i].regist) {
-                        htmlsDae += '<td class="">'
-                        htmlsDae += '<span>'
-                        htmlsDae += r[i].regist;
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
-                    } else {
-                        htmlsDae += '<td class="">'
-                        htmlsDae += '<span>'
-                        htmlsDae += '</span>'
-                        htmlsDae += '</td>'
-                    }
-                    htmlsDae += '</tr>'
-                }
-                if (r[i].bus == '중형' && r[i].trash == 1) {
-                    cntJung++;
-                    htmlsJung += '<tr id="' + r[i].carNumber + 'cutJung" onclick="getVeInfo(this.id)" style="cur' +
-                            'sor:pointer;">';
-                    htmlsJung += '<td>'
-                    htmlsJung += '<span class="tr-ve">'
-                    htmlsJung += r[i].vehicle2;
-                    htmlsJung += '</span>'
-                    htmlsJung += '</td>'
-                    if (r[i].name) {
+                    if (r[i].bus == '중형' && r[i].trash == 1) {
+                        cntJung++;
+                        htmlsJung += '<tr id="' + r[i].carNumber + 'cutJung" onclick="getVeInfo(this.id)" style="cur' +
+                                'sor:pointer;">';
                         htmlsJung += '<td>'
-                        htmlsJung += '<span class="tr-emp">'
-                        htmlsJung += r[i].name;
+                        htmlsJung += '<span class="tr-ve">'
+                        htmlsJung += r[i].vehicle2;
                         htmlsJung += '</span>'
                         htmlsJung += '</td>'
-                    } else {
-                        htmlsJung += '<td>'
-                        htmlsJung += '<span>'
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
+                        if (r[i].name) {
+                            htmlsJung += '<td>'
+                            htmlsJung += '<span class="tr-emp">'
+                            htmlsJung += r[i].name;
+                            htmlsJung += '</span>'
+                            htmlsJung += '</td>'
+                        } else {
+                            htmlsJung += '<td>'
+                            htmlsJung += '<span>'
+                            htmlsJung += '</span>'
+                            htmlsJung += '</td>'
+                        }
+                        if (r[i].owner) {
+                            htmlsJung += '<td class="">'
+                            htmlsJung += '<span>'
+                            htmlsJung += r[i].owner;
+                            htmlsJung += '</span>'
+                            htmlsJung += '</td>'
+                        } else {
+                            htmlsJung += '<td class="">'
+                            htmlsJung += '<span>'
+                            htmlsJung += '</span>'
+                            htmlsJung += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsJung += '<td>'
+                            htmlsJung += '<span>'
+                            htmlsJung += r[i].num;
+                            htmlsJung += '인승</span>'
+                            htmlsJung += '</td>'
+                        } else {
+                            htmlsJung += '<td>'
+                            htmlsJung += '<span>'
+                            htmlsJung += '</span>'
+                            htmlsJung += '</td>'
+                        }
+                        if (r[i].regist) {
+                            htmlsJung += '<td class="">'
+                            htmlsJung += '<span>'
+                            htmlsJung += r[i].regist;
+                            htmlsJung += '</span>'
+                            htmlsJung += '</td>'
+                        } else {
+                            htmlsJung += '<td class="">'
+                            htmlsJung += '<span>'
+                            htmlsJung += '</span>'
+                            htmlsJung += '</td>'
+                        }
+                        htmlsJung += '</tr>'
                     }
-                    if (r[i].owner) {
-                        htmlsJung += '<td class="">'
-                        htmlsJung += '<span>'
-                        htmlsJung += r[i].owner;
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
-                    } else {
-                        htmlsJung += '<td class="">'
-                        htmlsJung += '<span>'
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsJung += '<td>'
-                        htmlsJung += '<span>'
-                        htmlsJung += r[i].num;
-                        htmlsJung += '인승</span>'
-                        htmlsJung += '</td>'
-                    } else {
-                        htmlsJung += '<td>'
-                        htmlsJung += '<span>'
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
-                    }
-                    if (r[i].regist) {
-                        htmlsJung += '<td class="">'
-                        htmlsJung += '<span>'
-                        htmlsJung += r[i].regist;
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
-                    } else {
-                        htmlsJung += '<td class="">'
-                        htmlsJung += '<span>'
-                        htmlsJung += '</span>'
-                        htmlsJung += '</td>'
-                    }
-                    htmlsJung += '</tr>'
-                }
-                if (r[i].bus == '우등' && r[i].trash == 1) {
-                    cntUdong++;
-                    htmlsUdong += '<tr id="' + r[i].carNumber + 'cutUdong" onclick="getVeInfo(this.id)" style="cu' +
-                            'rsor:pointer;">';
-                    htmlsUdong += '<td>'
-                    htmlsUdong += '<span class="tr-ve">'
-                    htmlsUdong += r[i].vehicle2;
-                    htmlsUdong += '</span>'
-                    htmlsUdong += '</td>'
-                    if (r[i].name) {
+                    if (r[i].bus == '우등' && r[i].trash == 1) {
+                        cntUdong++;
+                        htmlsUdong += '<tr id="' + r[i].carNumber + 'cutUdong" onclick="getVeInfo(this.id)" style="cu' +
+                                'rsor:pointer;">';
                         htmlsUdong += '<td>'
-                        htmlsUdong += '<span class="tr-emp">'
-                        htmlsUdong += r[i].name;
+                        htmlsUdong += '<span class="tr-ve">'
+                        htmlsUdong += r[i].vehicle2;
                         htmlsUdong += '</span>'
                         htmlsUdong += '</td>'
-                    } else {
-                        htmlsUdong += '<td>'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
+                        if (r[i].name) {
+                            htmlsUdong += '<td>'
+                            htmlsUdong += '<span class="tr-emp">'
+                            htmlsUdong += r[i].name;
+                            htmlsUdong += '</span>'
+                            htmlsUdong += '</td>'
+                        } else {
+                            htmlsUdong += '<td>'
+                            htmlsUdong += '<span>'
+                            htmlsUdong += '</span>'
+                            htmlsUdong += '</td>'
+                        }
+                        if (r[i].owner) {
+                            htmlsUdong += '<td class="">'
+                            htmlsUdong += '<span>'
+                            htmlsUdong += r[i].owner;
+                            htmlsUdong += '</span>'
+                            htmlsUdong += '</td>'
+                        } else {
+                            htmlsUdong += '<td class="">'
+                            htmlsUdong += '<span>'
+                            htmlsUdong += '</span>'
+                            htmlsUdong += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsUdong += '<td>'
+                            htmlsUdong += '<span>'
+                            htmlsUdong += r[i].num;
+                            htmlsUdong += '인승</span>'
+                            htmlsUdong += '</td>'
+                        } else {
+                            htmlsUdong += '<td>'
+                            htmlsUdong += '<span>'
+                            htmlsUdong += '</span>'
+                            htmlsUdong += '</td>'
+                        }
+                        if (r[i].regist) {
+                            htmlsUdong += '<td class="">'
+                            htmlsUdong += '<span>'
+                            htmlsUdong += r[i].regist;
+                            htmlsUdong += '</span>'
+                            htmlsUdong += '</td>'
+                        } else {
+                            htmlsUdong += '<td class="">'
+                            htmlsUdong += '<span>'
+                            htmlsUdong += '</span>'
+                            htmlsUdong += '</td>'
+                        }
+                        htmlsUdong += '</tr>'
                     }
-                    if (r[i].owner) {
-                        htmlsUdong += '<td class="">'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += r[i].owner;
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
-                    } else {
-                        htmlsUdong += '<td class="">'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsUdong += '<td>'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += r[i].num;
-                        htmlsUdong += '인승</span>'
-                        htmlsUdong += '</td>'
-                    } else {
-                        htmlsUdong += '<td>'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
-                    }
-                    if (r[i].regist) {
-                        htmlsUdong += '<td class="">'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += r[i].regist;
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
-                    } else {
-                        htmlsUdong += '<td class="">'
-                        htmlsUdong += '<span>'
-                        htmlsUdong += '</span>'
-                        htmlsUdong += '</td>'
-                    }
-                    htmlsUdong += '</tr>'
-                }
-                if (r[i].company == r[i].owner && r[i].trash == 1) {
-                    cntCompa++;
-                    htmlsCompa += '<tr id="' + r[i].carNumber + 'cutCompa" onclick="getVeInfo(this.id)" style="cu' +
-                            'rsor:pointer;">';
-                    htmlsCompa += '<td>'
-                    htmlsCompa += '<span class="tr-ve">'
-                    htmlsCompa += r[i].vehicle2;
-                    htmlsCompa += '</span>'
-                    htmlsCompa += '</td>'
-                    if (r[i].name) {
+                    if (r[i].company == r[i].owner && r[i].trash == 1) {
+                        cntCompa++;
+                        htmlsCompa += '<tr id="' + r[i].carNumber + 'cutCompa" onclick="getVeInfo(this.id)" style="cu' +
+                                'rsor:pointer;">';
                         htmlsCompa += '<td>'
-                        htmlsCompa += '<span class="tr-emp">'
-                        htmlsCompa += r[i].name;
+                        htmlsCompa += '<span class="tr-ve">'
+                        htmlsCompa += r[i].vehicle2;
                         htmlsCompa += '</span>'
                         htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
+                        if (r[i].name) {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span class="tr-emp">'
+                            htmlsCompa += r[i].name;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        if (r[i].owner) {
+                            htmlsCompa += '<td class="">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].owner;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td class="">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].num;
+                            htmlsCompa += '인승</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        if (r[i].regist) {
+                            htmlsCompa += '<td class="">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].regist;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td class="">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        htmlsCompa += '</tr>'
                     }
-                    if (r[i].owner) {
-                        htmlsCompa += '<td class="">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].owner;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td class="">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].num;
-                        htmlsCompa += '인승</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    }
-                    if (r[i].regist) {
-                        htmlsCompa += '<td class="">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += r[i].regist;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    } else {
-                        htmlsCompa += '<td class="">'
-                        htmlsCompa += '<span>'
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
-                    }
-                    htmlsCompa += '</tr>'
-                }
-                if (r[i].company != r[i].owner && r[i].trash == 1) {
+                    if (r[i].company != r[i].owner && r[i].trash == 1) {
 
-                    cntGae++;
-                    htmlsGae += '<tr id="' + r[i].carNumber + 'cutGae" onclick="getVeInfo(this.id)" style="curs' +
-                            'or:pointer;">';
-                    htmlsGae += '<td>'
-                    htmlsGae += '<span class="tr-ve">'
-                    htmlsGae += r[i].vehicle2;
-                    htmlsGae += '</span>'
-                    htmlsGae += '</td>'
-                    if (r[i].name) {
+                        cntGae++;
+                        htmlsGae += '<tr id="' + r[i].carNumber + 'cutGae" onclick="getVeInfo(this.id)" style="curs' +
+                                'or:pointer;">';
                         htmlsGae += '<td>'
-                        htmlsGae += '<span class="tr-emp">'
-                        htmlsGae += r[i].name;
+                        htmlsGae += '<span class="tr-ve">'
+                        htmlsGae += r[i].vehicle2;
                         htmlsGae += '</span>'
                         htmlsGae += '</td>'
-                    } else {
-                        htmlsGae += '<td>'
-                        htmlsGae += '<span>'
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
+                        if (r[i].name) {
+                            htmlsGae += '<td>'
+                            htmlsGae += '<span class="tr-emp">'
+                            htmlsGae += r[i].name;
+                            htmlsGae += '</span>'
+                            htmlsGae += '</td>'
+                        } else {
+                            htmlsGae += '<td>'
+                            htmlsGae += '<span>'
+                            htmlsGae += '</span>'
+                            htmlsGae += '</td>'
+                        }
+                        if (r[i].owner) {
+                            htmlsGae += '<td class="">'
+                            htmlsGae += '<span>'
+                            htmlsGae += r[i].owner;
+                            htmlsGae += '</span>'
+                            htmlsGae += '</td>'
+                        } else {
+                            htmlsGae += '<td class="">'
+                            htmlsGae += '<span>'
+                            htmlsGae += '</span>'
+                            htmlsGae += '</td>'
+                        }
+                        if (r[i].bus) {
+                            htmlsGae += '<td>'
+                            htmlsGae += '<span>'
+                            htmlsGae += r[i].num;
+                            htmlsGae += '인승</span>'
+                            htmlsGae += '</td>'
+                        } else {
+                            htmlsGae += '<td>'
+                            htmlsGae += '<span>'
+                            htmlsGae += '</span>'
+                            htmlsGae += '</td>'
+                        }
+                        if (r[i].regist) {
+                            htmlsGae += '<td class="">'
+                            htmlsGae += '<span>'
+                            htmlsGae += r[i].regist;
+                            htmlsGae += '</span>'
+                            htmlsGae += '</td>'
+                        } else {
+                            htmlsGae += '<td class="">'
+                            htmlsGae += '<span>'
+                            htmlsGae += '</span>'
+                            htmlsGae += '</td>'
+                        }
+                        htmlsGae += '</tr>'
                     }
-                    if (r[i].owner) {
-                        htmlsGae += '<td class="">'
-                        htmlsGae += '<span>'
-                        htmlsGae += r[i].owner;
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
-                    } else {
-                        htmlsGae += '<td class="">'
-                        htmlsGae += '<span>'
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
-                    }
-                    if (r[i].bus) {
-                        htmlsGae += '<td>'
-                        htmlsGae += '<span>'
-                        htmlsGae += r[i].num;
-                        htmlsGae += '인승</span>'
-                        htmlsGae += '</td>'
-                    } else {
-                        htmlsGae += '<td>'
-                        htmlsGae += '<span>'
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
-                    }
-                    if (r[i].regist) {
-                        htmlsGae += '<td class="">'
-                        htmlsGae += '<span>'
-                        htmlsGae += r[i].regist;
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
-                    } else {
-                        htmlsGae += '<td class="">'
-                        htmlsGae += '<span>'
-                        htmlsGae += '</span>'
-                        htmlsGae += '</td>'
-                    }
-                    htmlsGae += '</tr>'
                 }
+
+                $('#ve-tb-all').html(htmls);
+                $('#ve-tb-dae').html(htmlsDae);
+                $('#ve-tb-jung').html(htmlsJung);
+                $('#ve-tb-udong').html(htmlsUdong);
+                $('#ve-tb-compa').html(htmlsCompa);
+                $('#ve-tb-gae').html(htmlsGae);
+                $('#ve-tb-end').html(htmlsEnd);
+
+                $('#bgAll').html(cnt);
+                $('#bgDae').html(cntDae);
+                $('#bgJung').html(cntJung);
+                $('#bgUdong').html(cntUdong);
+                $('#bgCompa').html(cntCompa);
+                $('#bgGae').html(cntGae);
+                $('#bgEnd').html(cntEnd);
+                resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
-
-            $('#ve-tb-all').html(htmls);
-            $('#ve-tb-dae').html(htmlsDae);
-            $('#ve-tb-jung').html(htmlsJung);
-            $('#ve-tb-udong').html(htmlsUdong);
-            $('#ve-tb-compa').html(htmlsCompa);
-            $('#ve-tb-gae').html(htmlsGae);
-            $('#ve-tb-end').html(htmlsEnd);
-
-            $('#bgAll').html(cnt);
-            $('#bgDae').html(cntDae);
-            $('#bgJung').html(cntJung);
-            $('#bgUdong').html(cntUdong);
-            $('#bgCompa').html(cntCompa);
-            $('#bgGae').html(cntGae);
-            $('#bgEnd').html(cntEnd);
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
+        })
     })
 }
 

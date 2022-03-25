@@ -45,6 +45,14 @@ public class PDFUtil {
 		return font;
 	}
 
+	public Font getMalgunBold(Float size) throws DocumentException, IOException {
+		String fontFace = "/static/fonts/malgun.ttf";
+		BaseFont bf = BaseFont.createFont(fontFace, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+		Font font = new Font(bf, (float) size, Font.BOLD);
+
+		return font;
+	}
+
 	public Paragraph getBlank(Float size) throws DocumentException, IOException {
 		return new Paragraph(" ", getHumenMyungjo(size));
 	}

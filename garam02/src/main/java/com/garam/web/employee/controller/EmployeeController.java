@@ -71,10 +71,11 @@ public class EmployeeController extends UiUtils {
 
 	@GetMapping(value = "/pdfDown")
 	public ResponseEntity<Object> downPdf(@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "date", required = true) String date,
 			@RequestParam(value = "ve", required = true) String ve) throws Exception {
 
-		File file = employeeService.empSalaryPdf(id, date, ve);
+		File file = employeeService.empSalaryPdf(id, date, ve, name);
 
 		Resource resource = new InputStreamResource(new FileInputStream(file));
 

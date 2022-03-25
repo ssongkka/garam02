@@ -1,7 +1,5 @@
 package com.garam.web.admin.dto;
 
-import java.time.LocalDateTime;
-
 import com.garam.web.login.entity.PowerRole;
 import com.garam.web.login.entity.User;
 
@@ -29,13 +27,15 @@ public class UserSaveRequestDto {
 
 	private PowerRole power;
 
-	private LocalDateTime inserday;
+	private String inserday;
 
-	private LocalDateTime outday;
+	private String outday;
+
+	private Integer color;
 
 	@Builder
 	public UserSaveRequestDto(String id, String pw, String company, String position, String name, String phone,
-			PowerRole power, LocalDateTime inserday) {
+			PowerRole power, String inserday, String outday, Integer color) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -45,10 +45,12 @@ public class UserSaveRequestDto {
 		this.phone = phone;
 		this.power = power;
 		this.inserday = inserday;
+		this.outday = outday;
+		this.color = color;
 	}
 
 	public User toEntity() {
 		return User.builder().id(id).pw(pw).company(company).position(position).name(name).phone(phone).power(power)
-				.inserday(inserday).build();
+				.inserday(inserday).outday(outday).color(color).build();
 	}
 }
