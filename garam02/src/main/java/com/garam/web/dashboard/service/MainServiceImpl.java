@@ -23,8 +23,8 @@ public class MainServiceImpl implements MainService {
 	private final DashboardMapper rsvtMapper;
 
 	@Override
-	public List<RsvtDTO> selectCustomerAll() throws Exception {
-		List<RsvtDTO> list = rsvtMapper.selectCustomerAll();
+	public List<RsvtDTO> selectCustomerAll(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectCustomerAll(rsvtDTO);
 		return list;
 	}
 

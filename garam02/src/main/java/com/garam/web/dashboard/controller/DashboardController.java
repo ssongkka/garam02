@@ -38,11 +38,11 @@ public class DashboardController extends UiUtils {
 
 	@GetMapping
 	public String rsvt(@AuthenticationPrincipal User user, Model model) throws Exception {
-		
-		
+
 		model.addAttribute("user", user);
 
-		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
 		model.addAttribute("customer", list);
 
 		List<CompanyDTO> compa = companyService.selectCompany();
@@ -87,7 +87,8 @@ public class DashboardController extends UiUtils {
 
 	@GetMapping(value = "/rsvtMany")
 	public String rsvtMany(@AuthenticationPrincipal User user, Model model) throws Exception {
-		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
 		model.addAttribute("customer", list);
 		model.addAttribute("user", user);
 		return "dashboard/mainRsvtMany";

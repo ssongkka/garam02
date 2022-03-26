@@ -4,7 +4,7 @@ $(document).ready(function () {
     $("#ctmname").focus();
 
     $('#user-plus').hide();
-    $('#userPlus').attr('class', 'btn btn-secondary');
+    $('#userPlus').attr('class', 'btnCustomerCh');
 
     dateInput();
 });
@@ -12,11 +12,11 @@ $(document).ready(function () {
 $(document).on('click', '#userPlus', function () {
     if ($('#user-plus').is(":visible")) {
         $('#user-plus').hide();
-        $('#userPlus').attr('class', 'btn btn-secondary');
+        $('#userPlus').attr('class', 'btnCustomerCh');
         $('#userPlus').attr('title', '고객정보 지우기');
     } else {
         $('#user-plus').show();
-        $('#userPlus').attr('class', 'btn btn-secondary');
+        $('#userPlus').attr('class', 'btnCustomerCh');
         $('#userPlus').attr('title', '닫기');
     }
 });
@@ -251,10 +251,17 @@ $(document).on('click', '#many-insert', function () {
 });
 
 $(document).on('click', '#customerInsertMo', function () {
-    var myModal = new bootstrap.Modal(document.getElementById('customerModal'));
-    myModal.show();
-    myModal.handleUpdate();
-    $('#modalName').focus();
+    // var myModal = new bootstrap.Modal(document.getElementById('customerModal'));
+    // myModal.show(); myModal.handleUpdate(); $('#modalName').focus();
+
+    const aaa = $('#offCustomer').css('visibility');
+
+    if (aaa == 'hidden') {
+        offCustomerOffcanvas.show();
+    } else {
+        offCustomerOffcanvas.hide();
+    }
+
 });
 $(document).on('click', '#btn-custom-modal', function () {
 

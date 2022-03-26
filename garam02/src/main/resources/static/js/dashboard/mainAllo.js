@@ -1421,6 +1421,9 @@ function getAlloList(day) {
                     var tooltipTriggerList = []
                         .slice
                         .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         });
@@ -1637,6 +1640,9 @@ function getAlloList(day) {
                         $('#bdg2').text(cnt01);
                         $('#bdg3').text(cnt02);
                         resolve(rst);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             } else {
@@ -1831,6 +1837,9 @@ function getAlloList(day) {
                                     .attr('class', 'onebtn1');
                             }
                         }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
 
@@ -1933,6 +1942,9 @@ function getAlloList(day) {
                         );
                     }
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1998,6 +2010,9 @@ function getAlloList(day) {
                         }
                     } else {}
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })

@@ -540,7 +540,7 @@ function tbChoice(id) {
 
     $('#' + id)
         .children('td')
-        .css('background', tableCh);
+        .css('background', 'var(--main-color)');
     $('#' + id)
         .children('td')
         .css('color', 'white');
@@ -560,7 +560,7 @@ function tbChoiceSe(id) {
 
     $('#' + id)
         .children('td')
-        .css('background', tableCh);
+        .css('background', 'var(--main-color)');
     $('#' + id)
         .children('td')
         .css('color', 'white');

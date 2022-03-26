@@ -75,6 +75,10 @@ span {
     font-size: 1.3rem;
 }
 
+.modal svg {
+    color: var(--main-color);
+}
+
 .scBar::-webkit-scrollbar {
     width: 3px;
 }
@@ -338,6 +342,10 @@ object {
 #pills-profile-tab span {
     font-size: 1.5rem;
     margin-left: 1rem;
+}
+
+#offCustomer {
+    z-index: 1400;
 }
 @media (max-width:1024px) {
     .card-song {

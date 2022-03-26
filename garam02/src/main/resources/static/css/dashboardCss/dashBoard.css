@@ -1,10 +1,4 @@
 @charset "UTF-8";
-:root {
-    --main-color: blue;
-    --color-datk: #1D2231;
-    --text-grey: #8390A2;
-    --side-size: 250px;
-}
 
 .nav {
     font-size: 1.2rem;
@@ -200,6 +194,7 @@ tr {
 
 .pagination {
     margin: 0;
+    color: var(--main-);
 }
 
 /* aside */

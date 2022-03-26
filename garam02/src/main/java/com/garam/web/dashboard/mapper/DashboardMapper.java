@@ -11,7 +11,7 @@ import com.garam.web.dashboard.dto.RsvtDTO;
 
 @Mapper
 public interface DashboardMapper {
-	public List<RsvtDTO> selectCustomerAll() throws Exception;
+	public List<RsvtDTO> selectCustomerAll(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectCustomerName(RsvtDTO rsvtDTO) throws Exception;
 

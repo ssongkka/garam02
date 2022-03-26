@@ -47,7 +47,8 @@ public class RegularController extends UiUtils {
 		List<CompanyDTO> compa = companyService.selectCompany();
 		model.addAttribute("compa", compa);
 
-		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
 		model.addAttribute("customer", list);
 
 		List<OptDTO> opt = rsvtService.selectOpt();
@@ -64,7 +65,8 @@ public class RegularController extends UiUtils {
 		List<CompanyDTO> compa = companyService.selectCompany();
 		model.addAttribute("compa", compa);
 
-		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
 		model.addAttribute("customer", list);
 
 		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
@@ -105,7 +107,8 @@ public class RegularController extends UiUtils {
 
 		model.addAttribute("user", user);
 
-		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
 		model.addAttribute("customer", list);
 
 		List<CompanyDTO> compa = companyService.selectCompany();

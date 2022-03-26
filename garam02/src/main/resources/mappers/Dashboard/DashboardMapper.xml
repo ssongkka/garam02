@@ -24,6 +24,7 @@
 	</sql>
 
 	<select id="selectCustomerAll"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
@@ -31,7 +32,15 @@
 
 		FROM customer
 
-		WHERE ctmtrash = 1;
+		<where>
+			<if test="ctmname != null">OR ctmname Like CONCAT('%',#{ctmname},'%')
+			</if>
+			<if test="ctmname != null">OR ctmtel1 Like CONCAT('%',#{ctmname},'%')
+			</if>
+			<if test="ctmname != null">OR ctmtel2 Like CONCAT('%',#{ctmname},'%')
+			</if>
+			AND ctmtrash = 1
+		</where>
 	</select>
 
 	<select id="selectCustomerName"
@@ -47,16 +56,8 @@
 
 		ctmno = #{ctmno}
 		AND
-		ctmtrash = 1;;
+		ctmtrash = 1;
 
-		<!-- <where> -->
-		<!-- <if test="ctmno != 0">AND ctmno = #{ctmno} -->
-		<!-- </if> -->
-		<!-- <if test="ctmname != null">AND ctmname = #{ctmname} -->
-		<!-- </if> -->
-		<!-- <if test="ctmno != 0">AND ctmsepa = #{ctmsepa} -->
-		<!-- </if> -->
-		<!-- </where> -->
 	</select>
 
 	<select id="selectCustomerOtherCompa"

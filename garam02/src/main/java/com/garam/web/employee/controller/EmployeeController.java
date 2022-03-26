@@ -48,7 +48,8 @@ public class EmployeeController extends UiUtils {
 
 		model.addAttribute("user", user);
 
-		List<RsvtDTO> list = rsvtService.selectCustomerAll();
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
 		model.addAttribute("customer", list);
 
 		List<CompanyDTO> company = companyService.selectCompany();
