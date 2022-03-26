@@ -441,7 +441,8 @@ function getRsvtList(r, day) {
     }
 
     $('#all-title').html(
-        '운행정보&nbsp;<span class="badge bg-secondary">' + cntAll + '</span>'
+        '<span>운행정보&nbsp;</span><span class="badge bg-secondary">' + cntAll +
+        '</span>'
     );
     $('#normal-title').html(
         '일반&nbsp;<span class="badge bg-secondary">' + cntHome + '</span>'
@@ -633,3 +634,29 @@ function showDetailSch(id) {
         $(iidd).hide();
     }
 }
+
+$(document).on('click', '.deail-form-item', function () {
+
+    const check = $(this).text();
+
+    if (check.includes('내정보')) {
+
+        console.log("내정보");
+
+    } else if (check.includes('설정')) {
+
+        console.log("설정");
+
+    } else if (check.includes('관리자')) {
+
+        location.href = '/admin';
+
+    } else if (check.includes('로그아웃')) {
+
+        const ch = confirm("로그아웃하시겠습니까?\n\n저장하지않은 정보는 삭제됩니다.");
+        if (ch) {
+            location.href = '/logout';
+        }
+
+    };
+});

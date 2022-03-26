@@ -23,34 +23,25 @@ public class UserSaveRequestDto {
 
 	private String name;
 
-	private String phone;
-
 	private PowerRole power;
-
-	private String inserday;
-
-	private String outday;
 
 	private Integer color;
 
 	@Builder
-	public UserSaveRequestDto(String id, String pw, String company, String position, String name, String phone,
-			PowerRole power, String inserday, String outday, Integer color) {
+	public UserSaveRequestDto(String id, String pw, String company, String position, String name, PowerRole power,
+			Integer color) {
 		super();
 		this.id = id;
 		this.pw = pw;
 		this.company = company;
 		this.position = position;
 		this.name = name;
-		this.phone = phone;
 		this.power = power;
-		this.inserday = inserday;
-		this.outday = outday;
 		this.color = color;
 	}
 
 	public User toEntity() {
-		return User.builder().id(id).pw(pw).company(company).position(position).name(name).phone(phone).power(power)
-				.inserday(inserday).outday(outday).color(color).build();
+		return User.builder().id(id).pw(pw).company(company).position(position).name(name).power(power).color(color)
+				.build();
 	}
 }

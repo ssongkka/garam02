@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <body th:fragment="main-body">
+        <h1>승무원님 안녕하세용</h1>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const opt =/*[[${opt}]]*/
+            'default';
+            const optOperm1 = opt[0].operm1;
+            const optCard = opt[0].card;
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbCompa =/*[[${compa}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbVe =/*[[${ve}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbEmp =/*[[${emp}]]*/
+            'default';
+            /*]]>*/
+        </script>
+
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script src="/js/boot/bootstrap.js"></script>
+        <script src="/js/boot/bootstrap.bundle.js"></script>
+        <script src="/js/boot/all.js"></script>
+        <script src="/js/common/summernote-lite.js"></script>
+        <script src="/js/common/summernote-ko-KR.js"></script>
+        <script src="/js/common/common.js"></script>
+    </body>
+</html>

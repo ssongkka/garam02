@@ -261,6 +261,11 @@ ul {
     background: #F9F9F9;
 }
 
+#all-title span {
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+}
+
 @media (max-width:1024px) {
     .home-main {
         flex-direction: column;

@@ -3,7 +3,7 @@
     <body th:fragment="main-body">
         <header class="header">
             <div class="logo">
-                <img src="img/company/1.svg" alt="" class="dashImg">
+                <span class="detail-user-1" th:text="${user.company}"></span>
             </div>
             <div class="hd-search">
                 <div class="he-serach-group">
@@ -15,23 +15,26 @@
             </div>
             <div class="hd-user">
                 <div id="detail-user">
-                    <span class="detail-user-1" th:text="${user.company}"></span>
-                    <span class="detail-user-2" th:text="${user.color}"></span>
+                    <span class="detail-user-1">
+                        <i class="fa-solid fa-user-large"></i>
+                    </span>
                     <span class="detail-user-2" th:text="${user.position}"></span>
                     <span class="detail-user-3" th:text="${user.name}"></span></div>
                 <div class="fas fa-bars" id="menu-btn"></div>
             </div>
             <div class="deail-form card-song">
-                <div class="deail-form-item">
-                    <a class="fas fa-user-circle">
-                        나의 정보
-                    </a>
-                </div>
-                <div class="deail-form-item">123145124</div>
-                <div class="deail-form-item">123145124</div>
-                <div class="deail-form-item">123145124</div>
-                <div class="deail-form-item">123145124</div>
-                <div class="deail-form-item">123145124</div>
+                <a class="deail-form-item">
+                    <i class="fa-solid fa-user-pen"></i>
+                    &nbsp;내정보
+                </a>
+                <a class="deail-form-item">
+                    <i class="fa-solid fa-gear"></i>&nbsp;설정</a>
+                <a
+                    sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')"
+                    class="deail-form-item">
+                    <i class="fa-solid fa-chart-line"></i>&nbsp;관리자</a>
+                <a sec:authorize="isAuthenticated()" class="deail-form-item">
+                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp;로그아웃</a>
             </div>
         </header>
         <aside class="aside">

@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.garam.web.login.context.FormAuthenticationProvider;
 import com.garam.web.login.handler.TaskLogoutHandler;
+import com.garam.web.login.handler.TaskSuccessHandler;
 import com.garam.web.login.service.CustomUserDetailsService;
 
 import lombok.RequiredArgsConstructor;
@@ -42,12 +43,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/**").authenticated();
-
 		http.csrf().disable();
 
+		http.authorizeRequests().antMatchers("/").permitAll();
+
+		http.authorizeRequests().antMatchers("/").authenticated();
+
+		http.authorizeRequests().antMatchers("/customers/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/dashboard/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/allo/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/customer/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/home/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/rsvtmany/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/employee/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/emp/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/regular/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/reg/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/vehicle/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/ve/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/empAllo/**").hasAnyRole("EMP", "USER", "MANAGER", "ADMIN");
+
 		http.formLogin().loginPage("/").loginProcessingUrl("/login").usernameParameter("username")
-				.passwordParameter("password").defaultSuccessUrl("/dashboard").permitAll();
+				.passwordParameter("password").successHandler(new TaskSuccessHandler()).permitAll();
 
 		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.addLogoutHandler(new TaskLogoutHandler()).permitAll().logoutSuccessUrl("/");

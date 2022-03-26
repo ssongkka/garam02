@@ -51,3 +51,9 @@ function deleteCookie(cookieName) {
     expireDate.setDate(expireDate.getDate() - 1);
     document.cookie = cookieName + "= ; expires=" + expireDate.toGMTString();
 }
+
+function setHexCode() {
+
+
+    
+}

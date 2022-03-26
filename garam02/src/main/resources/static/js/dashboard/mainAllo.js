@@ -1551,7 +1551,7 @@ function getAlloList(day) {
                             htmls += '<input type="hidden" value="' + r[i].numm + '">';
                             htmls += '</div>';
                             htmls += '<hr>';
-                            htmls += '<div class="allo-allo form-group">';
+                            htmls += '<div class="allo-allo row">';
 
                             for (let k = 0; k < r[i].num; k++) {
                                 let tbi = 0;
@@ -2500,9 +2500,6 @@ function endAllo2() {
     alert("급여 내역 임시저장 또는 마감된 배차가 존재하는 운행예약은\n\n수정 할 수 없습니다.");
 }
 
-$(document).on('click', '#regallo-tab', function () {
-    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
-    // window.screenLeft; var yPos = 10;
-
+$(document).on('click', '.regallo-tab', function () {
     window.open('/regular/regularAllo', '정기운행배차');
 });

@@ -51,8 +51,8 @@ public class EmployeeController extends UiUtils {
 		List<RsvtDTO> list = rsvtService.selectCustomerAll();
 		model.addAttribute("customer", list);
 
-		List<CompanyDTO> compa = companyService.selectCompany();
-		model.addAttribute("compa", compa);
+		List<CompanyDTO> company = companyService.selectCompany();
+		model.addAttribute("company", company);
 
 		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
 		model.addAttribute("emp", emp);
@@ -80,7 +80,7 @@ public class EmployeeController extends UiUtils {
 		Resource resource = new InputStreamResource(new FileInputStream(file));
 
 		HttpHeaders headers = new HttpHeaders();
-		String fileName = "급여명세서_" + ve + "_" + LocalDate.now().toString().replaceAll("-", "") + ".PDF";
+		String fileName = date.split("-")[0] + date.split("-")[1] + "_급여명세서_" + name + "_" + ve + ".PDF";
 		String fileNameOrg = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(fileNameOrg).build());

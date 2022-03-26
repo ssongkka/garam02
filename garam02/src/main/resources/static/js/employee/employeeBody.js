@@ -925,6 +925,9 @@ function insertEmp(tp) {
             "trash": trash,
             "img": inimg
         };
+
+        console.log(params);
+
         $.ajax({
             url: url,
             type: "POST",

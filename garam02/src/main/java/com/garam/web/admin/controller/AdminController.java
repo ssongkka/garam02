@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/admin")
-public class SignupController {
+public class AdminController {
 
 	private final UserService userService;
 
@@ -28,13 +28,13 @@ public class SignupController {
 
 	@GetMapping("/signup")
 	public String signup(@AuthenticationPrincipal User user, Model model) {
-
 		return "admin/signup";
 	}
 
 	@PostMapping("/signup")
 	public String signup(UserSaveRequestDto userSaveDto) {
 		userService.save(userSaveDto);
+
 		return "redirect:/admin";
 	}
 }

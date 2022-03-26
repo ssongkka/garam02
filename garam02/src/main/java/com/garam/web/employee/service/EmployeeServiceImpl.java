@@ -438,30 +438,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		for (int i = 0; i < empsalary_Out.size(); i++) {
 			if (empsalary_Out.get(i).getContents().equals("국민연금")) {
-				out0.put(0, "국민연금");
-				out00.put(0, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
-				out1.put(0, "국민연금");
-				out11.put(0, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				outCnt0 = outCnt0 + empsalary_Out.get(i).getMoney();
 			}
 			if (empsalary_Out.get(i).getContents().equals("건강보험")) {
-				out0.put(1, "건강보험");
-				out00.put(1, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
-				out1.put(1, "건강보험");
-				out11.put(1, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				outCnt0 = outCnt0 + empsalary_Out.get(i).getMoney();
 			}
 			if (empsalary_Out.get(i).getContents().equals("고용보험")) {
-				out0.put(2, "고용보험");
-				out00.put(2, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
-				out1.put(2, "고용보험");
-				out11.put(2, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				outCnt0 = outCnt0 + empsalary_Out.get(i).getMoney();
 			}
 			if (empsalary_Out.get(i).getContents().equals("산재보험")) {
-				out0.put(3, "산재보험");
-				out00.put(3, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
-				out1.put(3, "산재보험");
-				out11.put(3, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				outCnt0 = outCnt0 + empsalary_Out.get(i).getMoney();
 			}
 		}
+
+		out0.put(0, "4대보험");
+		out00.put(0, Utils.coma_Money_Int(outCnt0));
+		out1.put(0, "4대보험");
+		out11.put(0, Utils.coma_Money_Int(outCnt0));
 
 		int outCnt1 = 0;
 		int cntO = 0;
@@ -470,79 +463,76 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 				switch (empsalary_Out.get(i).getContents()) {
 				case "국민연금":
-					break;
 				case "건강보험":
-					break;
 				case "고용보험":
-					break;
 				case "산재보험":
 					break;
 				default:
 					if (empsalary_Out.get(i).getDate() != null) {
-						out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+						out0.put(1 + cntO, empsalary_Out.get(i).getContents() + "("
 								+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
 					} else {
-						out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+						out0.put(1 + cntO, empsalary_Out.get(i).getContents());
 					}
-					out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+					out00.put(1 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
 					outCnt1 = outCnt1 + empsalary_Out.get(i).getMoney();
 					break;
 				}
 			}
 		}
 
-		out1.put(4, "기타보험료");
-		out11.put(4, Utils.coma_Money_Int(outCnt1));
+		out1.put(1, "기타보험료");
+		out11.put(1, Utils.coma_Money_Int(outCnt1));
 
 		int outCnt2 = 0;
 		for (int i = 0; i < empsalary_Out.size(); i++) {
 			if (empsalary_Out.get(i).getSeparation().equals("세금")) {
 				if (empsalary_Out.get(i).getDate() != null) {
-					out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+					out0.put(1 + cntO, empsalary_Out.get(i).getContents() + "("
 							+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
 				} else {
-					out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+					out0.put(1 + cntO, empsalary_Out.get(i).getContents());
 				}
-				out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				out00.put(1 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
 				outCnt2 = outCnt2 + empsalary_Out.get(i).getMoney();
 			}
 		}
 
-		out1.put(5, "세금");
-		out11.put(5, Utils.coma_Money_Int(outCnt2));
+		out1.put(2, "세금");
+		out11.put(2, Utils.coma_Money_Int(outCnt2));
 
 		int outCnt3 = 0;
 		for (int i = 0; i < empsalary_Out.size(); i++) {
 			if (empsalary_Out.get(i).getSeparation().equals("운행")) {
 				if (empsalary_Out.get(i).getDate() != null) {
-					out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+					out0.put(1 + cntO, empsalary_Out.get(i).getContents() + "("
 							+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
 				} else {
-					out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+					out0.put(1 + cntO, empsalary_Out.get(i).getContents());
 				}
-				out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				out00.put(1 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
 				outCnt3 = outCnt3 + empsalary_Out.get(i).getMoney();
 			}
 		}
 
-		out1.put(6, "운행");
-		out11.put(6, Utils.coma_Money_Int(outCnt3));
+		out1.put(3, "운행");
+		out11.put(3, Utils.coma_Money_Int(outCnt3));
 
 		int outCnt4 = 0;
 		for (int i = 0; i < empsalary_Out.size(); i++) {
 			if (empsalary_Out.get(i).getSeparation().equals("기타")) {
 				if (empsalary_Out.get(i).getDate() != null) {
-					out0.put(4 + cntO, empsalary_Out.get(i).getContents() + "("
+					out0.put(1 + cntO, empsalary_Out.get(i).getContents() + "("
 							+ empsalary_Out.get(i).getDate().split("-")[2] + "일)");
 				} else {
-					out0.put(4 + cntO, empsalary_Out.get(i).getContents());
+					out0.put(1 + cntO, empsalary_Out.get(i).getContents());
 				}
-				out00.put(4 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
+				out00.put(1 + cntO++, Utils.coma_Money_Int(empsalary_Out.get(i).getMoney()));
 				outCnt4 = outCnt4 + empsalary_Out.get(i).getMoney();
 			}
 		}
-		out1.put(7, "기타");
-		out11.put(7, Utils.coma_Money_Int(outCnt4));
+		out1.put(4, "기타");
+		out11.put(4, Utils.coma_Money_Int(outCnt4));
 
 		HashMap<Integer, String> in0 = new HashMap<Integer, String>();
 		HashMap<Integer, String> in00 = new HashMap<Integer, String>();
@@ -615,8 +605,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 		}
 
-		int sizeIn = 9 - in0.size();
-		int sizeOut = 9 - out0.size();
+		int sizeIn = 8 - in0.size();
+		int sizeOut = 8 - out0.size();
 
 		int sizeIn00 = in0.size();
 		for (int i = 0; i < sizeIn; i++) {
@@ -630,8 +620,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			out00.put(sizeO00 + i, " ");
 		}
 
-		int sizeIn1 = 9 - in1.size();
-		int sizeOut1 = 9 - out1.size();
+		int sizeIn1 = 8 - in1.size();
+		int sizeOut1 = 8 - out1.size();
 
 		int sizeIn11 = in1.size();
 		for (int i = 0; i < sizeIn1; i++) {
@@ -668,10 +658,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 			document.setMargins(15, 15, 40, 15);
 
 			Font font = pdfU.getMalgunBold(16f);
-			Font font1 = pdfU.getMalgun(6.7f);
+			Font font1 = pdfU.getMalgun(8f);
 
-			Font fontB = pdfU.getMalgunBold(8f);
-			Font fontM = pdfU.getMalgun(8f);
+			Font fontB = pdfU.getMalgunBold(9f);
+			Font fontM = pdfU.getMalgun(9f);
 
 			PdfPTable table_Head = new PdfPTable(new float[] { 9f, 1f });
 			table_Head.setWidthPercentage(100);
@@ -779,8 +769,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			PdfPCell[] cell_cont2 = new PdfPCell[4];
 
-			if (in0.size() < 10 || out0.size() < 10) {
-				for (int i = 0; i < 9; i++) {
+			if (in0.size() < 9 || out0.size() < 9) {
+				for (int i = 0; i < 8; i++) {
 					cell_cont2[0] = new PdfPCell(new Paragraph(in0.get(i), fontM));
 					cell_cont2[1] = new PdfPCell(new Paragraph(in00.get(i), fontM));
 					cell_cont2[2] = new PdfPCell(new Paragraph(out0.get(i), fontM));
@@ -801,7 +791,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 				}
 
 			} else {
-				for (int i = 0; i < 9; i++) {
+				for (int i = 0; i < 8; i++) {
 					cell_cont2[0] = new PdfPCell(new Paragraph(in1.get(i), fontM));
 					cell_cont2[1] = new PdfPCell(new Paragraph(in11.get(i), fontM));
 					cell_cont2[2] = new PdfPCell(new Paragraph(out1.get(i), fontM));
@@ -861,7 +851,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			PdfPCell[] cell_foot = new PdfPCell[3];
 
-			fontB = pdfU.getMalgunBold(10f);
+			fontB = pdfU.getMalgunBold(9f);
 
 			cell_foot[0] = new PdfPCell(new Paragraph("지  급  액", fontB));
 			cell_foot[0].setBackgroundColor(new BaseColor(217, 217, 217));
@@ -889,12 +879,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 			document.open();
 
 			document.add(table_Head);
-			document.add(pdfU.getBlank(10f));
+			document.add(pdfU.getBlank(5f));
 
 			table.setHeaderRows(1);
 			document.add(table);
 
-			document.add(pdfU.getBlank(10f));
+			document.add(pdfU.getBlank(5f));
 
 			document.add(table_head2);
 			document.add(table_cont2);

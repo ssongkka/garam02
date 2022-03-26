@@ -59,14 +59,16 @@
 .header .logo {
     width: 30rem;
     height: 100%;
-    background: var(--sub-color);
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-.header .logo img {
-    width: 15rem;
+    font-family: "Bae";
+    color: var(--sub-color);
+}
+.header .logo span {
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
 }
 
 .header .hd-search {
@@ -126,7 +128,6 @@
 }
 
 .header .hd-user {
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -137,10 +138,6 @@
     color: var(--sub-color);
 }
 
-.header .hd-user div:hover {
-    color: red;
-}
-
 #menu-btn {
     display: none;
 }
@@ -148,21 +145,19 @@
 .header .deail-form {
     position: absolute;
     top: 115%;
-    right: 5rem;
+    right: 3rem;
     width: 20rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     align-items: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-
     transform: scaleY(0);
     transform-origin: top;
+    transition: 0.1s linear;
 }
 
 .header .deail-form.active {
     transform: scaleY(1);
+    transition: 0.1s linear;
 }
 
 .header .deail-form label:hover {
@@ -171,7 +166,8 @@
 .deail-form-item {
     width: 100%;
     padding: 1rem;
-    text-align: center;
+    text-align: left;
+    padding: 1rem 0 1rem 7rem;
     color: var(--color-datk);
 }
 .deail-form-item a {
@@ -184,10 +180,6 @@
 }
 .deail-form-item:hover a {
     color: white;
-}
-
-.deail-form-item:nth-child(1) {
-    font-size: 16px;
 }
 
 .aside {
@@ -237,6 +229,10 @@
 }
 
 .ad-cal-items-4 blockquote {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
     font-size: 1.4rem;
 }
 
@@ -279,13 +275,24 @@ blockquote {
 
 #detail-user {
     display: flex;
+    align-items: center;
     gap: 1rem;
+    cursor: pointer;
 }
 
 .detail-user-1,
 .detail-user-2,
 .detail-user-3 {
     display: block;
+}
+
+.detail-user-1 svg {
+    background: var(--sub-color);
+    color: var(--main-color);
+
+    padding: 0.8rem;
+    border-radius: 100%;
+    font-size: 1.5rem;
 }
 
 @media (max-width:1024px) {
@@ -306,27 +313,19 @@ blockquote {
     }
 
     .header .logo {
-        width: 10rem;
+        width: 20rem;
     }
 
-    .detail-user-1 {
+    .detail-user-2 {
         display: none;
     }
 
     .header .hd-user {
-        width: 10rem;
+        width: 20rem;
     }
 }
 
 @media (max-width:768px) {
-
-    .header .logo {
-        width: 8rem;
-    }
-
-    .header .logo img {
-        width: 100%;
-    }
 
     .header .hd-icon {
         display: none;
@@ -392,11 +391,11 @@ blockquote {
     }
 
     .header .logo {
-        width: 8rem;
+        width: 0;
     }
 
-    .detail-user-1,
-    .detail-user-2 {
+    .detail-user-2,
+    .detail-user-3 {
         display: none;
     }
 

@@ -32,7 +32,6 @@ class Garam02ApplicationTests {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println();
 	}
 
 	@Test

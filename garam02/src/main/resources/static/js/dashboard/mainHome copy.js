@@ -265,7 +265,7 @@ function getRsvtList(r, day) {
     }
 
     $('#all-title').html(
-        '운행정보&nbsp;<span class="badge">' + cntAll + '</span>'
+        '<span>운행정보&nbsp;</span><span class="badge">' + cntAll + '</span>'
     );
     $('#normal-title').html(
         '일반&nbsp;<span class="badge">' + cntHome + '</span>'
