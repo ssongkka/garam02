@@ -166,8 +166,7 @@
 .deail-form-item {
     width: 100%;
     padding: 1rem;
-    text-align: left;
-    padding: 1rem 0 1rem 7rem;
+    text-align: center;
     color: var(--color-datk);
 }
 .deail-form-item a {
@@ -178,7 +177,8 @@
     color: white;
     cursor: pointer;
 }
-.deail-form-item:hover a {
+.deail-form-item:hover a,
+.deail-form-item:hover svg {
     color: white;
 }
 

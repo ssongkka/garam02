@@ -1,3 +1,20 @@
 .inCustomerBody {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#btnCusP {
+    width: 100%;
+    height: 2.5rem;
+    padding: 0;
+}
+#btnCusP svg,
+#customerInsertMo svg {
+    color: white;
+}
+
+#modalCustom {
+    margin-top: 7rem;
 }

@@ -31,7 +31,7 @@ function erRc() {
     $('#rg-tb-rc').html(`<tr><td colspan="5">정보 없음</td></tr>`);
 }
 
-$(document).on('keydown', 'input', function (eInner) {
+$(document).on('keyup', 'input', function (eInner) {
     if ($('#reg-search').is(":focus")) {
         var keyValue = eInner.which; //enter key
         if (keyValue == 27) {

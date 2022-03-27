@@ -12,7 +12,7 @@ public interface MainService {
 
 	public List<RsvtDTO> selectCustomerName(RsvtDTO rsvtDTO) throws Exception;
 
-	public int insertCtm(RsvtDTO rsvtDTO) throws Exception;
+	public List<RsvtDTO> insertCtm(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectCustomerOtherCompa() throws Exception;
 
@@ -33,6 +33,8 @@ public interface MainService {
 	public List<RsvtDTO> selectRSVT(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectCustomerCheck(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloRSVT(RsvtDTO rsvtDTO) throws Exception;
 

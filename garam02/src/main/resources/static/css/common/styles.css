@@ -67,6 +67,7 @@ th {
 
 svg {
     font-size: 1.5rem;
+    color: var(--main-color);
 }
 
 a,
@@ -285,6 +286,13 @@ span {
 
 .home-nav > li+li {
     margin-left: 0;
+}
+
+.home-nav svg {
+    background: var(--main-color);
+    color: var(--sub-color);
+    padding: 0.3rem;
+    border-radius: 3px;
 }
 
 .evNav {

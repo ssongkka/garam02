@@ -21,7 +21,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-function LoadingWithMask() {
+function LoadingWithMask(param) {
     return new Promise(function (resolve, reject) {
 
         //화면의 높이와 너비를 구합니다.
@@ -150,7 +150,7 @@ function LoadingWithMask() {
         //마스크 표시
         $('#mask').show();
         //로딩중 이미지 표시 $('#loadingImg').show();
-        resolve();
+        resolve(param);
     })
 }
 
@@ -545,6 +545,17 @@ function tbChoice(id) {
         .children('td')
         .css('color', 'white');
 }
+function tbChoiceThis(param) {
+    $('td').css('background', 'none');
+    $('td').css('color', 'black');
+
+    $(param)
+        .children('td')
+        .css('background', 'var(--main-color)');
+    $(param)
+        .children('td')
+        .css('color', 'white');
+}
 
 function tbChoiceSe(id) {
     $('#' + id)
@@ -621,4 +632,17 @@ function getStDEnD(params) {
     returnArr.push(endday);
 
     return returnArr;
+}
+
+function showPlusBtn() {
+    $('#cusPbtn').show();
+}
+function hidePlusBtn() {
+    $('#cusPbtn').hide();
+}
+function showPlusDetail() {
+    $('.cusP').show();
+}
+function hidePlusDetail() {
+    $('.cusP').hide();
 }

@@ -6,116 +6,16 @@ $(document).ready(function () {
     $('#user-plus').hide();
     $('#userPlus').attr('class', 'btnCustomerCh');
 
-    dateInput();
-});
+    showPlusBtn();
+    hidePlusDetail();
 
-$(document).on('click', '#userPlus', function () {
-    if ($('#user-plus').is(":visible")) {
-        $('#user-plus').hide();
-        $('#userPlus').attr('class', 'btnCustomerCh');
-        $('#userPlus').attr('title', '고객정보 지우기');
-    } else {
-        $('#user-plus').show();
-        $('#userPlus').attr('class', 'btnCustomerCh');
-        $('#userPlus').attr('title', '닫기');
-    }
+    dateInput();
 });
 
 function setStEdDay(day) {
     $('#stday').val(day);
     $('#endday').val(day);
 }
-
-$("#ctmname").change(function () {
-
-    var val = $('#ctmname').val();
-    var idNum = $('#name-cho option')
-        .filter(function () {
-            return this.value == val;
-        })
-        .data('value');
-
-    const url = "/customer/name";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-
-    const params = {
-        "ctmno": idNum
-    };
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-        success: function (r) {
-            if (r.length > 0) {
-                $('#ctmno').val('');
-                $('#radio0').prop('checked', true);
-                $('#ctmtel1').text('');
-                $('#ctmstp').text('');
-                $('#ctmdetail').text('');
-                $('#ctmtel2').text('');
-                $('#ctmfax').text('');
-                $('#ctmaddress').text('');
-                $('#ctmemail').text('');
-                $('#ctmcompanum').text('');
-                $('#ctmhomepage').text('');
-                $('#ctmhomepage').attr('href', '');
-
-                $('#ctmtrash').val(1);
-                $('#ctmno').val(r[0].ctmno);
-
-                if (r[0].ctmsepa === 0) {
-                    $('#radio0').prop('checked', true);
-                } else if (r[0].ctmsepa === 1) {
-                    $('#radio1').prop('checked', true);
-                } else if (r[0].ctmsepa === 2) {
-                    $('#radio2').prop('checked', true);
-                };
-
-                if (r[0].ctmtel1) {
-                    $('#ctmtel1').text(r[0].ctmtel1);
-                }
-                if (r[0].ctmstp) {
-                    $('#ctmstp').text(r[0].ctmstp);
-                    $('#rsvpstp').text($('#ctmstp').val());
-                }
-                if (r[0].ctmdetail) {
-                    $('#ctmdetail').text(r[0].ctmdetail);
-                }
-                if (r[0].ctmtel2) {
-                    $('#ctmtel2').text(r[0].ctmtel2);
-                }
-                if (r[0].ctmfax) {
-                    $('#ctmfax').text(r[0].ctmfax);
-                }
-                if (r[0].ctmaddress) {
-                    $('#ctmaddress').text(r[0].ctmaddress);
-                }
-                if (r[0].ctmemail) {
-                    $('#ctmemail').text(r[0].ctmemail);
-                }
-                if (r[0].ctmcompanum) {
-                    $('#ctmcompanum').text(r[0].ctmcompanum);
-                }
-                if (r[0].ctmhomepage) {
-                    $('#ctmhomepage').text(r[0].ctmhomepage);
-                    $('#ctmhomepage').attr('href', r[0].ctmhomepage);
-                }
-            } else {
-                alert("고객정보가 없습니다.\n\n고객정보를 입력해주세요.")
-                $("#ctmname").focus();
-            }
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
-    });
-});
 
 $(document).on('change', '#stday', function () {
     $("#endday").val($("#stday").val())
@@ -151,7 +51,6 @@ function dateInput() {
 $(document).on('click', '#eraser', function () {
 
     if (confirm('입력 내용을 지우시겠습니까?')) {
-        $('#ctmno').val('0');
 
         $('#ctmname').val('');
         $('#ctmtel1').text('');
@@ -198,51 +97,178 @@ $(document).on('click', '#ername', function () {
     ernm();
 });
 
-$(document).on('keydown', 'input', function (eInner) {
-    if ($('#ctmname').is(":focus")) {
-        var keyValue = eInner.which; //enter key
-        if (keyValue == 8 || keyValue == 27 || keyValue == 46) {
-            ernm();
+$(document).on('click', '#inNew', function () {
+    if ($('#ctmlseqqq').val() && $('#ctmlseqqq').val() != 'new') {
+        LoadingWithMask($('#ctmlseqqq').val())
+            .then(insertRsvt)
+            .then(closeLoadingWithMask);
+    } else if ($('#ctmlseqqq').val() == 'new') {
+        LoadingWithMask()
+            .then(insertCtm)
+            .then(insertRsvt)
+            .then(closeLoadingWithMask);
+        function insertCtm(result) {
+            return new Promise(function (resolve, reject) {
+                const sepa = $('input[name=ctmsepaIn]:checked').val();
+
+                const url = "/rsvt/insertctm";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                const params = {
+                    "ctmno": $('#ctmnoIn').val(),
+                    "ctmsepa": sepa,
+                    "ctmname": $('#ctmnameIn').val(),
+                    "ctmaddress": $('#ctmaddressIn').val(),
+                    "ctmtel1": $('#ctmtel1In').val(),
+                    "ctmtel2": $('#ctmtel2In').val(),
+                    "ctmemail": $('#ctmemailIn').val(),
+                    "ctmfax": $('#ctmfaxIn').val(),
+                    "ctmcompanum": $('#ctmcompanumIn').val(),
+                    "ctmhomepage": $('#ctmhomepageIn').val(),
+                    "ctmstp": $('#ctmstpIn').val(),
+                    "ctmdetail": $('#ctmdetailIn').val()
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        if (r[0].ctmtrash != -1) {
+                            resolve(r[0].ctmno);
+                        } else {
+                            alert("고객정보 저장 실패!\n\n시스템을 확인해주세요.")
+                            closeLoadingWithMask();
+                        }
+                    }
+                })
+            })
         }
+    } else {
+        alert("입력할 고객정보를 선택해주세요.");
     }
 });
-
-function ernm() {
-    $('#radio0').prop('checked', true);
-    $('#ctmno').val('0');
-    $('#ctmtrash').val(2);
-
-    $('#ctmname').val('');
-    $('#ctmtel1').text('');
-    $('#ctmstp').text('');
-    $('#ctmdetail').text('');
-    $('#ctmtel2').text('');
-    $('#ctmfax').text('');
-    $('#ctmaddress').text('');
-    $('#ctmhomepage').text('');
-    $('#ctmhomepage').attr('href', '');
-}
 
 $(document).on('click', '#insert-rsvt', function () {
+    LoadingWithMask()
+        .then(insertCtm)
+        .then(insertRsvt)
+        .then(closeLoadingWithMask);
+})
 
-    $('#conm').val($('#conm').val().replaceAll(',', ''));
-    switch ($('#cont').val()) {
-        case '포함':
-            $('#numm').val(Math.floor(($('#conm').val() / 1.1) / $('#num').val()));
-            break;
-        case '카드':
-            $('#numm').val(Math.floor(($('#conm').val() / optCard) / $('#num').val()));
-            break;
-        default:
-            $('#numm').val(Math.floor($('#conm').val() / $('#num').val()));
-            break;
-    }
-    if ($('#ctmname').val() && $('#ctmtel1').text()) {
-        formRsvt.submit();
-    } else {
-        alert("고객정보를 입력해주세요.\n\n고객이름과 연락처는 꼭 입력하셔야합니다.");
-    }
-});
+function insertRsvt(result) {
+    return new Promise(function (resolve, reject) {
+        $('#conm').val($('#conm').val().replaceAll(',', ''));
+        switch ($('#cont').val()) {
+            case '포함':
+                $('#numm').val(Math.floor(($('#conm').val() / 1.1) / $('#num').val()));
+                break;
+            case '카드':
+                $('#numm').val(Math.floor(($('#conm').val() / optCard) / $('#num').val()));
+                break;
+            default:
+                $('#numm').val(Math.floor($('#conm').val() / $('#num').val()));
+                break;
+        }
+        const url = "/rsvt/rsvtregister";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "ctmno": result,
+            "empin": $('#empin').val(),
+            "stday": $('#stday').val(),
+            "endday": $('#endday').val(),
+            "bus": $('#bus').val(),
+            "num": $('#num').val(),
+            "desty": $('#desty').val(),
+            "rsvpstp": $('#rsvpstp').val(),
+            "stt": $('#stt').val(),
+            "endt": $('#endt').val(),
+            "rsvtdetail": $('#rsvtdetail').val(),
+            "cont": $('#cont').val(),
+            "conm": $('#conm').val(),
+            "numm": $('#numm').val(),
+            "confirm": null
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+                if (r > 0) {
+                    alert("예약정보 저장");
+                } else if (r == -1) {
+                    alert("예약정보 저장 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == -2) {
+                    alert("예약정보 저장 실패!\n\n시스템을 확인해주세요.")
+                }
+                resolve();
+            }
+        })
+    })
+}
+
+function insertRsvt1(result) {
+    return new Promise(function (resolve, reject) {
+
+        const url = "/rsvt/rsvtregister";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "ctmno": result,
+            "empin": $('#empin').val(),
+            "stday": $('#stday').val(),
+            "endday": $('#endday').val(),
+            "bus": $('#bus').val(),
+            "num": $('#num').val(),
+            "desty": $('#desty').val(),
+            "rsvpstp": $('#rsvpstp').val(),
+            "stt": $('#stt').val(),
+            "endt": $('#endt').val(),
+            "rsvtdetail": $('#rsvtdetail').val(),
+            "cont": $('#cont').val(),
+            "conm": $('#conm').val(),
+            "numm": $('#numm').val(),
+            "confirm": null
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+                if (r > 0) {
+                    alert("예약정보 저장");
+                } else if (r == -1) {
+                    alert("예약정보 저장 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == -2) {
+                    alert("예약정보 저장 실패!\n\n시스템을 확인해주세요.")
+                }
+                resolve();
+            }
+        })
+    })
+}
+
 $(document).on('click', '#many-insert', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;

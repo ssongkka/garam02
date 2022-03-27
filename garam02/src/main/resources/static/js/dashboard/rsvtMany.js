@@ -571,7 +571,7 @@ $(document).on('click', '#ername', function () {
     ernm();
 });
 
-$(document).on('keydown', 'input', function (eInner) {
+$(document).on('keyup', 'input', function (eInner) {
     console.log($('#ctmname').is(":focus"));
     if ($('#ctmname').is(":focus")) {
         var keyValue = eInner.which; //enter key

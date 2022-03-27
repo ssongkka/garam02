@@ -169,7 +169,7 @@ $(document).on('click', '#ername', function () {
     ernm();
 });
 
-$(document).on('keydown', 'input', function (eInner) {
+$(document).on('keyup', 'input', function (eInner) {
     if ($('#ctmname').is(":focus")) {
         var keyValue = eInner.which; //enter key
         if (keyValue == 8 || keyValue == 27 || keyValue == 46) {

@@ -903,7 +903,7 @@ function insertRegularDe(result) {
     });
 }
 
-$(document).on('keydown', '.upclas', function (eInner) {
+$(document).on('keyup', '.upclas', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         updateRegularDe(this);
@@ -1391,7 +1391,7 @@ $(document).on('click', '[name = "chDow"]', function (eInner) {
     })
 })
 
-$(document).on('keydown', '#rdememoo', function (eInner) {
+$(document).on('keyup', '#rdememoo', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         const memo = $(this).val();
@@ -1429,7 +1429,7 @@ $(document).on('keydown', '#rdememoo', function (eInner) {
     }
 })
 
-$(document).on('keydown', '.upco', function (eInner) {
+$(document).on('keyup', '.upco', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         const aaa = $(this)
@@ -1441,7 +1441,7 @@ $(document).on('keydown', '.upco', function (eInner) {
     }
 });
 
-$(document).on('keydown', '.upcotm', function (eInner) {
+$(document).on('keyup', '.upcotm', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         const aaa = $(this)

@@ -35,7 +35,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int insertCtm(RsvtDTO rsvtDTO) throws Exception {
+	public List<RsvtDTO> insertCtm(RsvtDTO rsvtDTO) throws Exception {
 		if (rsvtDTO.getCtmaddress() == null || rsvtDTO.getCtmaddress().equals("")) {
 			rsvtDTO.setCtmaddress(null);
 		}
@@ -67,24 +67,29 @@ public class MainServiceImpl implements MainService {
 			rsvtDTO.setCtmno(get_Ctmno());
 		}
 
-		int rtn = rsvtMapper.insertCtm(rsvtDTO);
+		String ctmNo = get_Oper("C");
 
-		return rtn;
+		rsvtDTO.setCtmno(ctmNo);
+
+		List<RsvtDTO> list = new ArrayList<RsvtDTO>();
+
+		list.add(rsvtDTO);
+
+		int rtn = rsvtMapper.insertCtm(rsvtDTO);
+		if (rtn < 1) {
+			list.get(0).setCtmtrash(-1);
+		}
+
+		return list;
 	}
 
 	@Override
 	public int insertRsvt(RsvtDTO rsvtDTO) throws Exception {
-		System.out.println("미정은 어디냐21   " + rsvtDTO.getEndt());
 		if (rsvtDTO.getEndt().equals("")) {
-			System.out.println("미정은 어디냐22   " + rsvtDTO.getEndt());
 			rsvtDTO.setEndt(null);
-			System.out.println("미정은 어디냐23   " + rsvtDTO.getEndt());
 		}
-		System.out.println("미정은 어디냐24   " + rsvtDTO.getEndt());
 		rsvtDTO.setRsvt(get_Rsvt(rsvtDTO.getStday().toString()));
-		System.out.println("미정은 어디냐25   " + rsvtDTO.getEndt());
 		int rtn = rsvtMapper.insertRsvt(rsvtDTO);
-		System.out.println("미정은 어디냐26   " + rsvtDTO.getEndt());
 
 		return rtn;
 	}
@@ -174,7 +179,7 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public List<RsvtDTO> insertOper(List<Map<String, Object>> map) throws Exception {
-		String opernum = get_Oper();
+		String opernum = get_Oper("O");
 		int cnt = 0;
 		int cnt1 = 0;
 		for (int i = 0; i < map.size(); i++) {
@@ -232,8 +237,8 @@ public class MainServiceImpl implements MainService {
 		return list;
 	}
 
-	private String get_Oper() {
-		String oper = "O-"
+	private String get_Oper(String code) {
+		String oper = code + "-"
 				+ LocalDateTime.now().toString().substring(2, 22).replace("-", "").replace(":", "").replace(".", "-");
 
 		return oper;
@@ -310,6 +315,55 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<RegularOperDTO> selectRegCoo(RegularOperDTO regularOperDTO) throws Exception {
 		List<RegularOperDTO> list = rsvtMapper.selectRegCoo(regularOperDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectCustomerCheck(RsvtDTO rsvtDTO) throws Exception {
+		RsvtDTO tmpRsvt = rsvtDTO;
+		String tmpTel1 = tmpRsvt.getCtmtel1();
+		String tmpTel = "";
+
+		if (rsvtDTO.getCtmtel1().length() > 4) {
+			if (rsvtDTO.getCtmtel1().substring(rsvtDTO.getCtmtel1().length() - 4).length() == 4) {
+				tmpTel = rsvtDTO.getCtmtel1().substring(rsvtDTO.getCtmtel1().length() - 4);
+				tmpRsvt.setCtmtel1(tmpTel);
+			} else {
+				tmpRsvt.setCtmtel1("9999999999");
+			}
+		} else if (rsvtDTO.getCtmtel1().length() == 4) {
+			tmpTel = rsvtDTO.getCtmtel1();
+			tmpRsvt.setCtmtel1(tmpTel);
+		} else {
+			tmpRsvt.setCtmtel1("9999999999");
+		}
+
+		List<RsvtDTO> list = rsvtMapper.selectCustomerCheck(tmpRsvt);
+		int rtn = 0;
+		if (list.size() > 0) {
+			if (list.size() < 2 && rsvtDTO.getCtmname().equals(list.get(0).getCtmname())) {
+				rtn = rsvtMapper.updateCtm(list.get(0));
+
+				if (rtn < 1) {
+					list.get(0).setCtmtrash(-1);
+				}
+			} else {
+				list.get(0).setCtmtrash(100);
+			}
+		} else {
+			rsvtDTO.setCtmno(get_Oper("C"));
+			list.clear();
+			list.add(tmpRsvt);
+			list.get(0).setCtmno(get_Oper("C"));
+			list.get(0).setCtmtel1(tmpTel1);
+			System.out.println("list" + list);
+			rtn = rsvtMapper.insertCtm(rsvtDTO);
+
+			if (rtn < 1) {
+				list.get(0).setCtmtrash(-1);
+			}
+		}
 
 		return list;
 	}

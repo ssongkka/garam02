@@ -63,22 +63,6 @@ public class DashboardController extends UiUtils {
 		return "dashboard/dashBoard";
 	}
 
-	@PostMapping(value = "/rsvtregister")
-	public String rsvt_Insert(@ModelAttribute("params") final RsvtDTO rsvtDTO, Model model) throws Exception {
-		try {
-			int a = rsvtService.insertRsvt(rsvtDTO);
-			if (a < 1) {
-				return ShowMgsRdrt("저장 실패", "/rsvt", Method.GET, model);
-			}
-		} catch (DataAccessException e) {
-			return ShowMgsRdrt("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/dashboard", Method.GET, model);
-
-		} catch (Exception e) {
-			return ShowMgsRdrt("시스템에 문제가 발생하였습니다", "/dashboard", Method.GET, model);
-		}
-
-		return ShowMgsRdrt("운행예약 완료", "/dashboard", Method.GET, model);
-	}
 
 	@PostMapping(value = "/rsvtmanyregister")
 	public String rsvt_Many_Insert() {

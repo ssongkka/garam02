@@ -36,7 +36,7 @@ function checkAllo(iidd) {
     }
 }
 
-$(document).on('keydown', '.ve-car', function (eInner) {
+$(document).on('keyup', '.ve-car', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         var val = $(this).val();
@@ -151,7 +151,7 @@ $(document).on('keydown', '.ve-car', function (eInner) {
             .val('');
     }
 });
-$(document).on('keydown', '.ve-car-one', function (eInner) {
+$(document).on('keyup', '.ve-car-one', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         var val = $(this).val();
@@ -301,7 +301,7 @@ $(document).on('keydown', '.ve-emp', function (eInner) {
     }
 });
 
-$(document).on('keydown', '.ve-emp-one', function (eInner) {
+$(document).on('keyup', '.ve-emp-one', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         var val = $(this).val();
@@ -352,7 +352,7 @@ $(document).on('keydown', '.ve-m', function (eInner) {
     }
 });
 
-$(document).on('keydown', '.ve-m-one', function (eInner) {
+$(document).on('keyup', '.ve-m-one', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         const iidd = '#' + $(this).attr('id');
@@ -1048,7 +1048,7 @@ function plusOneWay(num) {
 
         $('#md-one-bd').append(htmls);
 
-        $("input[data-type='currency']").bind('keyup keydown', function () {
+        $("input[data-type='currency']").bind('keyup keyup', function () {
             inputNumberFormat(this);
         });
     } else {
@@ -1850,7 +1850,7 @@ function getAlloList(day) {
     }
 
     function keydown_Arr() {
-        $('input').on('keydown', function (eInner) {
+        $('input').on('keyup', function (eInner) {
             var keyValue = eInner.which; //enter key
             if (keyValue == 37 || keyValue == 39 || keyValue == 27 || keyValue == 8) {
                 var tabindex = $(this).attr('tabindex');

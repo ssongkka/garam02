@@ -611,7 +611,7 @@ $(document).on('change', '#mCh-All', function () {
     }
 });
 
-$(document).on('keydown', '.input-M', function (eInner) {
+$(document).on('keyup', '.input-M', function (eInner) {
     const tabi = $(this).attr('tabindex');
     const getYM = $('#yearmonthsMoney2').val();
     const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
@@ -1567,7 +1567,7 @@ $(document).on('click', '#offAlloInBtn', function () {
     }
 });
 
-$(document).on('keydown', '.regmoney', function (eInner) {
+$(document).on('keyup', '.regmoney', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         const moneyy = ($(this).val()).replaceAll(',', '');

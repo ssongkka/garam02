@@ -730,7 +730,7 @@ function getVeInfo(carNumber) {
     }
 }
 
-$(document).on('keydown', 'input', function (eInner) {
+$(document).on('keyup', 'input', function (eInner) {
     if ($('#ve-search').is(":focus")) {
         var keyValue = eInner.which; //enter key
         if (keyValue == 27) {

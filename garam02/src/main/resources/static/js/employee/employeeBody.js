@@ -629,7 +629,7 @@ $(document).on('click', '#btn-x', function () {
     $('#emp-search').val('');
 });
 
-$(document).on('keydown', 'input', function (eInner) {
+$(document).on('keyup', 'input', function (eInner) {
     if ($('#emp-search').is(":focus")) {
         var keyValue = eInner.which; //enter key
         if (keyValue == 27) {

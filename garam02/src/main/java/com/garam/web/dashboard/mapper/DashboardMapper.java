@@ -33,11 +33,15 @@ public interface DashboardMapper {
 
 	public int delRsvt(RsvtDTO rsvtDTO) throws Exception;
 
+	public int updateCtm(RsvtDTO rsvtDTO) throws Exception;
+
 	public int delAllo(HashMap<String, Object> map) throws Exception;
 
 	public List<RsvtDTO> selectRSVT(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectCustomerCheck(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloRSVT(RsvtDTO rsvtDTO) throws Exception;
 

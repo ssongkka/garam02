@@ -60,6 +60,24 @@
 
 	</select>
 
+	<select id="selectCustomerCheck"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		*
+
+		FROM customer
+
+		WHERE
+
+		ctmtel1 Like
+		CONCAT('%',#{ctmtel1},'%')
+
+	</select>
+
+
+
 	<select id="selectCustomerOtherCompa"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
@@ -309,6 +327,59 @@
 			opertype =
 			#{value.opertype}
 		</foreach>
+	</update>
+
+	<update id="updateCtm"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		UPDATE
+
+		customer
+
+		SET
+
+		<if test="ctmaddress != null and ctmaddress != '' ">
+			ctmaddress =
+			#{ctmaddress},
+		</if>
+		<if test="ctmtel1 != null and ctmtel1 != '' ">
+			ctmtel1 =
+			#{ctmtel1},
+		</if>
+		<if test="ctmtel2 != null and ctmtel2 != '' ">
+			ctmtel2 =
+			#{ctmtel2},
+		</if>
+		<if test="ctmemail != null and ctmemail != '' ">
+			ctmemail =
+			#{ctmemail},
+		</if>
+		<if test="ctmfax != null and ctmfax != '' ">
+			ctmfax =
+			#{ctmfax},
+		</if>
+		<if test="ctmcompanum != null and ctmcompanum != '' ">
+			ctmcompanum =
+			#{ctmcompanum},
+		</if>
+		<if test="ctmhomepage != null and ctmhomepage != '' ">
+			ctmhomepage =
+			#{ctmhomepage},
+		</if>
+		<if test="ctmstp != null and ctmstp != '' ">
+			ctmstp =
+			#{ctmstp},
+		</if>
+		<if test="ctmdetail != null and ctmdetail != '' ">
+			ctmdetail =
+			#{ctmdetail},
+		</if>
+		ctmtrash = 1
+
+		WHERE
+
+		ctmseq =
+		#{ctmseq};
 	</update>
 
 	<delete id="delRsvt"
