@@ -374,7 +374,6 @@
 		#{regperson},
 		#{regphone},
 		#{regcontract},
-		#{regnum},
 		#{regmoney},
 		#{regmemo},
 		1
@@ -600,6 +599,51 @@
 			)
 		</foreach>
 	</insert>
+
+	<update id="updateRegular"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		UPDATE
+
+		regular
+
+		SET
+
+		<if test="regstartd != null">regstartd = #{regstartd},</if>
+		<if test="regcompany != null">regcompany = #{regcompany},</if>
+		<if test="regaddress != null">regaddress = #{regaddress},</if>
+		<if test="regperson != null">regperson = #{regperson},</if>
+		<if test="regphone != null">regphone = #{regphone},</if>
+		<if test="regcontract != null">regcontract = #{regcontract},</if>
+		<if test="regmoney != null">regmoney = #{regmoney},</if>
+		<if test="regmemo != null">regmemo = #{regmemo},</if>
+		regendd = #{regendd},
+		regtrash = #{regtrash}
+
+		WHERE
+
+		conum = #{conum}
+
+	</update>
+
+	<update id="upDelRegular"
+		parameterType="com.garam.web.regular.dto.RegularDTO">
+
+		UPDATE
+
+		regular
+
+		SET
+
+		regtrash = #{regtrash}
+
+		WHERE
+
+		conum =
+		#{conum}
+
+	</update>
+
 
 	<update id="updateRegulardetail"
 		parameterType="com.garam.web.regular.dto.RegularDTO">

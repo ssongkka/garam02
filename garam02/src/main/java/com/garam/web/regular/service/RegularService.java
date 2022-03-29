@@ -1,10 +1,8 @@
 package com.garam.web.regular.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.regular.dto.RegularDTO;
 import com.garam.web.regular.dto.RegularcourseDTO;
 import com.garam.web.regular.dto.RegulardetailDTO;
@@ -23,6 +21,10 @@ public interface RegularService {
 	public int insertRegular(RegularDTO regularDTO) throws Exception;
 
 	public int insertRegulardetail(RegularDTO regularDTO) throws Exception;
+
+	public int updateRegular(RegularDTO regularDTO) throws Exception;
+
+	public int upDelRegular(RegularDTO regularDTO) throws Exception;
 
 	public int updateRegulardetail(RegularDTO regularDTO) throws Exception;
 

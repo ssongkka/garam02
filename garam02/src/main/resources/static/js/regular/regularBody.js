@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    getRegularAll();
+    LoadingWithMask()
+        .then(getRegularAll)
+        .then(closeLoadingWithMask);
 });
 
 $(document).on('click', '#show-aside', function () {
@@ -109,13 +111,6 @@ function getRegularAll(name) {
                             }
                             htmls1 += '</td>';
                             htmls1 += '<td>';
-                            if (r[i].regnum) {
-                                htmls1 += r[i].regnum;
-                            } else {
-                                htmls1 += '';
-                            }
-                            htmls1 += '대</td>';
-                            htmls1 += '<td>';
                             if (r[i].regperson) {
                                 htmls1 += r[i].regperson;
                             } else {
@@ -124,22 +119,22 @@ function getRegularAll(name) {
                             htmls1 += '</td>';
                             htmls1 += '</tr>'
                             break;
-                        case 2:
+                        case 0:
                             cnt2++;
                             htmls2 += '<tr id="' + r[i].conum + '" onclick="getRegularInfo(this.id)" style="cursor:po' +
                                     'inter">';
                             htmls2 += '<td>';
                             if (r[i].regcompany) {
-                                htmls1 += r[i].regcompany;
+                                htmls2 += r[i].regcompany;
                             } else {
-                                htmls1 += '';
+                                htmls2 += '';
                             }
                             htmls2 += '</td>';
                             htmls2 += '<td>';
                             if (r[i].regendd) {
-                                htmls1 += r[i].regendd;
+                                htmls2 += r[i].regendd;
                             } else {
-                                htmls1 += '';
+                                htmls2 += '';
                             }
                             htmls2 += '</td>';
                             htmls2 += '</tr>'
@@ -158,6 +153,7 @@ function getRegularAll(name) {
                 $('#rg-tb-com-end').html(htmls2);
                 $('#bggo').text(cnt1);
                 $('#bgend').text(cnt2);
+                resolve();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
@@ -185,6 +181,8 @@ function getRegular(result) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
+                $('#ctmnoReal').val(r[0].ctmno);
+
                 $('#rgcompa').html(r[0].regcompany);
                 $('#rgadd').text(r[0].regaddress);
                 $('#rgper').text(r[0].regstartd + ' ~ ' + r[0].regendd);
@@ -192,6 +190,19 @@ function getRegular(result) {
                 $('#rgtel').text(r[0].regphone);
                 $('#rgtel').attr('href', 'tel:' + r[0].regphone);
                 $('#rgcon').text(r[0].regcontract);
+
+                if (r[0].regmoney) {
+                    $('#rgmoney').text(r[0].regmoney);
+                } else {
+                    $('#rgmoney').html('&nbsp;');
+                }
+
+                if (r[0].regmemo) {
+                    $('#rgmemo').text(r[0].regmemo);
+                } else {
+                    $('#rgmemo').html('&nbsp;');
+                }
+
                 resolve();
             }
         })

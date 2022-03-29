@@ -44,6 +44,10 @@
     margin: 0;
 }
 
+#emp-reg-money-tb tr {
+    cursor: Auto;
+}
+
 .moneyInsertEmp {
     min-height: calc(100vh - 6rem);
     display: flex;

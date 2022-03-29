@@ -1,5 +1,3 @@
-var myModalRegModal = new bootstrap.Modal(document.getElementById('regModal'));
-
 $(document).ready(function () {
     getRegularInfo();
 });
@@ -692,8 +690,7 @@ function getRecou(iidd) {
     }
     function modalSS(result) {
         return new Promise(function (resolve, reject) {
-            // $('#regModal').modal({backdrop: 'static', keyboard: false});
-            myModalRegModal.show();
+            $('#regModal').modal('show');
             resolve();
         })
     }

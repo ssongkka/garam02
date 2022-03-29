@@ -1,17 +1,6 @@
 const good = '1px solid #ccc';
 const bad = '2px solid rgba(255, 0, 0, 0.5)';
 
-var myModalInsert = new bootstrap.Modal(
-    document.getElementById('modal-insert')
-);
-
-var myModalFile = new bootstrap.Modal(document.getElementById('modal-file'));
-
-var myModalReg = new bootstrap.Modal(document.getElementById('modal-reg'));
-var myModalInsu = new bootstrap.Modal(document.getElementById('modal-insu'));
-
-var myModalJuk = new bootstrap.Modal(document.getElementById('modal-juk'));
-
 $(document).ready(function () {
     LoadingWithMask()
         .then(getVeAll)
@@ -747,8 +736,7 @@ $(document).on('click', '#btn-x', function () {
 
 $(document).on('click', '#md-Ch', function () {
     if ($('#ve00').val()) {
-        // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
-        myModalInsert.show()
+        $('#modal-insert').modal('show');
         $('#modal-insert-mh').text('차량 정보 수정');
         setVeCh();
     } else {
@@ -758,20 +746,18 @@ $(document).on('click', '#md-Ch', function () {
 
 $(document).on('click', '#md-New', function () {
     // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
-    myModalInsert.show()
+    $('#modal-insert').modal('show');
     $('#modal-insert-mh').text('차량 정보 신규 입력');
     setEmpClr();
 });
 
 $(document).on('click', '#md-File', function () {
-    // $('#modal-file').modal({backdrop: 'static', keyboard: false});
-    myModalFile.show()
+    $('#modal-file').modal('show');
     $('#modal-file-mh').text('차량명세서 생성');
 });
 
 $(document).on('click', '#md-Juk', function () {
-    // $('#modal-juk').modal({backdrop: 'static', keyboard: false});
-    myModalJuk.show();
+    $('#modal-juk').modal('show');
     $('#juk-frame').attr('src', veFolder + 'choice.pdf');
     $('#juk-selector').val('');
     $('#modal-juk-mh').text('교통안전정보 통보서 입력');
@@ -1269,7 +1255,7 @@ $(document).on('click', '#btn-excel-d', function () {
     );
     $('#down-form').attr('action', '/vehicle/excelDown');
     $('#down-form').submit();
-    myModalFile.hide();
+    $('#modal-file').modal('hide');
     // $('#modal-file').modal('hide');
 });
 
@@ -1280,12 +1266,11 @@ $(document).on('click', '#btn-pdf-d', function () {
     );
     $('#down-form').attr('action', '/vehicle/pdfDown');
     $('#down-form').submit();
-    myModalFile.hide();
+    $('#modal-file').modal('hide');
 });
 
 $(document).on('click', '#btn-reg', function () {
-    // $('#modal-reg').modal({backdrop: 'static', keyboard: false});
-    myModalReg.show();
+    $('#modal-reg').modal('show');
     $('#modal-reg-mh').text(
         '  ' + $('#ve02').children().text() + ' 자동차등록증 조회 및 입력'
     );
@@ -1293,8 +1278,7 @@ $(document).on('click', '#btn-reg', function () {
 });
 
 $(document).on('click', '#btn-insu', function () {
-    // $('#modal-insu').modal({backdrop: 'static', keyboard: false});
-    myModalInsu.show();
+    $('#modal-insu').modal('show');
     $('#modal-insu-mh').text(
         '  ' + $('#ve02').children().text() + ' 보험가입증명서 조회 및 입력'
     );

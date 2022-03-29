@@ -8,13 +8,6 @@ $(document).ready(function () {
         .then(closeLoadingWithMask);
 });
 
-var myModalRegAlloMd = new bootstrap.Modal(
-    document.getElementById('regAlloMd')
-);
-var myModalRegAllAlloMd = new bootstrap.Modal(
-    document.getElementById('regAllAlloMd')
-);
-
 function nowMinth() {
     return new Promise(function (resolve, reject) {
         const nownownow = toStringByFormatting(new Date());
@@ -315,71 +308,75 @@ function getRegularAll() {
                 let htmls = '';
                 if (r.length > 0) {
                     for (let i = 0; i < r.length; i++) {
-                        let act = 'class="nav-link"';
 
-                        let edddddd = '';
+                        if (r[i].regtrash > 0) {
 
-                        if (r[i].regendd) {
-                            edddddd = r[i].regendd;
-                        }
+                            let act = 'class="nav-link"';
 
-                        const thisDD = toStringByFormatting(new Date($("#yearMonth").val()));
-                        const stDD = r[i].regstartd;
-                        const edDD = edddddd;
+                            let edddddd = '';
 
-                        const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1]);
-                        const edDDDDnum = parseInt(edDD.split('-')[0] + edDD.split('-')[1]);
-                        const thisDDDDDnum = parseInt(thisDD.split('-')[0] + thisDD.split('-')[1]);
-
-                        if (edddddd) {
-                            if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
-                                htmls += `<li class="nav-item regAll" role="presentation">
-                                <input type="hidden" value="` +
-                                        r[i].conum +
-                                        `">
-                                <input type="hidden" value="` + r[i].regstartd +
-                                        `">
-                                <input type="hidden" value="` +
-                                        edddddd +
-                                        `">
-                                <input type="hidden" value="` + r[i].regaddress +
-                                        `">
-                                <button
-                                    ` +
-                                        act +
-                                        `
-                                    data-bs-toggle="pill"
-                                    type="button"
-                                    role="tab"
-                                    aria-selected="true">` +
-                                        r[i].regcompany +
-                                        `</button>
-                            </li>`;
+                            if (r[i].regendd) {
+                                edddddd = r[i].regendd;
                             }
-                        } else {
-                            if (stDDDnum <= thisDDDDDnum) {
-                                htmls += `<li class="nav-item regAll" role="presentation">
+
+                            const thisDD = toStringByFormatting(new Date($("#yearMonth").val()));
+                            const stDD = r[i].regstartd;
+                            const edDD = edddddd;
+
+                            const stDDDnum = parseInt(stDD.split('-')[0] + stDD.split('-')[1]);
+                            const edDDDDnum = parseInt(edDD.split('-')[0] + edDD.split('-')[1]);
+                            const thisDDDDDnum = parseInt(thisDD.split('-')[0] + thisDD.split('-')[1]);
+
+                            if (edddddd) {
+                                if (stDDDnum <= thisDDDDDnum && thisDDDDDnum <= edDDDDnum) {
+                                    htmls += `<li class="nav-item regAll" role="presentation">
                                 <input type="hidden" value="` +
-                                        r[i].conum +
-                                        `">
+                                            r[i].conum +
+                                            `">
                                 <input type="hidden" value="` + r[i].regstartd +
-                                        `">
+                                            `">
                                 <input type="hidden" value="` +
-                                        edddddd +
-                                        `">
+                                            edddddd +
+                                            `">
                                 <input type="hidden" value="` + r[i].regaddress +
-                                        `">
+                                            `">
                                 <button
                                     ` +
-                                        act +
-                                        `
+                                            act +
+                                            `
                                     data-bs-toggle="pill"
                                     type="button"
                                     role="tab"
                                     aria-selected="true">` +
-                                        r[i].regcompany +
-                                        `</button>
+                                            r[i].regcompany +
+                                            `</button>
                             </li>`;
+                                }
+                            } else {
+                                if (stDDDnum <= thisDDDDDnum) {
+                                    htmls += `<li class="nav-item regAll" role="presentation">
+                                <input type="hidden" value="` +
+                                            r[i].conum +
+                                            `">
+                                <input type="hidden" value="` + r[i].regstartd +
+                                            `">
+                                <input type="hidden" value="` +
+                                            edddddd +
+                                            `">
+                                <input type="hidden" value="` + r[i].regaddress +
+                                            `">
+                                <button
+                                    ` +
+                                            act +
+                                            `
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-selected="true">` +
+                                            r[i].regcompany +
+                                            `</button>
+                            </li>`;
+                                }
                             }
                         }
                     }
@@ -898,6 +895,8 @@ function showAlloChModal(param) {
         const conumnum = $(eee).val();
         const dowwww = $(ggg).val();
 
+        console.log("idid   " + idid);
+
         const chReal1 = $(ch1).val();
         const chReal2 = $(ch2).val();
 
@@ -907,18 +906,24 @@ function showAlloChModal(param) {
         for (let j = 0; j < dbVe.length; j++) {
             if (veve == dbVe[j].carNumber) {
                 veE = dbVe[j].carNumber;
-            } else {
-                if (veve == dbothercompa[i].ctmname) {
-                    veE = dbothercompa[i].ctmname;
+            }
+        }
+        if (veE.length < 1) {
+            for (let j = 0; j < dbothercompa.length; j++) {
+                if (veve == dbothercompa[j].ctmname) {
+                    veE = dbothercompa[j].ctmname;
                 }
             }
         }
         for (let j = 0; j < dbEmp.length; j++) {
             if (idid == dbEmp[j].id) {
                 idE = dbEmp[j].id;
-            } else {
-                if (idid == dbothercompa[i].ctmname) {
-                    idE = dbothercompa[i].ctmname;
+            }
+        }
+        if (idE.length < 1) {
+            for (let j = 0; j < dbothercompa.length; j++) {
+                if (idid == dbothercompa[j].ctmname) {
+                    idE = dbothercompa[j].ctmname;
                 }
             }
         }
@@ -1053,7 +1058,7 @@ function showAlloChModal(param) {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-    myModalRegAllAlloMd.show();
+    $('#regAllAlloMd').modal('show');
 }
 
 $(document).on('click', '#btnAllAllo', function () {
@@ -1172,7 +1177,8 @@ $(document).on('click', '#btnMdAll', function () {
             return;
         }
 
-        if ($(ttmp2).val() && $(ttmp22).val() && $(ttmp222).val() && $(ttmp2222).val() && $(ttmp22222).val()) {
+        console.log("$(ttmp2).is" + $(ttmp2).is(":disabled"));
+        if ($(ttmp2).val() && $(ttmp22).val() && $(ttmp222).val() && $(ttmp2222).val() && $(ttmp22222).val() && !$(ttmp2).is(":disabled")) {
             arrVe.push($(ttmp2).val());
             arrId.push($(ttmp22).val());
             arrCompa.push($(ttmp222).val());
@@ -1315,17 +1321,13 @@ $(document).on('click', '#btnMdAll', function () {
         success: function (r) {
             if (r > 0) {
                 alert(r + "건의 운행정보가 저장되었습니다.");
-                myModalRegAllAlloMd.hide();
-                afterinsert();
             } else if (r === -1) {
                 alert("데이터베이스에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                myModalRegAllAlloMd.hide();
-                afterinsert();
             } else if (r === -2) {
                 alert("시스템에 문제가 생겼습니다.\n시스템 확인 후 다시 시도해주세요.");
-                myModalRegAllAlloMd.hide();
-                afterinsert();
             }
+            $('#regAllAlloMd').modal('hide');
+            afterinsert();
         }
     })
 });
@@ -1682,6 +1684,19 @@ function getAllo(param) {
                                 $(bb33).val(r[i].regopercom);
                                 $(bb66).val(r[i].operregseq);
 
+                                console.log("r[i].opertrash   " + r[i].regopertrash);
+                                if (r[i].regopertrash < 1) {
+                                    $(bb11).attr("disabled", true);
+                                    $(bb22).attr("disabled", true);
+
+                                    const qqq = $(bb11).parent();
+                                    const qqq1 = $(qqq).parent();
+
+                                    $(qqq1).attr('data-bs-toggle', 'tooltip');
+                                    $(qqq1).attr('data-bs-placement', 'top');
+                                    $(qqq1).attr('title', '마감된 배차는 수정 할 수 없습니다.');
+                                }
+
                                 for (let j = 0; j < dbCompa.length; j++) {
                                     let ggg = '';
 
@@ -1690,7 +1705,6 @@ function getAllo(param) {
                                             ggg = dbVe[j2].vehicle;
                                         }
                                     }
-                                    console.log("ggg   " + ggg);
 
                                     if (dbCompa[j].company == r[i].regopercom) {
                                         $(bb11).css('border-color', '#96ceb4');
@@ -1715,7 +1729,13 @@ function getAllo(param) {
                             }
                         }
                     }
-                    myModalRegAlloMd.show();
+                    var tooltipTriggerList = []
+                        .slice
+                        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                    })
+                    $('#regAlloMd').modal('show');
                     resolve();
                 },
                 error: (jqXHR) => {
@@ -1777,6 +1797,10 @@ function insertRegAlloDe(result) {
             const bb6 = $(bb).children()[6];
             const bb66 = $(bb6).children();
 
+            console.log("gjweiwdjfjk   " + !$(bb11).is(":disabled"));
+            console.log(
+                "asdfffwfwww   " + !$(bb11).val() && !$(bb22).val() && !$(bb33).val() && !$(bb11).is(":disabled")
+            );
             if ($(bb66).val()) {
                 if (!$(bb11).val() && !$(bb22).val() && !$(bb33).val()) {
                     const asd = {
@@ -1784,16 +1808,18 @@ function insertRegAlloDe(result) {
                     };
                     paramsDel.push(asd);
                 } else {
-                    const asd = {
-                        "regopernum": numnumsss,
-                        "operregseq": $(bb66).val(),
-                        "regoperno": $(bb55).val(),
-                        "regopercom": $(bb33).val(),
-                        "regopercar": $(bb11).val(),
-                        "regoperid": $(bb22).val(),
-                        "regorcar": $(bbb7).val()
-                    };
-                    paramsUp.push(asd);
+                    if (!$(bb11).is(":disabled")) {
+                        const asd = {
+                            "regopernum": numnumsss,
+                            "operregseq": $(bb66).val(),
+                            "regoperno": $(bb55).val(),
+                            "regopercom": $(bb33).val(),
+                            "regopercar": $(bb11).val(),
+                            "regoperid": $(bb22).val(),
+                            "regorcar": $(bbb7).val()
+                        };
+                        paramsUp.push(asd);
+                    }
                 }
             } else {
                 if ($(bb11).val() && $(bb22).val() && $(bb33).val()) {
@@ -1952,7 +1978,7 @@ function insertRegAlloDe(result) {
             return new Promise(function (resolve, reject) {
                 alert(result);
                 afterinsert();
-                myModalRegAlloMd.hide();
+                $('#regAlloMd').modal('hide');
                 resolve();
             })
         }

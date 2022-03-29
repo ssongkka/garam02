@@ -1,6 +1,4 @@
 $(document).ready(function () {});
-var modalone = new bootstrap.Modal(document.getElementById('modal-one'));
-var modalrsvt = new bootstrap.Modal(document.getElementById('modal-rsvt'));
 
 $(document).on('keydown', 'input', function (eInner) {
     var keyValue = eInner.which; //enter key
@@ -789,7 +787,7 @@ function mdOneWay(val) {
         success: function (r) {
 
             if (r.length > 0) {
-                modalone.show();
+                $('#modal-one').modal('show');
                 const rsvt = $(iidd)
                     .parent()
                     .parent()
@@ -1001,7 +999,7 @@ $(document).on('click', '#btn-one-plus', function () {
 });
 
 $(document).on('click', '#btn-one-plus-close', function () {
-    modalone.hide();
+    $('#modal-one').modal('hide');
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
 });
 
@@ -1500,11 +1498,19 @@ function getAlloList(day) {
                                     '">';
                             htmls += '<div class="allo-detail">';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<blockquote>';
-                            htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
-                                    '><i class="fas fa-map-marker-alt">&nbsp;&nbsp;</i>' + r[i].desty + '<em style=' +
-                                    '"letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
-                            htmls += '</blockquote>';
+                            if (r[i].ctmno == '0') {
+                                htmls += '<blockquote>';
+                                htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                                        '><i class="fas fa-map-marker-alt">&nbsp;&nbsp;</i>' + r[i].desty + '(고객정보입력 후 ' +
+                                        '배차 가능)<em style="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                                htmls += '</blockquote>';
+                            } else {
+                                htmls += '<blockquote>';
+                                htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                                        '><i class="fas fa-map-marker-alt">&nbsp;&nbsp;</i>' + r[i].desty + '<em style=' +
+                                        '"letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                                htmls += '</blockquote>';
+                            }
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
                             htmls += '<small><mark><i class="fas fa-bus">&nbsp;</i>' + r[i].bus + '</mark>&nbsp;&nbs' +
@@ -1531,7 +1537,7 @@ function getAlloList(day) {
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
 
-                            htmls += '<small>&#8361;' + AddComma(r[i].conm) + '(' + (
+                            htmls += '<small><i class="fa-solid fa-won-sign"></i>' + AddComma(r[i].conm) + '(' + (
                                 AddComma(r[i].numm)
                             ) + ')</small> ';
                             htmls += '<small>' + r[i].cont + '</small> ';
@@ -1592,31 +1598,72 @@ function getAlloList(day) {
                                     ) + '" data-bs-toggle="tooltip" data-bs-placement="left" title="숙박 운행은 편도 운행이 가' +
                                             '능하지 않습니다."><i class="fas fa-ban"></i></button>';
                                 } else {
-                                    htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
-                                        cnt - 1
-                                    ) + '"><i class="far fa-list-alt"></i></button>';
+                                    if (r[i].ctmno == '0') {
+                                        htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
+                                            cnt - 1
+                                        ) + '" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" tit' +
+                                                'le="고객정보입력 후 배차해주세요."><i class="far fa-list-alt"></i></button>';
+                                    } else {
+                                        htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
+                                            cnt - 1
+                                        ) + '"><i class="far fa-list-alt"></i></button>';
+                                    }
                                 }
 
-                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
-                                        'ist="car-info" tabindex="' + (
-                                    tbi
-                                ) + '" placeholder="' + (
-                                    k + 1
-                                ) + '호차" id="' + cnt +
-                                        'car" style="font-weight: 600; letter-spacing: 0.3rem;">';
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                            'ist="car-info" tabindex="' + (
+                                        tbi
+                                    ) + '" placeholder="' + (
+                                        k + 1
+                                    ) + '호차" id="' + cnt + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" ' +
+                                            'disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="고객' +
+                                            '정보입력 후 배차해주세요.">';
+                                } else {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                            'ist="car-info" tabindex="' + (
+                                        tbi
+                                    ) + '" placeholder="' + (
+                                        k + 1
+                                    ) + '호차" id="' + cnt +
+                                            'car" style="font-weight: 600; letter-spacing: 0.3rem;">';
+                                }
                                 htmls += '<input type="hidden" id="" value="0">';
                                 htmls += '<input type="hidden" id="" value="0">';
-                                htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
-                                        '"per-info" tabindex="-1" placeholder="승무원">';
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
+                                            '"per-info" tabindex="-1" placeholder="승무원" disabled="disabled" data-bs-toggle=' +
+                                            '"tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요.">';
+                                } else {
+                                    htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
+                                            '"per-info" tabindex="-1" placeholder="승무원">';
+                                }
                                 htmls += '<input type="hidden" id="" value="0">';
-                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
-                                        '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-                                    tbii
-                                ) + '" placeholder="배차금액">';
-                                htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
-                                    cnt - 1
-                                ) + '" style="background: transparent; color:gray;"><i class="fas fa-times"></i' +
-                                        '></button>';
+
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                            '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                        tbii
+                                    ) + '" placeholder="배차금액" disabled="disabled" data-bs-toggle="tooltip" data-bs-' +
+                                            'placement="top" title="고객정보입력 후 배차해주세요.">';
+                                } else {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                            '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                        tbii
+                                    ) + '" placeholder="배차금액">';
+                                }
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
+                                        cnt - 1
+                                    ) + '" style="background: transparent; color:gray;"  disabled="disabled" data-b' +
+                                            's-toggle="tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="' +
+                                            'fas fa-times"></i></button>';
+                                } else {
+                                    htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
+                                        cnt - 1
+                                    ) + '" style="background: transparent; color:gray;"><i class="fas fa-times"></i' +
+                                            '></button>';
+                                }
                                 htmls += '</div>';
                                 htmls += '</div>';
                             }
@@ -1631,6 +1678,12 @@ function getAlloList(day) {
                         }
                         for (let j = 0; j < ctmseqHtml.length; j++) {
                             $('#rv' + result[j]).html(ctmseqHtml[j]);
+                            var tooltipTriggerList = []
+                                .slice
+                                .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                                return new bootstrap.Tooltip(tooltipTriggerEl)
+                            })
                             $("input[data-type='currency']").bind('keyup keydown', function () {
                                 inputNumberFormat(this);
                             });
@@ -2280,101 +2333,333 @@ function delOne(param) {
 }
 
 function getRsvt(id) {
-    const iidd = '#' + id;
-    const rsvt = $(iidd)
-        .parent()
-        .parent()
-        .prev()
-        .val();
-
-    $('#md-rsvtNum').val(rsvt);
-
-    const url = "/allo/chRSVT";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-    const params = {
-        "rsvt": rsvt
-    };
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-        success: function (r) {
-            $('#stday-1').val(r[0].stday);
-            $('#endday-1').val(r[0].endday);
-            $('#bus-1').val(r[0].bus);
-            $('#num-1').val(r[0].num);
-            $('#stt-1').val(r[0].stt);
-            $('#endt-1').val(r[0].endt);
-            $('#rsvpstp-1').val(r[0].rsvpstp);
-            $('#desty-1').val(r[0].desty);
-            $('#rsvtdetail-1').val(r[0].rsvtdetail);
-            $('#cont-1').val(r[0].cont);
-            $('#conm-1').val(AddComma(r[0].conm));
-            $('#numm-1').val(r[0].numm);
-            chDateInput();
-        }
+    $(document).on('show.bs.modal', '#modal-rsvt', function () {
+        LoadingWithMask()
+            .then(getRsvtDe)
+            .then(getCustDe)
+            .then(closeLoadingWithMask);
     });
-    modalrsvt.show();
+
+    function getRsvtDe(result) {
+        return new Promise(function (resolve, reject) {
+            const iidd = '#' + id;
+            const rsvt = $(iidd)
+                .parent()
+                .parent()
+                .prev()
+                .val();
+
+            $('#md-rsvtNum').val(rsvt);
+
+            const url = "/allo/chRSVT";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+            const params = {
+                "rsvt": rsvt
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r.length > 0) {
+
+                        $('#stday-1').val(r[0].stday);
+                        $('#endday-1').val(r[0].endday);
+                        $('#bus-1').val(r[0].bus);
+                        $('#num-1').val(r[0].num);
+                        $('#stt-1').val(r[0].stt);
+                        $('#endt-1').val(r[0].endt);
+                        $('#rsvpstp-1').val(r[0].rsvpstp);
+                        $('#desty-1').val(r[0].desty);
+                        $('#rsvtdetail-1').val(r[0].rsvtdetail);
+                        $('#cont-1').val(r[0].cont);
+                        $('#conm-1').val(AddComma(r[0].conm));
+                        $('#numm-1').val(r[0].numm);
+                    } else {
+                        $('#stday-1').val('');
+                        $('#endday-1').val('');
+                        $('#bus-1').val('');
+                        $('#num-1').val('');
+                        $('#stt-1').val('');
+                        $('#endt-1').val('');
+                        $('#rsvpstp-1').val('');
+                        $('#desty-1').val('');
+                        $('#rsvtdetail-1').val('');
+                        $('#cont-1').val('');
+                        $('#conm-1').val('');
+                        $('#numm-1').val('');
+                    }
+                    chDateInput();
+                    resolve(r[0].ctmno);
+                }
+            });
+        })
+    }
+
+    function getCustDe(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/customer/name";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "ctmno": result
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r.length > 0) {
+                        $('#ctmnameUp').val('')
+                        $('#ctmlseqqqUp').val('')
+                        $('#ctmnoUp').val('');
+                        $('#inCustSepaUp1').prop('checked', true);
+                        $('#ctmtel1Up').val('');
+                        $('#ctmstpUp').val('');
+                        $('#ctmdetailUp').val('');
+                        $('#ctmtel2Up').val('');
+                        $('#ctmfaxUp').val('');
+                        $('#ctmaddressUp').val('');
+                        $('#ctmemailUp').val('');
+                        $('#ctmcompanumUp').val('');
+                        $('#ctmhomepageUp').val('');
+
+                        $('#ctmnoIn').val(r[0].ctmno);
+
+                        if (r[0].ctmsepa === 0) {
+                            $('#inCustSepaUp1').prop('checked', true);
+                        } else if (r[0].ctmsepa === 1) {
+                            $('#inCustSepaUp2').prop('checked', true);
+                        } else if (r[0].ctmsepa === 2) {
+                            $('#inCustSepaUp3').prop('checked', true);
+                        };
+
+                        if (r[0].ctmname) {
+                            $('#ctmnameUp').val(r[0].ctmname);
+                        }
+                        if (r[0].ctmtel1) {
+                            $('#ctmtel1Up').val(r[0].ctmtel1);
+                        }
+                        if (r[0].ctmstp) {
+                            $('#ctmstpUp').val(r[0].ctmstp);
+                            $('#rsvpstp-1').val($('#ctmstpUp').val());
+                        }
+                        if (r[0].ctmdetail) {
+                            $('#ctmdetailUp').val(r[0].ctmdetail);
+                        }
+                        if (r[0].ctmtel2) {
+                            $('#ctmtel2Up').val(r[0].ctmtel2);
+                        }
+                        if (r[0].ctmfax) {
+                            $('#ctmfaxUp').val(r[0].ctmfax);
+                        }
+                        if (r[0].ctmaddress) {
+                            $('#ctmaddressUp').val(r[0].ctmaddress);
+                        }
+                        if (r[0].ctmemail) {
+                            $('#ctmemailUp').val(r[0].ctmemail);
+                        }
+                        if (r[0].ctmcompanum) {
+                            $('#ctmcompanumUp').val(r[0].ctmcompanum);
+                        }
+                        if (r[0].ctmhomepage) {
+                            $('#ctmhomepageUp').val(r[0].ctmhomepage);
+                        }
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            });
+        })
+    }
+
+    $('#modal-rsvt').modal('show');
 }
 
-$(document).on('click', '#btn-rsvt-insert', function () {
+function updateRsvt(result) {
+    return new Promise(function (resolve, reject) {
 
-    $('#conm-1').val($('#conm-1').val().replaceAll(',', ''));
-    switch ($('#conm-1').val()) {
-        case '포함':
-            $('#numm-1').val(Math.floor(($('#conm-1').val() / 1.1) / $('#num-1').val()));
-            break;
-        case '카드':
-            $('#numm-1').val(
-                Math.floor(($('#conm-1').val() / optCard) / $('#num-1').val())
-            );
-            break;
-        default:
-            $('#numm-1').val(Math.floor($('#conm-1').val() / $('#num-1').val()));
-            break;
-    }
-
-    let rtn = '';
-
-    if (!$('#stday-1').val()) {
-        rtn += '출발일'
-    }
-    if (!$('#endday-1').val()) {
-        if (rtn) {
-            rtn += ', 도착일'
-        } else {
-            rtn += '도착일'
+        $('#conm-1').val($('#conm-1').val().replaceAll(',', ''));
+        switch ($('#conm-1').val()) {
+            case '포함':
+                $('#numm-1').val(Math.floor(($('#conm-1').val() / 1.1) / $('#num-1').val()));
+                break;
+            case '카드':
+                $('#numm-1').val(
+                    Math.floor(($('#conm-1').val() / optCard) / $('#num-1').val())
+                );
+                break;
+            default:
+                $('#numm-1').val(Math.floor($('#conm-1').val() / $('#num-1').val()));
+                break;
         }
-    }
 
-    if (rtn) {
-        alert(rtn + '을 입력해주세요.');
+        let rtn = '';
+
+        if (!$('#stday-1').val()) {
+            rtn += '출발일'
+        }
+        if (!$('#endday-1').val()) {
+            if (rtn) {
+                rtn += ', 도착일'
+            } else {
+                rtn += '도착일'
+            }
+        }
+
+        if (rtn) {
+            alert(rtn + '을 입력해주세요.');
+        } else {
+            const url = "/allo/updateRsvt";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "ctmno": result,
+                "stday": $('#stday-1').val(),
+                "endday": $('#endday-1').val(),
+                "bus": $('#bus-1').val(),
+                "num": $('#num-1').val(),
+                "stt": $('#stt-1').val(),
+                "endt": $('#endt-1').val(),
+                "rsvpstp": $('#rsvpstp-1').val(),
+                "desty": $('#desty-1').val(),
+                "rsvtdetail": $('#rsvtdetail-1').val(),
+                "cont": $('#cont-1').val(),
+                "conm": $('#conm-1').val(),
+                "numm": $('#numm-1').val(),
+                "rsvt": $('#md-rsvtNum').val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    if (r > 0) {
+                        alert("운행정보가 수정되었습니다.\n\n배차정보를 다시 입력해주세요.");
+                    } else if (r == -1) {
+                        alert("운행정보 수정 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    } else if (r == -2) {
+                        alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
+                    }
+                    $('#modal-rsvt').modal('hide');
+                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            });
+        }
+    })
+}
+
+$(document).on('click', '#inNewUp', function () {
+    $('#modalCustomUp').modal('hide');
+    if ($('#ctmlseqqqUp').val() && $('#ctmlseqqqUp').val() != 'new') {
+        LoadingWithMask($('#ctmlseqqqUp').val())
+            .then(updateRsvt)
+            .then(closeLoadingWithMask);
+    } else if ($('#ctmlseqqqUp').val() == 'new') {
+        LoadingWithMask()
+            .then(insertUpCtm)
+            .then(updateRsvt)
+            .then(closeLoadingWithMask);
+        function insertUpCtm(result) {
+            return new Promise(function (resolve, reject) {
+                const sepa = $('input[name=ctmsepaUp]:checked').val();
+
+                const url = "/rsvt/insertctm";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                const params = {
+                    "ctmno": $('#ctmnoUp').val(),
+                    "ctmsepa": sepa,
+                    "ctmname": $('#ctmnameUp').val(),
+                    "ctmaddress": $('#ctmaddressUp').val(),
+                    "ctmtel1": $('#ctmtel1Up').val(),
+                    "ctmtel2": $('#ctmtel2Up').val(),
+                    "ctmemail": $('#ctmemailUp').val(),
+                    "ctmfax": $('#ctmfaxUp').val(),
+                    "ctmcompanum": $('#ctmcompanumUp').val(),
+                    "ctmhomepage": $('#ctmhomepageUp').val(),
+                    "ctmstp": $('#ctmstpUp').val(),
+                    "ctmdetail": $('#ctmdetailUp').val()
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        if (r[0].ctmtrash != -1) {
+                            resolve(r[0].ctmno);
+                        } else {
+                            alert("고객정보 저장 실패!\n\n시스템을 확인해주세요.")
+                            setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                            closeLoadingWithMask();
+                        }
+                    }
+                })
+            })
+        }
     } else {
-        const url = "/allo/updateRsvt";
+        alert("입력할 고객정보를 선택해주세요.");
+    }
+});
+
+$(document).on('click', '#btn-rsvt-insert', function () {
+    if ($('#ctmnameUp').val() && $('#ctmtel1Up').val()) {
+        if (confirm("예약정보를 수정하시겠습니까?\n\n수정한 예약정보의 배차는 모두 취소됩니다. 다시 배차해 주세요.")) {
+            $('#modal-rsvt').modal('hide');
+            LoadingWithMask()
+                .then(updateCtm)
+                .then(updateRsvt)
+                .then(closeLoadingWithMask);
+        }
+    } else {
+        alert("고객정보(이름, 연락처)를 입력해주세요.");
+        $('#ctmnameUp').focus();
+    }
+});
+
+$(document).on('click', '#btn-rsvt-close', function () {
+    $('#modal-rsvt').modal('hide');
+    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+});
+
+$(document).on('click', '#btn-rsvt-cancle', function () {
+    if (confirm("예약정보를 취소하시겠습니까?\n\n취소된 예약정보로 저장됩니다.")) {
+        const url = "/allo/cancleRsvt";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
 
         const params = {
-            "stday": $('#stday-1').val(),
-            "endday": $('#endday-1').val(),
-            "bus": $('#bus-1').val(),
-            "num": $('#num-1').val(),
-            "stt": $('#stt-1').val(),
-            "endt": $('#endt-1').val(),
-            "rsvpstp": $('#rsvpstp-1').val(),
-            "desty": $('#desty-1').val(),
-            "rsvtdetail": $('#rsvtdetail-1').val(),
-            "cont": $('#cont-1').val(),
-            "conm": $('#conm-1').val(),
-            "numm": $('#numm-1').val(),
             "rsvt": $('#md-rsvtNum').val()
         };
         $.ajax({
@@ -2385,16 +2670,14 @@ $(document).on('click', '#btn-rsvt-insert', function () {
             data: JSON.stringify(params),
             success: function (r) {
                 if (r > 0) {
-                    alert("운행정보가 수정되었습니다.\n\n배차정보를 다시 입력해주세요.");
-                    modalrsvt.hide();
-                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
-                } else if (r == 0) {
-                    alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
+                    alert("예약정보 및 해당 예약의 배차가 취소되었습니다.");
                 } else if (r == -1) {
-                    alert("운행정보 수정 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    alert("예약정보가 취소 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
                 } else if (r == -2) {
-                    alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
+                    alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
                 }
+                $('#modal-rsvt').modal('hide');
+                setCalWhite($('.dash-cal-con-item-t').attr('id'));
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
@@ -2402,79 +2685,39 @@ $(document).on('click', '#btn-rsvt-insert', function () {
         });
     }
 });
-
-$(document).on('click', '#btn-rsvt-close', function () {
-    modalrsvt.hide();
-    setCalWhite($('.dash-cal-con-item-t').attr('id'));
-});
-
-$(document).on('click', '#btn-rsvt-cancle', function () {
-    const url = "/allo/cancleRsvt";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-
-    const params = {
-        "rsvt": $('#md-rsvtNum').val()
-    };
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-        success: function (r) {
-            if (r > 0) {
-                alert("예약정보 및 해당 예약의 배차가 취소되었습니다.");
-                modalrsvt.hide();
-                setCalWhite($('.dash-cal-con-item-t').attr('id'));
-            } else if (r == 0) {
-                alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
-            } else if (r == -1) {
-                alert("예약정보가 취소 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-            } else if (r == -2) {
-                alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
-            }
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
-    });
-});
 $(document).on('click', '#btn-rsvt-del', function () {
-    const url = "/allo/delRsvt";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
+    if (confirm("예약정보를 완전삭제하시겠습니까?\n\n확인버튼을 누루면 완전히 삭제됩니다.")) {
+        const url = "/allo/delRsvt";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
 
-    const params = {
-        "rsvt": $('#md-rsvtNum').val()
-    };
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-        success: function (r) {
-            if (r > 0) {
-                alert("예약정보 및 해당 예약의 배차가 삭제되었습니다.");
-                modalrsvt.hide();
+        const params = {
+            "rsvt": $('#md-rsvtNum').val()
+        };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r > 0) {
+                    alert("예약정보 및 해당 예약의 배차가 삭제되었습니다.");
+                } else if (r == -1) {
+                    alert("예약정보가 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                } else if (r == -2) {
+                    alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
+                }
+                $('#modal-rsvt').modal('hide');
                 setCalWhite($('.dash-cal-con-item-t').attr('id'));
-            } else if (r == 0) {
-                alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
-            } else if (r == -1) {
-                alert("예약정보가 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-            } else if (r == -2) {
-                alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
-    });
+        });
+    }
 });
 
 $(document).on('change', '#stday-1', function () {

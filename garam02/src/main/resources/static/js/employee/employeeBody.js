@@ -645,9 +645,7 @@ $('#imgSelector').change(function () {
 
 $(document).on('click', '#md-Ch', function () {
     if ($('#emp00').val()) {
-        // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
-        var myModal = new bootstrap.Modal(document.getElementById('modal-insert'));
-        myModal.show();
+        $('#modal-insert').modal('show');
         $('#staticBackdropLabel').text('  승무원 정보 수정');
         setEmpCh();
     } else {
@@ -656,8 +654,7 @@ $(document).on('click', '#md-Ch', function () {
 });
 $(document).on('click', '#md-New', function () {
     setEmpClr();
-    var myModal = new bootstrap.Modal(document.getElementById('modal-insert'));
-    myModal.show();
+    $('#modal-insert').modal('show');
     $('#staticBackdropLabel').text('  신규 승무원 정보 입력');
     // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
 });

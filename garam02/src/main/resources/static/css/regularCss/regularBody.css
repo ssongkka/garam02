@@ -25,6 +25,13 @@
     min-height: 100%;
 }
 
+.nosunTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .main-aside-item {}
 
 #md-rgCh {
@@ -137,7 +144,7 @@
 
 .constents11 {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr;
     row-gap: 0.5rem;
 }
 .constents11 blockquote {}
@@ -197,13 +204,29 @@ h4 {
 }
 
 .modal-rgbody {
-    padding: 3rem 8rem;
+    padding: 3rem 5rem;
 }
 
 .modal-rgbody h5 {
     margin: 0;
     padding-left: 1rem;
 }
+
+.modal-footBtn {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.modal-footBtn button {
+    width: 12rem;
+}
+
+.modal-footBtn-item:nth-child(1) {
+    flex: 1;
+}
+.modal-footBtn-item:nth-child(2) {}
+.modal-footBtn-item:nth-child(3) {}
 
 #formregin {
     display: flex;

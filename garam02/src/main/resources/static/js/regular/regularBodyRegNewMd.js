@@ -1,213 +1,226 @@
-var myModalRginsert = new bootstrap.Modal(document.getElementById('modal-rginsert'))
-
 $(document).on('click', '#md-rgNew', function () {
-    myModalRginsert.show();
-    $('#user-plus').hide();
-    $('#userPlus').attr(
-        'class',
-        'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
-    );
+    $(document).on('show.bs.modal', '#modal-rginsert', function () {
+        hidePlusBtn();
+        showPlusDetail();
+        $('#btnCusPUp').hide();
+        $('#btn-rgEnd').hide();
+    });
+    $('#btn-rginsert').text('신규 입력');
+    $('#modal-rginsert').modal('show');
 });
 
-$(document).on('click', '#btnUserPlus', function () {
-    if ($('#user-plus').is(":visible")) {
-        $('#user-plus').hide();
-        $('#userPlus').attr(
-            'class',
-            'fas fa-plus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
-        );
-        $('#userPlus').attr('title', '고객정보 지우기');
-    } else {
-        $('#user-plus').show();
-        $('#userPlus').attr(
-            'class',
-            'fas fa-minus-circle BaseButton--skinGray size_default col-xs-12 plus-btn'
-        );
-        $('#userPlus').attr('title', '닫기');
-    }
+$(document).on('click', '#btnChReg', function () {
+    $(document).on('show.bs.modal', '#modal-rginsert', function () {
+        hidePlusBtn();
+        showPlusDetail();
+        $('#btnCusPUp').hide();
+        $('#btn-rgEnd').show();
+
+        LoadingWithMask()
+            .then(setCtmer)
+            .then(getReg)
+            .then(closeLoadingWithMask);
+    });
+
+    $('#btn-rginsert').text('수 정');
+    $('#modal-rginsert').modal('show');
 });
 
-$(document).on('click', '#eraser', function () {
+function setCtmer(result) {
+    return new Promise(function (resolve, reject) {
+        const url = "/customer/name";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
 
-    if (confirm('입력 내용을 지우시겠습니까?')) {
-        $('#ctmno').val('');
+        const params = {
+            "ctmno": $('#ctmnoReal').val()
+        };
 
-        $('#ctmname').val('');
-        $('#ctmtel1').text('');
-        $('#ctmstp').text('');
-        $('#ctmdetail').text('');
-        $('#ctmtel2').text('');
-        $('#ctmfax').text('');
-        $('#ctmaddress').text('');
-        $('#ctmemail').text('');
-        $('#ctmcompanum').text('');
-        $('#ctmhomepage').text('');
-        $('#ctmhomepage').attr('href', '');
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
 
-        const aaa = document.getElementsByClassName('dash-cal-con-item-t');
-        const bbb = aaa[0].getElementsByTagName('div')[0];
-        const ccc = bbb.childNodes[1];
-        const ddd = ccc.value;
-
-        $('#rsvt').val('');
-
-        $('#stday').val(ddd);
-        $('#endday').val(ddd);
-
-        $('#stt').val('08:30');
-        $('#endt').val('08:30');
-
-        $('#bus').val('대형');
-        $('#num').val('1');
-
-        $('#rsvpstp').val('');
-        $('#desty').val('');
-        $('#rsvtdetail').val('');
-        $('#cont').val('포함');
-        $('#conm').val('');
-
-        $('#daynight').text('');
-
-        $('html').scrollTop(0);
-
-        $("#ctmname").focus();
-    }
-});
-
-$("#ctmname").change(function () {
-
-    var val = $('#ctmname').val();
-    var idNum = $('#name-cho option')
-        .filter(function () {
-            return this.value == val;
-        })
-        .data('value');
-
-    const url = "/customer/name";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-
-    const params = {
-        "ctmno": idNum
-    };
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-        success: function (r) {
-            if (r.length > 0) {
-                $('#ctmno').val('');
-                $('#radio0').prop('checked', true);
-                $('#ctmtel1').text('');
-                $('#ctmstp').text('');
-                $('#ctmdetail').text('');
-                $('#ctmtel2').text('');
-                $('#ctmfax').text('');
-                $('#ctmaddress').text('');
-                $('#ctmemail').text('');
-                $('#ctmcompanum').text('');
-                $('#ctmhomepage').text('');
-                $('#ctmhomepage').attr('href', '');
-
-                $('#ctmtrash').val(1);
-                $('#ctmno').val(r[0].ctmno);
-
-                if (r[0].ctmsepa === 0) {
-                    $('#radio0').prop('checked', true);
-                } else if (r[0].ctmsepa === 1) {
-                    $('#radio1').prop('checked', true);
-                } else if (r[0].ctmsepa === 2) {
-                    $('#radio2').prop('checked', true);
-                };
+                if (r[0].ctmname) {
+                    $('#ctmnameUp').val(r[0].ctmname);
+                } else {
+                    $('#ctmnameUp').val('');
+                }
 
                 if (r[0].ctmtel1) {
-                    $('#ctmtel1').text(r[0].ctmtel1);
+                    $('#ctmtel1Up').val(r[0].ctmtel1);
+                } else {
+                    $('#ctmtel1Up').val('');
                 }
+
                 if (r[0].ctmstp) {
-                    $('#ctmstp').text(r[0].ctmstp);
-                    $('#rsvpstp').text($('#ctmstp').val());
+                    $('#ctmstpUp').val(r[0].ctmstp);
+                } else {
+                    $('#ctmstpUp').val('');
                 }
+
                 if (r[0].ctmdetail) {
-                    $('#ctmdetail').text(r[0].ctmdetail);
+                    $("#ctmdetailUp").val([0].ctmdetail);
+                } else {
+                    $("#ctmdetailUp").val('');
                 }
+
                 if (r[0].ctmtel2) {
-                    $('#ctmtel2').text(r[0].ctmtel2);
+                    $("#ctmtel2Up").val([0].ctmtel2);
+                } else {
+                    $("#ctmtel2Up").val('');
                 }
-                if (r[0].ctmfax) {
-                    $('#ctmfax').text(r[0].ctmfax);
-                }
+
                 if (r[0].ctmaddress) {
-                    $('#ctmaddress').text(r[0].ctmaddress);
+                    $('#ctmaddressUp').val(r[0].ctmaddress);
+                } else {
+                    $('#ctmaddressUp').val('');
                 }
+
                 if (r[0].ctmemail) {
-                    $('#ctmemail').text(r[0].ctmemail);
+                    $('#ctmemailUp').val(r[0].ctmemail);
+                } else {
+                    $('#ctmemailUp').val('');
                 }
+
                 if (r[0].ctmcompanum) {
-                    $('#ctmcompanum').text(r[0].ctmcompanum);
+                    $('#ctmcompanumUp').val(r[0].ctmcompanum);
+                } else {
+                    $('#ctmcompanumUp').val('');
                 }
+
+                if (r[0].ctmfax) {
+                    $('#ctmfaxUp').val(r[0].ctmfax);
+                } else {
+                    $('#ctmfaxUp').val('');
+                }
+
                 if (r[0].ctmhomepage) {
-                    $('#ctmhomepage').text(r[0].ctmhomepage);
-                    $('#ctmhomepage').attr('href', r[0].ctmhomepage);
+                    $('#ctmhomepageUp').val(r[0].ctmhomepage);
+                } else {
+                    $('#ctmhomepageUp').val('');
                 }
-            } else {
-                alert("고객정보가 없습니다.\n\n고객정보를 입력해주세요.")
-                $("#ctmname").focus();
+
+                resolve();
             }
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
+        })
+
+    })
+}
+
+function getReg(result) {
+    return new Promise(function (resolve, reject) {
+
+        const url = "/reg/regRegularInfo";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "conum": $('#rgconum').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                if (r[0].regcompany) {
+                    $('#regcompany').val(r[0].regcompany);
+                } else {
+                    $('#regcompany').val('');
+                }
+                if (r[0].regaddress) {
+                    $('#regaddress').val(r[0].regaddress);
+                } else {
+                    $('#regaddress').val('');
+                }
+                if (r[0].regperson) {
+                    $('#regperson').val(r[0].regperson);
+                } else {
+                    $('#regperson').val('');
+                }
+                if (r[0].regphone) {
+                    $('#regphone').val(r[0].regphone);
+                } else {
+                    $('#regphone').val('');
+                }
+                if (r[0].regstartd) {
+                    $('#regstartd').val(r[0].regstartd);
+                } else {
+                    $('#regstartd').val('');
+                }
+                if (r[0].regendd) {
+                    $('#regendd').val(r[0].regendd);
+                } else {
+                    $('#regendd').val('');
+                }
+                if (r[0].regcontract) {
+                    $('#regcontract').val(r[0].regcontract);
+                } else {
+                    $('#regcontract').val('');
+                }
+                if (r[0].regmoney) {
+                    $('#regmoney').val(r[0].regmoney);
+                } else {
+                    $('#regmoney').val('');
+                }
+                if (r[0].regmemo) {
+                    $('#regmemo').val(r[0].regmemo);
+                } else {
+                    $('#regmemo').val('');
+                }
+
+                $('#ctmnoUp').val(r[0].ctmno);
+                $('#regseq').val(r[0].regseq);
+                $('#conum').val(r[0].conum);
+                $('#regtrash').val(r[0].regtrash);
+
+                if ($('#regtrash').val() < 1) {
+                    $('#btn-rgEnd').attr('class', 'btn btn-info');
+                    $('#btn-rgEnd').text('재운행');
+                } else {
+                    $('#btn-rgEnd').attr('class', 'btn btn-danger');
+                    $('#btn-rgEnd').text('계약 만료');
+                }
+
+                if ($('#ctmnameUp').val() == $('#regcompany').val() && $('#ctmaddressUp').val() == $('#regaddress').val()) {
+                    $('#chsame').prop('checked', true);
+                } else {
+                    $('#chsame').prop('checked', false);
+                }
+
+                if (!$('#regendd').val()) {
+                    $('#noPeriod').prop('checked', true);
+                    $("#regendd").attr("disabled", true);
+                } else {
+                    $('#noPeriod').prop('checked', false);
+                    $("#regendd").attr("disabled", false);
+                }
+
+                resolve();
+            }
+        })
     });
-});
-
-$(document).on('click', '#ername', function () {
-    ernm();
-});
-
-$(document).on('keyup', 'input', function (eInner) {
-    if ($('#ctmname').is(":focus")) {
-        var keyValue = eInner.which; //enter key
-        if (keyValue == 8 || keyValue == 27 || keyValue == 46) {
-            ernm();
-        }
-    }
-});
-
-function ernm() {
-    $('#radio0').prop('checked', true);
-    $('#ctmno').val('');
-    $('#ctmtrash').val(2);
-
-    $('#ctmname').val('');
-    $('#ctmtel1').text('');
-    $('#ctmstp').text('');
-    $('#ctmdetail').text('');
-    $('#ctmtel2').text('');
-    $('#ctmfax').text('');
-    $('#ctmaddress').text('');
-    $('#ctmhomepage').text('');
-    $('#ctmhomepage').attr('href', '');
-
-    $('#regcompany').val('');
-    $('#regaddress').val('');
-    $('#regperson').val('');
-    $('#ctmnregphoneame').val('');
 }
 
 $(document).on('change', '#chsame', function () {
     if ($('#chsame').is(':checked')) {
-        if ($('#ctmno').val().length > 0) {
-            $('#regcompany').val($('#ctmname').val());
-            $('#regaddress').val($('#ctmaddress').text());
-            $('#regphone').val($('#ctmtel1').text());
+        if ($('#ctmnameUp').val().length > 0) {
+            $('#regcompany').val($('#ctmnameUp').val());
+            $('#regaddress').val($('#ctmaddressUp').val());
+            $('#regphone').val($('#ctmtel1Up').val());
         } else {
             $('#chsame').prop('checked', false);
-            alert("거래처 정보를 먼저 불러와 주세요.");
+            alert("거래처 정보를 먼저 입력해주세요.");
         }
     } else {
         $('#regcompany').val('');
@@ -216,10 +229,71 @@ $(document).on('change', '#chsame', function () {
     }
 });
 
+$(document).on('click', '#inNewUp', function () {
+    $('#modalCustomUp').modal('hide');
+    if ($('#ctmlseqqqUp').val() != 'new') {
+        LoadingWithMask($('#ctmlseqqqUp').val())
+            .then(formGo)
+            .then(closeLoadingWithMask);
+    } else if ($('#ctmlseqqqUp').val() == 'new') {
+        LoadingWithMask()
+            .then(insertUpCtm)
+            .then(formGo)
+            .then(closeLoadingWithMask);
+        function insertUpCtm(result) {
+            return new Promise(function (resolve, reject) {
+                const sepa = $('input[name=ctmsepaUp]:checked').val();
+
+                const url = "/rsvt/insertctm";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                const params = {
+                    "ctmno": $('#ctmnoUp').val(),
+                    "ctmsepa": sepa,
+                    "ctmname": $('#ctmnameUp').val(),
+                    "ctmaddress": $('#ctmaddressUp').val(),
+                    "ctmtel1": $('#ctmtel1Up').val(),
+                    "ctmtel2": $('#ctmtel2Up').val(),
+                    "ctmemail": $('#ctmemailUp').val(),
+                    "ctmfax": $('#ctmfaxUp').val(),
+                    "ctmcompanum": $('#ctmcompanumUp').val(),
+                    "ctmhomepage": $('#ctmhomepageUp').val(),
+                    "ctmstp": $('#ctmstpUp').val(),
+                    "ctmdetail": $('#ctmdetailUp').val()
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        if (r[0].ctmtrash != -1) {
+                            resolve(r[0].ctmno);
+                        } else {
+                            alert("고객정보 저장 실패!\n\n시스템을 확인해주세요.")
+                            setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                            closeLoadingWithMask();
+                        }
+                    }
+                })
+            })
+        }
+    } else {
+        alert("입력할 고객정보를 선택해주세요.");
+    }
+});
+
 $(document).on('click', '#btn-rginsert', function () {
-    if ($('#ctmno').val().length < 1) {
+
+    if ($('#ctmnameUp').val().length < 1) {
         alert("거래처를 입력해주세요.");
-        $('#ctmname').focus();
+        $('#ctmnameUp').focus();
         return;
     }
     if (!$('#regcompany').val()) {
@@ -247,7 +321,7 @@ $(document).on('click', '#btn-rginsert', function () {
         $('#regstartd').focus();
         return;
     }
-    if (!$('#chsame').is(':checked') && !$('#regendd').val()) {
+    if (!$('#noPeriod').is(':checked') && !$('#regendd').val()) {
         alert("계약 종료일을 입력해주세요.\n\n계약 종료일이 없으면 '계약기간없음'에 체크해주세요.");
         $('#regendd').focus();
         return;
@@ -257,8 +331,44 @@ $(document).on('click', '#btn-rginsert', function () {
         $('#regcontract').focus();
         return;
     }
-    formReg.submit();
+
+    LoadingWithMask()
+        .then(updateCtm)
+        .then(formGo)
+        .then(closeLoadingWithMask);
 });
+
+function formGo(result) {
+    return new Promise(function (resolve, reject) {
+
+        $('#regmoney').val(($('#regmoney').val()).replaceAll(',', ''));
+
+        $('#ctmnoReal').val(result);
+
+        $('#formregin')
+            .attr('action', '/regular/regularRegister')
+            .submit();
+
+        resolve();
+    })
+}
+
+$(document).on('click', '#btn-rgEnd', function () {
+    LoadingWithMask()
+        .then(formGo)
+        .then(closeLoadingWithMask);
+
+    function formGo(result) {
+        return new Promise(function (resolve, reject) {
+            $('#formregin')
+                .attr('action', '/regular/regularUpDel')
+                .submit();
+
+            resolve();
+        })
+    }
+});
+
 $(document).on('change', '#regstartd', function () {
     const tmpd = ($("#regstartd").val()).split('-');
     console.log(tmpd);
@@ -313,7 +423,18 @@ function dateInput() {
         $("#daynight").css('color', 'blue');
     } else {
         $("#endday").val(origin);
-        $("#daynight").text('  도착일을 확인해주세요!!!');
+        $("#daynight").text('  계약만료일을 확인해주세요.');
         $("#daynight").css('color', 'red');
     }
 }
+
+$(document).on('click', '#customerInsertMo', function () {
+    const aaa = $('#offCustomer').css('visibility');
+
+    if (aaa == 'hidden') {
+        $('#offCustomer').offcanvas('show');
+    } else {
+        $('#offCustomer').offcanvas('hide');
+    }
+
+});

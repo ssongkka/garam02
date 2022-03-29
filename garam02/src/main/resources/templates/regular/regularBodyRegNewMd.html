@@ -23,160 +23,23 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-rgbody">
-                    <form
-                        action="/regular/regularRegister"
-                        name="formReg"
-                        th:action="@{/regular/regularRegister}"
-                        method="post"
-                        id="formregin">
-                        <h3>
-                            1.거래처 정보(계약처)
-                            <small>
-                                <label class="radio-inline">
-                                    <input
-                                        type="radio"
-                                        id="radio0"
-                                        name="ctmsepa"
-                                        value="0"
-                                        readonly="readonly"
-                                        disabled="disabled">
-                                    일반
-                                </label>
-                                <label class="radio-inline">
-                                    <input
-                                        type="radio"
-                                        id="radio1"
-                                        name="ctmsepa"
-                                        readonly="readonly"
-                                        disabled="disabled"
-                                        value="1">
-                                    학단
-                                </label>
-                                <label class="radio-inline">
-                                    <input
-                                        type="radio"
-                                        id="radio2"
-                                        name="ctmsepa"
-                                        readonly="readonly"
-                                        disabled="disabled"
-                                        value="2">
-                                    거래처
-                                </label>
-                            </small>
-                        </h3>
-                        <div class="row">
-                            <div class="form-group col-xs-12 col-lg-6">
-                                <input type="hidden" id="ctmno" name="ctmno">
-                                <i class="fas fa-book-open"></i>
-                                <label class="form-label" for="ctmname">이름&#42;</label>
-                                <div style="display: flex; flex-direction: row;">
-                                    <input
-                                        type="text"
-                                        onfocus="this.select()"
-                                        list="name-cho"
-                                        class="form-control input-sm"
-                                        id="ctmname"
-                                        placeholder="이름을 입력해주세요."
-                                        value=""
-                                        required="required"
-                                        autocomplete="off">
-                                    <button
-                                        id="ername"
-                                        class=""
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="고객정보 지우기">
-                                        <i class="fa-solid fa-circle-xmark"></i>
-                                    </button>
-                                    <datalist id="name-cho">
-                                        <option
-                                            th:each="custom : ${customer}"
-                                            th:value="${custom.ctmname}"
-                                            th:label="${custom.ctmtel1}"
-                                            th:data-value="${custom.ctmno}"></option>
-                                    </datalist>
-                                </div>
-                            </div>
-                            <div class="form-group col-xs-12 col-lg-6 rsvtPer">
-                                <i class="fas
-                            fa-phone-alt"></i>
-                                <label class="form-label" for="tel1">연락처&#42;</label>
-                                <div style="display: flex; flex-direction: row;">
-                                    <h5 id="ctmtel1"></h5>
-                                    <button
-                                        id="btnUserPlus"
-                                        class=""
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="고객정보 지우기">
-                                        <i class="fa-solid fa-circle-plus"></i>
-                                    </button>
-                                    <datalist id="tel1-cho"></datalist>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="user-plus">
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <label class="form-label" for="ctmstp">출발지</label>
-                                    <h5 id="ctmstp"></h5>
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-pen"></i>
-                                    <label class="form-label" for="ctmdetail">메모</label>
-                                    <h5 id="ctmdetail"></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-phone-alt"></i>
-                                    <label class="form-label" for="ctmtel2">비상연락처</label>
-                                    <h5 id="ctmtel2"></h5>
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-map"></i>
-                                    <label class="form-label" for="ctmaddress">주소</label>
-                                    <h5 id="ctmaddress"></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="far fa-envelope"></i>
-                                    <label class="form-label" for="ctmemail">이메일</label>
-                                    <h5 id="ctmemail"></h5>
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="far fa-building"></i>
-                                    <label class="form-label" for="ctmcompanum">사업자등록번호</label>
-                                    <h5 id="ctmcompanum"></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-fax"></i>
-                                    <label class="form-label" for="ctmfax">팩스</label>
-                                    <h5 id="ctmfax"></h5>
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-home"></i>
-                                    <label class="form-label" for="ctmhomepage">홈페이지</label>
-                                    <h5>
-                                        <a id="ctmhomepage" href="" target="_blank"></a>
-                                    </h5>
-                                    <!-- <input type="text" readonly="readonly" class="form-control input-sm"
-                                    id="ctmhomepage"> -->
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <h3>
-                            2. 운행회사 정보(실 운행처)
-                            <small>
-                                <input type="checkbox" id="chsame" style="margin-left: 3rem;">
-                                <label class="form-label" for="chsame">거래처와 동일</label>
-                            </small>
-                        </h3>
+                    <h3>
+                        1.거래처 정보(계약처)
+                    </h3>
+                    <div th:replace="openTemplates/updateCustomer :: upCust"></div>
+                    <hr>
+                    <h3>
+                        2. 운행회사 정보(실 운행처)
+                        <small>
+                            <input type="checkbox" id="chsame" style="margin-left: 3rem;">
+                            <label class="form-label" for="chsame">거래처와 동일</label>
+                        </small>
+                    </h3>
+                    <form name="formReg" method="post" id="formregin">
+                        <input type="hidden" id="ctmnoReal" name="ctmno">
+                        <input type="hidden" id="conum" name="conum">
+                        <input type="hidden" id="regseq" name="regseq">
+                        <input type="hidden" id="regtrash" name="regtrash">
                         <div class="row">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <i class="fas fa-map-marker-alt"></i>
@@ -269,23 +132,9 @@
                         <div class="row">
                             <div class="form-group  col-sm-12 col-md-6">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <label class="form-label" for="regnum">운행대수</label>
-                                <select
-                                    class="form-control input-sm"
-                                    id="regnum"
-                                    name="regnum"
-                                    required="required">
-                                    <option
-                                        th:each="i : ${#numbers.sequence(1, 100)}"
-                                        th:value="${i}"
-                                        th:text="${i} + '&nbsp;대'">Num</option>
-                                </select>
-                            </div>
-                            <div class="form-group  col-sm-12 col-md-6">
-                                <i class="fas fa-map-marker-alt"></i>
                                 <label class="form-label" for="regcontract">계약형태</label>
                                 <select
-                                    class="form-control input-sm"
+                                    class="form-select input-sm"
                                     id="regcontract"
                                     name="regcontract"
                                     required="required">
@@ -293,18 +142,17 @@
                                     <option value="입찰" label="입찰"></option>
                                 </select>
                             </div>
-                            <div class="form-group  col-sm-12 col-md-6" style="display: none;">
+                            <div class="form-group  col-sm-12 col-md-6">
                                 <i class="fas fa-pen"></i>
                                 <label class="form-label" for="regmoney">계약금액</label>
                                 <input
-                                    type="hidden"
+                                    type="text"
                                     data-type="currency"
                                     onfocus="this.select()"
                                     class="form-control input-sm datacurr"
                                     id="regmoney"
                                     name="regmoney"
-                                    value="0"
-                                    disabled="disabled">
+                                    value="0">
                             </div>
                         </div>
                         <div class="row">
@@ -323,9 +171,16 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;&nbsp;기</button>
-                    <button type="button" class="btn btn-primary" id="btn-rginsert">신규 입력</button>
+                <div class="modal-footer modal-footBtn">
+                    <div class="modal-footBtn-item">
+                        <button type="button" class="btn btn-danger" id="btn-rgEnd">계약 만료</button>
+                    </div>
+                    <div class="modal-footBtn-item">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;&nbsp;기</button>
+                    </div>
+                    <div class="modal-footBtn-item">
+                        <button type="button" class="btn btn-primary" id="btn-rginsert">신규 입력</button>
+                    </div>
                 </div>
             </div>
         </div>

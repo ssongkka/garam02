@@ -27,6 +27,10 @@ public interface RegularMapper {
 
 	public int insertRegulardetail(RegularDTO regularDTO) throws Exception;
 
+	public int updateRegular(RegularDTO regularDTO) throws Exception;
+
+	public int upDelRegular(RegularDTO regularDTO) throws Exception;
+
 	public int updateRegulardetail(RegularDTO regularDTO) throws Exception;
 
 	public int updateRegulardetailOder(HashMap<String, Object> map) throws Exception;

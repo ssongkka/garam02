@@ -74,14 +74,12 @@
                                         class="table table-striped table-hover table-bordered  table-sortable"
                                         id="ddssaa">
                                         <colgroup>
-                                            <col width="40%"/>
-                                            <col width="20%"/>
+                                            <col width="60%"/>
                                             <col width="40%"/>
                                         </colgroup>
                                         <thead>
                                             <tr>
                                                 <th>회사이름</th>
-                                                <th>대수</th>
                                                 <th>담당자</th>
                                             </tr>
                                         </thead>
@@ -95,8 +93,7 @@
                                 role="tabpanel"
                                 aria-labelledby="com-end-tab">
                                 <div class="table-responsive">
-                                    <table
-                                        class="table table-striped table-hover table-bordered  table-sortable">
+                                    <table class="table table-striped table-hover table-bordered  table-sortable">
                                         <colgroup>
                                             <col width="60%"/>
                                             <col width="40%"/>
@@ -178,13 +175,23 @@
                                 <span id="rgcon">&nbsp;</span><span id="rgmoney" style="padding-left: 1rem;">&nbsp;</span>
                             </h5>
                         </blockquote>
+                        <blockquote>
+                            <h5 class="titlejae">특이사항</h5>
+                            <h5 id="rgmemo">&nbsp;</h5>
+                        </blockquote>
                     </div>
                 </div>
                 <div class="main-aside-item">
                     <div class="main-aside-item-in card-song">
                         <input type="hidden" id="regcodenum" value="">
-                        <div class="">
-                            <h3>aqwdfqwd</h3>
+                        <div class="nosunTitle">
+                            <div>
+                                <h3>aqwdfqwd</h3>
+                            </div>
+                            <div>
+                                <button class="btn btn-default" id="btnChReg" style="padding: 0 1rem;">수정&nbsp;<i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="nosunTb">
                             <div class="table-responsive">
@@ -279,8 +286,17 @@
                 </div>
             </div>
             <div class="main-bside"></div>
+
+            <datalist id="name-cho">
+                <option
+                    th:each="custom : ${customer}"
+                    th:value="${custom.ctmname}"
+                    th:label="${custom.ctmtel1}"
+                    th:data-value="${custom.ctmno}"></option>
+            </datalist>
         </main>
         <div th:insert="regular/regularBodyRegNewMd :: reg-MD-Reginsert"></div>
+        <div th:replace="openTemplates/offCustomer :: offCustomer"></div>
         <script th:inline="javascript">
             /*<![CDATA[*/
             const user =/*[[${user}]]*/
@@ -315,5 +331,7 @@
         <script src="/js/common/common.js"></script>
         <script src="/js/regular/regularBody.js"></script>
         <script src="/js/regular/regularBodyRegNewMd.js"></script>
+        <script src="/js/openTemplates/insertCustomer.js"></script>
+        <script src="/js/openTemplates/updateCustomer.js"></script>
     </body>
 </html>

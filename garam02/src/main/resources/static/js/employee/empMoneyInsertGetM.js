@@ -969,8 +969,14 @@ function getEmpAllAllOper2(result) {
                     htmlsTb += `<td>` + r[i].regcompany + `</td>`;
                     htmlsTb += `<td>` + r[i].rdname + `</td>`;
 
-                    htmlsTb += `<td><input type="text" class="regmoney" data-type="currency" onfocus="this.select()" value="` +
-                            AddComma(r[i].regoperatlm) + `"></td>`;
+                    if ($('#emp-sal').val() > 0) {
+                        htmlsTb += `<td><input type="text" class="regmoney" data-type="currency" onfocus="this.select()" value="` +
+                                AddComma(r[i].regoperatlm) +
+                                `" disabled="disabled"></td>`;
+                    } else {
+                        htmlsTb += `<td><input type="text" class="regmoney" data-type="currency" onfocus="this.select()" value="` +
+                                AddComma(r[i].regoperatlm) + `"></td>`;
+                    }
                     htmlsTb += `<td>` + r[i].regoperconfirm + `</td>`;
                     htmlsTb += `</tr>`
 

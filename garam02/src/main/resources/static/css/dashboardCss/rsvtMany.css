@@ -1,16 +1,41 @@
 @charset "UTF-8";
-body {
-    padding: 5rem;
-    background: #f6f7f9;
+
+header {
+    background-color: #e6e8ed;
+    background: #e6e8ed;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: 10rem;
 }
 
-/* select {
-    width: auto;
-} */
+main {
+    padding: 3rem 15rem;
+    background: #f6f7f9;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
 
 th {
     text-align: center;
     vertical-align: middle;
+}
+
+#t-cnt {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+#t-name {
+    font-size: 2.3rem;
+}
+#t-add,
+#t-stp,
+#t-tel {
+    font-size: 2rem;
 }
 
 .table > tbody > tr > td {
@@ -21,97 +46,27 @@ th {
     text-align: center;
 }
 
-#rsvt-tb input {
-    border: 0;
-    padding: 0;
-    height: 30px;
-    width: 100%;
-    background: transparent;
-}
-
-#rsvt-tb input:focus {
-    /* outline: none; */
-}
-
-#ername:focus {
-    color: red;
-}
-
-#t-cnt small {
-    padding-left: 3rem;
-}
-
-.modal-dialog i {
-    background: #346cb024;
-    color: #346CB0;
-    padding: 0.5rem;
-    border-radius: 50%;
-    margin-right: 0.5rem;
-}
-
-.rsvt-ctm {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-
-    padding-left: 2rem;
-    margin-bottom: 3rem;
-
-}
-
-.rsvt-ctm h3 {
-    margin: 0;
-}
-
-.rsvt-cst {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.rsvt-cst small {
-    margin-left: 3rem;
-}
-
-.asd {
-    display: inline-block;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-weight: 700;
-    text-align: center;
-    vertical-align: top;
-
-    border: 1px solid transparent;
-    background: #d1d4da;
-    color: #000000;
-}
-
-.plus-btn {
-    text-align: center;
-    min-width: 4px;
-    height: 30px;
-    font-size: 13px;
-    line-height: 30px;
-    margin-top: 26px;
-    border-radius: 0.3rem;
-    padding: 0;
-}
-
-.modal-body {
-    padding: 3rem 10rem;
-}
-
-.modal-header {
-    padding: 2rem 8rem;
-}
-
-.modal-footer {
-    padding: 2rem 10rem;
-}
-
 .btng {
     display: flex;
     justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.btng button {
+    width: 10rem;
+}
+
+.table input {
+    font-size: 1.3rem;
+    background: transparent;
+    width: 100%;
+}
+.table select {
+    font-size: 1.3rem;
+    width: 100%;
+    margin: 0;
+}
+
+#md-rsvt-bd {
+    padding: 1rem 10rem;
 }

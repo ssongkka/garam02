@@ -5,16 +5,23 @@
     gap: 1rem;
 }
 
-#btnCusP {
+#btnCusP,
+#btnCusPUp {
     width: 100%;
     height: 2.5rem;
     padding: 0;
 }
 #btnCusP svg,
+#btnCusPUp svg,
 #customerInsertMo svg {
     color: white;
 }
 
-#modalCustom {
+#modalCustom,
+#modalCustomUp {
     margin-top: 7rem;
+}
+
+#customerInsertMo {
+    width: 12rem;
 }

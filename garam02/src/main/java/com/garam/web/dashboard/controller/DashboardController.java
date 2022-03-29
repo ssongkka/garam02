@@ -63,17 +63,13 @@ public class DashboardController extends UiUtils {
 		return "dashboard/dashBoard";
 	}
 
-
-	@PostMapping(value = "/rsvtmanyregister")
-	public String rsvt_Many_Insert() {
-		return null;
-	}
-
 	@GetMapping(value = "/rsvtMany")
 	public String rsvtMany(@AuthenticationPrincipal User user, Model model) throws Exception {
 		RsvtDTO rsvtDTO = new RsvtDTO();
 		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
 		model.addAttribute("customer", list);
+		List<OptDTO> opt = rsvtService.selectOpt();
+		model.addAttribute("opt", opt);
 		model.addAttribute("user", user);
 		return "dashboard/mainRsvtMany";
 	}

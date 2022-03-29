@@ -234,4 +234,19 @@ public class RegularServiceImpl implements RegularService {
 		return rtn;
 	}
 
+	@Override
+	public int updateRegular(RegularDTO regularDTO) throws Exception {
+		int rtn = regularMapper.updateRegular(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int upDelRegular(RegularDTO regularDTO) throws Exception {
+
+		int rtn = regularMapper.upDelRegular(regularDTO);
+
+		return rtn;
+	}
+
 }

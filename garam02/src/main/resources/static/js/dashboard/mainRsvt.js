@@ -98,6 +98,7 @@ $(document).on('click', '#ername', function () {
 });
 
 $(document).on('click', '#inNew', function () {
+    $('#modalCustom').modal('hide');
     if ($('#ctmlseqqq').val() && $('#ctmlseqqq').val() != 'new') {
         LoadingWithMask($('#ctmlseqqq').val())
             .then(insertRsvt)
@@ -144,6 +145,7 @@ $(document).on('click', '#inNew', function () {
                             resolve(r[0].ctmno);
                         } else {
                             alert("고객정보 저장 실패!\n\n시스템을 확인해주세요.")
+                            setCalWhite($('.dash-cal-con-item-t').attr('id'));
                             closeLoadingWithMask();
                         }
                     }
@@ -156,10 +158,17 @@ $(document).on('click', '#inNew', function () {
 });
 
 $(document).on('click', '#insert-rsvt', function () {
-    LoadingWithMask()
-        .then(insertCtm)
-        .then(insertRsvt)
-        .then(closeLoadingWithMask);
+
+    if ($('#ctmnameIn').val() && $('#ctmtel1In').val()) {
+        LoadingWithMask()
+            .then(insertCtm)
+            .then(insertRsvt)
+            .then(closeLoadingWithMask);
+    } else {
+        LoadingWithMask()
+            .then(insertRsvt1)
+            .then(closeLoadingWithMask);
+    }
 })
 
 function insertRsvt(result) {
@@ -215,6 +224,7 @@ function insertRsvt(result) {
                 } else if (r == -2) {
                     alert("예약정보 저장 실패!\n\n시스템을 확인해주세요.")
                 }
+                setCalWhite($('.dash-cal-con-item-t').attr('id'));
                 resolve();
             }
         })
@@ -231,7 +241,7 @@ function insertRsvt1(result) {
         };
 
         const params = {
-            "ctmno": result,
+            "ctmno": "0",
             "empin": $('#empin').val(),
             "stday": $('#stday').val(),
             "endday": $('#endday').val(),
@@ -263,6 +273,7 @@ function insertRsvt1(result) {
                 } else if (r == -2) {
                     alert("예약정보 저장 실패!\n\n시스템을 확인해주세요.")
                 }
+                setCalWhite($('.dash-cal-con-item-t').attr('id'));
                 resolve();
             }
         })
@@ -270,22 +281,15 @@ function insertRsvt1(result) {
 }
 
 $(document).on('click', '#many-insert', function () {
-    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
-    // window.screenLeft; var yPos = 10;
-
-    window.open('/dashboard/rsvtMany', 'ot');
+    window.open('/dashboard/rsvtMany', '_parent');
 });
 
 $(document).on('click', '#customerInsertMo', function () {
-    // var myModal = new bootstrap.Modal(document.getElementById('customerModal'));
-    // myModal.show(); myModal.handleUpdate(); $('#modalName').focus();
-
     const aaa = $('#offCustomer').css('visibility');
-
     if (aaa == 'hidden') {
-        offCustomerOffcanvas.show();
+        $('#offCustomer').offcanvas('show');
     } else {
-        offCustomerOffcanvas.hide();
+        $('#offCustomer').offcanvas('hide');
     }
 
 });

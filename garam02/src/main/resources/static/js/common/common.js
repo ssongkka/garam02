@@ -540,7 +540,7 @@ function tbChoice(id) {
 
     $('#' + id)
         .children('td')
-        .css('background', 'var(--main-color)');
+        .css('background', 'var(--sub-color)');
     $('#' + id)
         .children('td')
         .css('color', 'white');
@@ -551,7 +551,7 @@ function tbChoiceThis(param) {
 
     $(param)
         .children('td')
-        .css('background', 'var(--main-color)');
+        .css('background', 'var(--sub-color)');
     $(param)
         .children('td')
         .css('color', 'white');
@@ -571,7 +571,7 @@ function tbChoiceSe(id) {
 
     $('#' + id)
         .children('td')
-        .css('background', 'var(--main-color)');
+        .css('background', 'var(--sub-color)');
     $('#' + id)
         .children('td')
         .css('color', 'white');
@@ -632,17 +632,4 @@ function getStDEnD(params) {
     returnArr.push(endday);
 
     return returnArr;
-}
-
-function showPlusBtn() {
-    $('#cusPbtn').show();
-}
-function hidePlusBtn() {
-    $('#cusPbtn').hide();
-}
-function showPlusDetail() {
-    $('.cusP').show();
-}
-function hidePlusDetail() {
-    $('.cusP').hide();
 }

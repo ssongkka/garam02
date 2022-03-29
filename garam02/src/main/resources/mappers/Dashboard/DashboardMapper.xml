@@ -226,11 +226,23 @@
 
 	<update id="updateRsvt"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+		DELETE FROM
+
+		operation_info
+
+		WHERE
+
+		rsvt =
+		#{rsvt};
 
 		UPDATE
 
 		rsvt SET
 
+		<if test="ctmno != null and ctmno != '' ">
+			rsvt.ctmno =
+			#{ctmno},
+		</if>
 		<if test="stday != null and stday != '' ">
 			rsvt.stday =
 			#{stday},
@@ -276,16 +288,6 @@
 
 		rsvt.rsvt =
 		#{rsvt};
-
-		DELETE FROM
-
-		operation_info
-
-		WHERE
-
-		rsvt =
-		#{rsvt};
-
 	</update>
 
 	<update id="updateOper" parameterType="java.util.HashMap">
@@ -378,12 +380,21 @@
 
 		WHERE
 
-		ctmseq =
-		#{ctmseq};
+		ctmno =
+		#{ctmno};
 	</update>
 
 	<delete id="delRsvt"
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		DELETE FROM
+
+		operation_info
+
+		WHERE
+
+		rsvt =
+		#{rsvt};
 
 		DELETE FROM
 
@@ -394,6 +405,11 @@
 		rsvt.rsvt =
 		#{rsvt};
 
+	</delete>
+
+	<update id="cancleRsvt"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
 		DELETE FROM
 
 		operation_info
@@ -402,10 +418,6 @@
 
 		rsvt =
 		#{rsvt};
-	</delete>
-
-	<update id="cancleRsvt"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		UPDATE
 
@@ -421,14 +433,6 @@
 		rsvt.rsvt =
 		#{rsvt};
 
-		DELETE FROM
-
-		operation_info
-
-		WHERE
-
-		rsvt =
-		#{rsvt};
 	</update>
 
 	<select id="selectRSVT"

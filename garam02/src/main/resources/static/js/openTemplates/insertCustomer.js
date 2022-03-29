@@ -1,6 +1,3 @@
-const myModalElCustom = document.getElementById('modalCustom')
-const myModalCustom = new bootstrap.Modal(myModalElCustom);
-
 $(document).on('click', '#btnCusP', function () {
     if ($('.cusP').is(':visible')) {
         $('#btnCusP').html(`더보기&nbsp;<i class="fa-solid fa-angles-down"></i>`);
@@ -10,6 +7,22 @@ $(document).on('click', '#btnCusP', function () {
         $('.cusP').show();
     }
 });
+
+function showPlusBtn() {
+    $('#cusPbtn').show();
+
+}
+function hidePlusBtn() {
+    $('#cusPbtn').hide();
+}
+function showPlusDetail() {
+    $('#btnCusP').html(`닫  기&nbsp;<i class="fa-solid fa-angles-up"></i>`);
+    $('.cusP').show();
+}
+function hidePlusDetail() {
+    $('#btnCusP').html(`더보기&nbsp;<i class="fa-solid fa-angles-down"></i>`);
+    $('.cusP').hide();
+}
 
 $(document).on('change', 'input[name=ctmsepaIn]', function () {
 
@@ -35,7 +48,6 @@ $(document).on('change', 'input[name=ctmsepaIn]', function () {
 });
 
 $(document).on('change', '#ctmnameIn', function () {
-    console.log(this);
     var val = $('#ctmnameIn').val();
     var idNum = $('#name-cho option')
         .filter(function () {
@@ -188,7 +200,8 @@ function insertCtm() {
                 console.log(r[0].ctmname + "   -   " + r[0].ctmno + "   -   " + r[0].ctmtrash);
 
                 if (r[0].ctmtrash == 100) {
-                    myModalElCustom.addEventListener('show.bs.modal', function (event) {
+
+                    $(document).on('show.bs.modal', '#modalCustom', function () {
                         let html0 = ``;
                         html0 += `<tr style="cursor: pointer;" onclick="getCtmSeq(this)">`
                         html0 += `<td class="thNone">new</td>`
@@ -200,7 +213,7 @@ function insertCtm() {
                         let htmls = ``;
                         for (let i = 0; i < r.length; i++) {
                             htmls += `<tr style="cursor: pointer;" onclick="getCtmSeq(this)">`
-                            htmls += `<td class="thNone">` + r[i].ctmseq + `</td>`
+                            htmls += `<td class="thNone">` + r[i].ctmno + `</td>`
                             htmls += `<td>` + (i + 1) + `</td>`
                             htmls += `<td>` + r[i].ctmname + `</td>`
                             htmls += `<td>` + r[i].ctmtel1 + `</td>`
@@ -209,11 +222,8 @@ function insertCtm() {
 
                         $('#tbIncust1').html(html0);
                         $('#tbIncust').html(htmls);
-                        console.log(html0);
-                        console.log(htmls);
                     })
-
-                    myModalCustom.show();
+                    $('#modalCustom').modal('show');
                     closeLoadingWithMask();
                 } else if (r[0].ctmtrash < 0) {
                     alert("시스템에 문제가 생겼습니다.\n\n다시 시도해 주세요.");
@@ -230,4 +240,14 @@ function getCtmSeq(param) {
     tbChoiceThis(param);
     const aaa = $(param).children()[0];
     $('#ctmlseqqq').val($(aaa).text());
+
+    switch ($(aaa).text()) {
+        case "new":
+            $('#inNew').text('새로운 고객 입력');
+            break;
+
+        default:
+            $('#inNew').text('기존 고객 입력');
+            break;
+    }
 }

@@ -86,8 +86,13 @@ public class RegularController extends UiUtils {
 
 	@PostMapping(value = "/regularRegister")
 	public String regularRegister(@ModelAttribute("params") final RegularDTO regularDTO, Model model) throws Exception {
+		int a = 0;
 		try {
-			int a = regularService.insertRegular(regularDTO);
+			if (regularDTO.getConum().length() > 0) {
+				a = regularService.updateRegular(regularDTO);
+			} else {
+				a = regularService.insertRegular(regularDTO);
+			}
 			if (a < 1) {
 				return ShowMgsRdrt("저장 실패", "/regular", Method.GET, model);
 			}
@@ -129,5 +134,30 @@ public class RegularController extends UiUtils {
 		model.addAttribute("code", regularDTO);
 
 		return "regular/regularCh";
+	}
+
+	@PostMapping(value = "/regularUpDel")
+	public String regularUpDel(@ModelAttribute("params") final RegularDTO regularDTO, Model model) throws Exception {
+		int a = 0;
+
+		if (regularDTO.getRegtrash() < 1) {
+			regularDTO.setRegtrash(1);
+		} else {
+			regularDTO.setRegtrash(0);
+		}
+
+		try {
+			a = regularService.upDelRegular(regularDTO);
+			if (a < 1) {
+				return ShowMgsRdrt("삭제 실패", "/regular", Method.GET, model);
+			}
+		} catch (DataAccessException e) {
+			return ShowMgsRdrt("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/regular", Method.GET, model);
+
+		} catch (Exception e) {
+			return ShowMgsRdrt("시스템에 문제가 발생하였습니다", "/regular", Method.GET, model);
+		}
+
+		return ShowMgsRdrt("정기운행 계약 변경 성공\n\n계약만료일을 확인 후 변경해주세요.", "/regular", Method.GET, model);
 	}
 }

@@ -318,8 +318,14 @@
 .rsvtCh-form {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+}
+
+#md-rsvt-bd {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    padding: 2rem 10rem 1rem;
+    padding: 0 10rem;
 }
 
 #modal-rsvt i {
@@ -346,6 +352,10 @@
 .mf-ch-rsvt-item:nth-child(2) {}
 .mf-ch-rsvt-item:nth-child(3) {}
 .mf-ch-rsvt-item:nth-child(4) {}
+
+.mf-ch-rsvt-item button {
+    width: 10rem;
+}
 
 .regTb {}
 

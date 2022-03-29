@@ -1,6 +1,3 @@
-var myOffcanvasOffCustomer = document.getElementById('offCustomer');
-var offCustomerOffcanvas = new bootstrap.Offcanvas(myOffcanvasOffCustomer);
-
 $(document).on('change', 'input[name=ctmsepa]', function () {
 
     const aaa = $(this).val();
@@ -30,7 +27,7 @@ $(document).on('click', '#offCbtn-x', function () {
         .then(closeLoadingWithMask);
 });
 
-myOffcanvasOffCustomer.addEventListener('show.bs.offcanvas', function () {
+$(document).on('show.bs.offcanvas', '#offCustomer', function () {
     reset();
     LoadingWithMask()
         .then(setTableC)

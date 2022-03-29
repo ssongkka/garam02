@@ -1,9 +1,3 @@
-var myOffcanvas = document.getElementById('oper3');
-var oper3Offcanvas = new bootstrap.Offcanvas(myOffcanvas);
-
-var myOffcanvas = document.getElementById('offAlloIn');
-var offAlloInOffcanvas = new bootstrap.Offcanvas(myOffcanvas);
-
 $(document).ready(function () {
     $("#operO").attr("disabled", true);
     $("#operO").val(opt[0].oper * 100);
@@ -88,9 +82,9 @@ $(document).on('click', '#oper3-tab', function () {
     const aaa = $('#oper3').css('visibility');
 
     if (aaa == 'hidden') {
-        oper3Offcanvas.show();
+        $('#oper3').offcanvas('show');
     } else {
-        oper3Offcanvas.hide();
+        $('#oper3').offcanvas('hide');
     }
 });
 
@@ -168,7 +162,6 @@ $(document).on('change', '#yearmonthsMoney2', function () {
     const ch = confirm("급여 월을 변경하시겠습니까?\n\n저장되지 않은 정보는 사라집니다.");
     if (ch) {
         $('#yearmonthsMoney1').val($('#yearmonthsMoney2').val());
-        // getEmpMoneyListCompa($('#emp-iidd').val());
         getEmpMoneyListCompa();
     }
 });
@@ -1561,9 +1554,9 @@ $(document).on('click', '#offAlloInBtn', function () {
     const aaa = $('#offAlloIn').css('visibility');
 
     if (aaa == 'hidden') {
-        offAlloInOffcanvas.show();
+        $('#offAlloIn').offcanvas('show');
     } else {
-        offAlloInOffcanvas.hide();
+        $('#offAlloIn').offcanvas('hide');
     }
 });
 

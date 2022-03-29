@@ -14,6 +14,10 @@
     gap: 1rem;
 }
 
+.rsvt-cst-title {
+    width: 100%;
+}
+
 .operCont {
     width: 100%;
     display: flex;
@@ -150,6 +154,10 @@
     gap: 2rem;
 }
 
+#many-insert {
+    width: 12rem;
+}
+
 @media (max-width:1024px) {
     .header .hd-icon {
         display: none;
@@ -166,6 +174,9 @@
         margin: 0;
     }
 
+    .rsvtMain {
+        margin: 1rem 0;
+    }
 }
 
 @media (max-width:768px) {
@@ -182,5 +193,9 @@
     .rsvt-main {
         padding: 1rem;
         margin: 0;
+    }
+
+    .rsvtMain {
+        margin: 1rem 0;
     }
 }

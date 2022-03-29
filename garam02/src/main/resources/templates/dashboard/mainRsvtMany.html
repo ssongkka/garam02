@@ -71,287 +71,175 @@
         <link rel="stylesheet" href="/css/common/styles.css">
         <link rel="stylesheet" href="/css/common/btn.css">
         <link rel="stylesheet" href="/css/dashboardCss/rsvtMany.css">
+        <link rel="stylesheet" href="/css/openTemplates/offCustomer.css">
+        <link rel="stylesheet" href="/css/openTemplates/insertCustomer.css">
     </head>
 
     <body>
-        <div class="rsvt-ctm">
+        <header>
             <input
                 type="hidden"
                 id="empin"
                 name="empin"
-                th:value="${user.position}+'&nbsp;'+${user.name}">
-            <input type="hidden" id="m-no" value="0">
-            <input type="hidden" id="m-trash" value="2">
+                th:value="${user.position}+''+${user.name}">
+            <input type="hidden" id="m-no" value="">
+            <span id="t-btn">
+                <button class="btn btn-default" id="backMain">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </span>
             <div id="t-cnt">
-                <h3 id="t-name">
-                    고객이름
-                    <small id="t-tel">연락처</small>
-                    <small id="t-stp">출발지</small>
-                    <small id="t-add">주소</small>
-                </h3>
+                <span id="t-name">고객이름</span>
+                <span id="t-tel">연락처</span>
+                <span id="t-stp">출발지</span>
+                <span id="t-add">주소</span>
             </div>
             <div>
-                <a type="button" class="asd" data-toggle="modal" data-target="#myModal">
+                <button type="button" class="btn btn-secondary" id="asdBtn">
                     <i class="fas fa-user-plus"></i>고객정보입력
-                </a>
+                </button>
             </div>
-        </div>
+        </header>
 
-        <div
-            id="myModal"
-            class="modal fade"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabindex="-1"
-            aria-labelledby="staticBackdropLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                        <h3>고객 정보 입력</h3>
-                    </div>
-                    <input type="hidden" id="ctmno" name="ctmno" value="0">
-                    <input type="hidden" id="ctmtrash" name="ctmtrash" value="2">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group col-xs-6">
-                                <label class="radio-inline">
-                                    <input
-                                        type="radio"
-                                        id="radio0"
-                                        name="radio"
-                                        value="0"
-                                        readonly="readonly"
-                                        disabled="disabled">
-                                    일반
-                                </label>
-                                <label class="radio-inline">
-                                    <input
-                                        type="radio"
-                                        id="radio1"
-                                        name="radio"
-                                        readonly="readonly"
-                                        disabled="disabled"
-                                        value="1">
-                                    학단
-                                </label>
-                                <label class="radio-inline">
-                                    <input
-                                        type="radio"
-                                        id="radio2"
-                                        name="radio"
-                                        readonly="readonly"
-                                        disabled="disabled"
-                                        value="2">
-                                    거래처
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-xs-5">
-                                <i class="fas fa-book-open"></i>
-                                <label for="ctmname">이름&#42;</label>
-                                <input
-                                    type="text"
-                                    onfocus="this.select()"
-                                    list="name-cho"
-                                    class="form-control input-sm"
-                                    id="ctmname"
-                                    placeholder="이름을 입력해주세요."
-                                    value=""
-                                    required="required">
-                                <datalist id="name-cho">
+        <main>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="rsvt-tb">
+                    <colgroup>
+                        <col width="auto">
+                        <col width="auto">
+                        <col width="6%">
+                        <col width="4%">
+                        <col width="auto">
+                        <col width="auto">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="6%">
+                        <col width="7%">
+                        <col width="3%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>출 발 일</th>
+                            <th>도 착 일</th>
+                            <th>차 량</th>
+                            <th>대 수</th>
+                            <th>출 발 시 간</th>
+                            <th>종 료 시 간</th>
+                            <th>출 발 장 소</th>
+                            <th>목 적 지</th>
+                            <th>특 이 사 항</th>
+                            <th>부 가 세</th>
+                            <th>운 행 금 액</th>
+                            <th>삭 제</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbMany">
+                        <tr>
+                            <td><input type="date" class="input-sm" id="std" onchange="ccc(this)"></td>
+                            <td><input type="date" class="input-sm" id="edd"></td>
+                            <td>
+                                <select id="bus" name="bus" class="form-select input-sm">
+                                    <option value="대형">대형</option>
+                                    <option value="중형">중형</option>
+                                    <option value="우등">우등</option>
+                                    <option value="기타">기타</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-select input-sm">
                                     <option
-                                        th:each="custom : ${customer}"
-                                        th:value="${custom.ctmname}"
-                                        th:label="${custom.ctmtel1}"
-                                        th:data-value="${custom.ctmseq}"></option>
-                                </datalist>
-                            </div>
-                            <div class="form-group col-xs-1" id="">
-                                <a
-                                    id="ername"
-                                    class="fas fa-times-circle BaseButton--skinGray size_default col-xs-12 plus-btn"
-                                    title="지우기"></a>
-                            </div>
-                            <div class="form-group col-xs-6">
-                                <i class="fas fa-phone-alt"></i>
-                                <label for="tel1">연락처&#42;</label>
-                                <input
-                                    type="text"
-                                    list="tel1-cho"
-                                    class="form-control input-sm"
-                                    id="ctmtel1"
-                                    placeholder="전화번호 형식으로 입력"
-                                    readonly="readonly">
-                                <datalist id="tel1-cho"></datalist>
+                                        th:each="i : ${#numbers.sequence(1, 50)}"
+                                        th:value="${i}"
+                                        th:text="${i}">Num</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="input-sm" value="08:30">
+                            </td>
+                            <td><input type="time" class="input-sm"></td>
+                            <td><input type="text" class="input-sm" id="stp"></td>
+                            <td><input type="text" class="input-sm"></td>
+                            <td><input type="text" class="input-sm"></td>
+                            <td>
+                                <select class="form-select input-sm">
+                                    <option value="포함">포함</option>
+                                    <option value="미포함">미포함</option>
+                                    <option value="카드">카드</option>
+                                </select>
+                            </td>
+                            <td><input
+                                type="text"
+                                data-type="currency"
+                                class="input-sm"
+                                value="0"
+                                style="text-align: right;"></td>
+                            <td>
+                                <a></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btng" role="group" aria-label="...">
+                <button class="btn btn-default" id="plus-btn">
+                    추가&nbsp;<i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="btn btn-primary" id="insert-many">
+                    입력&nbsp;<i class="fa-solid fa-download"></i>
+                </button>
+            </div>
+
+            <!-- Modal -->
+            <div
+                style="background: transparent;"
+                id="modal-ctm"
+                class="modal fade"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="">운행정보 수정</h3>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            <input type="hidden" id="md-rsvtNum" value="">
+                        </div>
+                        <div class="modal-body md-rsvt-bdc" id="md-rsvt-bd">
+                            <h2>
+                                고객 정보
+                            </h2>
+                            <div th:replace="openTemplates/updateCustomer :: upCust"></div>
+                        </div>
+                        <div class="modal-footer mf-ch-rsvt">
+                            <div class="mf-ch-rsvt-item">
+                                <button type="button" class="btn btn-primary" id="btn-ctm-insert">입력</button>
                             </div>
                         </div>
-                        <div id="user-plus">
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <label for="ctmstp">출발지</label>
-                                    <input
-                                        type="text"
-                                        onfocus="this.select()"
-                                        class="form-control input-sm"
-                                        id="ctmstp"
-                                        placeholder="출발지가 고정된 예약자일 경우 입력"></input>
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-pen"></i>
-                                    <label for="ctmdetail">메모</label>
-                                    <input
-                                        type="text"
-                                        readonly="readonly"
-                                        class="form-control input-sm"
-                                        id="ctmdetail">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-phone-alt"></i>
-                                    <label for="ctmtel2">비상연락처</label>
-                                    <input
-                                        type="text"
-                                        readonly="readonly"
-                                        class="form-control input-sm"
-                                        id="ctmtel2">
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-map"></i>
-                                    <label for="ctmaddress">주소</label>
-                                    <input
-                                        type="text"
-                                        readonly="readonly"
-                                        class="form-control input-sm"
-                                        id="ctmaddress">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="far fa-envelope"></i>
-                                    <label for="ctmemail">이메일</label>
-                                    <input
-                                        type="text"
-                                        readonly="readonly"
-                                        class="form-control input-sm"
-                                        id="ctmemail">
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="far fa-building"></i>
-                                    <label for="ctmcompanum">사업자등록번호</label>
-                                    <input
-                                        type="email"
-                                        readonly="readonly"
-                                        class="form-control input-sm"
-                                        id="ctmcompanum">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-fax"></i>
-                                    <label for="ctmfax">팩스</label>
-                                    <input
-                                        type="text"
-                                        readonly="readonly"
-                                        class="form-control input-sm"
-                                        id="ctmfax">
-                                </div>
-                                <div class="form-group col-xs-12 col-lg-6">
-                                    <i class="fas fa-home"></i>
-                                    <label for="ctmhomepage">홈페이지</label>
-                                    <input
-                                        type="text"
-                                        readonly="readonly"
-                                        class="form-control input-sm"
-                                        id="ctmhomepage">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;&nbsp;기</button>
-                        <button type="button" class="btn btn-primary" id="btn-modal">입&nbsp;&nbsp;력</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered" id="rsvt-tb">
-                <thead>
-                    <tr>
-                        <th class="th-ct">출&nbsp;발&nbsp;일</th>
-                        <th class="th-ct">도&nbsp;착&nbsp;일</th>
-                        <th class="th-ct">차&nbsp;&nbsp;량</th>
-                        <th class="th-ct">대&nbsp;&nbsp;수</th>
-                        <th class="th-ct">출&nbsp;발&nbsp;시&nbsp;간</th>
-                        <th class="th-ct">종&nbsp;료&nbsp;시&nbsp;간</th>
-                        <th class="col-lg-2">출&nbsp;발&nbsp;장&nbsp;소</th>
-                        <th class="col-lg-2">목&nbsp;적&nbsp;지</th>
-                        <th class="col-lg-2">특&nbsp;이&nbsp;사&nbsp;항</th>
-                        <th class="th-ct">부&nbsp;가&nbsp;세</th>
-                        <th class="th-ct">운&nbsp;행&nbsp;금&nbsp;액</th>
-                        <th class="th-ct">삭&nbsp;제</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="date" class="input-sm" id="std" onchange="ccc(this)"></td>
-                        <td><input type="date" class="input-sm" id="edd"></td>
-                        <td>
-                            <select id="bus" name="bus" class="form-control input-sm" style="width: auto;">
-                                <option value="대형">대형</option>
-                                <option value="중형">중형</option>
-                                <option value="우등">우등</option>
-                                <option value="기타">기타</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control input-sm" style="width: auto;">
-                                <option
-                                    th:each="i : ${#numbers.sequence(1, 50)}"
-                                    th:value="${i}"
-                                    th:text="${i}">Num</option>
-                            </select>
-                        </td>
-                        <td><input type="time" class="input-sm" value="08:30">
-                        </td>
-                        <td><input type="time" class="input-sm"></td>
-                        <td><input type="text" class="input-sm" id="stp"></td>
-                        <td><input type="text" class="input-sm"></td>
-                        <td><input type="text" class="input-sm"></td>
-                        <td>
-                            <select class="form-control input-sm" style="width: auto;">
-                                <option value="포함">포함</option>
-                                <option value="미포함">미포함</option>
-                                <option value="카드">카드</option>
-                            </select>
-                        </td>
-                        <td><input
-                            type="text"
-                            data-type="currency"
-                            class="input-sm"
-                            value="0"
-                            style="text-align: right;"></td>
-                        <td class="th-ct">
-                            <a></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="btng" role="group" aria-label="...">
-            <button class="btn btn-primary" id="insert-many">입&nbsp;&nbsp;&nbsp;력</button>
-            <button class="btn btn-default" id="plus-btn">추&nbsp;&nbsp;&nbsp;가</button>
-        </div>
-
+            <div th:replace="openTemplates/offCustomer :: offCustomer"></div>
+            <div th:replace="openTemplates/modalCustomerUp :: modalCustUp"></div>
+            <datalist id="name-cho">
+                <option
+                    th:each="custom : ${customer}"
+                    th:value="${custom.ctmname}"
+                    th:label="${custom.ctmtel1}"
+                    th:data-value="${custom.ctmno}"></option>
+            </datalist>
+        </main>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const opt =/*[[${opt}]]*/
+            'default';
+            /*]]>*/
+        </script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
         <script src="/js/boot/bootstrap.js"></script>
@@ -359,5 +247,8 @@
         <script src="/js/boot/all.js"></script>
         <script src="/js/common/common.js"></script>
         <script src="/js/dashboard/rsvtMany.js"></script>
+        <script src="/js/openTemplates/offCustomer.js"></script>
+        <script src="/js/openTemplates/insertCustomer.js"></script>
+        <script src="/js/openTemplates/updateCustomer.js"></script>
     </body>
 </html>

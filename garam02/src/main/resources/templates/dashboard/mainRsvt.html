@@ -4,9 +4,19 @@
         <div class="rsvt-main">
             <div class="rsvtMain card-song">
                 <div class="rsvt-cst">
-                    <h2>
-                        1.고객 정보
-                    </h2>
+                    <div class="rsvt-cst-title row">
+                        <div class="form-group col-xs-8 col-lg-8">
+                            <h2>
+                                1.고객 정보
+                            </h2>
+                        </div>
+                        <div class="form-group col-xs-4 col-lg-4" style="text-align: right;">
+                            <a class=" btn btn-secondary" id="many-insert">
+                                <span>
+                                    <i class="fas fa-list"></i>&nbsp;일괄입력</span>
+                            </a>
+                        </div>
+                    </div>
                     <div th:replace="openTemplates/insertCustomer :: inCust"></div>
                 </div>
                 <hr>
@@ -71,6 +81,18 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12 col-md-6">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <label for="desty" class="form-label">목적지 및 경유지</label>
+                                <textarea id="desty" name="desty" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-6">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <label for="rsvpstp" class="form-label">출발장소(모두기입)</label>
+                                <textarea id="rsvpstp" name="rsvpstp" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12 col-md-6">
                                 <i class="far fa-clock"></i>
                                 <label for="stt" class="form-label">출발시간</label>
                                 <input
@@ -85,18 +107,6 @@
                                 <i class="far fa-clock"></i>
                                 <label for="endt" class="form-label">종료시간</label>
                                 <input type="time" class="form-control" id="endt" name="endt">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-12 col-md-6">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <label for="rsvpstp" class="form-label">출발장소(모두기입)</label>
-                                <textarea id="rsvpstp" name="rsvpstp" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group col-sm-12 col-md-6">
-                                <i class="fas fa-map-marked-alt"></i>
-                                <label for="desty" class="form-label">목적지 및 경유지</label>
-                                <textarea id="desty" name="desty" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row">
