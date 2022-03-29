@@ -333,7 +333,7 @@ $(document).on('keyup', '.ve-emp-one', function (eInner) {
     }
 });
 
-$(document).on('keydown', '.ve-m', function (eInner) {
+$(document).on('keyup', '.ve-m', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
         const iidd = '#' + $(this).attr('id');
@@ -968,11 +968,11 @@ function mdOneWay(val) {
                         if (i > 0) {
                             htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
                                 i + 100
-                            ) + '" disabled></i>';
+                            ) + '" disabled><i class="fa-solid fa-ban"></i>';
                         } else {
                             htmls += '<button class="onebtn" role="button" id="bt-' + (
                                 i + 100
-                            ) + '" style="opacity: 0;" disabled></i>';
+                            ) + '" style="opacity: 0;" disabled><i class="fa-solid fa-ban"></i>';
                         }
                     }
 
@@ -1256,7 +1256,7 @@ function getAlloList(day) {
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
                                     htmls += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-user-check" st' +
-                                            'yle="letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname + '</div>';
+                                            'yle="letter-spacing: 0.3rem;"></i>' + r[i].ctmname + '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls += '<div class="ctm-ttt-item">';
@@ -1269,9 +1269,9 @@ function getAlloList(day) {
                                     htmls += ddetail;
                                     htmls += '</div>';
                                     htmls += '<div class="ctm-ttt-item">';
-                                    htmls += '<button class="btn btn-default allo-detail-item-1 card-song" data-bs-toggle="t' +
-                                            'ooltip" data-bs-placement="top" title="일괄 입금내역 입력"><i class="fas fa-won-sign">' +
-                                            '</i></button>';
+                                    htmls += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                                            ' fa-file-lines"></i></button>';
                                     htmls += '</div>';
                                     htmls += '</div>';
                                     htmls += '<div class="rv" id="rv' + r[i].ctmseq + '">';
@@ -1301,9 +1301,9 @@ function getAlloList(day) {
                                     htmls2 += ddetail;
                                     htmls2 += '</div>';
                                     htmls2 += '<div class="ctm-ttt-item">';
-                                    htmls2 += '<button class="btn btn-default allo-detail-item-1 card-song" data-bs-toggle="t' +
-                                            'ooltip" data-bs-placement="top" title="일괄 입금내역 입력"><i class="fas fa-won-sign">' +
-                                            '</i></button>';
+                                    htmls2 += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                                            ' fa-file-lines"></i></button>';
                                     htmls2 += '</div>';
                                     htmls2 += '</div>';
                                     htmls2 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
@@ -1320,7 +1320,7 @@ function getAlloList(day) {
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
                                     htmls3 += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-file-signature' +
-                                            '" style="letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname + '</div>';
+                                            '" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname + '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls3 += '<div class="ctm-ttt-item">';
@@ -1333,9 +1333,9 @@ function getAlloList(day) {
                                     htmls3 += ddetail;
                                     htmls3 += '</div>';
                                     htmls3 += '<div class="ctm-ttt-item">';
-                                    htmls3 += '<button class="btn btn-default allo-detail-item-1 card-song" data-bs-toggle="t' +
-                                            'ooltip" data-bs-placement="top" title="일괄 입금내역 입력"><i class="fas fa-won-sign">' +
-                                            '</i></button>';
+                                    htmls3 += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                                            ' fa-file-lines"></i></button>';
                                     htmls3 += '</div>';
                                     htmls3 += '</div>';
                                     htmls3 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
@@ -1501,23 +1501,23 @@ function getAlloList(day) {
                             if (r[i].ctmno == '0') {
                                 htmls += '<blockquote>';
                                 htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
-                                        '><i class="fas fa-map-marker-alt">&nbsp;&nbsp;</i>' + r[i].desty + '(고객정보입력 후 ' +
-                                        '배차 가능)<em style="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                                        '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '(고객정보입력 후 배차 가능)<em st' +
+                                        'yle="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
                                 htmls += '</blockquote>';
                             } else {
                                 htmls += '<blockquote>';
                                 htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
-                                        '><i class="fas fa-map-marker-alt">&nbsp;&nbsp;</i>' + r[i].desty + '<em style=' +
-                                        '"letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                                        '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '<em style="letter-spac' +
+                                        'ing: 0.3rem;">' + suk + '</em></mark></p>';
                                 htmls += '</blockquote>';
                             }
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<small><mark><i class="fas fa-bus">&nbsp;</i>' + r[i].bus + '</mark>&nbsp;&nbs' +
-                                    'p;<span class="badge bg-secondary">' + r[i].num + '</span></small>';
+                            htmls += '<small><mark><i class="fas fa-bus"></i>' + r[i].bus + '</mark><span class="bad' +
+                                    'ge bg-secondary">' + r[i].num + '</span></small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<small><i class="fas fa-map-pin">&nbsp;</i>' + r[i].rsvpstp + '</small>';
+                            htmls += '<small><i class="fas fa-map-pin"></i>' + r[i].rsvpstp + '</small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
                             let stttt = '';
@@ -1532,8 +1532,7 @@ function getAlloList(day) {
                             } else {
                                 etttt = '미정'
                             }
-                            htmls += '<small><i class="far fa-clock">&nbsp;</i>' + stttt + '&nbsp;&#47;&nbsp;' +
-                                    etttt + '</small>';
+                            htmls += '<small><i class="far fa-clock"></i>' + stttt + '&nbsp;&#47;&nbsp;' + etttt + '</small>';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
 
@@ -2760,4 +2759,35 @@ function endAllo2() {
 
 $(document).on('click', '.regallo-tab', function () {
     window.open('/regular/regularAllo', '정기운행배차');
+});
+
+$(document).on('click', '.btnPaPer', function () {
+    const aaa = $(this)
+        .parent()
+        .prev()
+        .prev()
+        .prev()
+        .prev();
+    const aaa1 = $(this)
+        .parent()
+        .prev()
+        .prev()
+        .prev();
+    const aaa2 = $(this)
+        .parent()
+        .parent()
+        .prev()
+        .prev();
+
+    const name = $(aaa).text();
+    const tel = $(aaa1).text();
+    const ctm = $(aaa2).val();
+    $(document).on('show.bs.modal', '#modalPaper0', function () {
+
+        $('#paperTitle').text(name + ' ' + tel + ' ' + $('#yearMonthDay').val());
+        $('#paperCtm').val(ctm);
+        $('#paperDay').val($('#yearMonthDay').val());
+    })
+
+    $('#modalPaper0').modal('show');
 });

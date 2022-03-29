@@ -2,9 +2,9 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <!-- Modal -->
     <div
-        th:fragment="ve-MD-reg"
+        th:fragment="ve-MD-jukView"
         class="modal fade"
-        id="modal-reg"
+        id="modal-jukView"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
         tabindex="-1"
@@ -13,7 +13,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="modal-reg-mh">Modal title</h3>
+                    <h3 class="modal-title" id="modal-jukView-mh">Modal title</h3>
                     <button
                         type="button"
                         class="btn-close"
@@ -22,25 +22,11 @@
                 </div>
                 <div class="modal-body mdb-reg">
                     <div class="mdb-reg-item">
-                        <iframe class="mdb-reg-item-a" src="" frameborder="0" id="reg-frame"></iframe>
-                    </div>
-                    <div class="mdb-reg-item">
-                        <label class="file-la" for="reg-selector">PDF 파일선택<i class="fas fa-file-upload"></i>
-                        </label>
-                        <form id="form-reg">
-                            <input
-                                type="file"
-                                accept=".pdf"
-                                name="uploadfile"
-                                id="reg-selector"
-                                style="display: none;">
-                            <input type="hidden" id="regcarn" name="regcarn" value="">
-                        </form>
+                        <iframe class="mdb-reg-item-a" src="" frameborder="0" id="jukView-frame"></iframe>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;기</button>
-                    <button type="button" class="btn btn-primary" id="reg-insert">입&nbsp;력</button>
                 </div>
             </div>
         </div>

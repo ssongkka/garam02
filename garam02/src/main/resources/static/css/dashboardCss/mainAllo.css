@@ -172,15 +172,15 @@
 .onebtn {
     height: 30px;
     font-size: 1.5rem;
-    padding: 0 0.5rem;
+    padding: 0;
 }
 
 .onebtn1 {
     height: 30px;
     font-size: 1.5rem;
-    padding: 0 0.5rem;
-    color: #F4A896;
-    background: #FBF8BE;
+    padding: 0;
+    color: var(--main-color);
+    background: var(--sub-color);
 }
 
 .onebtn2 {

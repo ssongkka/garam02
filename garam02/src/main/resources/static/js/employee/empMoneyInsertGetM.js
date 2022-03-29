@@ -1052,7 +1052,7 @@ function getAllMList(result) {
                     $('#operO').val(r[0].per * 100);
                     $('#emp-sal').val(1);
                     $('#inBtnGroup').html(
-                        `<a type="button" class="btn btn-info" id="printbtn">급여명세서 생성&nbsp;<i class="fa-solid fa-file-circle-plus"></i></i>
+                        `<a type="button" class="btn btn-info" id="printbtn">급여명세서 생성<i class="fa-solid fa-file-circle-plus"></i></i>
                     </a>`
                     );
                 } else {

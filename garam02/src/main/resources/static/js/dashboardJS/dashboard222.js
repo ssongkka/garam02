@@ -345,7 +345,7 @@ function getInfoList(page, listSize) {
                         i + 1
                     ) + '-title';
                     html += '<div class="' + dashCollapseTitlec + '" id="' +
-                            dashCollapseTitle + '"><i class="far fa-bookmark"></i>&nbsp;&nbsp;' + r[i].title +
+                            dashCollapseTitle + '"><i class="far fa-bookmark"></i>' + r[i].title +
                             '</div>';
 
                     var dashCollapseName = 'dash-collapse-' + (

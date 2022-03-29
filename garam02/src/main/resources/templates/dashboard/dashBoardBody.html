@@ -25,16 +25,16 @@
             <div class="deail-form card-song">
                 <a class="deail-form-item">
                     <i class="fa-solid fa-user-pen"></i>
-                    &nbsp;내정보
+                    내정보
                 </a>
                 <a class="deail-form-item">
-                    <i class="fa-solid fa-gear"></i>&nbsp;설정</a>
+                    <i class="fa-solid fa-gear"></i>설정</a>
                 <a
                     sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')"
                     class="deail-form-item">
-                    <i class="fa-solid fa-chart-line"></i>&nbsp;관리자</a>
+                    <i class="fa-solid fa-chart-line"></i>관리자</a>
                 <a sec:authorize="isAuthenticated()" class="deail-form-item">
-                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp;로그아웃</a>
+                    <i class="fa-solid fa-right-from-bracket"></i>로그아웃</a>
             </div>
         </header>
         <aside class="aside">
@@ -118,7 +118,7 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-home"
-                                    aria-selected="true">home</button>
+                                    aria-selected="true">메인</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
@@ -189,6 +189,9 @@
         <div th:replace="openTemplates/offCustomer :: offCustomer"></div>
         <div th:replace="openTemplates/modalCustomer :: modalCust"></div>
         <div th:replace="openTemplates/modalCustomerUp :: modalCustUp"></div>
+        <div th:replace="openTemplates/makePaperModal :: modalPaper0"></div>
+        <div th:replace="openTemplates/makePaperModal :: modalPaper1"></div>
+        <div th:replace="openTemplates/makePaperModal :: modalPaper2"></div>
         <script th:inline="javascript">
             /*<![CDATA[*/
             const opt =/*[[${opt}]]*/
@@ -229,5 +232,6 @@
         <script src="/js/openTemplates/offCustomer.js"></script>
         <script src="/js/openTemplates/insertCustomer.js"></script>
         <script src="/js/openTemplates/updateCustomer.js"></script>
+        <script src="/js/openTemplates/makePaperModal.js"></script>
     </body>
 </html>

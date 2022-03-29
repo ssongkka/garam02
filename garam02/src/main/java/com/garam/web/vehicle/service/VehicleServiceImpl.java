@@ -11,9 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -32,6 +36,7 @@ import com.garam.web.Utils.FTPManager;
 import com.garam.web.Utils.NameUtils;
 import com.garam.web.Utils.PDFUtil;
 import com.garam.web.Utils.pdfFooter;
+import com.garam.web.vehicle.dto.JukfileDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.mapper.VehicleMapper;
 import com.itextpdf.text.BaseColor;
@@ -197,14 +202,17 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public File veDownPdf(String compa) {
+	public File veDownPdf(String compa) throws IOException {
 
 		List<VehicleInfoDTO> list;
 		PDFUtil pdfU = new PDFUtil();
 
 		Document document = null;
-		File file = new File("tmp.PDF");
 
+		int a = (int) ((Math.random() * 10000) + 10);
+
+		File file = File.createTempFile("tmp" + Integer.toString(a), ".tmp");
+		file.deleteOnExit();
 		try {
 			document = pdfU.getDocument();
 
@@ -312,6 +320,8 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public File veDownExcel(String compa) {
+
+		File file = null;
 		HSSFWorkbook wb = null;
 		FileOutputStream fileoutputstream = null;
 
@@ -387,10 +397,16 @@ public class VehicleServiceImpl implements VehicleService {
 
 			}
 
-			fileoutputstream = new FileOutputStream("tmp.XLS");
-			wb.write(fileoutputstream);
+//			fileoutputstream = new FileOutputStream("tmp.XLS");
 
-			fileoutputstream.close();
+			int a = (int) ((Math.random() * 10000) + 10);
+
+			file = File.createTempFile("tmp" + Integer.toString(a), ".tmp");
+			file.deleteOnExit();
+
+			wb.write(file);
+
+//			fileoutputstream.close();
 
 			wb.close();
 
@@ -406,7 +422,7 @@ public class VehicleServiceImpl implements VehicleService {
 		} finally {
 		}
 
-		return new File("tmp.XLS");
+		return file;
 	}
 
 	@Override
@@ -481,4 +497,210 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return rtn;
 	}
+
+	@Override
+	public int updateVeJukPDF(Map<String, Object> map, MultipartFile[] files) throws Exception {
+
+		String str = "";
+		for (int i = 0; i < 6; i++) {
+			switch ((int) ((Math.random() * 3) + 1)) {
+			case 1:
+				str += Integer.toString((int) (Math.random() * 9));
+				break;
+			case 2:
+				str += (char) (int) ((Math.random() * 26) + 65);
+				break;
+			case 3:
+				str += (char) (int) ((Math.random() * 26) + 97);
+				break;
+			}
+		}
+
+		String day = LocalDate.now().toString().replaceAll("-", "").substring(2);
+
+		String jukname = day + str;
+
+		map.put("jukname", jukname);
+
+		JukfileDTO jukfileDTO = new JukfileDTO();
+
+		jukfileDTO.setJukday(map.get("jukday").toString());
+		jukfileDTO.setJukname(map.get("jukname").toString());
+
+		jukfileDTO.setVe1(map.get("ve1").toString());
+		jukfileDTO.setId1(map.get("id1").toString());
+		jukfileDTO.setVe2(map.get("ve2").toString());
+		jukfileDTO.setId2(map.get("id2").toString());
+		jukfileDTO.setVe3(map.get("ve3").toString());
+		jukfileDTO.setId3(map.get("id3").toString());
+		jukfileDTO.setVe4(map.get("ve4").toString());
+		jukfileDTO.setId4(map.get("id4").toString());
+		jukfileDTO.setVe5(map.get("ve5").toString());
+		jukfileDTO.setId5(map.get("id5").toString());
+
+		int rtn = vehicleMapper.insertJuk(jukfileDTO);
+
+		List<Map<String, Object>> map1 = new ArrayList<Map<String, Object>>();
+
+		Map<String, Object> tmpMap1 = new HashMap<String, Object>();
+
+		tmpMap1.put("juk", jukfileDTO.getJukname());
+		tmpMap1.put("jukd", jukfileDTO.getId1());
+		tmpMap1.put("carNumber", jukfileDTO.getVe1());
+
+		Map<String, Object> tmpMap2 = new HashMap<String, Object>();
+
+		tmpMap2.put("juk", jukfileDTO.getJukname());
+		tmpMap2.put("jukd", jukfileDTO.getId2());
+		tmpMap2.put("carNumber", jukfileDTO.getVe2());
+
+		Map<String, Object> tmpMap3 = new HashMap<String, Object>();
+
+		tmpMap3.put("juk", jukfileDTO.getJukname());
+		tmpMap3.put("jukd", jukfileDTO.getId3());
+		tmpMap3.put("carNumber", jukfileDTO.getVe3());
+
+		Map<String, Object> tmpMap4 = new HashMap<String, Object>();
+
+		tmpMap4.put("juk", jukfileDTO.getJukname());
+		tmpMap4.put("jukd", jukfileDTO.getId4());
+		tmpMap4.put("carNumber", jukfileDTO.getVe4());
+
+		Map<String, Object> tmpMap5 = new HashMap<String, Object>();
+
+		tmpMap5.put("juk", jukfileDTO.getJukname());
+		tmpMap5.put("jukd", jukfileDTO.getId5());
+		tmpMap5.put("carNumber", jukfileDTO.getVe5());
+
+		if (tmpMap1.get("carNumber").toString().length() > 0) {
+			map1.add(tmpMap1);
+		}
+		if (tmpMap2.get("carNumber").toString().length() > 0) {
+			map1.add(tmpMap2);
+		}
+		if (tmpMap3.get("carNumber").toString().length() > 0) {
+			map1.add(tmpMap3);
+		}
+		if (tmpMap4.get("carNumber").toString().length() > 0) {
+			map1.add(tmpMap4);
+		}
+		if (tmpMap5.get("carNumber").toString().length() > 0) {
+			map1.add(tmpMap5);
+		}
+
+		HashMap<String, Object> upjuk = new HashMap<>();
+		for (int i = 0; i < map1.size(); i++) {
+			upjuk.put("upjuk", map1);
+		}
+
+		int rtn1 = vehicleMapper.updateVeJuk(upjuk);
+
+		String fileName = jukname + ".PDF";
+
+		FTPClient ftp = ftpmanager.connect();
+		if (files[0].getSize() > 0) {
+			if (ftp.isConnected()) {
+				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
+
+				String filename = ftpmanager.getCarFolder() + "juk/" + fileName;
+				if (ftp.storeFile(filename, inputStream)) {
+					System.out.println("야호");
+				} else {
+					rtn = 2;
+				}
+			} else {
+				rtn = 2;
+			}
+		} else {
+			rtn = 2;
+		}
+
+		ftpmanager.disconnect(ftp);
+
+		return rtn * rtn1;
+	}
+
+	@Override
+	public int insertJuk(JukfileDTO jukfileDTO) throws Exception {
+		String str = "";
+		for (int i = 0; i < 6; i++) {
+			switch ((int) ((Math.random() * 3) + 1)) {
+			case 1:
+				str += Integer.toString((int) (Math.random() * 9));
+				break;
+			case 2:
+				str += (char) (int) ((Math.random() * 26) + 65);
+				break;
+			case 3:
+				str += (char) (int) ((Math.random() * 26) + 97);
+				break;
+			}
+		}
+
+		String day = LocalDate.now().toString().replaceAll("-", "").substring(2);
+
+		String jukname = day + str;
+
+		jukfileDTO.setJukname(jukname);
+
+		int rtn = vehicleMapper.insertJuk(jukfileDTO);
+
+		List<Map<String, Object>> map = new ArrayList<Map<String, Object>>();
+
+		Map<String, Object> tmpMap1 = new HashMap<String, Object>();
+
+		tmpMap1.put("juk", jukfileDTO.getJukname() + ".PDF");
+		tmpMap1.put("jukd", jukfileDTO.getId1());
+		tmpMap1.put("carNumber", jukfileDTO.getVe1());
+
+		Map<String, Object> tmpMap2 = new HashMap<String, Object>();
+
+		tmpMap2.put("juk", jukfileDTO.getJukname() + ".PDF");
+		tmpMap2.put("jukd", jukfileDTO.getId2());
+		tmpMap2.put("carNumber", jukfileDTO.getVe2());
+
+		Map<String, Object> tmpMap3 = new HashMap<String, Object>();
+
+		tmpMap3.put("juk", jukfileDTO.getJukname() + ".PDF");
+		tmpMap3.put("jukd", jukfileDTO.getId3());
+		tmpMap3.put("carNumber", jukfileDTO.getVe3());
+
+		Map<String, Object> tmpMap4 = new HashMap<String, Object>();
+
+		tmpMap4.put("juk", jukfileDTO.getJukname() + ".PDF");
+		tmpMap4.put("jukd", jukfileDTO.getId4());
+		tmpMap4.put("carNumber", jukfileDTO.getVe4());
+
+		Map<String, Object> tmpMap5 = new HashMap<String, Object>();
+
+		tmpMap5.put("juk", jukfileDTO.getJukname() + ".PDF");
+		tmpMap5.put("jukd", jukfileDTO.getId5());
+		tmpMap5.put("carNumber", jukfileDTO.getVe5());
+
+		if (tmpMap1.get("carNumber").toString().length() > 0) {
+			map.add(tmpMap1);
+		}
+		if (tmpMap2.get("carNumber").toString().length() > 0) {
+			map.add(tmpMap2);
+		}
+		if (tmpMap3.get("carNumber").toString().length() > 0) {
+			map.add(tmpMap3);
+		}
+		if (tmpMap4.get("carNumber").toString().length() > 0) {
+			map.add(tmpMap4);
+		}
+		if (tmpMap5.get("carNumber").toString().length() > 0) {
+			map.add(tmpMap5);
+		}
+
+		HashMap<String, Object> upjuk = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			upjuk.put("upjuk", map);
+		}
+
+		int rtn1 = vehicleMapper.updateVeJuk(upjuk);
+
+		return rtn * rtn1;
+	}
+
 }

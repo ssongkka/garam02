@@ -566,6 +566,10 @@ function getMidCnt(day, i) {
     });
 }
 
+$(document).on('click', 'aside', function () {
+    
+});
+
 $(document).on('click', '#goEmp', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;

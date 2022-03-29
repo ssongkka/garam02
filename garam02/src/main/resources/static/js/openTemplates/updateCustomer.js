@@ -1,25 +1,25 @@
 $(document).on('click', '#btnCusPUp', function () {
     if ($('.cusP').is(':visible')) {
-        $('#btnCusPUp').html(`더보기&nbsp;<i class="fa-solid fa-angles-down"></i>`);
+        $('#btnCusPUp').html(`더보기<i class="fa-solid fa-angles-down"></i>`);
         $('.cusP').hide();
     } else {
-        $('#btnCusPUp').html(`닫  기&nbsp;<i class="fa-solid fa-angles-up"></i>`);
+        $('#btnCusPUp').html(`닫  기<i class="fa-solid fa-angles-up"></i>`);
         $('.cusP').show();
     }
 });
 
 function showPlusBtn() {
-    $('#cusPbtn').show();
+    $('.cusPbtn').show();
 }
 function hidePlusBtn() {
-    $('#cusPbtn').hide();
+    $('.cusPbtn').hide();
 }
 function showPlusDetail() {
-    $('#btnCusPUp').html(`닫  기&nbsp;<i class="fa-solid fa-angles-up"></i>`);
+    $('#btnCusPUp').html(`닫  기<i class="fa-solid fa-angles-up"></i>`);
     $('.cusP').show();
 }
 function hidePlusDetail() {
-    $('#btnCusPUp').html(`더보기&nbsp;<i class="fa-solid fa-angles-down"></i>`);
+    $('#btnCusPUp').html(`더보기<i class="fa-solid fa-angles-down"></i>`);
     $('.cusP').hide();
 }
 

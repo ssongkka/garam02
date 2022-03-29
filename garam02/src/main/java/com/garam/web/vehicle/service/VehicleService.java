@@ -2,9 +2,11 @@ package com.garam.web.vehicle.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.garam.web.vehicle.dto.JukfileDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
 public interface VehicleService {
@@ -27,4 +29,9 @@ public interface VehicleService {
 	public int updateVeRegPDF(String carnumber, MultipartFile[] files) throws Exception;
 
 	public int updateVeInsuPDF(String carnumber, MultipartFile[] files) throws Exception;
+
+	public int updateVeJukPDF(Map<String, Object> map, MultipartFile[] files) throws Exception;
+
+	public int insertJuk(JukfileDTO jukfileDTO) throws Exception;
+
 }

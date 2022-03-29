@@ -21,9 +21,12 @@ $(document).on('click', '#btnChReg', function () {
             .then(getReg)
             .then(closeLoadingWithMask);
     });
-
-    $('#btn-rginsert').text('수 정');
-    $('#modal-rginsert').modal('show');
+    if ($('#ctmnoReal').val()) {
+        $('#btn-rginsert').text('수 정');
+        $('#modal-rginsert').modal('show');
+    } else {
+        alert("정기운행 회사를 선택해주세요.");
+    }
 });
 
 function setCtmer(result) {

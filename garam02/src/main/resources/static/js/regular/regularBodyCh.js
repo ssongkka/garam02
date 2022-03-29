@@ -726,10 +726,10 @@ function getGoGoTb(param) {
     </div>
     <div class="gogo-item2">
          <button type="button" class="btn btn-warning delCo">
-             <i class="far fa-trash-alt"></i>&nbsp;삭&nbsp;&nbsp;제
+             <i class="far fa-trash-alt"></i>삭&nbsp;제
         </button>
         <button type="button" class="btn btn-primary insertCo">
-             <i class="fas fa-plus"></i>&nbsp;정류소&nbsp;추가
+             <i class="fas fa-plus"></i>정류소&nbsp;추가
         </button>
     </div>
 </div>`;
@@ -765,10 +765,10 @@ function getOutOutTb(param) {
     </div>
     <div class="gogo-item2">
         <button type="button" class="btn btn-warning delCo">
-            <i class="far fa-trash-alt"></i>&nbsp;삭&nbsp;&nbsp;제
+            <i class="far fa-trash-alt"></i>삭&nbsp;제
         </button>
         <button type="button" class="btn btn-primary insertCo">
-            <i class="fas fa-plus"></i>&nbsp;정류소&nbsp;추가
+            <i class="fas fa-plus"></i>정류소&nbsp;추가
         </button>
     </div>
 </div>`;

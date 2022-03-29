@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .rsvt-cst-title {
@@ -128,6 +128,7 @@
     flex-direction: column;
     margin: 0 25rem;
     padding: 2rem;
+    gap: 1rem;
 }
 
 #ctmname:focus {

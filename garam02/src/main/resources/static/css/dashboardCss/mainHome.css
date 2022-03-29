@@ -203,20 +203,15 @@ ul {
 }
 
 .home-main-item-444:nth-child(1) {
-    /* height: 50px; */
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 3rem;
     font-weight: 600;
 }
 
 .hide-tr {
     display: none;
 }
-
-/* .hide-tr span {
-    font-size: 1.4rem;
-} */
 
 .hide-tr blockquote {
     padding: 1rem;

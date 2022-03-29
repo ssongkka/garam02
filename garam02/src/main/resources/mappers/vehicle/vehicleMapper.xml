@@ -172,7 +172,11 @@
 		SELECT
 
 		(SELECT name FROM employeeinfo WHERE employeeinfo.id
-		= vehicleinfo.id) AS name
+		= vehicleinfo.id) AS name,
+
+		(SELECT jukday FROM jukfile WHERE
+		jukfile.jukname
+		= vehicleinfo.juk) AS jukday
 
 		FROM
 		vehicleinfo
@@ -223,10 +227,73 @@
 		SELECT
 
 		<include refid="veColumns" />
+		, (SELECT jukday FROM jukfile WHERE jukfile.jukname
+		= vehicleinfo.juk)
+		AS jukday
 
 		FROM vehicleinfo LEFT JOIN employeeinfo ON vehicleinfo.id =
 		employeeinfo.id
 		WHERE vehicleinfo.carnumber = #{carNumber}
 	</select>
 
+	<insert id="insertJuk"
+		parameterType="com.garam.web.vehicle.dto.JukfileDTO">
+
+		INSERT
+
+		INTO
+
+		jukfile
+
+		VALUES
+
+		(
+		null,
+
+		#{jukday},
+
+		#{jukname},
+
+		#{ve1},
+
+		#{id1},
+
+		#{ve2},
+
+		#{id2},
+
+		#{ve3},
+
+		#{id3},
+
+		#{ve4},
+
+		#{id4},
+
+		#{ve5},
+
+		#{id5},
+
+		1
+		);
+	</insert>
+
+	<update id="updateVeJuk" parameterType="java.util.HashMap">
+		<foreach collection="upjuk" item="value" index="index"
+			separator=";">
+			UPDATE
+
+			vehicleinfo
+
+			SET
+
+			jukd = #{value.jukd},
+			juk =
+			#{value.juk}
+
+			WHERE
+
+			carnumber = #{value.carNumber}
+		</foreach>
+	</update>
 </mapper>

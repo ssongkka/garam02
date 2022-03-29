@@ -635,21 +635,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 			out11.put(sizeO11 + i, " ");
 		}
 
-		System.out.println("in0  " + in0);
-		System.out.println("in00  " + in00);
-		System.out.println("in1  " + in1);
-		System.out.println("in11  " + in11);
-		System.out.println("out0  " + out0);
-		System.out.println("out00  " + out00);
-		System.out.println("out1  " + out1);
-		System.out.println("out11  " + out11);
-
 		ArrayList<ArrayList<String>> arrRtn = getPdfCont(id, date);
 
 		PDFUtil pdfU = new PDFUtil();
 
 		Document document = null;
-		File file = new File("tmp.PDF");
+
+		int b = (int) ((Math.random() * 10000) + 10);
+
+		File file = File.createTempFile("tmp" + Integer.toString(b), ".tmp");
+		file.deleteOnExit();
 
 		try {
 			document = pdfU.getDocument();

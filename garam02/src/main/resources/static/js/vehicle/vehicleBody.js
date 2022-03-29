@@ -7,56 +7,43 @@ $(document).ready(function () {
         .then(closeLoadingWithMask);
 });
 
-$('#sel-ve-1').change(function () {
-    const idVal = $('#sel-ve-1').val();
-    const iidd = $('#sel-ve-1 option')
-        .filter(function () {
-            return this.value == idVal;
-        })
-        .data('id');
-    $('#sel-emp-1').val(iidd);
+$(document).on('change', '#sel-ve-1', function () {
+    for (let i = 0; i < dbVe.length; i++) {
+        if ($('#sel-ve-1').val() == dbVe[i].carNumber) {
+            $('#sel-emp-1').val(dbVe[i].id);
+        }
+    }
 });
-$('#sel-ve-2').change(function () {
-    const idVal = $('#sel-ve-2').val();
-    const iidd = $('#sel-ve-2 option')
-        .filter(function () {
-            return this.value == idVal;
-        })
-        .data('id');
-    $('#sel-emp-2').val(iidd);
+$(document).on('change', '#sel-ve-2', function () {
+    for (let i = 0; i < dbVe.length; i++) {
+        if ($('#sel-ve-2').val() == dbVe[i].carNumber) {
+            $('#sel-emp-2').val(dbVe[i].id);
+        }
+    }
 });
-$('#sel-ve-3').change(function () {
-    const idVal = $('#sel-ve-3').val();
-    const iidd = $('#sel-ve-3 option')
-        .filter(function () {
-            return this.value == idVal;
-        })
-        .data('id');
-    $('#sel-emp-3').val(iidd);
+$(document).on('change', '#sel-ve-3', function () {
+    for (let i = 0; i < dbVe.length; i++) {
+        if ($('#sel-ve-3').val() == dbVe[i].carNumber) {
+            $('#sel-emp-3').val(dbVe[i].id);
+        }
+    }
 });
-$('#sel-ve-4').change(function () {
-    const idVal = $('#sel-ve-4').val();
-    const iidd = $('#sel-ve-4 option')
-        .filter(function () {
-            return this.value == idVal;
-        })
-        .data('id');
-    $('#sel-emp-4').val(iidd);
+$(document).on('change', '#sel-ve-4', function () {
+    for (let i = 0; i < dbVe.length; i++) {
+        if ($('#sel-ve-4').val() == dbVe[i].carNumber) {
+            $('#sel-emp-4').val(dbVe[i].id);
+        }
+    }
 });
-$('#sel-ve-5').change(function () {
-    const idVal = $('#sel-ve-5').val();
-    const iidd = $('#sel-ve-5 option')
-        .filter(function () {
-            return this.value == idVal;
-        })
-        .data('id');
-    $('#sel-emp-5').val(iidd);
+$(document).on('change', '#sel-ve-5', function () {
+    for (let i = 0; i < dbVe.length; i++) {
+        if ($('#sel-ve-5').val() == dbVe[i].carNumber) {
+            $('#sel-emp-5').val(dbVe[i].id);
+        }
+    }
 });
 
 $(document).on('click', '#show-aside', function () {
-    // if ($('#show-aside-hd').val() > 0) {     $('.nomal-aside').attr('class','');
-    // $('#show-aside-hd').val(0); } else {     $('.nomal-aside') .css('width',
-    // '70%')         .css('margin-top', '5rem'); $('#show-aside-hd').val(1); }
     let navbar = document.querySelector('.nomal-aside');
     navbar
         .classList
@@ -552,7 +539,6 @@ function getVeInfo(carNumber) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log("헤이요");
                     $('#ve00').val(r[0].carNumber);
 
                     const veLen = r[0].vehicle.length - 4;
@@ -685,7 +671,7 @@ function getVeInfo(carNumber) {
                     if (r[0].reg) {
                         $('#ve21').html(
                             '<button class="btn btn-outline-success tct-item-btn" role="button" id="btn-reg' +
-                            '">' + r[0].regd + '<i class="bi bi-filetype-pdf"></i></button>'
+                            '">' + r[0].regd + '<i class="fa-solid fa-file-lines"></i></button>'
                         );
                         $('#ve21-1').val(r[0].reg);
                     } else {
@@ -699,7 +685,7 @@ function getVeInfo(carNumber) {
                     if (r[0].insu) {
                         $('#ve22').html(
                             '<button class="btn btn-outline-success tct-item-btn" role="button" id="btn-ins' +
-                            'u">' + r[0].insud + '<i class="bi bi-filetype-pdf"></i></button>'
+                            'u">' + r[0].insud + '<i class="fa-solid fa-file-lines"></i></button>'
                         );
                         $('#ve22-1').val(r[0].insu);
                     } else {
@@ -708,6 +694,34 @@ function getVeInfo(carNumber) {
                             'nsu">없&nbsp;음</button>'
                         );
                         $('#ve22-1').val('');
+                    }
+
+                    if (r[0].juk) {
+
+                        const nowd = toStringByFormatting(new Date()).split('-');
+                        const nowNum = parseInt(nowd[0] + nowd[1] + nowd[2]);
+
+                        const jdtmp = (r[0].jukday).split('-');
+                        const jdNum = parseInt(jdtmp[0] + jdtmp[1] + jdtmp[2]);
+
+                        if (jdNum < nowNum) {
+                            $('#ve23').html(
+                                '<button class="btn btn-outline-secondary tct-item-btn" role="button" id="btn-j' +
+                                'uk">' + r[0].jukday + ' 만료됨<i class="fa-solid fa-file-lines"></i></button>'
+                            );
+                        } else {
+                            $('#ve23').html(
+                                '<button class="btn btn-outline-success tct-item-btn" role="button" id="btn-juk' +
+                                '">' + r[0].jukday + '까지<i class="fa-solid fa-file-lines"></i></button>'
+                            );
+                        }
+                        $('#ve23-1').val(r[0].juk);
+                    } else {
+                        $('#ve23').html(
+                            '<button class="btn btn-outline-secondary tct-item-btn" role="button" id="btn-i' +
+                            'nsu">없&nbsp;음</button>'
+                        );
+                        $('#ve23-1').val('');
                     }
                 },
                 error: (jqXHR) => {
@@ -1285,6 +1299,14 @@ $(document).on('click', '#btn-insu', function () {
     setInsu();
 });
 
+$(document).on('click', '#btn-juk', function () {
+    $('#modal-jukView').modal('show');
+    $('#modal-jukView-mh').text(
+        '  ' + $('#ve02').children().text() + ' 교통안전정보조회서 보기'
+    );
+    setJuk();
+});
+
 function setReg() {
     $('#regcarn').val($('#ve00').val());
 
@@ -1305,6 +1327,14 @@ function setInsu() {
     }
 }
 
+function setJuk() {
+    if ($('#ve23-1').val()) {
+        updateImg(veFolder + 'juk/' + $('#ve23-1').val() + '.PDF', 'jukView-frame');
+    } else {
+        $('#jukView-frame').attr('src', veFolder + "choice.pdf");
+    }
+}
+
 $('#reg-selector').change(function () {
     setPdfFromFile(this, '#reg-frame', '#reg-selector')
 });
@@ -1319,7 +1349,17 @@ $('#juk-selector').change(function () {
 
 $(document).on('click', '#reg-insert', function () {
     if ($('#reg-selector').val()) {
-        LoadingWithMask();
+        LoadingWithMask()
+            .then(insertFileReg)
+            .then(closeLoadingWithMask);
+    } else {
+        alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
+    }
+});
+
+function insertFileReg(result) {
+    return new Promise(function (resolve, reject) {
+
         var form = $('#form-reg')[0];
         var data = new FormData(form);
 
@@ -1334,7 +1374,6 @@ $(document).on('click', '#reg-insert', function () {
             cache: false,
             timeout: 600000,
             success: function (r) {
-                closeLoadingWithMask();
                 switch (r) {
                     case 1:
                         refleshMsg("자동차등록증 수정 완료");
@@ -1349,20 +1388,30 @@ $(document).on('click', '#reg-insert', function () {
                     default:
                         break;
                 }
+                resolve();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
             }
         })
+
+    })
+}
+
+$(document).on('click', '#insu-insert', function () {
+
+    if ($('#insu-selector').val()) {
+        LoadingWithMask()
+            .then(insertFileInsu)
+            .then(closeLoadingWithMask);
     } else {
         alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
     }
 });
 
-$(document).on('click', '#insu-insert', function () {
+function insertFileInsu(result) {
+    return new Promise(function (resolve, reject) {
 
-    if ($('#insu-selector').val()) {
-        LoadingWithMask();
         var form = $('#form-insu')[0];
         var data = new FormData(form);
 
@@ -1379,7 +1428,6 @@ $(document).on('click', '#insu-insert', function () {
             cache: false,
             timeout: 600000,
             success: function (r) {
-                closeLoadingWithMask();
                 switch (r) {
                     case 1:
                         refleshMsg("보험가입증명서 수정 완료");
@@ -1394,23 +1442,75 @@ $(document).on('click', '#insu-insert', function () {
                     default:
                         break;
                 }
+                resolve();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
             }
         })
+
+    })
+}
+
+$(document).on('change', '#company', function () {
+    $('#owner').val($('#company').val());
+});
+
+$(document).on('click', '#juk-insert', function () {
+    if ($('#juk-selector').val()) {
+        if (!$('#sel-ve-endD').val()) {
+            alert("이용만료일을 확인해 주세요.");
+            $('#sel-ve-endD').focus();
+            return;
+        }
+
+        if (($('#sel-ve-1').val() && !$('#sel-emp-1').val()) || (!$('#sel-ve-1').val() && $('#sel-emp-1').val())) {
+            alert("번호 1) 차량과 승무원 모두 선택하셔야합니다.\n\n차량과 승무원 중 하나만 선택하실 수 업습니다.");
+            $('#sel-ve-1').focus();
+            return;
+        }
+
+        if (($('#sel-ve-2').val() && !$('#sel-emp-2').val()) || (!$('#sel-ve-2').val() && $('#sel-emp-2').val())) {
+            alert("번호 2) 차량과 승무원 모두 선택하셔야합니다.\n\n차량과 승무원 중 하나만 선택하실 수 업습니다.");
+            $('#sel-ve-2').focus();
+            return;
+        }
+
+        if (($('#sel-ve-3').val() && !$('#sel-emp-3').val()) || (!$('#sel-ve-3').val() && $('#sel-emp-3').val())) {
+            alert("번호 3) 차량과 승무원 모두 선택하셔야합니다.\n\n차량과 승무원 중 하나만 선택하실 수 업습니다.");
+            $('#sel-ve-3').focus();
+            return;
+        }
+
+        if (($('#sel-ve-4').val() && !$('#sel-emp-4').val()) || (!$('#sel-ve-4').val() && $('#sel-emp-4').val())) {
+            alert("번호 1) 차량과 승무원 모두 선택하셔야합니다.\n\n차량과 승무원 중 하나만 선택하실 수 업습니다.");
+            $('#sel-ve-4').focus();
+            return;
+        }
+
+        if (($('#sel-ve-5').val() && !$('#sel-emp-5').val()) || (!$('#sel-ve-5').val() && $('#sel-emp-5').val())) {
+            alert("번호 5) 차량과 승무원 모두 선택하셔야합니다.\n\n차량과 승무원 중 하나만 선택하실 수 업습니다.");
+            $('#sel-ve-5').focus();
+            return;
+        }
+
+        const ch = confirm("교통안전정보 조회결과 통보서 정보를\n\n선택한 차량과 승무원으로 저장하시겠습니까?");
+
+        if (ch) {
+            LoadingWithMask()
+                .then(insertFileJuk)
+                .then(closeLoadingWithMask);
+        }
     } else {
         alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
     }
 });
-$(document).on('click', '#juk-insert', function () {
 
-    if ($('#insu-selector').val()) {
-        LoadingWithMask();
+function insertFileJuk(result) {
+    return new Promise(function (resolve, reject) {
+
         var form = $('#form-juk')[0];
         var data = new FormData(form);
-
-        console.log($('#insu-selector').val());
 
         const url = "/ve/veInsertJukPdf";
         $.ajax({
@@ -1423,31 +1523,79 @@ $(document).on('click', '#juk-insert', function () {
             cache: false,
             timeout: 600000,
             success: function (r) {
-                closeLoadingWithMask();
                 switch (r) {
                     case 1:
-                        refleshMsg("보험가입증명서 수정 완료");
+                        alert("저장완료");
+                        $('#sel-ve-1').val('');
+                        $('#sel-emp-1').val('');
+                        $('#sel-ve-2').val('');
+                        $('#sel-emp-2').val('');
+                        $('#sel-ve-3').val('');
+                        $('#sel-emp-3').val('');
+                        $('#sel-ve-4').val('');
+                        $('#sel-emp-4').val('');
+                        $('#sel-ve-5').val('');
+                        $('#sel-emp-5').val('');
+
+                        $('#sel-ve-endD').val('');
+
+                        $('#juk-selector').val('');
+
+                        $('#juk-frame').attr('src', veFolder + 'choice.pdf');
+
                         break;
                     case 0:
-                        refleshMsg("보험가입증명서 수정 실패!\n\n다시 시도해 주세요.");
+                        refleshMsg("자동차등록증 수정 실패!\n\n다시 시도해 주세요.");
                         break;
                     case 2:
-                        refleshMsg("보험가입증명서 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
+                        refleshMsg("자동차등록증 수정 실패!\n\n파일 확인 후 다시 시도해 주세요.");
                         break;
 
                     default:
                         break;
                 }
+                resolve();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
             }
         })
-    } else {
-        alert("선택된 파일이없습니다.\n\n수정(저장)할 파일을 선택해주세요.");
-    }
-});
+    })
+}
 
-$(document).on('change', '#company', function () {
-    $('#owner').val($('#company').val());
-});
+function insertJuk(result) {
+    return new Promise(function (resolve, reject) {
+
+        const url = "/ve/insertJuk";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "jukday": $('#sel-ve-endD').val(),
+            "ve1": $('#sel-ve-1').val(),
+            "id1": $('#sel-emp-1').val(),
+            "ve2": $('#sel-ve-2').val(),
+            "id2": $('#sel-emp-2').val(),
+            "ve3": $('#sel-ve-3').val(),
+            "id3": $('#sel-emp-3').val(),
+            "ve4": $('#sel-ve-4').val(),
+            "id4": $('#sel-emp-4').val(),
+            "ve5": $('#sel-ve-5').val(),
+            "id5": $('#sel-emp-5').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+                console.log(r);
+                resolve();
+            }
+        })
+    })
+}

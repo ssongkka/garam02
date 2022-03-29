@@ -9,11 +9,11 @@ $(document).on('click', '#btnCusP', function () {
 });
 
 function showPlusBtn() {
-    $('#cusPbtn').show();
+    $('.cusPbtn').show();
 
 }
 function hidePlusBtn() {
-    $('#cusPbtn').hide();
+    $('.cusPbtn').hide();
 }
 function showPlusDetail() {
     $('#btnCusP').html(`닫  기&nbsp;<i class="fa-solid fa-angles-up"></i>`);

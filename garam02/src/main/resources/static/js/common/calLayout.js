@@ -7,7 +7,6 @@ document
             .classList
             .toggle('active');
     }
-
     const calen = new cal();
 
 $(document).ready(function () {
