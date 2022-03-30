@@ -822,7 +822,7 @@ function mdOneWay(val) {
 
                 let mmm;
                 for (let i = 0; i < r.length; i++) {
-                    htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-4" style="width: 100%;">';
+                    htmls += '<div class="allo-allo-item" style="width: 100%;">';
                     htmls += '<input type="hidden" value="' + rsvt + '">';
                     htmls += '<input type="hidden" value="' + opernum + '">';
                     htmls += '<input type="hidden" value="' + tod + '">';
@@ -962,7 +962,7 @@ function mdOneWay(val) {
                         } else {
                             htmls += '<button class="onebtn" role="button" id="bt-' + (
                                 i + 100
-                            ) + '" style="opacity: 0;" disabled><i class="fas fa-times"></i>';
+                            ) + '" disabled><i class="fas fa-times"></i>';
                         }
                     } else {
                         if (i > 0) {
@@ -972,7 +972,7 @@ function mdOneWay(val) {
                         } else {
                             htmls += '<button class="onebtn" role="button" id="bt-' + (
                                 i + 100
-                            ) + '" style="opacity: 0;" disabled><i class="fa-solid fa-ban"></i>';
+                            ) + '" disabled><i class="fa-solid fa-ban"></i>';
                         }
                     }
 
@@ -1010,7 +1010,7 @@ function plusOneWay(num) {
 
         let htmls = '';
 
-        htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-4" style="width: 100%;">';
+        htmls += '<div class="allo-allo-item" style="width: 100%;">';
         htmls += '<input type="hidden" value="' + $('#btn-rsvt').val() + '">';
         htmls += '<input type="hidden" value="' + $('#btn-opernum').val() + '">';
         htmls += '<input type="hidden" value="' + $('#btn-tod').val() + '">';
@@ -1578,7 +1578,7 @@ function getAlloList(day) {
                                         tbii = tbi3++;
                                         break;
                                 }
-                                htmls += '<div class="allo-allo-item col-sm-12 col-md-6 col-lg-3">';
+                                htmls += '<div class="allo-allo-item">';
                                 htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
                                     k + 1
                                 ) + '">';

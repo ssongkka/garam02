@@ -54,7 +54,7 @@ public class PDFUtil {
 	}
 
 	public Paragraph getBlank(Float size) throws DocumentException, IOException {
-		return new Paragraph(" ", getHumenMyungjo(size));
+		return new Paragraph(" ", getMalgun(size));
 	}
 
 	public PdfPCell getCellHead(String cont, Font font) {

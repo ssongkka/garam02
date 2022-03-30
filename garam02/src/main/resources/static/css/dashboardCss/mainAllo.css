@@ -91,9 +91,9 @@
 }
 
 .allo-allo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.3rem;
 }
 .allo-allo input:focus {
     outline: none;
@@ -102,6 +102,7 @@
 .allo-allo-item {
     display: flex;
     flex-direction: column;
+    padding: 0;
 }
 
 .stWay {
@@ -171,12 +172,14 @@
 
 .onebtn {
     height: 30px;
+    min-width: 30px;
     font-size: 1.5rem;
     padding: 0;
 }
 
 .onebtn1 {
     height: 30px;
+    min-width: 30px;
     font-size: 1.5rem;
     padding: 0;
     color: var(--main-color);
@@ -426,6 +429,10 @@
         flex-direction: column;
     }
 
+    .allo-allo {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .allo-main ul {
         position: relative;
         padding: 0;
@@ -574,6 +581,10 @@
 @media (max-width:768px) {
     .allo {
         flex-direction: column;
+    }
+
+    .allo-allo {
+        grid-template-columns: 1fr;
     }
 
     .allo-main ul {
