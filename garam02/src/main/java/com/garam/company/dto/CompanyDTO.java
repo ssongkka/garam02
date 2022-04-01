@@ -7,6 +7,8 @@ public class CompanyDTO {
 	// 대표이사
 	private String ceo;
 
+	private String ceonum;
+
 	// 사업자번호
 	private String no1;
 
@@ -51,6 +53,14 @@ public class CompanyDTO {
 
 	public void setCeo(String ceo) {
 		this.ceo = ceo;
+	}
+
+	public String getCeonum() {
+		return ceonum;
+	}
+
+	public void setCeonum(String ceonum) {
+		this.ceonum = ceonum;
 	}
 
 	public String getNo1() {
@@ -131,18 +141,6 @@ public class CompanyDTO {
 
 	public void setDay(String day) {
 		this.day = day;
-	}
-
-	@Override
-	public String toString() {
-		return "CompanyDTO [company=" + company + ", ceo=" + ceo + ", no1=" + no1 + ", no2=" + no2 + ", adress="
-				+ adress + ", hompage=" + hompage + ", telephone=" + telephone + ", fax=" + fax + ", email=" + email
-				+ ", business1=" + business1 + ", business2=" + business2 + ", day=" + day + ", getCompany()="
-				+ getCompany() + ", getCeo()=" + getCeo() + ", getNo1()=" + getNo1() + ", getNo2()=" + getNo2()
-				+ ", getAdress()=" + getAdress() + ", getHompage()=" + getHompage() + ", getTelephone()="
-				+ getTelephone() + ", getFax()=" + getFax() + ", getEmail()=" + getEmail() + ", getBusiness1()="
-				+ getBusiness1() + ", getBusiness2()=" + getBusiness2() + ", getDay()=" + getDay() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }

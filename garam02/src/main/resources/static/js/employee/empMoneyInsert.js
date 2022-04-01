@@ -1009,8 +1009,6 @@ $(document).on('click', '#yesSave', function () {
 });
 $(document).on('click', '#printbtn', function () {
 
-    console.log($('#emp-iidd').val());
-
     let veh = '';
     for (let i = 0; i < dbVe.length; i++) {
         if (dbVe[i].id == $('#emp-iidd').val()) {

@@ -58,4 +58,10 @@ public interface DashboardMapper {
 	public List<RegularOperDTO> selectRegDe(RegularOperDTO regularOperDTO) throws Exception;
 
 	public List<RegularOperDTO> selectRegCoo(RegularOperDTO regularOperDTO) throws Exception;
+
+	public int updateOperMemo(HashMap<String, Object> map) throws Exception;
+
+	public List<RsvtDTO> selectPapperAllo1(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectPapperAllo2(RsvtDTO rsvtDTO) throws Exception;
 }

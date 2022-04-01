@@ -123,6 +123,8 @@ public class EmpRsvtDTO {
 	// 편도왕복
 	private Integer opertype;
 
+	private Integer opermemo;
+
 	// 운행확정
 	private String operconfirm;
 
@@ -503,6 +505,14 @@ public class EmpRsvtDTO {
 
 	public void setAtlm(Integer atlm) {
 		this.atlm = atlm;
+	}
+
+	public Integer getOpermemo() {
+		return opermemo;
+	}
+
+	public void setOpermemo(Integer opermemo) {
+		this.opermemo = opermemo;
 	}
 
 	public Integer getOpertrash() {

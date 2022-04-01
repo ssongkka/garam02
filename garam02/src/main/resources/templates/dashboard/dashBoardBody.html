@@ -79,7 +79,32 @@
                         <blockquote id="midday"></blockquote>
                     </div>
                 </div>
-                <div class="ad-cal-comp"></div>
+                <div class="ad-cal-comp">
+                    <div class="ad-cal-items comp card-song">
+                        <div>
+                            <span id="comp-name">(주)새천년관광</span>
+                            <span id="comp-ceo"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span id="comp-add"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span>사업자등록번호</span>
+                            <span>:</span>
+                            <span id="comp-num1"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span>대표번호</span>
+                            <span>:</span>
+                            <span id="comp-tel"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span>이메일</span>
+                            <span>:</span>
+                            <span id="comp-email"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </aside>
         <main class="main">
@@ -195,6 +220,10 @@
         <script th:inline="javascript">
             /*<![CDATA[*/
             const opt =/*[[${opt}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbuser =/*[[${user}]]*/
             'default';
             /*]]>*/
             /*<![CDATA[*/

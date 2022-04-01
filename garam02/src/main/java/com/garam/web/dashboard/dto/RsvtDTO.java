@@ -155,6 +155,8 @@ public class RsvtDTO {
 	// 운행확정
 	private String operconfirm;
 
+	private String opermemo;
+
 	// 삭제여부
 	private Integer opertrash;
 
@@ -504,6 +506,14 @@ public class RsvtDTO {
 
 	public void setOperconfirm(String operconfirm) {
 		this.operconfirm = operconfirm;
+	}
+
+	public String getOpermemo() {
+		return opermemo;
+	}
+
+	public void setOpermemo(String opermemo) {
+		this.opermemo = opermemo;
 	}
 
 	public Integer getOpertrash() {

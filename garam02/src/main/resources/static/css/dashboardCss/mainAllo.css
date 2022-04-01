@@ -424,6 +424,17 @@
     border-radius: 3px;
 }
 
+.allo-detail-item-1,
+.allo-detail-item-2 {
+    min-width: 4rem;
+    max-width: 4rem;
+
+    min-height: 3rem;
+    max-height: 3rem;
+
+    padding: 0;
+}
+
 @media (max-width:1024px) {
     .allo {
         flex-direction: column;

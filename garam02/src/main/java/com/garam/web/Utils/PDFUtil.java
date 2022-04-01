@@ -24,7 +24,27 @@ public class PDFUtil {
 	public Font getHumenMyungjo(Float size) throws DocumentException, IOException {
 		String fontFace = "/static/fonts/hm.ttf";
 		BaseFont bf = BaseFont.createFont(fontFace, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-		Font font = new Font(bf, (float) size);
+		Font font1 = new Font(bf, size, Font.NORMAL);
+		return font1;
+	}
+
+	public Font getHumenMyungjoBold(Float size) throws DocumentException, IOException {
+		String fontFace = "/static/fonts/hm.ttf";
+		BaseFont bf = BaseFont.createFont(fontFace, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+		Font font1 = new Font(bf, size, Font.BOLD);
+		return font1;
+	}
+
+	public Font getGulim(Float size) throws DocumentException, IOException {
+		String fontFace = "/static/fonts/Gulim.ttf";
+		BaseFont bf = BaseFont.createFont(fontFace, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+		Font font1 = new Font(bf, size, Font.NORMAL);
+		return font1;
+	}
+
+	public Font getGulimBold(Float size) throws DocumentException, IOException {
+		String fontFace = "/static/fonts/Gulim.ttf";
+		BaseFont bf = BaseFont.createFont(fontFace, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 		Font font1 = new Font(bf, size, Font.BOLD);
 		return font1;
 	}

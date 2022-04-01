@@ -1251,7 +1251,7 @@ function getAlloList(day) {
                                     htmls += '<div class="card-song allo-card">';
                                     htmls += '<input type="hidden" id="rvctm' + (
                                         i + 1
-                                    ) + '" value="' + r[i].ctmseq + '">';
+                                    ) + '" value="' + r[i].ctmno + '">';
                                     htmls += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
@@ -1283,7 +1283,7 @@ function getAlloList(day) {
                                     htmls2 += '<div class="card-song allo-card">';
                                     htmls2 += '<input type="hidden" id="rvctm' + (
                                         i + 1
-                                    ) + '" value="' + r[i].ctmseq + '">';
+                                    ) + '" value="' + r[i].ctmno + '">';
                                     htmls2 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
@@ -1315,7 +1315,7 @@ function getAlloList(day) {
                                     htmls3 += '<div class="card-song allo-card">';
                                     htmls3 += '<input type="hidden" id="rvctm' + (
                                         i + 1
-                                    ) + '" value="' + r[i].ctmseq + '">';
+                                    ) + '" value="' + r[i].ctmno + '">';
                                     htmls3 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
@@ -2782,11 +2782,15 @@ $(document).on('click', '.btnPaPer', function () {
     const name = $(aaa).text();
     const tel = $(aaa1).text();
     const ctm = $(aaa2).val();
+
     $(document).on('show.bs.modal', '#modalPaper0', function () {
 
         $('#paperTitle').text(name + ' ' + tel + ' ' + $('#yearMonthDay').val());
         $('#paperCtm').val(ctm);
         $('#paperDay').val($('#yearMonthDay').val());
+
+        $('#ctmmm').val(ctm);
+        $('#dayyy').val($('#yearMonthDay').val());
     })
 
     $('#modalPaper0').modal('show');

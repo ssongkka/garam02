@@ -20,7 +20,7 @@
 	<sql id="operColumns">
 		opernum, rsvt, operday, dayst, operno, opercom, opercar,
 		operid,
-		atlm, opertype, operconfirm, opertrash
+		atlm, opertype, operconfirm, opermemo, opertrash
 	</sql>
 
 	<select id="selectCustomerAll"
@@ -218,6 +218,7 @@
 			#{value.atlm},
 			#{value.opertype},
 			null,
+			#{value.opermemo},
 			1
 			)
 		</foreach>
@@ -328,6 +329,41 @@
 
 			opertype =
 			#{value.opertype}
+		</foreach>
+	</update>
+	<update id="updateOperMemo" parameterType="java.util.HashMap">
+		<foreach collection="operMemo" item="value" index="index"
+			separator=";">
+			UPDATE
+
+			operation_info
+
+			SET
+
+			opermemo =
+			#{value.opermemo}
+
+			WHERE
+
+			rsvt =
+			#{value.rsvt}
+
+			AND
+
+			operno = 1
+
+			AND
+
+			opertype = 1
+
+			AND
+
+			operid =
+			#{value.operid}
+
+			AND
+
+			opercar = #{value.opercar}
 		</foreach>
 	</update>
 
@@ -458,21 +494,16 @@
 		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
-		rsvt.rsvt,
-		customer.ctmseq, customer.ctmsepa,
-		customer.ctmname,
-		customer.ctmaddress, customer.ctmtel1,
-		customer.ctmtel2,
-		customer.ctmfax, customer.ctmhomepage,
-		customer.ctmstp,
-		customer.ctmdetail,
-		customer.ctmtrash
+
+		rsvt.*,
+		customer.*
 
 		FROM rsvt
 
 		LEFT JOIN
 		customer on
-		rsvt.ctmno = customer.ctmno
+		rsvt.ctmno =
+		customer.ctmno
 
 		WHERE
 
@@ -774,6 +805,158 @@
 		ORDER BY
 
 		regularcourse.codenum, regularcourse.goutnum
+
+	</select>
+
+	<select id="selectPapperAllo1"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		*
+
+		FROM
+
+		rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		rsvt.ctmno = #{ctmno}
+
+		AND
+
+		rsvt.stday = #{stday}
+
+		ORDER
+		BY
+
+		customer.ctmseq,
+		customer.ctmsepa,
+		customer.ctmname;
+	</select>
+	<select id="selectPapperAllo2"
+		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		*,
+		IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo
+		WHERE employeeinfo.id =
+		operation_info.operid),
+		operation_info.operid)
+		AS name,
+
+		(SELECT
+		employeeinfo.phone1 FROM
+		employeeinfo
+		WHERE
+		employeeinfo.id =
+		operation_info.operid)
+		AS
+		ctmtel1,
+
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar),
+		operation_info.opercar)
+		AS
+		vehicle,
+
+		(SELECT
+		vehicleinfo.reg FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar)
+		AS
+		ctmemail,
+
+		(SELECT
+		vehicleinfo.insu FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar)
+		AS
+		ctmfax,
+
+		(SELECT
+		vehicleinfo.juk FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar)
+		AS
+		ctmcompanum,
+
+		(SELECT
+		vehicleinfo.jukd FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar)
+		AS
+		ctmname,
+
+		(SELECT
+		employeeinfo.name FROM
+		employeeinfo
+		WHERE employeeinfo.id =
+		(SELECT
+		vehicleinfo.jukd FROM
+		vehicleinfo WHERE
+		vehicleinfo.carnumber
+		=
+		operation_info.opercar))
+		AS
+		ctmaddress
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		WHERE
+
+		operation_info.rsvt =
+		#{rsvt}
+
+		AND
+
+		operation_info.opertype
+		=
+		1
+
+		AND
+
+		operation_info.dayst = 1
+
+		ORDER BY
+
+		operation_info.operno
 
 	</select>
 </mapper>

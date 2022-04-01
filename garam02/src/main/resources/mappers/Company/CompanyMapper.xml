@@ -5,6 +5,7 @@
 	<sql id="companyColumns">
 		company,
 		ceo,
+		ceonum,
 		no1,
 		no2,
 		adress,
@@ -32,4 +33,34 @@
 
 		day
 	</select>
+
+	<update id="updateComnpany">
+
+		UPDATE
+
+		company
+
+		SET
+
+		ceo = #{ceo},
+		ceonum = #{ceonum},
+		no1 =
+		#{no1},
+		no2 = #{no2},
+		adress = #{adress},
+		hompage = #{hompage},
+		telephone
+		= #{telephone},
+		fax =
+		#{fax},
+		email = #{email},
+		business1 = #{business1},
+		business2 = #{business2},
+		day = #{day}
+
+		WHERE
+
+		company.company = #{company}
+
+	</update>
 </mapper>

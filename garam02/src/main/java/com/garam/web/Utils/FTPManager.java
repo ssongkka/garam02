@@ -29,6 +29,9 @@ public class FTPManager {
 	@Value("${ftp.port}")
 	private int port; // FTP 로그인 pw
 
+	@Value("${ftp.url}")
+	private String url;
+
 	@Value("${ftp.empFolder}")
 	private String empFolder;
 
@@ -57,6 +60,10 @@ public class FTPManager {
 
 	public String getCarFolder() {
 		return carFolder;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 
 	// FTP connect
@@ -112,6 +119,12 @@ public class FTPManager {
 		boolean rtn = ftp.storeFile(ftpRoot, fis);
 
 		return rtn;
+	}
+
+	public String getVeFolder() {
+		System.out.println("url   " + url);
+		System.out.println("carFolder   " + carFolder);
+		return url + carFolder;
 	}
 
 }

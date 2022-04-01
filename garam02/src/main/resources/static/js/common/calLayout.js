@@ -12,6 +12,9 @@ document
 $(document).ready(function () {
 
     $('#info-limit').hide();
+
+    getCompaInfo();
+
     const now_D = new Date();
 
     const nowMonth = new Date(now_D.getFullYear(), now_D.getMonth(), 1);
@@ -456,3 +459,20 @@ $(
         }
     }
 });
+
+function getCompaInfo() {
+
+    for (let i = 0; i < dbCompa.length; i++) {
+        if (dbCompa[i].company == dbuser.company) {
+            console.log("하이요요용");
+
+            $('#comp-name').text(dbuser.company);
+            $('#comp-ceo').text(dbCompa[i].ceo);
+            $('#comp-add').text(dbCompa[i].adress);
+            $('#comp-num1').text(dbCompa[i].no1);
+            $('#comp-tel').text(dbCompa[i].telephone);
+            $('#comp-email').text(dbCompa[i].email);
+        }
+    }
+
+}

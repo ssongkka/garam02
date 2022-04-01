@@ -1,5 +1,6 @@
 package com.garam.web.dashboard.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -51,4 +52,14 @@ public interface MainService {
 	public List<RegularOperDTO> selectRegDe(RegularOperDTO regularOperDTO) throws Exception;
 
 	public List<RegularOperDTO> selectRegCoo(RegularOperDTO regularOperDTO) throws Exception;
+
+	public int updateOperMemo(List<Map<String, Object>> map) throws Exception;
+
+	public List<RsvtDTO> selectPapperAllo1(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectPapperAllo2(RsvtDTO rsvtDTO) throws Exception;
+
+	public File makePapper(String companyyy, String dayyy, String ctmmm, String rsvttt, String paperCh)
+			throws Exception;
+
 }
