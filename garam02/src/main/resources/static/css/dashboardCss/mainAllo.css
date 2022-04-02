@@ -45,6 +45,11 @@
     text-align: left;
 }
 
+.ad-cal-items-2:hover {
+    background: var(--sub-color);
+    cursor: pointer;
+}
+
 .rv {
     display: flex;
     flex-direction: column;
@@ -212,14 +217,6 @@
     padding: 2rem 1rem;
 }
 
-#modal-one .modal-dialog {
-    margin: 8rem auto;
-}
-
-#modal-rsvt .modal-dialog {
-    margin: 8rem auto;
-}
-
 .no-allo {
     margin-top: 1rem;
     padding: 3rem;
@@ -328,7 +325,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 0 10rem;
+    padding: 2rem 10rem;
 }
 
 #modal-rsvt i {
@@ -584,9 +581,6 @@
         padding: 1rem;
     }
 
-    #modal-rsvt .modal-dialog {
-        margin: 8rem auto;
-    }
 }
 
 @media (max-width:768px) {
@@ -738,7 +732,4 @@
         padding: 1rem;
     }
 
-    #modal-rsvt .modal-dialog {
-        margin: 8rem auto;
-    }
 }

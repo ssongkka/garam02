@@ -74,9 +74,6 @@ function operRegMSet(result) {
             data: JSON.stringify(params),
             success: function (r) {
 
-                console.log(result[0]);
-                console.log(result[1]);
-
                 for (let i = 0; i < r.length; i++) {
                     money = money + parseInt(r[i].regoperatlm);
                     chM++;

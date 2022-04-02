@@ -1,0 +1,107 @@
+#mdBigCal {
+    height: 100%;
+}
+
+#bigCalLabel {
+    padding-left: 45rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+}
+
+#yearMonthBig {
+    font-size: 2rem;
+}
+
+.bigCal-main {
+    padding: 1rem 45rem;
+    min-height: 100%;
+    display: flex;
+}
+
+.bigcont {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bigNumCon {
+    flex: 1;
+}
+
+.md-bd-BigCal p {
+    margin: 0.2rem 0 0;
+}
+
+#mdBigCal table > tbody > tr > td {
+    height: 6rem;
+    vertical-align: top;
+}
+#mdBigCal table > thead > tr > th {
+    letter-spacing: 0.3rem;
+    background: #edf2f9;
+}
+
+.bigNum {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.dotdot {
+    height: 5px;
+    width: 5px;
+    background: red;
+    border-radius: 100%;
+}
+
+.bigNum-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.numDay {
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: #f9fbff;
+    border-radius: 50%;
+    padding: 0.1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.bigNumIn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.3rem;
+}
+
+.bigNumIn span {
+    width: 1.5rem;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    flex: 1;
+}
+
+.big45 {
+    background: #e0faef;
+    color: #009f5c;
+}
+
+.big25 {
+    background: #fef0e8;
+    color: #f2600e;
+}
+
+.big28 {
+    background: #e6effc;
+    color: #1862c6;
+}

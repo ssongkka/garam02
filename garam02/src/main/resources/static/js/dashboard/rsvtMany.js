@@ -103,7 +103,6 @@ $(document).on('click', '#plus-btn', function () {
     htmls += '<td>';
     htmls += '<input type="text"';
 
-    console.log($('#t-stp').text());
     if (!$('#t-stp').text() || $('#t-stp').text() == "출발지") {
         htmls += ' value="' + $('#stp').text() + '">';
     } else {
@@ -256,7 +255,6 @@ function minusCont(value) {
     const aaa = $(value)
         .parents()
         .parents()[0];
-    console.log(aaa);
     $(aaa).remove();
 }
 
@@ -475,7 +473,6 @@ $(document).on('click', '#insert-many', function () {
                     data: JSON.stringify(params),
 
                     success: function (r) {
-                        console.log("rrr   " + r);
                         if (r > 0) {
                             let rtn = confirm(
                                 "'" + $('#t-name').text() + "  " + r + "건' 예약정보 입력 완료\n\n홈화면으로 돌아가시겠습니까?"

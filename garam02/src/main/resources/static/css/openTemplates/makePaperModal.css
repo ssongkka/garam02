@@ -57,6 +57,19 @@
     flex: 3;
 }
 
+.baeTile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.baeTile-item {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
 #paper2-allo {
     display: flex;
     flex-direction: column;

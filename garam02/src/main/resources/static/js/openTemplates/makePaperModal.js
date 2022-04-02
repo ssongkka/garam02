@@ -1,6 +1,4 @@
-$(document).ready(function () {
-    $('#selCompa').val(dbuser.company);
-});
+$(document).ready(function () {});
 
 $(document).on('click', '#btnContPaper', function () {
 
@@ -13,11 +11,140 @@ $(document).on('click', '#btnContPaper', function () {
 $(document).on('click', '#btnAlloPaper', function () {
     $(document).on('show.bs.modal', '#modalPaper2', function () {
         LoadingWithMask()
+            .then(setPapperOrder)
             .then(setPapperAllo1)
             .then(setPapperAllo2)
+            .then(setEnd)
             .then(closeLoadingWithMask);
 
-        $('#modalPaper0').modal('hide');
+        function setPapperOrder() {
+            return new Promise(function (resolve, reject) {
+                $('#tb-paper2').html(
+                    `
+            <tr>
+                <td>1</td>
+                <td><input type="checkbox" checked="checked" name="paperCh" value="1"></td>
+                <td>기사배치표</td>
+                <td>
+                    <button class="btn btn-default btnUp">
+                        <i class="fas fa-angle-up"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-default btnDown">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><input type="checkbox" checked="checked" name="paperCh" value="2"></td>
+                <td>음주측정확인서</td>
+                <td>
+                    <button class="btn btn-default btnUp">
+                        <i class="fas fa-angle-up"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-default btnDown">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><input type="checkbox" checked="checked" name="paperCh" value="3"></td>
+                <td>직영차량 운행 각서
+                </td>
+                <td>
+                    <button class="btn btn-default btnUp">
+                        <i class="fas fa-angle-up"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-default btnDown">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><input type="checkbox" checked="checked" name="paperCh" value="4"></td>
+                <td>차량안전점검표
+                </td>
+                <td>
+                    <button class="btn btn-default btnUp">
+                        <i class="fas fa-angle-up"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-default btnDown">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><input type="checkbox" checked="checked" name="paperCh" value="5"></td>
+                <td>차량등록증
+                </td>
+                <td>
+                    <button class="btn btn-default btnUp">
+                        <i class="fas fa-angle-up"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-default btnDown">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td><input type="checkbox" checked="checked" name="paperCh" value="6"></td>
+                <td>차량보험증
+                </td>
+                <td>
+                    <button class="btn btn-default btnUp">
+                        <i class="fas fa-angle-up"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-default btnDown">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td><input type="checkbox" checked="checked" name="paperCh" value="7"></td>
+                <td>교통안전통보서
+                </td>
+                <td>
+                    <button class="btn btn-default btnUp">
+                        <i class="fas fa-angle-up"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-default btnDown">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </td>
+            </tr>`
+                );
+                resolve();
+            })
+        }
+        function setEnd() {
+            return new Promise(function (resolve, reject) {
+                $('input:checkbox[name=paperCh]').prop('checked', true);
+
+                $('#selCompa').val(dbuser.company);
+
+                $('#modalPaper0').modal('hide');
+                resolve();
+            })
+        }
     })
     $('#modalPaper2').modal('show');
 });
@@ -133,6 +260,7 @@ function setPapperAllo1() {
                     </div>
                 </div>`;
                 }
+
                 $('#paper2-allo').html(htmls);
                 resolve(tmpArr);
             }
@@ -198,6 +326,7 @@ function setPapperAllo2(result) {
 
                         const iconOk = '<i class="fa-solid fa-check" style="color: darkgreen;"></i>';
                         const iconNo = '<i class="fa-solid fa-xmark" style="color: darkred;"></i>';
+                        let cntInCh = 0;
 
                         let reg = '';
                         let insu = '';
@@ -207,18 +336,35 @@ function setPapperAllo2(result) {
                             reg = iconOk;
                         } else {
                             reg = iconNo;
+                            cntInCh++;
                         }
 
                         if (r[i].ctmfax) {
                             insu = iconOk;
                         } else {
                             insu = iconNo;
+                            cntInCh++;
                         }
 
                         if (r[i].ctmcompanum) {
                             juk = iconOk;
                         } else {
                             juk = iconNo;
+                            cntInCh++;
+                        }
+
+                        let memoOk = '';
+
+                        if (cntInCh > 0) {
+                            memoOk = `<input type="text" class="form-control" value="` + memoo +
+                                    `" disabled="disabled">`;
+                            $('#btnPapperMake').prop("disabled", true);
+                            $('#btnPapperMake').html(
+                                `배차서류생성<i class="fa-solid fa-xmark" style="color: darkred;"></i>`
+                            );
+                            $('#btnFootCont').text("차량 관련 서류가 모두있어야 '배차서류' 생성가능합니다.");
+                        } else {
+                            memoOk = `<input type="text" class="form-control" value="` + memoo + `">`;
                         }
 
                         htmls += `
@@ -237,10 +383,8 @@ function setPapperAllo2(result) {
                                 `</td>
                     <td>` + add +
                                 `</td>
-                    <td>
-                        <input type="text" class="form-control" value="` +
-                                memoo +
-                                `">
+                    <td>` + memoOk +
+                                `
                     </td>
                     <td>` + reg +
                                 `</td>
@@ -268,6 +412,7 @@ function setPapperAllo2(result) {
             })
         }
         $('#rsvttt').val(tmpRsvt);
+
         resolve();
 
     })
@@ -327,16 +472,12 @@ function insertMemo() {
 
         const aaa = $('#paper2-allo').children();
 
-        console.log("aaa.length  " + aaa.length);
-
         for (let i = 0; i < aaa.length; i++) {
 
             const bbb = $(aaa[i]).children()[1];
             const bbb1 = $(bbb).children()[1];
             const bbb2 = $(bbb1).children()[2];
             const bbb4 = $(bbb2).children();
-
-            console.log(bbb2);
 
             const bbb3 = $(bbb).children()[0];
 
@@ -350,12 +491,6 @@ function insertMemo() {
 
                 const tmpp = $(ccc[7]).children();
                 const memmo = $(tmpp).val();
-
-                console.log("rsvttt   " + rsvttt);
-                console.log("carnnn   " + carnnn);
-                console.log("iidd   " + iidd);
-                console.log("memmo   " + memmo);
-                console.log("day   " + $('#paperDay').val());
 
                 const asd = {
                     "opercar": carnnn,

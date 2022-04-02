@@ -280,8 +280,6 @@ function getRsvtList(r, day) {
 
     const noRsvt = '<tr><td colspan="7">운행 정보 없음</td></tr>';
 
-    console.log(htmlsHome);
-
     if (htmlsHome) {
         $('#home-tb-normal').html(htmlsHome);
     } else {

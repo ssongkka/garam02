@@ -911,7 +911,9 @@ public class MainServiceImpl implements MainService {
 		String con1 = " 현장체험학습 전세버스 임차 운행" + "\u300D"
 				+ "용역에 참가함에 있어 귀 기관에서 제시한 제반사항을 준수하고 이용객의 안전을 위해 당사의 직영차량으로만 운행을 하며, 이를 위반하였을 경우 계약해지 등 어떠한 제재조치를 취하여도 이의를 제기하지 않을 것을 확약합니다.";
 
-		Chunk chunk1 = new Chunk("   " + listCompa.get(chCom).getCompany() + "은 " + "\u300C" + "초등학교" + con1, font1);
+		Chunk chunk1 = new Chunk(
+				"   " + listCompa.get(chCom).getCompany() + "은 " + "\u300C" + listCtm.get(0).getCtmname() + con1,
+				font1);
 
 		Paragraph ph1 = new Paragraph(chunk1);
 		ph1.setLeading(28f);
@@ -1521,7 +1523,7 @@ public class MainServiceImpl implements MainService {
 
 		Image img = Image.getInstance(this.getClass().getResource("/static/img/company/newdo.png"));
 
-		img.setAbsolutePosition(490, 615);
+		img.setAbsolutePosition(510, 615);
 		img.scalePercent(20);
 
 		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));

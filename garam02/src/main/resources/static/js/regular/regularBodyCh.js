@@ -438,9 +438,6 @@ function getRecou(iidd) {
                             tmp2.push(tmpSepa);
                         }
 
-                        console.log(arrUnique);
-                        console.log(tmp2);
-
                         let gogogohtmls = '';
                         let outouthtmls = '';
                         for (let k = 0; k < tmp2.length; k++) {

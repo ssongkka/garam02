@@ -1008,7 +1008,6 @@ function insertVe(tp) {
                 cache: false,
                 timeout: 600000,
                 success: function (r) {
-                    console.log("rrr뭐냐   " + r)
                     resolve(r);
                 },
                 error: (jqXHR) => {
@@ -1415,8 +1414,6 @@ function insertFileInsu(result) {
         var form = $('#form-insu')[0];
         var data = new FormData(form);
 
-        console.log($('#insu-selector').val());
-
         const url = "/ve/veInsertInsuPdf";
         $.ajax({
             type: "POST",
@@ -1593,7 +1590,6 @@ function insertJuk(result) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
-                console.log(r);
                 resolve();
             }
         })

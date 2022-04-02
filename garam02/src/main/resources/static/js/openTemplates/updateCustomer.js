@@ -195,8 +195,6 @@ function updateCtm() {
             data: JSON.stringify(params),
 
             success: function (r) {
-                console.log(r[0].ctmname + "   -   " + r[0].ctmno + "   -   " + r[0].ctmtrash);
-
                 if (r[0].ctmtrash == 100) {
 
                     $(document).on('show.bs.modal', '#modalCustomUp', function () {

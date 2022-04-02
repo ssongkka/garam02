@@ -276,7 +276,6 @@ function getCalTimeInputJSP(calTime) {
 
     var rtn = tmpDate + "T" + tmpTime;
 
-    console.log("ttrrtter   " + rtn);
 
     return rtn;
 }
@@ -286,7 +285,6 @@ function getCalTimeInputJSPtoDB(calTime) {
     var rtn_Date = calTime.substring(0, 10);
     var rtn_Time = calTime.substring(11);
 
-    console.log("qqwdqdwdd   " + rtn_Date + ' ' + rtn_Time);
 
     return rtn_Date + ' ' + rtn_Time;
 }
@@ -343,7 +341,6 @@ function AddComma(num) {
 function fnNullCheck(str) {
     var newStr = str;
 
-    console.log(str);
 
     if (newStr == null || newStr == "" || newStr == undefined || newStr == "undefined") {
         return 0;
@@ -359,8 +356,6 @@ function setImageFromFile(input, expression, id) {
     const bbb = aaa[aaa.length - 1].split('.');
     const imgName = bbb[1];
     if (input.files && input.files[0]) {
-        console.log(input.files);
-        console.log(input.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
             $(expression).attr('src', e.target.result);
@@ -378,8 +373,6 @@ function setPdfFromFile(input, expression, id) {
     const bbb = aaa[aaa.length - 1].split('.');
     const imgName = bbb[1];
     if (input.files && input.files[0]) {
-        console.log(input.files);
-        console.log(input.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
             $(expression).attr('src', e.target.result);

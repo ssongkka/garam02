@@ -923,8 +923,6 @@ function insertEmp(tp) {
             "img": inimg
         };
 
-        console.log(params);
-
         $.ajax({
             url: url,
             type: "POST",

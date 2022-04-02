@@ -300,7 +300,6 @@ $(document).on('click', '#btn-custom-modal', function () {
         "Content-Type": "application/json",
         "X-HTTP-Method-Override": "POST"
     };
-    console.log($('[name=ctmsepa]').val());
     const params = {
         "ctmsepa": $('[name=ctmsepa]').val(),
         "ctmname": $('[name=ctmname]').val(),

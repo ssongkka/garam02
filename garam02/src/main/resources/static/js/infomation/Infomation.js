@@ -80,6 +80,4 @@ function fn_Search() {
 	url = url + "&keyword=" + $('#keyword').val();
 
 	location.href = url;
-	console.log("asdasd  " + url);
-	console.log("asdasd  " + $('input:radio[name=searchKind]:checked').val());
 }

@@ -207,8 +207,6 @@ function getRegularDeAll(result) {
             "conum": $('#rgconum').val()
         };
 
-        console.log(params);
-
         $.ajax({
             url: url,
             type: "POST",

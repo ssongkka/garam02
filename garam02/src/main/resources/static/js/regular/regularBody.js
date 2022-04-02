@@ -428,7 +428,6 @@ function getRegularCource(result) {
                 let cnt = 0;
 
                 for (let k = 0; k < r.length; k++) {
-                    console.log("r[k].rcsepa  " + r[k].rcsepa);
                     if (k == 0) {
                         sepa.push(r[k].rcsepa);
                         cnt++;

@@ -1,50 +1,38 @@
-$(document).ready(
-	function() {
-		$('#insert-timt-div').hide();
-	}
-);
-
-
-$('#check2-info').change(function() {
-	var imChecked = $(this).is(":checked");
-
-	if (imChecked) {
-		$('#insert-timt-div').hide();
-	} else {
-		$('#insert-timt-div').show();
-	}
+$(document).ready(function () {
+    $('#insert-timt-div').hide();
 });
 
-$(document).on(
-	'click',
-	'#insert-btn',
-	function() {
-		var gradeCH = $('#check1-info').is(":checked");
+$('#check2-info').change(function () {
+    var imChecked = $(this).is(":checked");
 
-		var gRade = 0;
-		if (gradeCH) {
-			gRade = 1;
-		}
+    if (imChecked) {
+        $('#insert-timt-div').hide();
+    } else {
+        $('#insert-timt-div').show();
+    }
+});
 
-		var endDCH = $('#check2-info').is(":checked");
+$(document).on('click', '#insert-btn', function () {
+    var gradeCH = $('#check1-info').is(":checked");
 
-		if (!endDCH) {
-			var endD = null;
-			let dateElement = document.getElementById('insert-time');
-			console.log("qdqd124123   " + dateElement.value);
-			endD = getCalTimeInputJSPtoDB(String(dateElement.value));
-			$('#date_end').val(endD);
-		} else {
-			$("#date_end").attr('disabled', 'disabled')
-		}
+    var gRade = 0;
+    if (gradeCH) {
+        gRade = 1;
+    }
 
-		console.log("endD   " + endD);
-		console.log("gRade   " + gRade);
+    var endDCH = $('#check2-info').is(":checked");
 
-		$('#grade').val(gRade);
-		$('#name').val("사원 홍길동");
+    if (!endDCH) {
+        var endD = null;
+        let dateElement = document.getElementById('insert-time');
+        endD = getCalTimeInputJSPtoDB(String(dateElement.value));
+        $('#date_end').val(endD);
+    } else {
+        $("#date_end").attr('disabled', 'disabled')
+    }
 
-		$("#insert-form").submit();
-	}
-);
+    $('#grade').val(gRade);
+    $('#name').val("사원 홍길동");
 
+    $("#insert-form").submit();
+});

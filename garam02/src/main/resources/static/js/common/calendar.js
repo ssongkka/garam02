@@ -143,11 +143,11 @@ class cal {
                 }
             } else {
                 if (stD.getDay() == 6) {
-                    htmls += ' style="color: #6fa0e3;"';
+                    htmls += ' style="color: #6fa0e3; opacity: 0.3;"';
                 } else if (stD.getDay() == 0) {
-                    htmls += ' style="color: #f0674f;"';
+                    htmls += ' style="color: #f0674f; opacity: 0.3;"';
                 } else {
-                    htmls += ' style="color: #8390A2;"';
+                    htmls += ' style="color: #8390A2; opacity: 0.3;"';
                 }
             }
 

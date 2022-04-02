@@ -183,7 +183,6 @@ function insert_Reply(num) {
 
 	var tmp_Cont = '';
 	var no = $('#infoContent-head').val();
-	console.log('infoContent   ' + no);
 
 	var prtNo = 0;
 
@@ -198,7 +197,6 @@ function insert_Reply(num) {
 		dep = 1;
 	}
 	var cont = $(tmp_Cont).val();
-	console.log("contcont  " + cont);
 
 	var url = "/infomationReply/infomationSave";
 	var headers = {

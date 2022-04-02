@@ -654,7 +654,6 @@ $(document).on('keyup', '.input-M', function (eInner) {
                     .prev();
                 const aaa2 = $(aaa1).children();
                 const aaa3 = $(aaa2).val();
-                console.log(aaa3);
 
                 if (parseInt($(aaa2).val()) >= 0 && parseInt($(aaa2).val()) <= lastD) {
                     insertInM();
@@ -844,7 +843,6 @@ $(document).on('keydown', '.output-M', function (eInner) {
                     .prev();
                 const aaa2 = $(aaa1).children();
                 const aaa3 = $(aaa2).val();
-                console.log(aaa3);
 
                 if (parseInt($(aaa2).val()) >= 0 && parseInt($(aaa2).val()) <= lastD) {
                     insertOutM();

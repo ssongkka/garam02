@@ -1,7 +1,6 @@
 $(document).on('change', 'input[name=ctmsepa]', function () {
 
     const aaa = $(this).val();
-    console.log(aaa);
 
     switch (aaa) {
         case '0':

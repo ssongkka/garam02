@@ -635,7 +635,7 @@
 
 		AND
 
-		rsvt.rsvttrash = #{rsvttrash};
+		rsvt.rsvttrash = 1;
 
 	</select>
 	<select id="selectOneWayOper"

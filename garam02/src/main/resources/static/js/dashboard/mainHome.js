@@ -185,7 +185,6 @@ function getRsvtList(r, day) {
 
                         cnt12++;
 
-                        console.log("lloogg  " + cnt12);
                     } else {
                         if (cnt11 % 2 == 0) {
                             htmlsHome += '<tr style="cursor: pointer; background: #FFFFFF;" id="tr-home-' + idd1 + '-' +
@@ -462,9 +461,7 @@ function getRsvtList(r, day) {
     if (htmlsHome) {
         cntArr.push(cnt12);
         $('#home-tb-normal').html(htmlsHome);
-        console.log('111  ' + cntArr.length);
         for (let i = 0; i < cntArr.length; i++) {
-            console.log('111  ' + cntArr[i]);
             const idd = '#td' + (
                 i + 1
             ) + '-hhh';
@@ -482,9 +479,7 @@ function getRsvtList(r, day) {
     if (htmlsSchool) {
         cntArr2.push(cnt12);
         $('#home-tb-school').html(htmlsSchool);
-        console.log('222  ' + cntArr2.length);
         for (let i = 0; i < cntArr2.length; i++) {
-            console.log('222  ' + cntArr2[i]);
             const idd = '#td' + (
                 i + 1
             ) + '-sss';
@@ -501,9 +496,7 @@ function getRsvtList(r, day) {
     if (htmlsaccount) {
         cntArr3.push(cnt22);
         $('#home-tb-account').html(htmlsaccount);
-        console.log('333  ' + cntArr3.length);
         for (let i = 0; i < cntArr3.length; i++) {
-            console.log('333  ' + cntArr3[i]);
             const idd = '#td' + (
                 i + 1
             ) + '-aaa';
@@ -566,9 +559,7 @@ function getMidCnt(day, i) {
     });
 }
 
-$(document).on('click', 'aside', function () {
-    
-});
+$(document).on('click', 'aside', function () {});
 
 $(document).on('click', '#goEmp', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
@@ -600,8 +591,6 @@ $(document).on('click', '#goCustomer', function () {
 
 function showDetail(id) {
     const iidd = '#tr-' + id.split('-')[1] + id.split('-')[3];
-
-    console.log('iidd  ' + iidd);
 
     if ($(iidd).css("display") == "none") {
         $(iidd).show();
@@ -643,15 +632,7 @@ $(document).on('click', '.deail-form-item', function () {
 
     const check = $(this).text();
 
-    if (check.includes('내정보')) {
-
-        console.log("내정보");
-
-    } else if (check.includes('설정')) {
-
-        console.log("설정");
-
-    } else if (check.includes('관리자')) {
+    if (check.includes('내정보')) {} else if (check.includes('설정')) {} else if (check.includes('관리자')) {
 
         location.href = '/admin';
 

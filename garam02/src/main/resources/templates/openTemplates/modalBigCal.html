@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+    <div
+        th:fragment="mdBigCal"
+        class="offcanvas offcanvas-top"
+        data-bs-scroll="true"
+        data-bs-backdrop="false"
+        tabindex="-1"
+        id="mdBigCal"
+        aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h3 class="modal-title" id="bigCalLabel">
+                <div class="">
+                    <a class="btn" id="fnDownMonthBig">
+                        <i class="fas fa-chevron-left fa-lg"></i>
+                    </a>
+                </div>
+                <div class="" id="">
+                    <input type="month" id="yearMonthBig" value="">
+                </div>
+                <div class="">
+                    <a class="btn" id="fnUpMonthBig">
+                        <i class="fas fa-chevron-right fa-lg"></i>
+                    </a>
+                </div>
+                <div class="">
+                    <a class="btn btn-secondary" id="toMonth">
+                        이번달
+                    </a>
+                </div>
+            </h3>
+            <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="bigCal-main">
+                <table class="table table-bordered">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="14%">
+                        <col width="14%">
+                        <col width="14%">
+                        <col width="14%">
+                        <col width="14%">
+                        <col width="15%">
+                    </colgroup>
+
+                    <thead>
+                        <tr>
+                            <th>월요일</th>
+                            <th>화요일</th>
+                            <th>수요일</th>
+                            <th>목요일</th>
+                            <th>금요일</th>
+                            <th>토요일</th>
+                            <th>일요일</th>
+                        </tr>
+                    </thead>
+                    <tbody id="md-bd-BigCal">
+                        <tr>
+                            <td>
+                                <div class="bigNumCon">
+                                    <input type="hidden" value="">
+                                    <div class="bigNum">
+                                        <span class="numDay">1</span>
+                                    </div>
+                                </div>
+                                <div class="bigNumIn">
+                                    <span class="big45">1</span>
+                                    <span class="big25">1</span>
+                                    <span class="big28">1</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</html>

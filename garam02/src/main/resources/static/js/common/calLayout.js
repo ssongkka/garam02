@@ -130,7 +130,6 @@ function get_Year_Month() {
 
 function get_Year_Month1() {
     const aaa = $("#yearMonthDay").val();
-    console.log("ccsscc   " + aaa);
     const bbb = aaa.split('-');
     const year = parseInt(bbb[0]);
     const month = parseInt(bbb[1]);
@@ -295,11 +294,11 @@ function makeCal(nowD, day) {
                     }
                 } else {
                     if (stD.getDay() == 6) {
-                        htmls += ' style="color: #6fa0e3;"';
+                        htmls += ' style="color: #6fa0e3; opacity: 0.3;"';
                     } else if (stD.getDay() == 0) {
-                        htmls += ' style="color: #f0674f;"';
+                        htmls += ' style="color: #f0674f; opacity: 0.3;"';
                     } else {
-                        htmls += ' style="color: #8390A2;"';
+                        htmls += ' style="color: #8390A2; opacity: 0.3;"';
                     }
                 }
 
@@ -419,7 +418,6 @@ $(
 ).click(function () {
     const iidd = $(this).children()[4];
     const val = $(iidd).val();
-    console.log("몇번 ??  " + val);
 
     let cnt = 0;
     for (let i = 0; i < 42; i++) {
@@ -464,10 +462,9 @@ function getCompaInfo() {
 
     for (let i = 0; i < dbCompa.length; i++) {
         if (dbCompa[i].company == dbuser.company) {
-            console.log("하이요요용");
 
             $('#comp-name').text(dbuser.company);
-            $('#comp-ceo').text(dbCompa[i].ceo);
+            $('#comp-ceo').text("대표 : " + dbCompa[i].ceo);
             $('#comp-add').text(dbCompa[i].adress);
             $('#comp-num1').text(dbCompa[i].no1);
             $('#comp-tel').text(dbCompa[i].telephone);

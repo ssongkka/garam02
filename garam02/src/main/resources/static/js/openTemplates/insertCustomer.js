@@ -27,7 +27,6 @@ function hidePlusDetail() {
 $(document).on('change', 'input[name=ctmsepaIn]', function () {
 
     const aaa = $(this).val();
-    console.log(aaa);
 
     switch (aaa) {
         case '0':
@@ -197,7 +196,6 @@ function insertCtm() {
             data: JSON.stringify(params),
 
             success: function (r) {
-                console.log(r[0].ctmname + "   -   " + r[0].ctmno + "   -   " + r[0].ctmtrash);
 
                 if (r[0].ctmtrash == 100) {
 

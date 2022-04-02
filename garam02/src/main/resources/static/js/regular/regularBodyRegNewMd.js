@@ -374,7 +374,6 @@ $(document).on('click', '#btn-rgEnd', function () {
 
 $(document).on('change', '#regstartd', function () {
     const tmpd = ($("#regstartd").val()).split('-');
-    console.log(tmpd);
 
     let date = new Date(tmpd[0], parseInt(tmpd[1]) - 1, tmpd[2]);
     date.setFullYear(date.getFullYear() + 1);
