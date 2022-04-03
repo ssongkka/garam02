@@ -201,11 +201,7 @@ class cal {
                 let tmpArr2 = new Array();
                 for (let i = 0; i < r.length; i++) {
                     if (r[i].holiday != null && r[i].holiday != "") {
-                        tmpArr.push(new Date(r[i].solarCal));
-                    }
-
-                    if (r[i].event != null && r[i].event != "") {
-                        tmpArr2.push(new Date(r[i].solarCal));
+                        tmpArr.push(new Date(r[i].solarcal));
                     }
                 }
 

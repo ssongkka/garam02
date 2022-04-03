@@ -1107,8 +1107,8 @@ function getAlloList(day) {
                             mid += `<span>이벤트 없음</span>`;
                         }
 
-                        if (!!r[0].lunarCal) {
-                            cal = '음력 ' + r[0].lunarCal;
+                        if (!!r[0].lunarcal) {
+                            cal = '음력 ' + r[0].lunarcal;
                         } else {
                             cal = '음력 정보없음';
                         }
@@ -1116,15 +1116,15 @@ function getAlloList(day) {
                         for (let i = 0; i < r.length; i++) {
 
                             $(idd + (i + 1) + '1').html(
-                                '<h5>' + calen.getDayOfWeek(new Date(r[i].solarCal).getDay()) + '</h5>'
+                                '<h5>' + calen.getDayOfWeek(new Date(r[i].solarcal).getDay()) + '</h5>'
                             );
 
                             $(idd + (i + 1) + '2').html(
-                                '<h2>' + new Date(r[i].solarCal).getDate() + '</h2>'
+                                '<h2>' + new Date(r[i].solarcal).getDate() + '</h2>'
                             );
-                            $(idd + (i + 1) + '5').val(r[i].solarCal);
+                            $(idd + (i + 1) + '5').val(r[i].solarcal);
 
-                            switch (new Date(r[i].solarCal).getDay()) {
+                            switch (new Date(r[i].solarcal).getDay()) {
                                 case 0:
                                     $(idd + (i + 1) + '1').css('color', '#CF2F11');
                                     $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
@@ -1461,6 +1461,7 @@ function getAlloList(day) {
                         let tbi4 = 300;
 
                         getRsvtList(r, day);
+                        getManage(r);
                         let rst = new Array();
 
                         let ctmseqHtml = new Array();
@@ -1543,8 +1544,8 @@ function getAlloList(day) {
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
                             htmls += '<button class="btn btn-default allo-detail-item-1 card-song" id="btn-1-' + r[i].rsvtseq +
-                                    '-' + i + '" onclick="getRsvt(this.id)"><i class="fas fa-pencil-alt"></i></butt' +
-                                    'on>';
+                                    '-' + i + '" onclick="getRsvt(this.id)"><i class="fa-solid fa-magnifying-glass-' +
+                                    'plus"></i></button>';
                             htmls += '<button class="btn btn-default allo-detail-item-2 card-song" id="btn-2-' + r[i].rsvtseq +
                                     '-' + i + '" onclick="getRsvtM(this.id)"><i class="fas fa-won-sign"></i></butto' +
                                     'n>';

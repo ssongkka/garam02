@@ -48,6 +48,7 @@ main {
 
 #regCompa-tab .nav-link {
     width: 100%;
+    font-weight: 600;
 }
 
 .allocur {
@@ -78,11 +79,11 @@ main {
     gap: 3rem;
     align-items: center;
     justify-content: flex-start;
+    font-weight: 600;
 }
 
 .deTail blockquote {
     font-size: 1.6rem;
-    font-weight: 500;
 }
 
 .deTail-item {

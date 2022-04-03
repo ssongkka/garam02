@@ -87,6 +87,10 @@ span {
     font-size: 1.3rem;
 }
 
+.badge {
+    margin: 0 1rem;
+}
+
 .scBar::-webkit-scrollbar {
     width: 3px;
 }
@@ -269,6 +273,10 @@ span {
     color: var(--main-color);
 }
 
+.dd-nav .nav-link:hover {
+    background: #ebebeb;
+}
+
 .home-nav {
     display: flex;
     align-items: center;
@@ -311,6 +319,10 @@ span {
     padding: 1rem 1rem 0.3rem;
 }
 
+.evNav .nav-link {
+    padding: 0.5rem;
+}
+
 .shadow-sm {
     box-shadow: 0 4px 4px -4px rgb(0 0 0 / 50%);
 }
@@ -335,7 +347,9 @@ span {
     cursor: pointer;
 }
 
-.table {}
+.table {
+    transition: 0.05s linear;
+}
 
 object {
     width: 100%;

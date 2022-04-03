@@ -143,7 +143,8 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-home"
-                                    aria-selected="true">메인</button>
+                                    aria-selected="true">메인
+                                </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
@@ -154,7 +155,8 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-profile"
-                                    aria-selected="false">운행예약</button>
+                                    aria-selected="false">운행예약
+                                </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
@@ -166,7 +168,8 @@
                                     role="tab"
                                     aria-controls="pills-profile"
                                     aria-selected="false">
-                                    예약관리<span class="badge bg-secondary" id="bdggg"></span>
+                                    운행관리
+                                    <span class="badge bg-secondary" id="bdggg"></span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -178,7 +181,8 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-profile"
-                                    aria-selected="false">예약관리</button>
+                                    aria-selected="false">예약관리
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -204,6 +208,7 @@
                         role="tabpanel"
                         aria-labelledby="pills-allo-tab"></div>
                     <div
+                        th:insert="dashboard/mainManage :: main-manage"
                         class="tab-pane fade"
                         id="manage"
                         role="tabpanel"
@@ -218,6 +223,7 @@
         <div th:replace="openTemplates/makePaperModal :: modalPaper1"></div>
         <div th:replace="openTemplates/makePaperModal :: modalPaper2"></div>
         <div th:replace="openTemplates/modalBigCal :: mdBigCal"></div>
+        <div th:replace="openTemplates/modalBigCal :: modalBigCal"></div>
         <script th:inline="javascript">
             /*<![CDATA[*/
             const opt =/*[[${opt}]]*/
@@ -259,6 +265,7 @@
         <script src="/js/dashboard/mainRsvt.js"></script>
         <script src="/js/dashboard/mainAllo.js"></script>
         <script src="/js/dashboard/mainAlloReg.js"></script>
+        <script src="/js/dashboard/mainManage.js"></script>
         <script src="/js/openTemplates/offCustomer.js"></script>
         <script src="/js/openTemplates/insertCustomer.js"></script>
         <script src="/js/openTemplates/updateCustomer.js"></script>

@@ -1,14 +1,12 @@
 package com.garam.calendar.domain;
 
-import java.time.LocalDate;
-
 public class CalendarDTO {
 
-	private int no;
+	private int calseq;
 
-	private LocalDate solarCal;
+	private String solarcal;
 
-	private String lunarCal;
+	private String lunarcal;
 
 	private String season;
 
@@ -18,33 +16,32 @@ public class CalendarDTO {
 
 	private String anniversary;
 
-	private String event;
-
 	private String stD;
+
 	private String endD;
 
-	public int getNo() {
-		return no;
+	public int getCalseq() {
+		return calseq;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setCalseq(int calseq) {
+		this.calseq = calseq;
 	}
 
-	public LocalDate getSolarCal() {
-		return solarCal;
+	public String getSolarcal() {
+		return solarcal;
 	}
 
-	public void setSolarCal(LocalDate solarCal) {
-		this.solarCal = solarCal;
+	public void setSolarcal(String solarcal) {
+		this.solarcal = solarcal;
 	}
 
-	public String getLunarCal() {
-		return lunarCal;
+	public String getLunarcal() {
+		return lunarcal;
 	}
 
-	public void setLunarCal(String lunarCal) {
-		this.lunarCal = lunarCal;
+	public void setLunarcal(String lunarcal) {
+		this.lunarcal = lunarcal;
 	}
 
 	public String getSeason() {
@@ -77,14 +74,6 @@ public class CalendarDTO {
 
 	public void setAnniversary(String anniversary) {
 		this.anniversary = anniversary;
-	}
-
-	public String getEvent() {
-		return event;
-	}
-
-	public void setEvent(String event) {
-		this.event = event;
 	}
 
 	public String getStD() {

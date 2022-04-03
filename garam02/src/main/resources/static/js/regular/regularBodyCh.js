@@ -23,7 +23,6 @@ function getTrHtmls() {
             <option value="대형" label="대형"></option>
             <option value="중형" label="중형"></option>
             <option value="우등" label="우등"></option>
-            <option value="기타" label="기타"></option>
         </select>
     </td>
     <td>

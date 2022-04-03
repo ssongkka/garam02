@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
     <div
         th:fragment="mdBigCal"
         class="offcanvas offcanvas-top"
@@ -10,7 +9,7 @@
         id="mdBigCal"
         aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
-            <h3 class="modal-title" id="bigCalLabel">
+            <div class="modal-title" id="bigCalLabel">
                 <div class="">
                     <a class="btn" id="fnDownMonthBig">
                         <i class="fas fa-chevron-left fa-lg"></i>
@@ -29,7 +28,13 @@
                         이번달
                     </a>
                 </div>
-            </h3>
+                <div class="bigBusNum">
+                    <div class="big4511">대형<span id="big4511">0</span></div>
+                    <div class="big2511">중형<span id="big2511">0</span></div>
+                    <div class="big2811">우등<span id="big2811">0</span></div>
+                </div>
+            </div>
+
             <button
                 type="button"
                 class="btn-close text-reset"
@@ -60,24 +65,38 @@
                             <th>일요일</th>
                         </tr>
                     </thead>
-                    <tbody id="md-bd-BigCal">
-                        <tr>
-                            <td>
-                                <div class="bigNumCon">
-                                    <input type="hidden" value="">
-                                    <div class="bigNum">
-                                        <span class="numDay">1</span>
-                                    </div>
-                                </div>
-                                <div class="bigNumIn">
-                                    <span class="big45">1</span>
-                                    <span class="big25">1</span>
-                                    <span class="big28">1</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="md-bd-BigCal"></tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+        th:fragment="modalBigCal"
+        class="modal fade"
+        id="modalBigCal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="modalBigCalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalBigCalLabel">Modal title</h3>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>

@@ -17,18 +17,20 @@
 
 .bigCal-main {
     padding: 1rem 45rem;
-    min-height: 100%;
     display: flex;
 }
 
 .bigcont {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    gap: 0.5rem;
 }
 
 .bigNumCon {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
 }
 
 .md-bd-BigCal p {
@@ -36,8 +38,11 @@
 }
 
 #mdBigCal table > tbody > tr > td {
-    height: 6rem;
     vertical-align: top;
+}
+#mdBigCal table > tbody > tr > td:hover {
+    background: #edf2f9;
+    cursor: pointer;
 }
 #mdBigCal table > thead > tr > th {
     letter-spacing: 0.3rem;
@@ -81,7 +86,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 0.3rem;
+    gap: 0.5rem;
+}
+
+.bigEven {
+    border-radius: 2px;
+    text-align: left;
+    padding-left: 3rem;
+    color: gray;
 }
 
 .bigNumIn span {
@@ -104,4 +116,41 @@
 .big28 {
     background: #e6effc;
     color: #1862c6;
+}
+
+.big2511,
+.big2811,
+.big4511 {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    font-weight: 600;
+}
+
+.big2511 span,
+.big2811 span,
+.big4511 span {
+    margin-left: 1rem;
+}
+
+.big4511 {
+    background: #e0faef;
+    color: #009f5c;
+    border-radius: 2px;
+}
+
+.big2511 {
+    background: #fef0e8;
+    color: #f2600e;
+    border-radius: 2px;
+}
+
+.big2811 {
+    background: #e6effc;
+    color: #1862c6;
+    border-radius: 2px;
+}
+
+.bigBusNum {
+    display: flex;
+    gap: 2rem;
 }

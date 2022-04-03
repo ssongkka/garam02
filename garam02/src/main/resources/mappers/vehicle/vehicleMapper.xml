@@ -4,7 +4,8 @@
 
 	<sql id="veColumns">
 		vehicleinfo.carnumber, vehicleinfo.vehicle,
-		vehicleinfo.company, IFNULL((SELECT
+		vehicleinfo.company,
+		IFNULL((SELECT
 		employeeinfo.name FROM employeeinfo
 		WHERE
 		employeeinfo.id=vehicleinfo.owner),
@@ -29,21 +30,44 @@
 	<insert id="insertVe"
 		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
-		INSERT INTO vehicleinfo (carnumber, vehicle, company,
-		owner, id, bus, brand,
-		vename, grade, fuel, num, color, carn, regist,
-		expire, price, special,
-		img1,
-		img2, img3, regd, reg, insud, insu, jukd,
-		juk, trash) VALUES (
+		INSERT
+
+		INTO
+
+		vehicleinfo
+
+		VALUES
+		(
 		#{carNumber},
-		#{vehicle}, #{company}, #{owner},
-		#{id}, #{bus}, #{brand}, #{vename}, #{grade},
-		#{fuel}, #{num},
-		#{color}, #{carn}, #{regist}, #{expire}, #{price},
+		#{vehicle},
+		#{company},
+		#{owner},
+		#{id},
+		#{bus},
+		#{brand},
+		#{vename},
+		#{grade},
+		#{fuel},
+		#{num},
+		#{color},
+		#{carn},
+		#{regist},
+		#{expire},
+		#{price},
+		#{inday},
+		null,
 		#{special},
 		#{img1},
-		#{img2}, #{img3}, null, null, null, null, null, null, 1 );
+		#{img2},
+		#{img3},
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		1
+		);
 
 	</insert>
 
@@ -71,6 +95,9 @@
 		#{carn},
 		regist = #{regist},
 		expire = #{expire},
+		inday = #{inday},
+		outday
+		= #{outday},
 		price = #{price},
 
 		<if test="img1 != null and img1 != '' ">
@@ -82,7 +109,8 @@
 		<if test="img3 != null and img3 != '' ">
 			img3 = #{img3},
 		</if>
-		special = #{special}
+		special = #{special},
+		trash = #{trash}
 
 		WHERE
 
@@ -226,14 +254,40 @@
 
 		SELECT
 
-		<include refid="veColumns" />
-		, (SELECT jukday FROM jukfile WHERE jukfile.jukname
-		= vehicleinfo.juk)
-		AS jukday
+		vehicleinfo.*,
 
-		FROM vehicleinfo LEFT JOIN employeeinfo ON vehicleinfo.id =
+		IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo
+		WHERE
+		employeeinfo.id=vehicleinfo.owner),
+		vehicleinfo.owner) AS owner,
+
+		(SELECT jukday FROM jukfile WHERE
+		jukfile.jukname
+		= vehicleinfo.juk)
+		AS jukday,
+
+		employeeinfo.name,
+		employeeinfo.phone1,
+		employeeinfo.phone2
+
+		FROM
+
+		vehicleinfo
+
+		LEFT JOIN
+
+		employeeinfo
+
+		ON
+
+		vehicleinfo.id =
 		employeeinfo.id
-		WHERE vehicleinfo.carnumber = #{carNumber}
+
+		WHERE
+
+		vehicleinfo.carnumber = #{carNumber}
 	</select>
 
 	<insert id="insertJuk"

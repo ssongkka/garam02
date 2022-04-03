@@ -332,11 +332,11 @@
     padding-left: 0.5rem;
 }
 
-.emp-nth:nth-child(6) {
+.emp-nth:nth-child(7) {
     display: flex;
     padding: 0;
 }
-.emp-nth:nth-child(6) .btn-group {
+.emp-nth:nth-child(7) .btn-group {
     flex: 1;
     width: 100%;
 }
@@ -344,6 +344,10 @@
 .paperIn {
     display: flex;
     gap: 2rem;
+}
+
+.endDVisu {
+    display: none;
 }
 
 @media (max-width:768px) {

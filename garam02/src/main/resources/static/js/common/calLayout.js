@@ -357,11 +357,7 @@ function makeCal(nowD, day) {
                     let tmpArr2 = new Array();
                     for (let i = 0; i < r.length; i++) {
                         if (r[i].holiday != null && r[i].holiday != "") {
-                            tmpArr.push(new Date(r[i].solarCal));
-                        }
-
-                        if (r[i].event != null && r[i].event != "") {
-                            tmpArr2.push(new Date(r[i].solarCal));
+                            tmpArr.push(new Date(r[i].solarcal));
                         }
                     }
 
@@ -395,7 +391,8 @@ function makeCal(nowD, day) {
                                 .children()
                                 .children()
                                 .css('background', 'rgba(255, 239, 55, 0.5)')
-                                .css('border-radius', '30%');
+                                .css('border-radius', '30%')
+                                .css('padding', '0 0.5rem');
                         } else {
                             $(calID)
                                 .children()
@@ -450,6 +447,8 @@ $(
                 .children()
                 .children()[1];
             const day1 = $(ddoomm1).val();
+
+            console.log("$(iddd1).attr('id')    " + $(iddd1).attr('id'))
 
             if (val == day1) {
                 setCalWhite($(iddd1).attr('id'));

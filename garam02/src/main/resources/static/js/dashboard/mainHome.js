@@ -217,7 +217,7 @@ function getRsvtList(r, day) {
                 htmlsHome += r[i].num;
                 htmlsHome += '</td>';
 
-                htmlsHome += '<td class="">';
+                htmlsHome += '<td class="tdRight">';
                 htmlsHome += AddComma(r[i].conm);
                 htmlsHome += '</td>';
 
@@ -226,7 +226,11 @@ function getRsvtList(r, day) {
                 htmlsHome += '</td>';
 
                 htmlsHome += '<td class="">';
-                htmlsHome += r[i].stt;
+                if (r[i].stt) {
+                    htmlsHome += r[i].stt;
+                } else {
+                    htmlsHome += '';
+                }
                 htmlsHome += '</td>';
                 htmlsHome += '</tr>';
                 htmlsHome += '<tr class="hide-tr" id="tr-home' + i + '"><td colspan="6">'
@@ -344,14 +348,18 @@ function getRsvtList(r, day) {
                 htmlsSchool += '</td>';
 
                 htmlsSchool += '<td class="">';
-                htmlsSchool += r[i].stt;
+                if (r[i].stt) {
+                    htmlsSchool += r[i].stt;
+                } else {
+                    htmlsSchool += '';
+                }
                 htmlsSchool += '</td>';
 
                 htmlsSchool += '<td class="">';
                 htmlsSchool += r[i].rsvpstp;
                 htmlsSchool += '</td>';
 
-                htmlsSchool += '<td class="">';
+                htmlsSchool += '<td class="tdRight">';
                 htmlsSchool += AddComma(r[i].conm);
                 htmlsSchool += '</td>';
                 htmlsSchool += '</tr>';
@@ -421,7 +429,7 @@ function getRsvtList(r, day) {
                 htmlsaccount += r[i].num;
                 htmlsaccount += '</td>';
 
-                htmlsaccount += '<td class="">';
+                htmlsaccount += '<td class="tdRight">';
                 htmlsaccount += AddComma(r[i].conm);
                 htmlsaccount += '</td>';
 
@@ -430,7 +438,11 @@ function getRsvtList(r, day) {
                 htmlsaccount += '</td>';
 
                 htmlsaccount += '<td class="">';
-                htmlsaccount += r[i].stt;
+                if (r[i].stt) {
+                    htmlsaccount += r[i].stt;
+                } else {
+                    htmlsaccount += '';
+                }
                 htmlsaccount += '</td>';
                 htmlsaccount += '</tr>';
                 htmlsaccount += '<tr style ="display:none;" id="tr-acc' + i + '"><td colspan="6">awfafafwf</td>' +
@@ -457,6 +469,7 @@ function getRsvtList(r, day) {
     );
 
     const noRsvt = '<tr><td colspan="7">운행 정보 없음</td></tr>';
+    const noRsvt1 = '<tr><td colspan="12">예약 정보 없음</td></tr>';
 
     if (htmlsHome) {
         cntArr.push(cnt12);
@@ -474,6 +487,7 @@ function getRsvtList(r, day) {
         }
     } else {
         $('#home-tb-normal').html(noRsvt);
+        $('#tb-ilManage').html(noRsvt1);
     }
 
     if (htmlsSchool) {
@@ -491,6 +505,7 @@ function getRsvtList(r, day) {
         }
     } else {
         $('#home-tb-school').html(noRsvt);
+        $('#tb-hakManage').html(noRsvt1);
     }
 
     if (htmlsaccount) {
@@ -508,6 +523,7 @@ function getRsvtList(r, day) {
         }
     } else {
         $('#home-tb-account').html(noRsvt);
+        $('#tb-guManage').html(noRsvt1);
     }
 
 }

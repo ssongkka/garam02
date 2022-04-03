@@ -76,6 +76,10 @@ public class VehicleServiceImpl implements VehicleService {
 			vehicleInfoDTO.setExpire(null);
 		}
 
+		if (vehicleInfoDTO.getOutday() == null || vehicleInfoDTO.getOutday().equals("")) {
+			vehicleInfoDTO.setOutday(null);
+		}
+
 		if (vehicleInfoDTO.getPrice() == null || vehicleInfoDTO.getPrice() == 0) {
 			vehicleInfoDTO.setPrice(0);
 		}
@@ -91,6 +95,12 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 		if (vehicleInfoDTO.getImg3() == null || vehicleInfoDTO.getImg3().equals("")) {
 			vehicleInfoDTO.setImg3(null);
+		}
+
+		if (vehicleInfoDTO.getOutday() != null && vehicleInfoDTO.getOutday().length() > 0) {
+			vehicleInfoDTO.setTrash(0);
+		} else {
+			vehicleInfoDTO.setTrash(1);
 		}
 
 		switch (vehicleInfoDTO.getTp()) {

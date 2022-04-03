@@ -607,6 +607,18 @@ function getVeInfo(carNumber) {
                     } else {
                         $('#ve12').html('<span>&nbsp;</span>');
                     }
+                    if (r[0].inday) {
+                        $('#ve24').html('<span>' + r[0].inday + '</span>');
+                    } else {
+                        $('#ve24').html('<span>&nbsp;</span>');
+                    }
+                    if (r[0].outday) {
+                        $('.endDVisu').show();
+                        $('#ve25').html('<span>' + r[0].outday + '</span>');
+                    } else {
+                        $('.endDVisu').hide();
+                        $('#ve25').html('<span>&nbsp;</span>');
+                    }
                     if (r[0].carn) {
                         $('#ve19').html('<span>' + r[0].carn + '</span>');
                     } else {
@@ -894,6 +906,17 @@ function setVeCh() {
     } else {
         $('#expire').val('');
     };
+    if ($('#ve24').children().text() != String.fromCharCode(160)) {
+        $('#inday').val($('#ve24').children().text());
+    } else {
+        $('#inday').val('');
+    };
+
+    if ($('#ve25').children().text() != String.fromCharCode(160)) {
+        $('#outday').val($('#ve25').children().text());
+    } else {
+        $('#outday').val('');
+    };
 
     if ($('#ve10').children().text() != String.fromCharCode(160)) {
         $('#fuel').val($('#ve10').children().text());
@@ -1149,6 +1172,18 @@ function insertVe(tp) {
                 $('#expire').css('border', bad);
             }
 
+            if ($('#inday').val()) {
+                $('#inday').css('border', good);
+            } else {
+                if (msg.length > 0) {
+                    msg += '\n\n - 차량구입(인수)일';
+                } else {
+                    msg = '*필수입력사항을 기입해주세요.';
+                    msg += '\n\n - 차량구입(인수)일';
+                }
+                $('#inday').css('border', bad);
+            }
+
             if ($('#num').val()) {
                 $('#num').css('border', good);
             } else {
@@ -1230,6 +1265,8 @@ function insertVe(tp) {
                         "carn": $('#carn').val(),
                         "regist": $('#regist').val(),
                         "expire": $('#expire').val(),
+                        "inday": $('#inday').val(),
+                        "outday": $('#outday').val(),
                         "price": $('#price')
                             .val()
                             .replaceAll(',', ''),

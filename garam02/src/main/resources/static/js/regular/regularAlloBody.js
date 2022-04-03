@@ -1774,8 +1774,6 @@ function insertRegAlloDe(result) {
             const bb6 = $(bb).children()[6];
             const bb66 = $(bb6).children();
 
-                "asdfffwfwww   " + !$(bb11).val() && !$(bb22).val() && !$(bb33).val() && !$(bb11).is(":disabled")
-            );
             if ($(bb66).val()) {
                 if (!$(bb11).val() && !$(bb22).val() && !$(bb33).val()) {
                     const asd = {

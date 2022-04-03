@@ -1,18 +1,19 @@
+$(document).on('show.bs.offcanvas', '#mdBigCal', function () {
+    const year = $('#yearMonth')
+        .val()
+        .split('-')[0];
+    const month = $('#yearMonth')
+        .val()
+        .split('-')[1];
+
+    const nowMonth = new Date(parseInt(year), parseInt(month) - 1, 1);
+
+    $("#yearMonthBig").val($('#yearMonth').val());
+
+    makeBigCal(nowMonth);
+});
+
 $(document).on('click', '.ad-cal-items-2', function () {
-    $(document).on('show.bs.offcanvas', '#mdBigCal', function () {
-
-        const now_D = new Date();
-
-        const nowMonth = new Date(now_D.getFullYear(), now_D.getMonth(), 1);
-        const nowDay = new Date(now_D.getFullYear(), now_D.getMonth(), now_D.getDate());
-
-        const monomonth = toStringByFormatting(nowMonth).split('-')[0] + '-' +
-                toStringByFormatting(nowMonth).split('-')[1];
-
-        $("#yearMonthBig").val(monomonth);
-
-        makeBigCal(nowMonth, nowDay);
-    });
     $('#mdBigCal').offcanvas('show');
 });
 
@@ -60,7 +61,6 @@ function get_Big_Year_Month() {
 }
 
 function makeBigCal(nowD, day) {
-
     LoadingWithMask()
         .then(setBigCalendar)
         .then(setBigCalendarHol)
@@ -117,13 +117,13 @@ function makeBigCal(nowD, day) {
                 } else {
                     if (stD.getDay() == 6) {
                         colorDay = ' style="color: #6fa0e3;"';
-                        colorNoday = ' style="opacity: 0.3;"';
+                        colorNoday = ' style="opacity: 0.5;"';
                     } else if (stD.getDay() == 0) {
                         colorDay = ' style="color: #f0674f;"';
-                        colorNoday = ' style="opacity: 0.3;"';
+                        colorNoday = ' style="opacity: 0.5;"';
                     } else {
                         colorDay = ' style="color: #8390A2;"';
-                        colorNoday = ' style="opacity: 0.3;"';
+                        colorNoday = ' style="opacity: 0.5;"';
                     }
                 }
 
@@ -133,7 +133,7 @@ function makeBigCal(nowD, day) {
 
                 htmls += `
             <td ` + colorNoday +
-                        `>
+                        ` class="bigTd">
                 <div class="bigcont">
                 <div class="bigNumCon">
                     <input type="hidden" value="` +
@@ -143,12 +143,18 @@ function makeBigCal(nowD, day) {
                         <span class="numDay"` +
                         colorDay + `  >` + stD.getDate() +
                         `</span>
+                        <span></span>
                     </div>
+                    <div class="bigEven">차량대금<span class="badge rounded-pill bg-danger">1</span>
+                </div>
+                    <div class="bigEven">차량보험료<span class="badge rounded-pill bg-warning text-dark">1</span>
+                    </div>
+                    <div class="bigEven">이벤트<span class="badge rounded-pill bg-primary">1</span></div>
                 </div>
                 <div class="bigNumIn">
-                    <span class=""></span>
-                    <span class=""></span>
-                    <span class=""></span>
+                    <span class="">&nbsp;</span>
+                    <span class="">&nbsp;</span>
+                    <span class="">&nbsp;</span>
                 </div>
                 </div>
             </td>`;
@@ -206,34 +212,39 @@ function makeBigCal(nowD, day) {
                             const aaa222 = $(aaa22[0]).children();
                             const ddaayy = $(aaa222[0]).val();
 
+                            const ccc = $(aaa222[1]).children()[1];
+
                             const bbb = $(aaa222[1]).children()[0];
 
                             for (let i = 0; i < r.length; i++) {
 
-                                if (ddaayy == r[i].solarCal) {
+                                if (ddaayy == r[i].solarcal) {
                                     if (r[i].holiday) {
                                         $(bbb).css('color', '#CF2F11');
-                                        $(aaa222[1]).append(
-                                            ` 
-                                    <div class="bigNum-item">
-                                        ` +
-                                            r[i].holiday +
+
+                                        $(ccc).html(
+                                            ` <div class="bigNum-item">
+                                        ` + r[i].holiday +
                                             `
-                                    </div>`
+                                            </div>`
                                         );
                                     }
                                 }
                             }
                         }
                     }
-                    resolve();
+                    resolve(result);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             });
         })
     }
 
-    function getBusNum() {
+    function getBusNum(result) {
         return new Promise(function (resolve, reject) {
+
             const aaa = $('#md-bd-BigCal').children();
             for (let k = 0; k < aaa.length; k++) {
                 const aaa1 = $(aaa[k]).children()
@@ -243,68 +254,178 @@ function makeBigCal(nowD, day) {
                     const aaa222 = $(aaa22[0]).children();
                     const ddaayy = $(aaa222[0]).val();
 
-                    getBigMidCnt(ddaayy, $(aaa22[1]));
+                    getBigMidCnt().then(sumBus);
+
+                    function getBigMidCnt(result) {
+                        return new Promise(function (resolve, reject) {
+                            const url = "/home/weekDash";
+                            const headers = {
+                                "Content-Type": "application/json",
+                                "X-HTTP-Method-Override": "POST"
+                            };
+
+                            const params = {
+                                "stday": ddaayy,
+                                "endday": ddaayy
+                            };
+
+                            $.ajax({
+                                url: url,
+                                type: "POST",
+                                headers: headers,
+                                dataType: "json",
+                                data: JSON.stringify(params),
+
+                                success: function (r) {
+                                    let cnt45 = 0;
+                                    let cnt25 = 0;
+                                    let cnt28 = 0;
+
+                                    for (let i = 0; i < r.length; i++) {
+                                        switch (r[i].bus) {
+                                            case '대형':
+                                                cnt45 = cnt45 + r[i].num;
+                                                break;
+                                            case '중형':
+                                                cnt25 = cnt25 + r[i].num;
+                                                break;
+                                            case '우등':
+                                                cnt28 = cnt28 + r[i].num;
+                                                break;
+                                        }
+                                    }
+
+                                    const ddd = $($(aaa22[1])).children();
+
+                                    if (cnt45 > 0) {
+                                        $(ddd[0]).text(cnt45);
+                                        $(ddd[0]).attr('class', 'big45');
+                                    }
+
+                                    if (cnt25 > 0) {
+                                        $(ddd[1]).text(cnt25);
+                                        $(ddd[1]).attr('class', 'big25');
+                                    }
+
+                                    if (cnt28 > 0) {
+                                        $(ddd[2]).text(cnt28);
+                                        $(ddd[2]).attr('class', 'big28');
+                                    }
+
+                                    resolve();
+                                },
+                                error: (jqXHR) => {
+                                    loginSession(jqXHR.status);
+                                }
+                            });
+                        })
+                    }
                 }
             }
             resolve();
         })
     }
 
-    function getBigMidCnt(day, dom) {
-        const url = "/home/weekDash";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
+    function sumBus(result) {
+        return new Promise(function (resolve, reject) {
+            let real45 = 0;
+            let real25 = 0;
+            let real28 = 0;
 
-        const params = {
-            "stday": day,
-            "endday": day
-        };
+            const aaa = $('#md-bd-BigCal').children();
+            for (let k = 0; k < aaa.length; k++) {
+                const aaa1 = $(aaa[k]).children()
+                for (let j = 0; j < aaa1.length; j++) {
+                    const aaa2 = $(aaa1[j]).children()[0];
+                    const aaa22 = $(aaa2).children()[1];
+                    const aaa222 = $(aaa22).children();
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
+                    let aa45 = 0;
+                    let aa25 = 0;
+                    let aa28 = 0;
 
-            success: function (r) {
-                let cnt45 = 0;
-                let cnt25 = 0;
-                let cnt28 = 0;
-
-                for (let i = 0; i < r.length; i++) {
-                    switch (r[i].bus) {
-                        case '대형':
-                            cnt45 = cnt45 + r[i].num;
-                            break;
-                        case '중형':
-                            cnt25 = cnt25 + r[i].num;
-                            break;
-                        case '우등':
-                            cnt28 = cnt28 + r[i].num;
-                            break;
+                    if (parseInt($(aaa222[0]).text())) {
+                        aa45 = $(aaa222[0]).text();
                     }
-                }
+                    if (parseInt($(aaa222[1]).text())) {
+                        aa25 = $(aaa222[1]).text();
+                    }
+                    if (parseInt($(aaa222[2]).text())) {
+                        aa28 = $(aaa222[2]).text();
+                    }
 
-                const ddd = $(dom).children();
+                    const bbb = $(aaa1[j]).children();
 
-                if (cnt45 > 0) {
-                    $(ddd[0]).text(cnt45);
-                    $(ddd[0]).attr('class', 'big45');
-                }
+                    const bbb1 = $(bbb[0]).children();
+                    const bbb11 = $(bbb1[0]).children();
+                    const ddaayy = $(bbb11[0]).val();
 
-                if (cnt25 > 0) {
-                    $(ddd[1]).text(cnt25);
-                    $(ddd[1]).attr('class', 'big25');
-                }
+                    const realMonth = $('#yearMonthBig')
+                        .val()
+                        .split('-')[1];
+                    const notMonth = ddaayy.split('-')[1];
 
-                if (cnt28 > 0) {
-                    $(ddd[2]).text(cnt28);
-                    $(ddd[2]).attr('class', 'big28');
+                    if (parseInt(realMonth) == parseInt(notMonth)) {
+                        real45 = parseInt(real45) + parseInt(aa45);
+                        real25 = parseInt(real25) + parseInt(aa25);
+                        real28 = parseInt(real28) + parseInt(aa28);
+                    }
+
+                    $('#big4511').text(real45);
+                    $('#big2511').text(real25);
+                    $('#big2811').text(real28);
                 }
             }
-        });
+
+            resolve();
+        })
     }
 }
+
+$(document).on('click', '.bigTd', function () {
+    const aaa = $(this).children();
+
+    $(document).on('show.bs.modal', '#modalBigCal', function () {
+
+        const aaa2 = $(aaa).children()[0];
+        const aaa3 = $(aaa2).children()[0];
+
+        const day = $(aaa3).val();
+
+        const dateN = getDayOfWeek(new Date(day).getDay());
+
+        $('#modalBigCalLabel').text(day + ' ' + dateN);
+
+        name();
+
+        function name() {
+            const val = day;
+
+            $('#yearMonth').val($('#yearMonthBig').val());
+            makeCal(get_Year_Month(), null);
+
+            for (let i = 0; i < 42; i++) {
+                const iddd = '#dash-cal-con-item' + (
+                    i + 1
+                );
+
+                const ddoomm = $(iddd)
+                    .children()
+                    .children()[1];
+                const day1 = $(ddoomm).val();
+
+                if (val == day1) {
+                    cnt = 0;
+                    setCalWhite($(iddd).attr('id'));
+                    break;
+                }
+            }
+        }
+
+        console.log($(aaa3));
+        console.log(day);
+    });
+
+    $('#modalBigCal').modal('show');
+
+});

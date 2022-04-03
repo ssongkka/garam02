@@ -50,6 +50,12 @@ public class VehicleInfoDTO {
 	// 차량만료일
 	private String expire;
 
+	// 차량등록일
+	private String inday;
+
+	// 차량만료일
+	private String outday;
+
 	// 출고가
 	private Integer price;
 
@@ -362,6 +368,22 @@ public class VehicleInfoDTO {
 
 	public void setExpire(String expire) {
 		this.expire = expire;
+	}
+
+	public String getInday() {
+		return inday;
+	}
+
+	public void setInday(String inday) {
+		this.inday = inday;
+	}
+
+	public String getOutday() {
+		return outday;
+	}
+
+	public void setOutday(String outday) {
+		this.outday = outday;
 	}
 
 	public Integer getPrice() {
