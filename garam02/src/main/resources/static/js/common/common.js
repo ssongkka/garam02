@@ -4,8 +4,8 @@ class dateUtil {
     }
 }
 
-const empFolder = 'http://192.168.35.29:8000/list/HDD2/src/emp/';
-const veFolder = 'http://192.168.35.29:8000/list/HDD2/src/ve/';
+const empFolder = 'http://ssongkkyu.cdn3.cafe24.com/src/emp/';
+const veFolder = 'http://ssongkkyu.cdn3.cafe24.com/src/ve/';
 
 const tableCh = '#337ab7';
 
@@ -276,7 +276,6 @@ function getCalTimeInputJSP(calTime) {
 
     var rtn = tmpDate + "T" + tmpTime;
 
-
     return rtn;
 }
 
@@ -284,7 +283,6 @@ function getCalTimeInputJSPtoDB(calTime) {
 
     var rtn_Date = calTime.substring(0, 10);
     var rtn_Time = calTime.substring(11);
-
 
     return rtn_Date + ' ' + rtn_Time;
 }
@@ -341,7 +339,6 @@ function AddComma(num) {
 function fnNullCheck(str) {
     var newStr = str;
 
-
     if (newStr == null || newStr == "" || newStr == undefined || newStr == "undefined") {
         return 0;
     } else {
@@ -379,7 +376,7 @@ function setPdfFromFile(input, expression, id) {
         }
         reader.readAsDataURL(input.files[0]);
     } else {
-        $(expression).attr('src', veFolder + 'choice.pdf');
+        $(expression).attr('src', veFolder + 'choice.png');
     }
 }
 

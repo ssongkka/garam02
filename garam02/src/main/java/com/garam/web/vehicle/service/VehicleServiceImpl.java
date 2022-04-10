@@ -1,5 +1,6 @@
 package com.garam.web.vehicle.service;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,17 +10,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -28,14 +29,13 @@ import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.garam.web.Utils.FTPManager;
-import com.garam.web.Utils.NameUtils;
-import com.garam.web.Utils.PDFUtil;
-import com.garam.web.Utils.pdfFooter;
+import com.garam.Utils.FTPManager;
+import com.garam.Utils.PDFUtil;
+import com.garam.Utils.pdfFooter;
 import com.garam.web.vehicle.dto.JukfileDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.mapper.VehicleMapper;
@@ -44,7 +44,6 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -57,6 +56,8 @@ import lombok.RequiredArgsConstructor;
 public class VehicleServiceImpl implements VehicleService {
 
 	private final VehicleMapper vehicleMapper;
+
+	@Autowired
 	private final FTPManager ftpmanager;
 
 	@Override
@@ -127,15 +128,14 @@ public class VehicleServiceImpl implements VehicleService {
 			carN = get_Veno();
 		}
 
-		FTPClient ftp = ftpmanager.connect();
 		for (int i = 0; i < files.length; i++) {
 			if (files[i].getSize() > 0) {
+				FTPClient ftp = ftpmanager.connectCdn();
 				if (ftp.isConnected()) {
-					final String extension = FilenameUtils.getExtension(files[i].getOriginalFilename());
 
 					InputStream inputStream = new BufferedInputStream(files[i].getInputStream());
 
-					String filename = ftpmanager.getCarFolder() + "img/" + carN + "_" + (i + 1) + ".PNG";
+					String filename = ftpmanager.getVeFolderCdn() + "img/" + carN + "_" + (i + 1) + ".PNG";
 
 					if (ftp.storeFile(filename, inputStream)) {
 						img += "이미지" + "1";
@@ -145,6 +145,7 @@ public class VehicleServiceImpl implements VehicleService {
 				} else {
 					rtn = "2";
 				}
+				ftpmanager.disconnect(ftp);
 			} else {
 				img += "이미지" + "2";
 			}
@@ -153,10 +154,6 @@ public class VehicleServiceImpl implements VehicleService {
 		if (!rtn.equals("2")) {
 			rtn = carN + img;
 		}
-
-		System.out.println("야호   " + rtn);
-
-		ftpmanager.disconnect(ftp);
 
 		return rtn;
 
@@ -439,16 +436,16 @@ public class VehicleServiceImpl implements VehicleService {
 	public int updateVeRegPDF(String carnumber, MultipartFile[] files) throws Exception {
 
 		int rtn = 0;
-		String fileName = carnumber + "_Reg.PDF";
+		String fileName = carnumber + "_Reg";
 
 		FTPClient ftp = ftpmanager.connect();
 		if (files[0].getSize() > 0) {
 			if (ftp.isConnected()) {
 				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
 
-				String filename = ftpmanager.getCarFolder() + "reg/" + fileName;
+				String filenameIn = ftpmanager.getVeFolder() + "reg/" + fileName;
 
-				if (ftp.storeFile(filename, inputStream)) {
+				if (ftp.storeFile(filenameIn + ".PDF", inputStream)) {
 					VehicleInfoDTO dto = new VehicleInfoDTO();
 
 					dto.setCarNumber(carnumber);
@@ -469,22 +466,54 @@ public class VehicleServiceImpl implements VehicleService {
 
 		ftpmanager.disconnect(ftp);
 
+		if (rtn != 2) {
+			FTPClient ftpCdn = ftpmanager.connectCdn();
+			if (files[0].getSize() > 0) {
+				if (ftpCdn.isConnected()) {
+					InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
+
+					String filenameIn = ftpmanager.getVeFolderCdn() + "reg/" + fileName;
+
+					PDDocument pdfDoc = PDDocument.load(inputStream);
+					PDFRenderer pdfRenderer = new PDFRenderer(pdfDoc);
+
+					BufferedImage bim = pdfRenderer.renderImageWithDPI(0, 100, ImageType.RGB);
+
+					ByteArrayOutputStream os = new ByteArrayOutputStream();
+					ImageIOUtil.writeImage(bim, "PNG", os);
+					byte[] output = os.toByteArray();
+					InputStream is = new ByteArrayInputStream(output);
+
+					if (!ftpCdn.storeFile(filenameIn + ".PNG", is)) {
+						rtn = 2;
+					}
+
+					pdfDoc.close();
+				} else {
+					rtn = 2;
+				}
+			} else {
+				rtn = 2;
+			}
+			ftpmanager.disconnect(ftpCdn);
+		}
+
 		return rtn;
 	}
 
 	@Override
 	public int updateVeInsuPDF(String carnumber, MultipartFile[] files) throws Exception {
 		int rtn = 0;
-		String fileName = carnumber + "_Insu.PDF";
+		String fileName = carnumber + "_Insu";
 
 		FTPClient ftp = ftpmanager.connect();
 		if (files[0].getSize() > 0) {
 			if (ftp.isConnected()) {
 				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
 
-				String filename = ftpmanager.getCarFolder() + "insu/" + fileName;
+				String filenameIn = ftpmanager.getVeFolder() + "insu/" + fileName;
 
-				if (ftp.storeFile(filename, inputStream)) {
+				if (ftp.storeFile(filenameIn + ".PDF", inputStream)) {
 					VehicleInfoDTO dto = new VehicleInfoDTO();
 
 					dto.setCarNumber(carnumber);
@@ -504,6 +533,37 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 
 		ftpmanager.disconnect(ftp);
+
+		if (rtn != 2) {
+			FTPClient ftpCdn = ftpmanager.connectCdn();
+			if (files[0].getSize() > 0) {
+				if (ftpCdn.isConnected()) {
+					InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
+
+					String filenameIn = ftpmanager.getVeFolderCdn() + "insu/" + fileName;
+
+					PDDocument pdfDoc = PDDocument.load(inputStream);
+					PDFRenderer pdfRenderer = new PDFRenderer(pdfDoc);
+
+					BufferedImage bim = pdfRenderer.renderImageWithDPI(0, 100, ImageType.RGB);
+
+					ByteArrayOutputStream os = new ByteArrayOutputStream();
+					ImageIOUtil.writeImage(bim, "PNG", os);
+					byte[] output = os.toByteArray();
+					InputStream is = new ByteArrayInputStream(output);
+
+					if (!ftpCdn.storeFile(filenameIn + ".PNG", is)) {
+						rtn = 2;
+					}
+
+				} else {
+					rtn = 2;
+				}
+			} else {
+				rtn = 2;
+			}
+			ftpmanager.disconnect(ftpCdn);
+		}
 
 		return rtn;
 	}
@@ -605,16 +665,15 @@ public class VehicleServiceImpl implements VehicleService {
 
 		int rtn1 = vehicleMapper.updateVeJuk(upjuk);
 
-		String fileName = jukname + ".PDF";
+		String fileName = jukname;
 
 		FTPClient ftp = ftpmanager.connect();
 		if (files[0].getSize() > 0) {
 			if (ftp.isConnected()) {
 				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
 
-				String filename = ftpmanager.getCarFolder() + "juk/" + fileName;
-				if (ftp.storeFile(filename, inputStream)) {
-					System.out.println("야호");
+				String filename = ftpmanager.getVeFolder() + "juk/" + fileName;
+				if (ftp.storeFile(filename + ".PDF", inputStream)) {
 				} else {
 					rtn = 2;
 				}
@@ -626,6 +685,37 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 
 		ftpmanager.disconnect(ftp);
+
+		if (rtn != 2) {
+			FTPClient ftpCdn = ftpmanager.connectCdn();
+			if (files[0].getSize() > 0) {
+				if (ftpCdn.isConnected()) {
+					InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
+
+					String filenameIn = ftpmanager.getVeFolderCdn() + "juk/" + fileName;
+
+					PDDocument pdfDoc = PDDocument.load(inputStream);
+					PDFRenderer pdfRenderer = new PDFRenderer(pdfDoc);
+
+					BufferedImage bim = pdfRenderer.renderImageWithDPI(0, 100, ImageType.RGB);
+
+					ByteArrayOutputStream os = new ByteArrayOutputStream();
+					ImageIOUtil.writeImage(bim, "PNG", os);
+					byte[] output = os.toByteArray();
+					InputStream is = new ByteArrayInputStream(output);
+
+					if (!ftpCdn.storeFile(filenameIn + ".PNG", is)) {
+						rtn = 2;
+					}
+
+				} else {
+					rtn = 2;
+				}
+			} else {
+				rtn = 2;
+			}
+			ftpmanager.disconnect(ftpCdn);
+		}
 
 		return rtn * rtn1;
 	}
@@ -711,6 +801,45 @@ public class VehicleServiceImpl implements VehicleService {
 		int rtn1 = vehicleMapper.updateVeJuk(upjuk);
 
 		return rtn * rtn1;
+	}
+
+	@Override
+	public String showPdf(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		String rtn = "";
+
+		String fileAdd = "";
+
+		FTPClient ftp = ftpmanager.connect();
+
+		System.out.println("ㅁㅇㅁㅈㅇㅁㅇ  " + ftp.isConnected());
+
+		int a = (int) ((Math.random() * 10000) + 10);
+
+		File tempFile = File.createTempFile("tmp" + Integer.toString(a), ".pdf");
+		tempFile.deleteOnExit();
+
+		switch (vehicleInfoDTO.getTrash()) {
+		case 1:
+			fileAdd = ftpmanager.getVeFolder() + vehicleInfoDTO.getBus() + "/" + vehicleInfoDTO.getBrand() + ".PDF";
+			break;
+		case 2:
+			fileAdd = ftpmanager.getEmpFolder() + vehicleInfoDTO.getBus() + "/" + vehicleInfoDTO.getBrand() + ".PDF";
+			break;
+		default:
+			break;
+		}
+
+		System.out.println(fileAdd);
+
+		FileOutputStream fos = new FileOutputStream(tempFile);
+		if (ftp.retrieveFile(fileAdd, fos)) {
+			rtn = tempFile.getPath();
+
+		} else {
+			rtn = "-1";
+		}
+
+		return rtn;
 	}
 
 }

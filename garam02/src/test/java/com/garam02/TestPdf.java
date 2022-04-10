@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.garam.Garam02Application;
-import com.garam.web.Utils.PDFUtil;
+import com.garam.Utils.PDFUtil;
 import com.lowagie.text.Cell;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -28,7 +28,6 @@ import com.lowagie.text.pdf.VerticalText;
 public class TestPdf {
 	@Test
 	void table() {
-		System.out.println("되냐");
 
 		// 1) com.lowagie.text.Document 클래스 인스턴스를 생성합니다.
 		Document document = new Document(PageSize.A4, 56.664f, 42.48f, 85.032f, 42.48f);

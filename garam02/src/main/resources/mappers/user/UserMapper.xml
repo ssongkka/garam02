@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garam.web.login.mapper.UserMapper">
+
+	<update id="updateUserColor"
+		parameterType="com.garam.web.login.dto.UserDTO">
+
+		UPDATE
+
+		user
+
+		SET
+
+		user.color =#{color}
+
+		WHERE
+
+		user.id =
+		#{id}
+
+	</update>
+
+	<update id="updateUserPw"
+		parameterType="com.garam.web.login.dto.UserDTO">
+
+		UPDATE
+
+		user
+
+		SET
+
+		user.pw =#{pw}
+
+		WHERE
+
+		user.id =
+		#{id}
+
+	</update>
+
+</mapper>

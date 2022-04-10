@@ -153,8 +153,6 @@ public class RestVehicleController {
 			map.put("id5", "");
 		}
 
-		System.out.println(map);
-
 		int rtn = vehicleService.updateVeJukPDF(map, files);
 		return rtn;
 	}
@@ -171,5 +169,15 @@ public class RestVehicleController {
 			rst = -2;
 		}
 		return rst;
+	}
+
+	@PostMapping(value = "/showPdf")
+	public String showPdf(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		String rtn = vehicleService.showPdf(vehicleInfoDTO);
+
+		System.out.println("곡고고고  " + rtn);
+
+		return rtn;
 	}
 }

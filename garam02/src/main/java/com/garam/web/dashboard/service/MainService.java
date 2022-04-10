@@ -7,6 +7,7 @@ import java.util.Map;
 import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
+import com.garam.web.dashboard.dto.RsvtmoneyDTO;
 
 public interface MainService {
 	public List<RsvtDTO> selectCustomerAll(RsvtDTO rsvtDTO) throws Exception;
@@ -62,4 +63,21 @@ public interface MainService {
 	public File makePapper(String companyyy, String dayyy, String ctmmm, String rsvttt, String paperCh)
 			throws Exception;
 
+	public List<RsvtmoneyDTO> selRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int insertRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int updateRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int delRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int updateRsvtConfirmMOk(RsvtDTO rsvtDTO) throws Exception;
+
+	public int updateRsvtConfirmMNo(RsvtDTO rsvtDTO) throws Exception;
+
+	public int insertRsvtMoneyMany(List<Map<String, Object>> map) throws Exception;
+
+	public int updateRsvtConfirmMOkMany(List<Map<String, Object>> map) throws Exception;
+
+	public List<RsvtmoneyDTO> selectSumRsvtMoney(List<Map<String, Object>> map) throws Exception;
 }

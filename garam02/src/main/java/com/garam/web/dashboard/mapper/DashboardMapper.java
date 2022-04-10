@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
+import com.garam.web.dashboard.dto.RsvtmoneyDTO;
 
 @Mapper
 public interface DashboardMapper {
@@ -64,4 +65,22 @@ public interface DashboardMapper {
 	public List<RsvtDTO> selectPapperAllo1(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectPapperAllo2(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtmoneyDTO> selRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int insertRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int updateRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int delRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
+
+	public int updateRsvtConfirmMOk(RsvtDTO rsvtDTO) throws Exception;
+
+	public int updateRsvtConfirmMNo(RsvtDTO rsvtDTO) throws Exception;
+
+	public int insertRsvtMoneyMany(HashMap<String, Object> map) throws Exception;
+
+	public int updateRsvtConfirmMOkMany(HashMap<String, Object> map) throws Exception;
+
+	public List<RsvtmoneyDTO> selectSumRsvtMoney(HashMap<String, Object> map) throws Exception;
 }

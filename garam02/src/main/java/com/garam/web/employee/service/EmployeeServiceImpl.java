@@ -14,12 +14,15 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.garam.web.Utils.FTPManager;
-import com.garam.web.Utils.PDFUtil;
-import com.garam.web.Utils.Utils;
+import com.garam.Utils.FTPManager;
+import com.garam.Utils.PDFUtil;
+import com.garam.Utils.Utils;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
@@ -40,9 +43,12 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:/application.properties")
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private final EmployeeMapper employeeMapper;
+
+	@Autowired
 	private final FTPManager ftpmanager;
 
 	@Override
@@ -61,25 +67,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		if (files[0].getSize() > 0) {
 
-			FTPClient ftp = ftpmanager.connect();
+			FTPClient ftp = ftpmanager.connectCdn();
 
 			if (ftp.isConnected()) {
-				final String extension = FilenameUtils.getExtension(files[0].getOriginalFilename());
 
 				InputStream inputStream = new BufferedInputStream(files[0].getInputStream());
 
-				filename = ftpmanager.getEmpFolder() + "img/" + iidd + ".PNG";
+				filename = ftpmanager.getEmpFolderCdn() + "img/" + iidd + ".PNG";
 
 				if (ftp.storeFile(filename, inputStream)) {
 					rtn = iidd + "이미지" + "1";
 				} else {
 					rtn = "2";
 				}
-
-				ftpmanager.disconnect(ftp);
 			} else {
 				rtn = "2";
 			}
+
+			ftpmanager.disconnect(ftp);
+
 		} else {
 			rtn = iidd + "이미지" + "2";
 		}
@@ -574,7 +580,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		int cnt = 0;
 		for (int i = 0; i < empsalary_In.size(); i++) {
 			if (empsalary_In.get(i).getSeparation().equals("수당") || empsalary_In.get(i).getSeparation().equals("기타")) {
-				System.out.println(empsalary_In.get(i).getSeparation());
 				if (empsalary_In.get(i).getDate() != null) {
 					in0.put(3 + cnt, empsalary_In.get(i).getContents() + "("
 							+ empsalary_In.get(i).getDate().split("-")[2] + "일)");

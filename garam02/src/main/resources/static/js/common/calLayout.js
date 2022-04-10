@@ -416,7 +416,9 @@ $(
     const iidd = $(this).children()[4];
     const val = $(iidd).val();
 
-    let cnt = 0;
+    $('#yearMonth').val(val.split('-')[0] + '-' + val.split('-')[1]);
+    makeCal(get_Year_Month(), null);
+
     for (let i = 0; i < 42; i++) {
         const iddd = '#dash-cal-con-item' + (
             i + 1
@@ -425,34 +427,12 @@ $(
         const ddoomm = $(iddd)
             .children()
             .children()[1];
-        const day = $(ddoomm).val();
+        const day1 = $(ddoomm).val();
 
-        if (val == day) {
+        if (val == day1) {
             cnt = 0;
             setCalWhite($(iddd).attr('id'));
             break;
-        } else {
-            cnt++;
-        }
-    }
-    if (cnt > 0) {
-        $('#fnUpMonth').click();
-
-        for (let i = 0; i < 42; i++) {
-            const iddd1 = '#dash-cal-con-item' + (
-                i + 1
-            );
-
-            const ddoomm1 = $(iddd1)
-                .children()
-                .children()[1];
-            const day1 = $(ddoomm1).val();
-
-            console.log("$(iddd1).attr('id')    " + $(iddd1).attr('id'))
-
-            if (val == day1) {
-                setCalWhite($(iddd1).attr('id'));
-            }
         }
     }
 });
@@ -472,3 +452,10 @@ function getCompaInfo() {
     }
 
 }
+
+$(document).on('click', '#btnSetting', function () {
+    $(document).on('show.bs.modal', '#mdSetting', function () {
+        console.log("하이요");
+    });
+    $('#mdSetting').modal('show');
+});

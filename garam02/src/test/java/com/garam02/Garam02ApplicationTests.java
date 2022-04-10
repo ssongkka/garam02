@@ -27,7 +27,6 @@ class Garam02ApplicationTests {
 	void contextLoads() {
 		try {
 			List<VehicleInfoDTO> ccc = aaa.selectVeAll(null);
-			System.out.println(ccc);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,6 +35,5 @@ class Garam02ApplicationTests {
 
 	@Test
 	void aaaaa() {
-		System.out.println("하하하이이이");
 	}
 }

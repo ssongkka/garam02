@@ -105,12 +105,12 @@ span {
     color: var(--main-color);
 }
 
-.table > tbody > tr > td {
+table > tbody > tr > td {
     text-align: center;
     vertical-align: middle;
 }
 
-.table > tbody > tr > .tdRight {
+table > tbody > tr > .tdRight {
     text-align: right;
     vertical-align: middle;
 }
@@ -381,6 +381,28 @@ object {
 #offCustomer {
     z-index: 1400;
 }
+
+.big45 {
+    background: #e0faef;
+    color: #009f5c;
+
+    border-radius: 3px;
+}
+
+.big25 {
+    background: #fef0e8;
+    color: #f2600e;
+
+    border-radius: 3px;
+}
+
+.big28 {
+    background: #e6effc;
+    color: #1862c6;
+
+    border-radius: 3px;
+}
+
 @media (max-width:1024px) {
     .card-song {
         border-radius: 0;

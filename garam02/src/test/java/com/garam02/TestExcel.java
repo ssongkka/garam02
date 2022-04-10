@@ -60,7 +60,6 @@ public class TestExcel {
 
 			HSSFWorkbook wb = new HSSFWorkbook(fis);
 			HSSFSheet sheet = wb.getSheetAt(0);
-			System.out.println("시트가뭐냐  " + wb.getSheetAt(0).getSheetName());
 
 			CellStyle style0 = wb.createCellStyle();
 			style0.setAlignment(HorizontalAlignment.LEFT);
@@ -127,7 +126,6 @@ public class TestExcel {
 			FileOutputStream fileoutputstream = new FileOutputStream("c:/IDE/aaa.xls");
 			wb.write(fileoutputstream);
 			fileoutputstream.close();
-			System.out.println("엑셀파일생성성공");
 
 //			// 컨텐츠 타입과 파일명 지정
 //			httpServletResponse.setContentType("ms-vnd/excel");

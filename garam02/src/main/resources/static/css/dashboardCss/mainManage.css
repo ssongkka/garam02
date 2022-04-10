@@ -1,10 +1,19 @@
 @charset "UTF-8";
 
+.manage {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .main-manage {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 4rem 18rem;
+
+    flex: 1;
+    margin-right: 30rem;
+    padding: 3rem 5rem;
 }
 
 .main-manage-item {

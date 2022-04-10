@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.garam.Utils.FTPManager;
+import com.garam.Utils.UiUtils;
 import com.garam.company.dto.CompanyDTO;
 import com.garam.company.service.CompanyService;
-import com.garam.web.Utils.UiUtils;
+import com.garam.names.namesFtp;
 import com.garam.web.constant.Method;
 import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
@@ -82,7 +84,13 @@ public class DashboardController extends UiUtils {
 		List<OptDTO> opt = rsvtService.selectOpt();
 		model.addAttribute("opt", opt);
 		model.addAttribute("user", user);
+
+		FTPManager ftp = new FTPManager();
+
+		System.out.println("asddd   " + ftp.connect());
+
 		return "dashboard/mainRsvtMany";
+
 	}
 
 	@GetMapping(value = "/makePapper")
@@ -90,19 +98,16 @@ public class DashboardController extends UiUtils {
 			@RequestParam(value = "dayyy", required = true) String dayyy,
 			@RequestParam(value = "ctmmm", required = true) String ctmmm,
 			@RequestParam(value = "rsvttt", required = true) String rsvttt,
+			@RequestParam(value = "ctmmmName", required = true) String ctmmmName,
 			@RequestParam(value = "paperCh", required = true) String paperCh) throws Exception {
-
-		System.out.println("dayyy   " + dayyy);
-		System.out.println("ctmmm   " + ctmmm);
-		System.out.println("rsvttt   " + rsvttt);
-		System.out.println("paperCh   " + paperCh);
 
 		File file = rsvtService.makePapper(companyyy, dayyy, ctmmm, rsvttt, paperCh);
 
 		Resource resource = new InputStreamResource(new FileInputStream(file));
 
 		HttpHeaders headers = new HttpHeaders();
-		String fileName = dayyy.split("-")[0] + dayyy.split("-")[1] + "_급여명세서_" + ctmmm + "_" + ctmmm + ".PDF";
+		String fileName = companyyy + "_" + dayyy.split("-")[0] + dayyy.split("-")[1] + "_" + ctmmmName + "_배차서류"
+				+ ".PDF";
 		String fileNameOrg = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(fileNameOrg).build());

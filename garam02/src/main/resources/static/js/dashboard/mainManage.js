@@ -2,7 +2,7 @@ $(document).ready(function () {});
 
 function getManage(list) {
 
-    setManageTable();
+    setManageTable().then(sumRsvtM);
 
     function setManageTable() {
         return new Promise(function (resolve, reject) {
@@ -23,6 +23,9 @@ function getManage(list) {
 
             let arrSepa = new Array();
             let arrDay = new Array();
+
+            let arrSumRsvt = new Array();
+
             for (let k = 0; k < uniqueCtm.length; k++) {
                 let contRsvt = 0;
                 let contNum = 0;
@@ -32,6 +35,8 @@ function getManage(list) {
 
                 let contSepa = '';
                 let contDay = '';
+
+                let sumRsvt = new Array();
 
                 for (let i = 0; i < list.length; i++) {
                     if (list[i].ctmno == uniqueCtm[k]) {
@@ -43,6 +48,8 @@ function getManage(list) {
 
                         contSepa = list[i].ctmsepa;
                         contDay = list[i].stday;
+
+                        sumRsvt.push(list[i].rsvt);
                     }
                 }
 
@@ -65,6 +72,8 @@ function getManage(list) {
 
                 arrSepa.push(contSepa);
                 arrDay.push(contDay);
+
+                arrSumRsvt.push(sumRsvt);
             }
 
             let ilHtml = ``;
@@ -100,8 +109,10 @@ function getManage(list) {
                                 `</td>
                         <td class="tdRight">` + AddComma(arrMoney[i]) +
                                 `</td>
-                        <td class="tdRight"></td>
-                        <td class="tdRight"></td>
+                        <td class="tdRight" id="inMMM` + i +
+                                `"></td>
+                        <td class="tdRight" id="janMMM` + i +
+                                `"></td>
                         <td> <a class="manageMore"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>`
                         break;
@@ -129,8 +140,10 @@ function getManage(list) {
                                 `</td>
                         <td class="tdRight">` + AddComma(arrMoney[i]) +
                                 `</td>
-                        <td class="tdRight"></td>
-                        <td class="tdRight"></td>
+                        <td class="tdRight" id="inMMM` + i +
+                                `"></td>
+                        <td class="tdRight" id="janMMM` + i +
+                                `"></td>
                         <td> <a class="manageMore"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>`
                         break;
@@ -158,9 +171,11 @@ function getManage(list) {
                                 `</td>
                         <td class="tdRight">` + AddComma(arrMoney[i]) +
                                 `</td>
-                        <td class="tdRight"></td>
-                        <td class="tdRight"></td>
-                        <td> <a class="manageMore"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
+                        <td class="tdRight" id="inMMM` + i +
+                                `"></td>
+                        <td class="tdRight" id="janMMM` + i +
+                                `"></td>
+                        <td><a class="manageMore"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>`
                         break;
                 }
@@ -180,7 +195,93 @@ function getManage(list) {
             $('#tb-hakManage').html(hakHtml);
             $('#tb-guManage').html(guHtml);
 
+            resolve(arrSumRsvt);
+        })
+    }
+    function sumRsvtM(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/manage/selectSumRsvtMoney";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+            console.log("하이");
+            console.log(result);
+
+            for (let i = 0; i < result.length; i++) {
+                let cntM = 0;
+
+                let params = new Array();
+
+                for (let k = 0; k < result[i].length; k++) {
+                    const asd = {
+                        "rsvt": result[i][k]
+                    };
+                    params.push(asd);
+                }
+
+                console.log(params);
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+                    async: false,
+
+                    success: function (r) {
+                        console.log(r[0].moneymoney);
+                        const idIN = '#inMMM' + i;
+                        const idJan = '#janMMM' + i;
+
+                        const aaa = $(idIN).prev();
+                        const operMM = $(aaa)
+                            .text()
+                            .replaceAll(',', '');
+
+                        $(idIN).text(AddComma(r[0].moneymoney));
+                        $(idJan).text(AddComma(parseInt(operMM) - parseInt(r[0].moneymoney)));
+                    }
+                })
+            }
             resolve();
         })
     }
 }
+
+$(document).on('click', '.manageMore', function () {
+    const aaa = $(this)
+        .parent()
+        .prev()
+        .prev()
+        .prev()
+        .prev()
+        .prev()
+        .prev()
+        .prev()
+        .prev()
+        .prev()
+        .prev()
+        .prev();
+
+    const tmpCtmno = $(aaa).text();
+
+    $(document).on('show.bs.modal', '#modalRsvtMoney', function () {
+        $('#manageCtmno').val(tmpCtmno);
+
+        const dayyy = $('#yearMonthDay').val() + ' ' + getDayOfWeek(
+            new Date($('#yearMonthDay').val()).getDay()
+        );
+
+        $('#manageTitle').text(dayyy);
+
+        LoadingWithMask()
+            .then(getManageMD1)
+            .then(getManageMD2)
+            .then(getManageMD3)
+            .then(closeLoadingWithMask);
+
+    });
+    $('#modalRsvtMoney').modal('show');
+});

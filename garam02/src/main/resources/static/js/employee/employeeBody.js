@@ -805,6 +805,8 @@ $(document).on('click', '#btn-insert', function () {
     } else {
         insertEmp(0);
     }
+
+    console.log("하이");
 });
 
 function insertEmp(tp) {

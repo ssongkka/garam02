@@ -568,9 +568,27 @@ function getMidCnt(day, i) {
                 }
             }
 
-            const rtn = cnt45 + ' / ' + cnt25 + ' / ' + cnt28;
+            let htmls = '';
 
-            $(idd + (i + 1) + '4').html('<h5>' + rtn + '</h5>');
+            htmls += '<div class="mid-bus">';
+            if (cnt45 > 0) {
+                htmls += '<div class="mid-bus-item big45">' + cnt45 + '</div>';
+            } else {
+                htmls += '<div class="mid-bus-item">&nbsp;</div>';
+            }
+            if (cnt25 > 0) {
+                htmls += '<div class="mid-bus-item big25">' + cnt25 + '</div>';
+            } else {
+                htmls += '<div class="mid-bus-item">&nbsp;</div>';
+            }
+            if (cnt28 > 0) {
+                htmls += '<div class="mid-bus-item big28">' + cnt28 + '</div>';
+            } else {
+                htmls += '<div class="mid-bus-item">&nbsp;</div>';
+            }
+            htmls += '</div>';
+
+            $(idd + (i + 1) + '4').html(htmls);
         }
     });
 }

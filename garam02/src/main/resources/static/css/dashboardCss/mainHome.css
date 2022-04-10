@@ -261,6 +261,22 @@ ul {
     letter-spacing: 0.2rem;
 }
 
+.mid-bus {
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    padding: 0 1rem;
+}
+
+.mid-bus-item {
+    flex: 1;
+
+    text-align: center;
+}
+
 @media (max-width:1024px) {
     .home-main {
         flex-direction: column;

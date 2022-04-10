@@ -55,7 +55,7 @@ function getTrHtmls() {
         placeholder="차량번호">
     </td>
     <td>
-        <button class="clve" role="button" style="background: transparent; color:gray;"><i class="fas fa-times"></i></button>
+        <button class="clve" role="button" style="background: transparent;"><i class="fas fa-times"></i></button>
     </td>
     <td></td>
     <td>

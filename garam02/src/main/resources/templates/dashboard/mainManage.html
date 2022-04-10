@@ -1,118 +1,121 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="main-manage" class="main-manage">
-
-        <div class="main-manage-item ilManage card-song">
-            <div>
-                <h3>일반 운행</h3>
+    <div th:fragment="main-manage" class="manage">
+        <div class="main-manage">
+            <div class="main-manage-item ilManage card-song">
+                <div>
+                    <h3>일반 운행</h3>
+                </div>
+                <div>
+                    <table class="table table-bordered table-striped">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="30%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="5%">
+                        </colgroup>
+                        <thead class="table-light">
+                            <tr>
+                                <th class="thNone"></th>
+                                <th class="thNone"></th>
+                                <th class="thNone"></th>
+                                <th>#</th>
+                                <th>고객</th>
+                                <th>예약</th>
+                                <th>대수</th>
+                                <th>목적지</th>
+                                <th>총금액</th>
+                                <th>입금액</th>
+                                <th>잔액</th>
+                                <th>더보기</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-ilManage"></tbody>
+                    </table>
+                </div>
             </div>
-            <div>
-                <table class="table table-bordered">
-                    <colgroup>
-                        <col width="5%">
-                        <col width="20%">
-                        <col width="5%">
-                        <col width="5%">
-                        <col width="30%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="5%">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="thNone"></th>
-                            <th class="thNone"></th>
-                            <th class="thNone"></th>
-                            <th>#</th>
-                            <th>고객</th>
-                            <th>예약</th>
-                            <th>대수</th>
-                            <th>목적지</th>
-                            <th>총금액</th>
-                            <th>입금액</th>
-                            <th>잔액</th>
-                            <th>더보기</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tb-ilManage"></tbody>
-                </table>
+            <div class="main-manage-item hakManage card-song">
+                <div>
+                    <h3>학생단체 운행</h3>
+                </div>
+                <div>
+                    <table class="table table-bordered table-striped">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="30%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="5%">
+                        </colgroup>
+                        <thead class="table-light">
+                            <tr>
+                                <th class="thNone"></th>
+                                <th class="thNone"></th>
+                                <th class="thNone"></th>
+                                <th>#</th>
+                                <th>학교</th>
+                                <th>예약</th>
+                                <th>대수</th>
+                                <th>목적지</th>
+                                <th>총금액</th>
+                                <th>입금액</th>
+                                <th>잔액</th>
+                                <th>더보기</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-hakManage"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="main-manage-item guManage card-song">
+                <div>
+                    <h3>거래처 운행</h3>
+                </div>
+                <div>
+                    <table class="table table-bordered table-striped">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="30%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="5%">
+                        </colgroup>
+                        <thead class="table-light">
+                            <tr>
+                                <th class="thNone"></th>
+                                <th class="thNone"></th>
+                                <th class="thNone"></th>
+                                <th>#</th>
+                                <th>거래처</th>
+                                <th>예약</th>
+                                <th>대수</th>
+                                <th>목적지</th>
+                                <th>총금액</th>
+                                <th>입금액</th>
+                                <th>잔액</th>
+                                <th>더보기</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-guManage"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="main-manage-item hakManage card-song">
-            <div>
-                <h3>학생단체 운행</h3>
-            </div>
-            <div>
-                <table class="table table-bordered">
-                    <colgroup>
-                        <col width="5%">
-                        <col width="20%">
-                        <col width="5%">
-                        <col width="5%">
-                        <col width="30%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="5%">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="thNone"></th>
-                            <th class="thNone"></th>
-                            <th class="thNone"></th>
-                            <th>#</th>
-                            <th>학교</th>
-                            <th>예약</th>
-                            <th>대수</th>
-                            <th>목적지</th>
-                            <th>총금액</th>
-                            <th>입금액</th>
-                            <th>잔액</th>
-                            <th>더보기</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tb-hakManage"></tbody>
-                </table>
-            </div>
+        <div class="allo-side">
+            asdasdasd
         </div>
-        <div class="main-manage-item guManage card-song">
-            <div>
-                <h3>거래처 운행</h3>
-            </div>
-            <div>
-                <table class="table table-bordered">
-                    <colgroup>
-                        <col width="5%">
-                        <col width="20%">
-                        <col width="5%">
-                        <col width="5%">
-                        <col width="30%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="5%">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="thNone"></th>
-                            <th class="thNone"></th>
-                            <th class="thNone"></th>
-                            <th>#</th>
-                            <th>거래처</th>
-                            <th>예약</th>
-                            <th>대수</th>
-                            <th>목적지</th>
-                            <th>총금액</th>
-                            <th>입금액</th>
-                            <th>잔액</th>
-                            <th>더보기</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tb-guManage"></tbody>
-                </table>
-            </div>
-        </div>
-
     </div>
 </html>

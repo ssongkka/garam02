@@ -12,7 +12,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">운행 관련 서류 생성</h3>
+                    <h3 class="modal-title" id="modalPaper0Ti">운행 관련 서류 생성</h3>
                     <button
                         type="button"
                         class="btn-close"
@@ -128,8 +128,7 @@
                                     <th>아래</th>
                                 </tr>
                             </thead>
-                            <tbody id="tb-paper2">
-                            </tbody>
+                            <tbody id="tb-paper2"></tbody>
                         </table>
                         <form th:action="@{/dashboard/makePapper}" id="formPapper">
                             <input type="hidden" name="companyyy" id="companyyy" value="">
@@ -137,6 +136,7 @@
                             <input type="hidden" name="ctmmm" id="ctmmm" value="">
                             <input type="hidden" name="rsvttt" id="rsvttt" value="">
                             <input type="hidden" name="paperCh" id="paperCh" value="">
+                            <input type="hidden" name="ctmmmName" id="ctmmmName" value="">
                         </form>
                     </div>
                     <div class="paper2-item card-song">

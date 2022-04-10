@@ -20,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.garam.Garam02Application;
-import com.garam.web.Utils.PDFUtil;
+import com.garam.Utils.PDFUtil;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -69,7 +69,6 @@ public class asdsadwad {
 		// Merging the two documents
 		PDFmerger.mergeDocuments(null);
 
-		System.out.println("Documents merged");
 		// Closing the documents
 		doc1.close();
 		doc2.close();

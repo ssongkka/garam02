@@ -421,9 +421,6 @@ $(document).on('click', '.bigTd', function () {
                 }
             }
         }
-
-        console.log($(aaa3));
-        console.log(day);
     });
 
     $('#modalBigCal').modal('show');

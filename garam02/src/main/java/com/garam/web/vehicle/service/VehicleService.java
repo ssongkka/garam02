@@ -34,4 +34,6 @@ public interface VehicleService {
 
 	public int insertJuk(JukfileDTO jukfileDTO) throws Exception;
 
+	public String showPdf(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 }

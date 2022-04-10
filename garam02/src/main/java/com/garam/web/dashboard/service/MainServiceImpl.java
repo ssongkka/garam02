@@ -18,19 +18,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDStream;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.garam.Utils.FTPManager;
+import com.garam.Utils.PDFUtil;
 import com.garam.company.dto.CompanyDTO;
 import com.garam.company.mapper.CompanyMapper;
-import com.garam.web.Utils.FTPManager;
-import com.garam.web.Utils.PDFUtil;
 import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
+import com.garam.web.dashboard.dto.RsvtmoneyDTO;
 import com.garam.web.dashboard.mapper.DashboardMapper;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -53,6 +56,9 @@ public class MainServiceImpl implements MainService {
 
 	private final DashboardMapper rsvtMapper;
 	private final CompanyMapper companyMapper;
+
+	@Autowired
+	private final FTPManager ftpmanager;
 
 	@Override
 	public List<RsvtDTO> selectCustomerAll(RsvtDTO rsvtDTO) throws Exception {
@@ -453,10 +459,7 @@ public class MainServiceImpl implements MainService {
 
 		ArrayList<File> arr_File = new ArrayList<File>();
 
-		System.out.println(tmpArr_Papper.length);
-
 		for (int i = 0; i < tmpArr_Papper.length; i++) {
-			System.out.println(tmpArr_Papper[i]);
 			switch (tmpArr_Papper[i]) {
 			case "1":
 				arr_File.add(getEmpBatchPDF(companyyy, dayyy, listCtm, list_Rsvt, listCompa));
@@ -1552,26 +1555,28 @@ public class MainServiceImpl implements MainService {
 	private ArrayList<File> getVePapperPDF(ArrayList<List<RsvtDTO>> list_Rsvt)
 			throws MalformedURLException, IOException {
 
-		FTPManager ftpManager = new FTPManager();
+		FTPClient ftp = ftpmanager.connect();
+
+		System.out.println("ㅁㅇㅁㅈㅇㅁㅇ  " + ftp.isConnected());
 
 		ArrayList<File> rtnFiles = new ArrayList<File>();
 
 		for (int i = 0; i < list_Rsvt.size(); i++) {
 			for (int j = 0; j < list_Rsvt.get(i).size(); j++) {
-				String FILE_URL = "http://192.168.35.29:8000/list/HDD2/src/ve/reg/"
-						+ list_Rsvt.get(i).get(j).getCtmemail();
+				String FILE_URL = ftpmanager.getVeFolder() + "reg/" + list_Rsvt.get(i).get(j).getCtmemail() + ".PDF";
+				;
 
-				System.out.println("aaaa  " + list_Rsvt.get(i).get(j).getCtmemail());
-//				String FILE_URL = ftpManager.getVeFolder() + "reg/" + list_Rsvt.get(i).get(j).getCtmemail();
+				int a = (int) ((Math.random() * 10000) + 10);
 
-				InputStream inputStream = new URL(FILE_URL).openStream();
-
-				File tempFile = File.createTempFile(String.valueOf(inputStream.hashCode()), ".tmp");
+				File tempFile = File.createTempFile("tmp" + Integer.toString(a), ".tmp");
 				tempFile.deleteOnExit();
 
-				FileUtils.copyInputStreamToFile(inputStream, tempFile);
+				System.out.println(FILE_URL);
 
-				rtnFiles.add(tempFile);
+				FileOutputStream fos = new FileOutputStream(tempFile);
+				if (ftp.retrieveFile(FILE_URL, fos)) {
+					rtnFiles.add(tempFile);
+				}
 			}
 		}
 
@@ -1580,27 +1585,28 @@ public class MainServiceImpl implements MainService {
 
 	private ArrayList<File> getVeInsuPDF(ArrayList<List<RsvtDTO>> list_Rsvt) throws MalformedURLException, IOException {
 
-		FTPManager ftpManager = new FTPManager();
+		FTPClient ftp = ftpmanager.connect();
+
+		System.out.println("ㅁㅇㅁㅈㅇㅁㅇ  " + ftp.isConnected());
 
 		ArrayList<File> rtnFiles = new ArrayList<File>();
 
 		for (int i = 0; i < list_Rsvt.size(); i++) {
 			for (int j = 0; j < list_Rsvt.get(i).size(); j++) {
-				String FILE_URL = "http://192.168.35.29:8000/list/HDD2/src/ve/insu/"
-						+ list_Rsvt.get(i).get(j).getCtmfax();
+				String FILE_URL = ftpmanager.getVeFolder() + "insu/" + list_Rsvt.get(i).get(j).getCtmfax() + ".PDF";
+				;
 
-				System.out.println("aaaa  " + list_Rsvt.get(i).get(j).getCtmfax());
-				// String FILE_URL = ftpManager.getVeFolder() + "reg/" +
-				// list_Rsvt.get(i).get(j).getCtmemail();
+				int a = (int) ((Math.random() * 10000) + 10);
 
-				InputStream inputStream = new URL(FILE_URL).openStream();
-
-				File tempFile = File.createTempFile(String.valueOf(inputStream.hashCode()), ".tmp");
+				File tempFile = File.createTempFile("tmp" + Integer.toString(a), ".tmp");
 				tempFile.deleteOnExit();
 
-				FileUtils.copyInputStreamToFile(inputStream, tempFile);
+				System.out.println(FILE_URL);
 
-				rtnFiles.add(tempFile);
+				FileOutputStream fos = new FileOutputStream(tempFile);
+				if (ftp.retrieveFile(FILE_URL, fos)) {
+					rtnFiles.add(tempFile);
+				}
 			}
 		}
 
@@ -1609,9 +1615,9 @@ public class MainServiceImpl implements MainService {
 
 	private ArrayList<File> getVeJukPDF(ArrayList<List<RsvtDTO>> list_Rsvt) throws MalformedURLException, IOException {
 
-		System.out.println("ggkgkgk");
+		FTPClient ftp = ftpmanager.connect();
 
-		FTPManager ftpManager = new FTPManager();
+		System.out.println("ㅁㅇㅁㅈㅇㅁㅇ  " + ftp.isConnected());
 
 		ArrayList<File> rtnFiles = new ArrayList<File>();
 
@@ -1623,8 +1629,6 @@ public class MainServiceImpl implements MainService {
 			}
 		}
 
-		System.out.println(tmpArr.get(0));
-
 		ArrayList<String> arrayList = new ArrayList<String>();
 
 		for (String item : tmpArr) {
@@ -1633,20 +1637,20 @@ public class MainServiceImpl implements MainService {
 		}
 
 		for (int i = 0; i < arrayList.size(); i++) {
-			String FILE_URL = "http://192.168.35.29:8000/list/HDD2/src/ve/juk/" + arrayList.get(i) + ".PDF";
+			String FILE_URL = ftpmanager.getVeFolder() + "juk/" + arrayList.get(i) + ".PDF";
 
-			System.out.println("aaaa  " + FILE_URL);
+			int a = (int) ((Math.random() * 10000) + 10);
 
-			InputStream inputStream = new URL(FILE_URL).openStream();
-
-			File tempFile = File.createTempFile(String.valueOf(inputStream.hashCode()), ".tmp");
+			File tempFile = File.createTempFile("tmp" + Integer.toString(a), ".tmp");
 			tempFile.deleteOnExit();
 
-			FileUtils.copyInputStreamToFile(inputStream, tempFile);
+			System.out.println(FILE_URL);
 
-			rtnFiles.add(tempFile);
+			FileOutputStream fos = new FileOutputStream(tempFile);
+			if (ftp.retrieveFile(FILE_URL, fos)) {
+				rtnFiles.add(tempFile);
+			}
 		}
-		System.out.println("affsffwwf");
 		return rtnFiles;
 	}
 
@@ -1663,4 +1667,80 @@ public class MainServiceImpl implements MainService {
 		return rtn;
 	}
 
+	@Override
+	public List<RsvtmoneyDTO> selRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception {
+		List<RsvtmoneyDTO> list = rsvtMapper.selRsvtMoney(rsvtmoneyDTO);
+		return list;
+	}
+
+	@Override
+	public int insertRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception {
+		int rtn = rsvtMapper.insertRsvtMoney(rsvtmoneyDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception {
+		int rtn = rsvtMapper.updateRsvtMoney(rsvtmoneyDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int delRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception {
+		int rtn = rsvtMapper.delRsvtMoney(rsvtmoneyDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRsvtConfirmMOk(RsvtDTO rsvtDTO) throws Exception {
+		int rtn = rsvtMapper.updateRsvtConfirmMOk(rsvtDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRsvtConfirmMNo(RsvtDTO rsvtDTO) throws Exception {
+		int rtn = rsvtMapper.updateRsvtConfirmMNo(rsvtDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertRsvtMoneyMany(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> rsvtm = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rsvtm.put("rsvtm", map);
+		}
+
+		int rtn = rsvtMapper.insertRsvtMoneyMany(rsvtm);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateRsvtConfirmMOkMany(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> operok = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			operok.put("operok", map);
+		}
+
+		int rtn = rsvtMapper.updateRsvtConfirmMOkMany(operok);
+
+		return rtn;
+	}
+
+	@Override
+	public List<RsvtmoneyDTO> selectSumRsvtMoney(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> rsvtL = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rsvtL.put("rsvtL", map);
+		}
+
+		List<RsvtmoneyDTO> list = rsvtMapper.selectSumRsvtMoney(rsvtL);
+
+		return list;
+	}
 }

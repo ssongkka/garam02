@@ -370,393 +370,413 @@ $(document).on('keyup', '.ve-m-one', function (eInner) {
 });
 
 function insertOper(id, num) {
-    return new Promise(function (resolve, reject) {
-        LoadingWithMask();
-        let veIn = '';
-        let compaIn = '';
-        let empIn = '';
-        let mIn = '';
 
-        switch (num) {
-            case 1:
-                veIn = $(id)
-                    .next()
-                    .val();
-                compaIn = $(id)
-                    .next()
-                    .next()
-                    .val();
-                empIn = $(id)
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .val();
-                mIn = $(id)
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .val()
-                    .replaceAll(',', '');
-                break;
-            case 2:
-                veIn = $(id)
-                    .prev()
-                    .prev()
-                    .val();
-                compaIn = $(id)
-                    .prev()
-                    .val();
-                empIn = $(id)
-                    .next()
-                    .val();
-                mIn = $(id)
-                    .next()
-                    .next()
-                    .val()
-                    .replaceAll(',', '');
-                break;
-            case 3:
-                veIn = $(id)
-                    .prev()
-                    .prev()
-                    .prev()
-                    .prev()
-                    .val();
-                compaIn = $(id)
-                    .prev()
-                    .prev()
-                    .prev()
-                    .val();
-                empIn = $(id)
-                    .prev()
-                    .val();
-                mIn = $(id)
-                    .val()
-                    .replaceAll(',', '');
-                break;
+    LoadingWithMask()
+        .then(inDbOper)
+        .then(closeLoadingWithMask);
 
-            default:
-                break;
-        }
+    function inDbOper(result) {
+        return new Promise(function (resolve, reject) {
+            let veIn = '';
+            let compaIn = '';
+            let empIn = '';
+            let mIn = '';
 
-        let conpaCheck = 0;
-        for (let k = 0; k < dbCompa.length; k++) {
-            if (dbCompa[k].company == compaIn) {
-                conpaCheck++;
+            console.log("iiiddd   " + id);
+
+            switch (num) {
+                case 1:
+                    veIn = $(id)
+                        .next()
+                        .val();
+                    compaIn = $(id)
+                        .next()
+                        .next()
+                        .val();
+                    empIn = $(id)
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .val();
+                    mIn = $(id)
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .val()
+                        .replaceAll(',', '');
+                    break;
+                case 2:
+                    veIn = $(id)
+                        .prev()
+                        .prev()
+                        .val();
+                    compaIn = $(id)
+                        .prev()
+                        .val();
+                    empIn = $(id)
+                        .next()
+                        .val();
+                    mIn = $(id)
+                        .next()
+                        .next()
+                        .val()
+                        .replaceAll(',', '');
+                    break;
+                case 3:
+                    veIn = $(id)
+                        .prev()
+                        .prev()
+                        .prev()
+                        .prev()
+                        .val();
+                    compaIn = $(id)
+                        .prev()
+                        .prev()
+                        .prev()
+                        .val();
+                    empIn = $(id)
+                        .prev()
+                        .val();
+                    mIn = $(id)
+                        .val()
+                        .replaceAll(',', '');
+                    break;
+
+                default:
+                    break;
             }
-        }
 
-        const rsvt = $(id)
-            .parent()
-            .parent()
-            .parent()
-            .prev()
-            .prev()
-            .prev()
-            .val();
-        const operseq = $(id)
-            .parent()
-            .prev()
-            .val();
-        const opernum = $(id)
-            .parent()
-            .prev()
-            .prev()
-            .val();
-        const hoCha = $(id)
-            .parent()
-            .attr('id')
-            .split('-')[2];
+            let conpaCheck = 0;
+            for (let k = 0; k < dbCompa.length; k++) {
+                if (dbCompa[k].company == compaIn) {
+                    conpaCheck++;
+                }
+            }
 
-        const tod = $($(id).parent().parent().parent().prev().prev().children()[6]).val();
-        const ed = $($(id).parent().parent().parent().prev().prev().children()[7]).val();
-        const numM = $($(id).parent().parent().parent().prev().prev().children()[8]).val();
+            const rsvt = $(id)
+                .parent()
+                .parent()
+                .parent()
+                .prev()
+                .prev()
+                .val();
+            const operseq = $(id)
+                .parent()
+                .prev()
+                .val();
+            const opernum = $(id)
+                .parent()
+                .prev()
+                .prev()
+                .val();
+            const hoCha = $(id)
+                .parent()
+                .attr('id')
+                .split('-')[2];
 
-        let params = new Array();
-        const beetween = betweenDateNum(tod, ed);
+            const tod = $($(id).parent().parent().parent().prev().children()[6]).val();
+            const ed = $($(id).parent().parent().parent().prev().children()[7]).val();
+            const numM = $($(id).parent().parent().parent().prev().children()[8]).val();
 
-        for (let i = 0; i < beetween; i++) {
+            let params = new Array();
+            const beetween = betweenDateNum(tod, ed);
 
-            let date = new Date(tod);
+            for (let i = 0; i < beetween; i++) {
 
-            const ddd = toStringByFormatting(date.addDays(i));
-            const asd = {
-                "opernum": opernum,
-                "rsvt": rsvt,
-                "operday": ddd,
-                "dayst": (i + 1),
-                "operno": hoCha,
-                "opercom": compaIn,
-                "opercar": veIn,
-                "operid": empIn,
-                "atlm": mIn,
-                "opertype": "1"
+                let date = new Date(tod);
+
+                const ddd = toStringByFormatting(date.addDays(i));
+                const asd = {
+                    "opernum": opernum,
+                    "rsvt": rsvt,
+                    "operday": ddd,
+                    "dayst": (i + 1),
+                    "operno": hoCha,
+                    "opercom": compaIn,
+                    "opercar": veIn,
+                    "operid": empIn,
+                    "atlm": mIn,
+                    "opertype": "1"
+                };
+                params.push(asd);
+            }
+
+            const url = "/allo/insert";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
             };
-            params.push(asd);
-        }
 
-        const url = "/allo/insert";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
-
-            success: function (r) {
-                if (r.length > 0) {
-                    $(id)
-                        .parent()
-                        .prev()
-                        .prev()
-                        .val(r[0].opernum);
-                    let tabnum = '';
-                    if ($(id).attr('tabindex') != '-1') {
-                        tabnum = $(id).attr('tabindex');
-                    } else {
-                        tabnum = $(id)
-                            .prev()
-                            .prev()
-                            .prev()
-                            .attr('tabindex');
-                    }
-                    if (conpaCheck > 0) {
+                success: function (r) {
+                    if (r.length > 0) {
                         $(id)
                             .parent()
-                            .attr('class', 'stWay1');
-                    } else {
-                        if (empIn == '타회사') {
-                            $(id)
-                                .parent()
-                                .attr('class', 'stWay3');
+                            .prev()
+                            .prev()
+                            .val(r[0].opernum);
+                        let tabnum = '';
+                        if ($(id).attr('tabindex') != '-1') {
+                            tabnum = $(id).attr('tabindex');
                         } else {
+                            tabnum = $(id)
+                                .prev()
+                                .prev()
+                                .prev()
+                                .attr('tabindex');
+                        }
+                        if (conpaCheck > 0) {
                             $(id)
                                 .parent()
-                                .attr('class', 'stWay2');
+                                .attr('class', 'stWay1');
+                        } else {
+                            if (empIn == '타회사') {
+                                $(id)
+                                    .parent()
+                                    .attr('class', 'stWay3');
+                            } else {
+                                $(id)
+                                    .parent()
+                                    .attr('class', 'stWay2');
+                            }
                         }
+                        $('[tabindex=' + (
+                            parseInt(tabnum) + 1
+                        ) + ']').focus();
+                        scrollY();
+                    } else if (r[0].opernum == 0) {
+                        alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                    } else if (r[0].opernum == -1) {
+                        alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    } else if (r[0].opernum == -2) {
+                        alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
                     }
-                    closeLoadingWithMask();
-                    $('[tabindex=' + (
-                        parseInt(tabnum) + 1
-                    ) + ']').focus();
-                    scrollY();
-                } else if (r[0].opernum == 0) {
-                    alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
-                } else if (r[0].opernum == -1) {
-                    alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-                } else if (r[0].opernum == -2) {
-                    alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
-        });
-    })
+            });
+        })
+    }
 }
 
 function insertOperOne(id, num) {
-    return new Promise(function (resolve, reject) {
-        let veIn = '';
-        let compaIn = '';
-        let empIn = '';
-        let mIn = '';
-        let hoho = '';
 
-        switch (num) {
-            case 1:
-                hoho = $(id)
-                    .prev()
-                    .text();
-                veIn = $(id)
-                    .next()
-                    .val();
-                compaIn = $(id)
-                    .next()
-                    .next()
-                    .val();
-                empIn = $(id)
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .val();
-                mIn = $(id)
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .val()
-                    .replaceAll(',', '');
-                break;
-            case 2:
-                hoho = $(id)
-                    .prev()
-                    .prev()
-                    .prev()
-                    .prev()
-                    .text();
-                veIn = $(id)
-                    .prev()
-                    .prev()
-                    .val();
-                compaIn = $(id)
-                    .prev()
-                    .val();
-                empIn = $(id)
-                    .next()
-                    .val();
-                mIn = $(id)
-                    .next()
-                    .next()
-                    .val()
-                    .replaceAll(',', '');
-                break;
-            case 3:
-                hoho = $(id)
-                    .prev()
-                    .prev()
-                    .prev()
-                    .prev()
-                    .prev()
-                    .prev()
-                    .text();
-                veIn = $(id)
-                    .prev()
-                    .prev()
-                    .prev()
-                    .prev()
-                    .val();
-                compaIn = $(id)
-                    .prev()
-                    .prev()
-                    .prev()
-                    .val();
-                empIn = $(id)
-                    .prev()
-                    .val();
-                mIn = $(id)
-                    .val()
-                    .replaceAll(',', '');
-                break;
+    LoadingWithMask()
+        .then(insertIneOper)
+        .then(closeLoadingWithMask);
 
-            default:
-                break;
-        }
+    function insertIneOper(result) {
+        return new Promise(function (resolve, reject) {
+            let veIn = '';
+            let compaIn = '';
+            let empIn = '';
+            let mIn = '';
+            let hoho = '';
 
-        let conpaCheck = 0;
-        for (let k = 0; k < dbCompa.length; k++) {
-            if (dbCompa[k].company == compaIn) {
-                conpaCheck++;
+            switch (num) {
+                case 1:
+                    hoho = $(id)
+                        .prev()
+                        .text();
+                    veIn = $(id)
+                        .next()
+                        .val();
+                    compaIn = $(id)
+                        .next()
+                        .next()
+                        .val();
+                    empIn = $(id)
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .val();
+                    mIn = $(id)
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .next()
+                        .val()
+                        .replaceAll(',', '');
+                    break;
+                case 2:
+                    hoho = $(id)
+                        .prev()
+                        .prev()
+                        .prev()
+                        .prev()
+                        .text();
+                    veIn = $(id)
+                        .prev()
+                        .prev()
+                        .val();
+                    compaIn = $(id)
+                        .prev()
+                        .val();
+                    empIn = $(id)
+                        .next()
+                        .val();
+                    mIn = $(id)
+                        .next()
+                        .next()
+                        .val()
+                        .replaceAll(',', '');
+                    break;
+                case 3:
+                    hoho = $(id)
+                        .prev()
+                        .prev()
+                        .prev()
+                        .prev()
+                        .prev()
+                        .prev()
+                        .text();
+                    veIn = $(id)
+                        .prev()
+                        .prev()
+                        .prev()
+                        .prev()
+                        .val();
+                    compaIn = $(id)
+                        .prev()
+                        .prev()
+                        .prev()
+                        .val();
+                    empIn = $(id)
+                        .prev()
+                        .val();
+                    mIn = $(id)
+                        .val()
+                        .replaceAll(',', '');
+                    break;
+
+                default:
+                    break;
             }
-        }
 
-        const rsvt = $('#btn-rsvt').val();
-        const opernum = $('#btn-opernum').val();
-        const hoCha = $('#btn-hoho').val();
-        const tod = $('#btn-tod').val();
-        const ed = $('#btn-ed').val();
+            let conpaCheck = 0;
+            for (let k = 0; k < dbCompa.length; k++) {
+                if (dbCompa[k].company == compaIn) {
+                    conpaCheck++;
+                }
+            }
 
-        let params = new Array();
-        const beetween = betweenDateNum(tod, ed);
+            const rsvt = $('#btn-rsvt').val();
+            const opernum = $('#btn-opernum').val();
+            const hoCha = $('#btn-hoho').val();
+            const tod = $('#btn-tod').val();
+            const ed = $('#btn-ed').val();
 
-        for (let i = 0; i < beetween; i++) {
+            let params = new Array();
+            const beetween = betweenDateNum(tod, ed);
 
-            let date = new Date(tod);
+            for (let i = 0; i < beetween; i++) {
 
-            const ddd = toStringByFormatting(date.addDays(i));
+                let date = new Date(tod);
 
-            const asd = {
-                "opernum": opernum,
-                "rsvt": rsvt,
-                "operday": ddd,
-                "dayst": (i + 1),
-                "operno": hoCha,
-                "opercom": compaIn,
-                "opercar": veIn,
-                "operid": empIn,
-                "atlm": mIn,
-                "opertype": hoho
+                const ddd = toStringByFormatting(date.addDays(i));
+
+                const asd = {
+                    "opernum": opernum,
+                    "rsvt": rsvt,
+                    "operday": ddd,
+                    "dayst": (i + 1),
+                    "operno": hoCha,
+                    "opercom": compaIn,
+                    "opercar": veIn,
+                    "operid": empIn,
+                    "atlm": mIn,
+                    "opertype": hoho
+                };
+                params.push(asd);
+            }
+
+            const url = "/allo/insert";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
             };
-            params.push(asd);
-        }
 
-        const url = "/allo/insert";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            dataType: "json",
-            data: JSON.stringify(params),
-
-            success: function (r) {
-                if (r.length > 0) {
-                    $(id)
-                        .parent()
-                        .prev()
-                        .prev()
-                        .val(r[0].opernum);
-                    let tabnum = '';
-                    if ($(id).attr('tabindex') != '-1') {
-                        tabnum = $(id).attr('tabindex');
-                    } else {
-                        tabnum = $(id)
-                            .prev()
-                            .prev()
-                            .prev()
-                            .attr('tabindex');
-                    }
-
-                    if (conpaCheck > 0) {
+                success: function (r) {
+                    if (r.length > 0) {
                         $(id)
                             .parent()
-                            .attr('class', 'stWay1');
-                    } else {
-                        if (empIn == '타회사') {
-                            $(id)
-                                .parent()
-                                .attr('class', 'stWay3');
+                            .prev()
+                            .prev()
+                            .val(r[0].opernum);
+                        let tabnum = '';
+                        if ($(id).attr('tabindex') != '-1') {
+                            tabnum = $(id).attr('tabindex');
                         } else {
+                            tabnum = $(id)
+                                .prev()
+                                .prev()
+                                .prev()
+                                .attr('tabindex');
+                        }
+
+                        if (conpaCheck > 0) {
                             $(id)
                                 .parent()
-                                .attr('class', 'stWay2');
+                                .attr('class', 'stWay1');
+                        } else {
+                            if (empIn == '타회사') {
+                                $(id)
+                                    .parent()
+                                    .attr('class', 'stWay3');
+                            } else {
+                                $(id)
+                                    .parent()
+                                    .attr('class', 'stWay2');
+                            }
                         }
+                        $('[tabindex=' + (
+                            parseInt(tabnum) + 1
+                        ) + ']').focus();
+
+                    } else if (r[0].opernum == 0) {
+                        alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                    } else if (r[0].opernum == -1) {
+                        alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    } else if (r[0].opernum == -2) {
+                        alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
                     }
-                    closeLoadingWithMask();
-                    $('[tabindex=' + (
-                        parseInt(tabnum) + 1
-                    ) + ']').focus();
-                    scrollY();
-                } else if (r[0].opernum == 0) {
-                    alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
-                } else if (r[0].opernum == -1) {
-                    alert("배차정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
-                } else if (r[0].opernum == -2) {
-                    alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
-        });
-    })
+            });
+        })
+    }
 }
 
 function mdOneWay(val) {
+
+    $(document).on('show.bs.modal', '#modal-one', function () {
+        LoadingWithMask()
+            .then(shoMdOne)
+            .then(closeLoadingWithMask);
+    });
     const iidd = '#' + val;
 
     const opernum = $(iidd)
@@ -765,231 +785,246 @@ function mdOneWay(val) {
         .prev()
         .val();
 
-    const tod = $($(iidd).parent().parent().parent().prev().prev().children()[6]).val();
-    const url = "/allo/oneway";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
+    if (opernum) {
+        $('#modal-one').modal('show');
+    } else {
+        alert('첫번째 운행 할 차량을 먼저 배차해주세요.');
+    }
 
-    const params = {
-        "opernum": opernum,
-        "operday": tod
-    };
+    function shoMdOne(result) {
+        return new Promise(function (resolve, reject) {
 
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
+            const tod = $($(iidd).parent().parent().parent().prev().children()[6]).val();
 
-        success: function (r) {
+            console.log($(iidd));
+            console.log(tod);
 
-            if (r.length > 0) {
-                $('#modal-one').modal('show');
-                const rsvt = $(iidd)
-                    .parent()
-                    .parent()
-                    .parent()
-                    .prev()
-                    .prev()
-                    .prev()
-                    .val();
-                const operseq = $(iidd)
-                    .parent()
-                    .prev()
-                    .val();
-                const hoCha = $(iidd)
-                    .parent()
-                    .attr('id')
-                    .split('-')[2];
+            const url = "/allo/oneway";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
 
-                const tod = $($(iidd).parent().parent().parent().prev().prev().children()[6]).val();
-                const ed = $($(iidd).parent().parent().parent().prev().prev().children()[7]).val();
-                const numM = $($(iidd).parent().parent().parent().prev().prev().children()[8]).val();
+            const params = {
+                "opernum": opernum,
+                "operday": tod
+            };
 
-                $('#btn-hoho').val(hoCha);
-                $('#btn-rsvt').val(rsvt);
-                $('#btn-opernum').val(opernum);
-                $('#btn-tod').val(tod);
-                $('#btn-ed').val(ed);
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
 
-                let htmls = '';
-                let cnt = 500;
+                success: function (r) {
+                    if (r.length > 0) {
+                        const rsvt = $(iidd)
+                            .parent()
+                            .parent()
+                            .parent()
+                            .prev()
+                            .prev()
+                            .val();
+                        const operseq = $(iidd)
+                            .parent()
+                            .prev()
+                            .val();
+                        const hoCha = $(iidd)
+                            .parent()
+                            .attr('id')
+                            .split('-')[2];
 
-                $('#btn-size').val(r.length + 1);
+                        const tod = $($(iidd).parent().parent().parent().prev().children()[6]).val();
+                        const ed = $($(iidd).parent().parent().parent().prev().children()[7]).val();
+                        const numM = $($(iidd).parent().parent().parent().prev().children()[8]).val();
 
-                let mmm;
-                for (let i = 0; i < r.length; i++) {
-                    htmls += '<div class="allo-allo-item" style="width: 100%;">';
-                    htmls += '<input type="hidden" value="' + rsvt + '">';
-                    htmls += '<input type="hidden" value="' + opernum + '">';
-                    htmls += '<input type="hidden" value="' + tod + '">';
-                    htmls += '<input type="hidden" value="' + ed + '">';
-                    htmls += '<input type="hidden" value="' + numM + '">';
+                        $('#btn-hoho').val(hoCha);
+                        $('#btn-rsvt').val(rsvt);
+                        $('#btn-opernum').val(opernum);
+                        $('#btn-tod').val(tod);
+                        $('#btn-ed').val(ed);
 
-                    let cnt = 0;
-                    for (let j = 0; j < dbCompa.length; j++) {
-                        if (dbCompa[j].company == r[i].opercom) {
-                            cnt++;
-                        }
-                    }
+                        let htmls = '';
+                        let cnt = 500;
 
-                    if (r[i].opertrash == 1) {
-                        if (cnt > 0) {
-                            htmls += '<div class="stWay1" id="st-st-' + (
-                                i + 1
-                            ) + '">';
-                        } else {
-                            if (r[i].name == '타회사') {
-                                htmls += '<div class="stWay3" id="st-st-' + (
-                                    i + 1
-                                ) + '">';
-                            } else {
-                                htmls += '<div class="stWay2" id="st-st-' + (
-                                    i + 1
-                                ) + '">';
+                        $('#btn-size').val(r.length + 1);
+
+                        let mmm;
+                        for (let i = 0; i < r.length; i++) {
+                            htmls += '<div class="allo-allo-item" style="width: 100%;">';
+                            htmls += '<input type="hidden" value="' + rsvt + '">';
+                            htmls += '<input type="hidden" value="' + opernum + '">';
+                            htmls += '<input type="hidden" value="' + tod + '">';
+                            htmls += '<input type="hidden" value="' + ed + '">';
+                            htmls += '<input type="hidden" value="' + numM + '">';
+
+                            let cnt = 0;
+                            for (let j = 0; j < dbCompa.length; j++) {
+                                if (dbCompa[j].company == r[i].opercom) {
+                                    cnt++;
+                                }
                             }
-                        }
-                    } else {
-                        if (cnt > 0) {
-                            htmls += '<div class="stWay1" id="st-st-' + (
-                                i + 1
-                            ) + '" onclick="endAllo()" style="background: #efefef;">';
-                        } else {
-                            if (r[i].name == '타회사') {
-                                htmls += '<div class="stWay3" id="st-st-' + (
-                                    i + 1
-                                ) + '" onclick="endAllo()" style="background: #efefef;">';
+
+                            if (r[i].opertrash == 1) {
+                                if (cnt > 0) {
+                                    htmls += '<div class="stWay1" id="st-st-' + (
+                                        i + 1
+                                    ) + '">';
+                                } else {
+                                    if (r[i].name == '타회사') {
+                                        htmls += '<div class="stWay3" id="st-st-' + (
+                                            i + 1
+                                        ) + '">';
+                                    } else {
+                                        htmls += '<div class="stWay2" id="st-st-' + (
+                                            i + 1
+                                        ) + '">';
+                                    }
+                                }
                             } else {
-                                htmls += '<div class="stWay2" id="st-st-' + (
-                                    i + 1
-                                ) + '" onclick="endAllo()" style="background: #efefef;">';
+                                if (cnt > 0) {
+                                    htmls += '<div class="stWay1" id="st-st-' + (
+                                        i + 1
+                                    ) + '" onclick="endAllo()" style="background: #efefef;">';
+                                } else {
+                                    if (r[i].name == '타회사') {
+                                        htmls += '<div class="stWay3" id="st-st-' + (
+                                            i + 1
+                                        ) + '" onclick="endAllo()" style="background: #efefef;">';
+                                    } else {
+                                        htmls += '<div class="stWay2" id="st-st-' + (
+                                            i + 1
+                                        ) + '" onclick="endAllo()" style="background: #efefef;">';
+                                    }
+                                }
                             }
-                        }
-                    }
 
-                    htmls += '<span style="margin: 0 3rem;">' + (
-                        i + 1
-                    ) + '</span>'
-
-                    let ve = '';
-                    if (r[i].vehicle) {
-                        if (r[i].name == '타회사') {
-                            ve = r[i].vehicle;
-                        } else {
-                            ve = r[i]
-                                .vehicle
-                                .substring(r[i].vehicle.length - 4);
-                        }
-                    }
-
-                    if (r[i].opertype == 1) {
-                        htmls += '<input autocomplete="off" type="text" class="ve-car-one" list="car-info" tabin' +
-                                'dex="' + (
-                            ++cnt
-                        ) + '" placeholder="' + (
-                            i + 1
-                        ) + '호차" id="' + (
-                            i + 100
-                        ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;background: transpare' +
-                                'nt;" value="' + ve + '" disabled>';
-                        htmls += '<input type="hidden" value="' + r[i].opercar + '" disabled>';
-                        htmls += '<input type="hidden" value="' + r[i].opercom + '" disabled>';
-                        htmls += '<input autocomplete="off" type="text" class="ve-emp-one" id="' + (
-                            i + 100
-                        ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
-                                '" style="background: transparent;" disabled>';
-                        htmls += '<input type="hidden" value="' + r[i].operid + '" disabled>';
-                        htmls += '<input autocomplete="off" type="text" class="ve-m-one" id="' + (
-                            i + 100
-                        ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-                            ++cnt
-                        ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '" style="background' +
-                                ': transparent;" disabled>';
-                    } else {
-                        if (r[i].opertrash == 1) {
-                            htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
-                                ++cnt
-                            ) + '" placeholder="' + (
+                            htmls += '<span style="margin: 0 3rem;">' + (
                                 i + 1
-                            ) + '호차" id="' + (
-                                i + 100
-                            ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve +
-                                    '">';
-                            htmls += '<input type="hidden" value="' + r[i].opercar + '">';
-                            htmls += '<input type="hidden" value="' + r[i].opercom + '">';
-                            htmls += '<input type="text" class="ve-emp-one" id="' + (
-                                i + 100
-                            ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
-                                    '">';
-                            htmls += '<input type="hidden" value="' + r[i].operid + '">';
-                            htmls += '<input type="text" class="ve-m-one" id="' + (
-                                i + 100
-                            ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-                                ++cnt
-                            ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '">';
-                        } else {
-                            htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
-                                ++cnt
-                            ) + '" placeholder="' + (
-                                i + 1
-                            ) + '호차" id="' + (
-                                i + 100
-                            ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve + '" ' +
-                                    'disabled>';
-                            htmls += '<input type="hidden" value="' + r[i].opercar + '" disabled>';
-                            htmls += '<input type="hidden" value="' + r[i].opercom + '" disabled>';
-                            htmls += '<input type="text" class="ve-emp-one" id="' + (
-                                i + 100
-                            ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
-                                    '" disabled>';
-                            htmls += '<input type="hidden" value="' + r[i].operid + '" disabled>';
-                            htmls += '<input type="text" class="ve-m-one" id="' + (
-                                i + 100
-                            ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-                                ++cnt
-                            ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '" disabled>';
-                        }
-                    }
+                            ) + '</span>'
 
-                    if (r[i].opertrash == 1) {
-                        if (i > 0) {
-                            htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
-                                i + 100
-                            ) + '"><i class="fas fa-times"></i>';
-                        } else {
-                            htmls += '<button class="onebtn" role="button" id="bt-' + (
-                                i + 100
-                            ) + '" disabled><i class="fas fa-times"></i>';
-                        }
-                    } else {
-                        if (i > 0) {
-                            htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
-                                i + 100
-                            ) + '" disabled><i class="fa-solid fa-ban"></i>';
-                        } else {
-                            htmls += '<button class="onebtn" role="button" id="bt-' + (
-                                i + 100
-                            ) + '" disabled><i class="fa-solid fa-ban"></i>';
-                        }
-                    }
+                            let ve = '';
+                            if (r[i].vehicle) {
+                                if (r[i].name == '타회사') {
+                                    ve = r[i].vehicle;
+                                } else {
+                                    ve = r[i]
+                                        .vehicle
+                                        .substring(r[i].vehicle.length - 4);
+                                }
+                            }
 
-                    htmls += '</div>';
-                    htmls += '</div>';
+                            if (r[i].opertype == 1) {
+                                htmls += '<input autocomplete="off" type="text" class="ve-car-one" list="car-info" tabin' +
+                                        'dex="' + (
+                                    ++cnt
+                                ) + '" placeholder="' + (
+                                    i + 1
+                                ) + '호차" id="' + (
+                                    i + 100
+                                ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;background: transpare' +
+                                        'nt;" value="' + ve + '" disabled>';
+                                htmls += '<input type="hidden" value="' + r[i].opercar + '" disabled>';
+                                htmls += '<input type="hidden" value="' + r[i].opercom + '" disabled>';
+                                htmls += '<input autocomplete="off" type="text" class="ve-emp-one" id="' + (
+                                    i + 100
+                                ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
+                                        '" style="background: transparent;" disabled>';
+                                htmls += '<input type="hidden" value="' + r[i].operid + '" disabled>';
+                                htmls += '<input autocomplete="off" type="text" class="ve-m-one" id="' + (
+                                    i + 100
+                                ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                    ++cnt
+                                ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '" style="background' +
+                                        ': transparent;" disabled>';
+                            } else {
+                                if (r[i].opertrash == 1) {
+                                    htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
+                                        ++cnt
+                                    ) + '" placeholder="' + (
+                                        i + 1
+                                    ) + '호차" id="' + (
+                                        i + 100
+                                    ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve +
+                                            '">';
+                                    htmls += '<input type="hidden" value="' + r[i].opercar + '">';
+                                    htmls += '<input type="hidden" value="' + r[i].opercom + '">';
+                                    htmls += '<input type="text" class="ve-emp-one" id="' + (
+                                        i + 100
+                                    ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
+                                            '">';
+                                    htmls += '<input type="hidden" value="' + r[i].operid + '">';
+                                    htmls += '<input type="text" class="ve-m-one" id="' + (
+                                        i + 100
+                                    ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                        ++cnt
+                                    ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '">';
+                                } else {
+                                    htmls += '<input type="text" class="ve-car-one" list="car-info" tabindex="' + (
+                                        ++cnt
+                                    ) + '" placeholder="' + (
+                                        i + 1
+                                    ) + '호차" id="' + (
+                                        i + 100
+                                    ) + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" value="' + ve + '" ' +
+                                            'disabled>';
+                                    htmls += '<input type="hidden" value="' + r[i].opercar + '" disabled>';
+                                    htmls += '<input type="hidden" value="' + r[i].opercom + '" disabled>';
+                                    htmls += '<input type="text" class="ve-emp-one" id="' + (
+                                        i + 100
+                                    ) + 'emp" list="per-info" tabindex="-1" placeholder="승무원" value="' + r[i].name +
+                                            '" disabled>';
+                                    htmls += '<input type="hidden" value="' + r[i].operid + '" disabled>';
+                                    htmls += '<input type="text" class="ve-m-one" id="' + (
+                                        i + 100
+                                    ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                        ++cnt
+                                    ) + '" placeholder="배차금액" value="' + AddComma(r[i].atlm) + '" disabled>';
+                                }
+                            }
+
+                            if (r[i].opertrash == 1) {
+                                if (i > 0) {
+                                    htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+                                        i + 100
+                                    ) + '"><i class="fas fa-times"></i>';
+                                } else {
+                                    htmls += '<button class="onebtn" role="button" id="bt-' + (
+                                        i + 100
+                                    ) + '" disabled><i class="fas fa-times"></i>';
+                                }
+                            } else {
+                                if (i > 0) {
+                                    htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+                                        i + 100
+                                    ) + '" disabled><i class="fa-solid fa-ban"></i>';
+                                } else {
+                                    htmls += '<button class="onebtn" role="button" id="bt-' + (
+                                        i + 100
+                                    ) + '" disabled><i class="fa-solid fa-ban"></i>';
+                                }
+                            }
+
+                            htmls += '</div>';
+                            htmls += '</div>';
+                        }
+
+                        $('#md-one-bd').html(htmls);
+
+                        $("input[data-type='currency']").bind('keyup keydown', function () {
+                            inputNumberFormat(this);
+                        });
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
-
-                $('#md-one-bd').html(htmls);
-
-                $("input[data-type='currency']").bind('keyup keydown', function () {
-                    inputNumberFormat(this);
-                });
-            } else {
-                alert('첫번째 운행 할 차량을 먼저 배차해주세요.');
-            }
-        }
-    })
+            })
+            resolve();
+        })
+    }
 }
 
 $(document).on('click', '#btn-one-plus', function () {
@@ -998,8 +1033,7 @@ $(document).on('click', '#btn-one-plus', function () {
     $('#btn-size').val(++size);
 });
 
-$(document).on('click', '#btn-one-plus-close', function () {
-    $('#modal-one').modal('hide');
+$(document).on('hide.bs.modal', '#modal-one', function () {
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
 });
 
@@ -1107,8 +1141,16 @@ function getAlloList(day) {
                             mid += `<span>이벤트 없음</span>`;
                         }
 
+                        let lunal = r[0]
+                            .lunarcal
+                            .split('-')[0] + '년 ' + r[0]
+                            .lunarcal
+                            .split('-')[1] + '월 ' + r[0]
+                            .lunarcal
+                            .split('-')[2] + '일';
+
                         if (!!r[0].lunarcal) {
-                            cal = '음력 ' + r[0].lunarcal;
+                            cal = '음력 ' + lunal;
                         } else {
                             cal = '음력 정보없음';
                         }
@@ -1255,8 +1297,9 @@ function getAlloList(day) {
                                     htmls += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-user-check" st' +
-                                            'yle="letter-spacing: 0.3rem;"></i>' + r[i].ctmname + '</div>';
+                                    htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
+                                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname +
+                                            '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls += '<div class="ctm-ttt-item">';
@@ -1287,8 +1330,9 @@ function getAlloList(day) {
                                     htmls2 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls2 += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-school" style=' +
-                                            '"letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname + '</div>';
+                                    htmls2 += '<div class="ctm-ttt ctm-ttt-back2"><div class="ctm-ttt-item"><i class="fas fa-' +
+                                            'school" style="letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname +
+                                            '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls2 += '<div class="ctm-ttt-item">';
@@ -1319,8 +1363,9 @@ function getAlloList(day) {
                                     htmls3 += '<input type="hidden" id="rvctmsepa' + (
                                         i + 1
                                     ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls3 += '<div class="ctm-ttt"><div class="ctm-ttt-item"><i class="fas fa-file-signature' +
-                                            '" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname + '</div>';
+                                    htmls3 += '<div class="ctm-ttt ctm-ttt-back3"><div class="ctm-ttt-item"><i class="fa-soli' +
+                                            'd fa-building" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname +
+                                            '</div>';
                                     // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                                     // '</div>';
                                     htmls3 += '<div class="ctm-ttt-item">';
@@ -1497,7 +1542,17 @@ function getAlloList(day) {
                             htmls += '<div class="card-song allo-card-in">';
                             htmls += '<input type="hidden" id="oprsvtseq-' + r[i].rsvtseq + '" value="' + r[i].rsvt +
                                     '">';
-                            htmls += '<div class="allo-detail">';
+                            switch (r[i].ctmsepa) {
+                                case 0:
+                                    htmls += '<div class="allo-detail allo-detail-back1">';
+                                    break;
+                                case 1:
+                                    htmls += '<div class="allo-detail allo-detail-back2">';
+                                    break;
+                                case 2:
+                                    htmls += '<div class="allo-detail allo-detail-back3">';
+                                    break;
+                            }
                             htmls += '<div class="allo-detail-item">';
                             if (r[i].ctmno == '0') {
                                 htmls += '<blockquote>';
@@ -1546,9 +1601,7 @@ function getAlloList(day) {
                             htmls += '<button class="btn btn-default allo-detail-item-1 card-song" id="btn-1-' + r[i].rsvtseq +
                                     '-' + i + '" onclick="getRsvt(this.id)"><i class="fa-solid fa-magnifying-glass-' +
                                     'plus"></i></button>';
-                            htmls += '<button class="btn btn-default allo-detail-item-2 card-song" id="btn-2-' + r[i].rsvtseq +
-                                    '-' + i + '" onclick="getRsvtM(this.id)"><i class="fas fa-won-sign"></i></butto' +
-                                    'n>';
+                            htmls += '';
                             htmls += '</div>';
                             const aaa = $('.dash-cal-con-item-t')
                                 .children()
@@ -1559,7 +1612,7 @@ function getAlloList(day) {
                             htmls += '<input type="hidden" value="' + r[i].endday + '">';
                             htmls += '<input type="hidden" value="' + r[i].numm + '">';
                             htmls += '</div>';
-                            htmls += '<hr>';
+                            // htmls += '<hr>';
                             htmls += '<div class="allo-allo row">';
 
                             for (let k = 0; k < r[i].num; k++) {
@@ -1602,11 +1655,11 @@ function getAlloList(day) {
                                         htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
                                             cnt - 1
                                         ) + '" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" tit' +
-                                                'le="고객정보입력 후 배차해주세요."><i class="far fa-list-alt"></i></button>';
+                                                'le="고객정보입력 후 배차해주세요."><i class="fa-solid fa-bars"></i></i></button>';
                                     } else {
                                         htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
                                             cnt - 1
-                                        ) + '"><i class="far fa-list-alt"></i></button>';
+                                        ) + '"><i class="fa-solid fa-bars"></i></i></button>';
                                     }
                                 }
 
@@ -1655,9 +1708,9 @@ function getAlloList(day) {
                                 if (r[i].ctmno == '0') {
                                     htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
                                         cnt - 1
-                                    ) + '" style="background: transparent; color:gray;"  disabled="disabled" data-b' +
-                                            's-toggle="tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="' +
-                                            'fas fa-times"></i></button>';
+                                    ) + '" style="background: transparent;"  disabled="disabled" data-bs-toggle="to' +
+                                            'oltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="fas fa-times' +
+                                            '"></i></button>';
                                 } else {
                                     htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
                                         cnt - 1
@@ -1968,8 +2021,8 @@ function getAlloList(day) {
                             htmls += '<input type="hidden" id="regconum' + (
                                 i + 1
                             ) + '" value="' + r[i].conum + '">';
-                            htmls += '<div class="ctm-ttt1"><div class="ctm-ttt-item1"><i class="fas fa-user-check" ' +
-                                    'style="letter-spacing: 0.3rem;">' + r[i].regcompany + '</i></div>';
+                            htmls += '<div class="ctm-ttt1"><div class="ctm-ttt-item1"><i class="fa-solid fa-user-gr' +
+                                    'oup" style="letter-spacing: 0.3rem;">' + r[i].regcompany + '</i></div>';
                             // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
                             // '</div>';
                             htmls += '<div class="ctm-ttt-item1">';
@@ -2188,62 +2241,65 @@ function getAlloList(day) {
 }
 
 function delAllo(id) {
-    LoadingWithMask();
-    const opernum = $('#' + id)
-        .parent()
-        .prev()
-        .prev()
-        .val();
+    LoadingWithMask()
+        .then(delDbOper)
+        .then(closeLoadingWithMask);
 
-    const hoCha = $('#' + id)
-        .parent()
-        .attr('id')
-        .split('-')[2];
+    function delDbOper() {
+        return new Promise(function (resolve, reject) {
+            const opernum = $('#' + id)
+                .parent()
+                .prev()
+                .prev()
+                .val();
 
-    const tod = $(
-        $('#' + id).parent().parent().parent().prev().prev().children()[6]
-    ).val();
-    const ed = $(
-        $('#' + id).parent().parent().parent().prev().prev().children()[7]
-    ).val();
+            const hoCha = $('#' + id)
+                .parent()
+                .attr('id')
+                .split('-')[2];
 
-    let params = new Array();
-    const beetween = betweenDateNum(tod, ed);
+            const tod = $($('#' + id).parent().parent().parent().prev().children()[6]).val();
+            const ed = $($('#' + id).parent().parent().parent().prev().children()[7]).val();
 
-    for (let i = 0; i < beetween; i++) {
+            let params = new Array();
+            const beetween = betweenDateNum(tod, ed);
 
-        let date = new Date(tod);
+            for (let i = 0; i < beetween; i++) {
 
-        const ddd = toStringByFormatting(date.addDays(i));
-        for (let l = 0; l < 5; l++) {
-            const asd = {
-                "opernum": opernum,
-                "operday": ddd,
-                "operno": hoCha,
-                "opertype": l
+                let date = new Date(tod);
+
+                const ddd = toStringByFormatting(date.addDays(i));
+                for (let l = 0; l < 5; l++) {
+                    const asd = {
+                        "opernum": opernum,
+                        "operday": ddd,
+                        "operno": hoCha,
+                        "opertype": l
+                    };
+                    params.push(asd);
+                }
+            }
+
+            const url = "/allo/del";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
             };
-            params.push(asd);
-        }
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                    resolve();
+                }
+            })
+        })
     }
-
-    const url = "/allo/del";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-
-        success: function (r) {
-            closeLoadingWithMask();
-            setCalWhite($('.dash-cal-con-item-t').attr('id'));
-        }
-    })
 }
 
 function delOne(param) {
@@ -2792,6 +2848,9 @@ $(document).on('click', '.btnPaPer', function () {
 
         $('#ctmmm').val(ctm);
         $('#dayyy').val($('#yearMonthDay').val());
+
+        $('#modalPaper0Ti').text(name + ' 운행 배차서류 생성');
+        $('#ctmmmName').val(name);
     })
 
     $('#modalPaper0').modal('show');

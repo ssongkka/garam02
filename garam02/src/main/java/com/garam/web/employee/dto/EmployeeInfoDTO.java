@@ -1,6 +1,6 @@
 package com.garam.web.employee.dto;
 
-import com.garam.web.Utils.Utils;
+import com.garam.Utils.Utils;
 
 public class EmployeeInfoDTO {
 

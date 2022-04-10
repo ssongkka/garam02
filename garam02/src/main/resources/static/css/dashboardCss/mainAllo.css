@@ -20,15 +20,19 @@
 }
 
 .allocont {
-    padding: 6rem 10rem 0;
+    padding: 8rem 10rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .allo-card {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background-color: #fafbfc;
+    padding: 1rem;
 
-    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .allo-card1 {
@@ -66,19 +70,26 @@
     margin: 0;
 }
 
-.allo-card-in {
-    padding: 1rem;
-}
+.allo-card-in {}
 
 .allo-card-in hr {
     margin: 1.5rem 0;
+}
+
+.allo-detail-back1 {
+    background: #F9F7F7;
+}
+.allo-detail-back2 {
+    background: #F2F6F5;
+}
+.allo-detail-back3 {
+    background: #FAF2F2;
 }
 
 .allo-detail {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    background-color: #fafbfc;
 }
 
 .allo-detail p {
@@ -99,7 +110,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 0.3rem;
+
+    padding: 0.5rem;
 }
+
+.allo-detail-item blockquote {
+    border-left: 0;
+}
+
 .allo-allo input:focus {
     outline: none;
 }
@@ -180,6 +198,9 @@
     min-width: 30px;
     font-size: 1.5rem;
     padding: 0;
+    background: transparent;
+
+    opacity: 0.3;
 }
 
 .onebtn1 {
@@ -251,10 +272,18 @@
 .allo-detail-item:nth-child(6) svg {
     margin: 0;
 }
-.allo-detail-item:nth-child(7) {
-    text-align: right;
-    padding-left: 2rem;
-    padding-right: 2rem;
+.allo-detail-item:nth-child(6) {
+    padding-right: 1rem;
+}
+
+.ctm-ttt-back1 {
+    background: #D6E6F2;
+}
+.ctm-ttt-back2 {
+    background: #C8DAD3;
+}
+.ctm-ttt-back3 {
+    background: #F1D1D1;
 }
 
 .ctm-ttt {
@@ -262,7 +291,9 @@
     flex-direction: row;
     align-items: center;
     gap: 2rem;
-    padding: 0 1rem 1rem 2rem;
+
+    padding: 1rem;
+    border-radius: 3px;
 }
 
 .ctm-ttt-item:nth-child(1) {
@@ -499,7 +530,6 @@
         display: grid;
         grid-template-columns: 3fr 1fr;
         gap: 0.5rem;
-        padding: 0 1rem 2rem 2rem;
     }
 
     .ctm-ttt-item:nth-child(1) {
@@ -650,7 +680,6 @@
         display: grid;
         grid-template-columns: 3fr 1fr;
         gap: 0.5rem;
-        padding: 0 1rem 2rem 2rem;
     }
 
     .ctm-ttt-item:nth-child(1) {

@@ -17,7 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.css.RGBColor;
 
 import com.garam.Garam02Application;
-import com.garam.web.Utils.PDFUtil;
+import com.garam.Utils.PDFUtil;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.mapper.VehicleMapper;
 import com.garam.web.vehicle.service.VehicleService;
@@ -54,8 +54,6 @@ public class TestPdf2 {
 
 	@Test
 	void table() {
-		System.out.println("되냐");
-		// 장바구니 서비스 객체 주입 : 장바구니 목록 출력할 예정
 
 		String result = "";
 
@@ -170,7 +168,6 @@ public class TestPdf2 {
 			e.printStackTrace();
 		}
 
-		System.out.println(result);
 	}
 }
 

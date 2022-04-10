@@ -86,7 +86,7 @@ public class EmpRsvtDTO {
 	private String confirm;
 
 	// 삭제여부
-	private Integer confirmm;
+	private String confirmm;
 
 	private Integer rsvttrash;
 
@@ -411,11 +411,11 @@ public class EmpRsvtDTO {
 		this.confirm = confirm;
 	}
 
-	public Integer getConfirmm() {
+	public String getConfirmm() {
 		return confirmm;
 	}
 
-	public void setConfirmm(Integer confirmm) {
+	public void setConfirmm(String confirmm) {
 		this.confirmm = confirmm;
 	}
 

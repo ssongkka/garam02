@@ -730,8 +730,8 @@ function getVeInfo(carNumber) {
                         $('#ve23-1').val(r[0].juk);
                     } else {
                         $('#ve23').html(
-                            '<button class="btn btn-outline-secondary tct-item-btn" role="button" id="btn-i' +
-                            'nsu">없&nbsp;음</button>'
+                            '<button class="btn btn-outline-secondary tct-item-btn" role="button" id="btn-j' +
+                            'uk">없&nbsp;음</button>'
                         );
                         $('#ve23-1').val('');
                     }
@@ -783,10 +783,17 @@ $(document).on('click', '#md-File', function () {
 });
 
 $(document).on('click', '#md-Juk', function () {
+    $(document).on('show.bs.modal', '#modal-juk', function () {
+        $('#juk-frame').attr('src', veFolder + 'choice.png');
+        $('#juk-selector').val('');
+        $('#modal-juk-mh').text('교통안전정보 통보서 입력');
+    });
+
+    $(document).on('hide.bs.modal', '#modal-juk', function () {
+        location.reload();
+    });
+
     $('#modal-juk').modal('show');
-    $('#juk-frame').attr('src', veFolder + 'choice.pdf');
-    $('#juk-selector').val('');
-    $('#modal-juk-mh').text('교통안전정보 통보서 입력');
 });
 
 $('#imgSelector1').change(function () {
@@ -1011,10 +1018,18 @@ $(document).on('click', '#btn-insert', function () {
     } else {
         insertVe(0);
     }
+
+    console.log("리하요");
 });
 
 function insertVe(tp) {
-    insertPic().then(insertContent);
+    console.log("리하요1");
+
+    LoadingWithMask()
+        .then(insertPic)
+        .then(insertContent)
+        .then(closeLoadingWithMask);
+
     function insertPic() {
         return new Promise(function (resolve, reject) {
             var form = $('#ve-form')[0];
@@ -1031,6 +1046,7 @@ function insertVe(tp) {
                 cache: false,
                 timeout: 600000,
                 success: function (r) {
+                    console.log(" r  " + r);
                     resolve(r);
                 },
                 error: (jqXHR) => {
@@ -1320,36 +1336,46 @@ $(document).on('click', '#btn-pdf-d', function () {
 });
 
 $(document).on('click', '#btn-reg', function () {
+    $(document).on('show.bs.modal', '#modal-reg', function () {
+        setReg();
+    });
     $('#modal-reg').modal('show');
     $('#modal-reg-mh').text(
         '  ' + $('#ve02').children().text() + ' 자동차등록증 조회 및 입력'
     );
-    setReg();
 });
 
 $(document).on('click', '#btn-insu', function () {
+    $(document).on('show.bs.modal', '#modal-insu', function () {
+        setInsu();
+    });
     $('#modal-insu').modal('show');
     $('#modal-insu-mh').text(
         '  ' + $('#ve02').children().text() + ' 보험가입증명서 조회 및 입력'
     );
-    setInsu();
 });
 
 $(document).on('click', '#btn-juk', function () {
+
+    $(document).on('show.bs.modal', '#modal-jukView', function () {
+        setJuk();
+    });
+
+    $(document).on('hide.bs.modal', '#modal-jukView', function () {});
+
     $('#modal-jukView').modal('show');
     $('#modal-jukView-mh').text(
         '  ' + $('#ve02').children().text() + ' 교통안전정보조회서 보기'
     );
-    setJuk();
 });
 
 function setReg() {
     $('#regcarn').val($('#ve00').val());
 
     if ($('#ve21-1').val()) {
-        updateImg(veFolder + 'reg/' + $('#ve21-1').val(), 'reg-frame');
+        updateImg(veFolder + 'reg/' + $('#ve21-1').val() + ".PNG", 'reg-frame');
     } else {
-        $('#reg-frame').attr('src', veFolder + "choice.pdf");
+        $('#reg-frame').attr('src', veFolder + "choice.png");
     }
 }
 
@@ -1357,17 +1383,17 @@ function setInsu() {
     $('#insucarn').val($('#ve00').val());
 
     if ($('#ve22-1').val()) {
-        updateImg(veFolder + 'insu/' + $('#ve22-1').val(), 'insu-frame');
+        updateImg(veFolder + 'insu/' + $('#ve22-1').val() + ".PNG", 'insu-frame');
     } else {
-        $('#insu-frame').attr('src', veFolder + "choice.pdf");
+        $('#insu-frame').attr('src', veFolder + "choice.png");
     }
 }
 
 function setJuk() {
     if ($('#ve23-1').val()) {
-        updateImg(veFolder + 'juk/' + $('#ve23-1').val() + '.PDF', 'jukView-frame');
+        updateImg(veFolder + 'juk/' + $('#ve23-1').val() + '.PNG', 'jukView-frame');
     } else {
-        $('#jukView-frame').attr('src', veFolder + "choice.pdf");
+        $('#jukView-frame').attr('src', veFolder + "choice.png");
     }
 }
 
@@ -1575,7 +1601,7 @@ function insertFileJuk(result) {
 
                         $('#juk-selector').val('');
 
-                        $('#juk-frame').attr('src', veFolder + 'choice.pdf');
+                        $('#juk-frame').attr('src', veFolder + 'choice.png');
 
                         break;
                     case 0:

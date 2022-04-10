@@ -25,6 +25,10 @@
     margin-bottom: 1rem;
 }
 
+#cal1 {
+    font-size: 1.5rem;
+}
+
 .dashImg {
     height: 100%;
     object-fit: contain;
@@ -310,7 +314,7 @@ blockquote {
 }
 
 #comp-name {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 600;
 }
 

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.garam.Utils.UiUtils;
 import com.garam.company.dto.CompanyDTO;
 import com.garam.company.service.CompanyService;
-import com.garam.web.Utils.UiUtils;
 import com.garam.web.constant.Method;
 import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;

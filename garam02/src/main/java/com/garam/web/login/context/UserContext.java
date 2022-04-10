@@ -20,8 +20,6 @@ public class UserContext extends User {
 	public UserContext(com.garam.web.login.entity.User user) {
 		super(user.getId(), user.getPw(), getAuthorities(user.getPower()));
 
-		System.out.println("하하하핳하하하하하하하하하하하하핳" + getAuthorities(user.getPower()));
-
 		this.user = user;
 	}
 

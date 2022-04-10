@@ -18,8 +18,6 @@ public class TaskSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
-		System.out.println("hasAdminRole(authentication)    " + hasAdminRole(authentication));
-
 		if (hasAdminRole(authentication)) {
 			response.sendRedirect("/dashboard");
 		} else {
