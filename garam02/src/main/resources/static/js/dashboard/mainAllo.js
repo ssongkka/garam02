@@ -1125,20 +1125,20 @@ function getAlloList(day) {
                     const idd = '#dash-week-';
                     if (r.length > 0) {
                         if (r[0].holiday) {
-                            mid += '<span>' + r[0].holiday + '</span>';
+                            mid += '<p>' + r[0].holiday + '</p>';
                         }
                         if (r[0].anniversary) {
-                            mid += '<span>' + r[0].anniversary + '</span>';
+                            mid += '<p>' + r[0].anniversary + '</p>';
                         }
                         if (r[0].season) {
-                            mid += '<span>' + r[0].season + '</span>';
+                            mid += '<p>' + r[0].season + '</p>';
                         }
                         if (r[0].etc) {
-                            mid += '<span>' + r[0].etc + '</span>';
+                            mid += '<p>' + r[0].etc + '</p>';
                         }
 
                         if (!mid) {
-                            mid += `<span>이벤트 없음</span>`;
+                            mid += `<p>이벤트 없음</p>`;
                         }
 
                         let lunal = r[0]

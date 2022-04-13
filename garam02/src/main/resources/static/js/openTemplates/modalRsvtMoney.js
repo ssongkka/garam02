@@ -4,6 +4,7 @@ $(document).ready(function () {
 });
 
 $(document).on('hide.bs.modal', '#modalRsvtMoney', function () {
+    $('.rsvtMoneyAll').hide();
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
 });
 
@@ -309,7 +310,7 @@ function getManageMD4(para) {
                                     <td>` + r[i].moneyuser +
                                         `</td>
                                     <td><input class="form-control" type="date" value="` +
-                                        nowD +
+                                        r[i].moneyday +
                                         `"></td>
                                     <td>
                                         <select class="form-select">
@@ -675,8 +676,6 @@ function allRsvtMoneyInsert() {
                 const aaa2222222 = $(aaa22222[parseInt(tSize) - 1]).children()[8];
                 const aaa22222222 = $(aaa2222222).children();
 
-                console.log(aaa222222);
-
                 const rsvtM = $(aaa222222)
                     .text()
                     .replaceAll(',', '');
@@ -685,19 +684,24 @@ function allRsvtMoneyInsert() {
                     .text()
                     .replaceAll(',', '');
 
-                console.log("rsvttt  " + rsvttt);
-                console.log("rsvtM  " + rsvtM);
+                const bbb = $(aaa222).children()[3];
+                const bbb1 = $(bbb).children()[0];
+                const bbb2 = $(bbb1).children()[1];
 
-                console.log("isNaN(rsvtJan)   " + isNaN(rsvtJan));
+                const rsvrFootM = $(bbb2)
+                    .text()
+                    .replaceAll(',', '');
 
-                if (!isNaN(rsvtJan)) {
+                console.log("rsvrFootM  " + rsvrFootM);
+
+                if (rsvrFootM > 0) {
                     const asd = {
                         "rsvt": rsvttt,
                         "moneyday": $('#allDate').val(),
                         "moneyuser": dbuser.name,
                         "moneytong": $('#allTong').val(),
                         "moneymemo": $('#allMemo').val(),
-                        "moneymoney": rsvtM
+                        "moneymoney": rsvrFootM
                     };
                     params.push(asd);
                 }

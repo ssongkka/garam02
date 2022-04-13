@@ -85,10 +85,6 @@ public class DashboardController extends UiUtils {
 		model.addAttribute("opt", opt);
 		model.addAttribute("user", user);
 
-		FTPManager ftp = new FTPManager();
-
-		System.out.println("asddd   " + ftp.connect());
-
 		return "dashboard/mainRsvtMany";
 
 	}

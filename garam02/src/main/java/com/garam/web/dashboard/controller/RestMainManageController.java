@@ -99,6 +99,20 @@ public class RestMainManageController {
 		return rtn;
 	}
 
+	@PostMapping(value = "/updateRsvtConfirmMOkMany")
+	public int updateRsvtConfirmMOkMany(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+		try {
+			rtn = rsvtService.updateRsvtConfirmMOkMany(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
 	@PostMapping(value = "/selectSumRsvtMoney")
 	public List<RsvtmoneyDTO> selectSumRsvtMoney(@RequestBody List<Map<String, Object>> map) throws Exception {
 

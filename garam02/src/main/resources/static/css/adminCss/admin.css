@@ -10,8 +10,24 @@ aside {
     background: var(--main-color);
     color: var(--sub-color);
 
+    position: fixed;
+
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2rem;
+}
 
+.side-item {
+    display: flex;
+}
+
+.side-item p {
+    font-size: 1.8rem;
+}
+
+main {
+    margin-left: 30rem;
+    min-height: 100vh;
+    padding: 3rem 8rem;
 }

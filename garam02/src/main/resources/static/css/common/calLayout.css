@@ -69,6 +69,8 @@
 
     font-family: "Bae";
     color: var(--sub-color);
+
+    cursor: pointer;
 }
 .header .logo span {
     font-size: 2rem;

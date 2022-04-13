@@ -8,4 +8,6 @@ public interface UserMyService {
 
 	public int updateUserPw(UserDTO userDTO) throws Exception;
 
+	public int insertUser(UserDTO userDTO) throws Exception;
+
 }

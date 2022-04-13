@@ -459,3 +459,7 @@ $(document).on('click', '#btnSetting', function () {
     });
     $('#mdSetting').modal('show');
 });
+
+$(document).on('click', '.logo', function () {
+    location.reload();
+});
