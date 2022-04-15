@@ -205,9 +205,6 @@ function getManage(list) {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
             };
-            console.log("하이");
-            console.log(result);
-
             for (let i = 0; i < result.length; i++) {
                 let cntM = 0;
 
@@ -220,8 +217,6 @@ function getManage(list) {
                     params.push(asd);
                 }
 
-                console.log(params);
-
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -231,7 +226,6 @@ function getManage(list) {
                     async: false,
 
                     success: function (r) {
-                        console.log(r[0].moneymoney);
                         const idIN = '#inMMM' + i;
                         const idJan = '#janMMM' + i;
 

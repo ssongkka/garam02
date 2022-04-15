@@ -13,8 +13,4 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 	private final UserRepository userRepository;
 
-	@Transactional
-	public String save(UserSaveRequestDto userSaveDto) {
-		return userRepository.save(userSaveDto.toEntity()).getId();
-	}
 }

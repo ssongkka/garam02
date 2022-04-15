@@ -1122,7 +1122,6 @@ function getAlloList(day) {
                 success: function (r) {
                     let mid = '';
                     let cal = '';
-                    const idd = '#dash-week-';
                     if (r.length > 0) {
                         if (r[0].holiday) {
                             mid += '<p>' + r[0].holiday + '</p>';
@@ -1154,79 +1153,9 @@ function getAlloList(day) {
                         } else {
                             cal = '음력 정보없음';
                         }
-
-                        for (let i = 0; i < r.length; i++) {
-
-                            $(idd + (i + 1) + '1').html(
-                                '<h5>' + calen.getDayOfWeek(new Date(r[i].solarcal).getDay()) + '</h5>'
-                            );
-
-                            $(idd + (i + 1) + '2').html(
-                                '<h2>' + new Date(r[i].solarcal).getDate() + '</h2>'
-                            );
-                            $(idd + (i + 1) + '5').val(r[i].solarcal);
-
-                            switch (new Date(r[i].solarcal).getDay()) {
-                                case 0:
-                                    $(idd + (i + 1) + '1').css('color', '#CF2F11');
-                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
-                                    break;
-                                case 6:
-                                    $(idd + (i + 1) + '1').css('color', '#4B89DC');
-                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(75, 137, 220, 0.5)');
-                                    break;
-                                default:
-                                    $(idd + (i + 1) + '1').css('color', 'black');
-                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
-                                    break;
-                            }
-
-                            if (r[i].holiday) {
-                                $(idd + (i + 1) + '3').html('<h5>' + r[i].holiday + '</h5>');
-                            } else {
-                                $(idd + (i + 1) + '3').html('<h5>&ndash;</h5>');
-                            }
-
-                            if (r[i].holiday) {
-                                $(idd + (i + 1) + '1').css('color', '#CF2F11');
-                                $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
-                            }
-                        }
-
                     } else {
                         mid += `<p>이벤트 없음</p>`;
                         cal = '음력 정보없음';
-
-                        for (let i = 0; i < 7; i++) {
-                            let ddd = new Date(day);
-
-                            ddd1 = ddd.setDate(ddd.getDate() + i);
-
-                            $(idd + (i + 1) + '1').html(
-                                '<h5>' + calen.getDayOfWeek(new Date(ddd1).getDay()) + '</h5>'
-                            );
-
-                            $(idd + (i + 1) + '2').html('<h2>' + new Date(ddd1).getDate() + '</h2>');
-
-                            $(idd + (i + 1) + '3').html('<h5>&ndash;</h5>');
-
-                            $(idd + (i + 1) + '5').val(toStringByFormatting(new Date(ddd1)));
-
-                            switch (new Date(ddd1).getDay()) {
-                                case 0:
-                                    $(idd + (i + 1) + '1').css('color', '#CF2F11');
-                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(207, 47, 17, 0.5)');
-                                    break;
-                                case 6:
-                                    $(idd + (i + 1) + '1').css('color', '#4B89DC');
-                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(75, 137, 220, 0.5)');
-                                    break;
-                                default:
-                                    $(idd + (i + 1) + '1').css('color', 'black');
-                                    $(idd + (i + 1) + '1').css('border', '1px solid rgba(0, 0, 0, 0.1)');
-                                    break;
-                            }
-                        }
                     }
                     $('#midday').html(mid);
                     $('#cal1').html(cal);

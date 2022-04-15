@@ -26,4 +26,33 @@ public class RestMainHomeController {
 
 		return list;
 	}
+
+	@PostMapping(value = "/homeCal1")
+	public List<RsvtDTO> selectCalRsvt1(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectCalRsvt1(rsvtDTO);
+		return list;
+	}
+
+	@PostMapping(value = "/homeCal2")
+	public List<RsvtDTO> selectCalRsvt2(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectCalRsvt2(rsvtDTO);
+		return list;
+	}
+
+	@PostMapping(value = "/homeCal3")
+	public List<RsvtDTO> selectCalRsvt3(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectCalRsvt3(rsvtDTO);
+		return list;
+	}
+
+	@PostMapping(value = "/homeCal4")
+	public List<RsvtDTO> selectCalRsvt4(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectCalRsvt4(rsvtDTO);
+		return list;
+	}
+
 }

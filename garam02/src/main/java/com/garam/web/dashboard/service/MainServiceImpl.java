@@ -1743,4 +1743,28 @@ public class MainServiceImpl implements MainService {
 
 		return list;
 	}
+
+	@Override
+	public List<RsvtDTO> selectCalRsvt1(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectCalRsvt1(rsvtDTO);
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectCalRsvt2(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectCalRsvt2(rsvtDTO);
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectCalRsvt3(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectCalRsvt3(rsvtDTO);
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectCalRsvt4(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectCalRsvt4(rsvtDTO);
+		return list;
+	}
 }

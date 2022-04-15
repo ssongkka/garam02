@@ -403,6 +403,7 @@ $(document).on('click', '.bigTd', function () {
 
             $('#yearMonth2').val($('#yearMonthBig2').val());
             makeCal(get_Year_Month(), null);
+            makeMainBigCal(get_Year_Month(), null);
 
             for (let i = 0; i < 42; i++) {
                 const iddd = '#dash-cal-con-item' + (

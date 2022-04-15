@@ -83,4 +83,12 @@ public interface DashboardMapper {
 	public int updateRsvtConfirmMOkMany(HashMap<String, Object> map) throws Exception;
 
 	public List<RsvtmoneyDTO> selectSumRsvtMoney(HashMap<String, Object> map) throws Exception;
+
+	public List<RsvtDTO> selectCalRsvt1(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectCalRsvt2(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectCalRsvt3(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectCalRsvt4(RsvtDTO rsvtDTO) throws Exception;
 }

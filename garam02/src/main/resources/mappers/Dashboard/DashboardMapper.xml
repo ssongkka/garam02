@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.garam.web.dashboard.mapper.DashboardMapper">
+<mapper namespace="com.garam.web.dashboard.mapper.DashboardMapper">
 
 	<sql id="customerColumns">
 		ctmseq , ctmno , ctmsepa , ctmname , ctmaddress , ctmtel1,
 		ctmtel2, ctmemail
-		, ctmfax , ctmcompanum, ctmhomepage , ctmstp ,
+		, ctmfax , ctmcompanum,
+		ctmhomepage , ctmstp ,
 		ctmdetail ,
 		ctmtrash
 	</sql>
 	<sql id="rsvtColumns">
 		rsvtseq, rsvt, ctmno, datein, datech, empin, stday,
 		endday,
-		bus, num, desty, rsvpstp, stt, endt, rsvtdetail, cont, conm, numm,
+		bus, num, desty, rsvpstp, stt, endt, rsvtdetail,
+		cont, conm, numm,
 		confirm,
 		confirmm, rsvttrash
 	</sql>
 	<sql id="operColumns">
 		opernum, rsvt, operday, dayst, operno, opercom, opercar,
 		operid,
-		atlm, opertype, operconfirm, opermemo, opertrash
+		atlm, opertype, operconfirm, opermemo,
+		opertrash
 	</sql>
 
-	<select id="selectCustomerAll"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectCustomerAll" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
@@ -43,8 +44,7 @@
 		</where>
 	</select>
 
-	<select id="selectCustomerName"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectCustomerName" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
@@ -60,8 +60,7 @@
 
 	</select>
 
-	<select id="selectCustomerCheck"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectCustomerCheck" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
@@ -78,8 +77,7 @@
 
 
 
-	<select id="selectCustomerOtherCompa"
-		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+	<select id="selectCustomerOtherCompa" resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
 		*
@@ -95,8 +93,7 @@
 		ctmtrash = 1;
 	</select>
 
-	<insert id="insertCtm"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<insert id="insertCtm" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 		INSERT INTO
 		customer
 		(
@@ -114,7 +111,8 @@
 		, #{ctmtel2}
 		, #{ctmemail}
 		, #{ctmfax}
-		, #{ctmcompanum}
+		,
+		#{ctmcompanum}
 		,
 		#{ctmhomepage}
 		,
@@ -125,8 +123,7 @@
 		);
 	</insert>
 
-	<insert id="insertRsvt"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<insert id="insertRsvt" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		INSERT INTO
 		rsvt
@@ -225,8 +222,7 @@
 
 	</insert>
 
-	<update id="updateRsvt"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<update id="updateRsvt" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 		DELETE FROM
 
 		operation_info
@@ -292,8 +288,7 @@
 	</update>
 
 	<update id="updateOper" parameterType="java.util.HashMap">
-		<foreach collection="oper" item="value" index="index"
-			separator=";">
+		<foreach collection="oper" item="value" index="index" separator=";">
 			UPDATE
 
 			operation_info
@@ -332,8 +327,7 @@
 		</foreach>
 	</update>
 	<update id="updateOperMemo" parameterType="java.util.HashMap">
-		<foreach collection="operMemo" item="value" index="index"
-			separator=";">
+		<foreach collection="operMemo" item="value" index="index" separator=";">
 			UPDATE
 
 			operation_info
@@ -363,12 +357,12 @@
 
 			AND
 
-			opercar = #{value.opercar}
+			opercar =
+			#{value.opercar}
 		</foreach>
 	</update>
 
-	<update id="updateCtm"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<update id="updateCtm" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		UPDATE
 
@@ -420,8 +414,7 @@
 		#{ctmno};
 	</update>
 
-	<delete id="delRsvt"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<delete id="delRsvt" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		DELETE FROM
 
@@ -443,8 +436,7 @@
 
 	</delete>
 
-	<update id="cancleRsvt"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<update id="cancleRsvt" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		DELETE FROM
 
@@ -461,7 +453,8 @@
 
 		SET
 
-		rsvt.rsvttrash = 0,
+		rsvt.rsvttrash =
+		0,
 		rsvt.datech=NOW()
 
 		WHERE
@@ -471,8 +464,7 @@
 
 	</update>
 
-	<select id="selectRSVT"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectRSVT" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		SELECT
@@ -496,8 +488,7 @@
 	</select>
 
 
-	<select id="selectAlloCTM"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectAlloCTM" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
@@ -537,8 +528,7 @@
 		rsvt.stt,
 		rsvt.rsvtseq;
 	</select>
-	<select id="selectAlloRSVT"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectAlloRSVT" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 		*
@@ -571,14 +561,14 @@
 		rsvt.stt,
 		rsvt.rsvtseq;
 	</select>
-	<select id="selectAlloOPER"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectAlloOPER" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		SELECT
 		rsvt.rsvtseq, operation_info.operseq, operation_info.opernum,
 		operation_info.rsvt,
-		operation_info.operday, operation_info.operno,
+		operation_info.operday,
+		operation_info.operno,
 		operation_info.opercom,
 		rsvt.numm, operation_info.atlm,
 		operation_info.opertype,
@@ -626,8 +616,7 @@
 		operation_info.rsvt;
 	</select>
 
-	<select id="selectWeekBusNum"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectWeekBusNum" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
@@ -651,8 +640,7 @@
 		rsvt.rsvttrash = 1;
 
 	</select>
-	<select id="selectOneWayOper"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectOneWayOper" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		SELECT
@@ -701,8 +689,7 @@
 	</select>
 
 	<delete id="delAllo" parameterType="java.util.HashMap">
-		<foreach collection="allodel" item="value" index="index"
-			separator=";">
+		<foreach collection="allodel" item="value" index="index" separator=";">
 			DELETE FROM
 
 			operation_info
@@ -729,16 +716,14 @@
 		</foreach>
 	</delete>
 
-	<select id="selectOpt"
-		resultType="com.garam.web.dashboard.dto.OptDTO">
+	<select id="selectOpt" resultType="com.garam.web.dashboard.dto.OptDTO">
 		SELECT
 		*
 		FROM
 		opt;
 	</select>
 
-	<select id="selectReg"
-		parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
+	<select id="selectReg" parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
 		resultType="com.garam.web.dashboard.dto.RegularOperDTO">
 
 		SELECT
@@ -754,8 +739,7 @@
 		regular.regtrash = 1
 
 	</select>
-	<select id="selectRegDe"
-		parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
+	<select id="selectRegDe" parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
 		resultType="com.garam.web.dashboard.dto.RegularOperDTO">
 
 		SELECT
@@ -785,8 +769,7 @@
 		1
 
 	</select>
-	<select id="selectRegCoo"
-		parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
+	<select id="selectRegCoo" parameterType="com.garam.web.dashboard.dto.RegularOperDTO"
 		resultType="com.garam.web.dashboard.dto.RegularOperDTO">
 
 		SELECT
@@ -824,8 +807,7 @@
 
 	</select>
 
-	<select id="selectPapperAllo1"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectPapperAllo1" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
 
@@ -850,7 +832,8 @@
 
 		AND
 
-		rsvt.stday = #{stday}
+		rsvt.stday =
+		#{stday}
 
 		ORDER
 		BY
@@ -859,8 +842,7 @@
 		customer.ctmsepa,
 		customer.ctmname;
 	</select>
-	<select id="selectPapperAllo2"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+	<select id="selectPapperAllo2" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		SELECT
@@ -976,8 +958,7 @@
 
 	</select>
 
-	<select id="selRsvtMoney"
-		parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO"
+	<select id="selRsvtMoney" parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
 
 		SELECT
@@ -998,8 +979,7 @@
 
 	</select>
 
-	<insert id="insertRsvtMoney"
-		parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
+	<insert id="insertRsvtMoney" parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
 
 		INSERT
 
@@ -1021,8 +1001,7 @@
 		);
 	</insert>
 
-	<insert id="insertRsvtMoneyMany"
-		parameterType="java.util.HashMap">
+	<insert id="insertRsvtMoneyMany" parameterType="java.util.HashMap">
 
 		INSERT
 
@@ -1047,8 +1026,7 @@
 		</foreach>
 	</insert>
 
-	<update id="updateRsvtMoney"
-		parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
+	<update id="updateRsvtMoney" parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
 
 		UPDATE
 
@@ -1072,8 +1050,7 @@
 		#{rsvtmoneyseq};
 	</update>
 
-	<delete id="delRsvtMoney"
-		parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
+	<delete id="delRsvtMoney" parameterType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
 
 		DELETE
 
@@ -1086,8 +1063,7 @@
 		rsvtmoneyseq = #{rsvtmoneyseq};
 	</delete>
 
-	<update id="updateRsvtConfirmMOk"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<update id="updateRsvtConfirmMOk" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 		UPDATE
 
 		rsvt
@@ -1103,10 +1079,8 @@
 
 	</update>
 
-	<update id="updateRsvtConfirmMOkMany"
-		parameterType="java.util.HashMap">
-		<foreach collection="operok" item="value" index="index"
-			separator=";">
+	<update id="updateRsvtConfirmMOkMany" parameterType="java.util.HashMap">
+		<foreach collection="operok" item="value" index="index" separator=";">
 			UPDATE
 
 			rsvt
@@ -1122,8 +1096,7 @@
 		</foreach>
 	</update>
 
-	<update id="updateRsvtConfirmMNo"
-		parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+	<update id="updateRsvtConfirmMNo" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 		UPDATE
 
 		rsvt
@@ -1138,8 +1111,7 @@
 		#{rsvt};
 	</update>
 
-	<select id="selectSumRsvtMoney"
-		parameterType="java.util.HashMap"
+	<select id="selectSumRsvtMoney" parameterType="java.util.HashMap"
 		resultType="com.garam.web.dashboard.dto.RsvtmoneyDTO">
 		SELECT
 
@@ -1155,12 +1127,203 @@
 		WHERE
 
 		rsvtmoney.rsvt IN
-		<foreach collection="rsvtL" item="value" index="index"
-			separator="," open="(" close=")">
+		<foreach collection="rsvtL" item="value" index="index" separator="," open="(" close=")">
 			#{value.rsvt}
 		</foreach>
+	</select>
+
+	<select id="selectCalRsvt1" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		rsvt.stday,rsvt.endday, rsvt.ctmno, customer.ctmname, rsvt.desty, IF(rsvt.bus ='대형', SUM(rsvt.num),
+		0) AS 'ctmtel1', customer.ctmsepa, IF(rsvt.bus ='중형',
+		SUM(rsvt.num), 0) AS 'ctmtel2', rsvt.bus, rsvt.rsvt, IF(rsvt.bus
+		='우등',
+		SUM(rsvt.num),
+		0) AS 'ctmemail'
+
+		FROM rsvt
+
+		LEFT JOIN
+		customer on
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		rsvt.stday BETWEEN
+		#{stday}
+		AND
+		#{endday}
+
+		AND
+
+		rsvt.stday
+		!= rsvt.endday
+
+		AND
+
+		rsvt.rsvttrash = 1
+
+		GROUP BY
+		rsvt.stday
+
+		ORDER BY
+
+		rsvt.stday
+		ASC,
+
+		rsvt.endday
+		DESC
 
 	</select>
 
+	<select id="selectCalRsvt2" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		rsvt.stday,rsvt.endday, rsvt.ctmno, customer.ctmname, rsvt.desty, customer.ctmsepa, IF(rsvt.bus
+		='대형', SUM(rsvt.num), 0) AS 'ctmtel1', IF(rsvt.bus ='중형',
+		SUM(rsvt.num), 0) AS 'ctmtel2', rsvt.bus, rsvt.rsvt,
+		IF(rsvt.bus ='우등',
+		SUM(rsvt.num), 0) AS 'ctmemail'
+
+		FROM rsvt
+
+		LEFT JOIN
+		customer on
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		rsvt.stday BETWEEN
+		#{stday}
+		AND
+		#{endday}
+
+		AND
+
+		rsvt.stday = rsvt.endday
+
+		AND
+
+		rsvt.rsvttrash = 1
+
+		GROUP BY
+		rsvt.stday,
+		rsvt.ctmno,
+		rsvt.bus
+
+
+		ORDER BY
+
+		rsvt.stday,
+		rsvt.ctmno,
+		rsvt.bus
+		ASC,
+
+		rsvt.endday
+		DESC
+	</select>
+
+	<select id="selectCalRsvt3" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		rsvt.stday,rsvt.endday, rsvt.ctmno, customer.ctmname, rsvt.desty, IF(rsvt.bus ='대형', SUM(rsvt.num),
+		0) AS 'ctmtel1', customer.ctmsepa, IF(rsvt.bus ='중형',
+		SUM(rsvt.num), 0) AS 'ctmtel2', rsvt.bus, rsvt.rsvt, IF(rsvt.bus
+		='우등',
+		SUM(rsvt.num),
+		0) AS 'ctmemail'
+
+		FROM rsvt
+
+		LEFT JOIN
+		customer on
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		rsvt.stday BETWEEN
+		#{stday}
+		AND
+		#{endday}
+
+		AND
+
+		rsvt.stday
+		!= rsvt.endday
+
+		AND
+
+		rsvt.rsvttrash = 1
+
+		GROUP BY
+		rsvt.stday
+
+		ORDER BY
+
+		rsvt.stday
+		ASC,
+
+		rsvt.endday
+		DESC
+
+	</select>
+	<select id="selectCalRsvt4" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		rsvt.stday,rsvt.endday, rsvt.ctmno, customer.ctmname, rsvt.desty, customer.ctmsepa, IF(rsvt.bus
+		='대형', SUM(rsvt.num), 0) AS 'ctmtel1', IF(rsvt.bus ='중형',
+		SUM(rsvt.num), 0) AS 'ctmtel2', rsvt.bus, rsvt.rsvt,
+		IF(rsvt.bus ='우등',
+		SUM(rsvt.num), 0) AS 'ctmemail'
+
+		FROM rsvt
+
+		LEFT JOIN
+		customer on
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		rsvt.stday BETWEEN
+		#{stday}
+		AND
+		#{endday}
+
+		AND
+
+		rsvt.stday = rsvt.endday
+
+		AND
+
+		rsvt.rsvttrash = 1
+
+		GROUP BY
+		rsvt.stday,
+		rsvt.ctmno
+
+
+		ORDER BY
+
+		rsvt.stday,
+		rsvt.ctmno,
+		rsvt.bus
+		ASC,
+
+		rsvt.endday
+		DESC
+
+	</select>
 
 </mapper>

@@ -21,6 +21,9 @@ $(document).ready(function () {
     const nowDay = new Date(now_D.getFullYear(), now_D.getMonth(), now_D.getDate());
 
     const id = makeCal(nowMonth, nowDay);
+
+    makeMainBigCal(nowMonth, nowDay);
+
     setCalWhite(id);
 });
 
@@ -33,6 +36,9 @@ $(document).on('click', '#btnYesD', function () {
     var day = new Date(nowDay.setDate(nowDay.getDate() - 1));
 
     const id = makeCal(nowMonth, day);
+
+    makeMainBigCal(nowMonth, day);
+
     setCalWhite(id);
 });
 
@@ -44,6 +50,9 @@ $(document).on('click', '#btnToD', function () {
     var nowDay = new Date(now_D.getFullYear(), now_D.getMonth(), now_D.getDate());
 
     const id = makeCal(nowMonth, nowDay);
+
+    makeMainBigCal(nowMonth, nowDay);
+
     setCalWhite(id);
 });
 
@@ -56,6 +65,9 @@ $(document).on('click', '#btnTomD', function () {
     var day = new Date(nowDay.setDate(nowDay.getDate() + 1));
 
     const id = makeCal(nowMonth, day);
+
+    makeMainBigCal(nowMonth, day);
+
     setCalWhite(id);
 });
 
@@ -65,6 +77,7 @@ $(document).on('click', '#fnDownMonth', function () {
     var downMonth = new Date(now_D.setMonth(now_D.getMonth() - 1));
     $("#yearMonth").val(toStringByFormatting(downMonth).substring(0, 7));
     makeCal(downMonth, null);
+    makeMainBigCal(downMonth, null);
 });
 
 $(document).on('click', '#fnUpMonth', function () {
@@ -72,6 +85,7 @@ $(document).on('click', '#fnUpMonth', function () {
     var upMonth = new Date(now_D.setMonth(now_D.getMonth() + 1));
     $("#yearMonth").val(toStringByFormatting(upMonth).substring(0, 7));
     makeCal(upMonth, null);
+    makeMainBigCal(upMonth, null);
 });
 
 $(document).on('click', '#fnDownDay', function () {
@@ -84,6 +98,7 @@ $(document).on('click', '#fnDownDay', function () {
     $("#yearMonthDay").val(dday);
 
     makeCal(new Date(ddd), null);
+    makeMainBigCal(new Date(ddd), null);
 
     for (let i = 0; i < 42; i++) {
         let iiiddd = '#dash-cal-con-item' + (
@@ -106,6 +121,7 @@ $(document).on('click', '#fnUpDay', function () {
     $("#yearMonthDay").val(dday);
 
     makeCal(new Date(ddd), null);
+    makeMainBigCal(new Date(ddd), null);
 
     for (let i = 0; i < 42; i++) {
         let iiiddd = '#dash-cal-con-item' + (
@@ -157,7 +173,6 @@ function setCalWhite(e) {
         let ddd = new Date(day);
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
-        getMidCnt(dweek, i);
     }
 }
 
@@ -172,7 +187,6 @@ function setCalWhite1(day) {
         let ddd = new Date(day);
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
-        getMidCnt(dweek, i);
     }
 }
 
@@ -203,10 +217,12 @@ function getCalStD(month) {
 
 $("#yearMonth").change(function () {
     makeCal(get_Year_Month(), null);
+    makeMainBigCal(get_Year_Month(), null);
 });
 
 $("#yearMonthDay").change(function () {
     makeCal(get_Year_Month1(), null);
+    makeMainBigCal(get_Year_Month1(), null);
 
     for (let i = 0; i < 42; i++) {
         let iiiddd = '#dash-cal-con-item' + (
@@ -408,34 +424,6 @@ function makeCal(nowD, day) {
     }
     return rtn;
 }
-
-$(
-    '#dash-week-10, #dash-week-20, #dash-week-30, #dash-week-40, #dash-week-50, #da' +
-    'sh-week-60, #dash-week-70'
-).click(function () {
-    const iidd = $(this).children()[4];
-    const val = $(iidd).val();
-
-    $('#yearMonth').val(val.split('-')[0] + '-' + val.split('-')[1]);
-    makeCal(get_Year_Month(), null);
-
-    for (let i = 0; i < 42; i++) {
-        const iddd = '#dash-cal-con-item' + (
-            i + 1
-        );
-
-        const ddoomm = $(iddd)
-            .children()
-            .children()[1];
-        const day1 = $(ddoomm).val();
-
-        if (val == day1) {
-            cnt = 0;
-            setCalWhite($(iddd).attr('id'));
-            break;
-        }
-    }
-});
 
 function getCompaInfo() {
 
