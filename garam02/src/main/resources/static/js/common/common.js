@@ -24,13 +24,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 function LoadingWithMask(param) {
     return new Promise(function (resolve, reject) {
 
-        //화면의 높이와 너비를 구합니다.
-        var maskHeight = $(document).height();
-        var maskWidth = window.document.body.clientWidth;
-
-        //화면에 출력할 마스크를 설정해줍니다.
-
-        mask = `<div id='mask'>
+        mask = `<div id='mask' style="width:100% ; height:100% ;">
         <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -142,14 +136,8 @@ function LoadingWithMask(param) {
     </svg>
     </div>`;
 
-        //화면에 레이어 추가
         $('body').append(mask);
-        // .append(loadingImg) 마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
-        $('#mask').css({'width': '100%', 'height': '100%'});
-
-        //마스크 표시
         $('#mask').show();
-        //로딩중 이미지 표시 $('#loadingImg').show();
         resolve(param);
     })
 }

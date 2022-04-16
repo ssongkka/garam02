@@ -167,6 +167,8 @@ public class MainServiceImpl implements MainService {
 	public List<RsvtDTO> selectRSVT(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = rsvtMapper.selectRSVT(rsvtDTO);
 
+		System.out.println("하이요하이요");
+
 		return list;
 	}
 
@@ -364,6 +366,9 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<RsvtDTO> selectCustomerCheck(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = new ArrayList<RsvtDTO>();
+
+		System.out.println("rsvtDTO.getCtmno()    " + rsvtDTO.getCtmno());
+
 		if (rsvtDTO.getCtmno().length() > 0) {
 			int rtn = rsvtMapper.updateCtm(rsvtDTO);
 			list.add(rsvtDTO);

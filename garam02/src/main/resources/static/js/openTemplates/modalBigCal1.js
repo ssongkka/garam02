@@ -1,20 +1,29 @@
-$(document).on('show.bs.offcanvas', '#mdBigCal', function () {
-    const year = $('#yearMonth')
-        .val()
-        .split('-')[0];
-    const month = $('#yearMonth')
-        .val()
-        .split('-')[1];
-
-    const nowMonth = new Date(parseInt(year), parseInt(month) - 1, 1);
-
-    $("#yearMonthBig").val($('#yearMonth').val());
-
-    makeBigCal(nowMonth);
-});
-
 $(document).on('click', '.ad-cal-items-2', function () {
-    $('#mdBigCal').offcanvas('show');
+    mdBigCalShow1().then(mdBigCalShow2);
+
+    function mdBigCalShow1() {
+        return new Promise(function (resolve, reject) {
+            const year = $('#yearMonth')
+                .val()
+                .split('-')[0];
+            const month = $('#yearMonth')
+                .val()
+                .split('-')[1];
+
+            const nowMonth = new Date(parseInt(year), parseInt(month) - 1, 1);
+
+            $("#yearMonthBig").val($('#yearMonth').val());
+
+            makeBigCal(nowMonth);
+            resolve();
+        })
+    }
+    function mdBigCalShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#mdBigCal').offcanvas('show');
+            resolve();
+        })
+    }
 });
 
 $("#yearMonthBig").change(function () {
@@ -383,47 +392,54 @@ function makeBigCal(nowD, day) {
 }
 
 $(document).on('click', '.bigTd', function () {
-    const aaa = $(this).children();
 
-    $(document).on('show.bs.modal', '#modalBigCal', function () {
+    bigTdMdShow1().then(bigTdMdShow2);
 
-        const aaa2 = $(aaa).children()[0];
-        const aaa3 = $(aaa2).children()[0];
+    function bigTdMdShow1() {
+        return new Promise(function (resolve, reject) {
+            const aaa = $(this).children();
+            const aaa2 = $(aaa).children()[0];
+            const aaa3 = $(aaa2).children()[0];
 
-        const day = $(aaa3).val();
+            const day = $(aaa3).val();
 
-        const dateN = getDayOfWeek(new Date(day).getDay());
+            const dateN = getDayOfWeek(new Date(day).getDay());
 
-        $('#modalBigCalLabel').text(day + ' ' + dateN);
+            $('#modalBigCalLabel').text(day + ' ' + dateN);
 
-        name();
+            name();
 
-        function name() {
-            const val = day;
+            function name() {
+                const val = day;
 
-            $('#yearMonth').val($('#yearMonthBig').val());
-            makeCal(get_Year_Month(), null);
-            makeMainBigCal(get_Year_Month(), null);
+                $('#yearMonth').val($('#yearMonthBig').val());
+                makeCal(get_Year_Month(), null);
 
-            for (let i = 0; i < 42; i++) {
-                const iddd = '#dash-cal-con-item' + (
-                    i + 1
-                );
+                for (let i = 0; i < 42; i++) {
+                    const iddd = '#dash-cal-con-item' + (
+                        i + 1
+                    );
 
-                const ddoomm = $(iddd)
-                    .children()
-                    .children()[1];
-                const day1 = $(ddoomm).val();
+                    const ddoomm = $(iddd)
+                        .children()
+                        .children()[1];
+                    const day1 = $(ddoomm).val();
 
-                if (val == day1) {
-                    cnt = 0;
-                    setCalWhite($(iddd).attr('id'));
-                    break;
+                    if (val == day1) {
+                        cnt = 0;
+                        setCalWhite($(iddd).attr('id'));
+                        makeMainBigCal();
+                        break;
+                    }
                 }
             }
-        }
-    });
-
-    $('#modalBigCal').modal('show');
-
+            resolve();
+        })
+    }
+    function bigTdMdShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#modalBigCal').modal('show');
+            resolve();
+        })
+    }
 });

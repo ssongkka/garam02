@@ -347,9 +347,7 @@ table > tbody > tr > .tdRight {
     cursor: pointer;
 }
 
-.table {
-    transition: 0.05s linear;
-}
+.table {}
 
 object {
     width: 100%;
@@ -357,8 +355,14 @@ object {
     padding: 0.5rem;
 }
 
-#mask {
+.loadMask {
     position: absolute;
+    z-index: 9000;
+    background-color: #00000033;
+}
+
+#mask {
+    position: fixed;
     z-index: 9000;
     background-color: #00000033;
     display: none;
@@ -367,16 +371,10 @@ object {
 }
 
 #mask svg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100% - 40rem);
+    min-height: 70%;
 }
 
-#pills-profile-tab span {
-    font-size: 1.5rem;
-    margin-left: 1rem;
-}
+#pills-profile-tab span {}
 
 #offCustomer {
     z-index: 1400;

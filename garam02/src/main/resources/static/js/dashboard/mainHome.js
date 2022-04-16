@@ -615,7 +615,16 @@ $(document).on('click', '.deail-form-item', function () {
     };
 });
 
-function makeMainBigCal(nowD, day) {
+function makeMainBigCal() {
+
+    let arrDays = new Array();
+    let arrSukCnt = new Array();
+    let arrIlCnt = new Array();
+
+    let arrSukCnt45 = new Array();
+    let arrSukCnt25 = new Array();
+    let arrSukCnt28 = new Array();
+
     LoadingWithMask()
         .then(setMainCalendar)
         .then(setBigCalendarHol)
@@ -625,14 +634,8 @@ function makeMainBigCal(nowD, day) {
         .then(getCalRsvt1)
         .then(getCalRsvt2)
         .then(closeLoadingWithMask);
+    clTdColor();
 
-    let arrDays = new Array();
-    let arrSukCnt = new Array();
-    let arrIlCnt = new Array();
-
-    let arrSukCnt45 = new Array();
-    let arrSukCnt25 = new Array();
-    let arrSukCnt28 = new Array();
     function setMainCalendar(result) {
         return new Promise(function (resolve, reject) {
             const aaa = new Date($("#yearMonth").val());
@@ -838,11 +841,6 @@ function makeMainBigCal(nowD, day) {
                         arrSukCnt25.push(tmpCnt25);
                         arrSukCnt28.push(tmpCnt28);
                     }
-                    console.log(arrSukCnt);
-
-                    console.log(arrSukCnt45);
-                    console.log(arrSukCnt25);
-                    console.log(arrSukCnt28);
                     resolve(result);
                 }
             })
@@ -1339,7 +1337,7 @@ function makeMainBigCal(nowD, day) {
                                 for (let l3 = 1; l3 < arrTmpDay[l].split('').length; l3++) {
                                     rrem = rrem + getTdSize(parseInt(arrTmpDay[l].split('')[l3]));
                                 }
-                                $(saveDom[l]).attr('class', 'mainCaltd-middle-item middle-suk');
+                                $(saveDom[l]).attr('class', 'mainCaltd-middle-item middle-suk card-song');
                                 $(saveDom[l]).css('right', (rrem * -1) + "px");
 
                                 if (saveDom.length > 1) {
@@ -1527,150 +1525,6 @@ function makeMainBigCal(nowD, day) {
             })
         })
     }
-
-    function getCalRsvt2123123(result) {
-        return new Promise(function (resolve, reject) {
-            const url = "/home/homeCal2";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-
-            for (let l = 0; l < 42; l++) {
-                let stD = new Date(result[0]);
-                stD = new Date(stD.setDate(stD.getDate() + l));
-
-                const params = {
-                    "stday": toStringByFormatting(stD)
-                };
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    dataType: "json",
-                    data: JSON.stringify(params),
-
-                    success: function (r) {
-                        let arrTmpCtmno = new Array();
-
-                        for (let i = 0; i < r.length; i++) {
-                            arrTmpCtmno.push(r[i].ctmno);
-                        }
-
-                        const uniqueCtm = [...new Set(arrTmpCtmno)];
-                        let dayArrTmp = new Array();
-                        let ctoNameArrTmp = new Array();
-                        let bus45ArrTmp = new Array();
-                        let bus25ArrTmp = new Array();
-                        let bus28ArrTmp = new Array();
-                        let sepaArrTmp = new Array();
-                        let destyArrTmp = new Array();
-
-                        for (let k = 0; k < uniqueCtm.length; k++) {
-                            let cnt45 = 0;
-                            let cnt25 = 0;
-                            let cnt28 = 0;
-                            let cDay = '';
-                            let cName = '';
-                            let cSepa = '';
-                            let ddesty = '';
-                            for (let i = 0; i < r.length; i++) {
-                                if (r[i].ctmno == uniqueCtm[k]) {
-                                    switch (r[i].bus) {
-                                        case '대형':
-                                            cnt45 = cnt45 + r[i].num;
-                                            break;
-                                        case '중형':
-                                            cnt25 = cnt25 + r[i].num;
-                                            break;
-                                        case '우등':
-                                            cnt28 = cnt28 + r[i].num;
-                                            break;
-                                    }
-                                    cDay = r[i].stday;
-                                    cName = r[i].ctmname;
-                                    cSepa = r[i].ctmsepa;
-
-                                    ddesty += r[i].desty;
-                                }
-                            }
-                            dayArrTmp.push(cDay);
-                            ctoNameArrTmp.push(cName);
-                            bus45ArrTmp.push(cnt45);
-                            bus25ArrTmp.push(cnt25);
-                            bus28ArrTmp.push(cnt28);
-                            sepaArrTmp.push(cSepa);
-                            destyArrTmp.push(ddesty);
-                        }
-
-                        for (let i = 0; i < uniqueCtm.length; i++) {
-                            const trNum = Math.floor(l / 7);
-                            let tdNum = l % Math.floor(parseInt(trNum) * 7);
-
-                            if (l < 7) {
-                                tdNum = l;
-                            }
-
-                            const aaa = $('#tbMainCal').children()[trNum];
-                            const bbb = $(aaa).children()[tdNum];
-
-                            const bbb1 = $(bbb).children()[0];
-                            const bbb4 = $(bbb1).children()[0];
-
-                            if (toStringByFormatting(stD) == $(bbb4).val()) {
-                                const ccc = $(bbb1).children()[2];
-                                const ccc1 = $(ccc).children();
-
-                                let qwer = '';
-
-                                switch (sepaArrTmp[i]) {
-                                    case 0:
-                                        qwer += `<span class="spNum1">` + ctoNameArrTmp[i] + `</span>`;
-                                        break;
-                                    case 1:
-                                        qwer += `<span class="spNum1">` + ctoNameArrTmp[i] + `</span>`;
-                                        break;
-                                    case 2:
-                                        qwer += `<span class="spNum1">` + ctoNameArrTmp[i] + `</span>`;
-                                        break;
-                                    default:
-                                        break;
-                                }
-
-                                if (bus45ArrTmp[i] > 0) {
-                                    qwer += `<span class="spNum2 big45">` + bus45ArrTmp[i] + `</span>`;
-                                }
-                                if (bus25ArrTmp[i] > 0) {
-                                    qwer += `<span class="spNum2 big25">` + bus25ArrTmp[i] + `</span>`;
-                                }
-                                if (bus28ArrTmp[i] > 0) {
-                                    qwer += `<span class="spNum2 big28">` + bus28ArrTmp[i] + `</span>`;
-                                }
-
-                                for (let j2 = 0; j2 < ccc1.length; j2++) {
-                                    const chch = $(ccc1[j2]).children()[0];
-                                    const dayval = $(ccc1[j2]).children()[2];
-                                    const ctmval = $(ccc1[j2]).children()[3];
-                                    const sepaa = $(ccc1[j2]).children()[4];
-                                    const texttt = $(chch).text();
-                                    if (!texttt) {
-                                        $(chch).html(qwer);
-                                        $(dayval).val(r[i].stday);
-                                        $(ctmval).val(r[i].rsvt);
-                                        $(sepaa).val(1);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-                if (l == 41) {}
-                resolve();
-            }
-        })
-    }
 }
 
 $(window).on('resize', function () {
@@ -1719,6 +1573,10 @@ function getTdSize(params) {
 
 $(document).on('click', '.middle-suk', function () {
     console.log("하하이이요요");
+
+    const size1 = document.querySelector('html');
+    console.log(parseFloat(size1.getBoundingClientRect().width));
+    console.log(parseFloat(size1.getBoundingClientRect().height));
 });
 
 $(document).ready(function () {
@@ -1791,3 +1649,33 @@ $(document).on('click', '.mainCaltd-top-day', function () {
 
     setCalWhite(iiddddd);
 });
+
+function clTdColor() {
+    for (let i = 0; i < 42; i++) {
+        const trNum = Math.floor(i / 7);
+        let tdNum = i % Math.floor(parseInt(trNum) * 7);
+
+        if (i < 7) {
+            tdNum = i;
+        }
+
+        const aaa = $('#tbMainCal').children()[trNum];
+        const bbb = $(aaa).children()[tdNum];
+
+        $(bbb).removeClass('tdCho');
+    }
+
+    const calIddd = $('.dash-cal-con-item-t').attr('id');
+
+    if (calIddd) {
+        const calNum = calIddd.split('dash-cal-con-item');
+
+        const realCalNum = calNum[1];
+
+        const iiiddd = '#calMid' + realCalNum;
+        const ccc = $(iiiddd)
+            .parent()
+            .parent();
+        $(ccc).addClass('tdCho');
+    }
+}

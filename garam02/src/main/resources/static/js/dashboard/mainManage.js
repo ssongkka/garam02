@@ -261,21 +261,25 @@ $(document).on('click', '.manageMore', function () {
 
     const tmpCtmno = $(aaa).text();
 
-    $(document).on('show.bs.modal', '#modalRsvtMoney', function () {
-        $('#manageCtmno').val(tmpCtmno);
+    $('#manageCtmno').val(tmpCtmno);
 
-        const dayyy = $('#yearMonthDay').val() + ' ' + getDayOfWeek(
-            new Date($('#yearMonthDay').val()).getDay()
-        );
+    const dayyy = $('#yearMonthDay').val() + ' ' + getDayOfWeek(
+        new Date($('#yearMonthDay').val()).getDay()
+    );
 
-        $('#manageTitle').text(dayyy);
+    $('#manageTitle').text(dayyy);
 
-        LoadingWithMask()
-            .then(getManageMD1)
-            .then(getManageMD2)
-            .then(getManageMD3)
-            .then(closeLoadingWithMask);
+    LoadingWithMask()
+        .then(getManageMD1)
+        .then(getManageMD2)
+        .then(getManageMD3)
+        .then(mangeShow1)
+        .then(closeLoadingWithMask);
 
-    });
-    $('#modalRsvtMoney').modal('show');
+    function mangeShow1() {
+        return new Promise(function (resolve, reject) {
+            $('#modalRsvtMoney').modal('show');
+            resolve();
+        })
+    }
 });

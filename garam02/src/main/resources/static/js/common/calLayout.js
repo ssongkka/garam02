@@ -22,9 +22,8 @@ $(document).ready(function () {
 
     const id = makeCal(nowMonth, nowDay);
 
-    makeMainBigCal(nowMonth, nowDay);
-
     setCalWhite(id);
+    makeMainBigCal();
 });
 
 $(document).on('click', '#btnYesD', function () {
@@ -37,9 +36,9 @@ $(document).on('click', '#btnYesD', function () {
 
     const id = makeCal(nowMonth, day);
 
-    makeMainBigCal(nowMonth, day);
-
     setCalWhite(id);
+
+    makeMainBigCal();
 });
 
 $(document).on('click', '#btnToD', function () {
@@ -51,9 +50,9 @@ $(document).on('click', '#btnToD', function () {
 
     const id = makeCal(nowMonth, nowDay);
 
-    makeMainBigCal(nowMonth, nowDay);
-
     setCalWhite(id);
+
+    makeMainBigCal();
 });
 
 $(document).on('click', '#btnTomD', function () {
@@ -66,9 +65,9 @@ $(document).on('click', '#btnTomD', function () {
 
     const id = makeCal(nowMonth, day);
 
-    makeMainBigCal(nowMonth, day);
-
     setCalWhite(id);
+
+    makeMainBigCal();
 });
 
 $(document).on('click', '#fnDownMonth', function () {
@@ -77,7 +76,7 @@ $(document).on('click', '#fnDownMonth', function () {
     var downMonth = new Date(now_D.setMonth(now_D.getMonth() - 1));
     $("#yearMonth").val(toStringByFormatting(downMonth).substring(0, 7));
     makeCal(downMonth, null);
-    makeMainBigCal(downMonth, null);
+    makeMainBigCal();
 });
 
 $(document).on('click', '#fnUpMonth', function () {
@@ -85,7 +84,7 @@ $(document).on('click', '#fnUpMonth', function () {
     var upMonth = new Date(now_D.setMonth(now_D.getMonth() + 1));
     $("#yearMonth").val(toStringByFormatting(upMonth).substring(0, 7));
     makeCal(upMonth, null);
-    makeMainBigCal(upMonth, null);
+    makeMainBigCal();
 });
 
 $(document).on('click', '#fnDownDay', function () {
@@ -98,7 +97,6 @@ $(document).on('click', '#fnDownDay', function () {
     $("#yearMonthDay").val(dday);
 
     makeCal(new Date(ddd), null);
-    makeMainBigCal(new Date(ddd), null);
 
     for (let i = 0; i < 42; i++) {
         let iiiddd = '#dash-cal-con-item' + (
@@ -109,6 +107,7 @@ $(document).on('click', '#fnDownDay', function () {
             setCalWhite($(iiiddd).attr('id'));
         }
     }
+    makeMainBigCal();
 });
 
 $(document).on('click', '#fnUpDay', function () {
@@ -121,7 +120,6 @@ $(document).on('click', '#fnUpDay', function () {
     $("#yearMonthDay").val(dday);
 
     makeCal(new Date(ddd), null);
-    makeMainBigCal(new Date(ddd), null);
 
     for (let i = 0; i < 42; i++) {
         let iiiddd = '#dash-cal-con-item' + (
@@ -132,6 +130,7 @@ $(document).on('click', '#fnUpDay', function () {
             setCalWhite($(iiiddd).attr('id'));
         }
     }
+    makeMainBigCal();
 });
 
 function get_Year_Month() {
@@ -162,7 +161,9 @@ function setCalWhite(e) {
         .val()
         .split('-')[1];
 
-    $("#yearMonth").val(day.substring(0, 7));
+    if (!$("#yearMonth").val()) {
+        $("#yearMonth").val(day.substring(0, 7));
+    }
 
     $("#yearMonthDay").val(day);
     setBigDay(day);
@@ -174,6 +175,7 @@ function setCalWhite(e) {
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
     }
+    clTdColor();
 }
 
 function setCalWhite1(day) {
@@ -188,6 +190,7 @@ function setCalWhite1(day) {
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
     }
+    clTdColor();
 }
 
 function setBigDay(day) {
@@ -217,12 +220,11 @@ function getCalStD(month) {
 
 $("#yearMonth").change(function () {
     makeCal(get_Year_Month(), null);
-    makeMainBigCal(get_Year_Month(), null);
+    makeMainBigCal();
 });
 
 $("#yearMonthDay").change(function () {
     makeCal(get_Year_Month1(), null);
-    makeMainBigCal(get_Year_Month1(), null);
 
     for (let i = 0; i < 42; i++) {
         let iiiddd = '#dash-cal-con-item' + (
@@ -233,9 +235,13 @@ $("#yearMonthDay").change(function () {
             setCalWhite($(iiiddd).attr('id'));
         }
     }
+    makeMainBigCal();
 });
 
 function makeCal(nowD, day) {
+    const ddddddd = toStringByFormatting(nowD);
+    $("#yearMonth").val(ddddddd.split('-')[0] + '-' + ddddddd.split('-')[1])
+
     let rtn = '';
 
     setCalendar().then(setCalendarHol);
@@ -250,27 +256,28 @@ function makeCal(nowD, day) {
             ) + "-" + stD.getDate();
             let dayED = "";
 
-            let htmls = `<div class="dash-cal-con-item">
+            let htmls = `
+                    <div class="dash-cal-con-item">
                         <span>월</span>
-                     </div>
-                     <div class="dash-cal-con-item">
+                    </div>
+                    <div class="dash-cal-con-item">
                         <span>화</span>
-                     </div>
-                     <div class="dash-cal-con-item">
+                    </div>
+                    <div class="dash-cal-con-item">
                         <span>수</span>
-                      </div>
-                     <div class="dash-cal-con-item">
+                    </div>
+                    <div class="dash-cal-con-item">
                         <span>목</span>
-                      </div>
-                      <div class="dash-cal-con-item">
+                    </div>
+                    <div class="dash-cal-con-item">
                         <span>금</span>
-                     </div>
-                     <div class="dash-cal-con-item cal-sat">
+                    </div>
+                    <div class="dash-cal-con-item cal-sat">
                         <span class="#0C6FCD">토</span>
-                     </div>
-                     <div class="dash-cal-con-item cal-sun">
+                    </div>
+                    <div class="dash-cal-con-item cal-sun">
                         <span class="#CF2F11">일</span>
-                     </div>`;
+                    </div>`;
 
             for (var i = 0; i < 42; i++) {
                 let a = 0;
@@ -406,8 +413,8 @@ function makeCal(nowD, day) {
                             $(calID)
                                 .children()
                                 .children()
-                                .css('background', 'rgba(255, 239, 55, 0.5)')
-                                .css('border-radius', '30%')
+                                .css('background', 'rgba(255,220,40,.15)')
+                                .css('border-radius', '50%')
                                 .css('padding', '0 0.5rem');
                         } else {
                             $(calID)
@@ -442,9 +449,6 @@ function getCompaInfo() {
 }
 
 $(document).on('click', '#btnSetting', function () {
-    $(document).on('show.bs.modal', '#mdSetting', function () {
-        console.log("하이요");
-    });
     $('#mdSetting').modal('show');
 });
 

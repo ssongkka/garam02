@@ -20,31 +20,42 @@ $(document).on('change', 'input[name=ctmsepa]', function () {
     }
 });
 $(document).on('click', '#offCbtn-x', function () {
-    reset();
     LoadingWithMask()
+        .then(reset)
         .then(setTableC)
         .then(closeLoadingWithMask);
 });
 
-$(document).on('show.bs.offcanvas', '#offCustomer', function () {
-    reset();
+function showOffCustomer() {
+
     LoadingWithMask()
+        .then(reset)
         .then(setTableC)
+        .then(showOffcanvas)
         .then(closeLoadingWithMask);
-})
+
+    function showOffcanvas() {
+        return new Promise(function (resolve, reject) {
+            showOffCustomer();
+            resolve();
+        })
+    }
+}
 
 function reset() {
-    $('#ctmnoC').val('');
-    $('#ctmnameC').val('');
-    $('#tel1C').val('');
-    $('#ctmstpC').val('');
-    $('#ctmdetailC').val('');
-    $('#ctmtel2C').val('');
-    $('#ctmaddressC').val('');
-    $('#ctmemailC').val('');
-    $('#ctmcompanumC').val('');
-    $('#ctmfaxC').val('');
-    $('#ctmhomepageC').val('');
+    return new Promise(function (resolve, reject) {
+        $('#ctmnoC').val('');
+        $('#ctmnameC').val('');
+        $('#tel1C').val('');
+        $('#ctmstpC').val('');
+        $('#ctmdetailC').val('');
+        $('#ctmtel2C').val('');
+        $('#ctmaddressC').val('');
+        $('#ctmemailC').val('');
+        $('#ctmcompanumC').val('');
+        $('#ctmfaxC').val('');
+        $('#ctmhomepageC').val('');
+    })
 }
 
 function setTableC(name) {

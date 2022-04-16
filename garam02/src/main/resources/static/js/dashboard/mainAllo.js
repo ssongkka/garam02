@@ -15,6 +15,30 @@ $(document).on('keydown', 'input', function (eInner) {
     }
 });
 
+function rsvtMdHide() {
+    return new Promise(function (resolve, reject) {
+        $('#ctmnameUp').val('')
+        $('#ctmlseqqqUp').val('')
+        $('#ctmnoUp').val('');
+        $('#inCustSepaUp1').prop('checked', true);
+        $('#ctmtel1Up').val('');
+        $('#ctmstpUp').val('');
+        $('#ctmdetailUp').val('');
+        $('#ctmtel2Up').val('');
+        $('#ctmfaxUp').val('');
+        $('#ctmaddressUp').val('');
+        $('#ctmemailUp').val('');
+        $('#ctmcompanumUp').val('');
+        $('#ctmhomepageUp').val('');
+
+        setCalWhite($('.dash-cal-con-item-t').attr('id'));
+        makeMainBigCal();
+
+        $('#modal-rsvt').modal('hide');
+        resolve();
+    })
+}
+
 function scrollY() {
     var id = '#' + $(':focus').attr('id');
     var location = $(id)
@@ -772,11 +796,6 @@ function insertOperOne(id, num) {
 
 function mdOneWay(val) {
 
-    $(document).on('show.bs.modal', '#modal-one', function () {
-        LoadingWithMask()
-            .then(shoMdOne)
-            .then(closeLoadingWithMask);
-    });
     const iidd = '#' + val;
 
     const opernum = $(iidd)
@@ -786,7 +805,10 @@ function mdOneWay(val) {
         .val();
 
     if (opernum) {
-        $('#modal-one').modal('show');
+        LoadingWithMask()
+            .then(shoMdOne)
+            .then(showMD)
+            .then(closeLoadingWithMask);
     } else {
         alert('첫번째 운행 할 차량을 먼저 배차해주세요.');
     }
@@ -1025,6 +1047,13 @@ function mdOneWay(val) {
             resolve();
         })
     }
+
+    function showMD() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-one').modal('show');
+            resolve();
+        })
+    }
 }
 
 $(document).on('click', '#btn-one-plus', function () {
@@ -1033,8 +1062,14 @@ $(document).on('click', '#btn-one-plus', function () {
     $('#btn-size').val(++size);
 });
 
-$(document).on('hide.bs.modal', '#modal-one', function () {
+$(document).on('click', '#modal-oneX', function () {
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
+    makeMainBigCal();
+});
+
+$(document).on('click', '#modal-oneEnd', function () {
+    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+    makeMainBigCal();
 });
 
 function plusOneWay(num) {
@@ -1498,8 +1533,23 @@ function getAlloList(day) {
                             }
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<small><mark><i class="fas fa-bus"></i>' + r[i].bus + '</mark><span class="bad' +
-                                    'ge bg-secondary">' + r[i].num + '</span></small>';
+                            switch (r[i].bus) {
+                                case '대형':
+                                    htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
+                                            r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
+                                            'small>';
+                                    break;
+                                case '중형':
+                                    htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
+                                            r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
+                                            'small>';
+                                    break;
+                                case '우등':
+                                    htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
+                                            r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
+                                            'small>';
+                                    break;
+                            }
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
                             htmls += '<small><i class="fas fa-map-pin"></i>' + r[i].rsvpstp + '</small>';
@@ -1527,9 +1577,9 @@ function getAlloList(day) {
                             htmls += '<small>' + r[i].cont + '</small> ';
                             htmls += '</div>';
                             htmls += '<div class="allo-detail-item">';
-                            htmls += '<button class="btn btn-default allo-detail-item-1 card-song" id="btn-1-' + r[i].rsvtseq +
-                                    '-' + i + '" onclick="getRsvt(this.id)"><i class="fa-solid fa-magnifying-glass-' +
-                                    'plus"></i></button>';
+                            htmls += '<button class="btn btn-default allo-detail-item-1 card-song rsvtDetails" id="b' +
+                                    'tn-1-' + r[i].rsvtseq + '-' + i + '"><i class="fa-solid fa-magnifying-glass-pl' +
+                                    'us"></i></button>';
                             htmls += '';
                             htmls += '</div>';
                             const aaa = $('.dash-cal-con-item-t')
@@ -2317,32 +2367,44 @@ function delOne(param) {
     }
 }
 
-function getRsvt(id) {
-    $(document).on('show.bs.modal', '#modal-rsvt', function () {
-        LoadingWithMask()
-            .then(getRsvtDe)
-            .then(getCustDe)
-            .then(closeLoadingWithMask);
-    });
+$('#btn-1-2275-1').on('click', function () {
+    console.log("좀좀좀조");
+});
+
+$(document).on('click', '.rsvtDetails', function () {
+
+    const aaa = $(this).parent();
+    const aaa1 = $(aaa).parent();
+    const aaa11 = $(aaa1).prev();
+    const rsvtttt = $(aaa11).val();
+
+    const bbb = $(this).parent();
+    const bbb1 = $(bbb).parent();
+    const bbb11 = $(bbb1).parent();
+    const bbb111 = $(bbb11).parent();
+    const bbb1111 = $(bbb111).prev();
+    const bbb11111 = $(bbb1111).prev();
+    const bbb111111 = $(bbb11111).prev();
+
+    const ctmnonono = $(bbb111111).val();
+
+    LoadingWithMask()
+        .then(getRsvtDe)
+        .then(getCustDe)
+        .then(shomd)
+        .then(closeLoadingWithMask);
 
     function getRsvtDe(result) {
         return new Promise(function (resolve, reject) {
-            const iidd = '#' + id;
-            const rsvt = $(iidd)
-                .parent()
-                .parent()
-                .prev()
-                .val();
 
-            $('#md-rsvtNum').val(rsvt);
+            $('#md-rsvtNum').val(rsvtttt);
 
             const url = "/allo/chRSVT";
             const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
+                "Content-Type": "application/json"
             };
             const params = {
-                "rsvt": rsvt
+                "rsvt": rsvtttt
             };
 
             $.ajax({
@@ -2351,9 +2413,10 @@ function getRsvt(id) {
                 headers: headers,
                 dataType: "json",
                 data: JSON.stringify(params),
+                cache: false,
                 success: function (r) {
+                    console.log(r);
                     if (r.length > 0) {
-
                         $('#stday-1').val(r[0].stday);
                         $('#endday-1').val(r[0].endday);
                         $('#bus-1').val(r[0].bus);
@@ -2381,7 +2444,7 @@ function getRsvt(id) {
                         $('#numm-1').val('');
                     }
                     chDateInput();
-                    resolve(r[0].ctmno);
+                    resolve();
                 }
             });
         })
@@ -2396,7 +2459,7 @@ function getRsvt(id) {
             };
 
             const params = {
-                "ctmno": result
+                "ctmno": ctmnonono
             };
 
             $.ajax({
@@ -2405,6 +2468,7 @@ function getRsvt(id) {
                 headers: headers,
                 dataType: "json",
                 data: JSON.stringify(params),
+                cache: false,
                 success: function (r) {
                     if (r.length > 0) {
                         $('#ctmnameUp').val('')
@@ -2421,7 +2485,7 @@ function getRsvt(id) {
                         $('#ctmcompanumUp').val('');
                         $('#ctmhomepageUp').val('');
 
-                        $('#ctmnoIn').val(r[0].ctmno);
+                        $('#ctmnoUp').val(r[0].ctmno);
 
                         if (r[0].ctmsepa === 0) {
                             $('#inCustSepaUp1').prop('checked', true);
@@ -2472,8 +2536,14 @@ function getRsvt(id) {
         })
     }
 
-    $('#modal-rsvt').modal('show');
-}
+    function shomd(result) {
+        return new Promise(function (resolve, reject) {
+            $('#modal-rsvt').modal('show');
+            resolve();
+        })
+    }
+
+});
 
 function updateRsvt(result) {
     return new Promise(function (resolve, reject) {
@@ -2545,8 +2615,7 @@ function updateRsvt(result) {
                     } else if (r == -2) {
                         alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
                     }
-                    $('#modal-rsvt').modal('hide');
-                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                    rsvtMdHide();
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);
@@ -2619,10 +2688,10 @@ $(document).on('click', '#inNewUp', function () {
 $(document).on('click', '#btn-rsvt-insert', function () {
     if ($('#ctmnameUp').val() && $('#ctmtel1Up').val()) {
         if (confirm("예약정보를 수정하시겠습니까?\n\n수정한 예약정보의 배차는 모두 취소됩니다. 다시 배차해 주세요.")) {
-            $('#modal-rsvt').modal('hide');
             LoadingWithMask()
                 .then(updateCtm)
                 .then(updateRsvt)
+                .then(rsvtMdHide)
                 .then(closeLoadingWithMask);
         }
     } else {
@@ -2632,8 +2701,7 @@ $(document).on('click', '#btn-rsvt-insert', function () {
 });
 
 $(document).on('click', '#btn-rsvt-close', function () {
-    $('#modal-rsvt').modal('hide');
-    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+    rsvtMdHide();
 });
 
 $(document).on('click', '#btn-rsvt-cancle', function () {
@@ -2661,8 +2729,7 @@ $(document).on('click', '#btn-rsvt-cancle', function () {
                 } else if (r == -2) {
                     alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
                 }
-                $('#modal-rsvt').modal('hide');
-                setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                rsvtMdHide();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
@@ -2695,8 +2762,7 @@ $(document).on('click', '#btn-rsvt-del', function () {
                 } else if (r == -2) {
                     alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
                 }
-                $('#modal-rsvt').modal('hide');
-                setCalWhite($('.dash-cal-con-item-t').attr('id'));
+                rsvtMdHide();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
@@ -2769,18 +2835,27 @@ $(document).on('click', '.btnPaPer', function () {
     const tel = $(aaa1).text();
     const ctm = $(aaa2).val();
 
-    $(document).on('show.bs.modal', '#modalPaper0', function () {
+    show01().then(show02);
 
-        $('#paperTitle').text(name + ' ' + tel + ' ' + $('#yearMonthDay').val());
-        $('#paperCtm').val(ctm);
-        $('#paperDay').val($('#yearMonthDay').val());
+    function show01() {
+        return new Promise(function (resolve, reject) {
+            $('#paperTitle').text(name + ' ' + tel + ' ' + $('#yearMonthDay').val());
+            $('#paperCtm').val(ctm);
+            $('#paperDay').val($('#yearMonthDay').val());
 
-        $('#ctmmm').val(ctm);
-        $('#dayyy').val($('#yearMonthDay').val());
+            $('#ctmmm').val(ctm);
+            $('#dayyy').val($('#yearMonthDay').val());
 
-        $('#modalPaper0Ti').text(name + ' 운행 배차서류 생성');
-        $('#ctmmmName').val(name);
-    })
+            $('#modalPaper0Ti').text(name + ' 운행 배차서류 생성');
+            $('#ctmmmName').val(name);
+            resolve();
+        })
+    }
+    function show02() {
+        return new Promise(function (resolve, reject) {
+            $('#modalPaper0').modal('show');
+            resolve();
+        })
+    }
 
-    $('#modalPaper0').modal('show');
 });

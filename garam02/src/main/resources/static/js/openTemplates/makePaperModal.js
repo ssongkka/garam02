@@ -1,26 +1,27 @@
 $(document).ready(function () {});
 
 $(document).on('click', '#btnContPaper', function () {
-
-    $(document).on('show.bs.modal', '#modalPaper1', function () {
-        $('#modalPaper0').modal('hide');
-    })
+    $('#modalPaper0').modal('hide');
     $('#modalPaper1').modal('show');
 });
 
 $(document).on('click', '#btnAlloPaper', function () {
-    $(document).on('show.bs.modal', '#modalPaper2', function () {
-        LoadingWithMask()
-            .then(setPapperOrder)
-            .then(setPapperAllo1)
-            .then(setPapperAllo2)
-            .then(setEnd)
-            .then(closeLoadingWithMask);
 
-        function setPapperOrder() {
-            return new Promise(function (resolve, reject) {
-                $('#tb-paper2').html(
-                    `
+    modalPaper2Show1().then(modalPaper2Show2);
+
+    function modalPaper2Show1() {
+        return new Promise(function (resolve, reject) {
+            LoadingWithMask()
+                .then(setPapperOrder)
+                .then(setPapperAllo1)
+                .then(setPapperAllo2)
+                .then(setEnd)
+                .then(closeLoadingWithMask);
+
+            function setPapperOrder() {
+                return new Promise(function (resolve, reject) {
+                    $('#tb-paper2').html(
+                        `
             <tr>
                 <td>1</td>
                 <td><input type="checkbox" checked="checked" name="paperCh" value="1"></td>
@@ -131,22 +132,30 @@ $(document).on('click', '#btnAlloPaper', function () {
                     </button>
                 </td>
             </tr>`
-                );
-                resolve();
-            })
-        }
-        function setEnd() {
-            return new Promise(function (resolve, reject) {
-                $('input:checkbox[name=paperCh]').prop('checked', true);
+                    );
+                    resolve();
+                })
+            }
+            function setEnd() {
+                return new Promise(function (resolve, reject) {
+                    $('input:checkbox[name=paperCh]').prop('checked', true);
 
-                $('#selCompa').val(dbuser.company);
+                    $('#selCompa').val(dbuser.company);
 
-                $('#modalPaper0').modal('hide');
-                resolve();
-            })
-        }
-    })
-    $('#modalPaper2').modal('show');
+                    $('#modalPaper0').modal('hide');
+                    resolve();
+                })
+            }
+            resolve();
+        })
+    }
+    function modalPaper2Show2() {
+        return new Promise(function (resolve, reject) {
+            $('#modalPaper2').modal('show');
+            resolve();
+        })
+    }
+
 });
 
 $(document).on('click', '.btnUp', function () {

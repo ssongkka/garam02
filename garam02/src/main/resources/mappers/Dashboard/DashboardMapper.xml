@@ -416,6 +416,16 @@
 
 	<delete id="delRsvt" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 
+
+		DELETE FROM
+
+		rsvtmoney
+
+		WHERE
+
+		rsvt =
+		#{rsvt};
+
 		DELETE FROM
 
 		operation_info
@@ -437,7 +447,6 @@
 	</delete>
 
 	<update id="cancleRsvt" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
-
 		DELETE FROM
 
 		operation_info
@@ -1168,11 +1177,14 @@
 		rsvt.rsvttrash = 1
 
 		GROUP BY
-		rsvt.stday
+		rsvt.stday,
+		rsvt.bus,
+		rsvt.rsvt
 
 		ORDER BY
 
-		rsvt.stday
+		rsvt.stday,
+		rsvt.ctmno
 		ASC,
 
 		rsvt.endday
@@ -1265,11 +1277,14 @@
 		rsvt.rsvttrash = 1
 
 		GROUP BY
-		rsvt.stday
+		rsvt.stday,
+		rsvt.bus,
+		rsvt.rsvt
 
 		ORDER BY
 
-		rsvt.stday
+		rsvt.stday,
+		rsvt.ctmno
 		ASC,
 
 		rsvt.endday

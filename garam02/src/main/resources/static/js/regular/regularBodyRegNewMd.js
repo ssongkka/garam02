@@ -1,29 +1,65 @@
 $(document).on('click', '#md-rgNew', function () {
-    $(document).on('show.bs.modal', '#modal-rginsert', function () {
-        hidePlusBtn();
-        showPlusDetail();
-        $('#btnCusPUp').hide();
-        $('#btn-rgEnd').hide();
-    });
-    $('#btn-rginsert').text('신규 입력');
-    $('#modal-rginsert').modal('show');
+    mdrgNewShow1()
+        .then(mdrgNewShow2)
+        .then(mdrgNewShow3);
+
+    function mdrgNewShow1() {
+        return new Promise(function (resolve, reject) {
+            hidePlusBtn();
+            showPlusDetail();
+            $('#btnCusPUp').hide();
+            $('#btn-rgEnd').hide();
+            resolve();
+        })
+    }
+    function mdrgNewShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#btn-rginsert').text('신규 입력');
+            resolve();
+        })
+    }
+    function mdrgNewShow3() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-rginsert').modal('show');
+            resolve();
+        })
+    }
+
 });
 
 $(document).on('click', '#btnChReg', function () {
-    $(document).on('show.bs.modal', '#modal-rginsert', function () {
-        hidePlusBtn();
-        showPlusDetail();
-        $('#btnCusPUp').hide();
-        $('#btn-rgEnd').show();
-
-        LoadingWithMask()
-            .then(setCtmer)
-            .then(getReg)
-            .then(closeLoadingWithMask);
-    });
     if ($('#ctmnoReal').val()) {
-        $('#btn-rginsert').text('수 정');
-        $('#modal-rginsert').modal('show');
+
+        rginsertShow1()
+            .then(rginsertShow2)
+            .then(rginsertShow3);
+
+        function rginsertShow1() {
+            return new Promise(function (resolve, reject) {
+                hidePlusBtn();
+                showPlusDetail();
+                $('#btnCusPUp').hide();
+                $('#btn-rgEnd').show();
+
+                LoadingWithMask()
+                    .then(setCtmer)
+                    .then(getReg)
+                    .then(closeLoadingWithMask);
+                resolve();
+            })
+        }
+        function rginsertShow2() {
+            return new Promise(function (resolve, reject) {
+                $('#btn-rginsert').text('수 정');
+                resolve();
+            })
+        }
+        function rginsertShow3() {
+            return new Promise(function (resolve, reject) {
+                $('#modal-rginsert').modal('show');
+                resolve();
+            })
+        }
     } else {
         alert("정기운행 회사를 선택해주세요.");
     }
@@ -434,7 +470,7 @@ $(document).on('click', '#customerInsertMo', function () {
     const aaa = $('#offCustomer').css('visibility');
 
     if (aaa == 'hidden') {
-        $('#offCustomer').offcanvas('show');
+        showOffCustomer();
     } else {
         $('#offCustomer').offcanvas('hide');
     }

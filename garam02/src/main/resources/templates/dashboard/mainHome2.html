@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+    <div th:fragment="main-home2" class="main-home">
+        <div class="home-main">
+            <div class="home-main-item-4">
+                <div class="tab-pane card-song home-tap" role="tabpanel">
+                    <div class="card-title home-main-item-444" id="all-title">운행정보</div>
+                    <div class="home-main-item-444">
+                        <ul class="nav nav-pills nav-justified home-nav" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link active"
+                                    id="il-rsvt-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#ilRsvt"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-il-rsvt"
+                                    aria-selected="true">일별 예약정보<span class="badge bg-secondary">0</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="month-rsvt-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#monthRsvt"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-month-rsvt"
+                                    aria-selected="false">월별 예약정보<span class="badge bg-secondary">0</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="search-rsvt-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#searchRsvt"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-search-rsvt"
+                                    aria-selected="false">예약검색<span class="badge bg-secondary">0</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="inM-rsvt-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#inMRsvt"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-inM-rsvt"
+                                    aria-selected="false">입금관리<span class="badge bg-secondary">0</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link regallo-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-go"
+                                    aria-selected="false">정기운행&nbsp;<i class="fa-solid fa-up-right-from-square"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div
+                            class="tab-pane fade show active"
+                            id="ilRsvt"
+                            role="tabpanel"
+                            aria-labelledby="pills-home-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>고객정보</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>금액</th>
+                                            <th>출발장소</th>
+                                            <th>출발시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-normal">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="allo-side">asdasdasd</div>
+                        </div>
+                        <div
+                            class="tab-pane fade"
+                            id="monthRsvt"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>학교</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>출발시간</th>
+                                            <th>출발장소</th>
+                                            <th>금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-school">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="allo-side">asdasdasd</div>
+                        </div>
+                        <div
+                            class="tab-pane fade"
+                            id="searchRsvt"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>거래처</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>금액</th>
+                                            <th>출발장소</th>
+                                            <th>출발시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-account">
+                                        <tr>
+                                            <td colspan="7"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="allo-side">asdasdasd</div>
+                        </div>
+                        <div
+                            class="tab-pane fade"
+                            id="inMRsvt"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="table-responsive">
+                                <div class="manage">
+                                    <div class="main-manage">
+                                        <div class="main-manage-item ilManage">
+                                            <div>
+                                                <h3>일반 운행</h3>
+                                            </div>
+                                            <div>
+                                                <table class="table table-bordered table-striped">
+                                                    <colgroup>
+                                                        <col width="5%">
+                                                        <col width="20%">
+                                                        <col width="5%">
+                                                        <col width="5%">
+                                                        <col width="30%">
+                                                        <col width="10%">
+                                                        <col width="10%">
+                                                        <col width="10%">
+                                                        <col width="5%">
+                                                    </colgroup>
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th class="thNone"></th>
+                                                            <th class="thNone"></th>
+                                                            <th class="thNone"></th>
+                                                            <th>#</th>
+                                                            <th>고객</th>
+                                                            <th>예약</th>
+                                                            <th>대수</th>
+                                                            <th>목적지</th>
+                                                            <th>총금액</th>
+                                                            <th>입금액</th>
+                                                            <th>잔액</th>
+                                                            <th>더보기</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tb-ilManage"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="main-manage-item hakManage">
+                                            <div>
+                                                <h3>학생단체 운행</h3>
+                                            </div>
+                                            <div>
+                                                <table class="table table-bordered table-striped">
+                                                    <colgroup>
+                                                        <col width="5%">
+                                                        <col width="20%">
+                                                        <col width="5%">
+                                                        <col width="5%">
+                                                        <col width="30%">
+                                                        <col width="10%">
+                                                        <col width="10%">
+                                                        <col width="10%">
+                                                        <col width="5%">
+                                                    </colgroup>
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th class="thNone"></th>
+                                                            <th class="thNone"></th>
+                                                            <th class="thNone"></th>
+                                                            <th>#</th>
+                                                            <th>학교</th>
+                                                            <th>예약</th>
+                                                            <th>대수</th>
+                                                            <th>목적지</th>
+                                                            <th>총금액</th>
+                                                            <th>입금액</th>
+                                                            <th>잔액</th>
+                                                            <th>더보기</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tb-hakManage"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="main-manage-item guManage">
+                                            <div>
+                                                <h3>거래처 운행</h3>
+                                            </div>
+                                            <div>
+                                                <table class="table table-bordered table-striped">
+                                                    <colgroup>
+                                                        <col width="5%">
+                                                        <col width="20%">
+                                                        <col width="5%">
+                                                        <col width="5%">
+                                                        <col width="30%">
+                                                        <col width="10%">
+                                                        <col width="10%">
+                                                        <col width="10%">
+                                                        <col width="5%">
+                                                    </colgroup>
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th class="thNone"></th>
+                                                            <th class="thNone"></th>
+                                                            <th class="thNone"></th>
+                                                            <th>#</th>
+                                                            <th>거래처</th>
+                                                            <th>예약</th>
+                                                            <th>대수</th>
+                                                            <th>목적지</th>
+                                                            <th>총금액</th>
+                                                            <th>입금액</th>
+                                                            <th>잔액</th>
+                                                            <th>더보기</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tb-guManage"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="allo-side">asdasdasd</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

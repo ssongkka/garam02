@@ -1,9 +1,5 @@
 $(document).ready(function () {});
 
-$(document).on('hide.bs.modal', '#modalRsvtMoney', function () {
-    setCalWhite($('.dash-cal-con-item-t').attr('id'));
-});
-
 $(document).on('keyup', '#pw2', function (eInner) {
     if ($('#pw1').val() == $(this).val()) {
         $(this).css('border', '1px solid green');

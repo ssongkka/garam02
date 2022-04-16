@@ -287,7 +287,7 @@ $(document).on('click', '#many-insert', function () {
 $(document).on('click', '#customerInsertMo', function () {
     const aaa = $('#offCustomer').css('visibility');
     if (aaa == 'hidden') {
-        $('#offCustomer').offcanvas('show');
+        showOffCustomer();
     } else {
         $('#offCustomer').offcanvas('hide');
     }

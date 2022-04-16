@@ -167,6 +167,30 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
+                                    id="pills-home2-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#home2"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home2"
+                                    aria-selected="true">예약정보관리
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-home3-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#home3"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home3"
+                                    aria-selected="true">운행정보관리
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
                                     id="pills-profile-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#rsvt"
@@ -186,20 +210,8 @@
                                     role="tab"
                                     aria-controls="pills-profile"
                                     aria-selected="false">
-                                    운행관리
+                                    배차관리
                                     <span class="badge bg-secondary" id="bdggg"></span>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="pills-profile-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#manage"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="pills-profile"
-                                    aria-selected="false">예약관리
                                 </button>
                             </li>
                         </ul>
@@ -214,6 +226,18 @@
                         role="tabpanel"
                         aria-labelledby="pills-home-tab"></div>
                     <div
+                        th:insert="dashboard/mainHome2 :: main-home2"
+                        class="tab-pane fade"
+                        id="home2"
+                        role="tabpanel"
+                        aria-labelledby="pills-home-tab"></div>
+                    <div
+                        th:insert="dashboard/mainHome3 :: main-home3"
+                        class="tab-pane fade"
+                        id="home3"
+                        role="tabpanel"
+                        aria-labelledby="pills-home-tab"></div>
+                    <div
                         th:insert="dashboard/mainRsvt :: main-rsvt"
                         class="tab-pane fade"
                         id="rsvt"
@@ -225,12 +249,6 @@
                         id="allo"
                         role="tabpanel"
                         aria-labelledby="pills-allo-tab"></div>
-                    <div
-                        th:insert="dashboard/mainManage :: main-manage"
-                        class="tab-pane fade"
-                        id="manage"
-                        role="tabpanel"
-                        aria-labelledby="pills-manage-tab"></div>
                 </div>
             </div>
         </main>

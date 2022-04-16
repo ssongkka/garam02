@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+    <div th:fragment="main-home3" class="main-home">
+        <div class="home-main">
+            <div class="home-main-item-4">
+                <div class="tab-pane card-song home-tap" role="tabpanel">
+                    <div class="card-title home-main-item-444" id="all-title">운행정보</div>
+                    <div class="home-main-item-444">
+                        <ul class="nav nav-pills nav-justified home-nav" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link active"
+                                    id="il-oper-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#ilOper"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home"
+                                    aria-selected="true">일별 운행정보<span class="badge bg-secondary">0</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="month-oper-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#monthOper"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-school"
+                                    aria-selected="false">월별 운행정보<span class="badge bg-secondary">0</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="atm-oper-title"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#atmOper"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-account"
+                                    aria-selected="false">배차금액별 운행정보<span class="badge bg-secondary">0</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link regallo-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-go"
+                                    aria-selected="false">정기운행&nbsp;<i class="fa-solid fa-up-right-from-square"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div
+                            class="tab-pane fade show active"
+                            id="ilOper"
+                            role="tabpanel"
+                            aria-labelledby="pills-home-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>고객정보</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>금액</th>
+                                            <th>출발장소</th>
+                                            <th>출발시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-normal">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div
+                            class="tab-pane fade"
+                            id="monthOper"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>학교</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>출발시간</th>
+                                            <th>출발장소</th>
+                                            <th>금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-school">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div
+                            class="tab-pane fade"
+                            id="atmOper"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered home-tb">
+                                    <colgroup>
+                                        <col width="14%"/>
+                                        <col width="23%"/>
+                                        <col width="5%"/>
+                                        <col width="5%"/>
+                                        <col width="10%"/>
+                                        <col width="23%"/>
+                                        <col width="10%"/>
+                                    </colgroup>
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>거래처</th>
+                                            <th>목적지</th>
+                                            <th>차량</th>
+                                            <th>대수</th>
+                                            <th>금액</th>
+                                            <th>출발장소</th>
+                                            <th>출발시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="home-tb-account">
+                                        <tr>
+                                            <td colspan="7"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

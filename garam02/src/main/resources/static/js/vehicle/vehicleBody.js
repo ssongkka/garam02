@@ -771,7 +771,6 @@ $(document).on('click', '#md-Ch', function () {
 });
 
 $(document).on('click', '#md-New', function () {
-    // $('#modal-insert').modal({backdrop: 'static', keyboard: false});
     $('#modal-insert').modal('show');
     $('#modal-insert-mh').text('차량 정보 신규 입력');
     setEmpClr();
@@ -782,18 +781,29 @@ $(document).on('click', '#md-File', function () {
     $('#modal-file-mh').text('차량명세서 생성');
 });
 
+$(document).on('click', '#modal-jukX', function () {
+    location.reload();
+});
+$(document).on('click', '#modal-jukEnd', function () {
+    location.reload();
+});
+
 $(document).on('click', '#md-Juk', function () {
-    $(document).on('show.bs.modal', '#modal-juk', function () {
-        $('#juk-frame').attr('src', veFolder + 'choice.png');
-        $('#juk-selector').val('');
-        $('#modal-juk-mh').text('교통안전정보 통보서 입력');
-    });
-
-    $(document).on('hide.bs.modal', '#modal-juk', function () {
-        location.reload();
-    });
-
-    $('#modal-juk').modal('show');
+    function jukShow1() {
+        return new Promise(function (resolve, reject) {
+            $('#juk-frame').attr('src', veFolder + 'choice.png');
+            $('#juk-selector').val('');
+            $('#modal-juk-mh').text('교통안전정보 통보서 입력');
+            resolve();
+        })
+    }
+    function jukShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-juk').modal('show');
+            resolve();
+        })
+    }
+    jukShow1().then(jukShow2);
 });
 
 $('#imgSelector1').change(function () {
@@ -1336,65 +1346,110 @@ $(document).on('click', '#btn-pdf-d', function () {
 });
 
 $(document).on('click', '#btn-reg', function () {
-    $(document).on('show.bs.modal', '#modal-reg', function () {
-        setReg();
-    });
-    $('#modal-reg').modal('show');
-    $('#modal-reg-mh').text(
-        '  ' + $('#ve02').children().text() + ' 자동차등록증 조회 및 입력'
-    );
+
+    setReg()
+        .then(regShow2)
+        .then(regShow3);
+
+    function regShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-reg-mh').text(
+                '  ' + $('#ve02').children().text() + ' 자동차등록증 조회 및 입력'
+            );
+            resolve();
+        })
+    }
+    function regShow3() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-reg').modal('show');
+            resolve();
+        })
+    }
+
 });
 
 $(document).on('click', '#btn-insu', function () {
-    $(document).on('show.bs.modal', '#modal-insu', function () {
-        setInsu();
-    });
-    $('#modal-insu').modal('show');
-    $('#modal-insu-mh').text(
-        '  ' + $('#ve02').children().text() + ' 보험가입증명서 조회 및 입력'
-    );
+
+    setInsu()
+        .then(insuShow2)
+        .then(insuShow3);
+
+    function insuShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-insu-mh').text(
+                '  ' + $('#ve02').children().text() + ' 보험가입증명서 조회 및 입력'
+            );
+            resolve();
+        })
+    }
+    function insuShow3() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-insu').modal('show');
+            resolve();
+        })
+    }
+
 });
 
 $(document).on('click', '#btn-juk', function () {
 
-    $(document).on('show.bs.modal', '#modal-jukView', function () {
-        setJuk();
-    });
+    setJuk()
+        .then(jukShow2)
+        .then(jukShow3);
 
-    $(document).on('hide.bs.modal', '#modal-jukView', function () {});
+    function jukShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-jukView-mh').text(
+                '  ' + $('#ve02').children().text() + ' 교통안전정보조회서 보기'
+            );
+            resolve();
+        })
+    }
 
-    $('#modal-jukView').modal('show');
-    $('#modal-jukView-mh').text(
-        '  ' + $('#ve02').children().text() + ' 교통안전정보조회서 보기'
-    );
+    function jukShow3() {
+        return new Promise(function (resolve, reject) {
+            $('#modal-jukView').modal('show');
+            resolve();
+        })
+    }
+
 });
 
 function setReg() {
-    $('#regcarn').val($('#ve00').val());
+    return new Promise(function (resolve, reject) {
+        $('#regcarn').val($('#ve00').val());
 
-    if ($('#ve21-1').val()) {
-        updateImg(veFolder + 'reg/' + $('#ve21-1').val() + ".PNG", 'reg-frame');
-    } else {
-        $('#reg-frame').attr('src', veFolder + "choice.png");
-    }
+        if ($('#ve21-1').val()) {
+            updateImg(veFolder + 'reg/' + $('#ve21-1').val() + ".PNG", 'reg-frame');
+        } else {
+            $('#reg-frame').attr('src', veFolder + "choice.png");
+        }
+        resolve();
+    })
 }
 
 function setInsu() {
-    $('#insucarn').val($('#ve00').val());
+    return new Promise(function (resolve, reject) {
+        $('#insucarn').val($('#ve00').val());
 
-    if ($('#ve22-1').val()) {
-        updateImg(veFolder + 'insu/' + $('#ve22-1').val() + ".PNG", 'insu-frame');
-    } else {
-        $('#insu-frame').attr('src', veFolder + "choice.png");
-    }
+        if ($('#ve22-1').val()) {
+            updateImg(veFolder + 'insu/' + $('#ve22-1').val() + ".PNG", 'insu-frame');
+        } else {
+            $('#insu-frame').attr('src', veFolder + "choice.png");
+        }
+        resolve();
+    })
 }
 
 function setJuk() {
-    if ($('#ve23-1').val()) {
-        updateImg(veFolder + 'juk/' + $('#ve23-1').val() + '.PNG', 'jukView-frame');
-    } else {
-        $('#jukView-frame').attr('src', veFolder + "choice.png");
-    }
+    return new Promise(function (resolve, reject) {
+        if ($('#ve23-1').val()) {
+            updateImg(veFolder + 'juk/' + $('#ve23-1').val() + '.PNG', 'jukView-frame');
+        } else {
+            $('#jukView-frame').attr('src', veFolder + "choice.png");
+        }
+        resolve();
+    })
 }
 
 $('#reg-selector').change(function () {

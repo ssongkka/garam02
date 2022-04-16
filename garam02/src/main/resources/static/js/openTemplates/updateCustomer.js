@@ -197,30 +197,42 @@ function updateCtm() {
             success: function (r) {
                 if (r[0].ctmtrash == 100) {
 
-                    $(document).on('show.bs.modal', '#modalCustomUp', function () {
-                        let html0 = ``;
-                        html0 += `<tr style="cursor: pointer;" onclick="getCtmSeqUp(this)">`
-                        html0 += `<td class="thNone">new</td>`
-                        html0 += `<td>` + 0 + `</td>`
-                        html0 += `<td>` + params.ctmname + `</td>`
-                        html0 += `<td>` + params.ctmtel1 + `</td>`
-                        html0 += `</tr>`
+                    function modalCustomUpShow1() {
+                        return new Promise(function (resolve, reject) {
+                            let html0 = ``;
+                            html0 += `<tr style="cursor: pointer;" onclick="getCtmSeqUp(this)">`
+                            html0 += `<td class="thNone">new</td>`
+                            html0 += `<td>` + 0 + `</td>`
+                            html0 += `<td>` + params.ctmname + `</td>`
+                            html0 += `<td>` + params.ctmtel1 + `</td>`
+                            html0 += `</tr>`
 
-                        let htmls = ``;
-                        for (let i = 0; i < r.length; i++) {
-                            htmls += `<tr style="cursor: pointer;" onclick="getCtmSeqUp(this)">`
-                            htmls += `<td class="thNone">` + r[i].ctmno + `</td>`
-                            htmls += `<td>` + (i + 1) + `</td>`
-                            htmls += `<td>` + r[i].ctmname + `</td>`
-                            htmls += `<td>` + r[i].ctmtel1 + `</td>`
-                            htmls += `</tr>`
-                        }
+                            let htmls = ``;
+                            for (let i = 0; i < r.length; i++) {
+                                htmls += `<tr style="cursor: pointer;" onclick="getCtmSeqUp(this)">`
+                                htmls += `<td class="thNone">` + r[i].ctmno + `</td>`
+                                htmls += `<td>` + (i + 1) + `</td>`
+                                htmls += `<td>` + r[i].ctmname + `</td>`
+                                htmls += `<td>` + r[i].ctmtel1 + `</td>`
+                                htmls += `</tr>`
+                            }
 
-                        $('#tbIncustUp1').html(html0);
-                        $('#tbIncustUp').html(htmls);
-                    })
-                    $('#modalCustomUp').modal('show');
-                    closeLoadingWithMask();
+                            $('#tbIncustUp1').html(html0);
+                            $('#tbIncustUp').html(htmls);
+                            resolve();
+                        })
+                    }
+                    function modalCustomUpShow2() {
+                        return new Promise(function (resolve, reject) {
+                            $('#modalCustomUp').modal('show');
+                            resolve();
+                        })
+                    }
+
+                    modalCustomUpShow1()
+                        .then(modalCustomUpShow2)
+                        .then(closeLoadingWithMask);
+
                 } else if (r[0].ctmtrash < 0) {
                     alert("시스템에 문제가 생겼습니다.\n\n다시 시도해 주세요.");
                     resolve(-1);

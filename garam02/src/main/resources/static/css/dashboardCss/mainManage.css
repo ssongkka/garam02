@@ -9,11 +9,10 @@
 .main-manage {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 
     flex: 1;
-    margin-right: 30rem;
-    padding: 3rem 5rem;
+    padding: 0.1rem 1rem;
 }
 
 .main-manage-item {
@@ -21,7 +20,7 @@
     flex-direction: column;
     gap: 1rem;
 
-    padding: 2rem;
+    padding: 1rem;
 }
 
 @media (max-width:1024px) {}

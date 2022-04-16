@@ -213,6 +213,10 @@
     padding: 1rem;
 }
 
+.ad-cal-items blockquote {
+    padding: 0.8rem 1.5rem;
+}
+
 .ad-cal hr {
     border: 0;
     width: 100%;
@@ -246,7 +250,7 @@
 .ad-cal-cals {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 blockquote {
