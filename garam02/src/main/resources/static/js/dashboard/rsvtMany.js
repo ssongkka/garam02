@@ -321,6 +321,9 @@ $(document).on('click', '#inNewUp', function () {
                             setCalWhite($('.dash-cal-con-item-t').attr('id'));
                             closeLoadingWithMask();
                         }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })
@@ -396,6 +399,9 @@ function setCtm(result) {
                 $('#m-no').val(r[0].ctmno);
 
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
 

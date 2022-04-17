@@ -6,12 +6,20 @@
     gap: 0;
 }
 
+.home-mainCal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem 2rem;
+}
+
 .home-main {
     flex: 1;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 2rem;
-    /* margin-right: 30rem; */
+    margin-right: 30rem;
     padding: 3rem 2rem;
 }
 
@@ -130,11 +138,21 @@ ul {
     margin-bottom: 0;
 }
 
+.home-tb > tbody > tr {
+    cursor: pointer;
+}
+
 .home-main-item-444:nth-child(1) {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 1rem 3rem;
     font-weight: 600;
+    gap: 5rem;
+}
+
+.home-main-item-444:nth-child(1) label {
+    font-size: 1.5rem;
 }
 
 .hide-tr {
@@ -341,6 +359,55 @@ ul {
 
     cursor: default;
 }
+
+.home2-item1 {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.home2-item2 {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.home2-searchDate,
+.home2-searchText {
+    display: flex;
+    flex-direction: row;
+}
+
+.home2-searchDate {
+    display: none;
+}
+
+.searchDate,
+.searchText {
+    border-radius: 3px 0 0 3px;
+    width: 20rem;
+}
+
+.searIcon {
+    border-radius: 0 3px 3px 0;
+    padding: 0;
+}
+
+.home2-search0 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.home2-peri {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#searchDateRsvt {}
 
 @media (max-width:1024px) {
     .home-main {

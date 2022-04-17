@@ -446,6 +446,9 @@ function getEmpOper(result) {
                 $('#bgoper1').text(cnt);
                 checkChAll();
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -652,6 +655,9 @@ function getEmpRegOper(result) {
                     goodArr.push(getEmpRegOperCour(tmpArr));
                 }
                 resolve(goodArr);
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -835,6 +841,9 @@ function getEmpRegOper1(result) {
                     return new bootstrap.Tooltip(tooltipTriggerEl)
                 })
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -880,6 +889,9 @@ function getEmpAllAllOper1(result) {
                 }
                 $('#offAlloInTb').html(htmlsTb);
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -925,6 +937,9 @@ function getEmpAllAllOper3(result) {
                 }
                 $('#offAlloInTb').html(htmlsTb);
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -993,6 +1008,9 @@ function getEmpAllAllOper2(result) {
                 $('#bgoper2').text(cnt);
                 $('#offAlloRegInTb').html(htmlsTb1);
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -1025,6 +1043,9 @@ function getEmpRegOperCour(arrTmp) {
 
                 tmpArr.push(ttmmppArr);
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
     return tmpArr;
@@ -1064,6 +1085,9 @@ function getAllMList(result) {
                     );
                 }
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -1152,6 +1176,9 @@ function getEmpInMList(result) {
                 } else {
                     resolve(0);
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -1265,6 +1292,9 @@ function getEmpOutMList(result) {
                     let rtn2 = [result, 0]
                     resolve(rtn2);
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -1357,6 +1387,9 @@ function getEmpBaseM(result) {
                     });
                 }
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })

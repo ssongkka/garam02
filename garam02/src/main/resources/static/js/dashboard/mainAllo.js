@@ -157,6 +157,9 @@ $(document).on('keyup', '.ve-car', function (eInner) {
                                     .next()
                                     .val('');
                             }
+                        },
+                        error: (jqXHR) => {
+                            loginSession(jqXHR.status);
                         }
                     });
                 }
@@ -272,6 +275,9 @@ $(document).on('keyup', '.ve-car-one', function (eInner) {
                                     .next()
                                     .val('');
                             }
+                        },
+                        error: (jqXHR) => {
+                            loginSession(jqXHR.status);
                         }
                     });
                 }
@@ -405,8 +411,6 @@ function insertOper(id, num) {
             let compaIn = '';
             let empIn = '';
             let mIn = '';
-
-            console.log("iiiddd   " + id);
 
             switch (num) {
                 case 1:
@@ -818,9 +822,6 @@ function mdOneWay(val) {
 
             const tod = $($(iidd).parent().parent().parent().prev().children()[6]).val();
 
-            console.log($(iidd));
-            console.log(tod);
-
             const url = "/allo/oneway";
             const headers = {
                 "Content-Type": "application/json",
@@ -1129,6 +1130,7 @@ function getAlloList(day) {
         .then(setCaldays)
         .then(getCustomer)
         .then(getRsvt)
+        .then(getRsvtListIl)
         .then(getOper)
         .then(getReg)
         .then(getRegDe)
@@ -1469,7 +1471,6 @@ function getAlloList(day) {
                         let tbi3 = 200;
                         let tbi4 = 300;
 
-                        getRsvtList(r, day);
                         getManage(r);
                         let rst = new Array();
 
@@ -1731,11 +1732,12 @@ function getAlloList(day) {
                     }
                 })
             } else {
+                getManage();
+
                 $('#bdggg').text(0);
                 $('#bdg1').text(0);
                 $('#bdg2').text(0);
                 $('#bdg3').text(0);
-                getRsvtList(0);
                 resolve(0);
             }
         });
@@ -2213,6 +2215,9 @@ function getAlloList(day) {
                         }
                     }
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -2275,6 +2280,9 @@ function delAllo(id) {
                 success: function (r) {
                     setCalWhite($('.dash-cal-con-item-t').attr('id'));
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -2367,10 +2375,6 @@ function delOne(param) {
     }
 }
 
-$('#btn-1-2275-1').on('click', function () {
-    console.log("좀좀좀조");
-});
-
 $(document).on('click', '.rsvtDetails', function () {
 
     const aaa = $(this).parent();
@@ -2415,7 +2419,6 @@ $(document).on('click', '.rsvtDetails', function () {
                 data: JSON.stringify(params),
                 cache: false,
                 success: function (r) {
-                    console.log(r);
                     if (r.length > 0) {
                         $('#stday-1').val(r[0].stday);
                         $('#endday-1').val(r[0].endday);
@@ -2445,6 +2448,9 @@ $(document).on('click', '.rsvtDetails', function () {
                     }
                     chDateInput();
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             });
         })
@@ -2676,6 +2682,9 @@ $(document).on('click', '#inNewUp', function () {
                             setCalWhite($('.dash-cal-con-item-t').attr('id'));
                             closeLoadingWithMask();
                         }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })

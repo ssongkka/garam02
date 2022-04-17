@@ -195,6 +195,20 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public List<RsvtDTO> selectAlloRSVTMonth(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectAlloRSVTMonth(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectAlloRSVTSearch(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectAlloRSVTSearch(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception {
 
 		List<RsvtDTO> list = rsvtMapper.selectAlloOPER(rsvtDTO);

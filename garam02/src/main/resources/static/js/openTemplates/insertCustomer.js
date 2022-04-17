@@ -241,6 +241,9 @@ function insertCtm() {
                 } else {
                     resolve(r[0].ctmno);
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })

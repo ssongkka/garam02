@@ -40,6 +40,22 @@ public class RestMainAlloController {
 		return list;
 	}
 
+	@PostMapping(value = "/rsvtmonth")
+	public List<RsvtDTO> rsvtMonthList(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloRSVTMonth(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/rsvtsearch")
+	public List<RsvtDTO> rsvtSearchList(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloRSVTSearch(rsvtDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/oper")
 	public List<RsvtDTO> operList(@RequestBody RsvtDTO rsvtDTO) throws Exception {
 

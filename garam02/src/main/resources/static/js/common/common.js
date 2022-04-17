@@ -395,15 +395,42 @@ function sortTableByColumn(table, column, asc = true) {
             const aColText = a
                 .querySelector(`td:nth-child(${column + 1})`)
                 .textContent
-                .trim();
+                .trim()
+                .replaceAll(',', '')
+                .replaceAll('.', '')
+                .replaceAll('-', '');
             const bColText = b
                 .querySelector(`td:nth-child(${column + 1})`)
                 .textContent
-                .trim();
+                .trim()
+                .replaceAll(',', '')
+                .replaceAll('.', '')
+                .replaceAll('-', '');
 
-            return aColText > bColText
-                ? (1 * dirModifier)
-                : (-1 * dirModifier);
+            let aaa = '';
+            let bbb = '';
+
+            if (aColText) {
+                aaa = aColText;
+            } else {
+                aaa = 0;
+            }
+
+            if (bColText) {
+                bbb = bColText;
+            } else {
+                bbb = 0;
+            }
+
+            if (isNaN(aaa) && isNaN(bbb)) {
+                return aaa > bbb
+                    ? (1 * dirModifier)
+                    : (-1 * dirModifier);
+            } else {
+                return parseInt(aaa) > parseInt(bbb)
+                    ? (1 * dirModifier)
+                    : (-1 * dirModifier);
+            }
         });
 
         // Remove all existing TRs from the table

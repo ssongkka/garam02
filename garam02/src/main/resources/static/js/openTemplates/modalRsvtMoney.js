@@ -699,8 +699,6 @@ function allRsvtMoneyInsert() {
                     .text()
                     .replaceAll(',', '');
 
-                console.log("rsvrFootM  " + rsvrFootM);
-
                 if (rsvrFootM > 0) {
                     const asd = {
                         "rsvt": rsvttt,

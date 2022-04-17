@@ -86,3 +86,8 @@ a {
     background-color: var(--sub-color);
     color: var(--main-color);
 }
+
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--main-color);
+    color: var(--sub-color);
+}

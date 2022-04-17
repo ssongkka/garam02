@@ -40,6 +40,10 @@ public interface MainService {
 
 	public List<RsvtDTO> selectAlloRSVT(RsvtDTO rsvtDTO) throws Exception;
 
+	public List<RsvtDTO> selectAlloRSVTMonth(RsvtDTO rsvtDTO) throws Exception;
+	
+	public List<RsvtDTO> selectAlloRSVTSearch(RsvtDTO rsvtDTO) throws Exception;
+
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectWeekBusNum(RsvtDTO rsvtDTO) throws Exception;
@@ -84,8 +88,8 @@ public interface MainService {
 	public List<RsvtDTO> selectCalRsvt1(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectCalRsvt2(RsvtDTO rsvtDTO) throws Exception;
-	
+
 	public List<RsvtDTO> selectCalRsvt3(RsvtDTO rsvtDTO) throws Exception;
-	
+
 	public List<RsvtDTO> selectCalRsvt4(RsvtDTO rsvtDTO) throws Exception;
 }

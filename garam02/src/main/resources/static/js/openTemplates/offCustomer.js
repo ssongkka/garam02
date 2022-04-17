@@ -167,6 +167,9 @@ function setTableC(name) {
                 $('#aBC').text(cnt3);
 
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })

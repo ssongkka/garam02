@@ -1028,13 +1028,9 @@ $(document).on('click', '#btn-insert', function () {
     } else {
         insertVe(0);
     }
-
-    console.log("리하요");
 });
 
 function insertVe(tp) {
-    console.log("리하요1");
-
     LoadingWithMask()
         .then(insertPic)
         .then(insertContent)
@@ -1056,7 +1052,6 @@ function insertVe(tp) {
                 cache: false,
                 timeout: 600000,
                 success: function (r) {
-                    console.log(" r  " + r);
                     resolve(r);
                 },
                 error: (jqXHR) => {
@@ -1709,6 +1704,9 @@ function insertJuk(result) {
             data: JSON.stringify(params),
             success: function (r) {
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })

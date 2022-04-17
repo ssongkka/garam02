@@ -177,6 +177,9 @@ function getRegular(result) {
                 $('#rgtel').attr('href', 'tel:' + r[0].regphone);
                 $('#rgcon').text(r[0].regcontract);
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -284,6 +287,9 @@ function getRegularDeAll(result) {
                 } else {}
                 $('#rgnum').text(cnt1 + '대');
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -394,6 +400,9 @@ function getRecou(iidd) {
                     }
                     $('#rdememoo').val(memomo);
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             });
         });
@@ -680,6 +689,9 @@ function getRecou(iidd) {
                         }
                     }
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         });
@@ -855,6 +867,9 @@ function updateRegularDeOrder(result) {
                     getRegularInfo();
                 }
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -891,6 +906,9 @@ function insertRegularDe(result) {
                     alert("노선정보 입력 실패!\n\n시스템을 확인해주세요.")
                 }
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -981,6 +999,9 @@ function updateRegularDe(papa) {
                         alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
                     }
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         });
@@ -1027,6 +1048,9 @@ function delOperCar(papa) {
                         alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
                     }
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         });
@@ -1069,6 +1093,9 @@ function delRegularDe(code, trash) {
                         alert("노선정보 삭제 실패!\n\n시스템을 확인해주세요.")
                     }
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         });
@@ -1104,6 +1131,9 @@ $(document).on('click', '#plusgoTb', function () {
             } else {
                 getRecou($('#modalcodenum').val());
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 
@@ -1138,6 +1168,9 @@ $(document).on('click', '#plusoutTb', function () {
             } else {
                 getRecou($('#modalcodenum').val());
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 });
@@ -1264,6 +1297,9 @@ $(document).on('click', '.insertCo', function (eInner) {
             } else {
                 getRecou($('#modalcodenum').val());
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 })
@@ -1300,6 +1336,9 @@ $(document).on('click', '.btnn', function (eInner) {
             } else {
                 getRecou($('#modalcodenum').val());
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 
@@ -1342,6 +1381,9 @@ $(document).on('click', '.delCo', function (eInner) {
             } else {
                 getRecou($('#modalcodenum').val());
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 })
@@ -1380,6 +1422,9 @@ $(document).on('click', '[name = "chDow"]', function (eInner) {
             } else {
                 getRecou($('#modalcodenum').val());
             }
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 })
@@ -1417,6 +1462,9 @@ $(document).on('keyup', '#rdememoo', function (eInner) {
                 } else {
                     getRecou($('#modalcodenum').val());
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     }
@@ -1518,6 +1566,9 @@ function upcource(ppp) {
                         getRecou($('#modalcodenum').val());
                         resolve();
                     }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })

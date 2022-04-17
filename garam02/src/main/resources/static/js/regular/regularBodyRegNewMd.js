@@ -146,6 +146,9 @@ function setCtmer(result) {
                 }
 
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
 
@@ -246,6 +249,9 @@ function getReg(result) {
                 }
 
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -319,6 +325,9 @@ $(document).on('click', '#inNewUp', function () {
                             setCalWhite($('.dash-cal-con-item-t').attr('id'));
                             closeLoadingWithMask();
                         }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })

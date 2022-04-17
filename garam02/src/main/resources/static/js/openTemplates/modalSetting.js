@@ -14,7 +14,6 @@ $(document).on('keyup', '#pw2', function (eInner) {
 
 $(document).on('click', '#saveSetting', function () {
     const sepa = $('input[name=choTh]:checked').val();
-    console.log(sepa);
 
     const ch = confirm("변경된 정보는 다시 로그인 후 적용됩니다.\n\n설정 저장 후 로그아웃됩니다.");
     if (ch) {
@@ -45,6 +44,9 @@ $(document).on('click', '#saveSetting', function () {
                 success: function (r) {
                     location.href = '/logout';
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -88,6 +90,9 @@ $(document).on('click', '#savePw', function () {
                 success: function (r) {
                     location.href = '/logout';
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })

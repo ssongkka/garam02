@@ -148,6 +148,9 @@ $(document).on('click', '#inNew', function () {
                             setCalWhite($('.dash-cal-con-item-t').attr('id'));
                             closeLoadingWithMask();
                         }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })
@@ -226,6 +229,9 @@ function insertRsvt(result) {
                 }
                 setCalWhite($('.dash-cal-con-item-t').attr('id'));
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -275,6 +281,9 @@ function insertRsvt1(result) {
                 }
                 setCalWhite($('.dash-cal-con-item-t').attr('id'));
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -323,6 +332,9 @@ $(document).on('click', '#btn-custom-modal', function () {
         data: JSON.stringify(params),
         success: function (r) {
             alert(r)
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     });
 });

@@ -272,6 +272,9 @@ function setPapperAllo1() {
 
                 $('#paper2-allo').html(htmls);
                 resolve(tmpArr);
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -417,6 +420,9 @@ function setPapperAllo2(result) {
                             $(bbb1).html(htmls);
                         }
                     }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         }
@@ -525,6 +531,9 @@ function insertMemo() {
                 } else {
                     closeLoadingWithMask();
                 }
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })

@@ -204,6 +204,9 @@ function getRegular(result) {
                 }
 
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -397,6 +400,9 @@ function getRegularDe(result) {
                     $('#rdmemo').html(`&nbsp;`);
                 }
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });
@@ -561,6 +567,9 @@ function getRegularCource(result) {
 
                 $('#rg-tb-rc').html(htmls);
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     });

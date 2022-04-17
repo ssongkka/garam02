@@ -1306,6 +1306,9 @@ $(document).on('click', '#btnMdAll', function () {
             }
             $('#regAllAlloMd').modal('hide');
             afterinsert();
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 });
@@ -1864,6 +1867,9 @@ function insertRegAlloDe(result) {
                         } else {
                             resolve();
                         }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })
@@ -1903,6 +1909,9 @@ function insertRegAlloDe(result) {
                             resolve(al);
                         }
                         resolve();
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })
@@ -1942,6 +1951,9 @@ function insertRegAlloDe(result) {
                             resolve(al);
                         }
                         resolve();
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })

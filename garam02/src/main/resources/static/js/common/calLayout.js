@@ -13,6 +13,8 @@ $(document).ready(function () {
 
     $('#info-limit').hide();
 
+    cardVeEmpMake();
+
     getCompaInfo();
 
     const now_D = new Date();
@@ -75,6 +77,9 @@ $(document).on('click', '#fnDownMonth', function () {
     var now_D = get_Year_Month();
     var downMonth = new Date(now_D.setMonth(now_D.getMonth() - 1));
     $("#yearMonth").val(toStringByFormatting(downMonth).substring(0, 7));
+    $("#yearMonthDay").val(
+        toStringByFormatting(downMonth).substring(0, 7) + '-01'
+    );
     makeCal(downMonth, null);
     makeMainBigCal();
 });
@@ -83,6 +88,7 @@ $(document).on('click', '#fnUpMonth', function () {
     var now_D = get_Year_Month();
     var upMonth = new Date(now_D.setMonth(now_D.getMonth() + 1));
     $("#yearMonth").val(toStringByFormatting(upMonth).substring(0, 7));
+    $("#yearMonthDay").val(toStringByFormatting(upMonth).substring(0, 7) + '-01');
     makeCal(upMonth, null);
     makeMainBigCal();
 });
@@ -305,7 +311,7 @@ function makeCal(nowD, day) {
 
                 const days = stD.getFullYear() + "-" + date111 + "-" + date222;
 
-                htmls += '<div class="dash-cal-con-item-c" id="dash-cal-con-item' + (
+                htmls += '<a class="dash-cal-con-item-c" id="dash-cal-con-item' + (
                     i + 1
                 ) + '" onclick="setCalWhite(this.id)"';
 
@@ -334,7 +340,7 @@ function makeCal(nowD, day) {
                 ) + '">';
                 htmls += '&nbsp;';
                 htmls += '</div>';
-                htmls += '</div>';
+                htmls += '</a>';
 
                 if (day != null) {
                     if (day.toLocaleDateString() == stD.toLocaleDateString()) {
@@ -425,6 +431,9 @@ function makeCal(nowD, day) {
 
                         }
                     }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             });
         })
@@ -445,8 +454,131 @@ function getCompaInfo() {
             $('#comp-email').text(dbCompa[i].email);
         }
     }
-
 }
+
+function cardVeEmpMake() {
+    let cntVe1 = [];
+    let cntVe2 = [];
+    let cntVe3 = [];
+    let cntVe4 = [];
+
+    let cntEmp1 = [];
+    let cntEmp2 = [];
+    let cntEmp3 = [];
+    let cntEmp4 = [];
+
+    for (let i = 0; i < dbCompa.length; i++) {
+        cntVe2[i] = 0;
+        cntVe3[i] = 0;
+        cntVe4[i] = 0;
+        for (let j = 0; j < dbVe.length; j++) {
+            if (dbCompa[i].company == dbVe[j].company) {
+                if (dbVe[j].trash == 1) {
+                    switch (dbVe[j].bus) {
+                        case '대형':
+                            ++cntVe2[i];
+                            break;
+                        case '중형':
+                            ++cntVe3[i];
+                            break;
+                        case '우등':
+                            ++cntVe4[i];
+                            break;
+                    }
+                }
+            }
+        }
+        cntEmp2[i] = 0;
+        cntEmp3[i] = 0;
+        cntEmp4[i] = 0;
+        for (let k = 0; k < dbEmp.length; k++) {
+            if (dbCompa[i].company == dbEmp[k].company) {
+                if (dbEmp[k].trash == 1) {
+                    switch (dbEmp[k].kind) {
+                        case '회사':
+                            ++cntEmp2[i];
+                            break;
+                        case '개인':
+                            ++cntEmp3[i];
+                            break;
+                        case '예비':
+                            ++cntEmp4[i];
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    for (let i = 0; i < dbCompa.length; i++) {
+        cntVe1[i] = 0;
+        cntEmp1[i] = 0;
+        cntVe1[i] = cntVe2[i] + cntVe3[i] + cntVe4[i];
+        cntEmp1[i] = cntEmp2[i] + cntEmp3[i] + cntEmp4[i];
+    }
+
+    let htmlsVe = '';
+
+    htmlsVe += '<div class="home-main-item-222">';
+    htmlsVe += '<i class="fas fa-bus"></i>';
+    htmlsVe += '</div>';
+    for (let i = 0; i < dbCompa.length; i++) {
+        htmlsVe += '<div class="home-main-item-222">';
+        htmlsVe += '<span class="home-main-item-222-span">' + dbCompa[i].company + '</span>';
+        htmlsVe += '<span class="home-main-item-222-span">' + cntVe1[i] + '</span>';
+        htmlsVe += '<span class="home-main-item-222-span"><span data-bs-toggle="tooltip" data-bs-p' +
+                'lacement="top" title="대형">' + cntVe2[i] + '</span><span>/</span><span data-bs-' +
+                'toggle="tooltip" data-bs-placement="top" title="중형">' + cntVe3[i] + '</span><s' +
+                'pan>/</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="우등">' +
+                cntVe4[i] + '</span></span>';
+        htmlsVe += '</div>';
+    }
+    htmlsVe += '</div>';
+
+    let htmlsEmp = '';
+    htmlsEmp += '<div class="home-main-item-222">';
+    htmlsEmp += '<i class="fas fa-user-tie"></i>';
+    htmlsEmp += '</div>';
+    for (let i = 0; i < dbCompa.length; i++) {
+        htmlsEmp += '<div class="home-main-item-222">';
+        htmlsEmp += '<span class="home-main-item-222-span">' + dbCompa[i].company + '</span>';
+        htmlsEmp += '<span class="home-main-item-222-span">' + cntEmp1[i] + '</span>';
+        htmlsEmp += '<span class="home-main-item-222-span"><span data-bs-toggle="tooltip" data-bs-p' +
+                'lacement="top" title="회사">' + cntEmp2[i] + '</span><span>/</span><span data-bs' +
+                '-toggle="tooltip" data-bs-placement="top" title="개인">' + cntEmp3[i] + '</span>' +
+                '<span>/</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="예비' +
+                '">' + cntEmp4[i] + '</span></span>';
+        htmlsEmp += '</div>';
+    }
+    htmlsEmp += '</div>';
+
+    $('#card-ve').html(htmlsVe);
+    $('#card-emp').html(htmlsEmp);
+    var tooltipTriggerList = []
+        .slice
+        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+}
+
+$(document).on('click', '.deail-form-item', function () {
+
+    const check = $(this).text();
+
+    if (check.includes('내정보')) {} else if (check.includes('설정')) {} else if (check.includes('관리자')) {
+
+        location.href = '/admin';
+
+    } else if (check.includes('로그아웃')) {
+
+        const ch = confirm("로그아웃하시겠습니까?\n\n저장하지않은 정보는 삭제됩니다.");
+        if (ch) {
+            location.href = '/logout';
+        }
+
+    };
+});
 
 $(document).on('click', '#btnSetting', function () {
     $('#mdSetting').modal('show');
@@ -454,4 +586,32 @@ $(document).on('click', '#btnSetting', function () {
 
 $(document).on('click', '.logo', function () {
     location.reload();
+});
+
+$(document).on('click', '#goEmp', function () {
+    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
+    // window.screenLeft; var yPos = 10;
+
+    window.open('/employee', '인사정보')
+});
+
+$(document).on('click', '#goVe', function () {
+    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
+    // window.screenLeft; var yPos = 10;
+
+    window.open('/vehicle', '차량정보');
+});
+
+$(document).on('click', '#goRe', function () {
+    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
+    // window.screenLeft; var yPos = 10;
+
+    window.open('/regular', '정기운행정보');
+});
+
+$(document).on('click', '#goCustomer', function () {
+    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
+    // window.screenLeft; var yPos = 10;
+
+    window.open('/customers', '고객정보');
 });

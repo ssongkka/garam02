@@ -1148,6 +1148,9 @@ function saveSalary(sepa) {
                         alert("급여내역 입력 실패!\n\n시스템을 확인해주세요.")
                         location.reload();
                     }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1177,6 +1180,9 @@ function saveSalary(sepa) {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1202,6 +1208,9 @@ function saveSalary(sepa) {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1228,6 +1237,9 @@ function saveSalary(sepa) {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1325,6 +1337,9 @@ function saveSalary(sepa) {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve(r);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             });
 
@@ -1349,6 +1364,9 @@ function saveSalary(sepa) {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve(r);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1420,6 +1438,9 @@ function saveSalary(sepa) {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve(r);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             });
         })
@@ -1513,6 +1534,9 @@ $(document).on('dblclick', '.chreginM', function () {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1540,6 +1564,9 @@ $(document).on('dblclick', '.chreginM', function () {
                 data: JSON.stringify(params),
                 success: function (r) {
                     resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1633,6 +1660,9 @@ $(document).on('keyup', '.regmoney', function (eInner) {
                     data: JSON.stringify(params),
                     success: function (r) {
                         resolve();
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             })
