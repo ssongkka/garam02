@@ -373,12 +373,18 @@ ul {
 }
 
 .home2-searchDate,
-.home2-searchText {
+.home2-searchText,
+.home3-searchDate,
+.home3-searchText {
     display: flex;
     flex-direction: row;
 }
 
-.home2-searchDate {
+.home2-searchDate,
+.home3-searchDate,
+.home3-searchM,
+.home3-searchPe,
+.home3-searchVe {
     display: none;
 }
 
@@ -388,7 +394,8 @@ ul {
     width: 20rem;
 }
 
-.searIcon {
+.searIconOper,
+.searIconRsvt {
     border-radius: 0 3px 3px 0;
     padding: 0;
 }
@@ -405,6 +412,14 @@ ul {
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+}
+
+.home-tb > tbody > tr > .tdCho {
+    background-color: rgba(255,220,40,.15);
+}
+
+.home-tb > thead > tr > .tdCho {
+    background-color: rgba(255,220,40,.15);
 }
 
 #searchDateRsvt {}

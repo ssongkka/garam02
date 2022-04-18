@@ -240,158 +240,182 @@ $(document).on('change', '#searchSepaRsvt', function () {
 $(document).on('keyup', '#searchTextRsvt', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
-
-        $('#radioRsvt3').prop('checked', true);
-
-        LoadingWithMask()
-            .then(search1)
-            .then(closeLoadingWithMask);
-
-        function search1() {
-            return new Promise(function (resolve, reject) {
-
-                if ($('#searchTextRsvt').val()) {
-
-                    const url = "/allo/rsvtsearch";
-                    const headers = {
-                        "Content-Type": "application/json",
-                        "X-HTTP-Method-Override": "POST"
-                    };
-
-                    let params = {};
-
-                    const idChk = $("#searchChRsvt").is(":checked");
-
-                    console.log($('#searchSepaRsvt').val());
-
-                    switch ($('#searchSepaRsvt').val()) {
-                        case '0':
-                            if (idChk) {
-                                params = {
-                                    "ctmname": $('#searchTextRsvt').val()
-                                };
-                            } else {
-                                params = {
-                                    "ctmname": $('#searchTextRsvt').val(),
-                                    "stday": $('#searchPeStRsvt').val(),
-                                    "endday": $('#searchPeEdRsvt').val()
-                                };
-                            }
-                            break;
-                        case '2':
-                            if (idChk) {
-                                params = {
-                                    "desty": $('#searchTextRsvt').val()
-                                };
-                            } else {
-                                params = {
-                                    "desty": $('#searchTextRsvt').val(),
-                                    "stday": $('#searchPeStRsvt').val(),
-                                    "endday": $('#searchPeEdRsvt').val()
-                                };
-                            }
-                            break;
-                        case '3':
-                            if (idChk) {
-                                params = {
-                                    "rsvpstp": $('#searchTextRsvt').val()
-                                };
-                            } else {
-                                params = {
-                                    "rsvpstp": $('#searchTextRsvt').val(),
-                                    "stday": $('#searchPeStRsvt').val(),
-                                    "endday": $('#searchPeEdRsvt').val()
-                                };
-                            }
-                            break;
-
-                    }
-
-                    console.log(params);
-
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        headers: headers,
-                        dataType: "json",
-                        data: JSON.stringify(params),
-
-                        success: function (r) {
-
-                            if (r.length > 0) {
-
-                                console.log(r);
-
-                                let htmls = ``;
-
-                                for (let i = 0; i < r.length; i++) {
-
-                                    let stttt = ''
-                                    if (r[i].stt) {
-                                        stttt = r[i].stt;
-                                    }
-
-                                    let eddday = '';
-                                    if (r[i].stday != r[i].endday) {
-                                        eddday = r[i].endday;
-                                    }
-
-                                    htmls += `
-                    <tr>
-                        <td>` + r[i].stday +
-                                            `
-                        <input type="hidden" value="` + r[i].stday +
-                                            `">
-                        <input type="hidden" value="` + r[i].rsvt +
-                                            `">
-                        <input type="hidden" value="` + r[i].ctmno +
-                                            `">
-                        </td>
-                        <td>` + eddday +
-                                            `</td>
-                        <td>` + r[i].ctmname +
-                                            `</td>
-                        <td>` + r[i].desty +
-                                            `</td>
-                        <td>` + r[i].bus +
-                                            `</td>
-                        <td>` + r[i].num +
-                                            `</td>
-                        <td>` + r[i].cont +
-                                            `</td>
-                        <td class="tdRight">` + AddComma(r[i].conm) +
-                                            `</td>
-                        <td class="tdRight">` + AddComma(r[i].numm) +
-                                            `</td>
-                        <td class="tdRight"> ` + AddComma(
-                                        r[i].opertrash
-                                    ) + `</td>
-                        <td>` + r[i].rsvpstp +
-                                            `</td>
-                        <td>` + stttt +
-                                            `</td>
-                    </tr>`;
-                                }
-
-                                $('#home2-tb-il').html(htmls);
-                            } else {
-                                htmls = `
-                            <tr>
-                                <th colspan="12">예약정보없음</th>
-                            </tr>`;
-                                $('#home2-tb-il').html(htmls);
-
-                                alert("검색결과 없음");
-                            }
-                            resolve();
-                        }
-                    })
-                } else {
-                    alert("검색어를 입력해주세요.");
-                }
-
-            })
-        }
-
+        getSeachRsvtList($('#searchTextRsvt').val());
     }
 });
+
+$(document).on('keyup', '#searchDateRsvt', function (eInner) {
+    var keyValue = eInner.which;
+    if (keyValue == 13) {
+        getSeachRsvtList($('#searchDateRsvt').val());
+    }
+});
+
+$(document).on('click', '.searIconRsvt', function () {
+    const aaa = $(this).prev();
+    const bbb = $(aaa).val();
+
+    getSeachRsvtList(bbb);
+});
+
+function getSeachRsvtList(texts) {
+    $('#radioRsvt3').prop('checked', true);
+
+    LoadingWithMask()
+        .then(search1)
+        .then(closeLoadingWithMask);
+
+    function search1() {
+        return new Promise(function (resolve, reject) {
+
+            if (texts) {
+
+                const url = "/allo/rsvtsearch";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                let params = {};
+
+                const idChk = $("#searchChRsvt").is(":checked");
+
+                switch ($('#searchSepaRsvt').val()) {
+                    case '0':
+                        if (idChk) {
+                            params = {
+                                "ctmname": $('#searchTextRsvt').val()
+                            };
+                        } else {
+                            params = {
+                                "ctmname": $('#searchTextRsvt').val(),
+                                "stday": $('#searchPeStRsvt').val(),
+                                "endday": $('#searchPeEdRsvt').val()
+                            };
+                        }
+                        break;
+                    case '1':
+                        if (idChk) {
+                            params = {
+                                "stday": $('#searchDateRsvt').val()
+                            };
+                        } else {
+                            params = {
+                                "stday": $('#searchDateRsvt').val()
+                            };
+                        }
+                        break;
+                    case '2':
+                        if (idChk) {
+                            params = {
+                                "desty": $('#searchTextRsvt').val()
+                            };
+                        } else {
+                            params = {
+                                "desty": $('#searchTextRsvt').val(),
+                                "stday": $('#searchPeStRsvt').val(),
+                                "endday": $('#searchPeEdRsvt').val()
+                            };
+                        }
+                        break;
+                    case '3':
+                        if (idChk) {
+                            params = {
+                                "rsvpstp": $('#searchTextRsvt').val()
+                            };
+                        } else {
+                            params = {
+                                "rsvpstp": $('#searchTextRsvt').val(),
+                                "stday": $('#searchPeStRsvt').val(),
+                                "endday": $('#searchPeEdRsvt').val()
+                            };
+                        }
+                        break;
+
+                }
+
+                console.log(params);
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+
+                        if (r.length > 0) {
+
+                            console.log(r);
+
+                            let htmls = ``;
+
+                            for (let i = 0; i < r.length; i++) {
+
+                                let stttt = ''
+                                if (r[i].stt) {
+                                    stttt = r[i].stt;
+                                }
+
+                                let eddday = '';
+                                if (r[i].stday != r[i].endday) {
+                                    eddday = r[i].endday;
+                                }
+
+                                htmls += `
+                <tr>
+                    <td>` + r[i].stday +
+                                        `
+                    <input type="hidden" value="` + r[i].stday +
+                                        `">
+                    <input type="hidden" value="` + r[i].rsvt +
+                                        `">
+                    <input type="hidden" value="` + r[i].ctmno +
+                                        `">
+                    </td>
+                    <td>` + eddday +
+                                        `</td>
+                    <td>` + r[i].ctmname +
+                                        `</td>
+                    <td>` + r[i].desty +
+                                        `</td>
+                    <td>` + r[i].bus +
+                                        `</td>
+                    <td>` + r[i].num +
+                                        `</td>
+                    <td>` + r[i].cont +
+                                        `</td>
+                    <td class="tdRight">` + AddComma(r[i].conm) +
+                                        `</td>
+                    <td class="tdRight">` + AddComma(r[i].numm) +
+                                        `</td>
+                    <td class="tdRight"> ` + AddComma(r[i].opertrash) +
+                                        `</td>
+                    <td>` + r[i].rsvpstp +
+                                        `</td>
+                    <td>` + stttt +
+                                        `</td>
+                </tr>`;
+                            }
+
+                            $('#home2-tb-il').html(htmls);
+                        } else {
+                            htmls = `
+                        <tr>
+                            <th colspan="12">예약정보없음</th>
+                        </tr>`;
+                            $('#home2-tb-il').html(htmls);
+
+                            alert("검색결과 없음");
+                        }
+                        resolve();
+                    }
+                })
+            } else {
+                alert("검색어를 입력해주세요.");
+            }
+
+        })
+    }
+}

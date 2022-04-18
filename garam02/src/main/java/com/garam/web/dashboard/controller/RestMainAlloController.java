@@ -64,6 +64,30 @@ public class RestMainAlloController {
 		return list;
 	}
 
+	@PostMapping(value = "/operil")
+	public List<RsvtDTO> operil(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloOPERIl(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/opermonth")
+	public List<RsvtDTO> opermonth(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloOPERMonth(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/opersearch")
+	public List<RsvtDTO> opersearch(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloOPERSearch(rsvtDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/oneway")
 	public List<RsvtDTO> onewayList(@RequestBody RsvtDTO rsvtDTO) throws Exception {
 

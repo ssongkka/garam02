@@ -21,17 +21,17 @@
 
 html {
     font-size: 62.5%;
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
 }
 
-html::-webkit-scrollbar {
+/* html::-webkit-scrollbar {
     width: 3px;
 }
 
 html::-webkit-scrollbar-thumb {
     background-color: hsla(0, 21%, 11%, 0.1);
     border-radius: 100px;
-}
+} */
 
 body {
     font-family: "NotoSans";
@@ -209,25 +209,31 @@ table > tbody > tr > .tdRight {
     vertical-align: top;
 }
 
-.table-sortable th {
-    cursor: pointer;
-}
-
-.table-sortable .th-sort-asc::after {
+.table .th-sort-asc::after {
     content: "\25b4";
 }
 
-.table-sortable .th-sort-desc::after {
+.table .th-sort-desc::after {
     content: "\25be";
 }
 
-.table-sortable .th-sort-asc::after,
-.table-sortable .th-sort-desc::after {
+.table .th-sort-asc::after,
+.table .th-sort-desc::after {
     margin-left: 5px;
 }
 
-.table-sortable .th-sort-asc,
-.table-sortable .th-sort-desc {
+.table .th-sort-asc,
+.table .th-sort-desc {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.table > thead > tr > .sortNum,
+.table > thead > tr > .sortStr {
+    cursor: pointer;
+}
+
+.table .th-sort-asc,
+.table .th-sort-desc {
     background: rgba(0, 0, 0, 0.1);
 }
 

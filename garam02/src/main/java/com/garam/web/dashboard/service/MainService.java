@@ -41,10 +41,16 @@ public interface MainService {
 	public List<RsvtDTO> selectAlloRSVT(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloRSVTMonth(RsvtDTO rsvtDTO) throws Exception;
-	
+
 	public List<RsvtDTO> selectAlloRSVTSearch(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAlloOPERIl(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAlloOPERMonth(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAlloOPERSearch(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectWeekBusNum(RsvtDTO rsvtDTO) throws Exception;
 

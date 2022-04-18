@@ -14,7 +14,7 @@
                                     id="radioOper1"
                                     name="radioOper"
                                     checked="checked">
-                                <label class="form-check-label" for="radioRsvt1">일별 예약 정보</label>
+                                <label class="form-check-label" for="radioOper1">일별 예약 정보</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="radioOper2" name="radioOper">
@@ -47,21 +47,54 @@
                             <div class="home2-search1">
                                 <select class="form-select" id="searchSepaOper">
                                     <option value="0">고객명</option>
-                                    <option value="1">출발일</option>
+                                    <option value="1">운행일</option>
                                     <option value="2">목적지</option>
                                     <option value="3">출발지</option>
+                                    <option value="4">배차차량</option>
+                                    <option value="5">승무원</option>
+                                    <option value="6">배차금액</option>
                                 </select>
                             </div>
                             <div class="home2-search2">
-                                <div class="home2-searchText">
+                                <div class="home3-searchText">
                                     <input type="text" class="form-control searchText" id="searchTextOper">
-                                    <button class="btn btn-primary searIcon">
+                                    <button class="btn btn-primary searIconOper">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                 </div>
-                                <div class="home2-searchDate">
+                                <div class="home3-searchDate">
                                     <input type="date" class="form-control searchDate" id="searchDateOper">
-                                    <button class="btn btn-primary searIcon">
+                                    <button class="btn btn-primary searIconOper">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                                <div class="home3-searchVe">
+                                    <input
+                                        type="text"
+                                        list="car-info"
+                                        class="form-control searchText"
+                                        id="searchVeOper">
+                                    <button class="btn btn-primary searIconOper">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                                <div class="home3-searchPe">
+                                    <input
+                                        type="text"
+                                        list="per-info"
+                                        class="form-control searchText"
+                                        id="searchPerOper">
+                                    <button class="btn btn-primary searIconOper">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                                <div class="home3-searchM">
+                                    <input
+                                        type="text"
+                                        data-type="currency"
+                                        class="form-control searchText"
+                                        id="searchMOper">
+                                    <button class="btn btn-primary searIconOper">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                 </div>
@@ -70,31 +103,35 @@
                     </div>
                     <div class="tab-content">
                         <div class="table-responsive">
-                            <table
-                                class="table table-striped table-hover table-bordered table-sortable home-tb">
+                            <table class="table table-striped table-hover table-bordered home-tb">
                                 <colgroup>
                                     <col width="10%"/>
-                                    <col width="15%"/>
-                                    <col width="15%"/>
-                                    <col width="10%"/>
-                                    <col width="10%"/>
-                                    <col width="10%"/>
+                                    <col width="16%"/>
+                                    <col width="16%"/>
+                                    <col width="8%"/>
+                                    <col width="8%"/>
+                                    <col width="8%"/>
+                                    <col width="8%"/>
                                     <col width="5%"/>
-                                    <col width="15%"/>
-                                    <col width="10%"/>
+                                    <col width="16%"/>
+                                    <col width="5%"/>
                                 </colgroup>
-                                <caption>대당금액은 부가세, 카드 수수료를 제외한 금액임</caption>
+                                <caption>
+                                    <p>1. 대당금액은 부가세, 카드 수수료를 제외한 금액임</p>
+                                    <p>2. 배차된 운행 정보만 표시됩니다. 예약정보는 '예약정보관리'에서 확인해 주세요.</p>
+                                </caption>
                                 <thead class="table-light">
                                     <tr>
-                                        <th>운행일</th>
-                                        <th>고객정보</th>
-                                        <th>목적지</th>
-                                        <th>배차차량</th>
-                                        <th>배차금액</th>
-                                        <th>대당금액</th>
-                                        <th>대수</th>
-                                        <th>출발장소</th>
-                                        <th>출발시간</th>
+                                        <th class="sortNum">운행일</th>
+                                        <th class="sortStr">고객정보</th>
+                                        <th class="sortStr">목적지</th>
+                                        <th class="tdCho sortStr">배차차량</th>
+                                        <th class="tdCho sortStr">승무원</th>
+                                        <th class="tdCho sortNum">배차금액</th>
+                                        <th class="sortNum">대당금액</th>
+                                        <th class="sortNum">대수</th>
+                                        <th class="sortStr">출발장소</th>
+                                        <th class="sortNum">출발시간</th>
                                     </tr>
                                 </thead>
                                 <tbody id="home3-tb-il"></tbody>
@@ -104,5 +141,6 @@
                 </div>
             </div>
         </div>
+        <div class="allo-side">asdasdasd</div>
     </div>
 </html>
