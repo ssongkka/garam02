@@ -88,7 +88,7 @@ function makeMainBigCal() {
                     $(bbb).removeClass('tdMainCal');
                 }
 
-                $(bbb3).text(stD.getDate());
+                $(bbb3).text(stD.getDate() + '일');
                 $(bbb3).css('color', colorDay);
 
                 $(bbb31).text('');
@@ -962,8 +962,6 @@ function getTdSize(params) {
 
 }
 
-$(document).on('click', '.middle-suk', function () {});
-
 $(document).ready(function () {
     $(".mainCalTable tbody tr td .mainCaltd-top .mainCaltd-top-hol").mouseover(
         function () {
@@ -1068,3 +1066,2030 @@ function clTdColor() {
 $(document).on('click', '#pills-home-tab', function () {
     makeMainBigCal();
 });
+
+$(document).on('click', '.middle-suk', function () {
+
+    const dayday = $(this)
+        .next()
+        .next()
+        .val();
+    const rsvtrsvt = $(this)
+        .next()
+        .next()
+        .next()
+        .val();
+
+    const ddddd = new Date(dayday);
+
+    $('#modalRsvtOperLabel').text(dayday + ' ' + getDayOfWeek(ddddd.getDay()));
+    $('#RsvtOperDay').val(dayday);
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (dayday == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+        }
+    }
+
+    getSukRsvt(rsvtrsvt, 0);
+});
+
+function getMenuRsvt(rsvtrsvt, choo) {
+    return new Promise(function (resolve, reject) {
+        const url = "/allo/rsvtsuk";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "rsvt": rsvtrsvt
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+                makeHtmlsMenu(r, choo);
+                resolve();
+            }
+        })
+    })
+}
+
+function makeHtmlsMenu(r, cho) {
+
+    switch (cho) {
+        case 0:
+            LoadingWithMask()
+                .then(makeCustomer2)
+                .then(makeRsvt2)
+                .then(makeOper2)
+                .then(showModalSuk2)
+                .then(closeLoadingWithMask);
+            break;
+
+        default:
+            LoadingWithMask()
+                .then(makeCustomer2)
+                .then(makeRsvt2)
+                .then(makeOper2)
+                .then(closeLoadingWithMask);
+            break;
+    }
+
+    function makeCustomer2(result) {
+        return new Promise(function (resolve, reject) {
+            let ctmseqArr = new Array();
+
+            let htmls = '';
+
+            let tteell1 = '';
+            let tteell2 = '';
+            let ddetail = '';
+
+            ctmseqArr[0] = r[0].ctmseq;
+
+            if (r[0].ctmtel1) {
+                tteell1 = '<span><a href="tel:' + r[0].ctmtel1 + '">' + r[0].ctmtel1 + '</a></s' +
+                        'pan>';
+            } else {
+                tteell1 = '<span>연락처 없음</span>';
+            }
+            if (r[0].ctmtel2) {
+                tteell2 = '<span><a href="tel:' + r[0].ctmtel2 + '">' + r[0].ctmtel2 + '</a></s' +
+                        'pan>';
+            }
+            if (r[0].ctmdetail) {
+                ddetail = '<span>' + r[0].ctmdetail + '</span>';
+            }
+
+            htmls += '<div class="allo-card">';
+            htmls += '<input type="hidden" id="rvctm1RsvtOper" value="' + r[0].ctmno + '">';
+            htmls += '<input type="hidden" id="rvctmsepa1RsvtOper" value="' + r[0].ctmsepa + '">';
+            htmls += '<input type="hidden" id="sepaModal" value="3">';
+            switch (r[0].ctmsepa) {
+                case 0:
+                    htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
+                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                            '</div>';
+                    break;
+                case 1:
+                    htmls += '<div class="ctm-ttt ctm-ttt-back2"><div class="ctm-ttt-item"><i class="fa-soli' +
+                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                            '</div>';
+                    break;
+                case 2:
+                    htmls += '<div class="ctm-ttt ctm-ttt-back3"><div class="ctm-ttt-item"><i class="fa-soli' +
+                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                            '</div>';
+                    break;
+            }
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += tteell1;
+            htmls += '</div>';
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += tteell2;
+            htmls += '</div>';
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += ddetail;
+            htmls += '</div>';
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                    'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                    ' fa-file-lines"></i></button>';
+            htmls += '</div>';
+            htmls += '</div>';
+            htmls += '<div class="rv" id="rvRsvtOper' + r[0].ctmseq + '">';
+            htmls += '</div>';
+            htmls += '</div>';
+
+            $('#modalRsvtOperBD').html(htmls);
+            resolve(ctmseqArr);
+        })
+    }
+
+    function makeRsvt2(result) {
+        return new Promise(function (resolve, reject) {
+            let cnt0 = 0;
+            let cnt00 = 0;
+            let cnt01 = 0;
+            let cnt02 = 0;
+
+            let tbi1 = 0;
+            let tbi2 = 100;
+            let tbi3 = 200;
+            let tbi4 = 300;
+
+            let rst = new Array();
+
+            let ctmseqHtml = new Array();
+            for (let index = 0; index < result.length; index++) {
+                ctmseqHtml[index] = '';
+            }
+
+            let cnt = 0;
+            for (let i = 0; i < r.length; i++) {
+                let suk = '';
+                if (r[i].stday != r[i].endday) {
+                    suk = '(' + parseInt(betweenDateNum(r[i].stday, r[i].endday) - 1) + '박' +
+                            betweenDateNum(r[i].stday, r[i].endday) + '일)';
+                }
+
+                rst[i] = r[i].rsvt;
+                switch (r[i].ctmsepa) {
+                    case 0:
+                        cnt00 = cnt00 + parseInt(r[i].num);
+                        cnt0 = cnt0 + parseInt(r[i].num);
+                        break;
+                    case 1:
+                        cnt01 = cnt01 + parseInt(r[i].num);
+                        cnt0 = cnt0 + parseInt(r[i].num);
+                        break;
+                    case 2:
+                        cnt02 = cnt02 + parseInt(r[i].num);
+                        cnt0 = cnt0 + parseInt(r[i].num);
+                        break;
+                }
+
+                let htmls = '';
+
+                htmls += '<div class="card-song allo-card-in">';
+                htmls += '<input type="hidden" id="oprsvtseqRsvtOper-' + r[i].rsvtseq + '" value="' + r[i].rsvt +
+                        '">';
+                switch (r[i].ctmsepa) {
+                    case 0:
+                        htmls += '<div class="allo-detail allo-detail-back1">';
+                        break;
+                    case 1:
+                        htmls += '<div class="allo-detail allo-detail-back2">';
+                        break;
+                    case 2:
+                        htmls += '<div class="allo-detail allo-detail-back3">';
+                        break;
+                }
+                htmls += '<div class="allo-detail-item">';
+                if (r[i].ctmno == '0') {
+                    htmls += '<blockquote>';
+                    htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                            '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '(고객정보입력 후 배차 가능)<em st' +
+                            'yle="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                    htmls += '</blockquote>';
+                } else {
+                    htmls += '<blockquote>';
+                    htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                            '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '<em style="letter-spac' +
+                            'ing: 0.3rem;">' + suk + '</em></mark></p>';
+                    htmls += '</blockquote>';
+                }
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                switch (r[i].bus) {
+                    case '대형':
+                        htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
+                                r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
+                                'small>';
+                        break;
+                    case '중형':
+                        htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
+                                r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
+                                'small>';
+                        break;
+                    case '우등':
+                        htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
+                                r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
+                                'small>';
+                        break;
+                }
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                htmls += '<small><i class="fas fa-map-pin"></i>' + r[i].rsvpstp + '</small>';
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                let stttt = '';
+                let etttt = '';
+                if (r[i].stt) {
+                    stttt = r[i].stt;
+                } else {
+                    stttt = '미정'
+                }
+                if (r[i].endt) {
+                    etttt = r[i].endt;
+                } else {
+                    etttt = '미정'
+                }
+                htmls += '<small><i class="far fa-clock"></i>' + stttt + '&nbsp;&#47;&nbsp;' + etttt + '</small>';
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+
+                htmls += '<small><i class="fa-solid fa-won-sign"></i>' + AddComma(r[i].conm) + '(' + (
+                    AddComma(r[i].numm)
+                ) + ')</small> ';
+                htmls += '<small>' + r[i].cont + '</small> ';
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                htmls += '<button class="btn btn-default allo-detail-item-1 card-song rsvtDetails" id="b' +
+                        'tnRsvtOper-1-' + r[i].rsvtseq + '-' + i + '"><i class="fa-solid fa-magnifying-' +
+                        'glass-plus"></i></button>';
+                htmls += '';
+                htmls += '</div>';
+                const operdddd = $('.dash-cal-con-item-t').children()[0];
+                const operdddd1 = $(operdddd).children()[1];
+                const tod = $(operdddd1).val();
+                // const tttod = tod + Math.floor(Math.random() * 1000);
+                htmls += '<input type="hidden" value="' + r[i].stday + '">';
+                htmls += '<input type="hidden" value="' + r[i].endday + '">';
+                htmls += '<input type="hidden" value="' + r[i].numm + '">';
+                htmls += '</div>';
+                // htmls += '<hr>';
+                htmls += '<div class="allo-allo row">';
+
+                for (let k = 0; k < r[i].num; k++) {
+                    let tbi = 0;
+                    let tbii = 0;
+                    switch (r[i].ctmsepa) {
+                        case 0:
+                            tbi = tbi1++;
+                            tbii = tbi1++;
+                            break;
+                        case 1:
+                            tbi = tbi2++;
+                            tbii = tbi2++;
+                            break;
+                        case 2:
+                            tbi = tbi3++;
+                            tbii = tbi3++;
+                            break;
+                    }
+                    htmls += '<div class="allo-allo-item">';
+                    htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-RsvtOper' + (
+                        k + 1
+                    ) + '">';
+                    htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-RsvtOper' + (
+                        k + 1
+                    ) + '-op">';
+                    htmls += '<div class="stWay" id="st-' + r[i].rsvtseq + '-RsvtOper' + (
+                        k + 1
+                    ) + '">';
+
+                    cnt++;
+
+                    if (suk.length > 0) {
+                        htmls += '<button class="onebtn mdOneway" role="button" id="btRsvtOper-' + (
+                            cnt - 1
+                        ) + '" data-bs-toggle="tooltip" data-bs-placement="left" title="숙박 운행은 편도 운행이 가' +
+                                '능하지 않습니다."><i class="fas fa-ban"></i></button>';
+                    } else {
+                        if (r[i].ctmno == '0') {
+                            htmls += '<button class="onebtn mdOneway" role="button" id="btRsvtOper-' + (
+                                cnt - 1
+                            ) + '" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" tit' +
+                                    'le="고객정보입력 후 배차해주세요."><i class="fa-solid fa-bars"></i></i></button>';
+                        } else {
+                            htmls += '<button class="onebtn mdOneway" role="button" id="btRsvtOper-' + (
+                                cnt - 1
+                            ) + '"><i class="fa-solid fa-bars"></i></i></button>';
+                        }
+                    }
+
+                    if (r[i].ctmno == '0') {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                'ist="car-info" tabindex="' + (
+                            tbi
+                        ) + '" placeholder="' + (
+                            k + 1
+                        ) + '호차" id="RsvtOper' + cnt + 'car" style="font-weight: 600; letter-spacing: 0' +
+                                '.3rem;" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" t' +
+                                'itle="고객정보입력 후 배차해주세요.">';
+                    } else {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                'ist="car-info" tabindex="' + (
+                            tbi
+                        ) + '" placeholder="' + (
+                            k + 1
+                        ) + '호차" id="RsvtOper' + cnt + 'car" style="font-weight: 600; letter-spacing: 0' +
+                                '.3rem;">';
+                    }
+                    htmls += '<input type="hidden" id="" value="0">';
+                    htmls += '<input type="hidden" id="" value="0">';
+                    if (r[i].ctmno == '0') {
+                        htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'empRsvtOpe' +
+                                'r" list="per-info" tabindex="-1" placeholder="승무원" disabled="disabled" data-bs' +
+                                '-toggle="tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요.">';
+                    } else {
+                        htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'empRsvtOpe' +
+                                'r" list="per-info" tabindex="-1" placeholder="승무원">';
+                    }
+                    htmls += '<input type="hidden" id="" value="0">';
+
+                    if (r[i].ctmno == '0') {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                '"' + cnt +
+                                'mRsvtOper" onfocus="this.select()" data-type="currency" tabindex="' + (
+                            tbii
+                        ) + '" placeholder="배차금액" disabled="disabled" data-bs-toggle="tooltip" data-bs-' +
+                                'placement="top" title="고객정보입력 후 배차해주세요.">';
+                    } else {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                '"' + cnt +
+                                'mRsvtOper" onfocus="this.select()" data-type="currency" tabindex="' + (
+                            tbii
+                        ) + '" placeholder="배차금액">';
+                    }
+                    if (r[i].ctmno == '0') {
+                        htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btxRsvtOpe' +
+                                'r-' + (
+                            cnt - 1
+                        ) + '" style="background: transparent;"  disabled="disabled" data-bs-toggle="to' +
+                                'oltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="fas fa-times' +
+                                '"></i></button>';
+                    } else {
+                        htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btxRsvtOpe' +
+                                'r-' + (
+                            cnt - 1
+                        ) + '" style="background: transparent; color:gray;"><i class="fas fa-times"></i' +
+                                '></button>';
+                    }
+                    htmls += '</div>';
+                    htmls += '</div>';
+                }
+                htmls += '</div>';
+                htmls += '</div>';
+
+                for (let j = 0; j < result.length; j++) {
+                    if (r[i].ctmseq == result[j]) {
+                        ctmseqHtml[j] += htmls;
+                    }
+                }
+            }
+            for (let j = 0; j < ctmseqHtml.length; j++) {
+                $('#rvRsvtOper' + result[j]).html(ctmseqHtml[j]);
+                var tooltipTriggerList = []
+                    .slice
+                    .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                })
+                $("input[data-type='currency']").bind('keyup keydown', function () {
+                    inputNumberFormat(this);
+                });
+            }
+            resolve(0);
+        })
+    }
+
+    function makeOper2(result) {
+        return new Promise(function (resolve, reject) {
+
+            const url = "/allo/operrsvtoper";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "rsvt": r[0].rsvt
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (ra) {
+
+                    for (let i = 0; i < ra.length; i++) {
+                        $('#' + ra[i].rsvtseq + '-RsvtOper' + ra[i].operno).val(ra[i].opernum);
+                        $('#' + ra[i].rsvtseq + '-RsvtOper' + ra[i].operno + '-op').val(ra[i].operseq);
+                        var stid = '#st-' + ra[i].rsvtseq + '-RsvtOper' + ra[i].operno;
+                        if (ra[i].opertype == 1) {
+                            let cnt = 0;
+                            for (let j = 0; j < dbCompa.length; j++) {
+                                if (dbCompa[j].company == ra[i].opercom) {
+                                    cnt++;
+                                }
+                            }
+
+                            if (cnt > 0) {
+                                $(stid).attr('class', 'stWay1');
+                            } else {
+                                if (ra[i].name == '타회사') {
+                                    $(stid).attr('class', 'stWay3');
+                                } else {
+                                    $(stid).attr('class', 'stWay2');
+                                }
+                            }
+
+                            if (ra[i].opertrash == 0 || ra[i].opertrash == 2) {
+
+                                const abc = $(stid)
+                                    .parent()
+                                    .parent()
+                                    .prev()
+                                    .prev()
+                                    .children()[5];
+                                const bbc1 = $(abc).children()[0];
+                                const bbc2 = $(abc).children()[1];
+
+                                $(bbc1).attr("onclick", 'endAllo2()');
+
+                                $(stid).attr('onclick', 'endAllo()');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+                            }
+
+                            if (ra[i].vehicle) {
+                                if (ra[i].name == '타회사') {
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .val(ra[i].vehicle);
+                                } else {
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .val(ra[i].vehicle.substring(ra[i].vehicle.length - 4));
+                                }
+                            } else {}
+
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .val(ra[i].opercar);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .val(ra[i].opercom);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .val(ra[i].name);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .val(ra[i].operid);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .val(AddComma(ra[i].atlm));
+                        } else {
+                            $(stid)
+                                .children()
+                                .first()
+                                .attr('class', 'onebtn1 mdOneway');
+                        }
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+            $('[tabindex=0]').focus();
+            resolve();
+        });
+    }
+
+    function showModalSuk2(result) {
+        return new Promise(function (resolve, reject) {
+            $('#modalRsvtOper').modal('show');
+            resolve();
+        })
+    }
+}
+
+function getSukRsvt(rsvtrsvt, choo) {
+    return new Promise(function (resolve, reject) {
+        const url = "/allo/rsvtsuk";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "rsvt": rsvtrsvt
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+                makeHtmlsSuk(r, choo);
+                resolve();
+            }
+        })
+    })
+}
+
+function makeHtmlsSuk(r, cho) {
+
+    switch (cho) {
+        case 0:
+            LoadingWithMask()
+                .then(makeCustomer)
+                .then(makeRsvt)
+                .then(makeOper)
+                .then(showModalSuk)
+                .then(closeLoadingWithMask);
+            break;
+
+        default:
+            LoadingWithMask()
+                .then(makeCustomer)
+                .then(makeRsvt)
+                .then(makeOper)
+                .then(closeLoadingWithMask);
+            break;
+    }
+
+    function makeCustomer(result) {
+        return new Promise(function (resolve, reject) {
+            let ctmseqArr = new Array();
+
+            let htmls = '';
+
+            let tteell1 = '';
+            let tteell2 = '';
+            let ddetail = '';
+
+            ctmseqArr[0] = r[0].ctmseq;
+
+            if (r[0].ctmtel1) {
+                tteell1 = '<span><a href="tel:' + r[0].ctmtel1 + '">' + r[0].ctmtel1 + '</a></s' +
+                        'pan>';
+            } else {
+                tteell1 = '<span>연락처 없음</span>';
+            }
+            if (r[0].ctmtel2) {
+                tteell2 = '<span><a href="tel:' + r[0].ctmtel2 + '">' + r[0].ctmtel2 + '</a></s' +
+                        'pan>';
+            }
+            if (r[0].ctmdetail) {
+                ddetail = '<span>' + r[0].ctmdetail + '</span>';
+            }
+
+            htmls += '<div class="allo-card">';
+            htmls += '<input type="hidden" id="rvctm1RsvtOper" value="' + r[0].ctmno + '">';
+            htmls += '<input type="hidden" id="rvctmsepa1RsvtOper" value="' + r[0].ctmsepa + '">';
+            htmls += '<input type="hidden" id="sepaModal" value="0">';
+            switch (r[0].ctmsepa) {
+                case 0:
+                    htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
+                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                            '</div>';
+                    break;
+                case 1:
+                    htmls += '<div class="ctm-ttt ctm-ttt-back2"><div class="ctm-ttt-item"><i class="fa-soli' +
+                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                            '</div>';
+                    break;
+                case 2:
+                    htmls += '<div class="ctm-ttt ctm-ttt-back3"><div class="ctm-ttt-item"><i class="fa-soli' +
+                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                            '</div>';
+                    break;
+            }
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += tteell1;
+            htmls += '</div>';
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += tteell2;
+            htmls += '</div>';
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += ddetail;
+            htmls += '</div>';
+            htmls += '<div class="ctm-ttt-item">';
+            htmls += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                    'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                    ' fa-file-lines"></i></button>';
+            htmls += '</div>';
+            htmls += '</div>';
+            htmls += '<div class="rv" id="rvRsvtOper' + r[0].ctmseq + '">';
+            htmls += '</div>';
+            htmls += '</div>';
+
+            $('#modalRsvtOperBD').html(htmls);
+            resolve(ctmseqArr);
+        })
+    }
+
+    function makeRsvt(result) {
+        return new Promise(function (resolve, reject) {
+            let cnt0 = 0;
+            let cnt00 = 0;
+            let cnt01 = 0;
+            let cnt02 = 0;
+
+            let tbi1 = 0;
+            let tbi2 = 100;
+            let tbi3 = 200;
+            let tbi4 = 300;
+
+            let rst = new Array();
+
+            let ctmseqHtml = new Array();
+            for (let index = 0; index < result.length; index++) {
+                ctmseqHtml[index] = '';
+            }
+
+            let cnt = 0;
+            for (let i = 0; i < r.length; i++) {
+                let suk = '';
+                if (r[i].stday != r[i].endday) {
+                    suk = '(' + parseInt(betweenDateNum(r[i].stday, r[i].endday) - 1) + '박' +
+                            betweenDateNum(r[i].stday, r[i].endday) + '일)';
+                }
+
+                rst[i] = r[i].rsvt;
+                switch (r[i].ctmsepa) {
+                    case 0:
+                        cnt00 = cnt00 + parseInt(r[i].num);
+                        cnt0 = cnt0 + parseInt(r[i].num);
+                        break;
+                    case 1:
+                        cnt01 = cnt01 + parseInt(r[i].num);
+                        cnt0 = cnt0 + parseInt(r[i].num);
+                        break;
+                    case 2:
+                        cnt02 = cnt02 + parseInt(r[i].num);
+                        cnt0 = cnt0 + parseInt(r[i].num);
+                        break;
+                }
+
+                let htmls = '';
+
+                htmls += '<div class="card-song allo-card-in">';
+                htmls += '<input type="hidden" id="oprsvtseqRsvtOper-' + r[i].rsvtseq + '" value="' + r[i].rsvt +
+                        '">';
+                switch (r[i].ctmsepa) {
+                    case 0:
+                        htmls += '<div class="allo-detail allo-detail-back1">';
+                        break;
+                    case 1:
+                        htmls += '<div class="allo-detail allo-detail-back2">';
+                        break;
+                    case 2:
+                        htmls += '<div class="allo-detail allo-detail-back3">';
+                        break;
+                }
+                htmls += '<div class="allo-detail-item">';
+                if (r[i].ctmno == '0') {
+                    htmls += '<blockquote>';
+                    htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                            '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '(고객정보입력 후 배차 가능)<em st' +
+                            'yle="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                    htmls += '</blockquote>';
+                } else {
+                    htmls += '<blockquote>';
+                    htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                            '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '<em style="letter-spac' +
+                            'ing: 0.3rem;">' + suk + '</em></mark></p>';
+                    htmls += '</blockquote>';
+                }
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                switch (r[i].bus) {
+                    case '대형':
+                        htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
+                                r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
+                                'small>';
+                        break;
+                    case '중형':
+                        htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
+                                r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
+                                'small>';
+                        break;
+                    case '우등':
+                        htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
+                                r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
+                                'small>';
+                        break;
+                }
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                htmls += '<small><i class="fas fa-map-pin"></i>' + r[i].rsvpstp + '</small>';
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                let stttt = '';
+                let etttt = '';
+                if (r[i].stt) {
+                    stttt = r[i].stt;
+                } else {
+                    stttt = '미정'
+                }
+                if (r[i].endt) {
+                    etttt = r[i].endt;
+                } else {
+                    etttt = '미정'
+                }
+                htmls += '<small><i class="far fa-clock"></i>' + stttt + '&nbsp;&#47;&nbsp;' + etttt + '</small>';
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+
+                htmls += '<small><i class="fa-solid fa-won-sign"></i>' + AddComma(r[i].conm) + '(' + (
+                    AddComma(r[i].numm)
+                ) + ')</small> ';
+                htmls += '<small>' + r[i].cont + '</small> ';
+                htmls += '</div>';
+                htmls += '<div class="allo-detail-item">';
+                htmls += '<button class="btn btn-default allo-detail-item-1 card-song rsvtDetails" id="b' +
+                        'tnRsvtOper-1-' + r[i].rsvtseq + '-' + i + '"><i class="fa-solid fa-magnifying-' +
+                        'glass-plus"></i></button>';
+                htmls += '';
+                htmls += '</div>';
+                const operdddd = $('.dash-cal-con-item-t').children()[0];
+                const operdddd1 = $(operdddd).children()[1];
+                const tod = $(operdddd1).val();
+                // const tttod = tod + Math.floor(Math.random() * 1000);
+                htmls += '<input type="hidden" value="' + r[i].stday + '">';
+                htmls += '<input type="hidden" value="' + r[i].endday + '">';
+                htmls += '<input type="hidden" value="' + r[i].numm + '">';
+                htmls += '</div>';
+                // htmls += '<hr>';
+                htmls += '<div class="allo-allo row">';
+
+                for (let k = 0; k < r[i].num; k++) {
+                    let tbi = 0;
+                    let tbii = 0;
+                    switch (r[i].ctmsepa) {
+                        case 0:
+                            tbi = tbi1++;
+                            tbii = tbi1++;
+                            break;
+                        case 1:
+                            tbi = tbi2++;
+                            tbii = tbi2++;
+                            break;
+                        case 2:
+                            tbi = tbi3++;
+                            tbii = tbi3++;
+                            break;
+                    }
+                    htmls += '<div class="allo-allo-item">';
+                    htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-RsvtOper' + (
+                        k + 1
+                    ) + '">';
+                    htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-RsvtOper' + (
+                        k + 1
+                    ) + '-op">';
+                    htmls += '<div class="stWay" id="st-' + r[i].rsvtseq + '-RsvtOper' + (
+                        k + 1
+                    ) + '">';
+
+                    cnt++;
+
+                    htmls += '<button class="onebtn mdOneway" role="button" id="btRsvtOper-' + (
+                        cnt - 1
+                    ) + '" data-bs-toggle="tooltip" data-bs-placement="left" title="숙박 운행은 편도 운행이 가' +
+                            '능하지 않습니다."><i class="fas fa-ban"></i></button>';
+
+                    if (r[i].ctmno == '0') {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                'ist="car-info" tabindex="' + (
+                            tbi
+                        ) + '" placeholder="' + (
+                            k + 1
+                        ) + '호차" id="RsvtOper' + cnt + 'car" style="font-weight: 600; letter-spacing: 0' +
+                                '.3rem;" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" t' +
+                                'itle="고객정보입력 후 배차해주세요.">';
+                    } else {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                'ist="car-info" tabindex="' + (
+                            tbi
+                        ) + '" placeholder="' + (
+                            k + 1
+                        ) + '호차" id="RsvtOper' + cnt + 'car" style="font-weight: 600; letter-spacing: 0' +
+                                '.3rem;">';
+                    }
+                    htmls += '<input type="hidden" id="" value="0">';
+                    htmls += '<input type="hidden" id="" value="0">';
+                    if (r[i].ctmno == '0') {
+                        htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'empRsvtOpe' +
+                                'r" list="per-info" tabindex="-1" placeholder="승무원" disabled="disabled" data-bs' +
+                                '-toggle="tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요.">';
+                    } else {
+                        htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'empRsvtOpe' +
+                                'r" list="per-info" tabindex="-1" placeholder="승무원">';
+                    }
+                    htmls += '<input type="hidden" id="" value="0">';
+
+                    if (r[i].ctmno == '0') {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                '"' + cnt +
+                                'mRsvtOper" onfocus="this.select()" data-type="currency" tabindex="' + (
+                            tbii
+                        ) + '" placeholder="배차금액" disabled="disabled" data-bs-toggle="tooltip" data-bs-' +
+                                'placement="top" title="고객정보입력 후 배차해주세요.">';
+                    } else {
+                        htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                '"' + cnt +
+                                'mRsvtOper" onfocus="this.select()" data-type="currency" tabindex="' + (
+                            tbii
+                        ) + '" placeholder="배차금액">';
+                    }
+                    if (r[i].ctmno == '0') {
+                        htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btxRsvtOpe' +
+                                'r-' + (
+                            cnt - 1
+                        ) + '" style="background: transparent;"  disabled="disabled" data-bs-toggle="to' +
+                                'oltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="fas fa-times' +
+                                '"></i></button>';
+                    } else {
+                        htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btxRsvtOpe' +
+                                'r-' + (
+                            cnt - 1
+                        ) + '" style="background: transparent; color:gray;"><i class="fas fa-times"></i' +
+                                '></button>';
+                    }
+                    htmls += '</div>';
+                    htmls += '</div>';
+                }
+                htmls += '</div>';
+                htmls += '</div>';
+
+                for (let j = 0; j < result.length; j++) {
+                    if (r[i].ctmseq == result[j]) {
+                        ctmseqHtml[j] += htmls;
+                    }
+                }
+            }
+            for (let j = 0; j < ctmseqHtml.length; j++) {
+                $('#rvRsvtOper' + result[j]).html(ctmseqHtml[j]);
+                var tooltipTriggerList = []
+                    .slice
+                    .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                })
+                $("input[data-type='currency']").bind('keyup keydown', function () {
+                    inputNumberFormat(this);
+                });
+            }
+            resolve(0);
+        })
+    }
+
+    function makeOper(result) {
+        return new Promise(function (resolve, reject) {
+
+            const url = "/allo/operrsvtoper";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "rsvt": r[0].rsvt
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (ra) {
+
+                    for (let i = 0; i < ra.length; i++) {
+                        $('#' + ra[i].rsvtseq + '-RsvtOper' + ra[i].operno).val(ra[i].opernum);
+                        $('#' + ra[i].rsvtseq + '-RsvtOper' + ra[i].operno + '-op').val(ra[i].operseq);
+                        var stid = '#st-' + ra[i].rsvtseq + '-RsvtOper' + ra[i].operno;
+                        if (ra[i].opertype == 1) {
+                            let cnt = 0;
+                            for (let j = 0; j < dbCompa.length; j++) {
+                                if (dbCompa[j].company == ra[i].opercom) {
+                                    cnt++;
+                                }
+                            }
+
+                            if (cnt > 0) {
+                                $(stid).attr('class', 'stWay1');
+                            } else {
+                                if (ra[i].name == '타회사') {
+                                    $(stid).attr('class', 'stWay3');
+                                } else {
+                                    $(stid).attr('class', 'stWay2');
+                                }
+                            }
+
+                            if (ra[i].opertrash == 0 || ra[i].opertrash == 2) {
+
+                                const abc = $(stid)
+                                    .parent()
+                                    .parent()
+                                    .prev()
+                                    .prev()
+                                    .children()[5];
+                                const bbc1 = $(abc).children()[0];
+                                const bbc2 = $(abc).children()[1];
+
+                                $(bbc1).attr("onclick", 'endAllo2()');
+
+                                $(stid).attr('onclick', 'endAllo()');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .attr("disabled", true);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .css('background', '#efefef');
+                            }
+
+                            if (ra[i].vehicle) {
+                                if (ra[i].name == '타회사') {
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .val(ra[i].vehicle);
+                                } else {
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .val(ra[i].vehicle.substring(ra[i].vehicle.length - 4));
+                                }
+                            } else {}
+
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .val(ra[i].opercar);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .val(ra[i].opercom);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .val(ra[i].name);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .val(ra[i].operid);
+                            $(stid)
+                                .children()
+                                .first()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .next()
+                                .val(AddComma(ra[i].atlm));
+                        } else {
+                            $(stid)
+                                .children()
+                                .first()
+                                .attr('class', 'onebtn1 mdOneway');
+                        }
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+            $('[tabindex=0]').focus();
+            resolve();
+        });
+    }
+
+    function showModalSuk(result) {
+        return new Promise(function (resolve, reject) {
+            $('#modalRsvtOper').modal('show');
+            resolve();
+        })
+    }
+}
+
+$(document).on('click', '#btnMdRsvtOperX', function () {
+    closeMdRsvtOper();
+});
+
+$(document).on('click', '#btnMdRsvtOperBtn', function () {
+    closeMdRsvtOper();
+});
+
+function closeMdRsvtOper() {
+    LoadingWithMask()
+        .then(ex1)
+        .then(ex2)
+        .then(closeLoadingWithMask);
+
+    function ex1() {
+        return new Promise(function (resolve, reject) {
+            // setCalWhite($('.dash-cal-con-item-t').attr('id'));
+            resolve();
+        })
+    }
+    function ex2() {
+        return new Promise(function (resolve, reject) {
+            $('#modalRsvtOper').modal('hide');
+            resolve();
+        })
+    }
+}
+
+$(document).on('click', '.middle-il', function () {
+
+    const dayday = $(this)
+        .next()
+        .next()
+        .val();
+    const ctmnono = $(this)
+        .next()
+        .next()
+        .next()
+        .val();
+
+    const ddddd = new Date(dayday);
+
+    $('#modalRsvtOperLabel').text(dayday + ' ' + getDayOfWeek(ddddd.getDay()));
+    $('#RsvtOperDay').val(dayday);
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (dayday == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+        }
+    }
+
+    makeHtmlsIl(ctmnono, dayday, 0);
+});
+
+function makeHtmlsIl(ctmnono, day, cho) {
+
+    switch (cho) {
+        case 0:
+            LoadingWithMask()
+                .then(makeCustomer1)
+                .then(getRsvt1)
+                .then(getOper1)
+                .then(showModalSuk1)
+                .then(closeLoadingWithMask);
+            break;
+
+        default:
+            LoadingWithMask()
+                .then(makeCustomer1)
+                .then(getRsvt1)
+                .then(getOper1)
+                .then(closeLoadingWithMask);
+            break;
+    }
+
+    function makeCustomer1(result) {
+        return new Promise(function (resolve, reject) {
+
+            const url = "/customer/name";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "ctmno": ctmnono
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let ctmseqArr = new Array();
+
+                    let htmls = '';
+
+                    let tteell1 = '';
+                    let tteell2 = '';
+                    let ddetail = '';
+
+                    ctmseqArr[0] = r[0].ctmseq;
+
+                    if (r[0].ctmtel1) {
+                        tteell1 = '<span><a href="tel:' + r[0].ctmtel1 + '">' + r[0].ctmtel1 + '</a></s' +
+                                'pan>';
+                    } else {
+                        tteell1 = '<span>연락처 없음</span>';
+                    }
+                    if (r[0].ctmtel2) {
+                        tteell2 = '<span><a href="tel:' + r[0].ctmtel2 + '">' + r[0].ctmtel2 + '</a></s' +
+                                'pan>';
+                    }
+                    if (r[0].ctmdetail) {
+                        ddetail = '<span>' + r[0].ctmdetail + '</span>';
+                    }
+
+                    htmls += '<div class="allo-card">';
+                    htmls += '<input type="hidden" id="rvctm1RsvtOper" value="' + r[0].ctmno + '">';
+                    htmls += '<input type="hidden" id="rvctmsepa1RsvtOper" value="' + r[0].ctmsepa + '">';
+                    htmls += '<input type="hidden" id="sepaModal" value="1">';
+                    switch (r[0].ctmsepa) {
+                        case 0:
+                            htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
+                                    'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                                    '</div>';
+                            break;
+                        case 1:
+                            htmls += '<div class="ctm-ttt ctm-ttt-back2"><div class="ctm-ttt-item"><i class="fa-soli' +
+                                    'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                                    '</div>';
+                            break;
+                        case 2:
+                            htmls += '<div class="ctm-ttt ctm-ttt-back3"><div class="ctm-ttt-item"><i class="fa-soli' +
+                                    'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[0].ctmname +
+                                    '</div>';
+                            break;
+                    }
+                    htmls += '<div class="ctm-ttt-item">';
+                    htmls += tteell1;
+                    htmls += '</div>';
+                    htmls += '<div class="ctm-ttt-item">';
+                    htmls += tteell2;
+                    htmls += '</div>';
+                    htmls += '<div class="ctm-ttt-item">';
+                    htmls += ddetail;
+                    htmls += '</div>';
+                    htmls += '<div class="ctm-ttt-item">';
+                    htmls += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                            ' fa-file-lines"></i></button>';
+                    htmls += '</div>';
+                    htmls += '</div>';
+                    htmls += '<div class="rv" id="rvRsvtOper' + r[0].ctmseq + '">';
+                    htmls += '</div>';
+                    htmls += '</div>';
+
+                    $('#modalRsvtOperBD').html(htmls);
+
+                    resolve(ctmseqArr);
+                }
+            })
+        })
+    }
+
+    function getRsvt1(result) {
+        return new Promise(function (resolve, reject) {
+
+            const url = "/allo/rsvtil";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "stday": day,
+                "endday": day,
+                "ctmno": ctmnono,
+                "rsvttrash": 1
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let tbi1 = 0;
+                    let tbi2 = 100;
+                    let tbi3 = 200;
+                    let tbi4 = 300;
+
+                    let rst = new Array();
+
+                    let ctmseqHtml = new Array();
+                    for (let index = 0; index < result.length; index++) {
+                        ctmseqHtml[index] = '';
+                    }
+
+                    let cnt = 0;
+                    for (let i = 0; i < r.length; i++) {
+                        let suk = '';
+
+                        rst[i] = r[i].rsvt;
+
+                        let htmls = '';
+
+                        htmls += '<div class="card-song allo-card-in">';
+                        htmls += '<input type="hidden" id="oprsvtseqRsvtOper-' + r[i].rsvtseq + '" value="' + r[i].rsvt +
+                                '">';
+                        switch (r[i].ctmsepa) {
+                            case 0:
+                                htmls += '<div class="allo-detail allo-detail-back1">';
+                                break;
+                            case 1:
+                                htmls += '<div class="allo-detail allo-detail-back2">';
+                                break;
+                            case 2:
+                                htmls += '<div class="allo-detail allo-detail-back3">';
+                                break;
+                        }
+                        htmls += '<div class="allo-detail-item">';
+                        if (r[i].ctmno == '0') {
+                            htmls += '<blockquote>';
+                            htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                                    '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '(고객정보입력 후 배차 가능)<em st' +
+                                    'yle="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                            htmls += '</blockquote>';
+                        } else {
+                            htmls += '<blockquote>';
+                            htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                                    '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '<em style="letter-spac' +
+                                    'ing: 0.3rem;">' + suk + '</em></mark></p>';
+                            htmls += '</blockquote>';
+                        }
+                        htmls += '</div>';
+                        htmls += '<div class="allo-detail-item">';
+                        switch (r[i].bus) {
+                            case '대형':
+                                htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
+                                        r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
+                                        'small>';
+                                break;
+                            case '중형':
+                                htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
+                                        r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
+                                        'small>';
+                                break;
+                            case '우등':
+                                htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
+                                        r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
+                                        'small>';
+                                break;
+                        }
+                        htmls += '</div>';
+                        htmls += '<div class="allo-detail-item">';
+                        htmls += '<small><i class="fas fa-map-pin"></i>' + r[i].rsvpstp + '</small>';
+                        htmls += '</div>';
+                        htmls += '<div class="allo-detail-item">';
+                        let stttt = '';
+                        let etttt = '';
+                        if (r[i].stt) {
+                            stttt = r[i].stt;
+                        } else {
+                            stttt = '미정'
+                        }
+                        if (r[i].endt) {
+                            etttt = r[i].endt;
+                        } else {
+                            etttt = '미정'
+                        }
+                        htmls += '<small><i class="far fa-clock"></i>' + stttt + '&nbsp;&#47;&nbsp;' + etttt + '</small>';
+                        htmls += '</div>';
+                        htmls += '<div class="allo-detail-item">';
+
+                        htmls += '<small><i class="fa-solid fa-won-sign"></i>' + AddComma(r[i].conm) + '(' + (
+                            AddComma(r[i].numm)
+                        ) + ')</small> ';
+                        htmls += '<small>' + r[i].cont + '</small> ';
+                        htmls += '</div>';
+                        htmls += '<div class="allo-detail-item">';
+                        htmls += '<button class="btn btn-default allo-detail-item-1 card-song rsvtDetails" id="b' +
+                                'tnRsvtOper-1-' + r[i].rsvtseq + '-' + i + '"><i class="fa-solid fa-magnifying-' +
+                                'glass-plus"></i></button>';
+                        htmls += '';
+                        htmls += '</div>';
+                        const aaa = $('.dash-cal-con-item-t')
+                            .children()
+                            .children()[1];
+                        const tod = $(aaa).val();
+                        // const tttod = tod + Math.floor(Math.random() * 1000);
+                        htmls += '<input type="hidden" value="' + r[i].stday + '">';
+                        htmls += '<input type="hidden" value="' + r[i].endday + '">';
+                        htmls += '<input type="hidden" value="' + r[i].numm + '">';
+                        htmls += '</div>';
+                        // htmls += '<hr>';
+                        htmls += '<div class="allo-allo row">';
+
+                        for (let k = 0; k < r[i].num; k++) {
+                            let tbi = 0;
+                            let tbii = 0;
+                            switch (r[i].ctmsepa) {
+                                case 0:
+                                    tbi = tbi1++;
+                                    tbii = tbi1++;
+                                    break;
+                                case 1:
+                                    tbi = tbi2++;
+                                    tbii = tbi2++;
+                                    break;
+                                case 2:
+                                    tbi = tbi3++;
+                                    tbii = tbi3++;
+                                    break;
+                            }
+                            htmls += '<div class="allo-allo-item">';
+                            htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-RsvtOper' + (
+                                k + 1
+                            ) + '">';
+                            htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-RsvtOper' + (
+                                k + 1
+                            ) + '-op">';
+                            htmls += '<div class="stWay" id="st-' + r[i].rsvtseq + '-RsvtOper' + (
+                                k + 1
+                            ) + '">';
+
+                            cnt++;
+
+                            if (suk.length > 0) {
+                                htmls += '<button class="onebtn mdOneway" role="button" id="btRsvtOper-' + (
+                                    cnt - 1
+                                ) + '" data-bs-toggle="tooltip" data-bs-placement="left" title="숙박 운행은 편도 운행이 가' +
+                                        '능하지 않습니다."><i class="fas fa-ban"></i></button>';
+                            } else {
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<button class="onebtn mdOneway" role="button" id="btRsvtOper-' + (
+                                        cnt - 1
+                                    ) + '" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" tit' +
+                                            'le="고객정보입력 후 배차해주세요."><i class="fa-solid fa-bars"></i></i></button>';
+                                } else {
+                                    htmls += '<button class="onebtn mdOneway" role="button" id="btRsvtOper-' + (
+                                        cnt - 1
+                                    ) + '"><i class="fa-solid fa-bars"></i></i></button>';
+                                }
+                            }
+
+                            if (r[i].ctmno == '0') {
+                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                        'ist="car-info" tabindex="' + (
+                                    tbi
+                                ) + '" placeholder="' + (
+                                    k + 1
+                                ) + '호차" id="RsvtOper' + cnt + 'car" style="9font-weight: 600; letter-spacing: ' +
+                                        '0.3rem;" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" ' +
+                                        'title="고객정보입력 후 배차해주세요.">';
+                            } else {
+                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                        'ist="car-info" tabindex="' + (
+                                    tbi
+                                ) + '" placeholder="' + (
+                                    k + 1
+                                ) + '호차" id="RsvtOper' + cnt + 'car" style="font-weight: 600; letter-spacing: 0' +
+                                        '.3rem;">';
+                            }
+                            htmls += '<input type="hidden" id="" value="0">';
+                            htmls += '<input type="hidden" id="" value="0">';
+                            if (r[i].ctmno == '0') {
+                                htmls += '<input autocomplete="off" type="text" class="ve-emp" id="RsvtOper' + cnt + 'em' +
+                                        'p" list="per-info" tabindex="-1" placeholder="승무원" disabled="disabled" data-bs' +
+                                        '-toggle="tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요.">';
+                            } else {
+                                htmls += '<input autocomplete="off" type="text" class="ve-emp" id="RsvtOper' + cnt + 'em' +
+                                        'p" list="per-info" tabindex="-1" placeholder="승무원">';
+                            }
+                            htmls += '<input type="hidden" id="" value="0">';
+
+                            if (r[i].ctmno == '0') {
+                                b
+                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                        '"' + cnt +
+                                        'mRsvtOper" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                    tbii
+                                ) + '" placeholder="배차금액" disabled="disabled" data-bs-toggle="tooltip" data-bs-' +
+                                        'placement="top" title="고객정보입력 후 배차해주세요.">';
+                            } else {
+                                htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                        '"' + cnt +
+                                        'mRsvtOper" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                    tbii
+                                ) + '" placeholder="배차금액">';
+                            }
+                            if (r[i].ctmno == '0') {
+                                htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btxRsvtOpe' +
+                                        'r-' + (
+                                    cnt - 1
+                                ) + '" style="background: transparent;"  disabled="disabled" data-bs-toggle="to' +
+                                        'oltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="fas fa-times' +
+                                        '"></i></button>';
+                            } else {
+                                htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btxRsvtOpe' +
+                                        'r-' + (
+                                    cnt - 1
+                                ) + '" style="background: transparent; color:gray;"><i class="fas fa-times"></i' +
+                                        '></button>';
+                            }
+                            htmls += '</div>';
+                            htmls += '</div>';
+                        }
+                        htmls += '</div>';
+                        htmls += '</div>';
+
+                        for (let j = 0; j < result.length; j++) {
+                            if (r[i].ctmseq == result[j]) {
+                                ctmseqHtml[j] += htmls;
+                            }
+                        }
+                    }
+                    for (let j = 0; j < ctmseqHtml.length; j++) {
+                        $('#rvRsvtOper' + result[j]).html(ctmseqHtml[j]);
+                        var tooltipTriggerList = []
+                            .slice
+                            .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                            return new bootstrap.Tooltip(tooltipTriggerEl)
+                        })
+                        $("input[data-type='currency']").bind('keyup keydown', function () {
+                            inputNumberFormat(this);
+                        });
+                    }
+                    resolve(rst);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        });
+    }
+
+    function getOper1(result) {
+        return new Promise(function (resolve, reject) {
+
+            if (result != 0) {
+                const url = "/allo/oper";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                const params = {
+                    "stday": day,
+                    "endday": day,
+                    "ctmno": ctmnono
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        for (let i = 0; i < r.length; i++) {
+                            $('#' + r[i].rsvtseq + '-RsvtOper' + r[i].operno).val(r[i].opernum);
+                            $('#' + r[i].rsvtseq + '-RsvtOper' + r[i].operno + '-op').val(r[i].operseq);
+                            var stid = '#st-' + r[i].rsvtseq + '-RsvtOper' + r[i].operno;
+                            if (r[i].opertype == 1) {
+                                let cnt = 0;
+                                for (let j = 0; j < dbCompa.length; j++) {
+                                    if (dbCompa[j].company == r[i].opercom) {
+                                        cnt++;
+                                    }
+                                }
+                                ``
+
+                                if (cnt > 0) {
+                                    $(stid).attr('class', 'stWay1');
+                                } else {
+                                    if (r[i].name == '타회사') {
+                                        $(stid).attr('class', 'stWay3');
+                                    } else {
+                                        $(stid).attr('class', 'stWay2');
+                                    }
+                                }
+
+                                if (r[i].opertrash == 0 || r[i].opertrash == 2) {
+
+                                    const abc = $(stid)
+                                        .parent()
+                                        .parent()
+                                        .prev()
+                                        .prev()
+                                        .children()[5];
+                                    const bbc1 = $(abc).children()[0];
+                                    const bbc2 = $(abc).children()[1];
+
+                                    $(bbc1).attr("onclick", 'endAllo2()');
+
+                                    $(stid).attr('onclick', 'endAllo()');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .css('background', '#efefef');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .css('background', '#efefef');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .css('background', '#efefef');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .css('background', '#efefef');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .css('background', '#efefef');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .css('background', '#efefef');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .css('background', '#efefef');
+                                }
+
+                                if (r[i].vehicle) {
+                                    if (r[i].name == '타회사') {
+                                        $(stid)
+                                            .children()
+                                            .first()
+                                            .next()
+                                            .val(r[i].vehicle);
+                                    } else {
+                                        $(stid)
+                                            .children()
+                                            .first()
+                                            .next()
+                                            .val(r[i].vehicle.substring(r[i].vehicle.length - 4));
+                                    }
+                                } else {}
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .val(r[i].opercar);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[i].opercom);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[i].name);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[i].operid);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(AddComma(r[i].atlm));
+                            } else {
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .attr('class', 'onebtn1 mdOneway');
+                            }
+                        }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+
+            } else {}
+            $('[tabindex=0]').focus();
+            resolve();
+        });
+    }
+
+    function showModalSuk1(result) {
+        return new Promise(function (resolve, reject) {
+            $('#modalRsvtOper').modal('show');
+            resolve();
+        })
+    }
+}

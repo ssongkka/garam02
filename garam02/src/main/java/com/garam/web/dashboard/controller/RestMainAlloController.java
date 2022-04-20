@@ -32,10 +32,34 @@ public class RestMainAlloController {
 		return list;
 	}
 
+	@PostMapping(value = "/customerrsvtoper")
+	public List<RsvtDTO> customerrsvtoper(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloCTMRsvtOper(rsvtDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/rsvt")
 	public List<RsvtDTO> rsvtList(@RequestBody RsvtDTO rsvtDTO) throws Exception {
 
 		List<RsvtDTO> list = rsvtService.selectAlloRSVT(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/rsvtsuk")
+	public List<RsvtDTO> rsvtsuk(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloRSVTSuk(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/rsvtil")
+	public List<RsvtDTO> rsvtil(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloRSVTIl(rsvtDTO);
 
 		return list;
 	}
@@ -60,6 +84,22 @@ public class RestMainAlloController {
 	public List<RsvtDTO> operList(@RequestBody RsvtDTO rsvtDTO) throws Exception {
 
 		List<RsvtDTO> list = rsvtService.selectAlloOPER(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/operrsvtoperil")
+	public List<RsvtDTO> operrsvtoperil(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloOPERRsvtOperIl(rsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/operrsvtoper")
+	public List<RsvtDTO> operrsvtoper(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAlloOPERRsvtOper(rsvtDTO);
 
 		return list;
 	}
@@ -118,7 +158,20 @@ public class RestMainAlloController {
 			rst = rsvtService.delAllo(map);
 		} catch (DataAccessException e) {
 			rst = -1;
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
 
+	@PostMapping(value = "/updateAtmMany")
+	public int updateAtmMany(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = rsvtService.updateAtmMany(map);
+		} catch (DataAccessException e) {
+			rst = -1;
 		} catch (Exception e) {
 			rst = -2;
 		}

@@ -167,7 +167,19 @@ public class MainServiceImpl implements MainService {
 	public List<RsvtDTO> selectRSVT(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = rsvtMapper.selectRSVT(rsvtDTO);
 
-		System.out.println("하이요하이요");
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectAlloRSVTSuk(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectAlloRSVTSuk(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectAlloRSVTIl(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectAlloRSVTIl(rsvtDTO);
 
 		return list;
 	}
@@ -176,6 +188,14 @@ public class MainServiceImpl implements MainService {
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception {
 
 		List<RsvtDTO> list = rsvtMapper.selectAlloCTM(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectAlloCTMRsvtOper(RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtMapper.selectAlloCTMRsvtOper(rsvtDTO);
 
 		return list;
 	}
@@ -212,6 +232,22 @@ public class MainServiceImpl implements MainService {
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception {
 
 		List<RsvtDTO> list = rsvtMapper.selectAlloOPER(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectAlloOPERRsvtOperIl(RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtMapper.selectAlloOPERRsvtOperIl(rsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectAlloOPERRsvtOper(RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtMapper.selectAlloOPERRsvtOper(rsvtDTO);
 
 		return list;
 	}
@@ -355,6 +391,18 @@ public class MainServiceImpl implements MainService {
 		}
 
 		int rtn = rsvtMapper.delAllo(allodel);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateAtmMany(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> atmoper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			atmoper.put("atmoper", map);
+		}
+
+		int rtn = rsvtMapper.updateAtmMany(atmoper);
 
 		return rtn;
 	}

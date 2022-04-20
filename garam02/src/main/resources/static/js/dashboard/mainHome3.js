@@ -26,81 +26,7 @@ function getOperListIl() {
             data: JSON.stringify(params),
 
             success: function (r) {
-
-                console.log(r);
-
-                let htmls = ``;
-
-                for (let i = 0; i < r.length; i++) {
-
-                    let suk = '';
-                    if (r[i].stday != r[i].endday) {
-                        suk = betweenDate(r[i].stday, day, r[i].endday);
-                    }
-
-                    let destyyy = r[i].desty + suk;
-
-                    let stttt = ''
-                    if (r[i].stt) {
-                        stttt = r[i].stt;
-                    }
-
-                    let carcar = '';
-                    if (r[i].vehicle) {
-                        if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
-                            carcar = r[i]
-                                .vehicle
-                                .replaceAll('고속', '')
-                                .replaceAll('관광', '')
-                                .replaceAll('여행사', '')
-                                .replaceAll('(주)', '');
-                        } else {
-                            carcar = (r[i].vehicle).substring((r[i].vehicle).length - 4);
-                        }
-                    }
-
-                    htmls += `
-                <tr>
-                    <td>` + r[i].operday +
-                            `
-                        <input type="hidden" value="` + r[i].operday +
-                            `">
-                        <input type="hidden" value="` + r[i].rsvt +
-                            `">
-                        <input type="hidden" value="` + r[i].ctmno +
-                            `">
-                        <input type="hidden" value="` + r[i].operseq +
-                            `">
-                        <input type="hidden" value="` + r[i].opernum +
-                            `">
-                        <input type="hidden" value="` + r[i].opercar +
-                            `">
-                        <input type="hidden" value="` + r[i].operid +
-                            `">
-                        <input type="hidden" value="` + r[i].opercom +
-                            `">
-                    </td>
-                    <td>` + r[i].ctmname +
-                            `</td>
-                    <td>` + destyyy +
-                            `</td>
-                    <td class="tdCho">` + carcar +
-                            `</td>
-                    <td class="tdCho">` + r[i].name +
-                            `</td>
-                    <td class="tdRight tdCho">` + AddComma(r[i].atlm) +
-                            `</td>
-                    <td class="tdRight">` + AddComma(r[i].numm) +
-                            `</td>
-                    <td>` + r[i].num +
-                            `</td>
-                    <td>` + r[i].rsvpstp +
-                            `</td>
-                    <td>` + stttt +
-                            `</td>
-                </tr>`;
-                }
-                $('#home3-tb-il').html(htmls);
+                makeTableOper(r);
                 resolve();
             },
             error: (jqXHR) => {
@@ -112,6 +38,7 @@ function getOperListIl() {
 
 function getOperListMonth(result) {
     return new Promise(function (resolve, reject) {
+
         let stD = new Date($("#yearMonth").val() + '-01');
         const stttD = new Date($("#yearMonth").val() + '-01');
 
@@ -139,81 +66,7 @@ function getOperListMonth(result) {
             data: JSON.stringify(params),
 
             success: function (r) {
-
-                console.log(r);
-
-                let htmls = ``;
-
-                for (let i = 0; i < r.length; i++) {
-
-                    let suk = '';
-                    if (r[i].stday != r[i].endday) {
-                        suk = betweenDate(r[i].stday, r[i].operday, r[i].endday);
-                    }
-
-                    let destyyy = r[i].desty + suk;
-
-                    let stttt = ''
-                    if (r[i].stt) {
-                        stttt = r[i].stt;
-                    }
-
-                    let carcar = '';
-                    if (r[i].vehicle) {
-                        if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
-                            carcar = r[i]
-                                .vehicle
-                                .replaceAll('고속', '')
-                                .replaceAll('관광', '')
-                                .replaceAll('여행사', '')
-                                .replaceAll('(주)', '');
-                        } else {
-                            carcar = (r[i].vehicle).substring((r[i].vehicle).length - 4);
-                        }
-                    }
-
-                    htmls += `
-            <tr>
-                <td>` + r[i].operday +
-                            `
-                    <input type="hidden" value="` + r[i].operday +
-                            `">
-                    <input type="hidden" value="` + r[i].rsvt +
-                            `">
-                    <input type="hidden" value="` + r[i].ctmno +
-                            `">
-                    <input type="hidden" value="` + r[i].operseq +
-                            `">
-                    <input type="hidden" value="` + r[i].opernum +
-                            `">
-                    <input type="hidden" value="` + r[i].opercar +
-                            `">
-                    <input type="hidden" value="` + r[i].operid +
-                            `">
-                    <input type="hidden" value="` + r[i].opercom +
-                            `">
-                </td>
-                <td>` + r[i].ctmname +
-                            `</td>
-                <td>` + destyyy +
-                            `</td>
-                <td class="tdCho">` + carcar +
-                            `</td>
-                <td class="tdCho">` + r[i].name +
-                            `</td>
-                <td class="tdRight tdCho">` + AddComma(r[i].atlm) +
-                            `</td>
-                <td class="tdRight">` + AddComma(r[i].numm) +
-                            `</td>
-                <td>` + r[i].num +
-                            `</td>
-                <td>` + r[i].rsvpstp +
-                            `</td>
-                <td>` + stttt +
-                            `</td>
-            </tr>`;
-                }
-                $('#home3-tb-il').html(htmls);
+                makeTableOper(r);
                 resolve();
             },
             error: (jqXHR) => {
@@ -365,7 +218,6 @@ function getSeachOperList(texts) {
         return new Promise(function (resolve, reject) {
 
             if (texts) {
-
                 const url = "/allo/opersearch";
                 const headers = {
                     "Content-Type": "application/json",
@@ -375,8 +227,6 @@ function getSeachOperList(texts) {
                 let params = {};
 
                 const idChk = $("#searchChOper").is(":checked");
-
-                console.log($('#searchSepaOper').val());
 
                 switch ($('#searchSepaOper').val()) {
                     case '0':
@@ -490,7 +340,6 @@ function getSeachOperList(texts) {
 
                 }
 
-                console.log(params);
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -499,91 +348,7 @@ function getSeachOperList(texts) {
                     data: JSON.stringify(params),
 
                     success: function (r) {
-
-                        if (r.length > 0) {
-                            let htmls = ``;
-
-                            for (let i = 0; i < r.length; i++) {
-
-                                let suk = '';
-                                if (r[i].stday != r[i].endday) {
-                                    suk = betweenDate(r[i].stday, r[i].operday, r[i].endday);
-                                }
-
-                                let destyyy = r[i].desty + suk;
-
-                                let stttt = ''
-                                if (r[i].stt) {
-                                    stttt = r[i].stt;
-                                }
-
-                                let carcar = '';
-                                if (r[i].vehicle) {
-                                    if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
-                                        carcar = r[i]
-                                            .vehicle
-                                            .replaceAll('고속', '')
-                                            .replaceAll('관광', '')
-                                            .replaceAll('여행사', '')
-                                            .replaceAll('(주)', '');
-                                    } else {
-                                        carcar = (r[i].vehicle).substring((r[i].vehicle).length - 4);
-                                    }
-                                }
-
-                                htmls += `
-                        <tr>
-                            <td>` + r[i].operday +
-                                        `
-                                <input type="hidden" value="` + r[i].operday +
-                                        `">
-                                <input type="hidden" value="` + r[i].rsvt +
-                                        `">
-                                <input type="hidden" value="` + r[i].ctmno +
-                                        `">
-                                <input type="hidden" value="` + r[i].operseq +
-                                        `">
-                                <input type="hidden" value="` + r[i].opernum +
-                                        `">
-                                <input type="hidden" value="` + r[i].opercar +
-                                        `">
-                                <input type="hidden" value="` + r[i].operid +
-                                        `">
-                                <input type="hidden" value="` + r[i].opercom +
-                                        `">
-                            </td>
-                            <td>` + r[i].ctmname +
-                                        `</td>
-                            <td>` + destyyy +
-                                        `</td>
-                            <td class="tdCho">` + carcar +
-                                        `</td>
-                            <td class="tdCho">` + r[i].name +
-                                        `</td>
-                            <td class="tdRight tdCho">` + AddComma(
-                                    r[i].atlm
-                                ) +
-                                        `</td>
-                            <td class="tdRight">` + AddComma(r[i].numm) +
-                                        `</td>
-                            <td>` + r[i].num +
-                                        `</td>
-                            <td>` + r[i].rsvpstp +
-                                        `</td>
-                            <td>` + stttt +
-                                        `</td>
-                        </tr>`;
-                            }
-                            $('#home3-tb-il').html(htmls);
-                        } else {
-                            htmls = `
-                            <tr>
-                            <th colspan="10">예약정보없음</th>
-                            </tr>`;
-                            $('#home3-tb-il').html(htmls);
-
-                            alert("검색결과 없음");
-                        }
+                        makeTableOper(r);
                         resolve();
                     }
                 })
@@ -594,3 +359,305 @@ function getSeachOperList(texts) {
         })
     }
 }
+
+function makeTableOper(r) {
+
+    if (r.length > 0) {
+
+        let htmls = ``;
+
+        for (let i = 0; i < r.length; i++) {
+
+            let suk = '';
+            if (r[i].stday != r[i].endday) {
+                suk = betweenDate(r[i].stday, r[i].operday, r[i].endday);
+            }
+
+            let destyyy = r[i].desty + suk;
+
+            let stttt = ''
+            if (r[i].stt) {
+                stttt = r[i].stt;
+            }
+
+            let carcar = '';
+            let carHtml = `<td calss="tdPerson">` + carcar +
+                    `</td>
+        <td calss="tdPerson"></td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+            if (r[i].vehicle) {
+                if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
+                    carcar = r[i]
+                        .vehicle
+                        .replaceAll('고속', '')
+                        .replaceAll('관광', '')
+                        .replaceAll('여행사', '')
+                        .replaceAll('(주)', '');
+                    carHtml = `<td calss="tdPerson">` + carcar +
+                            `</td>
+                        <td calss="tdPerson">` + r[i].name +
+                            `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
+                            r[i].operseq +
+                            `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
+                            AddComma(r[i].atlm) + `"></div></div></td>`;
+                } else {
+                    carcar = (r[i].vehicle).substring((r[i].vehicle).length - 4);
+                    let cnt = 0;
+                    for (let k = 0; k < dbCompa.length; k++) {
+                        if (dbCompa[k].company == r[i].opercom) {
+                            cnt++;
+                        }
+                    }
+
+                    if (cnt > 0) {
+                        carHtml = `<td calss="tdPerson">` + carcar +
+                                `</td>
+                        <td calss="tdPerson">` + r[i].name +
+                                `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
+                                r[i].operseq +
+                                `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
+                                AddComma(r[i].atlm) + `"></div></div></td>`;
+                    } else {
+                        carHtml = `<td calss="tdPerson">` + carcar +
+                                `</td>
+                        <td calss="tdPerson">` + r[i].name +
+                                `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
+                                r[i].operseq +
+                                `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
+                                AddComma(r[i].atlm) + `"></div></div></td>`;
+                    }
+
+                }
+            }
+
+            htmls += `
+        <tr class="operChohome">
+            <td>` + r[i].operday +
+                    `
+                <input type="hidden" value="` + r[i].operday +
+                    `">
+                <input type="hidden" value="` + r[i].rsvt +
+                    `">
+                <input type="hidden" value="` + r[i].ctmno +
+                    `">
+                <input type="hidden" value="` + r[i].operseq +
+                    `">
+                <input type="hidden" value="` + r[i].opernum +
+                    `">
+                <input type="hidden" value="` + r[i].opercar +
+                    `">
+                <input type="hidden" value="` + r[i].operid +
+                    `">
+                <input type="hidden" value="` + r[i].opercom +
+                    `">
+            </td>
+            <td>` + r[i].ctmname +
+                    `</td>
+            <td>` + destyyy + `</td>
+            ` + carHtml +
+                    `<td class="tdRight">` + AddComma(r[i].numm) +
+                    `</td>
+            <td>` + r[i].num +
+                    `</td>
+            <td>` + r[i].rsvpstp +
+                    `</td>
+            <td>` + stttt + `</td>
+        </tr>`;
+        }
+        $('#home3-tb-il').html(htmls);
+        $("input[data-type='currency']").bind('keyup keydown', function () {
+            inputNumberFormat(this);
+        });
+    } else {
+        htmls = `
+        <tr>
+        <th colspan="10">운행정보없음</th>
+        </tr>`;
+        $('#home3-tb-il').html(htmls);
+    }
+}
+
+$(document).on('keyup', '.operAltMIn', function (eInner) {
+    var keyValue = eInner.which; //enter key
+    if (keyValue == 13) {
+        const domdomm = this;
+        const altMMM = $(domdomm)
+            .val()
+            .replaceAll(',', '');
+
+        let realAltM = 0;
+
+        if (altMMM) {
+
+            let cnt = 0;
+            $('input:checkbox[name="chAtm"]').each(function () {
+                if (this.checked) {
+                    cnt++;
+                }
+            });
+
+            if (altMMM > 0) {
+                if (altMMM == 1) {
+                    realAltM = opt[0].altm1;
+                } else if (altMMM.length < 5) {
+                    realAltM = altMMM + "0000";
+                } else {
+                    realAltM = altMMM;
+                }
+            }
+
+            if (cnt > 0) {
+                upAltmMany(realAltM)
+            } else {
+                upAltmOne(domdomm, realAltM)
+            }
+
+        } else {
+            alert("금액을 숫자로 입력해주세요.");
+        }
+    }
+});
+
+function upAltmMany(money) {
+
+    let params = new Array();
+
+    $('input:checkbox[name="chAtm"]').each(function () {
+        if (this.checked) {
+            const operseqqq = $(this).val();
+
+            const asd = {
+                "atlm": parseInt(money),
+                "operseq": operseqqq
+            };
+            params.push(asd);
+        }
+    });
+
+    const url = "/allo/updateAtmMany";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+
+        success: function (r) {
+            $('input:checkbox[name="chAtm"]').each(function () {
+                if (this.checked) {
+                    const aaa = $(this)
+                        .parent()
+                        .next()
+                        .children()[0];
+                    $(aaa).val(AddComma(money));
+                }
+            });
+        }
+    })
+
+}
+function upAltmOne(domdom, money) {
+
+    const aaa = $(domdom)
+        .parent()
+        .prev()
+        .children()[0];
+
+    const operseqqq = $(aaa).val();
+
+    let params = new Array();
+
+    const asd = {
+        "atlm": parseInt(money),
+        "operseq": operseqqq
+    };
+    params.push(asd);
+
+    const url = "/allo/updateAtmMany";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+
+        success: function (r) {
+            $(domdom).val(AddComma(money));
+        }
+    })
+
+}
+
+$(document).on('change', 'input:checkbox[name="chAtm"]', function () {
+    checkCHAll();
+});
+
+function checkCHAll() {
+    let cnt = 0;
+    $('input:checkbox[name="chAtm"]').each(function () {
+        if (!this.checked) {
+            cnt++;
+        }
+    });
+
+    if (cnt == $('input:checkbox[name="chAtm"]').length) {
+        $('input:checkbox[name="chAtm"]').each(function () {
+            const aaa = $(this)
+                .parent()
+                .next()
+                .children()[0];
+
+            $(aaa).attr("disabled", false);
+        });
+    } else {
+        $('input:checkbox[name="chAtm"]').each(function () {
+            const aaa = $(this)
+                .parent()
+                .next()
+                .children()[0];
+
+            if (this.checked) { //checked 처리된 항목의 값
+                $(aaa).attr("disabled", false);
+            } else {
+                $(aaa).attr("disabled", true);
+            }
+        });
+    }
+}
+
+$(document).on('click', '.operChohome', function () {
+
+    const aaa = $(this).children()[0];
+
+    const dayday = $(aaa).children()[0];
+    const dayday1 = $(dayday).val();
+
+    const rsvt = $(aaa).children()[1];
+    const rsvt1 = $(rsvt).val();
+
+    const ddddd = new Date(dayday1);
+
+    $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
+    $('#RsvtOperDay').val(dayday1);
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (dayday1 == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+        }
+    }
+
+    getMenuRsvt(rsvt1, 0);
+});

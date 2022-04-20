@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <div
+        th:fragment="modalOne"
+        class="modal fade"
+        id="modal-one"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">편도운행정보</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        id="modal-oneX"></button>
+                    <input type="hidden" id="btn-size" value="1">
+                    <input type="hidden" id="btn-hoho" value="1">
+                    <input type="hidden" id="btn-rsvt" value="1">
+                    <input type="hidden" id="btn-opernum" value="1">
+                    <input type="hidden" id="btn-tod" value="1">
+                    <input type="hidden" id="btn-ed" value="1">
+                </div>
+                <div class="modal-body md-one-bdc" id="md-one-bd"></div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                        id="modal-oneEnd">닫기</button>
+                    <button type="button" class="btn btn-primary" id="btn-one-plus">운행추가</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

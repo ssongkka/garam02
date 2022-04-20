@@ -222,6 +222,17 @@ function insertRsvt(result) {
             success: function (r) {
                 if (r > 0) {
                     alert("예약정보 저장");
+
+                    for (let i = 0; i < 42; i++) {
+                        let iiiddd = '#dash-cal-con-item' + (
+                            i + 1
+                        );
+
+                        if ($('#stday').val() == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+                            setCalWhite($(iiiddd).attr('id'));
+                        }
+                    }
+
                 } else if (r == -1) {
                     alert("예약정보 저장 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
                 } else if (r == -2) {

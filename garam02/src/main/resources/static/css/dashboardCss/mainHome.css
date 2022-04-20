@@ -240,7 +240,7 @@ ul {
 .mainCaltd-top {
     display: flex;
     flex-direction: row;
-    padding: 1rem 1rem 0;
+    padding: 1rem 2rem 0;
 
     margin-bottom: 1rem;
 
@@ -252,8 +252,6 @@ ul {
 }
 
 .mainCaltd-top-day {
-    width: 2.5rem;
-    height: 2.5rem;
     border-radius: 50%;
     font-size: 1.5rem;
     font-weight: 600;
@@ -414,12 +412,26 @@ ul {
     gap: 0.5rem;
 }
 
-.home-tb > tbody > tr > .tdCho {
-    background-color: rgba(255,220,40,.15);
+.home-tb > thead > tr > .td45 {
+    background: #e0faef;
+    color: #009f5c;
+}
+.home-tb > thead > tr > .td25 {
+    background: #fef0e8;
+    color: #f2600e;
+
+}
+.home-tb > thead > tr > .td28 {
+    background: #e6effc;
+    color: #1862c6;
 }
 
-.home-tb > thead > tr > .tdCho {
-    background-color: rgba(255,220,40,.15);
+.tdMoney {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    height: 100%;
+    justify-content: center;
 }
 
 #searchDateRsvt {}

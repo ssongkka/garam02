@@ -80,6 +80,13 @@ $(document).on('click', '#fnDownMonth', function () {
     $("#yearMonthDay").val(
         toStringByFormatting(downMonth).substring(0, 7) + '-01'
     );
+
+    $('#radioRsvt2').prop("checked", true);
+    $('#radioOper2').prop("checked", true);
+
+    getRsvtListMonth();
+    getOperListMonth();
+
     makeCal(downMonth, null);
     makeMainBigCal();
 });
@@ -89,6 +96,13 @@ $(document).on('click', '#fnUpMonth', function () {
     var upMonth = new Date(now_D.setMonth(now_D.getMonth() + 1));
     $("#yearMonth").val(toStringByFormatting(upMonth).substring(0, 7));
     $("#yearMonthDay").val(toStringByFormatting(upMonth).substring(0, 7) + '-01');
+
+    $('#radioRsvt2').prop("checked", true);
+    $('#radioOper2').prop("checked", true);
+
+    getRsvtListMonth();
+    getOperListMonth();
+
     makeCal(upMonth, null);
     makeMainBigCal();
 });
@@ -181,6 +195,11 @@ function setCalWhite(e) {
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
     }
+
+    if ($('#allo').css('display') === 'block') {
+        makeAllo();
+    }
+
     clTdColor();
 }
 
@@ -196,6 +215,11 @@ function setCalWhite1(day) {
         ddd = ddd.setDate(ddd.getDate() + i);
         const dweek = toStringByFormatting(new Date(ddd));
     }
+
+    if ($('#allo').css('display') === 'block') {
+        makeAllo();
+    }
+
     clTdColor();
 }
 
@@ -225,6 +249,12 @@ function getCalStD(month) {
 }
 
 $("#yearMonth").change(function () {
+    $('#radioRsvt2').prop("checked", true);
+    $('#radioOper2').prop("checked", true);
+
+    getRsvtListMonth();
+    getOperListMonth();
+
     makeCal(get_Year_Month(), null);
     makeMainBigCal();
 });

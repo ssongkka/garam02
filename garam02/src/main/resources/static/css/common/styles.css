@@ -227,6 +227,7 @@ table > tbody > tr > .tdRight {
     background: rgba(0, 0, 0, 0.1);
 }
 
+.table > thead > tr > .sortInput,
 .table > thead > tr > .sortNum,
 .table > thead > tr > .sortStr {
     cursor: pointer;
@@ -279,6 +280,9 @@ table > tbody > tr > .tdRight {
     color: var(--main-color);
     background-color: var(--sub-color);
     border-radius: 0.3rem;
+
+    border: none;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
 }
 
 .dd-nav .nav-link {
@@ -287,6 +291,9 @@ table > tbody > tr > .tdRight {
 
 .dd-nav .nav-link:hover {
     background: #ebebeb;
+
+    border: none;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
 }
 
 .home-nav {
@@ -411,6 +418,40 @@ object {
     color: #1862c6;
 
     border-radius: 3px;
+}
+
+.table-scroll {}
+
+.table-scroll-head {
+    overflow: hidden;
+    position: relative;
+    border: 0;
+    width: 100%;
+}
+
+.table-scroll-head-inner {
+    box-sizing: content-box;
+    overflow-y: scroll;
+}
+
+.table-scroll-body {
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    /* min-height: calc(100vh - 23rem); */
+    max-height: calc(100vh - 25rem);
+}
+
+/* .table-scroll-body::-webkit-scrollbar {
+    width: 2rem;
+} */
+
+.table-scroll-head-inner::-webkit-scrollbar {
+    width: auto;
+}
+
+.table-scroll-head-inner::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 
 @media (max-width:1024px) {

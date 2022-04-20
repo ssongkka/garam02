@@ -515,7 +515,7 @@ document
  * @param {number} column The index of the column to sort
  * @param {boolean} asc Determines if the sorting will be in ascending
  */
-function sortTableByColumn1(table, column, asc = true, tthh) {
+function sortTableByColumn1(table, table1, column, asc = true, tthh) {
 
     LoadingWithMask()
         .then(start1)
@@ -604,14 +604,14 @@ function sortTableByColumn1(table, column, asc = true, tthh) {
             tBody.append(...sortedRows);
 
             // Remember how the column is currently sorted
-            table
+            table1
                 .querySelectorAll("th")
                 .forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
-            table
+            table1
                 .querySelector(`th:nth-child(${column + 1})`)
                 .classList
                 .toggle("th-sort-asc", asc);
-            table
+            table1
                 .querySelector(`th:nth-child(${column + 1})`)
                 .classList
                 .toggle("th-sort-desc", !asc);
@@ -619,7 +619,8 @@ function sortTableByColumn1(table, column, asc = true, tthh) {
         })
     }
 }
-function sortTableByColumn2(table, column, asc = true, tthh) {
+
+function sortTableByColumn2(table, table1, column, asc = true, tthh) {
 
     LoadingWithMask()
         .then(start2)
@@ -732,14 +733,129 @@ function sortTableByColumn2(table, column, asc = true, tthh) {
             tBody.append(...sortedRows);
 
             // Remember how the column is currently sorted
-            table
+            table1
                 .querySelectorAll("th")
                 .forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
-            table
+            table1
                 .querySelector(`th:nth-child(${column + 1})`)
                 .classList
                 .toggle("th-sort-asc", asc);
-            table
+            table1
+                .querySelector(`th:nth-child(${column + 1})`)
+                .classList
+                .toggle("th-sort-desc", !asc);
+            resolve();
+        })
+    }
+}
+
+function sortTableByColumn3(table, table1, column, asc = true, tthh) {
+
+    LoadingWithMask()
+        .then(start3)
+        .then(closeLoadingWithMask);
+
+    function start3() {
+        return new Promise(function (resolve, reject) {
+            const dirModifier = asc
+                ? 1
+                : -1;
+            const tBody = table.tBodies[0];
+            // const rows = Array.from(tBody.querySelectorAll("tr"));
+            const rows = Array.from($(tBody).children('tr'));
+            // Sort each row
+            const sortedRows = rows.sort((a, b) => {
+
+                const match = /[^\w\sㄱ-힣]|[\_]/g;
+
+                const aaaaaa = $(a).children()[column];
+                const aaaaaa0 = $(aaaaaa).children()[0];
+                const aaaaaa1 = $(aaaaaa0).children()[1];
+                const aaaaaa2 = $(aaaaaa1).children();
+
+                const bbbbbb = $(b).children()[column];
+                const bbbbbb0 = $(bbbbbb).children()[0];
+                const bbbbbb1 = $(bbbbbb0).children()[1];
+                const bbbbbb2 = $(bbbbbb1).children();
+
+                const aColText = $(aaaaaa2)
+                    .val()
+                    .replaceAll(match, "")
+                    .trim();
+
+                const bColText = $(bbbbbb2)
+                    .val()
+                    .replaceAll(match, '')
+                    .trim();
+
+                const c1ColText = $($(a).children()[0])
+                    .text()
+                    .trim()
+                    .replaceAll(match, " ");
+
+                const c2ColText = $($(b).children()[0])
+                    .text()
+                    .trim()
+                    .replaceAll(match, " ");
+
+                let aaa = '';
+                let bbb = '';
+
+                if (aColText) {
+                    aaa = aColText;
+                } else {
+                    aaa = 0;
+                }
+
+                if (bColText) {
+                    bbb = bColText;
+                } else {
+                    bbb = 0;
+                }
+
+                let aaa111 = 0;
+                let bbb111 = 0;
+
+                if (parseFloat(aaa) == parseInt(bbb)) {
+                    if (parseInt(c1ColText) > parseInt(c2ColText)) {
+                        aaa111 = 1;
+                        bbb111 = 0;
+                    } else {
+                        aaa111 = 0;
+                        bbb111 = 1;
+                    }
+                } else {
+                    if (parseFloat(aaa) > parseInt(bbb)) {
+                        aaa111 = 1;
+                        bbb111 = 0;
+                    } else {
+                        aaa111 = 0;
+                        bbb111 = 1;
+                    }
+                }
+
+                return parseFloat(aaa111) > parseInt(bbb111)
+                    ? (1 * dirModifier)
+                    : (-1 * dirModifier);
+            });
+
+            // Remove all existing TRs from the table
+            while (tBody.firstChild) {
+                tBody.removeChild(tBody.firstChild);
+            }
+
+            // Re-add the newly sorted rows
+            tBody.append(...sortedRows);
+
+            // Remember how the column is currently sorted
+            table1
+                .querySelectorAll("th")
+                .forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+            table1
+                .querySelector(`th:nth-child(${column + 1})`)
+                .classList
+                .toggle("th-sort-asc", asc);
+            table1
                 .querySelector(`th:nth-child(${column + 1})`)
                 .classList
                 .toggle("th-sort-desc", !asc);
@@ -766,7 +882,16 @@ document
     });
 
 $(document).on('click', '.sortNum', function () {
-    const tableElement = this.parentElement.parentElement.parentElement;
+    const tableElement = this
+        .parentElement
+        .parentElement
+        .parentElement
+        .parentElement
+        .parentElement
+        .nextElementSibling
+        .childNodes[1];
+
+    const tableElement1 = this.parentElement.parentElement.parentElement;
 
     const aaa = $(this)
         .parent()
@@ -786,11 +911,26 @@ $(document).on('click', '.sortNum', function () {
         .attr('class')
         .includes("th-sort-asc");
 
-    sortTableByColumn1(tableElement, headerIndex, !currentIsAscending, this);
+    sortTableByColumn1(
+        tableElement,
+        tableElement1,
+        headerIndex,
+        !currentIsAscending,
+        this
+    );
 });
 
 $(document).on('click', '.sortStr', function () {
-    const tableElement = this.parentElement.parentElement.parentElement;
+    const tableElement = this
+        .parentElement
+        .parentElement
+        .parentElement
+        .parentElement
+        .parentElement
+        .nextElementSibling
+        .childNodes[1];
+
+    const tableElement1 = this.parentElement.parentElement.parentElement;
 
     const aaa = $(this)
         .parent()
@@ -810,7 +950,52 @@ $(document).on('click', '.sortStr', function () {
         .attr('class')
         .includes("th-sort-asc");
 
-    sortTableByColumn2(tableElement, headerIndex, !currentIsAscending, this);
+    sortTableByColumn2(
+        tableElement,
+        tableElement1,
+        headerIndex,
+        !currentIsAscending,
+        this
+    );
+});
+
+$(document).on('click', '.sortInput', function () {
+    const tableElement = this
+        .parentElement
+        .parentElement
+        .parentElement
+        .parentElement
+        .parentElement
+        .nextElementSibling
+        .childNodes[1];
+
+    const tableElement1 = this.parentElement.parentElement.parentElement;
+
+    const aaa = $(this)
+        .parent()
+        .children();
+
+    let aaaa = 0;
+
+    for (let i = 0; i < aaa.length; i++) {
+        if (aaa[i] == this) {
+            aaaa = i;
+        }
+    }
+
+    const headerIndex = aaaa;
+
+    const currentIsAscending = $(this)
+        .attr('class')
+        .includes("th-sort-asc");
+
+    sortTableByColumn3(
+        tableElement,
+        tableElement1,
+        headerIndex,
+        !currentIsAscending,
+        this
+    );
 });
 
 function loginSession(status) {

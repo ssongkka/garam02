@@ -1,17 +1,19 @@
 $(document).ready(function () {});
 
 $(document).on('keydown', 'input', function (eInner) {
-    var keyValue = eInner.which; //enter key
-    if (keyValue == 37 || keyValue == 39 || keyValue == 27 || keyValue == 8) {
-        var tabindex = $(this).attr('tabindex');
-        if (keyValue == 39) { //down arrow 40
-            tabindex++;
-            $('[tabindex=' + tabindex + ']').focus();
-        } else if (keyValue == 37) { //up arrow 38
-            tabindex--;
-            $('[tabindex=' + tabindex + ']').focus();
+
+    if ($('.ve-car').is(":focus") || $('.ve-emp').is(":focus") || $('.ve-m').is(":focus")) {
+        var keyValue = eInner.which; //enter key
+        if (keyValue == 37 || keyValue == 39 || keyValue == 27 || keyValue == 8) {
+            var tabindex = $(this).attr('tabindex');
+            if (keyValue == 39) { //down arrow 40
+                tabindex++;
+                $('[tabindex=' + tabindex + ']').focus();
+            } else if (keyValue == 37) { //up arrow 38
+                tabindex--;
+                $('[tabindex=' + tabindex + ']').focus();
+            }
         }
-        scrollY();
     }
 });
 
@@ -366,11 +368,10 @@ $(document).on('keyup', '.ve-emp-one', function (eInner) {
 $(document).on('keyup', '.ve-m', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
-        const iidd = '#' + $(this).attr('id');
-        if (checkAllo('#' + $(iidd).prev().prev().prev().prev().prev().attr('id'))) {
-            insertOper(iidd, 3);
+        if (checkAllo('#' + $(this).prev().prev().prev().prev().prev().attr('id'))) {
+            insertOper(this, 3);
         } else {
-            const tbi = $(iidd).attr('tabindex');
+            const tbi = $(this).attr('tabindex');
             $('[tabindex=' + (
                 parseInt(tbi) + 1
             ) + ']').focus();
@@ -383,15 +384,14 @@ $(document).on('keyup', '.ve-m', function (eInner) {
 $(document).on('keyup', '.ve-m-one', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
-        const iidd = '#' + $(this).attr('id');
-        if ($(iidd).prev().prev().prev().prev().prev().attr('id')) {
-            if (!$(iidd).prev().prev().prev().val()) {
+        if ($(this).prev().prev().prev().prev().prev().attr('id')) {
+            if (!$(this).prev().prev().prev().val()) {
                 alert("차량정보없음\n\n차량번호를 확인해주세요.");
-            } else if (!$(iidd).prev().val()) {
+            } else if (!$(this).prev().val()) {
                 alert("승무원정보없음\n\n승무원을 확인해주세요.");
 
             } else {
-                insertOperOne(iidd, 3);
+                insertOperOne(this, 3);
             }
         }
     } else if (keyValue == 27 || keyValue == 8) {
@@ -460,14 +460,17 @@ function insertOper(id, num) {
                         .prev()
                         .prev()
                         .val();
+
                     compaIn = $(id)
                         .prev()
                         .prev()
                         .prev()
                         .val();
+
                     empIn = $(id)
                         .prev()
                         .val();
+
                     mIn = $(id)
                         .val()
                         .replaceAll(',', '');
@@ -503,7 +506,8 @@ function insertOper(id, num) {
             const hoCha = $(id)
                 .parent()
                 .attr('id')
-                .split('-')[2];
+                .split('-')[2]
+                .replaceAll('RsvtOper', '');
 
             const tod = $($(id).parent().parent().parent().prev().children()[6]).val();
             const ed = $($(id).parent().parent().parent().prev().children()[7]).val();
@@ -580,7 +584,6 @@ function insertOper(id, num) {
                         $('[tabindex=' + (
                             parseInt(tabnum) + 1
                         ) + ']').focus();
-                        scrollY();
                     } else if (r[0].opernum == 0) {
                         alert("배차정보 입력 실패!\n\n시스템을 확인해주세요.")
                     } else if (r[0].opernum == -1) {
@@ -703,7 +706,9 @@ function insertOperOne(id, num) {
 
             const rsvt = $('#btn-rsvt').val();
             const opernum = $('#btn-opernum').val();
-            const hoCha = $('#btn-hoho').val();
+            const hoCha = $('#btn-hoho')
+                .val()
+                .replaceAll('RsvtOper', '');
             const tod = $('#btn-tod').val();
             const ed = $('#btn-ed').val();
 
@@ -798,15 +803,17 @@ function insertOperOne(id, num) {
     }
 }
 
-function mdOneWay(val) {
+$(document).on('click', '.mdOneway', function () {
 
-    const iidd = '#' + val;
+    $('#modalRsvtOper').modal('hide');
 
-    const opernum = $(iidd)
+    const opernum = $(this)
         .parent()
         .prev()
         .prev()
         .val();
+
+    const domdom = this;
 
     if (opernum) {
         LoadingWithMask()
@@ -820,7 +827,7 @@ function mdOneWay(val) {
     function shoMdOne(result) {
         return new Promise(function (resolve, reject) {
 
-            const tod = $($(iidd).parent().parent().parent().prev().children()[6]).val();
+            const tod = $($(domdom).parent().parent().parent().prev().children()[6]).val();
 
             const url = "/allo/oneway";
             const headers = {
@@ -842,25 +849,25 @@ function mdOneWay(val) {
 
                 success: function (r) {
                     if (r.length > 0) {
-                        const rsvt = $(iidd)
+                        const rsvt = $(domdom)
                             .parent()
                             .parent()
                             .parent()
                             .prev()
                             .prev()
                             .val();
-                        const operseq = $(iidd)
+                        const operseq = $(domdom)
                             .parent()
                             .prev()
                             .val();
-                        const hoCha = $(iidd)
+                        const hoCha = $(domdom)
                             .parent()
                             .attr('id')
                             .split('-')[2];
 
-                        const tod = $($(iidd).parent().parent().parent().prev().children()[6]).val();
-                        const ed = $($(iidd).parent().parent().parent().prev().children()[7]).val();
-                        const numM = $($(iidd).parent().parent().parent().prev().children()[8]).val();
+                        const tod = $($(domdom).parent().parent().parent().prev().children()[6]).val();
+                        const ed = $($(domdom).parent().parent().parent().prev().children()[7]).val();
+                        const numM = $($(domdom).parent().parent().parent().prev().children()[8]).val();
 
                         $('#btn-hoho').val(hoCha);
                         $('#btn-rsvt').val(rsvt);
@@ -1009,21 +1016,23 @@ function mdOneWay(val) {
 
                             if (r[i].opertrash == 1) {
                                 if (i > 0) {
-                                    htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+                                    htmls += '<button class="onebtn mdOneway" role="button" onclick="delOne(this.id)" id="bt' +
+                                            '-' + (
                                         i + 100
                                     ) + '"><i class="fas fa-times"></i>';
                                 } else {
-                                    htmls += '<button class="onebtn" role="button" id="bt-' + (
+                                    htmls += '<button class="onebtn mdOneway" role="button" id="bt-' + (
                                         i + 100
                                     ) + '" disabled><i class="fas fa-times"></i>';
                                 }
                             } else {
                                 if (i > 0) {
-                                    htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+                                    htmls += '<button class="onebtn mdOneway" role="button" onclick="delOne(this.id)" id="bt' +
+                                            '-' + (
                                         i + 100
                                     ) + '" disabled><i class="fa-solid fa-ban"></i>';
                                 } else {
-                                    htmls += '<button class="onebtn" role="button" id="bt-' + (
+                                    htmls += '<button class="onebtn mdOneway" role="button" id="bt-' + (
                                         i + 100
                                     ) + '" disabled><i class="fa-solid fa-ban"></i>';
                                 }
@@ -1055,7 +1064,7 @@ function mdOneWay(val) {
             resolve();
         })
     }
-}
+});
 
 $(document).on('click', '#btn-one-plus', function () {
     plusOneWay($('#btn-size').val());
@@ -1108,7 +1117,8 @@ function plusOneWay(num) {
         ) + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
             ++cnt + 100
         ) + '" placeholder="배차금액" value="">';
-        htmls += '<button class="onebtn" role="button" onclick="delOne(this.id)" id="bt-' + (
+        htmls += '<button class="onebtn mdOneway" role="button" onclick="delOne(this.id)" id="bt' +
+                '-' + (
             num + 100
         ) + '"><i class="fas fa-times"></i>';
         htmls += '</div>';
@@ -1126,12 +1136,13 @@ function plusOneWay(num) {
 }
 
 function getAlloList(day) {
+    $('#radioRsvt1').prop("checked", true);
+    $('#radioOper1').prop("checked", true);
+
     LoadingWithMask()
         .then(setCaldays)
-        .then(getCustomer)
-        .then(getRsvt)
         .then(getRsvtListIl)
-        .then(getOper)
+        .then(getOperListIl)
         .then(getReg)
         .then(getRegDe)
         .then(getRegCoo)
@@ -1202,754 +1213,6 @@ function getAlloList(day) {
                     loginSession(jqXHR.status);
                 }
             });
-        });
-    }
-
-    function getCustomer() {
-        return new Promise(function (resolve, reject) {
-            const url = "/allo/customer";
-            const headers = {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            };
-
-            const params = {
-                "stday": day,
-                "endday": day,
-                "rsvttrash": 1
-            };
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                dataType: "json",
-                data: JSON.stringify(params),
-
-                success: function (r) {
-                    let htmls = '';
-                    let htmls2 = '';
-                    let htmls3 = '';
-                    if (r.length > 0) {
-                        let ctmseqArr = new Array();
-
-                        for (let i = 0; i < r.length; i++) {
-                            ctmseqArr[i] = r[i].ctmseq;
-
-                            let tteell1 = '';
-                            let tteell2 = '';
-                            let ddetail = '';
-
-                            if (r[i].ctmtel1) {
-                                tteell1 = '<span><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></s' +
-                                        'pan>';
-                            } else {
-                                tteell1 = '<span>연락처 없음</span>';
-                            }
-                            if (r[i].ctmtel2) {
-                                tteell2 = '<span><a href="tel:' + r[i].ctmtel2 + '">' + r[i].ctmtel2 + '</a></s' +
-                                        'pan>';
-                            }
-                            if (r[i].ctmdetail) {
-                                ddetail = '<span>' + r[i].ctmdetail + '</span>';
-                            }
-                            switch (r[i].ctmsepa) {
-
-                                case 0:
-                                    htmls += '<div class="card-song allo-card">';
-                                    htmls += '<input type="hidden" id="rvctm' + (
-                                        i + 1
-                                    ) + '" value="' + r[i].ctmno + '">';
-                                    htmls += '<input type="hidden" id="rvctmsepa' + (
-                                        i + 1
-                                    ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
-                                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname +
-                                            '</div>';
-                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
-                                    // '</div>';
-                                    htmls += '<div class="ctm-ttt-item">';
-                                    htmls += tteell1;
-                                    htmls += '</div>';
-                                    htmls += '<div class="ctm-ttt-item">';
-                                    htmls += tteell2;
-                                    htmls += '</div>';
-                                    htmls += '<div class="ctm-ttt-item">';
-                                    htmls += ddetail;
-                                    htmls += '</div>';
-                                    htmls += '<div class="ctm-ttt-item">';
-                                    htmls += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
-                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
-                                            ' fa-file-lines"></i></button>';
-                                    htmls += '</div>';
-                                    htmls += '</div>';
-                                    htmls += '<div class="rv" id="rv' + r[i].ctmseq + '">';
-                                    htmls += '</div>';
-                                    htmls += '</div>';
-
-                                    break;
-                                case 1:
-                                    htmls2 += '<div class="card-song allo-card">';
-                                    htmls2 += '<input type="hidden" id="rvctm' + (
-                                        i + 1
-                                    ) + '" value="' + r[i].ctmno + '">';
-                                    htmls2 += '<input type="hidden" id="rvctmsepa' + (
-                                        i + 1
-                                    ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls2 += '<div class="ctm-ttt ctm-ttt-back2"><div class="ctm-ttt-item"><i class="fas fa-' +
-                                            'school" style="letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname +
-                                            '</div>';
-                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
-                                    // '</div>';
-                                    htmls2 += '<div class="ctm-ttt-item">';
-                                    htmls2 += tteell1;
-                                    htmls2 += '</div>';
-                                    htmls2 += '<div class="ctm-ttt-item">';
-                                    htmls2 += tteell2;
-                                    htmls2 += '</div>';
-                                    htmls2 += '<div class="ctm-ttt-item">';
-                                    htmls2 += ddetail;
-                                    htmls2 += '</div>';
-                                    htmls2 += '<div class="ctm-ttt-item">';
-                                    htmls2 += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
-                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
-                                            ' fa-file-lines"></i></button>';
-                                    htmls2 += '</div>';
-                                    htmls2 += '</div>';
-                                    htmls2 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
-                                    htmls2 += '</div>';
-                                    htmls2 += '</div>';
-
-                                    break;
-                                case 2:
-                                    htmls3 += '<div class="card-song allo-card">';
-                                    htmls3 += '<input type="hidden" id="rvctm' + (
-                                        i + 1
-                                    ) + '" value="' + r[i].ctmno + '">';
-                                    htmls3 += '<input type="hidden" id="rvctmsepa' + (
-                                        i + 1
-                                    ) + '" value="' + r[i].ctmsepa + '">';
-                                    htmls3 += '<div class="ctm-ttt ctm-ttt-back3"><div class="ctm-ttt-item"><i class="fa-soli' +
-                                            'd fa-building" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname +
-                                            '</div>';
-                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
-                                    // '</div>';
-                                    htmls3 += '<div class="ctm-ttt-item">';
-                                    htmls3 += tteell1;
-                                    htmls3 += '</div>';
-                                    htmls3 += '<div class="ctm-ttt-item">';
-                                    htmls3 += tteell2;
-                                    htmls3 += '</div>';
-                                    htmls3 += '<div class="ctm-ttt-item">';
-                                    htmls3 += ddetail;
-                                    htmls3 += '</div>';
-                                    htmls3 += '<div class="ctm-ttt-item">';
-                                    htmls3 += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
-                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
-                                            ' fa-file-lines"></i></button>';
-                                    htmls3 += '</div>';
-                                    htmls3 += '</div>';
-                                    htmls3 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
-                                    htmls3 += '</div>';
-                                    htmls3 += '</div>';
-
-                                    break;
-                            }
-                        }
-                        resolve(ctmseqArr);
-                    } else {
-                        resolve(0);
-                    }
-
-                    const cont = '금일 운행정보 없음';
-                    let contcc = '';
-                    if (htmls) {
-                        $('#allocont1').html(htmls);
-                        contcc += "'일반'"
-                    }
-                    if (htmls2) {
-                        $('#allocont2').html(htmls2);
-                        if (contcc) {
-                            contcc += ", '학생단체'";
-                        } else {
-                            contcc += "'학생단체'";
-                        }
-                    }
-                    if (htmls3) {
-                        $('#allocont3').html(htmls3);
-                        if (contcc) {
-                            contcc += ", '거래처'";
-                        } else {
-                            contcc += "'거래처'";
-                        }
-                    }
-
-                    if (contcc) {
-                        contcc += ' 운행을 확인해주세요.';
-                    }
-
-                    if (!htmls) {
-                        if (contcc) {
-                            $('#allocont1').html(
-                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
-                            );
-                        } else {
-                            $('#allocont1').html(
-                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                                ';"><p>' + cont + '</p></div>'
-                            );
-                        }
-                    }
-                    if (!htmls2) {
-                        if (contcc) {
-                            $('#allocont2').html(
-                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
-                            );
-                        } else {
-                            $('#allocont2').html(
-                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                                ';"><p>' + cont + '</p></div>'
-                            );
-                        }
-                    }
-                    if (!htmls3) {
-                        if (contcc) {
-                            $('#allocont3').html(
-                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
-                            );
-                        } else {
-                            $('#allocont3').html(
-                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
-                                ';"><p>' + cont + '</p></div>'
-                            );
-                        }
-                    }
-                    var tooltipTriggerList = []
-                        .slice
-                        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-                },
-                error: (jqXHR) => {
-                    loginSession(jqXHR.status);
-                }
-            })
-        });
-    }
-    function getRsvt(result) {
-        return new Promise(function (resolve, reject) {
-
-            if (result != 0) {
-                const url = "/allo/rsvt";
-                const headers = {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
-                };
-
-                const params = {
-                    "stday": day,
-                    "endday": day,
-                    "rsvttrash": 1
-                };
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    dataType: "json",
-                    data: JSON.stringify(params),
-
-                    success: function (r) {
-                        let cnt0 = 0;
-                        let cnt00 = 0;
-                        let cnt01 = 0;
-                        let cnt02 = 0;
-
-                        let tbi1 = 0;
-                        let tbi2 = 100;
-                        let tbi3 = 200;
-                        let tbi4 = 300;
-
-                        getManage(r);
-                        let rst = new Array();
-
-                        let ctmseqHtml = new Array();
-                        for (let index = 0; index < result.length; index++) {
-                            ctmseqHtml[index] = '';
-                        }
-
-                        let cnt = 0;
-                        for (let i = 0; i < r.length; i++) {
-                            let suk = '';
-                            if (r[i].stday != r[i].endday) {
-                                suk = betweenDate(r[i].stday, day, r[i].endday);
-                            }
-
-                            rst[i] = r[i].rsvt;
-                            switch (r[i].ctmsepa) {
-                                case 0:
-                                    cnt00 = cnt00 + parseInt(r[i].num);
-                                    cnt0 = cnt0 + parseInt(r[i].num);
-                                    break;
-                                case 1:
-                                    cnt01 = cnt01 + parseInt(r[i].num);
-                                    cnt0 = cnt0 + parseInt(r[i].num);
-                                    break;
-                                case 2:
-                                    cnt02 = cnt02 + parseInt(r[i].num);
-                                    cnt0 = cnt0 + parseInt(r[i].num);
-                                    break;
-                            }
-
-                            let htmls = '';
-
-                            htmls += '<div class="card-song allo-card-in">';
-                            htmls += '<input type="hidden" id="oprsvtseq-' + r[i].rsvtseq + '" value="' + r[i].rsvt +
-                                    '">';
-                            switch (r[i].ctmsepa) {
-                                case 0:
-                                    htmls += '<div class="allo-detail allo-detail-back1">';
-                                    break;
-                                case 1:
-                                    htmls += '<div class="allo-detail allo-detail-back2">';
-                                    break;
-                                case 2:
-                                    htmls += '<div class="allo-detail allo-detail-back3">';
-                                    break;
-                            }
-                            htmls += '<div class="allo-detail-item">';
-                            if (r[i].ctmno == '0') {
-                                htmls += '<blockquote>';
-                                htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
-                                        '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '(고객정보입력 후 배차 가능)<em st' +
-                                        'yle="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
-                                htmls += '</blockquote>';
-                            } else {
-                                htmls += '<blockquote>';
-                                htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
-                                        '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '<em style="letter-spac' +
-                                        'ing: 0.3rem;">' + suk + '</em></mark></p>';
-                                htmls += '</blockquote>';
-                            }
-                            htmls += '</div>';
-                            htmls += '<div class="allo-detail-item">';
-                            switch (r[i].bus) {
-                                case '대형':
-                                    htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
-                                            r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
-                                            'small>';
-                                    break;
-                                case '중형':
-                                    htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
-                                            r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
-                                            'small>';
-                                    break;
-                                case '우등':
-                                    htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
-                                            r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
-                                            'small>';
-                                    break;
-                            }
-                            htmls += '</div>';
-                            htmls += '<div class="allo-detail-item">';
-                            htmls += '<small><i class="fas fa-map-pin"></i>' + r[i].rsvpstp + '</small>';
-                            htmls += '</div>';
-                            htmls += '<div class="allo-detail-item">';
-                            let stttt = '';
-                            let etttt = '';
-                            if (r[i].stt) {
-                                stttt = r[i].stt;
-                            } else {
-                                stttt = '미정'
-                            }
-                            if (r[i].endt) {
-                                etttt = r[i].endt;
-                            } else {
-                                etttt = '미정'
-                            }
-                            htmls += '<small><i class="far fa-clock"></i>' + stttt + '&nbsp;&#47;&nbsp;' + etttt + '</small>';
-                            htmls += '</div>';
-                            htmls += '<div class="allo-detail-item">';
-
-                            htmls += '<small><i class="fa-solid fa-won-sign"></i>' + AddComma(r[i].conm) + '(' + (
-                                AddComma(r[i].numm)
-                            ) + ')</small> ';
-                            htmls += '<small>' + r[i].cont + '</small> ';
-                            htmls += '</div>';
-                            htmls += '<div class="allo-detail-item">';
-                            htmls += '<button class="btn btn-default allo-detail-item-1 card-song rsvtDetails" id="b' +
-                                    'tn-1-' + r[i].rsvtseq + '-' + i + '"><i class="fa-solid fa-magnifying-glass-pl' +
-                                    'us"></i></button>';
-                            htmls += '';
-                            htmls += '</div>';
-                            const aaa = $('.dash-cal-con-item-t')
-                                .children()
-                                .children()[1];
-                            const tod = $(aaa).val();
-                            // const tttod = tod + Math.floor(Math.random() * 1000);
-                            htmls += '<input type="hidden" value="' + tod + '">';
-                            htmls += '<input type="hidden" value="' + r[i].endday + '">';
-                            htmls += '<input type="hidden" value="' + r[i].numm + '">';
-                            htmls += '</div>';
-                            // htmls += '<hr>';
-                            htmls += '<div class="allo-allo row">';
-
-                            for (let k = 0; k < r[i].num; k++) {
-                                let tbi = 0;
-                                let tbii = 0;
-                                switch (r[i].ctmsepa) {
-                                    case 0:
-                                        tbi = tbi1++;
-                                        tbii = tbi1++;
-                                        break;
-                                    case 1:
-                                        tbi = tbi2++;
-                                        tbii = tbi2++;
-                                        break;
-                                    case 2:
-                                        tbi = tbi3++;
-                                        tbii = tbi3++;
-                                        break;
-                                }
-                                htmls += '<div class="allo-allo-item">';
-                                htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
-                                    k + 1
-                                ) + '">';
-                                htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
-                                    k + 1
-                                ) + '-op">';
-                                htmls += '<div class="stWay" id="st-' + r[i].rsvtseq + '-' + (
-                                    k + 1
-                                ) + '">';
-
-                                cnt++;
-
-                                if (suk.length > 0) {
-                                    htmls += '<button class="onebtn" role="button" id="bt-' + (
-                                        cnt - 1
-                                    ) + '" data-bs-toggle="tooltip" data-bs-placement="left" title="숙박 운행은 편도 운행이 가' +
-                                            '능하지 않습니다."><i class="fas fa-ban"></i></button>';
-                                } else {
-                                    if (r[i].ctmno == '0') {
-                                        htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
-                                            cnt - 1
-                                        ) + '" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" tit' +
-                                                'le="고객정보입력 후 배차해주세요."><i class="fa-solid fa-bars"></i></i></button>';
-                                    } else {
-                                        htmls += '<button class="onebtn" role="button" onclick="mdOneWay(this.id)" id="bt-' + (
-                                            cnt - 1
-                                        ) + '"><i class="fa-solid fa-bars"></i></i></button>';
-                                    }
-                                }
-
-                                if (r[i].ctmno == '0') {
-                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
-                                            'ist="car-info" tabindex="' + (
-                                        tbi
-                                    ) + '" placeholder="' + (
-                                        k + 1
-                                    ) + '호차" id="' + cnt + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" ' +
-                                            'disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="고객' +
-                                            '정보입력 후 배차해주세요.">';
-                                } else {
-                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
-                                            'ist="car-info" tabindex="' + (
-                                        tbi
-                                    ) + '" placeholder="' + (
-                                        k + 1
-                                    ) + '호차" id="' + cnt +
-                                            'car" style="font-weight: 600; letter-spacing: 0.3rem;">';
-                                }
-                                htmls += '<input type="hidden" id="" value="0">';
-                                htmls += '<input type="hidden" id="" value="0">';
-                                if (r[i].ctmno == '0') {
-                                    htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
-                                            '"per-info" tabindex="-1" placeholder="승무원" disabled="disabled" data-bs-toggle=' +
-                                            '"tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요.">';
-                                } else {
-                                    htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
-                                            '"per-info" tabindex="-1" placeholder="승무원">';
-                                }
-                                htmls += '<input type="hidden" id="" value="0">';
-
-                                if (r[i].ctmno == '0') {
-                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
-                                            '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-                                        tbii
-                                    ) + '" placeholder="배차금액" disabled="disabled" data-bs-toggle="tooltip" data-bs-' +
-                                            'placement="top" title="고객정보입력 후 배차해주세요.">';
-                                } else {
-                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
-                                            '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
-                                        tbii
-                                    ) + '" placeholder="배차금액">';
-                                }
-                                if (r[i].ctmno == '0') {
-                                    htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
-                                        cnt - 1
-                                    ) + '" style="background: transparent;"  disabled="disabled" data-bs-toggle="to' +
-                                            'oltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="fas fa-times' +
-                                            '"></i></button>';
-                                } else {
-                                    htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
-                                        cnt - 1
-                                    ) + '" style="background: transparent; color:gray;"><i class="fas fa-times"></i' +
-                                            '></button>';
-                                }
-                                htmls += '</div>';
-                                htmls += '</div>';
-                            }
-                            htmls += '</div>';
-                            htmls += '</div>';
-
-                            for (let j = 0; j < result.length; j++) {
-                                if (r[i].ctmseq == result[j]) {
-                                    ctmseqHtml[j] += htmls;
-                                }
-                            }
-                        }
-                        for (let j = 0; j < ctmseqHtml.length; j++) {
-                            $('#rv' + result[j]).html(ctmseqHtml[j]);
-                            var tooltipTriggerList = []
-                                .slice
-                                .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-                            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                                return new bootstrap.Tooltip(tooltipTriggerEl)
-                            })
-                            $("input[data-type='currency']").bind('keyup keydown', function () {
-                                inputNumberFormat(this);
-                            });
-                        }
-                        $('#bdggg').text(cnt0);
-                        $('#bdg1').text(cnt00);
-                        $('#bdg2').text(cnt01);
-                        $('#bdg3').text(cnt02);
-                        resolve(rst);
-                    },
-                    error: (jqXHR) => {
-                        loginSession(jqXHR.status);
-                    }
-                })
-            } else {
-                getManage();
-
-                $('#bdggg').text(0);
-                $('#bdg1').text(0);
-                $('#bdg2').text(0);
-                $('#bdg3').text(0);
-                resolve(0);
-            }
-        });
-    }
-    function getOper(result) {
-        return new Promise(function (resolve, reject) {
-
-            if (result != 0) {
-                const url = "/allo/oper";
-                const headers = {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
-                };
-
-                const params = {
-                    "stday": day,
-                    "endday": day
-                };
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    dataType: "json",
-                    data: JSON.stringify(params),
-
-                    success: function (r) {
-                        for (let i = 0; i < r.length; i++) {
-                            $('#' + r[i].rsvtseq + '-' + r[i].operno).val(r[i].opernum);
-                            $('#' + r[i].rsvtseq + '-' + r[i].operno + '-op').val(r[i].operseq);
-                            var stid = '#st-' + r[i].rsvtseq + '-' + r[i].operno;
-                            if (r[i].opertype == 1) {
-                                let cnt = 0;
-                                for (let j = 0; j < dbCompa.length; j++) {
-                                    if (dbCompa[j].company == r[i].opercom) {
-                                        cnt++;
-                                    }
-                                }
-
-                                if (cnt > 0) {
-                                    $(stid).attr('class', 'stWay1');
-                                } else {
-                                    if (r[i].name == '타회사') {
-                                        $(stid).attr('class', 'stWay3');
-                                    } else {
-                                        $(stid).attr('class', 'stWay2');
-                                    }
-                                }
-
-                                if (r[i].opertrash == 0 || r[i].opertrash == 2) {
-
-                                    const abc = $(stid)
-                                        .parent()
-                                        .parent()
-                                        .prev()
-                                        .prev()
-                                        .children()[5];
-                                    const bbc1 = $(abc).children()[0];
-                                    const bbc2 = $(abc).children()[1];
-
-                                    $(bbc1).attr("onclick", 'endAllo2()');
-
-                                    $(stid).css('background', '#efefef');
-                                    $(stid).attr('onclick', 'endAllo()');
-
-                                    $(stid)
-                                        .children()
-                                        .first()
-                                        .next()
-                                        .attr("disabled", true);
-                                    $(stid)
-                                        .children()
-                                        .first()
-                                        .next()
-                                        .next()
-                                        .attr("disabled", true);
-                                    $(stid)
-                                        .children()
-                                        .first()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .attr("disabled", true);
-                                    $(stid)
-                                        .children()
-                                        .first()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .attr("disabled", true);
-                                    $(stid)
-                                        .children()
-                                        .first()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .attr("disabled", true);
-                                    $(stid)
-                                        .children()
-                                        .first()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .attr("disabled", true);
-                                    $(stid)
-                                        .children()
-                                        .first()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .next()
-                                        .attr("disabled", true);
-                                }
-
-                                if (r[i].vehicle) {
-                                    if (r[i].name == '타회사') {
-                                        $(stid)
-                                            .children()
-                                            .first()
-                                            .next()
-                                            .val(r[i].vehicle);
-                                    } else {
-                                        $(stid)
-                                            .children()
-                                            .first()
-                                            .next()
-                                            .val(r[i].vehicle.substring(r[i].vehicle.length - 4));
-                                    }
-                                } else {}
-
-                                $(stid)
-                                    .children()
-                                    .first()
-                                    .next()
-                                    .next()
-                                    .val(r[i].opercar);
-                                $(stid)
-                                    .children()
-                                    .first()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .val(r[i].opercom);
-                                $(stid)
-                                    .children()
-                                    .first()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .val(r[i].name);
-                                $(stid)
-                                    .children()
-                                    .first()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .val(r[i].operid);
-                                $(stid)
-                                    .children()
-                                    .first()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .next()
-                                    .val(AddComma(r[i].atlm));
-                            } else {
-                                $(stid)
-                                    .children()
-                                    .first()
-                                    .attr('class', 'onebtn1');
-                            }
-                        }
-                    },
-                    error: (jqXHR) => {
-                        loginSession(jqXHR.status);
-                    }
-                })
-
-            } else {}
-            $('[tabindex=0]').focus();
-            resolve();
-        });
-    }
-
-    function keydown_Arr() {
-        $('input').on('keyup', function (eInner) {
-            var keyValue = eInner.which; //enter key
-            if (keyValue == 37 || keyValue == 39 || keyValue == 27 || keyValue == 8) {
-                var tabindex = $(this).attr('tabindex');
-                if (keyValue == 39) { //down arrow 40
-                    tabindex++;
-                } else if (keyValue == 37) { //up arrow 38
-                    tabindex--;
-                } else if (keyValue == 27 || keyValue == 8) {
-                    $(this).val('');
-                }
-                $('[tabindex=' + tabindex + ']').focus();
-            }
         });
     }
 
@@ -2240,7 +1503,32 @@ function delAllo(id) {
             const hoCha = $('#' + id)
                 .parent()
                 .attr('id')
-                .split('-')[2];
+                .split('-')[2]
+                .replaceAll('RsvtOper', '');
+
+            const rsvtrsvt = $('#' + id)
+                .parent()
+                .parent()
+                .parent()
+                .prev()
+                .prev()
+                .val();
+
+            const ctmnono = $('#' + id)
+                .parent()
+                .parent()
+                .parent()
+                .parent()
+                .parent()
+                .prev()
+                .prev()
+                .prev()
+                .prev()
+                .val();
+
+            const operdddd = $('.dash-cal-con-item-t').children()[0];
+            const operdddd1 = $(operdddd).children()[1];
+            const operdddd11 = $(operdddd1).val();
 
             const tod = $($('#' + id).parent().parent().parent().prev().children()[6]).val();
             const ed = $($('#' + id).parent().parent().parent().prev().children()[7]).val();
@@ -2278,7 +1566,23 @@ function delAllo(id) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    setCalWhite($('.dash-cal-con-item-t').attr('id'));
+
+                    if ($('#allo').css('display') === 'block') {
+                        makeAllo();
+                    } else {
+                        switch ($('#sepaModal').val()) {
+                            case '0':
+                                getSukRsvt(rsvtrsvt, 1);
+                                break;
+                            case '1':
+                                makeHtmlsIl(ctmnono, operdddd11, 1);
+                                break;
+                            case '3':
+                                getMenuRsvt(rsvtrsvt, 1);
+                                break;
+                        }
+                    }
+
                     resolve();
                 },
                 error: (jqXHR) => {
@@ -2314,7 +1618,9 @@ function delOne(param) {
             .text();
 
         const opernum = $('#btn-opernum').val();
-        const hoCha = $('#btn-hoho').val();
+        const hoCha = $('#btn-hoho')
+            .val()
+            .replaceAll('RsvtOper', '');
         const tod = $('#btn-tod').val();
         const ed = $('#btn-ed').val();
 
@@ -2376,6 +1682,8 @@ function delOne(param) {
 }
 
 $(document).on('click', '.rsvtDetails', function () {
+
+    $('#modalRsvtOper').modal('hide');
 
     const aaa = $(this).parent();
     const aaa1 = $(aaa).parent();
@@ -2823,6 +2131,8 @@ $(document).on('click', '.regallo-tab', function () {
 });
 
 $(document).on('click', '.btnPaPer', function () {
+    $('#modalRsvtOper').modal('hide');
+
     const aaa = $(this)
         .parent()
         .prev()
@@ -2868,3 +2178,763 @@ $(document).on('click', '.btnPaPer', function () {
     }
 
 });
+
+$(document).on('click', '#pills-allo-tab', function () {
+    makeAllo();
+});
+
+function makeAllo() {
+
+    const operdddd = $('.dash-cal-con-item-t').children()[0];
+    const operdddd1 = $(operdddd).children()[1];
+    const day = $(operdddd1).val();
+
+    LoadingWithMask()
+        .then(getCustomer)
+        .then(getRsvt)
+        .then(getOper)
+        .then(closeLoadingWithMask);
+
+    function getCustomer() {
+        return new Promise(function (resolve, reject) {
+            const url = "/allo/customer";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "stday": day,
+                "endday": day,
+                "rsvttrash": 1
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = '';
+                    let htmls2 = '';
+                    let htmls3 = '';
+                    if (r.length > 0) {
+                        let ctmseqArr = new Array();
+
+                        for (let i = 0; i < r.length; i++) {
+                            ctmseqArr[i] = r[i].ctmseq;
+
+                            let tteell1 = '';
+                            let tteell2 = '';
+                            let ddetail = '';
+
+                            if (r[i].ctmtel1) {
+                                tteell1 = '<span><a href="tel:' + r[i].ctmtel1 + '">' + r[i].ctmtel1 + '</a></s' +
+                                        'pan>';
+                            } else {
+                                tteell1 = '<span>연락처 없음</span>';
+                            }
+                            if (r[i].ctmtel2) {
+                                tteell2 = '<span><a href="tel:' + r[i].ctmtel2 + '">' + r[i].ctmtel2 + '</a></s' +
+                                        'pan>';
+                            }
+                            if (r[i].ctmdetail) {
+                                ddetail = '<span>' + r[i].ctmdetail + '</span>';
+                            }
+                            switch (r[i].ctmsepa) {
+
+                                case 0:
+                                    htmls += '<div class="card-song allo-card">';
+                                    htmls += '<input type="hidden" id="rvctm' + (
+                                        i + 1
+                                    ) + '" value="' + r[i].ctmno + '">';
+                                    htmls += '<input type="hidden" id="rvctmsepa' + (
+                                        i + 1
+                                    ) + '" value="' + r[i].ctmsepa + '">';
+                                    htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
+                                            'd fa-user-group" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname +
+                                            '</div>';
+                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
+                                    // '</div>';
+                                    htmls += '<div class="ctm-ttt-item">';
+                                    htmls += tteell1;
+                                    htmls += '</div>';
+                                    htmls += '<div class="ctm-ttt-item">';
+                                    htmls += tteell2;
+                                    htmls += '</div>';
+                                    htmls += '<div class="ctm-ttt-item">';
+                                    htmls += ddetail;
+                                    htmls += '</div>';
+                                    htmls += '<div class="ctm-ttt-item">';
+                                    htmls += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                                            ' fa-file-lines"></i></button>';
+                                    htmls += '</div>';
+                                    htmls += '</div>';
+                                    htmls += '<div class="rv" id="rv' + r[i].ctmseq + '">';
+                                    htmls += '</div>';
+                                    htmls += '</div>';
+
+                                    break;
+                                case 1:
+                                    htmls2 += '<div class="card-song allo-card">';
+                                    htmls2 += '<input type="hidden" id="rvctm' + (
+                                        i + 1
+                                    ) + '" value="' + r[i].ctmno + '">';
+                                    htmls2 += '<input type="hidden" id="rvctmsepa' + (
+                                        i + 1
+                                    ) + '" value="' + r[i].ctmsepa + '">';
+                                    htmls2 += '<div class="ctm-ttt ctm-ttt-back2"><div class="ctm-ttt-item"><i class="fas fa-' +
+                                            'school" style="letter-spacing: 0.3rem;"></i>&nbsp;' + r[i].ctmname +
+                                            '</div>';
+                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
+                                    // '</div>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
+                                    htmls2 += tteell1;
+                                    htmls2 += '</div>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
+                                    htmls2 += tteell2;
+                                    htmls2 += '</div>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
+                                    htmls2 += ddetail;
+                                    htmls2 += '</div>';
+                                    htmls2 += '<div class="ctm-ttt-item">';
+                                    htmls2 += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                                            ' fa-file-lines"></i></button>';
+                                    htmls2 += '</div>';
+                                    htmls2 += '</div>';
+                                    htmls2 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
+                                    htmls2 += '</div>';
+                                    htmls2 += '</div>';
+
+                                    break;
+                                case 2:
+                                    htmls3 += '<div class="card-song allo-card">';
+                                    htmls3 += '<input type="hidden" id="rvctm' + (
+                                        i + 1
+                                    ) + '" value="' + r[i].ctmno + '">';
+                                    htmls3 += '<input type="hidden" id="rvctmsepa' + (
+                                        i + 1
+                                    ) + '" value="' + r[i].ctmsepa + '">';
+                                    htmls3 += '<div class="ctm-ttt ctm-ttt-back3"><div class="ctm-ttt-item"><i class="fa-soli' +
+                                            'd fa-building" style="letter-spacing: 0.3rem;"></i>' + r[i].ctmname +
+                                            '</div>';
+                                    // htmls += '<div class="ctm-ttt-item">'; htmls += r[i].ctmname; htmls +=
+                                    // '</div>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
+                                    htmls3 += tteell1;
+                                    htmls3 += '</div>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
+                                    htmls3 += tteell2;
+                                    htmls3 += '</div>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
+                                    htmls3 += ddetail;
+                                    htmls3 += '</div>';
+                                    htmls3 += '<div class="ctm-ttt-item">';
+                                    htmls3 += '<button class="btn btn-default allo-detail-item-1 card-song btnPaPer" data-bs-' +
+                                            'toggle="tooltip" data-bs-placement="top" title="운행관련 서류 생성"><i class="fa-solid' +
+                                            ' fa-file-lines"></i></button>';
+                                    htmls3 += '</div>';
+                                    htmls3 += '</div>';
+                                    htmls3 += '<div class="rv" id="rv' + r[i].ctmseq + '">';
+                                    htmls3 += '</div>';
+                                    htmls3 += '</div>';
+
+                                    break;
+                            }
+                        }
+                        resolve(ctmseqArr);
+                    } else {
+                        resolve(0);
+                    }
+
+                    const cont = '금일 운행정보 없음';
+                    let contcc = '';
+                    if (htmls) {
+                        $('#allocont1').html(htmls);
+                        contcc += "'일반'"
+                    }
+                    if (htmls2) {
+                        $('#allocont2').html(htmls2);
+                        if (contcc) {
+                            contcc += ", '학생단체'";
+                        } else {
+                            contcc += "'학생단체'";
+                        }
+                    }
+                    if (htmls3) {
+                        $('#allocont3').html(htmls3);
+                        if (contcc) {
+                            contcc += ", '거래처'";
+                        } else {
+                            contcc += "'거래처'";
+                        }
+                    }
+
+                    if (contcc) {
+                        contcc += ' 운행을 확인해주세요.';
+                    }
+
+                    if (!htmls) {
+                        if (contcc) {
+                            $('#allocont1').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
+                            );
+                        } else {
+                            $('#allocont1').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p></div>'
+                            );
+                        }
+                    }
+                    if (!htmls2) {
+                        if (contcc) {
+                            $('#allocont2').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
+                            );
+                        } else {
+                            $('#allocont2').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p></div>'
+                            );
+                        }
+                    }
+                    if (!htmls3) {
+                        if (contcc) {
+                            $('#allocont3').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p><p><mark>' + contcc + '</mark></p></div>'
+                            );
+                        } else {
+                            $('#allocont3').html(
+                                '<div class="card-song no-allo"><img src="/img/busstop.png" style="width: 100px' +
+                                ';"><p>' + cont + '</p></div>'
+                            );
+                        }
+                    }
+                    var tooltipTriggerList = []
+                        .slice
+                        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        });
+    }
+    function getRsvt(result) {
+        return new Promise(function (resolve, reject) {
+
+            if (result != 0) {
+                const url = "/allo/rsvt";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                const params = {
+                    "stday": day,
+                    "endday": day,
+                    "rsvttrash": 1
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        let cnt0 = 0;
+                        let cnt00 = 0;
+                        let cnt01 = 0;
+                        let cnt02 = 0;
+
+                        let tbi1 = 0;
+                        let tbi2 = 100;
+                        let tbi3 = 200;
+                        let tbi4 = 300;
+
+                        getManage(r);
+                        let rst = new Array();
+
+                        let ctmseqHtml = new Array();
+                        for (let index = 0; index < result.length; index++) {
+                            ctmseqHtml[index] = '';
+                        }
+
+                        let cnt = 0;
+                        for (let i = 0; i < r.length; i++) {
+                            let suk = '';
+                            if (r[i].stday != r[i].endday) {
+                                suk = betweenDate(r[i].stday, day, r[i].endday);
+                            }
+
+                            rst[i] = r[i].rsvt;
+                            switch (r[i].ctmsepa) {
+                                case 0:
+                                    cnt00 = cnt00 + parseInt(r[i].num);
+                                    cnt0 = cnt0 + parseInt(r[i].num);
+                                    break;
+                                case 1:
+                                    cnt01 = cnt01 + parseInt(r[i].num);
+                                    cnt0 = cnt0 + parseInt(r[i].num);
+                                    break;
+                                case 2:
+                                    cnt02 = cnt02 + parseInt(r[i].num);
+                                    cnt0 = cnt0 + parseInt(r[i].num);
+                                    break;
+                            }
+
+                            let htmls = '';
+
+                            htmls += '<div class="card-song allo-card-in">';
+                            htmls += '<input type="hidden" id="oprsvtseq-' + r[i].rsvtseq + '" value="' + r[i].rsvt +
+                                    '">';
+                            switch (r[i].ctmsepa) {
+                                case 0:
+                                    htmls += '<div class="allo-detail allo-detail-back1">';
+                                    break;
+                                case 1:
+                                    htmls += '<div class="allo-detail allo-detail-back2">';
+                                    break;
+                                case 2:
+                                    htmls += '<div class="allo-detail allo-detail-back3">';
+                                    break;
+                            }
+                            htmls += '<div class="allo-detail-item">';
+                            if (r[i].ctmno == '0') {
+                                htmls += '<blockquote>';
+                                htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                                        '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '(고객정보입력 후 배차 가능)<em st' +
+                                        'yle="letter-spacing: 0.3rem;">' + suk + '</em></mark></p>';
+                                htmls += '</blockquote>';
+                            } else {
+                                htmls += '<blockquote>';
+                                htmls += '<p style="letter-spacing: 0.2rem; font-weight: 600; font-size: 1.5rem;" ><mark' +
+                                        '><i class="fas fa-map-marker-alt"></i>' + r[i].desty + '<em style="letter-spac' +
+                                        'ing: 0.3rem;">' + suk + '</em></mark></p>';
+                                htmls += '</blockquote>';
+                            }
+                            htmls += '</div>';
+                            htmls += '<div class="allo-detail-item">';
+                            switch (r[i].bus) {
+                                case '대형':
+                                    htmls += '<small class="big45"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                            '</span><span class="badge alloNum">' + r[i].num + '대</span></small>';
+                                    break;
+                                case '중형':
+                                    htmls += '<small class="big25"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                            '</span><span class="badge alloNum">' + r[i].num + '대</span></small>';
+                                    break;
+                                case '우등':
+                                    htmls += '<small class="big28"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                            '</span><span class="badge alloNum">' + r[i].num + '대</span></small>';
+                                    break;
+                            }
+                            htmls += '</div>';
+                            htmls += '<div class="allo-detail-item">';
+                            htmls += '<small><i class="fas fa-map-pin"></i>' + r[i].rsvpstp + '</small>';
+                            htmls += '</div>';
+                            htmls += '<div class="allo-detail-item">';
+                            let stttt = '';
+                            let etttt = '';
+                            if (r[i].stt) {
+                                stttt = r[i].stt;
+                            } else {
+                                stttt = '미정'
+                            }
+                            if (r[i].endt) {
+                                etttt = r[i].endt;
+                            } else {
+                                etttt = '미정'
+                            }
+                            htmls += '<small><i class="far fa-clock"></i>' + stttt + '&nbsp;&#47;&nbsp;' + etttt + '</small>';
+                            htmls += '</div>';
+                            htmls += '<div class="allo-detail-item">';
+
+                            htmls += '<small><i class="fa-solid fa-won-sign"></i>' + AddComma(r[i].conm) + '(' + (
+                                AddComma(r[i].numm)
+                            ) + ')</small> ';
+                            htmls += '<small>' + r[i].cont + '</small> ';
+                            htmls += '</div>';
+                            htmls += '<div class="allo-detail-item">';
+                            htmls += '<button class="btn btn-default allo-detail-item-1 card-song rsvtDetails" id="b' +
+                                    'tn-1-' + r[i].rsvtseq + '-' + i + '"><i class="fa-solid fa-magnifying-glass-pl' +
+                                    'us"></i></button>';
+                            htmls += '';
+                            htmls += '</div>';
+                            const aaa = $('.dash-cal-con-item-t')
+                                .children()
+                                .children()[1];
+                            const tod = $(aaa).val();
+                            // const tttod = tod + Math.floor(Math.random() * 1000);
+                            htmls += '<input type="hidden" value="' + tod + '">';
+                            htmls += '<input type="hidden" value="' + r[i].endday + '">';
+                            htmls += '<input type="hidden" value="' + r[i].numm + '">';
+                            htmls += '</div>';
+                            // htmls += '<hr>';
+                            htmls += '<div class="allo-allo row">';
+
+                            for (let k = 0; k < r[i].num; k++) {
+                                let tbi = 0;
+                                let tbii = 0;
+                                switch (r[i].ctmsepa) {
+                                    case 0:
+                                        tbi = tbi1++;
+                                        tbii = tbi1++;
+                                        break;
+                                    case 1:
+                                        tbi = tbi2++;
+                                        tbii = tbi2++;
+                                        break;
+                                    case 2:
+                                        tbi = tbi3++;
+                                        tbii = tbi3++;
+                                        break;
+                                }
+                                htmls += '<div class="allo-allo-item">';
+                                htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
+                                    k + 1
+                                ) + '">';
+                                htmls += ' <input type="hidden" id="' + r[i].rsvtseq + '-' + (
+                                    k + 1
+                                ) + '-op">';
+                                htmls += '<div class="stWay" id="st-' + r[i].rsvtseq + '-' + (
+                                    k + 1
+                                ) + '">';
+
+                                cnt++;
+
+                                if (suk.length > 0) {
+                                    htmls += '<button class="onebtn mdOneway" role="button" id="bt-' + (
+                                        cnt - 1
+                                    ) + '" data-bs-toggle="tooltip" data-bs-placement="left" title="숙박 운행은 편도 운행이 가' +
+                                            '능하지 않습니다."><i class="fas fa-ban"></i></button>';
+                                } else {
+                                    if (r[i].ctmno == '0') {
+                                        htmls += '<button class="onebtn mdOneway" role="button" id="bt-' + (
+                                            cnt - 1
+                                        ) + '" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" tit' +
+                                                'le="고객정보입력 후 배차해주세요."><i class="fa-solid fa-bars"></i></i></button>';
+                                    } else {
+                                        htmls += '<button class="onebtn mdOneway" role="button" id="bt-' + (
+                                            cnt - 1
+                                        ) + '"><i class="fa-solid fa-bars"></i></i></button>';
+                                    }
+                                }
+
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                            'ist="car-info" tabindex="' + (
+                                        tbi
+                                    ) + '" placeholder="' + (
+                                        k + 1
+                                    ) + '호차" id="' + cnt + 'car" style="font-weight: 600; letter-spacing: 0.3rem;" ' +
+                                            'disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="고객' +
+                                            '정보입력 후 배차해주세요.">';
+                                } else {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-car" l' +
+                                            'ist="car-info" tabindex="' + (
+                                        tbi
+                                    ) + '" placeholder="' + (
+                                        k + 1
+                                    ) + '호차" id="' + cnt +
+                                            'car" style="font-weight: 600; letter-spacing: 0.3rem;">';
+                                }
+                                htmls += '<input type="hidden" id="" value="0">';
+                                htmls += '<input type="hidden" id="" value="0">';
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
+                                            '"per-info" tabindex="-1" placeholder="승무원" disabled="disabled" data-bs-toggle=' +
+                                            '"tooltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요.">';
+                                } else {
+                                    htmls += '<input autocomplete="off" type="text" class="ve-emp" id="' + cnt + 'emp" list=' +
+                                            '"per-info" tabindex="-1" placeholder="승무원">';
+                                }
+                                htmls += '<input type="hidden" id="" value="0">';
+
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                            '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                        tbii
+                                    ) + '" placeholder="배차금액" disabled="disabled" data-bs-toggle="tooltip" data-bs-' +
+                                            'placement="top" title="고객정보입력 후 배차해주세요.">';
+                                } else {
+                                    htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
+                                            '"' + cnt + 'm" onfocus="this.select()" data-type="currency" tabindex="' + (
+                                        tbii
+                                    ) + '" placeholder="배차금액">';
+                                }
+                                if (r[i].ctmno == '0') {
+                                    htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
+                                        cnt - 1
+                                    ) + '" style="background: transparent;"  disabled="disabled" data-bs-toggle="to' +
+                                            'oltip" data-bs-placement="top" title="고객정보입력 후 배차해주세요."><i class="fas fa-times' +
+                                            '"></i></button>';
+                                } else {
+                                    htmls += '<button class="onebtn" role="button" onclick="delAllo(this.id)" id="btx-' + (
+                                        cnt - 1
+                                    ) + '" style="background: transparent; color:gray;"><i class="fas fa-times"></i' +
+                                            '></button>';
+                                }
+                                htmls += '</div>';
+                                htmls += '</div>';
+                            }
+                            htmls += '</div>';
+                            htmls += '</div>';
+
+                            for (let j = 0; j < result.length; j++) {
+                                if (r[i].ctmseq == result[j]) {
+                                    ctmseqHtml[j] += htmls;
+                                }
+                            }
+                        }
+                        for (let j = 0; j < ctmseqHtml.length; j++) {
+                            $('#rv' + result[j]).html(ctmseqHtml[j]);
+                            var tooltipTriggerList = []
+                                .slice
+                                .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                                return new bootstrap.Tooltip(tooltipTriggerEl)
+                            })
+                            $("input[data-type='currency']").bind('keyup keydown', function () {
+                                inputNumberFormat(this);
+                            });
+                        }
+                        $('#bdg1').text(cnt00);
+                        $('#bdg2').text(cnt01);
+                        $('#bdg3').text(cnt02);
+                        resolve(rst);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                getManage();
+
+                $('#bdg1').text(0);
+                $('#bdg2').text(0);
+                $('#bdg3').text(0);
+                resolve(0);
+            }
+        });
+    }
+    function getOper(result) {
+        return new Promise(function (resolve, reject) {
+
+            if (result != 0) {
+                const url = "/allo/oper";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                const params = {
+                    "stday": day,
+                    "endday": day
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        for (let i = 0; i < r.length; i++) {
+                            $('#' + r[i].rsvtseq + '-' + r[i].operno).val(r[i].opernum);
+                            $('#' + r[i].rsvtseq + '-' + r[i].operno + '-op').val(r[i].operseq);
+                            var stid = '#st-' + r[i].rsvtseq + '-' + r[i].operno;
+                            if (r[i].opertype == 1) {
+                                let cnt = 0;
+                                for (let j = 0; j < dbCompa.length; j++) {
+                                    if (dbCompa[j].company == r[i].opercom) {
+                                        cnt++;
+                                    }
+                                }
+
+                                if (cnt > 0) {
+                                    $(stid).attr('class', 'stWay1');
+                                } else {
+                                    if (r[i].name == '타회사') {
+                                        $(stid).attr('class', 'stWay3');
+                                    } else {
+                                        $(stid).attr('class', 'stWay2');
+                                    }
+                                }
+
+                                if (r[i].opertrash == 0 || r[i].opertrash == 2) {
+
+                                    const abc = $(stid)
+                                        .parent()
+                                        .parent()
+                                        .prev()
+                                        .prev()
+                                        .children()[5];
+                                    const bbc1 = $(abc).children()[0];
+                                    const bbc2 = $(abc).children()[1];
+
+                                    $(bbc1).attr("onclick", 'endAllo2()');
+
+                                    $(stid).css('background', '#efefef');
+                                    $(stid).attr('onclick', 'endAllo()');
+
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                    $(stid)
+                                        .children()
+                                        .first()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .next()
+                                        .attr("disabled", true);
+                                }
+
+                                if (r[i].vehicle) {
+                                    if (r[i].name == '타회사') {
+                                        $(stid)
+                                            .children()
+                                            .first()
+                                            .next()
+                                            .val(r[i].vehicle);
+                                    } else {
+                                        $(stid)
+                                            .children()
+                                            .first()
+                                            .next()
+                                            .val(r[i].vehicle.substring(r[i].vehicle.length - 4));
+                                    }
+                                } else {}
+
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .val(r[i].opercar);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[i].opercom);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[i].name);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(r[i].operid);
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .next()
+                                    .val(AddComma(r[i].atlm));
+                            } else {
+                                $(stid)
+                                    .children()
+                                    .first()
+                                    .attr('class', 'onebtn1 mdOneway');
+                            }
+                        }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+
+            } else {}
+            $('[tabindex=0]').focus();
+            resolve();
+        });
+    }
+
+    function keydown_Arr() {
+        $('input').on('keyup', function (eInner) {
+            var keyValue = eInner.which; //enter key
+            if (keyValue == 37 || keyValue == 39 || keyValue == 27 || keyValue == 8) {
+                var tabindex = $(this).attr('tabindex');
+                if (keyValue == 39) { //down arrow 40
+                    tabindex++;
+                } else if (keyValue == 37) { //up arrow 38
+                    tabindex--;
+                } else if (keyValue == 27 || keyValue == 8) {
+                    $(this).val('');
+                }
+                $('[tabindex=' + tabindex + ']').focus();
+            }
+        });
+    }
+}

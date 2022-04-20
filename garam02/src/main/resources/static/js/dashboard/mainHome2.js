@@ -27,63 +27,15 @@ function getRsvtListIl() {
             data: JSON.stringify(params),
 
             success: function (r) {
-                let htmls = ``;
 
+                let cnt = 0;
                 for (let i = 0; i < r.length; i++) {
-
-                    let suk = '';
-                    if (r[i].stday != r[i].endday) {
-                        suk = betweenDate(r[i].stday, day, r[i].endday);
-                    }
-
-                    let destyyy = r[i].desty + suk;
-
-                    let stttt = ''
-                    if (r[i].stt) {
-                        stttt = r[i].stt;
-                    }
-
-                    let eddday = '';
-                    if (r[i].stday != r[i].endday) {
-                        eddday = r[i].endday;
-                    }
-
-                    htmls += `
-            <tr>
-                <td>` + r[i].stday +
-                            `
-                <input type="hidden" value="` + r[i].stday +
-                            `">
-                <input type="hidden" value="` + r[i].rsvt +
-                            `">
-                <input type="hidden" value="` + r[i].ctmno +
-                            `">
-                </td>
-                <td>` + eddday +
-                            `</td>
-                <td>` + r[i].ctmname +
-                            `</td>
-                <td>` + destyyy +
-                            `</td>
-                <td>` + r[i].bus +
-                            `</td>
-                <td>` + r[i].num +
-                            `</td>
-                <td>` + r[i].cont +
-                            `</td>
-                <td class="tdRight">` + AddComma(r[i].conm) +
-                            `</td>
-                <td class="tdRight">` + AddComma(r[i].numm) +
-                            `</td>
-                <td class="tdRight"> ` + AddComma(r[i].opertrash) +
-                            `</td>
-                <td>` + r[i].rsvpstp +
-                            `</td>
-                <td>` + stttt +
-                            `</td>
-            </tr>`;
+                    cnt = cnt + parseInt(r[i].num);
                 }
-                $('#home2-tb-il').html(htmls);
+
+                $('#bdggg').text(cnt);
+
+                makeTableRsvt(r);
                 resolve();
             },
             error: (jqXHR) => {
@@ -122,57 +74,7 @@ function getRsvtListMonth(result) {
             data: JSON.stringify(params),
 
             success: function (r) {
-
-                let htmls = ``;
-
-                for (let i = 0; i < r.length; i++) {
-
-                    let stttt = ''
-                    if (r[i].stt) {
-                        stttt = r[i].stt;
-                    }
-
-                    let eddday = '';
-                    if (r[i].stday != r[i].endday) {
-                        eddday = r[i].endday;
-                    }
-
-                    htmls += `
-            <tr>
-                <td>` + r[i].stday +
-                            `
-                <input type="hidden" value="` + r[i].stday +
-                            `">
-                <input type="hidden" value="` + r[i].rsvt +
-                            `">
-                <input type="hidden" value="` + r[i].ctmno +
-                            `">
-                </td>
-                <td>` + eddday +
-                            `</td>
-                <td>` + r[i].ctmname +
-                            `</td>
-                <td>` + r[i].desty +
-                            `</td>
-                <td>` + r[i].bus +
-                            `</td>
-                <td>` + r[i].num +
-                            `</td>
-                <td>` + r[i].cont +
-                            `</td>
-                <td class="tdRight">` + AddComma(r[i].conm) +
-                            `</td>
-                <td class="tdRight">` + AddComma(r[i].numm) +
-                            `</td>
-                <td class="tdRight"> ` + AddComma(r[i].opertrash) +
-                            `</td>
-                <td>` + r[i].rsvpstp +
-                            `</td>
-                <td>` + stttt +
-                            `</td>
-            </tr>`;
-                }
-                $('#home2-tb-il').html(htmls);
+                makeTableRsvt(r);
                 resolve();
             },
             error: (jqXHR) => {
@@ -334,8 +236,6 @@ function getSeachRsvtList(texts) {
 
                 }
 
-                console.log(params);
-
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -344,78 +244,89 @@ function getSeachRsvtList(texts) {
                     data: JSON.stringify(params),
 
                     success: function (r) {
-
-                        if (r.length > 0) {
-
-                            console.log(r);
-
-                            let htmls = ``;
-
-                            for (let i = 0; i < r.length; i++) {
-
-                                let stttt = ''
-                                if (r[i].stt) {
-                                    stttt = r[i].stt;
-                                }
-
-                                let eddday = '';
-                                if (r[i].stday != r[i].endday) {
-                                    eddday = r[i].endday;
-                                }
-
-                                htmls += `
-                <tr>
-                    <td>` + r[i].stday +
-                                        `
-                    <input type="hidden" value="` + r[i].stday +
-                                        `">
-                    <input type="hidden" value="` + r[i].rsvt +
-                                        `">
-                    <input type="hidden" value="` + r[i].ctmno +
-                                        `">
-                    </td>
-                    <td>` + eddday +
-                                        `</td>
-                    <td>` + r[i].ctmname +
-                                        `</td>
-                    <td>` + r[i].desty +
-                                        `</td>
-                    <td>` + r[i].bus +
-                                        `</td>
-                    <td>` + r[i].num +
-                                        `</td>
-                    <td>` + r[i].cont +
-                                        `</td>
-                    <td class="tdRight">` + AddComma(r[i].conm) +
-                                        `</td>
-                    <td class="tdRight">` + AddComma(r[i].numm) +
-                                        `</td>
-                    <td class="tdRight"> ` + AddComma(r[i].opertrash) +
-                                        `</td>
-                    <td>` + r[i].rsvpstp +
-                                        `</td>
-                    <td>` + stttt +
-                                        `</td>
-                </tr>`;
-                            }
-
-                            $('#home2-tb-il').html(htmls);
-                        } else {
-                            htmls = `
-                        <tr>
-                            <th colspan="12">예약정보없음</th>
-                        </tr>`;
-                            $('#home2-tb-il').html(htmls);
-
-                            alert("검색결과 없음");
-                        }
+                        makeTableRsvt(r);
                         resolve();
                     }
                 })
             } else {
                 alert("검색어를 입력해주세요.");
             }
-
         })
     }
 }
+
+function makeTableRsvt(r) {
+    let htmls = ``;
+
+    if (r.length > 0) {
+
+        for (let i = 0; i < r.length; i++) {
+
+            let stttt = ''
+            if (r[i].stt) {
+                stttt = r[i].stt;
+            }
+
+            let eddday = '';
+            if (r[i].stday != r[i].endday) {
+                eddday = r[i].endday;
+            }
+
+            htmls += `
+<tr class="rsvtChohome">
+    <td>` + r[i].stday +
+                    `
+    <input type="hidden" value="` + r[i].stday +
+                    `">
+    <input type="hidden" value="` + r[i].rsvt +
+                    `">
+    <input type="hidden" value="` + r[i].ctmno +
+                    `">
+    </td>
+    <td>` + eddday + `</td>
+    <td>` + r[i].ctmname +
+                    `</td>
+    <td>` + r[i].desty + `</td>
+    <td>` + r[i].bus +
+                    `</td>
+    <td>` + r[i].num + `</td>
+    <td>` + r[i].cont +
+                    `</td>
+    <td class="tdRight">` + AddComma(r[i].conm) +
+                    `</td>
+    <td class="tdRight">` + AddComma(r[i].numm) +
+                    `</td>
+    <td class="tdRight"> ` + AddComma(r[i].opertrash) +
+                    `</td>
+    <td>` + r[i].rsvpstp + `</td>
+    <td>` + stttt +
+                    `</td>
+</tr>`;
+        }
+        $('#home2-tb-il').html(htmls);
+    } else {
+        htmls = `
+        <tr>
+        <th colspan="12">예약정보없음</th>
+        </tr>`;
+        $('#home2-tb-il').html(htmls);
+    }
+}
+
+$(document).on('click', '.rsvtChohome', function () {
+
+    const aaa = $(this).children()[0];
+
+    const dayday = $(aaa).children()[0];
+    const dayday1 = $(dayday).val();
+
+    const rsvt = $(aaa).children()[1];
+    const rsvt1 = $(rsvt).val();
+
+    const ddddd = new Date(dayday1);
+
+    $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
+    $('#RsvtOperDay').val(dayday1);
+
+    getMenuRsvt(rsvt1, 0);
+});

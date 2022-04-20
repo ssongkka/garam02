@@ -32,9 +32,17 @@ public interface MainService {
 
 	public int delAllo(List<Map<String, Object>> map) throws Exception;
 
+	public int updateAtmMany(List<Map<String, Object>> map) throws Exception;
+
 	public List<RsvtDTO> selectRSVT(RsvtDTO rsvtDTO) throws Exception;
 
+	public List<RsvtDTO> selectAlloRSVTSuk(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAlloRSVTIl(RsvtDTO rsvtDTO) throws Exception;
+
 	public List<RsvtDTO> selectAlloCTM(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAlloCTMRsvtOper(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectCustomerCheck(RsvtDTO rsvtDTO) throws Exception;
 
@@ -45,6 +53,10 @@ public interface MainService {
 	public List<RsvtDTO> selectAlloRSVTSearch(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloOPER(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAlloOPERRsvtOper(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAlloOPERRsvtOperIl(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAlloOPERIl(RsvtDTO rsvtDTO) throws Exception;
 

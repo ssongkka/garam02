@@ -55,8 +55,6 @@
 		WHERE
 
 		ctmno = #{ctmno}
-		AND
-		ctmtrash = 1;
 
 	</select>
 
@@ -537,6 +535,26 @@
 		rsvt.stt,
 		rsvt.rsvtseq;
 	</select>
+	<select id="selectAlloCTMRsvtOper" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		rsvt.*,
+		customer.*
+
+		FROM rsvt
+
+		LEFT JOIN
+		customer on
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		customer.ctmno =
+		#{ctmno}
+
+	</select>
 	<select id="selectAlloRSVT" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 		SELECT
@@ -572,6 +590,90 @@
 		AND
 
 		rsvt.rsvttrash = #{rsvttrash}
+
+		ORDER BY
+		rsvt.stday,
+		customer.ctmseq,
+		customer.ctmsepa,
+		customer.ctmname,
+		rsvt.datein,
+		rsvt.stt,
+		rsvt.rsvtseq;
+	</select>
+	<select id="selectAlloRSVTIl" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		*,
+
+		(rsvt.conm - IFNULL((SELECT
+		SUM(rsvtmoney.moneymoney)
+		FROM
+		rsvtmoney
+		WHERE
+		rsvtmoney.rsvt = rsvt.rsvt),
+		0)) AS
+		opertrash
+
+		FROM
+		rsvt
+
+		left
+		join customer on rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		(rsvt.stday <![CDATA[<=]]>
+		#{stday})
+
+		AND
+
+		(rsvt.endday <![CDATA[>=]]>
+		#{endday})
+
+		AND
+
+		customer.ctmno = #{ctmno}
+
+		AND
+
+		rsvt.stday = rsvt.endday
+
+		ORDER BY
+		rsvt.stday,
+		customer.ctmseq,
+		customer.ctmsepa,
+		customer.ctmname,
+		rsvt.datein,
+		rsvt.stt,
+		rsvt.rsvtseq;
+	</select>
+	<select id="selectAlloRSVTSuk" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		*,
+
+		(rsvt.conm - IFNULL((SELECT
+		SUM(rsvtmoney.moneymoney)
+		FROM
+		rsvtmoney
+		WHERE
+		rsvtmoney.rsvt = rsvt.rsvt),
+		0)) AS
+		opertrash
+
+		FROM
+		rsvt
+
+		left
+		join customer on rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		rsvt.rsvt = #{rsvt}
 
 		ORDER BY
 		rsvt.stday,
@@ -724,6 +826,98 @@
 		#{endday})) AND operation_info.operday = #{stday}
 		ORDER BY
 		rsvt.ctmno)
+
+		ORDER BY
+		operation_info.rsvt;
+	</select>
+	<select id="selectAlloOPERRsvtOperIl" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+		rsvt.rsvtseq, operation_info.operseq, operation_info.opernum,
+		operation_info.rsvt,
+		operation_info.operday,
+		operation_info.operno,
+		operation_info.opercom,
+		rsvt.numm, operation_info.atlm,
+		operation_info.opertype,
+		operation_info.operconfirm,
+		operation_info.operid,
+		operation_info.opercar,
+		IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo WHERE employeeinfo.id =
+		operation_info.operid),
+		operation_info.operid) AS name,
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		operation_info.opercar),
+		operation_info.opercar) AS
+		vehicle,
+		operation_info.opertrash
+
+		FROM
+		operation_info
+
+		left join rsvt on
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		WHERE
+		(rsvt.stday <![CDATA[<=]]>
+		#{stday})
+
+		AND
+
+		(rsvt.endday <![CDATA[>=]]>
+		#{endday})
+
+		AND
+
+		rsvt.ctmno = #{ctmno}
+
+		ORDER BY
+		operation_info.rsvt;
+	</select>
+	<select id="selectAlloOPERRsvtOper" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+		rsvt.rsvtseq, operation_info.operseq, operation_info.opernum,
+		operation_info.rsvt,
+		operation_info.operday,
+		operation_info.operno,
+		operation_info.opercom,
+		rsvt.numm, operation_info.atlm,
+		operation_info.opertype,
+		operation_info.operconfirm,
+		operation_info.operid,
+		operation_info.opercar,
+		IFNULL((SELECT
+		employeeinfo.name FROM
+		employeeinfo WHERE employeeinfo.id =
+		operation_info.operid),
+		operation_info.operid) AS name,
+		IFNULL((SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		operation_info.opercar),
+		operation_info.opercar) AS
+		vehicle,
+		operation_info.opertrash
+
+		FROM
+		operation_info
+
+		left join rsvt on
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		WHERE
+		operation_info.rsvt = #{rsvt}
 
 		ORDER BY
 		operation_info.rsvt;
@@ -904,6 +1098,24 @@
 		operation_info.operday
 
 	</select>
+
+	<update id="updateAtmMany" parameterType="java.util.HashMap">
+		<foreach collection="atmoper" item="value" index="index" separator=";">
+			UPDATE
+
+			operation_info
+
+			SET
+
+			operation_info.atlm
+			=#{value.atlm}
+
+			WHERE
+
+			operation_info.operseq =
+			#{value.operseq}
+		</foreach>
+	</update>
 
 	<select id="selectWeekBusNum" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
