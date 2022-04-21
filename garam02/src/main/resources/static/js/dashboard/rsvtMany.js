@@ -435,13 +435,13 @@ $(document).on('click', '#insert-many', function () {
 
                     switch (contt) {
                         case '포함':
-                            nummm = Math.floor((conmm / 1.1) / numnum);
+                            nummm = Math.floor(Math.round((conmm / 1.1)) / numnum);
                             break;
                         case '카드':
-                            nummm = Math.floor((conmm / opt[0].card) / numnum);
+                            nummm = Math.floor(Math.round((conmm / opt[0].card)) / numnum);
                             break;
                         default:
-                            nummm = Math.floor(conmm / numnum);
+                            nummm = Math.floor(Math.round(conmm) / numnum);
                             break;
                     }
 

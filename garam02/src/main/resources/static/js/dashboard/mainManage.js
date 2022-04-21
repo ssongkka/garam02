@@ -1,11 +1,50 @@
 $(document).ready(function () {});
 
+$(document).on('click', '#pills-manage-tab', function () {
+    makeManage();
+});
+
+function makeManage() {
+    const operdddd = $('.dash-cal-con-item-t').children()[0];
+    const operdddd1 = $(operdddd).children()[1];
+    const day = $(operdddd1).val();
+
+    const url = "/allo/rsvt";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    const params = {
+        "stday": day,
+        "endday": day,
+        "rsvttrash": 1
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+
+        success: function (r) {
+            getManage(r);
+        }
+    })
+}
+
 function getManage(list) {
 
-    setManageTable().then(sumRsvtM);
+    LoadingWithMask()
+        .then(setManageTable)
+        .then(sumRsvtM)
+        .then(closeLoadingWithMask);
 
     function setManageTable() {
         return new Promise(function (resolve, reject) {
+
+            let arrSumRsvt = new Array();
             if (list) {
                 let arrTmpCtm = new Array();
                 for (let i = 0; i < list.length; i++) {
@@ -24,8 +63,6 @@ function getManage(list) {
 
                 let arrSepa = new Array();
                 let arrDay = new Array();
-
-                let arrSumRsvt = new Array();
 
                 for (let k = 0; k < uniqueCtm.length; k++) {
                     let contRsvt = 0;
@@ -196,12 +233,12 @@ function getManage(list) {
                 $('#tb-hakManage').html(hakHtml);
                 $('#tb-guManage').html(guHtml);
 
-                resolve(arrSumRsvt);
             } else {
                 $('#tb-ilManage').html(`<tr><td colspan="12">예약 정보 없음</td></tr>`);
                 $('#tb-hakManage').html(`<tr><td colspan="12">예약 정보 없음</td></tr>`);
                 $('#tb-guManage').html(`<tr><td colspan="12">예약 정보 없음</td></tr>`);
             }
+            resolve(arrSumRsvt);
         })
     }
     function sumRsvtM(result) {
@@ -242,13 +279,14 @@ function getManage(list) {
 
                         $(idIN).text(AddComma(r[0].moneymoney));
                         $(idJan).text(AddComma(parseInt(operMM) - parseInt(r[0].moneymoney)));
-                        resolve();
+
                     },
                     error: (jqXHR) => {
                         loginSession(jqXHR.status);
                     }
                 })
             }
+            resolve();
         })
     }
 }

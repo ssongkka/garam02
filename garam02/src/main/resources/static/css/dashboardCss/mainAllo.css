@@ -53,6 +53,10 @@
     background: var(--sub-color);
     cursor: pointer;
 }
+.ad-cal-items-4:hover {
+    background: var(--sub-color);
+    cursor: pointer;
+}
 
 .rv {
     display: flex;

@@ -6,13 +6,11 @@ $(document).ready(function () {
 $(document).on('click', '#modalRsvtMoneyX', function () {
     $('.rsvtMoneyAll').hide();
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
-    makeMainBigCal();
 });
 
 $(document).on('click', '#modalRsvtMoneyEnd', function () {
     $('.rsvtMoneyAll').hide();
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
-    makeMainBigCal();
 });
 
 function getManageMD1() {

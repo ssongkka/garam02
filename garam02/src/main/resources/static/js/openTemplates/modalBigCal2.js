@@ -428,7 +428,6 @@ $(document).on('click', '.bigTd', function () {
                     if (val == day1) {
                         cnt = 0;
                         setCalWhite($(iddd).attr('id'));
-                        makeMainBigCal();
                         break;
                     }
                 }

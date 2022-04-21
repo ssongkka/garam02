@@ -3,6 +3,15 @@ $(document).ready(function () {
     $("#searchPeEdOper").attr("disabled", true);
 });
 
+$(document).on('click', '#pills-home3-tab', function () {
+
+    $('#radioOper2').prop("checked", true);
+
+    LoadingWithMask()
+        .then(getOperListMonth)
+        .then(closeLoadingWithMask);
+});
+
 function getOperListIl() {
     return new Promise(function (resolve, reject) {
         const day = $('#yearMonthDay').val();
@@ -349,13 +358,13 @@ function getSeachOperList(texts) {
 
                     success: function (r) {
                         makeTableOper(r);
-                        resolve();
                     }
                 })
 
             } else {
                 alert("검색어를 입력해주세요.");
             }
+            resolve();
         })
     }
 }
@@ -381,9 +390,9 @@ function makeTableOper(r) {
             }
 
             let carcar = '';
-            let carHtml = `<td calss="tdPerson">` + carcar +
+            let carHtml = `<td class="operChohome tdPerson">` + carcar +
                     `</td>
-        <td calss="tdPerson"></td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+        <td class="operChohome tdPerson"></td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
             if (r[i].vehicle) {
                 if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
                     carcar = r[i]
@@ -392,9 +401,9 @@ function makeTableOper(r) {
                         .replaceAll('관광', '')
                         .replaceAll('여행사', '')
                         .replaceAll('(주)', '');
-                    carHtml = `<td calss="tdPerson">` + carcar +
+                    carHtml = `<td class="operChohome tdPerson">` + carcar +
                             `</td>
-                        <td calss="tdPerson">` + r[i].name +
+                        <td class="operChohome tdPerson">` + r[i].name +
                             `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                             r[i].operseq +
                             `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
@@ -409,17 +418,17 @@ function makeTableOper(r) {
                     }
 
                     if (cnt > 0) {
-                        carHtml = `<td calss="tdPerson">` + carcar +
+                        carHtml = `<td class="operChohome tdPerson">` + carcar +
                                 `</td>
-                        <td calss="tdPerson">` + r[i].name +
+                        <td class="operChohome tdPerson">` + r[i].name +
                                 `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                                 r[i].operseq +
                                 `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
                                 AddComma(r[i].atlm) + `"></div></div></td>`;
                     } else {
-                        carHtml = `<td calss="tdPerson">` + carcar +
+                        carHtml = `<td class="operChohome tdPerson">` + carcar +
                                 `</td>
-                        <td calss="tdPerson">` + r[i].name +
+                        <td class="operChohome tdPerson">` + r[i].name +
                                 `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                                 r[i].operseq +
                                 `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
@@ -430,8 +439,8 @@ function makeTableOper(r) {
             }
 
             htmls += `
-        <tr class="operChohome">
-            <td>` + r[i].operday +
+        <tr>
+            <td class="operChohome">` + r[i].operday +
                     `
                 <input type="hidden" value="` + r[i].operday +
                     `">
@@ -449,18 +458,22 @@ function makeTableOper(r) {
                     `">
                 <input type="hidden" value="` + r[i].opercom +
                     `">
+                <input type="hidden" value="` + r[i].opertype +
+                    `">
             </td>
-            <td>` + r[i].ctmname +
+            <td class="operChohome">` + r[i].ctmname +
                     `</td>
-            <td>` + destyyy + `</td>
+            <td class="operChohome">` + destyyy +
+                    `</td>
             ` + carHtml +
-                    `<td class="tdRight">` + AddComma(r[i].numm) +
+                    `<td class="tdRight operChohome">` + AddComma(r[i].numm) +
                     `</td>
-            <td>` + r[i].num +
+            <td class="operChohome">` + r[i].num +
                     `</td>
-            <td>` + r[i].rsvpstp +
+            <td class="operChohome">` + r[i].rsvpstp +
                     `</td>
-            <td>` + stttt + `</td>
+            <td class="operChohome">` + stttt +
+                    `</td>
         </tr>`;
         }
         $('#home3-tb-il').html(htmls);
@@ -523,15 +536,31 @@ function upAltmMany(money) {
 
     $('input:checkbox[name="chAtm"]').each(function () {
         if (this.checked) {
-            const operseqqq = $(this).val();
+
+            const aaa = $(this)
+                .parent()
+                .parent()
+                .parent()
+                .parent()
+                .children()[0];
+
+            const a1 = $(aaa).children()[4];
+            const a2 = $(aaa).children()[5];
+            const a3 = $(aaa).children()[6];
+            const a4 = $(aaa).children()[8];
 
             const asd = {
                 "atlm": parseInt(money),
-                "operseq": operseqqq
+                "opernum": $(a1).val(),
+                "opercar": $(a2).val(),
+                "operid": $(a3).val(),
+                "opertype": $(a4).val()
             };
             params.push(asd);
         }
     });
+
+    console.table(params);
 
     const url = "/allo/updateAtmMany";
     const headers = {
@@ -564,18 +593,28 @@ function upAltmOne(domdom, money) {
 
     const aaa = $(domdom)
         .parent()
-        .prev()
+        .parent()
+        .parent()
+        .parent()
         .children()[0];
 
-    const operseqqq = $(aaa).val();
+    const a1 = $(aaa).children()[4];
+    const a2 = $(aaa).children()[5];
+    const a3 = $(aaa).children()[6];
+    const a4 = $(aaa).children()[8];
 
     let params = new Array();
 
     const asd = {
         "atlm": parseInt(money),
-        "operseq": operseqqq
+        "opernum": $(a1).val(),
+        "opercar": $(a2).val(),
+        "operid": $(a3).val(),
+        "opertype": $(a4).val()
     };
     params.push(asd);
+
+    console.table(params);
 
     const url = "/allo/updateAtmMany";
     const headers = {
@@ -594,7 +633,6 @@ function upAltmOne(domdom, money) {
             $(domdom).val(AddComma(money));
         }
     })
-
 }
 
 $(document).on('change', 'input:checkbox[name="chAtm"]', function () {
@@ -636,7 +674,8 @@ function checkCHAll() {
 
 $(document).on('click', '.operChohome', function () {
 
-    const aaa = $(this).children()[0];
+    const a = $(this).parent();
+    const aaa = $(a).children()[0];
 
     const dayday = $(aaa).children()[0];
     const dayday1 = $(dayday).val();
@@ -648,16 +687,6 @@ $(document).on('click', '.operChohome', function () {
 
     $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
     $('#RsvtOperDay').val(dayday1);
-
-    for (let i = 0; i < 42; i++) {
-        let iiiddd = '#dash-cal-con-item' + (
-            i + 1
-        );
-
-        if (dayday1 == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
-            setCalWhite($(iiiddd).attr('id'));
-        }
-    }
 
     getMenuRsvt(rsvt1, 0);
 });

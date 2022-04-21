@@ -33,8 +33,7 @@ function rsvtMdHide() {
         $('#ctmcompanumUp').val('');
         $('#ctmhomepageUp').val('');
 
-        setCalWhite($('.dash-cal-con-item-t').attr('id'));
-        makeMainBigCal();
+        displayMain();
 
         $('#modal-rsvt').modal('hide');
         resolve();
@@ -1074,12 +1073,10 @@ $(document).on('click', '#btn-one-plus', function () {
 
 $(document).on('click', '#modal-oneX', function () {
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
-    makeMainBigCal();
 });
 
 $(document).on('click', '#modal-oneEnd', function () {
     setCalWhite($('.dash-cal-con-item-t').attr('id'));
-    makeMainBigCal();
 });
 
 function plusOneWay(num) {
@@ -1141,12 +1138,8 @@ function getAlloList(day) {
 
     LoadingWithMask()
         .then(setCaldays)
-        .then(getRsvtListIl)
-        .then(getOperListIl)
-        .then(getReg)
-        .then(getRegDe)
-        .then(getRegCoo)
         .then(closeLoadingWithMask);
+    // .then(getReg) .then(getRegDe) .then(getRegCoo)
 
     function setCaldays(result) {
         return new Promise(function (resolve, reject) {
@@ -1863,17 +1856,26 @@ function updateRsvt(result) {
     return new Promise(function (resolve, reject) {
 
         $('#conm-1').val($('#conm-1').val().replaceAll(',', ''));
-        switch ($('#conm-1').val()) {
+
+        console.log($('#conm-1').val());
+        console.log($('#num-1').val());
+
+        switch ($('#cont-1').val()) {
             case '포함':
-                $('#numm-1').val(Math.floor(($('#conm-1').val() / 1.1) / $('#num-1').val()));
+                $('#numm-1').val(
+                    Math.floor(Math.round(($('#conm-1').val() / 1.1)) / $('#num-1').val())
+                );
+                console.log($('#num-1').val());
                 break;
             case '카드':
                 $('#numm-1').val(
-                    Math.floor(($('#conm-1').val() / optCard) / $('#num-1').val())
+                    Math.floor(Math.round(($('#conm-1').val() / optCard)) / $('#num-1').val())
                 );
                 break;
             default:
-                $('#numm-1').val(Math.floor($('#conm-1').val() / $('#num-1').val()));
+                $('#numm-1').val(
+                    Math.floor(Math.round($('#conm-1').val()) / $('#num-1').val())
+                );
                 break;
         }
 
@@ -1929,7 +1931,7 @@ function updateRsvt(result) {
                     } else if (r == -2) {
                         alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
                     }
-                    rsvtMdHide();
+                    resolve();
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);
@@ -1944,11 +1946,13 @@ $(document).on('click', '#inNewUp', function () {
     if ($('#ctmlseqqqUp').val() && $('#ctmlseqqqUp').val() != 'new') {
         LoadingWithMask($('#ctmlseqqqUp').val())
             .then(updateRsvt)
+            .then(rsvtMdHide)
             .then(closeLoadingWithMask);
     } else if ($('#ctmlseqqqUp').val() == 'new') {
         LoadingWithMask()
             .then(insertUpCtm)
             .then(updateRsvt)
+            .then(rsvtMdHide)
             .then(closeLoadingWithMask);
         function insertUpCtm(result) {
             return new Promise(function (resolve, reject) {
@@ -2461,7 +2465,6 @@ function makeAllo() {
                         let tbi3 = 200;
                         let tbi4 = 300;
 
-                        getManage(r);
                         let rst = new Array();
 
                         let ctmseqHtml = new Array();
@@ -2527,15 +2530,15 @@ function makeAllo() {
                             switch (r[i].bus) {
                                 case '대형':
                                     htmls += '<small class="big45"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
-                                            '</span><span class="badge alloNum">' + r[i].num + '대</span></small>';
+                                            '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                                     break;
                                 case '중형':
                                     htmls += '<small class="big25"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
-                                            '</span><span class="badge alloNum">' + r[i].num + '대</span></small>';
+                                            '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                                     break;
                                 case '우등':
                                     htmls += '<small class="big28"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
-                                            '</span><span class="badge alloNum">' + r[i].num + '대</span></small>';
+                                            '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                                     break;
                             }
                             htmls += '</div>';

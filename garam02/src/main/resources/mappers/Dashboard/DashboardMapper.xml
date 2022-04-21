@@ -1112,8 +1112,25 @@
 
 			WHERE
 
-			operation_info.operseq =
-			#{value.operseq}
+			operation_info.opernum =
+			#{value.opernum}
+
+			AND
+
+			operation_info.opercar =
+			#{value.opercar}
+
+			AND
+
+			operation_info.operid =
+			#{value.operid}
+
+			AND
+
+			operation_info.opertype =
+			#{value.opertype}
+
+
 		</foreach>
 	</update>
 

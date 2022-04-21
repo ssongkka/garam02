@@ -25,6 +25,33 @@ $(document).on('click', '.ad-cal-items-2', function () {
         })
     }
 });
+$(document).on('click', '.ad-cal-items-4', function () {
+    mdBigCalShow1().then(mdBigCalShow2);
+
+    function mdBigCalShow1() {
+        return new Promise(function (resolve, reject) {
+            const year = $('#yearMonth')
+                .val()
+                .split('-')[0];
+            const month = $('#yearMonth')
+                .val()
+                .split('-')[1];
+
+            const nowMonth = new Date(parseInt(year), parseInt(month) - 1, 1);
+
+            $("#yearMonthBig").val($('#yearMonth').val());
+
+            makeBigCal(nowMonth);
+            resolve();
+        })
+    }
+    function mdBigCalShow2() {
+        return new Promise(function (resolve, reject) {
+            $('#mdBigCal').offcanvas('show');
+            resolve();
+        })
+    }
+});
 
 $("#yearMonthBig").change(function () {
     makeBigCal(get_Big_Year_Month(), null);
@@ -428,7 +455,6 @@ $(document).on('click', '.bigTd', function () {
                     if (val == day1) {
                         cnt = 0;
                         setCalWhite($(iddd).attr('id'));
-                        makeMainBigCal();
                         break;
                     }
                 }

@@ -3,6 +3,15 @@ $(document).ready(function () {
     $("#searchPeEdRsvt").attr("disabled", true);
 });
 
+$(document).on('click', '#pills-home2-tab', function () {
+
+    $('#radioRsvt2').prop("checked", true);
+
+    LoadingWithMask()
+        .then(getRsvtListMonth)
+        .then(closeLoadingWithMask);
+});
+
 function getRsvtListIl() {
     return new Promise(function (resolve, reject) {
         const day = $('#yearMonthDay').val();
@@ -27,14 +36,6 @@ function getRsvtListIl() {
             data: JSON.stringify(params),
 
             success: function (r) {
-
-                let cnt = 0;
-                for (let i = 0; i < r.length; i++) {
-                    cnt = cnt + parseInt(r[i].num);
-                }
-
-                $('#bdggg').text(cnt);
-
                 makeTableRsvt(r);
                 resolve();
             },
@@ -245,12 +246,12 @@ function getSeachRsvtList(texts) {
 
                     success: function (r) {
                         makeTableRsvt(r);
-                        resolve();
                     }
                 })
             } else {
                 alert("검색어를 입력해주세요.");
             }
+            resolve();
         })
     }
 }

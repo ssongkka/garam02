@@ -25,7 +25,6 @@ $(document).ready(function () {
     const id = makeCal(nowMonth, nowDay);
 
     setCalWhite(id);
-    makeMainBigCal();
 });
 
 $(document).on('click', '#btnYesD', function () {
@@ -39,8 +38,6 @@ $(document).on('click', '#btnYesD', function () {
     const id = makeCal(nowMonth, day);
 
     setCalWhite(id);
-
-    makeMainBigCal();
 });
 
 $(document).on('click', '#btnToD', function () {
@@ -53,8 +50,6 @@ $(document).on('click', '#btnToD', function () {
     const id = makeCal(nowMonth, nowDay);
 
     setCalWhite(id);
-
-    makeMainBigCal();
 });
 
 $(document).on('click', '#btnTomD', function () {
@@ -68,8 +63,6 @@ $(document).on('click', '#btnTomD', function () {
     const id = makeCal(nowMonth, day);
 
     setCalWhite(id);
-
-    makeMainBigCal();
 });
 
 $(document).on('click', '#fnDownMonth', function () {
@@ -127,7 +120,6 @@ $(document).on('click', '#fnDownDay', function () {
             setCalWhite($(iiiddd).attr('id'));
         }
     }
-    makeMainBigCal();
 });
 
 $(document).on('click', '#fnUpDay', function () {
@@ -150,7 +142,6 @@ $(document).on('click', '#fnUpDay', function () {
             setCalWhite($(iiiddd).attr('id'));
         }
     }
-    makeMainBigCal();
 });
 
 function get_Year_Month() {
@@ -173,7 +164,7 @@ function get_Year_Month1() {
     return now_Month;
 }
 
-function setCalWhite(e) {
+function setCalWhite(e, cho) {
     const day = calen_Rsvt.setCalclss(e);
 
     const aaa = toStringByFormatting(new Date(day)).split('-')[1];;
@@ -196,11 +187,43 @@ function setCalWhite(e) {
         const dweek = toStringByFormatting(new Date(ddd));
     }
 
-    if ($('#allo').css('display') === 'block') {
-        makeAllo();
+    if (!cho) {
+        displayMain();
     }
 
     clTdColor();
+}
+
+function displayMain() {
+    if ($('#home').css('display') === 'block') {
+        makeMainBigCal();
+    }
+
+    if ($('#home2').css('display') === 'block') {
+        if ($('#radioRsvt1').is(':checked')) {
+            getRsvtListIl();
+        }
+        if ($('#radioRsvt2').is(':checked')) {
+            getRsvtListMonth();
+        }
+    }
+
+    if ($('#home3').css('display') === 'block') {
+        if ($('#radioOper1').is(':checked')) {
+            getOperListIl();
+        }
+        if ($('#radioOper2').is(':checked')) {
+            getOperListMonth();
+        }
+    }
+
+    if ($('#manage').css('display') === 'block') {
+        makeManage();
+    }
+
+    if ($('#allo').css('display') === 'block') {
+        makeAllo();
+    }
 }
 
 function setCalWhite1(day) {
@@ -218,6 +241,22 @@ function setCalWhite1(day) {
 
     if ($('#allo').css('display') === 'block') {
         makeAllo();
+    }
+    if ($('#home2').css('display') === 'block') {
+        if ($('#radioRsvt1').is(':checked')) {
+            getRsvtListIl();
+        }
+        if ($('#radioRsvt2').is(':checked')) {
+            getRsvtListMonth();
+        }
+    }
+    if ($('#home3').css('display') === 'block') {
+        if ($('#radioOper1').is(':checked')) {
+            getOperListIl();
+        }
+        if ($('#radioOper2').is(':checked')) {
+            getOperListMonth();
+        }
     }
 
     clTdColor();
@@ -271,7 +310,6 @@ $("#yearMonthDay").change(function () {
             setCalWhite($(iiiddd).attr('id'));
         }
     }
-    makeMainBigCal();
 });
 
 function makeCal(nowD, day) {
@@ -618,14 +656,14 @@ $(document).on('click', '.logo', function () {
     location.reload();
 });
 
-$(document).on('click', '#goEmp', function () {
+$(document).on('click', '#card-emp', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;
 
     window.open('/employee', '인사정보')
 });
 
-$(document).on('click', '#goVe', function () {
+$(document).on('click', '#card-ve', function () {
     // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
     // window.screenLeft; var yPos = 10;
 

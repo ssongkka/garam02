@@ -1016,7 +1016,7 @@ $(document).on('click', '.mainCaltd-top-hol', function () {
 
     const iiddddd = 'dash-cal-con-item' + realNum;
 
-    setCalWhite(iiddddd);
+    setCalWhite(iiddddd, 1);
 });
 $(document).on('click', '.mainCaltd-top-day', function () {
     const aaa = $(this)
@@ -1030,7 +1030,7 @@ $(document).on('click', '.mainCaltd-top-day', function () {
 
     const iiddddd = 'dash-cal-con-item' + realNum;
 
-    setCalWhite(iiddddd);
+    setCalWhite(iiddddd, 1);
 });
 
 function clTdColor() {
@@ -1090,7 +1090,7 @@ $(document).on('click', '.middle-suk', function () {
         );
 
         if (dayday == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
-            setCalWhite($(iiiddd).attr('id'));
+            setCalWhite($(iiiddd).attr('id'), 1);
         }
     }
 
@@ -1174,7 +1174,6 @@ function makeHtmlsMenu(r, cho) {
             htmls += '<div class="allo-card">';
             htmls += '<input type="hidden" id="rvctm1RsvtOper" value="' + r[0].ctmno + '">';
             htmls += '<input type="hidden" id="rvctmsepa1RsvtOper" value="' + r[0].ctmsepa + '">';
-            htmls += '<input type="hidden" id="sepaModal" value="3">';
             switch (r[0].ctmsepa) {
                 case 0:
                     htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
@@ -1212,6 +1211,7 @@ function makeHtmlsMenu(r, cho) {
             htmls += '</div>';
 
             $('#modalRsvtOperBD').html(htmls);
+            $('#sepaModal').val('3')
             resolve(ctmseqArr);
         })
     }
@@ -1293,19 +1293,16 @@ function makeHtmlsMenu(r, cho) {
                 htmls += '<div class="allo-detail-item">';
                 switch (r[i].bus) {
                     case '대형':
-                        htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
-                                r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
-                                'small>';
+                        htmls += '<small class="big45"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                         break;
                     case '중형':
-                        htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
-                                r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
-                                'small>';
+                        htmls += '<small class="big25"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                         break;
                     case '우등':
-                        htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
-                                r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
-                                'small>';
+                        htmls += '<small class="big28"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                         break;
                 }
                 htmls += '</div>';
@@ -1822,7 +1819,6 @@ function makeHtmlsSuk(r, cho) {
             htmls += '<div class="allo-card">';
             htmls += '<input type="hidden" id="rvctm1RsvtOper" value="' + r[0].ctmno + '">';
             htmls += '<input type="hidden" id="rvctmsepa1RsvtOper" value="' + r[0].ctmsepa + '">';
-            htmls += '<input type="hidden" id="sepaModal" value="0">';
             switch (r[0].ctmsepa) {
                 case 0:
                     htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
@@ -1860,6 +1856,7 @@ function makeHtmlsSuk(r, cho) {
             htmls += '</div>';
 
             $('#modalRsvtOperBD').html(htmls);
+            $('#sepaModal').val('0')
             resolve(ctmseqArr);
         })
     }
@@ -1941,19 +1938,16 @@ function makeHtmlsSuk(r, cho) {
                 htmls += '<div class="allo-detail-item">';
                 switch (r[i].bus) {
                     case '대형':
-                        htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
-                                r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
-                                'small>';
+                        htmls += '<small class="big45"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                         break;
                     case '중형':
-                        htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
-                                r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
-                                'small>';
+                        htmls += '<small class="big25"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                         break;
                     case '우등':
-                        htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
-                                r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
-                                'small>';
+                        htmls += '<small class="big28"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                         break;
                 }
                 htmls += '</div>';
@@ -2431,7 +2425,7 @@ $(document).on('click', '.middle-il', function () {
         );
 
         if (dayday == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
-            setCalWhite($(iiiddd).attr('id'));
+            setCalWhite($(iiiddd).attr('id'), 1);
         }
     }
 
@@ -2508,7 +2502,6 @@ function makeHtmlsIl(ctmnono, day, cho) {
                     htmls += '<div class="allo-card">';
                     htmls += '<input type="hidden" id="rvctm1RsvtOper" value="' + r[0].ctmno + '">';
                     htmls += '<input type="hidden" id="rvctmsepa1RsvtOper" value="' + r[0].ctmsepa + '">';
-                    htmls += '<input type="hidden" id="sepaModal" value="1">';
                     switch (r[0].ctmsepa) {
                         case 0:
                             htmls += '<div class="ctm-ttt ctm-ttt-back1"><div class="ctm-ttt-item"><i class="fa-soli' +
@@ -2546,6 +2539,7 @@ function makeHtmlsIl(ctmnono, day, cho) {
                     htmls += '</div>';
 
                     $('#modalRsvtOperBD').html(htmls);
+                    $('#sepaModal').val('1')
 
                     resolve(ctmseqArr);
                 }
@@ -2630,19 +2624,16 @@ function makeHtmlsIl(ctmnono, day, cho) {
                         htmls += '<div class="allo-detail-item">';
                         switch (r[i].bus) {
                             case '대형':
-                                htmls += '<small class=""><i class="fas fa-bus big45"></i><span class="big45 alloNum">' +
-                                        r[i].bus + '</span><span class="badge big45 alloNum">' + r[i].num + '대</span></' +
-                                        'small>';
+                                htmls += '<small class="big45"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                        '</span><span class=" alloNum">&nbsp;' + r[i].num + '대</span></small>';
                                 break;
                             case '중형':
-                                htmls += '<small class=""><i class="fas fa-bus big25"></i><span class="big25 alloNum">' +
-                                        r[i].bus + '</span><span class="badge big25 alloNum">' + r[i].num + '대</span></' +
-                                        'small>';
+                                htmls += '<small class="big25"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                        '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                                 break;
                             case '우등':
-                                htmls += '<small class=""><i class="fas fa-bus big28"></i><span class="big28 alloNum">' +
-                                        r[i].bus + '</span><span class="badge big28 alloNum">' + r[i].num + '대</span></' +
-                                        'small>';
+                                htmls += '<small class="big28"><i class="fas fa-bus"></i><span class="alloNum">' + r[i].bus +
+                                        '</span><span class="alloNum">&nbsp;' + r[i].num + '대</span></small>';
                                 break;
                         }
                         htmls += '</div>';
