@@ -6,29 +6,32 @@
 		vehicleinfo.carnumber, vehicleinfo.vehicle,
 		vehicleinfo.company,
 		IFNULL((SELECT
-		employeeinfo.name FROM employeeinfo
+		employeeinfo.name FROM
+		employeeinfo
 		WHERE
 		employeeinfo.id=vehicleinfo.owner),
 		vehicleinfo.owner) AS owner,
-		vehicleinfo.id, vehicleinfo.bus, vehicleinfo.brand,
+		vehicleinfo.id, vehicleinfo.bus,
+		vehicleinfo.brand,
 		vehicleinfo.vename, vehicleinfo.grade, vehicleinfo.fuel,
 		vehicleinfo.num,
-		vehicleinfo.color, vehicleinfo.carn,
+		vehicleinfo.color,
+		vehicleinfo.carn,
 		vehicleinfo.regist, vehicleinfo.expire,
 		vehicleinfo.price,
 		vehicleinfo.special, vehicleinfo.img1,
 		vehicleinfo.img2,
 		vehicleinfo.img3, vehicleinfo.regd, vehicleinfo.reg,
 		vehicleinfo.insud,
-		vehicleinfo.insu, vehicleinfo.jukd, vehicleinfo.juk,
+		vehicleinfo.insu,
+		vehicleinfo.jukd, vehicleinfo.juk,
 		vehicleinfo.trash,
 		employeeinfo.name,
 		employeeinfo.phone1,
 		employeeinfo.phone2
 	</sql>
 
-	<insert id="insertVe"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+	<insert id="insertVe" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		INSERT
 
@@ -38,7 +41,7 @@
 
 		VALUES
 		(
-		#{carNumber},
+		#{carnumber},
 		#{vehicle},
 		#{company},
 		#{owner},
@@ -71,8 +74,7 @@
 
 	</insert>
 
-	<update id="updateVe"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+	<update id="updateVe" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 		UPDATE
 
 		vehicleinfo
@@ -85,7 +87,8 @@
 		#{owner},
 		id = #{id},
 		bus = #{bus},
-		brand = #{brand},
+		brand =
+		#{brand},
 		vename = #{vename},
 		grade = #{grade},
 		fuel = #{fuel},
@@ -93,7 +96,8 @@
 		color = #{color},
 		carn =
 		#{carn},
-		regist = #{regist},
+		regist =
+		#{regist},
 		expire = #{expire},
 		inday = #{inday},
 		outday
@@ -114,11 +118,10 @@
 
 		WHERE
 
-		carnumber = #{carNumber};
+		carnumber = #{carnumber};
 	</update>
 
-	<update id="updateVePDF"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+	<update id="updateVePDF" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		UPDATE vehicleinfo SET
 
@@ -144,12 +147,11 @@
 		</if>
 		trash = 1
 
-		WHERE carnumber = #{carNumber};
+		WHERE carnumber = #{carnumber};
 
 	</update>
 
-	<update id="deleteVe"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+	<update id="deleteVe" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		UPDATE vehicleinfo
 
@@ -158,17 +160,17 @@
 		WHERE
 
 		carnumber =
-		#{carNumber};
+		#{carnumber};
 
 	</update>
 
-	<select id="selectVeAll"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+	<select id="selectVeAll" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		SELECT vehicleinfo.carnumber, vehicleinfo.vehicle, vehicleinfo.num,
 		vehicleinfo.company,
-		IFNULL((SELECT employeeinfo.name FROM employeeinfo
+		IFNULL((SELECT
+		employeeinfo.name FROM employeeinfo
 		WHERE
 		employeeinfo.id=vehicleinfo.owner), vehicleinfo.owner) AS owner,
 		vehicleinfo.regist, vehicleinfo.bus, vehicleinfo.grade,
@@ -193,8 +195,7 @@
 		ORDER BY vehicleinfo.vehicle;
 	</select>
 
-	<select id="selectVeId"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+	<select id="selectVeId" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		SELECT
@@ -202,7 +203,8 @@
 		(SELECT name FROM employeeinfo WHERE employeeinfo.id
 		= vehicleinfo.id) AS name,
 
-		(SELECT jukday FROM jukfile WHERE
+		(SELECT jukday FROM
+		jukfile WHERE
 		jukfile.jukname
 		= vehicleinfo.juk) AS jukday
 
@@ -212,12 +214,11 @@
 		WHERE
 
 		vehicleinfo.carnumber =
-		#{carNumber};
+		#{carnumber};
 
 	</select>
 
-	<select id="selectVeNameList"
-		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+	<select id="selectVeNameList" resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		SELECT
 
@@ -230,8 +231,7 @@
 		vehicle;
 	</select>
 
-	<select id="selectVeAllPrint"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+	<select id="selectVeAllPrint" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		SELECT
@@ -248,8 +248,7 @@
 		vehicle;
 	</select>
 
-	<select id="selectVeDetail"
-		parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+	<select id="selectVeDetail" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
 		SELECT
@@ -265,7 +264,8 @@
 
 		(SELECT jukday FROM jukfile WHERE
 		jukfile.jukname
-		= vehicleinfo.juk)
+		=
+		vehicleinfo.juk)
 		AS jukday,
 
 		employeeinfo.name,
@@ -287,11 +287,10 @@
 
 		WHERE
 
-		vehicleinfo.carnumber = #{carNumber}
+		vehicleinfo.carnumber = #{carnumber}
 	</select>
 
-	<insert id="insertJuk"
-		parameterType="com.garam.web.vehicle.dto.JukfileDTO">
+	<insert id="insertJuk" parameterType="com.garam.web.vehicle.dto.JukfileDTO">
 
 		INSERT
 
@@ -333,8 +332,7 @@
 	</insert>
 
 	<update id="updateVeJuk" parameterType="java.util.HashMap">
-		<foreach collection="upjuk" item="value" index="index"
-			separator=";">
+		<foreach collection="upjuk" item="value" index="index" separator=";">
 			UPDATE
 
 			vehicleinfo
@@ -342,12 +340,58 @@
 			SET
 
 			jukd = #{value.jukd},
-			juk =
+			juk
+			=
 			#{value.juk}
 
 			WHERE
 
-			carnumber = #{value.carNumber}
+			carnumber = #{value.carnumber}
 		</foreach>
 	</update>
+
+	<select id="selectInsuCar" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		veinsurance
+
+		WHERE
+
+		veinsurance.carnumber = #{carnumber}
+
+		ORDER BY
+		veinsurance.insudatestart DESC;
+
+	</select>
+
+
+	<select id="selectInsuSepaCar" parameterType="java.util.HashMap"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		veinsurancesepa
+
+		WHERE
+
+		veinsurancesepa.insuno IN
+		<foreach collection="insusepanum" item="value" index="index" separator="," open="(" close=")">
+			#{value.insuno}
+		</foreach>
+
+		ORDER BY
+		veinsurancesepa.insusepano,
+		veinsurancesepa.insusepatime
+	</select>
+
 </mapper>

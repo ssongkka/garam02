@@ -3,7 +3,7 @@ package com.garam.web.vehicle.dto;
 public class VehicleInfoDTO {
 
 	// 차대번호
-	private String carNumber;
+	private String carnumber;
 
 	// 차량번호
 	private String vehicle;
@@ -111,6 +111,30 @@ public class VehicleInfoDTO {
 	private String phone2;
 
 	private int tp;
+
+	private String insuno;
+
+	private String insudatestart;
+
+	private String insudateend;
+
+	private Integer insutime;
+
+	private Integer insumoney;
+
+	private Integer insutrash;
+
+	private Integer insusepano;
+
+	private String insusepapayment;
+
+	private Integer insusepamoney;
+
+	private String insusepaday;
+
+	private Integer insusepatime;
+
+	private Integer insusepatrash;
 
 	public Integer getJukseq() {
 		return jukseq;
@@ -240,12 +264,12 @@ public class VehicleInfoDTO {
 		this.phone2 = phone2;
 	}
 
-	public String getCarNumber() {
-		return carNumber;
+	public String getCarnumber() {
+		return carnumber;
 	}
 
-	public void setCarNumber(String carNumber) {
-		this.carNumber = carNumber;
+	public void setCarnumber(String carnumber) {
+		this.carnumber = carnumber;
 	}
 
 	public String getVehicle() {
@@ -257,13 +281,13 @@ public class VehicleInfoDTO {
 	}
 
 	public String getVehicle2() {
-		int size = getVehicle().length() - 4;
+		if (getVehicle() == null) {
+			return null;
+		} else {
+			int size = getVehicle().length() - 4;
 
-		return getVehicle().substring(size);
-	}
-
-	public void setVehicle2(String vehicle2) {
-		this.vehicle2 = vehicle2;
+			return getVehicle().substring(size);
+		}
 	}
 
 	public String getCompany() {
@@ -498,25 +522,100 @@ public class VehicleInfoDTO {
 		this.tp = tp;
 	}
 
-	@Override
-	public String toString() {
-		return "VehicleInfoDTO [carNumber=" + carNumber + ", vehicle=" + vehicle + ", vehicle2=" + vehicle2
-				+ ", company=" + company + ", owner=" + owner + ", id=" + id + ", bus=" + bus + ", brand=" + brand
-				+ ", vename=" + vename + ", grade=" + grade + ", fuel=" + fuel + ", num=" + num + ", color=" + color
-				+ ", carn=" + carn + ", regist=" + regist + ", expire=" + expire + ", price=" + price + ", special="
-				+ special + ", trash=" + trash + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", regd="
-				+ regd + ", reg=" + reg + ", insud=" + insud + ", insu=" + insu + ", jukd=" + jukd + ", juk=" + juk
-				+ ", name=" + name + ", tp=" + tp + ", getCarNumber()=" + getCarNumber() + ", getVehicle()="
-				+ getVehicle() + ", getVehicle2()=" + getVehicle2() + ", getCompany()=" + getCompany() + ", getOwner()="
-				+ getOwner() + ", getId()=" + getId() + ", getBus()=" + getBus() + ", getBrand()=" + getBrand()
-				+ ", getVename()=" + getVename() + ", getGrade()=" + getGrade() + ", getFuel()=" + getFuel()
-				+ ", getNum()=" + getNum() + ", getColor()=" + getColor() + ", getCarn()=" + getCarn()
-				+ ", getRegist()=" + getRegist() + ", getExpire()=" + getExpire() + ", getPrice()=" + getPrice()
-				+ ", getSpecial()=" + getSpecial() + ", getTrash()=" + getTrash() + ", getImg1()=" + getImg1()
-				+ ", getImg2()=" + getImg2() + ", getImg3()=" + getImg3() + ", getRegd()=" + getRegd() + ", getReg()="
-				+ getReg() + ", getInsud()=" + getInsud() + ", getInsu()=" + getInsu() + ", getJukd()=" + getJukd()
-				+ ", getJuk()=" + getJuk() + ", getName()=" + getName() + ", getTp()=" + getTp() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	public String getInsuno() {
+		return insuno;
+	}
+
+	public void setInsuno(String insuno) {
+		this.insuno = insuno;
+	}
+
+	public String getInsudatestart() {
+		return insudatestart;
+	}
+
+	public void setInsudatestart(String insudatestart) {
+		this.insudatestart = insudatestart;
+	}
+
+	public String getInsudateend() {
+		return insudateend;
+	}
+
+	public void setInsudateend(String insudateend) {
+		this.insudateend = insudateend;
+	}
+
+	public Integer getInsutime() {
+		return insutime;
+	}
+
+	public void setInsutime(Integer insutime) {
+		this.insutime = insutime;
+	}
+
+	public Integer getInsumoney() {
+		return insumoney;
+	}
+
+	public void setInsumoney(Integer insumoney) {
+		this.insumoney = insumoney;
+	}
+
+	public Integer getInsutrash() {
+		return insutrash;
+	}
+
+	public void setInsutrash(Integer insutrash) {
+		this.insutrash = insutrash;
+	}
+
+	public Integer getInsusepano() {
+		return insusepano;
+	}
+
+	public void setInsusepano(Integer insusepano) {
+		this.insusepano = insusepano;
+	}
+
+	public String getInsusepapayment() {
+		return insusepapayment;
+	}
+
+	public void setInsusepapayment(String insusepapayment) {
+		this.insusepapayment = insusepapayment;
+	}
+
+	public Integer getInsusepamoney() {
+		return insusepamoney;
+	}
+
+	public void setInsusepamoney(Integer insusepamoney) {
+		this.insusepamoney = insusepamoney;
+	}
+
+	public String getInsusepaday() {
+		return insusepaday;
+	}
+
+	public void setInsusepaday(String insusepaday) {
+		this.insusepaday = insusepaday;
+	}
+
+	public Integer getInsusepatime() {
+		return insusepatime;
+	}
+
+	public void setInsusepatime(Integer insusepatime) {
+		this.insusepatime = insusepatime;
+	}
+
+	public Integer getInsusepatrash() {
+		return insusepatrash;
+	}
+
+	public void setInsusepatrash(Integer insusepatrash) {
+		this.insusepatrash = insusepatrash;
 	}
 
 }

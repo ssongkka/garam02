@@ -834,9 +834,9 @@ function showAlloChModal(param) {
 
     for (let i = 0; i < dbVe.length; i++) {
         if (dbVe[i].trash > 0) {
-            htmlVe += `<option value="` + dbVe[i].carNumber + `" label="` + (
+            htmlVe += `<option value="` + dbVe[i].carnumber + `" label="` + (
                 dbVe[i].vehicle
-            ).substring((dbVe[i].vehicle).length - 4) + `" data-value="` + dbVe[i].carNumber +
+            ).substring((dbVe[i].vehicle).length - 4) + `" data-value="` + dbVe[i].carnumber +
                     `">` + (dbVe[i].vehicle).substring((dbVe[i].vehicle).length - 4) +
                     `</option>`;
         }
@@ -884,8 +884,8 @@ function showAlloChModal(param) {
         let idE = '';
 
         for (let j = 0; j < dbVe.length; j++) {
-            if (veve == dbVe[j].carNumber) {
-                veE = dbVe[j].carNumber;
+            if (veve == dbVe[j].carnumber) {
+                veE = dbVe[j].carnumber;
             }
         }
         if (veE.length < 1) {
@@ -1067,7 +1067,7 @@ $(document).on('change', '.mdVeCho', function () {
     if ($(this).val()) {
         let compayo = '';
         for (let i = 0; i < dbVe.length; i++) {
-            if (dbVe[i].carNumber === $(this).val()) {
+            if (dbVe[i].carnumber === $(this).val()) {
                 if (dbVe[i].owner) {
                     compayo = dbVe[i].owner;
                 }
@@ -1076,7 +1076,7 @@ $(document).on('change', '.mdVeCho', function () {
 
         let idyo = '';
         for (let i = 0; i < dbVe.length; i++) {
-            if (dbVe[i].carNumber === $(this).val()) {
+            if (dbVe[i].carnumber === $(this).val()) {
                 if (dbVe[i].id) {
                     idyo = dbVe[i].id;
                 }
@@ -1500,9 +1500,9 @@ function getAllo(param) {
 
             for (let i = 0; i < dbVe.length; i++) {
                 if (dbVe[i].trash > 0) {
-                    htmlVe += `<option value="` + dbVe[i].carNumber + `" label="` + (
+                    htmlVe += `<option value="` + dbVe[i].carnumber + `" label="` + (
                         dbVe[i].vehicle
-                    ).substring((dbVe[i].vehicle).length - 4) + `" data-value="` + dbVe[i].carNumber +
+                    ).substring((dbVe[i].vehicle).length - 4) + `" data-value="` + dbVe[i].carnumber +
                             `">` + (dbVe[i].vehicle).substring((dbVe[i].vehicle).length - 4) +
                             `</option>`;
                 }
@@ -1681,7 +1681,7 @@ function getAllo(param) {
                                     let ggg = '';
 
                                     for (let j2 = 0; j2 < dbVe.length; j2++) {
-                                        if (dbVe[j2].carNumber == $(bb11).val()) {
+                                        if (dbVe[j2].carnumber == $(bb11).val()) {
                                             ggg = dbVe[j2].vehicle;
                                         }
                                     }

@@ -1029,7 +1029,7 @@ function tbChoice(id) {
         .css('background', 'var(--sub-color)');
     $('#' + id)
         .children('td')
-        .css('color', 'white');
+        .css('color', 'var(--main-color)');
 }
 function tbChoiceThis(param) {
     $('td').css('background', 'none');
@@ -1040,7 +1040,7 @@ function tbChoiceThis(param) {
         .css('background', 'var(--sub-color)');
     $(param)
         .children('td')
-        .css('color', 'white');
+        .css('color', 'var(--main-color)');
 }
 
 function tbChoiceSe(id) {
@@ -1060,7 +1060,7 @@ function tbChoiceSe(id) {
         .css('background', 'var(--sub-color)');
     $('#' + id)
         .children('td')
-        .css('color', 'white');
+        .css('color', 'var(--main-color)');
 }
 
 //숫자만남기고제거

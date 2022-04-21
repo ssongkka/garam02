@@ -448,7 +448,7 @@ public class VehicleServiceImpl implements VehicleService {
 				if (ftp.storeFile(filenameIn + ".PDF", inputStream)) {
 					VehicleInfoDTO dto = new VehicleInfoDTO();
 
-					dto.setCarNumber(carnumber);
+					dto.setCarnumber(carnumber);
 					dto.setRegd(LocalDate.now().toString());
 					dto.setReg(fileName);
 
@@ -516,7 +516,7 @@ public class VehicleServiceImpl implements VehicleService {
 				if (ftp.storeFile(filenameIn + ".PDF", inputStream)) {
 					VehicleInfoDTO dto = new VehicleInfoDTO();
 
-					dto.setCarNumber(carnumber);
+					dto.setCarnumber(carnumber);
 					dto.setInsud(LocalDate.now().toString());
 					dto.setInsu(fileName);
 
@@ -840,6 +840,26 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 
 		return rtn;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectInsuCar(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectInsuCar(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectInsuSepaCar(List<Map<String, Object>> map) throws Exception {
+
+		HashMap<String, Object> insusepanum = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			insusepanum.put("insusepanum", map);
+		}
+
+		List<VehicleInfoDTO> list = vehicleMapper.selectInsuSepaCar(insusepanum);
+
+		return list;
 	}
 
 }

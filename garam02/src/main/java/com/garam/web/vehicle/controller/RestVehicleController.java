@@ -1,5 +1,6 @@
 package com.garam.web.vehicle.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.vehicle.dto.JukfileDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.service.VehicleService;
@@ -176,8 +178,22 @@ public class RestVehicleController {
 
 		String rtn = vehicleService.showPdf(vehicleInfoDTO);
 
-		System.out.println("곡고고고  " + rtn);
-
 		return rtn;
 	}
+
+	@PostMapping(value = "/veInsuCar")
+	public List<VehicleInfoDTO> veInsuCar(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectInsuCar(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veInsuSepaCar")
+	public List<VehicleInfoDTO> veInsuSepaCar(@RequestBody List<Map<String, Object>> map) throws Exception {
+		List<VehicleInfoDTO> list = new ArrayList<VehicleInfoDTO>();
+		list = vehicleService.selectInsuSepaCar(map);
+
+		return list;
+	}
+
 }

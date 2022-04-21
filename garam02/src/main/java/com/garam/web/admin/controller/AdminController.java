@@ -48,7 +48,7 @@ public class AdminController {
 		List<CompanyDTO> compa = companyService.selectCompany();
 		model.addAttribute("compa", compa);
 
-		return "admin/admin";
+		return "admin/adminSign";
 	}
 
 	@PostMapping("/signup")

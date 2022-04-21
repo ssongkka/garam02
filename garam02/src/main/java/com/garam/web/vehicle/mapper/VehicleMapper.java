@@ -29,4 +29,8 @@ public interface VehicleMapper {
 	public int insertJuk(JukfileDTO jukfileDTO) throws Exception;
 
 	public int updateVeJuk(HashMap<String, Object> map) throws Exception;
+
+	public List<VehicleInfoDTO> selectInsuCar(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectInsuSepaCar(HashMap<String, Object> map) throws Exception;
 }

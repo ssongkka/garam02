@@ -474,6 +474,7 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link active"
+                                    id="veTitleHome"
                                     data-bs-toggle="pill"
                                     data-bs-target="#veMain"
                                     type="button"
@@ -484,6 +485,7 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
+                                    id="veTitleOper"
                                     data-bs-toggle="pill"
                                     data-bs-target="#operve"
                                     type="button"
@@ -494,22 +496,24 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
+                                    id="veTitleInsu"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#insuve"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="insuve-profile"
+                                    aria-selected="false">차량보험</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="veTitleMoney"
                                     data-bs-toggle="pill"
                                     data-bs-target="#moneyve"
                                     type="button"
                                     role="tab"
                                     aria-controls="moneyve-profile"
-                                    aria-selected="false">보험가입내역</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#infove"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="infove-profile"
-                                    aria-selected="false">할부(대출)내역</button>
+                                    aria-selected="false">차량대출</button>
                             </li>
                         </ul>
                         <!-- Tab panes -->
@@ -527,17 +531,17 @@
                                 role="tabpanel"
                                 aria-labelledby="pills-operemp-tab"></div>
                             <div
+                                th:insert="vehicle/vehicleinsu :: ve-insu"
+                                class="tab-pane fade"
+                                id="insuve"
+                                role="tabpanel"
+                                aria-labelledby="pills-infoemp-tab"></div>
+                            <div
                                 th:insert="vehicle/vehicleMoney :: ve-money"
                                 class="tab-pane fade"
                                 id="moneyve"
                                 role="tabpanel"
                                 aria-labelledby="pills-moneyemp-tab"></div>
-                            <div
-                                th:insert="vehicle/vehicleInfo :: ve-info"
-                                class="tab-pane fade"
-                                id="infove"
-                                role="tabpanel"
-                                aria-labelledby="pills-infoemp-tab"></div>
                         </div>
                     </div>
                 </div>
@@ -550,6 +554,7 @@
     <div th:insert="vehicle/vehicleInsuMD :: ve-MD-insu"></div>
     <div th:insert="vehicle/vehicleJukMD :: ve-MD-juk"></div>
     <div th:insert="vehicle/vehicleJukViewMD :: ve-MD-jukView"></div>
+    <div th:insert="openTemplates/vehicleInsuContMD :: ve-MD-insuCont"></div>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -607,5 +612,9 @@
         language="javascript"
         type="text/javascript"
         src="/js/vehicle/vehicleBody.js?v=2020042101"></script>
+    <script
+        language="javascript"
+        type="text/javascript"
+        src="/js/openTemplates/vehicleInsuContMD.js?v=2020042101"></script>
 </body>
 </html>

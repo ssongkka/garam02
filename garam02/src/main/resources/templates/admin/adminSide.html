@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <aside id="adminSide" th:fragment="adminSide">
+        <div class="logo">
+            <span class="detail-user-1" th:text="${user.company}"></span>
+        </div>
+        <div class="aside-main">
+            <div class="side-item">
+                <h4 class="">사용자 등록/수정</h4>
+                <span>사용자</span>
+                <span>승무원</span>
+            </div>
+            <hr>
+            <div class="side-item">
+                <h4 class="">통계</h4>
+                <span>차량</span>
+                <span>차량</span>
+            </div>
+        </div>
+    </aside>
+</html>

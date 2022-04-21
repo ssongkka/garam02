@@ -115,7 +115,7 @@ $(document).on('keyup', '.ve-car', function (eInner) {
                         "X-HTTP-Method-Override": "POST"
                     };
                     const params = {
-                        "carNumber": para
+                        "carnumber": para
                     };
 
                     $.ajax({
@@ -233,7 +233,7 @@ $(document).on('keyup', '.ve-car-one', function (eInner) {
                         "X-HTTP-Method-Override": "POST"
                     };
                     const params = {
-                        "carNumber": para
+                        "carnumber": para
                     };
 
                     $.ajax({

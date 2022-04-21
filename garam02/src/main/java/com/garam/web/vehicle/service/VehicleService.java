@@ -36,4 +36,7 @@ public interface VehicleService {
 
 	public String showPdf(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
+	public List<VehicleInfoDTO> selectInsuCar(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectInsuSepaCar(List<Map<String, Object>> map) throws Exception;
 }

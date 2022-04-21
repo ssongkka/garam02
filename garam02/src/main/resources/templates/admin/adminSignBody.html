@@ -1,84 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <head th:fragment="main-head">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>관리자 설정</title>
-
-        <link rel="stylesheet" href="/css/boot/bootstrap.css">
-        <link rel="stylesheet" href="/css/boot/all.css">
-        <link
-            rel="stylesheet"
-            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
-        <link
-            th:if="${user.color == 0}"
-            rel="stylesheet"
-            href="/css/optCss/optCss0.css">
-        <link
-            th:if="${user.color == 1}"
-            rel="stylesheet"
-            href="/css/optCss/optCss1.css">
-        <link
-            th:if="${user.color == 10}"
-            rel="stylesheet"
-            href="/css/optCss/optCss10.css">
-        <link
-            th:if="${user.color == 11}"
-            rel="stylesheet"
-            href="/css/optCss/optCss11.css">
-        <link
-            th:if="${user.color == 12}"
-            rel="stylesheet"
-            href="/css/optCss/optCss12.css">
-        <link
-            th:if="${user.color == 13}"
-            rel="stylesheet"
-            href="/css/optCss/optCss13.css">
-        <link
-            th:if="${user.color == 14}"
-            rel="stylesheet"
-            href="/css/optCss/optCss14.css">
-        <link
-            th:if="${user.color == 15}"
-            rel="stylesheet"
-            href="/css/optCss/optCss15.css">
-        <link
-            th:if="${user.color == 16}"
-            rel="stylesheet"
-            href="/css/optCss/optCss16.css">
-        <link
-            th:if="${user.color == 17}"
-            rel="stylesheet"
-            href="/css/optCss/optCss17.css">
-        <link
-            th:if="${user.color == 18}"
-            rel="stylesheet"
-            href="/css/optCss/optCss18.css">
-        <link
-            th:if="${user.color == 19}"
-            rel="stylesheet"
-            href="/css/optCss/optCss19.css">
-        <link
-            th:if="${user.color == 20}"
-            rel="stylesheet"
-            href="/css/optCss/optCss20.css">
-        <link rel="stylesheet" href="/css/common/boot_Custom.css">
-        <link rel="stylesheet" href="/css/common/cal.css">
-        <link rel="stylesheet" href="/css/common/styles.css">
-        <link rel="stylesheet" href="/css/common/btn.css">
-        <link rel="stylesheet" href="/css/adminCss/admin.css">
-    </head>
-    <body>
-        <aside>
-            <div class="side-item">
-                <p class="">사용자 등록/수정</p>
-            </div>
-        </aside>
-
-        <main>
-            <div>
+    <body th:fragment="adminSign-body">
+        <aside th:replace="admin/adminSide :: adminSide"></aside>
+        <main class="">
+            <div class="amdinSignForm">
                 <form id="signUpForm" th:action="@{/admin/signup}" method="post">
                     <div class="row mb-3">
                         <label for="id" class="col-sm-1 col-form-label">아이디</label>
@@ -165,9 +90,6 @@
             'default';
             /*]]>*/
             /*<![CDATA[*/
-            const dbCutomer =/*[[${customer}]]*/
-            'default';
-            /*]]>*/
         </script>
 
         <script

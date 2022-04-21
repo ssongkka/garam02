@@ -9,35 +9,35 @@ $(document).ready(function () {
 
 $(document).on('change', '#sel-ve-1', function () {
     for (let i = 0; i < dbVe.length; i++) {
-        if ($('#sel-ve-1').val() == dbVe[i].carNumber) {
+        if ($('#sel-ve-1').val() == dbVe[i].carnumber) {
             $('#sel-emp-1').val(dbVe[i].id);
         }
     }
 });
 $(document).on('change', '#sel-ve-2', function () {
     for (let i = 0; i < dbVe.length; i++) {
-        if ($('#sel-ve-2').val() == dbVe[i].carNumber) {
+        if ($('#sel-ve-2').val() == dbVe[i].carnumber) {
             $('#sel-emp-2').val(dbVe[i].id);
         }
     }
 });
 $(document).on('change', '#sel-ve-3', function () {
     for (let i = 0; i < dbVe.length; i++) {
-        if ($('#sel-ve-3').val() == dbVe[i].carNumber) {
+        if ($('#sel-ve-3').val() == dbVe[i].carnumber) {
             $('#sel-emp-3').val(dbVe[i].id);
         }
     }
 });
 $(document).on('change', '#sel-ve-4', function () {
     for (let i = 0; i < dbVe.length; i++) {
-        if ($('#sel-ve-4').val() == dbVe[i].carNumber) {
+        if ($('#sel-ve-4').val() == dbVe[i].carnumber) {
             $('#sel-emp-4').val(dbVe[i].id);
         }
     }
 });
 $(document).on('change', '#sel-ve-5', function () {
     for (let i = 0; i < dbVe.length; i++) {
-        if ($('#sel-ve-5').val() == dbVe[i].carNumber) {
+        if ($('#sel-ve-5').val() == dbVe[i].carnumber) {
             $('#sel-emp-5').val(dbVe[i].id);
         }
     }
@@ -89,7 +89,7 @@ function getVeAll(vehicle) {
                 for (let i = 0; i < r.length; i++) {
                     if (r[i].trash == 1) {
                         cnt++;
-                        htmls += '<tr id="' + r[i].carNumber + 'cut" onclick="getVeInfo(this.id)" style="cursor:' +
+                        htmls += '<tr id="' + r[i].carnumber + 'cut" onclick="getVeInfo(this.id)" style="cursor:' +
                                 'pointer;">';
                         htmls += '<td>'
                         htmls += '<span class="tr-ve">'
@@ -148,7 +148,7 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].trash == 0) {
                         cntEnd++;
-                        htmlsEnd += '<tr id="' + r[i].carNumber + 'cutEnd" onclick="getVeInfo(this.id)" style="curs' +
+                        htmlsEnd += '<tr id="' + r[i].carnumber + 'cutEnd" onclick="getVeInfo(this.id)" style="curs' +
                                 'or:pointer;">';
                         htmlsEnd += '<td>'
                         htmlsEnd += '<span class="tr-ve">'
@@ -195,7 +195,7 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].bus == '대형' && r[i].trash == 1) {
                         cntDae++;
-                        htmlsDae += '<tr id="' + r[i].carNumber + 'cutDae" onclick="getVeInfo(this.id)" style="curs' +
+                        htmlsDae += '<tr id="' + r[i].carnumber + 'cutDae" onclick="getVeInfo(this.id)" style="curs' +
                                 'or:pointer;">';
                         htmlsDae += '<td>'
                         htmlsDae += '<span class="tr-ve">'
@@ -254,7 +254,7 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].bus == '중형' && r[i].trash == 1) {
                         cntJung++;
-                        htmlsJung += '<tr id="' + r[i].carNumber + 'cutJung" onclick="getVeInfo(this.id)" style="cur' +
+                        htmlsJung += '<tr id="' + r[i].carnumber + 'cutJung" onclick="getVeInfo(this.id)" style="cur' +
                                 'sor:pointer;">';
                         htmlsJung += '<td>'
                         htmlsJung += '<span class="tr-ve">'
@@ -313,7 +313,7 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].bus == '우등' && r[i].trash == 1) {
                         cntUdong++;
-                        htmlsUdong += '<tr id="' + r[i].carNumber + 'cutUdong" onclick="getVeInfo(this.id)" style="cu' +
+                        htmlsUdong += '<tr id="' + r[i].carnumber + 'cutUdong" onclick="getVeInfo(this.id)" style="cu' +
                                 'rsor:pointer;">';
                         htmlsUdong += '<td>'
                         htmlsUdong += '<span class="tr-ve">'
@@ -372,7 +372,7 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].company == r[i].owner && r[i].trash == 1) {
                         cntCompa++;
-                        htmlsCompa += '<tr id="' + r[i].carNumber + 'cutCompa" onclick="getVeInfo(this.id)" style="cu' +
+                        htmlsCompa += '<tr id="' + r[i].carnumber + 'cutCompa" onclick="getVeInfo(this.id)" style="cu' +
                                 'rsor:pointer;">';
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span class="tr-ve">'
@@ -432,7 +432,7 @@ function getVeAll(vehicle) {
                     if (r[i].company != r[i].owner && r[i].trash == 1) {
 
                         cntGae++;
-                        htmlsGae += '<tr id="' + r[i].carNumber + 'cutGae" onclick="getVeInfo(this.id)" style="curs' +
+                        htmlsGae += '<tr id="' + r[i].carnumber + 'cutGae" onclick="getVeInfo(this.id)" style="curs' +
                                 'or:pointer;">';
                         htmlsGae += '<td>'
                         htmlsGae += '<span class="tr-ve">'
@@ -515,14 +515,22 @@ function getVeAll(vehicle) {
     })
 }
 
-function getVeInfo(carNumber) {
-    LoadingWithMask()
-        .then(get)
-        .then(closeLoadingWithMask);
+function getVeInfo(carnumber) {
+
+    if ($('#insuve').css('display') === 'block') {
+        LoadingWithMask()
+            .then(get)
+            .then(makeInsu)
+            .then(closeLoadingWithMask);
+    } else {
+        LoadingWithMask()
+            .then(get)
+            .then(closeLoadingWithMask);
+    }
 
     function get(result) {
         return new Promise(function (resolve, reject) {
-            tbChoice(carNumber);
+            tbChoice(carnumber);
 
             const url = "/ve/vedetail";
             const headers = {
@@ -530,7 +538,7 @@ function getVeInfo(carNumber) {
                 "X-HTTP-Method-Override": "POST"
             };
             const params = {
-                "carNumber": carNumber.split('cut')[0]
+                "carnumber": carnumber.split('cut')[0]
             };
             $.ajax({
                 url: url,
@@ -539,7 +547,7 @@ function getVeInfo(carNumber) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    $('#ve00').val(r[0].carNumber);
+                    $('#ve00').val(r[0].carnumber);
 
                     const veLen = r[0].vehicle.length - 4;
                     const ve1 = r[0]
@@ -735,13 +743,19 @@ function getVeInfo(carNumber) {
                         );
                         $('#ve23-1').val('');
                     }
+                    resolve();
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);
                 }
             })
-            resolve();
         });
+    }
+}
+
+function displayVe() {
+    if ($('#insuve').css('display') === 'block') {
+        makeInsu();
     }
 }
 
@@ -1271,7 +1285,7 @@ function insertVe(tp) {
 
                     const params = {
                         "tp": tp,
-                        "carNumber": ccaarrnn,
+                        "carnumber": ccaarrnn,
                         "vehicle": vehicle,
                         "company": compa,
                         "owner": owner,
@@ -1710,4 +1724,181 @@ function insertJuk(result) {
             }
         })
     })
+}
+
+$(document).on('click', '#veTitleInsu', function () {
+    makeInsu();
+});
+
+function makeInsu() {
+    LoadingWithMask()
+        .then(getIncu)
+        .then(getIncuSepa)
+        .then(closeLoadingWithMask);
+
+    function getIncu(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veInsuCar";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let arrTmpInsuNum = new Array();
+
+                    let htmls = ``;
+                    for (let i = 0; i < r.length; i++) {
+                        arrTmpInsuNum.push(r[i].insuno);
+
+                        htmls += `
+            <tr>
+                <td rowspan="` + r[i].insutime + `">` + (
+                            i + 1
+                        ) + `</td>
+                <td rowspan="` + r[i].insutime + `">` + r[i].insuno +
+                                `</td>
+                <td rowspan="` + r[i].insutime + `">` + r[i].insudatestart +
+                                `</td>
+                <td rowspan="` + r[i].insutime + `">` + r[i].insudateend +
+                                `</td>
+                <td rowspan="` + r[i].insutime +
+                                `" class="tdRight">` + AddComma(r[i].insumoney) +
+                                `</td>
+                <td>1
+                    <input type="hidden" value="` +
+                                r[i].insuno +
+                                `">
+                    <input type="hidden" value="">
+                </td>
+                <td></td>
+                <td></td>
+                <td class="tdRight"></td>
+                <td>
+                    <a class="choInsu">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </a>
+                </td>
+            </tr>`;
+                        for (let k = 1; k < parseInt(r[i].insutime); k++) {
+                            htmls += `
+                    <tr>
+                        <td>2
+                            <input type="hidden" value="` +
+                                    r[i].insuno +
+                                    `">
+                            <input type="hidden" value="">
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td class="tdRight"></td>
+                        <td>
+                            <a class="choInsu">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                        </td>
+                    </tr>`;
+                        }
+                    }
+                    $('#tbinsu').html(htmls);
+                    resolve(arrTmpInsuNum);
+                }
+            })
+        })
+    }
+
+    function getIncuSepa(result) {
+        return new Promise(function (resolve, reject) {
+            if (result.length > 0) {
+                const url = "/ve/veInsuSepaCar";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                let params = new Array();
+
+                for (let i = 0; i < result.length; i++) {
+                    const asd = {
+                        "insuno": result[i]
+                    };
+                    params.push(asd);
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        console.log(r);
+
+                        const aaa = $('#tbinsu').children();
+
+                        for (let i = 0; i < r.length; i++) {
+                            for (let k = 0; k < aaa.length; k++) {
+                                switch (parseInt(r[i].insusepatime)) {
+                                    case 1:
+                                        const aaa1 = $(aaa[0]).children()[5];
+                                        const aaa11 = $(aaa1).children()[0];
+
+                                        if (r[i].insuno == $(aaa11).val()) {
+                                            const bbb1 = $(aaa[0]).children()[6];
+                                            const bbb2 = $(aaa[0]).children()[7];
+                                            const bbb3 = $(aaa[0]).children()[8];
+
+                                            $(bbb1).text(r[i].insusepaday);
+                                            $(bbb2).text(r[i].insusepapayment);
+                                            $(bbb3).text(AddComma(r[i].insusepamoney));
+                                        }
+                                        break;
+
+                                    default:
+                                        const eee1 = $(aaa[k]).children()[0];
+                                        const eee11 = $(eee1).children()[0];
+                                        const eee111 = $(eee1)
+                                            .text()
+                                            .trim();
+
+                                        console.log("1111   " + $(eee11).val());
+                                        console.log("2222   " + r[i].insuno);
+
+                                        console.log("3333   " + r[i].insusepatime);
+                                        console.log("4444   " + eee111);
+
+                                        if (r[i].insuno == $(eee11).val() && r[i].insusepatime == eee111) {
+                                            const ddd1 = $(aaa[k]).children()[1];
+                                            const ddd2 = $(aaa[k]).children()[2];
+                                            const ddd3 = $(aaa[k]).children()[3];
+
+                                            console.log(ddd1);
+
+                                            $(ddd1).text(r[i].insusepaday);
+                                            $(ddd2).text(r[i].insusepapayment);
+                                            $(ddd3).text(AddComma(r[i].insusepamoney));
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                        resolve();
+                    }
+                })
+            }
+        })
+    }
 }

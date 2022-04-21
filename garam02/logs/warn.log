@@ -1,1 +1,1 @@
->22-04-21 01:16:43 [restartedMain] [com.zaxxer.hikari.util.DriverDataSource:70] WARN  ==>> Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+>22-04-22 00:45:55 [http-nio-8080-exec-2] [org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver:208] WARN  ==>> Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.builder.BuilderException: The expression 'insusepanum' evaluated to a null value.]
