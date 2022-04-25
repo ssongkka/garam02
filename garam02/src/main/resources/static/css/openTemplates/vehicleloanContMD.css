@@ -1,0 +1,11 @@
+.md-loanitem {
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.mdloanFoot {
+    display: flex;
+    flex-direction: row;
+}

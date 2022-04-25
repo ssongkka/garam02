@@ -619,6 +619,95 @@ function sortTableByColumn1(table, table1, column, asc = true, tthh) {
         })
     }
 }
+function sortTableByColumn11(table, table1, column, asc = true, tthh) {
+
+    LoadingWithMask()
+        .then(start1)
+        .then(closeLoadingWithMask);
+
+    function start1() {
+        return new Promise(function (resolve, reject) {
+            const dirModifier = asc
+                ? 1
+                : -1;
+            const tBody = table.tBodies[0];
+            // const rows = Array.from(tBody.querySelectorAll("tr"));
+            const rows = Array.from($(tBody).children('tr'));
+            // Sort each row
+            const sortedRows = rows.sort((a, b) => {
+
+                const match = /[^\w\sㄱ-힣]|[\_]/g;
+
+                const aColText = $($(a).children()[column])
+                    .text()
+                    .trim()
+                    .replaceAll(match, "");;
+
+                const bColText = $($(b).children()[column])
+                    .text()
+                    .trim()
+                    .replaceAll(match, '');
+
+                let aaa = '';
+                let bbb = '';
+
+                if (aColText) {
+                    aaa = aColText;
+                } else {
+                    aaa = 0;
+                }
+
+                if (bColText) {
+                    bbb = bColText;
+                } else {
+                    bbb = 0;
+                }
+
+                let aaa111 = 0;
+                let bbb111 = 0;
+
+                if (parseFloat(aaa) == parseInt(bbb)) {
+                    aaa111 = 0;
+                    bbb111 = 1;
+                } else {
+                    if (parseFloat(aaa) > parseInt(bbb)) {
+                        aaa111 = 1;
+                        bbb111 = 0;
+                    } else {
+                        aaa111 = 0;
+                        bbb111 = 1;
+                    }
+                }
+
+                return parseFloat(aaa111) > parseInt(bbb111)
+                    ? (1 * dirModifier)
+                    : (-1 * dirModifier);
+            });
+
+            // Remove all existing TRs from the table
+            while (tBody.firstChild) {
+                tBody.removeChild(tBody.firstChild);
+            }
+
+            // Re-add the newly sorted rows
+            tBody.append(...sortedRows);
+
+            // Remember how the column is currently sorted
+            table1
+                .querySelectorAll("th")
+                .forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+            table1
+                .querySelector(`th:nth-child(${column + 1})`)
+                .classList
+                .toggle("th-sort-asc", asc);
+            table1
+                .querySelector(`th:nth-child(${column + 1})`)
+                .classList
+                .toggle("th-sort-desc", !asc);
+            resolve();
+        })
+    }
+}
 
 function sortTableByColumn2(table, table1, column, asc = true, tthh) {
 
@@ -688,6 +777,129 @@ function sortTableByColumn2(table, table1, column, asc = true, tthh) {
                         aaa111 = 1;
                         bbb111 = 0;
                     }
+                } else {
+                    let size = 0;
+                    if (aaaArr.length > bbbArr.length) {
+                        size = bbbArr.length;
+                    } else {
+                        size = aaaArr.length;
+                    }
+
+                    for (let i = 0; i < size; i++) {
+                        if (String(aaaArr[i]).charCodeAt(0) != String(bbbArr[i]).charCodeAt(0)) {
+                            if (String(aaaArr[i]).charCodeAt(0) > String(bbbArr[i]).charCodeAt(0)) {
+                                aaa111 = 1;
+                                bbb111 = 0;
+                            } else {
+                                aaa111 = 0;
+                                bbb111 = 1;
+                            }
+                            break;
+                        } else {
+                            if (i == (size - 1)) {
+                                if (aaaArr.length > bbbArr.length) {
+                                    aaa111 = 1;
+                                    bbb111 = 0;
+                                } else {
+                                    aaa111 = 0;
+                                    bbb111 = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                return parseFloat(aaa111) > parseInt(bbb111)
+                    ? (1 * dirModifier)
+                    : (-1 * dirModifier);
+            });
+
+            // Remove all existing TRs from the table
+            while (tBody.firstChild) {
+                tBody.removeChild(tBody.firstChild);
+            }
+
+            // Re-add the newly sorted rows
+            tBody.append(...sortedRows);
+
+            // Remember how the column is currently sorted
+            table1
+                .querySelectorAll("th")
+                .forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+            table1
+                .querySelector(`th:nth-child(${column + 1})`)
+                .classList
+                .toggle("th-sort-asc", asc);
+            table1
+                .querySelector(`th:nth-child(${column + 1})`)
+                .classList
+                .toggle("th-sort-desc", !asc);
+            resolve();
+        })
+    }
+}
+function sortTableByColumn22(table, table1, column, asc = true, tthh) {
+
+    LoadingWithMask()
+        .then(start2)
+        .then(closeLoadingWithMask);
+
+    function start2() {
+        return new Promise(function (resolve, reject) {
+            const dirModifier = asc
+                ? 1
+                : -1;
+            const tBody = table.tBodies[0];
+            // const rows = Array.from(tBody.querySelectorAll("tr"));
+            const rows = Array.from($(tBody).children('tr'));
+            // Sort each row
+            const sortedRows = rows.sort((a, b) => {
+
+                const match = /[^\w\sㄱ-힣]|[\_]/g;
+
+                const aColText = $($(a).children()[column])
+                    .text()
+                    .trim()
+                    .replaceAll(match, "");;
+
+                const bColText = $($(b).children()[column])
+                    .text()
+                    .trim()
+                    .replaceAll(match, '');
+
+                const c1ColText = $($(a).children()[0])
+                    .text()
+                    .trim()
+                    .replaceAll(match, " ");
+
+                const c2ColText = $($(b).children()[0])
+                    .text()
+                    .trim()
+                    .replaceAll(match, " ");
+
+                let aaa = '';
+                let bbb = '';
+
+                if (aColText) {
+                    aaa = aColText;
+                } else {
+                    aaa = 0;
+                }
+
+                if (bColText) {
+                    bbb = bColText;
+                } else {
+                    bbb = 0;
+                }
+
+                let aaa111 = 0;
+                let bbb111 = 0;
+
+                let aaaArr = String(aaa).split('');
+                let bbbArr = String(bbb).split('');
+
+                if (aaa == bbb) {
+                    aaa111 = 1;
+                    bbb111 = 0;
                 } else {
                     let size = 0;
                     if (aaaArr.length > bbbArr.length) {
@@ -919,6 +1131,35 @@ $(document).on('click', '.sortNum', function () {
         this
     );
 });
+$(document).on('click', '.sortNumP', function () {
+    const tableElement1 = this.parentElement.parentElement.parentElement;
+
+    const aaa = $(this)
+        .parent()
+        .children();
+
+    let aaaa = 0;
+
+    for (let i = 0; i < aaa.length; i++) {
+        if (aaa[i] == this) {
+            aaaa = i;
+        }
+    }
+
+    const headerIndex = aaaa;
+
+    const currentIsAscending = $(this)
+        .attr('class')
+        .includes("th-sort-asc");
+
+    sortTableByColumn11(
+        tableElement1,
+        tableElement1,
+        headerIndex,
+        !currentIsAscending,
+        this
+    );
+});
 
 $(document).on('click', '.sortStr', function () {
     const tableElement = this
@@ -952,6 +1193,36 @@ $(document).on('click', '.sortStr', function () {
 
     sortTableByColumn2(
         tableElement,
+        tableElement1,
+        headerIndex,
+        !currentIsAscending,
+        this
+    );
+});
+$(document).on('click', '.sortStrP', function () {
+
+    const tableElement1 = this.parentElement.parentElement.parentElement;
+
+    const aaa = $(this)
+        .parent()
+        .children();
+
+    let aaaa = 0;
+
+    for (let i = 0; i < aaa.length; i++) {
+        if (aaa[i] == this) {
+            aaaa = i;
+        }
+    }
+
+    const headerIndex = aaaa;
+
+    const currentIsAscending = $(this)
+        .attr('class')
+        .includes("th-sort-asc");
+
+    sortTableByColumn22(
+        tableElement1,
         tableElement1,
         headerIndex,
         !currentIsAscending,

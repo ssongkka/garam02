@@ -180,6 +180,7 @@ function getRegular(result) {
             headers: headers,
             dataType: "json",
             data: JSON.stringify(params),
+
             success: function (r) {
                 $('#ctmnoReal').val(r[0].ctmno);
 
@@ -231,6 +232,7 @@ function getRegularDeAll(result) {
             headers: headers,
             dataType: "json",
             data: JSON.stringify(params),
+
             success: function (r) {
                 let htmls = '';
                 let cnt = 0;
@@ -317,6 +319,7 @@ function getRegularDe(result) {
             headers: headers,
             dataType: "json",
             data: JSON.stringify(params),
+
             success: function (r) {
                 let ddow = '';
                 if (r[0].rddow) {
@@ -427,6 +430,7 @@ function getRegularCource(result) {
             headers: headers,
             dataType: "json",
             data: JSON.stringify(params),
+            
             success: function (r) {
 
                 let sepa = new Array();

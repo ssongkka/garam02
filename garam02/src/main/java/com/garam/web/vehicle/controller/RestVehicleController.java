@@ -196,4 +196,203 @@ public class RestVehicleController {
 		return list;
 	}
 
+	@PostMapping(value = "/veinsertinsu")
+	public int veinsertinsu(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.insertInsu(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veinsertinsusepa")
+	public int veinsertinsusepa(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = vehicleService.insertInsuSepa(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/veinsusepaM")
+	public int veinsusepaM(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.updateInsuSepaM(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/vedelinsu")
+	public int vedelinsu(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.deleteInsu(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veInsunum")
+	public List<VehicleInfoDTO> veInsunum(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectInsuNum(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veInsusepanum")
+	public List<VehicleInfoDTO> veInsusepanum(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectInsuSepaNum(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veLoanCar")
+	public List<VehicleInfoDTO> veLoanCar(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectLoanCar(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veLoanNo")
+	public List<VehicleInfoDTO> veLoanNo(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectLoanNo(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veLoansepa")
+	public List<VehicleInfoDTO> veLoansepa(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectLoanSepaCar(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veinsertLoan")
+	public int veinsertLoan(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.insertloan(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veupdateLoan")
+	public int veupdateLoan(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.updateloan(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veinsertLoanSepa")
+	public int veinsertLoanSepa(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.insertlaonSepa(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veupdateLoanSepa")
+	public int veupdateLoanSepa(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.updateLoanSepa(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/vedelLoanSepa")
+	public int vedelLoanSepa(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.deleteLoanSepa(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/vedelLoan")
+	public int vedelLoan(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.deleteLoan(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/vemaintmonth")
+	public List<VehicleInfoDTO> vemaintmonth(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectMainteMonth(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/vemaintall")
+	public List<VehicleInfoDTO> vemaintall(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectMainteAll(vehicleInfoDTO);
+
+		return list;
+	}
 }

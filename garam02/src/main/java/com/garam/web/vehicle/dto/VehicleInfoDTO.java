@@ -136,6 +136,69 @@ public class VehicleInfoDTO {
 
 	private Integer insusepatrash;
 
+	// 대출번호
+	private String loanno;
+
+	// 대출금
+	private Integer loan;
+
+	// 월납입금
+	private Integer loanmonth;
+
+	// 대출일
+	private String loandatestart;
+
+	// 만기일
+	private String loandateend;
+
+	// 기간
+	private Integer loanperiod;
+
+	// 기산일
+	private String loandayloan;
+
+	private String loanbank;
+
+	private Integer loantrash;
+
+	// 번호
+	private Integer loansepano;
+
+	// 납입일
+	private String loansepaday;
+
+	// 납입액
+	private Integer loansepamoney;
+
+	// 횟수
+	private Integer loansepatime;
+
+	// 번호
+	private Integer vemaintenanceseq;
+
+	// 정비일자
+	private String vemaintenancedate;
+
+	private String vemaintenancekind;
+
+	// 수리내용
+	private String vemaintenancecontents;
+
+	// 수량
+	private Integer vemaintenancenum;
+
+	private String vemaintenancecompany;
+
+	// 금액
+	private Integer vemaintenancemoney;
+
+	// 삭제여부
+	private Integer vemaintenancetrash;
+
+	public Integer getLoansepano() {
+		return loansepano;
+	}
+
 	public Integer getJukseq() {
 		return jukseq;
 	}
@@ -616,6 +679,174 @@ public class VehicleInfoDTO {
 
 	public void setInsusepatrash(Integer insusepatrash) {
 		this.insusepatrash = insusepatrash;
+	}
+
+	public String getLoanno() {
+		return loanno;
+	}
+
+	public void setLoanno(String loanno) {
+		this.loanno = loanno;
+	}
+
+	public Integer getLoan() {
+		return loan;
+	}
+
+	public void setLoan(Integer loan) {
+		this.loan = loan;
+	}
+
+	public Integer getLoanmonth() {
+		return loanmonth;
+	}
+
+	public void setLoanmonth(Integer loanmonth) {
+		this.loanmonth = loanmonth;
+	}
+
+	public String getLoandatestart() {
+		return loandatestart;
+	}
+
+	public void setLoandatestart(String loandatestart) {
+		this.loandatestart = loandatestart;
+	}
+
+	public String getLoandateend() {
+		return loandateend;
+	}
+
+	public void setLoandateend(String loandateend) {
+		this.loandateend = loandateend;
+	}
+
+	public Integer getLoanperiod() {
+		return loanperiod;
+	}
+
+	public void setLoanperiod(Integer loanperiod) {
+		this.loanperiod = loanperiod;
+	}
+
+	public String getLoandayloan() {
+		return loandayloan;
+	}
+
+	public void setLoandayloan(String loandayloan) {
+		this.loandayloan = loandayloan;
+	}
+
+	public String getLoanbank() {
+		return loanbank;
+	}
+
+	public void setLoanbank(String loanbank) {
+		this.loanbank = loanbank;
+	}
+
+	public Integer getLoantrash() {
+		return loantrash;
+	}
+
+	public void setLoantrash(Integer loantrash) {
+		this.loantrash = loantrash;
+	}
+
+	public String getLoansepaday() {
+		return loansepaday;
+	}
+
+	public void setLoansepaday(String loansepaday) {
+		this.loansepaday = loansepaday;
+	}
+
+	public Integer getLoansepamoney() {
+		return loansepamoney;
+	}
+
+	public void setLoansepamoney(Integer loansepamoney) {
+		this.loansepamoney = loansepamoney;
+	}
+
+	public Integer getLoansepatime() {
+		return loansepatime;
+	}
+
+	public void setLoansepatime(Integer loansepatime) {
+		this.loansepatime = loansepatime;
+	}
+
+	public void setVehicle2(String vehicle2) {
+		this.vehicle2 = vehicle2;
+	}
+
+	public void setLoansepano(Integer loansepano) {
+		this.loansepano = loansepano;
+	}
+
+	public Integer getVemaintenanceseq() {
+		return vemaintenanceseq;
+	}
+
+	public void setVemaintenanceseq(Integer vemaintenanceseq) {
+		this.vemaintenanceseq = vemaintenanceseq;
+	}
+
+	public String getVemaintenancedate() {
+		return vemaintenancedate;
+	}
+
+	public void setVemaintenancedate(String vemaintenancedate) {
+		this.vemaintenancedate = vemaintenancedate;
+	}
+
+	public String getVemaintenancekind() {
+		return vemaintenancekind;
+	}
+
+	public void setVemaintenancekind(String vemaintenancekind) {
+		this.vemaintenancekind = vemaintenancekind;
+	}
+
+	public String getVemaintenancecontents() {
+		return vemaintenancecontents;
+	}
+
+	public void setVemaintenancecontents(String vemaintenancecontents) {
+		this.vemaintenancecontents = vemaintenancecontents;
+	}
+
+	public Integer getVemaintenancenum() {
+		return vemaintenancenum;
+	}
+
+	public void setVemaintenancenum(Integer vemaintenancenum) {
+		this.vemaintenancenum = vemaintenancenum;
+	}
+
+	public String getVemaintenancecompany() {
+		return vemaintenancecompany;
+	}
+
+	public void setVemaintenancecompany(String vemaintenancecompany) {
+		this.vemaintenancecompany = vemaintenancecompany;
+	}
+
+	public Integer getVemaintenancemoney() {
+		return vemaintenancemoney;
+	}
+
+	public void setVemaintenancemoney(Integer vemaintenancemoney) {
+		this.vemaintenancemoney = vemaintenancemoney;
+	}
+
+	public Integer getVemaintenancetrash() {
+		return vemaintenancetrash;
+	}
+
+	public void setVemaintenancetrash(Integer vemaintenancetrash) {
+		this.vemaintenancetrash = vemaintenancetrash;
 	}
 
 }

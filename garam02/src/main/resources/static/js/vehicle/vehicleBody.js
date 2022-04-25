@@ -517,12 +517,40 @@ function getVeAll(vehicle) {
 
 function getVeInfo(carnumber) {
 
+    if ($('#veMain').css('display') === 'block') {
+        LoadingWithMask()
+            .then(get)
+            .then(closeLoadingWithMask);
+    }
+    if ($('#operve').css('display') === 'block') {
+        LoadingWithMask()
+            .then(get)
+            .then(closeLoadingWithMask);
+    }
     if ($('#insuve').css('display') === 'block') {
         LoadingWithMask()
             .then(get)
             .then(makeInsu)
             .then(closeLoadingWithMask);
-    } else {
+    }
+    if ($('#moneyve').css('display') === 'block') {
+        LoadingWithMask()
+            .then(get)
+            .then(makeLoan)
+            .then(closeLoadingWithMask);
+    }
+    if ($('#inspecve').css('display') === 'block') {
+        LoadingWithMask()
+            .then(get)
+            .then(closeLoadingWithMask);
+    }
+    if ($('#maintenanceve').css('display') === 'block') {
+        LoadingWithMask()
+            .then(get)
+            .then(makeMaintenance)
+            .then(closeLoadingWithMask);
+    }
+    if ($('#accve').css('display') === 'block') {
         LoadingWithMask()
             .then(get)
             .then(closeLoadingWithMask);
@@ -1782,6 +1810,7 @@ function makeInsu() {
                                 r[i].insuno +
                                 `">
                     <input type="hidden" value="">
+                    <input type="hidden" value="">
                 </td>
                 <td></td>
                 <td></td>
@@ -1795,10 +1824,11 @@ function makeInsu() {
                         for (let k = 1; k < parseInt(r[i].insutime); k++) {
                             htmls += `
                     <tr>
-                        <td>2
-                            <input type="hidden" value="` +
-                                    r[i].insuno +
+                        <td>` + (k + 1) +
+                                    `
+                            <input type="hidden" value="` + r[i].insuno +
                                     `">
+                            <input type="hidden" value="">
                             <input type="hidden" value="">
                         </td>
                         <td></td>
@@ -1814,6 +1844,9 @@ function makeInsu() {
                     }
                     $('#tbinsu').html(htmls);
                     resolve(arrTmpInsuNum);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -1845,7 +1878,6 @@ function makeInsu() {
                     data: JSON.stringify(params),
 
                     success: function (r) {
-                        console.log(r);
 
                         const aaa = $('#tbinsu').children();
 
@@ -1853,13 +1885,16 @@ function makeInsu() {
                             for (let k = 0; k < aaa.length; k++) {
                                 switch (parseInt(r[i].insusepatime)) {
                                     case 1:
-                                        const aaa1 = $(aaa[0]).children()[5];
-                                        const aaa11 = $(aaa1).children()[0];
+                                        const aaa1 = $(aaa[k]).children()[5];
+                                        const aaa11 = $(aaa1).children();
 
-                                        if (r[i].insuno == $(aaa11).val()) {
-                                            const bbb1 = $(aaa[0]).children()[6];
-                                            const bbb2 = $(aaa[0]).children()[7];
-                                            const bbb3 = $(aaa[0]).children()[8];
+                                        if (r[i].insuno == $(aaa11[0]).val()) {
+                                            const bbb1 = $(aaa[k]).children()[6];
+                                            const bbb2 = $(aaa[k]).children()[7];
+                                            const bbb3 = $(aaa[k]).children()[8];
+
+                                            $(aaa11[1]).val(r[i].insusepano);
+                                            $(aaa11[2]).val(r[i].insusepatrash);
 
                                             $(bbb1).text(r[i].insusepaday);
                                             $(bbb2).text(r[i].insusepapayment);
@@ -1869,23 +1904,18 @@ function makeInsu() {
 
                                     default:
                                         const eee1 = $(aaa[k]).children()[0];
-                                        const eee11 = $(eee1).children()[0];
+                                        const eee11 = $(eee1).children();
                                         const eee111 = $(eee1)
                                             .text()
                                             .trim();
 
-                                        console.log("1111   " + $(eee11).val());
-                                        console.log("2222   " + r[i].insuno);
-
-                                        console.log("3333   " + r[i].insusepatime);
-                                        console.log("4444   " + eee111);
-
-                                        if (r[i].insuno == $(eee11).val() && r[i].insusepatime == eee111) {
+                                        if (r[i].insuno == $(eee11[0]).val() && r[i].insusepatime == eee111) {
                                             const ddd1 = $(aaa[k]).children()[1];
                                             const ddd2 = $(aaa[k]).children()[2];
                                             const ddd3 = $(aaa[k]).children()[3];
 
-                                            console.log(ddd1);
+                                            $(eee11[1]).val(r[i].insusepano);
+                                            $(eee11[2]).val(r[i].insusepatrash);
 
                                             $(ddd1).text(r[i].insusepaday);
                                             $(ddd2).text(r[i].insusepapayment);
@@ -1895,10 +1925,308 @@ function makeInsu() {
                                 }
                             }
                         }
-                        resolve();
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
                     }
                 })
             }
+            resolve();
+        })
+    }
+}
+
+$(document).on('click', '#veTitleMoney', function () {
+    makeLoan();
+});
+
+function makeLoan() {
+
+    LoadingWithMask()
+        .then(getLoan)
+        .then(closeLoadingWithMask);
+
+    function getLoan(result) {
+        return new Promise(function (resolve, reject) {
+            console.log($('#ve00').val());
+
+            const url = "/ve/veLoanCar";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let htmlsIng = ``;
+                    let htmlsEnd = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+
+                        switch (parseInt(r[i].loantrash)) {
+                            case 1:
+                                let janMoney = 0;
+
+                                if (r[i].price) {
+                                    janMoney = parseInt(r[i].loan) - parseInt(r[i].price);
+                                } else {
+                                    janMoney = parseInt(r[i].loan);
+                                }
+
+                                htmlsIng += `
+                            <tr class="trChoLoan" style="cursor: pointer;">
+                                <td>` +
+                                        r[i].loanbank + `<input type="hidden" value="` + r[i].loanno +
+                                        `">
+                                        </td>
+                                <td>` +
+                                        r[i].loandatestart +
+                                        `</td>
+                                <td>` + r[i].loandateend +
+                                        `</td>
+                                <td>` + r[i].loanperiod + `개월` +
+                                        `</td>
+                                <td>` + r[i].loandayloan + `일` +
+                                        `</td>
+                                <td class="tdRight">` + AddComma(
+                                    r[i].loanmonth
+                                ) +
+                                        `</td>
+                                <td class="tdRight">` + AddComma(
+                                    r[i].loan
+                                ) +
+                                        `</td>
+                                <td class="tdRight">` + AddComma(
+                                    janMoney
+                                ) +
+                                        `</td>
+                            </tr>`;
+                                break;
+
+                            default:
+                                htmlsEnd += `
+                                <tr class="trChoLoan" style="cursor: pointer;">
+                                    <td>` +
+                                        r[i].loanbank + `<input type="hidden" value="` + r[i].loanno +
+                                        `">
+                                            </td>
+                                    <td>` +
+                                        r[i].loandatestart +
+                                        `</td>
+                                    <td>` + r[i].loandateend +
+                                        `</td>
+                                    <td>` + r[i].loanperiod + `개월` +
+                                        `</td>
+                                    <td>` + r[i].loandayloan + `일` +
+                                        `</td>
+                                    <td class="tdRight">` +
+                                        AddComma(r[i].loanmonth) +
+                                        `</td>
+                                    <td class="tdRight">` +
+                                        AddComma(r[i].loan) +
+                                        `</td>
+                            </tr>`;
+                                break;
+                        }
+                    }
+
+                    if (htmlsIng.length > 0) {
+                        $('#moneyIngBd').html(htmlsIng);
+                    } else {
+                        $('#moneyIngBd').html(`<tr><td colspan="8">정보없음</td></tr>`);
+                    }
+
+                    if (htmlsEnd.length > 0) {
+                        $('#moneyEndgBd').html(htmlsEnd);
+                    } else {
+                        $('#moneyEndgBd').html(`<tr><td colspan="7">정보없음</td></tr>`);
+                    }
+
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+}
+
+$(document).on('click', '#veTitlemaintenance', function () {
+    makeMaintenance();
+});
+
+function makeMaintenance() {
+
+    LoadingWithMask()
+        .then(getMaintenanceMonth)
+        .then(getMaintenanceAll)
+        .then(closeLoadingWithMask);
+
+    function getMaintenanceMonth() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/vemaintmonth";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    let countNum = 0;
+                    let countMoney = 0;
+
+                    if (r.length > 0) {
+
+                        for (let i = 0; i < r.length; i++) {
+
+                            let monthth = '';
+
+                            countNum = countNum + parseInt(r[i].vemaintenancekind);
+                            countMoney = countMoney + parseInt(r[i].vemaintenancemoney);
+
+                            if (r[i].loanbank.split('-')[1].length < 2) {
+                                monthth = r[i]
+                                    .loanbank
+                                    .split('-')[0] + "-0" + r[i]
+                                    .loanbank
+                                    .split('-')[1];
+                            } else {
+                                monthth = r[i]
+                                    .loanbank
+                                    .split('-')[0] + "-" + r[i]
+                                    .loanbank
+                                    .split('-')[1];
+                            }
+
+                            htmls += `
+                    <tr>
+                        <td>` + monthth +
+                                    `</td>
+                        <td>` + r[i].vemaintenancekind +
+                                    `회</td>
+                        <td class="tdRight">` + AddComma(
+                                r[i].vemaintenancemoney
+                            ) + `</td>
+                    </tr>`;
+                        }
+
+                        $('#maintMonthBd').html(htmls);
+
+                        let htmlFoot = ``;
+
+                        htmlFoot = `
+                <tr>
+                    <td style="text-align: center;">총</td>
+                    <td style="text-align: center;">` +
+                                countNum +
+                                `회</td>
+                    <td style="text-align: right;">` + AddComma(
+                            countMoney
+                        ) + `</td>
+                </tr>`;
+                        $('#maintMonthFoot').html(htmlFoot);
+
+                    } else {
+                        $('#maintMonthBd').html(
+                            `
+                        <tr>
+                            <td colspan="3">정보없음</td>
+                        </tr>`
+                        );
+                        $('#maintMonthFoot').html(``);
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getMaintenanceAll() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/vemaintall";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    if (r.length > 0) {
+                        let htmls = ``;
+
+                        for (let i = 0; i < r.length; i++) {
+                            htmls += `
+                        <tr>
+                            <td>` + r[i].vemaintenancedate +
+                                    `</td>
+                            <td>` + r[i].vemaintenancekind +
+                                    `</td>
+                            <td>` + r[i].vemaintenancecontents +
+                                    `</td>
+                            <td>` + r[i].vemaintenancenum +
+                                    `</td>
+                            <td>` + r[i].vemaintenancecompany +
+                                    `</td>
+                            <td class="tdRight">` + AddComma(
+                                r[i].vemaintenancemoney
+                            ) + `</td>
+                        </tr>`;
+                        }
+
+                        $('#maintAllBd').html(htmls);
+                    } else {
+                        $('#maintAllBd').html(
+                            `
+                        <tr>
+                            <td colspan="6">정보없음</td>
+                        </tr>`
+                        );
+                    }
+
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
         })
     }
 }

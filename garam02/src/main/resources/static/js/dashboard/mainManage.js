@@ -30,6 +30,9 @@ function makeManage() {
 
         success: function (r) {
             getManage(r);
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
         }
     })
 }

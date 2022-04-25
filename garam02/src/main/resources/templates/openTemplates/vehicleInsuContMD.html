@@ -15,7 +15,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <input type="hidden" value="" id="insuCarNum">
-                    <input type="hidden" value="" id="insuNum">
+                    <input type="hidden" value="" id="insucontNum">
                     <h3 class="modal-title" id="modal-insuCont-mh">Modal title</h3>
                     <button
                         type="button"
@@ -24,8 +24,8 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="insuitem">
-                        <form class="row g-3">
+                    <div class="md-insuitem">
+                        <div class="row g-3">
                             <div class="col-12">
                                 <label for="insuContName" class="form-label">계약번호</label>
                                 <input type="text" class="form-control" id="insuContName">
@@ -51,14 +51,47 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputZip" class="form-label">총 분담금</label>
-                                <input type="text" class="form-control" data-type="currency" id="inputZip">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    data-type="currency"
+                                    onfocus="this.select()"
+                                    id="inputZip">
                             </div>
-                        </form>
+                        </div>
+                        <div>
+                            <table class="table">
+                                <colgroup>
+                                    <col width="10%">
+                                    <col width="28%">
+                                    <col width="20%">
+                                    <col width="25%">
+                                    <col width="17%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>횟수</th>
+                                        <th>납부일(예정일)</th>
+                                        <th>방법</th>
+                                        <th>수납액</th>
+                                        <th>납부</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb-md-insucont"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;기</button>
-                    <button type="button" class="btn btn-primary" id="insuCont-insert">입&nbsp;력</button>
+                <div class="modal-footer mdInsuFoot">
+                    <div style="flex: 1;">
+                        <button type="button" class="btn btn-danger" id="insuCont-del">삭&nbsp;제</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;기</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary" id="insuCont-insert">입&nbsp;력</button>
+                    </div>
                 </div>
             </div>
         </div>

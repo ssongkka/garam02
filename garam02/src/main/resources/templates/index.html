@@ -11,7 +11,7 @@
         <link
             rel="stylesheet"
             href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/css/loginCss/login.css?v=2020042101">
+        <link rel="stylesheet" href="/css/loginCss/login.css?v=2020042201">
 
     </head>
     <body>
@@ -56,9 +56,10 @@
             <div class="panels-container">
                 <div class="panel left-panel">
                     <div class="content">
-                        <h3>(주)새천년관광</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex
-                            ratione. Aliquid!</p>
+                        <div class="companyTitle">
+                            <h3 th:each="company : ${compa}" th:text="${company.company}"></h3>
+                        </div>
+                        <p>만남의 인연을 소중히 생각하는 전세버스 회사의 선두</p>
                     </div>
                     <img src="img/busRed.png" class="image" alt=""/>
                 </div>
@@ -71,5 +72,5 @@
         <script
             language="javascript"
             type="text/javascript"
-            src="/js/common/login.js?v=2020042101"></script>
+            src="/js/common/login.js?v=2020042201"></script>
     </body>

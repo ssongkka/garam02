@@ -350,6 +350,46 @@
 		</foreach>
 	</update>
 
+	<insert id="insertInsu" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+		INSERT
+
+		INTO
+
+		veinsurance
+
+		VALUES
+		(
+		#{insuno},
+		#{carnumber},
+		#{insudatestart},
+		#{insudateend},
+		#{insutime},
+		#{insumoney},
+		1
+		);
+	</insert>
+
+	<insert id="insertInsuSepa" parameterType="java.util.HashMap">
+		INSERT
+
+		INTO
+
+		veinsurancesepa
+
+		VALUES
+		<foreach collection="insusepa" item="value" separator=",">
+			(
+			null,
+			#{value.insuno},
+			#{value.insusepapayment},
+			#{value.insusepamoney},
+			#{value.insusepaday},
+			#{value.insusepatime},
+			1
+			)
+		</foreach>
+	</insert>
+
 	<select id="selectInsuCar" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
@@ -368,6 +408,22 @@
 		ORDER BY
 		veinsurance.insudatestart DESC;
 
+	</select>
+
+	<select id="selectInsuNum" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		veinsurance
+
+		WHERE
+
+		veinsurance.insuno = #{insuno}
 	</select>
 
 
@@ -394,4 +450,297 @@
 		veinsurancesepa.insusepatime
 	</select>
 
+	<select id="selectInsuSepaNum" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+		SELECT
+
+		*
+
+		FROM
+
+		veinsurancesepa
+
+		WHERE
+
+		veinsurancesepa.insuno = #{insuno}
+	</select>
+
+	<update id="updateInsuSepaM" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE veinsurancesepa
+
+		SET
+
+		veinsurancesepa.insusepaday =
+		#{insusepaday},
+
+		veinsurancesepa.insusepapayment = #{insusepapayment},
+
+		veinsurancesepa.insusepamoney = #{insusepamoney},
+
+		veinsurancesepa.insusepatrash = 2
+
+		WHERE
+
+		veinsurancesepa.insusepano =
+		#{insusepano}
+
+	</update>
+
+	<delete id="deleteInsu" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+		DELETE
+
+		FROM
+
+		veinsurancesepa
+
+		WHERE
+
+		veinsurancesepa.insuno = #{insuno};
+
+
+
+		DELETE
+
+		FROM
+
+		veinsurance
+
+		WHERE
+
+		veinsurance.insuno = #{insuno};
+
+	</delete>
+
+	<select id="selectLoanCar" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+
+		SELECT
+
+		*, SUM(veloansepa.loansepamoney) AS price
+
+		FROM
+
+		veloan
+
+		LEFT JOIN
+
+		veloansepa
+
+		ON
+
+		veloan.loanno =
+		veloansepa.loanno
+
+		WHERE
+
+		veloan.carnumber = #{carnumber}
+
+		GROUP BY
+
+		veloan.loanno
+	</select>
+
+	<select id="selectLoanNo" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+
+		SELECT
+
+		*, SUM(veloansepa.loansepamoney) AS price, MAX(veloansepa.loansepatime) AS jukseq
+
+		FROM
+
+		veloan
+
+		LEFT
+		JOIN
+
+		veloansepa
+
+		ON
+
+		veloan.loanno =
+		veloansepa.loanno
+
+		WHERE
+
+		veloan.loanno = #{loanno}
+
+	</select>
+
+
+
+	<select id="selectLoanSepaCar" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+		SELECT
+
+		*
+
+		FROM
+
+		veloansepa
+
+		WHERE
+
+		veloansepa.loanno = #{loanno}
+
+		ORDER BY
+
+		veloansepa.loansepano DESC
+	</select>
+
+	<insert id="insertloan" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+		INSERT INTO veloan
+
+		VALUES
+		(
+		#{loanno},
+		#{loan},
+		#{carnumber},
+		#{loanmonth},
+		#{loandatestart},
+		#{loandateend},
+		#{loanperiod},
+		#{loandayloan},
+		#{loanbank},
+		1
+		);
+	</insert>
+
+	<update id="updateloan" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE
+
+		veloan
+
+		SET
+
+		veloan.loantrash = #{loantrash}
+
+		WHERE
+
+		veloan.loanno =
+		#{loanno}
+
+	</update>
+
+	<insert id="insertlaonSepa" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		INSERT INTO veloansepa
+
+		VALUES
+		(
+		null,
+		#{loanno},
+		#{loansepaday},
+		#{loansepamoney},
+		#{loansepatime}
+		);
+
+	</insert>
+	<update id="updateLoanSepa" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE
+
+		veloansepa
+
+		SET
+
+		loansepaday = #{loansepaday},
+		loansepamoney =
+		#{loansepamoney}
+
+		WHERE
+
+		loansepano = #{loansepano};
+
+	</update>
+
+	<delete id="deleteLoan" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		DELETE FROM
+
+		veloansepa
+
+		WHERE
+
+		loanno = #{loanno};
+
+
+
+		DELETE FROM
+
+		veloan
+
+		WHERE
+		loanno
+		= #{loanno};
+
+	</delete>
+
+	<delete id="deleteLoanSepa" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		DELETE FROM
+
+		veloansepa
+
+		WHERE
+
+		veloansepa.loansepano = #{loansepano};
+
+	</delete>
+
+	<select id="selectMainteMonth" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		CONCAT(YEAR(vemaintenancedate), '-',
+		MONTH(vemaintenancedate)) AS loanbank,
+
+		SUM(vemaintenancemoney) AS
+		vemaintenancemoney,
+
+		COUNT(vemaintenanceseq) AS vemaintenancekind
+
+		FROM
+
+		vemaintenance
+
+		WHERE
+
+		vemaintenance.carnumber =
+		#{carnumber}
+
+		GROUP BY
+		loanbank
+
+		ORDER BY
+		loanbank DESC;
+
+	</select>
+
+	<select id="selectMainteAll" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		vemaintenance
+
+		WHERE
+
+		vemaintenance.carnumber = #{carnumber}
+
+		ORDER BY
+
+		vemaintenance.vemaintenancedate
+		DESC
+
+	</select>
 </mapper>

@@ -1119,6 +1119,9 @@ function getMenuRsvt(rsvtrsvt, choo) {
             success: function (r) {
                 makeHtmlsMenu(r, choo);
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -1764,6 +1767,9 @@ function getSukRsvt(rsvtrsvt, choo) {
             success: function (r) {
                 makeHtmlsSuk(r, choo);
                 resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
             }
         })
     })
@@ -2542,6 +2548,9 @@ function makeHtmlsIl(ctmnono, day, cho) {
                     $('#sepaModal').val('1')
 
                     resolve(ctmseqArr);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
                 }
             })
         })
@@ -2759,7 +2768,6 @@ function makeHtmlsIl(ctmnono, day, cho) {
                             htmls += '<input type="hidden" id="" value="0">';
 
                             if (r[i].ctmno == '0') {
-                                b
                                 htmls += '<input onfocus="this.select()" autocomplete="off" type="text" class="ve-m" id=' +
                                         '"' + cnt +
                                         'mRsvtOper" onfocus="this.select()" data-type="currency" tabindex="' + (

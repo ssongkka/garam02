@@ -33,4 +33,38 @@ public interface VehicleMapper {
 	public List<VehicleInfoDTO> selectInsuCar(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectInsuSepaCar(HashMap<String, Object> map) throws Exception;
+
+	public int updateInsuSepaM(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertInsuSepa(HashMap<String, Object> map) throws Exception;
+
+	public int deleteInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectInsuNum(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectInsuSepaNum(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectLoanCar(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectLoanNo(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectLoanSepaCar(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertloan(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int updateloan(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertlaonSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int updateLoanSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int deleteLoanSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int deleteLoan(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectMainteMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectMainteAll(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

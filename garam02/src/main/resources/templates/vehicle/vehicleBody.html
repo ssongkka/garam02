@@ -502,7 +502,7 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="insuve-profile"
-                                    aria-selected="false">차량보험</button>
+                                    aria-selected="false">보험</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
@@ -513,7 +513,40 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="moneyve-profile"
-                                    aria-selected="false">차량대출</button>
+                                    aria-selected="false">대출</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="veTitleInspec"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#inspecve"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="inspecve-profile"
+                                    aria-selected="false">검사</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="veTitlemaintenance"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#maintenanceve"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="maintenanceve-profile"
+                                    aria-selected="false">정비</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="veTitleacc"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#accve"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="accve-profile"
+                                    aria-selected="false">사고</button>
                             </li>
                         </ul>
                         <!-- Tab panes -->
@@ -542,6 +575,24 @@
                                 id="moneyve"
                                 role="tabpanel"
                                 aria-labelledby="pills-moneyemp-tab"></div>
+                            <div
+                                th:insert="vehicle/vehicleInspec :: ve-inspec"
+                                class="tab-pane fade"
+                                id="inspecve"
+                                role="tabpanel"
+                                aria-labelledby="pills-inspecve-tab"></div>
+                            <div
+                                th:insert="vehicle/vehiclemaintenance :: ve-maintenance"
+                                class="tab-pane fade"
+                                id="maintenanceve"
+                                role="tabpanel"
+                                aria-labelledby="pills-maintenanceve-tab"></div>
+                            <div
+                                th:insert="vehicle/vehicleAcc :: ve-acc"
+                                class="tab-pane fade"
+                                id="accve"
+                                role="tabpanel"
+                                aria-labelledby="pills-accve-tab"></div>
                         </div>
                     </div>
                 </div>
@@ -555,6 +606,7 @@
     <div th:insert="vehicle/vehicleJukMD :: ve-MD-juk"></div>
     <div th:insert="vehicle/vehicleJukViewMD :: ve-MD-jukView"></div>
     <div th:insert="openTemplates/vehicleInsuContMD :: ve-MD-insuCont"></div>
+    <div th:insert="openTemplates/vehicleLoanContMD :: ve-MD-loanCont"></div>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -607,14 +659,18 @@
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/common/common.js?v=2020042101"></script>
+        src="/js/common/common.js?v=2020042201"></script>
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/vehicle/vehicleBody.js?v=2020042101"></script>
+        src="/js/vehicle/vehicleBody.js?v=2020042201"></script>
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/openTemplates/vehicleInsuContMD.js?v=2020042101"></script>
+        src="/js/openTemplates/vehicleInsuContMD.js?v=2020042201"></script>
+    <script
+        language="javascript"
+        type="text/javascript"
+        src="/js/openTemplates/vehicleloanContMD.js?v=2020042201"></script>
 </body>
 </html>

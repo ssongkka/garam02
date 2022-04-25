@@ -350,13 +350,28 @@
     display: none;
 }
 
-.insumain {
+.insumain,
+.maintenanceVe,
+.moneyVe {
     padding: 3rem;
 
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 3rem;
 }
+
+.moneyMainIng {
+    display: flex;
+    flex-direction: column;
+}
+
+.Ingtables {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.maintenanceMain {}
 
 @media (max-width:768px) {
     #ve01 {

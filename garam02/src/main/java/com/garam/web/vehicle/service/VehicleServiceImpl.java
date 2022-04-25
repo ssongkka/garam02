@@ -125,7 +125,7 @@ public class VehicleServiceImpl implements VehicleService {
 		if (carnumber.length() > 0) {
 			carN = carnumber;
 		} else {
-			carN = get_Veno();
+			carN = get_Veno("V");
 		}
 
 		for (int i = 0; i < files.length; i++) {
@@ -159,7 +159,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 	}
 
-	private String get_Veno() {
+	private String get_Veno(String num) {
 		String str = "";
 		for (int i = 0; i < 6; i++) {
 			switch ((int) ((Math.random() * 3) + 1)) {
@@ -176,7 +176,7 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 
 		String day = LocalDate.now().toString().replaceAll("-", "").substring(2);
-		return "V-" + day + "-" + str;
+		return num + day + "-" + str;
 	}
 
 	@Override
@@ -858,6 +858,134 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 
 		List<VehicleInfoDTO> list = vehicleMapper.selectInsuSepaCar(insusepanum);
+
+		return list;
+	}
+
+	@Override
+	public int updateInsuSepaM(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.updateInsuSepaM(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.insertInsu(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertInsuSepa(List<Map<String, Object>> map) throws Exception {
+
+		HashMap<String, Object> insusepa = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			insusepa.put("insusepa", map);
+		}
+
+		int rtn = vehicleMapper.insertInsuSepa(insusepa);
+
+		return rtn;
+	}
+
+	@Override
+	public int deleteInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.deleteInsu(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectInsuNum(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectInsuNum(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectInsuSepaNum(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectInsuSepaNum(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectLoanCar(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectLoanCar(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectLoanNo(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectLoanNo(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectLoanSepaCar(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectLoanSepaCar(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertloan(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		vehicleInfoDTO.setLoanno(get_Veno("LN"));
+
+		int rtn = vehicleMapper.insertloan(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateloan(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.updateloan(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertlaonSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.insertlaonSepa(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateLoanSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.updateLoanSepa(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int deleteLoan(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.deleteLoan(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int deleteLoanSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.deleteLoanSepa(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectMainteMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectMainteMonth(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectMainteAll(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectMainteAll(vehicleInfoDTO);
 
 		return list;
 	}
