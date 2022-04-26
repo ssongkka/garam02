@@ -32,7 +32,8 @@
                         <col width="30%">
                         <col width="10%">
                         <col width="15%">
-                        <col width="20%">
+                        <col width="15%">
+                        <col width="5%">
                     </colgroup>
                     <thead class="table-light">
                         <tr>
@@ -41,17 +42,43 @@
                             <th class="sortStrP">정비내역</th>
                             <th class="sortNumP">개수</th>
                             <th class="sortStrP">정비소</th>
-                            <th class="sortNumP">금액</th>
+                            <th colspan="2" class="sortNumP">금액</th>
+                        </tr>
+                        <tr>
+                            <th><input type="date" class="form-control" id="daymaintIn"></th>
+                            <th>
+                                <select class="form-select" id="kindmaintIn">
+                                    <option value="정기" label="정기"></option>
+                                    <option value="고장" label="고장"></option>
+                                    <option value="사고" label="사고"></option>
+                                    <option value="기타" label="기타"></option>
+                                </select>
+                            </th>
+                            <th><input type="text" class="form-control" id="contmaintIn"></th>
+                            <th><input type="number" class="form-control" id="nummaintIn" value="1"></th>
+                            <th><input type="text" class="form-control" id="compamaintIn"></th>
+                            <th>
+                                <input type="text" class="form-control" data-type="currency" id="moneymaintIn">
+                            </th>
+                            <th style="vertical-align: middle;">
+                                <a class="" id="btnmaintIn">
+                                    <i class="fa-solid fa-circle-arrow-down"></i>
+                                </a>
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="maintAllBd">
                         <tr>
+                            <td><input type="hidden" value=""></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                                <a class="delInspec">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -85,7 +85,8 @@ function setTableC(name) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {

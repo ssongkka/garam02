@@ -38,6 +38,7 @@ $(document).on('click', '#saveSetting', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -84,6 +85,7 @@ $(document).on('click', '#savePw', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 

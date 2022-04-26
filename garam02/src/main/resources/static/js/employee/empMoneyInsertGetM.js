@@ -60,7 +60,8 @@ function getEmpOperCnt() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 const map = new Map();
@@ -96,7 +97,8 @@ function getEmpOper(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
 
@@ -644,7 +646,8 @@ function getEmpRegOper(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let goodArr = new Array();
@@ -688,7 +691,8 @@ function getEmpRegOper1(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmlRegOper = '';
@@ -866,7 +870,8 @@ function getEmpAllAllOper1(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmlsTb = ``;
@@ -914,7 +919,8 @@ function getEmpAllAllOper3(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmlsTb = ``;
@@ -965,7 +971,8 @@ function getEmpAllAllOper2(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let cnt = 0;
@@ -1030,7 +1037,8 @@ function getEmpRegOperCour(arrTmp) {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         async: false,
         success: function (r) {
@@ -1066,7 +1074,8 @@ function getAllMList(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
@@ -1111,7 +1120,8 @@ function getEmpInMList(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
@@ -1203,7 +1213,8 @@ function getEmpOutMList(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
@@ -1315,7 +1326,8 @@ function getEmpBaseM(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
 

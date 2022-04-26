@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.vehicle.dto.JukfileDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
@@ -73,4 +74,18 @@ public interface VehicleService {
 	public List<VehicleInfoDTO> selectMainteMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectMainteAll(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertMainte(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int delMainte(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectInspec(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertInspec(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int deleteInspec(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<RsvtDTO> selectOperMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+	
+	public List<RsvtDTO> selectOperSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

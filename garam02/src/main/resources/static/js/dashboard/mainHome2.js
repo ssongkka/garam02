@@ -32,7 +32,8 @@ function getRsvtListIl() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -71,7 +72,8 @@ function getRsvtListMonth(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -241,7 +243,8 @@ function getSeachRsvtList(texts) {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {

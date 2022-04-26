@@ -427,6 +427,7 @@ function updateOper(cont) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1132,6 +1133,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1176,6 +1178,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1204,6 +1207,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1233,6 +1237,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1260,6 +1265,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1333,6 +1339,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1360,6 +1367,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1434,6 +1442,7 @@ function saveSalary(sepa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1530,6 +1539,7 @@ $(document).on('dblclick', '.chreginM', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1560,6 +1570,7 @@ $(document).on('dblclick', '.chreginM', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1656,7 +1667,8 @@ $(document).on('keyup', '.regmoney', function (eInner) {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
                     success: function (r) {
                         resolve();

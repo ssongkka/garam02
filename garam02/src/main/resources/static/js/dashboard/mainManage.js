@@ -25,7 +25,8 @@ function makeManage() {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
 
         success: function (r) {
@@ -267,7 +268,8 @@ function getManage(list) {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
                     async: false,
 

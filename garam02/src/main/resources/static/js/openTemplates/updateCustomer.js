@@ -67,7 +67,8 @@ $(document).on('change', '#ctmnameUp', function () {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r.length > 0) {
@@ -191,7 +192,8 @@ function updateCtm() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {

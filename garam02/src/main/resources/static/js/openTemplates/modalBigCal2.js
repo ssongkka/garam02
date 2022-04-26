@@ -208,6 +208,7 @@ function makeBigCal(nowD, day) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -282,7 +283,8 @@ function makeBigCal(nowD, day) {
                                 url: url,
                                 type: "POST",
                                 headers: headers,
-                                dataType: "json",
+                                caches: false,
+                dataType: "json",
                                 data: JSON.stringify(params),
 
                                 success: function (r) {

@@ -220,7 +220,8 @@ function setPapperAllo1() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -306,6 +307,7 @@ function setPapperAllo2(result) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -523,7 +525,8 @@ function insertMemo() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r > -1) {

@@ -5,6 +5,8 @@ $(document).ready(function () {
     LoadingWithMask()
         .then(getVeAll)
         .then(closeLoadingWithMask);
+
+    $('#daymaintIn').val(toStringByFormatting(new Date()));
 });
 
 $(document).on('change', '#sel-ve-1', function () {
@@ -66,6 +68,7 @@ function getVeAll(vehicle) {
             url: url,
             type: "POST",
             headers: headers,
+            caches: false,
             dataType: "json",
             data: JSON.stringify(params),
 
@@ -525,6 +528,7 @@ function getVeInfo(carnumber) {
     if ($('#operve').css('display') === 'block') {
         LoadingWithMask()
             .then(get)
+            .then(makeVeOper)
             .then(closeLoadingWithMask);
     }
     if ($('#insuve').css('display') === 'block') {
@@ -542,6 +546,7 @@ function getVeInfo(carnumber) {
     if ($('#inspecve').css('display') === 'block') {
         LoadingWithMask()
             .then(get)
+            .then(makeInspec)
             .then(closeLoadingWithMask);
     }
     if ($('#maintenanceve').css('display') === 'block') {
@@ -572,6 +577,7 @@ function getVeInfo(carnumber) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1342,6 +1348,7 @@ function insertVe(tp) {
                         url: url,
                         type: "POST",
                         headers: headers,
+                        caches: false,
                         dataType: "json",
                         data: JSON.stringify(params),
                         success: function (r) {
@@ -1742,6 +1749,7 @@ function insertJuk(result) {
             url: url,
             type: "POST",
             headers: headers,
+            caches: false,
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
@@ -1752,6 +1760,230 @@ function insertJuk(result) {
             }
         })
     })
+}
+
+$(document).on('click', '#veTitleOper', function () {
+    makeVeOper();
+});
+
+function makeVeOper() {
+
+    LoadingWithMask()
+        .then(getVeOper)
+        .then(getVeOperSepa)
+        .then(closeLoadingWithMask);
+
+    function getVeOper() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veopermonth";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    console.log(r);
+
+                    let arrTmpMonth = new Array();
+
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+                        let sshhoww = ``;
+                        let coll = ``;
+
+                        if (i < 1) {
+                            sshhoww = ' show';
+                        } else {
+                            coll = ' collapsed';
+                        }
+
+                        let yemonth = ``;
+                        let yemonth1 = ``;
+
+                        if (r[i].ctmaddress.split('-')[1].length < 2) {
+                            yemonth = r[i]
+                                .ctmaddress
+                                .split('-')[0] + '년 0' + r[i]
+                                .ctmaddress
+                                .split('-')[1] + '월';
+                            yemonth1 = r[i]
+                                .ctmaddress
+                                .split('-')[0] + '0' + r[i]
+                                .ctmaddress
+                                .split('-')[1];
+                        } else {
+                            yemonth = r[i]
+                                .ctmaddress
+                                .split('-')[0] + '년 ' + r[i]
+                                .ctmaddress
+                                .split('-')[1] + '월';
+                            yemonth1 = r[i]
+                                .ctmaddress
+                                .split('-')[0] + r[i]
+                                .ctmaddress
+                                .split('-')[1];
+                        }
+
+                        arrTmpMonth.push("veoperBd" + yemonth1);
+
+                        htmls += `
+                    <div class="accordion-item">
+                        <h4 class="accordion-header" id="panelsStayHead-` +
+                                i +
+                                `">
+                            <button
+                                class="accordion-button` +
+                                coll +
+                                `"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-` +
+                                i +
+                                `"
+                                aria-expanded="true"
+                                aria-controls="panelsStayOpen-` +
+                                i +
+                                `">
+                                <div class="veOperTitle">
+                                    <div class="veOperTitle-item">` +
+                                yemonth +
+                                `</div>
+                                    <div class="veOperTitle-item">` + r[i].conm +
+                                `회</div>
+                                </div>
+                            </button>
+                        </h4>
+                        <div
+                            id="panelsStayOpen-` +
+                                i +
+                                `"
+                            class="accordion-collapse collapse` +
+                                sshhoww +
+                                `"
+                            aria-labelledby="panelsStayHead-` + i +
+                                `">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col width="18%">
+                                        <col width="26%">
+                                        <col width="26%">
+                                        <col width="15%">
+                                        <col width="15%">
+                                    </colgroup>
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="sortStrP">날짜</th>
+                                            <th class="sortStrP">고객정보</th>
+                                            <th class="sortStrP">목적지</th>
+                                            <th class="sortNumP">대당금액</th>
+                                            <th class="sortNumP">배차금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="veoperBd` +
+                                yemonth1 +
+                                `"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>`;
+                    }
+
+                    $('#accordionPanelsOper').html(htmls);
+                    resolve(arrTmpMonth);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getVeOperSepa(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veopersepa";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let arrTmpHtmls = new Array();
+
+                    for (let i = 0; i < r.length; i++) {
+                        let tmpHtml = ``;
+
+                        const ddaayyId = 'veoperBd' + r[i]
+                            .operday
+                            .split('-')[0] + r[i]
+                            .operday
+                            .split('-')[1];
+
+                        let chNum = 0;
+
+                        for (let k = 0; k < result.length; k++) {
+                            if (ddaayyId == result[k]) {
+                                chNum = k;
+                            }
+                        }
+
+                        arrTmpHtmls[chNum] += `
+                        <tr>
+                            <td>` + r[i].operday +
+                                `
+                                <input type="hidden" value="` + r[i].operseq +
+                                `">
+                            </td>
+                            <td>` + r[i].ctmname +
+                                `</td>
+                            <td>` + r[i].desty +
+                                `</td>
+                            <td class="tdRight">` + AddComma(r[i].numm) +
+                                `</td>
+                            <td class="tdRight">` + AddComma(r[i].atlm) +
+                                `</td>
+                        </tr>`;
+                    }
+
+                    for (let i = 0; i < result.length; i++) {
+                        const iidd = '#' + result[i];
+
+                        $(iidd).html(arrTmpHtmls[i]);
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
 }
 
 $(document).on('click', '#veTitleInsu', function () {
@@ -1780,6 +2012,7 @@ function makeInsu() {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -1874,6 +2107,7 @@ function makeInsu() {
                     url: url,
                     type: "POST",
                     headers: headers,
+                    caches: false,
                     dataType: "json",
                     data: JSON.stringify(params),
 
@@ -1964,6 +2198,7 @@ function makeLoan() {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -2090,6 +2325,7 @@ function makeMaintenance() {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -2184,6 +2420,7 @@ function makeMaintenance() {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -2196,7 +2433,8 @@ function makeMaintenance() {
                             htmls += `
                         <tr>
                             <td>` + r[i].vemaintenancedate +
-                                    `</td>
+                                    `<input type="hidden" value="` + r[i].vemaintenanceseq +
+                                    `"></td>
                             <td>` + r[i].vemaintenancekind +
                                     `</td>
                             <td>` + r[i].vemaintenancecontents +
@@ -2207,7 +2445,9 @@ function makeMaintenance() {
                                     `</td>
                             <td class="tdRight">` + AddComma(
                                 r[i].vemaintenancemoney
-                            ) + `</td>
+                            ) +
+                                    `</td>
+                            <td><a class="delMaint"><i class="fa-solid fa-circle-xmark"></i></a></td>
                         </tr>`;
                         }
 
@@ -2230,3 +2470,372 @@ function makeMaintenance() {
         })
     }
 }
+
+$(document).on('click', '#veTitleInspec', function () {
+    makeInspec();
+});
+
+function makeInspec() {
+
+    LoadingWithMask()
+        .then(getInspec)
+        .then(closeLoadingWithMask);
+
+    function getInspec() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veselinspec";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+                        htmls += `
+                    <tr>
+                        <td><input type="hidden" value="` +
+                                r[i].inspecseq + `">` + r[i].inspecdatestart +
+                                `</td>
+                        <td>` + r[i].inspecdateend +
+                                `</td>
+                        <td>` + r[i].inspecdate +
+                                `</td>
+                        <td>` + r[i].inspecplace +
+                                `</td>
+                        <td>` + AddComma(r[i].inspecdistance) +
+                                `</td>
+                        <td>` + r[i].inspecsepa +
+                                `</td>
+                        <td>
+                            <a class="delInspec">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </a>
+                        </td>
+                    </tr>`;
+                    }
+                    $('#inspecBd').html(htmls);
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+            resolve();
+        })
+    }
+}
+
+$(document).on('change', '#daystInspec', function () {
+    const tmpd = ($("#daystInspec").val()).split('-');
+
+    let date = new Date(tmpd[0], parseInt(tmpd[1]) - 1, tmpd[2]);
+    date.setFullYear(date.getFullYear() + 1);
+    date.setDate(date.getDate() - 1);
+
+    $("#dayedInspec").val(toStringByFormatting(date));
+});
+
+$(document).on('click', '#btnInspec', function () {
+    insertInspeccc();
+});
+
+function insertInspeccc() {
+    if (!$('#daystInspec').val()) {
+        alert('유효기간시작일을 입력해주세요.');
+        $('#daystInspec').focus();
+        return;
+    }
+    if (!$('#dayedInspec').val()) {
+        alert('유효기간만료일을 입력해주세요.');
+        $('#dayedInspec').focus();
+        return;
+    }
+    if (!$('#compaInspec').val()) {
+        alert('검사시행장을 입력해주세요.');
+        $('#compaInspec').focus();
+        return;
+    }
+    if (!$('#distInspec').val()) {
+        alert('주행거리를 입력해주세요.');
+        $('#distInspec').focus();
+        return;
+    }
+
+    LoadingWithMask()
+        .then(insertInspec)
+        .then(closeLoadingWithMask);
+
+    function insertInspec() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veininspec";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val(),
+                "inspecdatestart": $('#daystInspec').val(),
+                "inspecdateend": $('#dayedInspec').val(),
+                "inspecdate": $('#dayInspec').val(),
+                "inspecdistance": $('#distInspec')
+                    .val()
+                    .replaceAll(',', ''),
+                "inspecplace": $('#compaInspec').val(),
+                "inspecsepa": $('#sepaInspec').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    if (r > 0) {
+                        makeInspec();
+                        resolve();
+                    } else if (r == 0) {
+                        alert("검사내역 입력 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    } else if (r == -1) {
+                        alert("검사내역 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                        location.reload();
+                    } else if (r == -2) {
+                        alert("검사내역 입력 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+}
+
+$(document).on('click', '.delInspec', function () {
+
+    const aaa = $(this)
+        .parent()
+        .parent()
+        .children()[0];
+
+    const aaa1 = $(aaa).children()[0];
+
+    const seqqq = $(aaa1).val();
+
+    LoadingWithMask()
+        .then(delInspec)
+        .then(closeLoadingWithMask);
+
+    function delInspec() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/vedelinspec";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "inspecseq": seqqq
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    if (r > 0) {
+                        makeInspec();
+                        resolve();
+                    } else if (r == 0) {
+                        alert("검사내역 삭제 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    } else if (r == -1) {
+                        alert("검사내역 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                        location.reload();
+                    } else if (r == -2) {
+                        alert("검사내역 삭제 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+});
+
+$(document).on('keyup', '#moneymaintIn', function (eInner) {
+    var keyValue = eInner.which; //enter key
+    if (keyValue == 13) {
+        insertMainttt();
+    }
+});
+
+$(document).on('click', '#btnmaintIn', function () {
+    insertMainttt();
+});
+
+function insertMainttt() {
+    if (!$('#daymaintIn').val()) {
+        alert('날짜를 입력해주세요.');
+        $('#daymaintIn').focus();
+        return;
+    }
+    if (!$('#contmaintIn').val()) {
+        alert('정비내역을 입력해주세요.');
+        $('#contmaintIn').focus();
+        return;
+    }
+    if (!$('#nummaintIn').val()) {
+        alert('개수를 입력해주세요.');
+        $('#nummaintIn').focus();
+        return;
+    }
+    if (!$('#compamaintIn').val()) {
+        alert('정비소를 입력해주세요.');
+        $('#compamaintIn').focus();
+        return;
+    }
+    if (!$('#moneymaintIn').val()) {
+        alert('금액을 입력해주세요.');
+        $('#moneymaintIn').focus();
+        return;
+    }
+
+    LoadingWithMask()
+        .then(insertMaint)
+        .then(closeLoadingWithMask);
+
+    function insertMaint() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veinmaint";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val(),
+                "vemaintenancedate": $('#daymaintIn').val(),
+                "vemaintenancekind": $('#kindmaintIn').val(),
+                "vemaintenancecontents": $('#contmaintIn').val(),
+                "vemaintenancenum": $('#nummaintIn').val(),
+                "vemaintenancecompany": $('#compamaintIn').val(),
+                "vemaintenancemoney": $('#moneymaintIn')
+                    .val()
+                    .replaceAll(',', '')
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    if (r > 0) {
+                        makeMaintenance();
+                        resolve();
+                    } else if (r == 0) {
+                        alert("정비내역 입력 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    } else if (r == -1) {
+                        alert("정비내역 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                        location.reload();
+                    } else if (r == -2) {
+                        alert("정비내역 입력 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+}
+
+$(document).on('click', '.delMaint', function () {
+
+    const aaa = $(this)
+        .parent()
+        .parent()
+        .children()[0];
+
+    const aaa1 = $(aaa).children()[0];
+
+    const seqqq = $(aaa1).val();
+
+    LoadingWithMask()
+        .then(delmaint)
+        .then(closeLoadingWithMask);
+
+    function delmaint() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/vedelmaint";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "vemaintenanceseq": seqqq
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    if (r > 0) {
+                        makeMaintenance();
+                        resolve();
+                    } else if (r == 0) {
+                        alert("정비내역 삭제 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    } else if (r == -1) {
+                        alert("정비내역 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                        location.reload();
+                    } else if (r == -2) {
+                        alert("정비내역 삭제 실패!\n\n시스템을 확인해주세요.")
+                        location.reload();
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+});

@@ -283,6 +283,7 @@ function makeModalInsuCont(insucontNum, cho) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -318,6 +319,7 @@ function makeModalInsuCont(insucontNum, cho) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -585,7 +587,8 @@ $(document).on('keyup', '.inInsuSepa', function (eInner) {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -668,6 +671,7 @@ $(document).on('click', '#insuCont-insert', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -735,6 +739,7 @@ $(document).on('click', '#insuCont-insert', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -788,7 +793,8 @@ $(document).on('click', '#insuCont-del', function () {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {

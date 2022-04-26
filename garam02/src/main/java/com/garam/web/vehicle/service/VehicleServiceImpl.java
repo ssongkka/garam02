@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.garam.Utils.FTPManager;
 import com.garam.Utils.PDFUtil;
 import com.garam.Utils.pdfFooter;
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.vehicle.dto.JukfileDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.mapper.VehicleMapper;
@@ -986,6 +987,55 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public List<VehicleInfoDTO> selectMainteAll(VehicleInfoDTO vehicleInfoDTO) throws Exception {
 		List<VehicleInfoDTO> list = vehicleMapper.selectMainteAll(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertMainte(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.insertMainte(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int delMainte(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.delMainte(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectInspec(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectInspec(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertInspec(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.insertInspec(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int deleteInspec(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.deleteInspec(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<RsvtDTO> selectOperMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<RsvtDTO> list = vehicleMapper.selectOperMonth(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectOperSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<RsvtDTO> list = vehicleMapper.selectOperSepa(vehicleInfoDTO);
 
 		return list;
 	}

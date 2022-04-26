@@ -122,7 +122,8 @@ $(document).on('keyup', '.ve-car', function (eInner) {
                         url: url,
                         type: "POST",
                         headers: headers,
-                        dataType: "json",
+                        caches: false,
+                dataType: "json",
                         data: JSON.stringify(params),
                         success: function (r) {
                             if (r.length > 0) {
@@ -240,7 +241,8 @@ $(document).on('keyup', '.ve-car-one', function (eInner) {
                         url: url,
                         type: "POST",
                         headers: headers,
-                        dataType: "json",
+                        caches: false,
+                dataType: "json",
                         data: JSON.stringify(params),
                         success: function (r) {
                             if (r.length > 0) {
@@ -545,6 +547,7 @@ function insertOper(id, num) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -745,6 +748,7 @@ function insertOperOne(id, num) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -843,6 +847,7 @@ $(document).on('click', '.mdOneway', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -1157,6 +1162,7 @@ function getAlloList(day) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -1223,6 +1229,7 @@ function getAlloList(day) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -1307,6 +1314,7 @@ function getAlloList(day) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -1374,6 +1382,7 @@ function getAlloList(day) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -1555,6 +1564,7 @@ function delAllo(id) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -1643,7 +1653,8 @@ function delOne(param) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -1716,6 +1727,7 @@ $(document).on('click', '.rsvtDetails', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 cache: false,
@@ -1773,6 +1785,7 @@ $(document).on('click', '.rsvtDetails', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 cache: false,
@@ -1921,6 +1934,7 @@ function updateRsvt(result) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1983,7 +1997,8 @@ $(document).on('click', '#inNewUp', function () {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -2040,7 +2055,8 @@ $(document).on('click', '#btn-rsvt-cancle', function () {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r > 0) {
@@ -2073,7 +2089,8 @@ $(document).on('click', '#btn-rsvt-del', function () {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r > 0) {
@@ -2217,6 +2234,7 @@ function makeAllo() {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -2451,7 +2469,8 @@ function makeAllo() {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -2749,7 +2768,8 @@ function makeAllo() {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {

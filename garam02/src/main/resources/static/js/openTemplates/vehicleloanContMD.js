@@ -74,6 +74,7 @@ function makeModalLoanCont(loanNo, cho) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -97,9 +98,9 @@ function makeModalLoanCont(loanNo, cho) {
 
                         let countttt = 0;
                         if (r[0].jukseq) {
-                            countttt = parseInt(r[0].jukseq) + 1 + '회차';
+                            countttt = parseInt(r[0].jukseq) + 1;
                         } else {
-                            countttt = '1회차';
+                            countttt = '1';
                         }
 
                         $('#tbloansepaNum').text(countttt);
@@ -154,6 +155,7 @@ function makeModalLoanCont(loanNo, cho) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -169,17 +171,17 @@ function makeModalLoanCont(loanNo, cho) {
                             <input type="hidden" value="` + r[i].loansepano +
                                 `">
                         </td>
-                        <td><input type="date" class="form-control" value="` +
-                                r[i].loansepaday +
-                                `"></td>
-                        <td><input
-                            type="text"
-                            class="form-control inLoanSepaInput"
-                            data-type="currency"
-                            value="` +
-                                AddComma(r[i].loansepamoney) +
-                                `"
-                            onfocus="this.select()"></td>
+                        <td>` + r[i].loansepaday +
+                                `</td>
+                        <td class="tdRight">` + AddComma(
+                            r[i].loansepamoney
+                        ) +
+                                `</td>
+                        <td>
+                            <a class="delLoan">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </a>
+                        </td>
                     </tr>`;
                     }
                     $('#tb-md-loancont').html(htmls);
@@ -219,115 +221,115 @@ function makeModalLoanCont(loanNo, cho) {
 $(document).on('keyup', '#inputLoanMonetInsert', function (eInner) {
     var keyValue = eInner.which; //enter key
     if (keyValue == 13) {
-
-        const aaa = $(this)
-            .parent()
-            .parent();
-
-        const aaa1 = $(aaa).children()[0];
-        const aaa11 = $(aaa1).children()[0];
-
-        const loansepaNUm = $(aaa11).val();
-
-        if (!$('#inputLoanDayInsert').val()) {
-            alert('납부일을 입력해주세요.');
-            $('#inputLoanDayInsert').focus();
-            closeLoadingWithMask();
-            return;
-        }
-        if (!$('#inputLoanMonetInsert').val()) {
-            alert('납부금액을 입력해주세요.');
-            $('#inputLoanMonetInsert').focus();
-            closeLoadingWithMask();
-            return;
-        }
-
-        LoadingWithMask().then(insertLoanSepa);
-
-        function insertLoanSepa(result) {
-            return new Promise(function (resolve, reject) {
-                const url = "/ve/veinsertLoanSepa";
-                const headers = {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
-                };
-
-                const params = {
-                    "loanno": $('#loancontNum').val(),
-                    "loansepaday": $('#inputLoanDayInsert').val(),
-                    "loansepamoney": $('#inputLoanMonetInsert')
-                        .val()
-                        .replaceAll(',', ''),
-                    "loansepatime": $('#tbloansepaNum')
-                        .text()
-                        .replaceAll('회차', '')
-                };
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    dataType: "json",
-                    data: JSON.stringify(params),
-
-                    success: function (r) {
-                        const janSum = parseInt($('#loanjanM').val().replaceAll(',', '')) - parseInt(
-                            $('#inputLoanMonetInsert').val().replaceAll(',', '')
-                        );
-                        if (janSum == 0 || (janSum < 10000)) {
-                            updateLoanTheEnd()
-                                .then(makeReLoan)
-                                .then(closeLoadingWithMask);
-                        } else {
-                            makeReLoan().then(closeLoadingWithMask);
-                        }
-                        resolve();
-                    },
-                    error: (jqXHR) => {
-                        loginSession(jqXHR.status);
-                    }
-                })
-            })
-        }
-
-        function updateLoanTheEnd(result) {
-            return new Promise(function (resolve, reject) {
-                const url = "/ve/veupdateLoan";
-                const headers = {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
-                };
-
-                const params = {
-                    "loanno": $('#loancontNum').val(),
-                    "loantrash": 2
-                };
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    dataType: "json",
-                    data: JSON.stringify(params),
-
-                    success: function (r) {
-                        resolve();
-                    },
-                    error: (jqXHR) => {
-                        loginSession(jqXHR.status);
-                    }
-                })
-            })
-        }
-
-        function makeReLoan() {
-            return new Promise(function (resolve, reject) {
-                makeModalLoanCont($('#loancontNum').val(), 1);
-                resolve();
-            })
-        }
+        insertLoanSepa();
     }
 });
+
+$(document).on('click', '#btnLoan', function () {
+    insertLoanSepa();
+});
+
+function insertLoanSepa() {
+    if (!$('#inputLoanDayInsert').val()) {
+        alert('납부일을 입력해주세요.');
+        $('#inputLoanDayInsert').focus();
+        closeLoadingWithMask();
+        return;
+    }
+    if (!$('#inputLoanMonetInsert').val()) {
+        alert('납부금액을 입력해주세요.');
+        $('#inputLoanMonetInsert').focus();
+        closeLoadingWithMask();
+        return;
+    }
+
+    LoadingWithMask().then(insertLoanSepa);
+
+    function insertLoanSepa(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veinsertLoanSepa";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "loanno": $('#loancontNum').val(),
+                "loansepaday": $('#inputLoanDayInsert').val(),
+                "loansepamoney": $('#inputLoanMonetInsert')
+                    .val()
+                    .replaceAll(',', ''),
+                "loansepatime": $('#tbloansepaNum')
+                    .text()
+                    .replaceAll('회차', '')
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    const janSum = parseInt($('#loanjanM').val().replaceAll(',', '')) - parseInt(
+                        $('#inputLoanMonetInsert').val().replaceAll(',', '')
+                    );
+                    if (janSum == 0 || (janSum < 10000)) {
+                        updateLoanTheEnd()
+                            .then(makeReLoan)
+                            .then(closeLoadingWithMask);
+                    } else {
+                        makeReLoan().then(closeLoadingWithMask);
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function updateLoanTheEnd(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veupdateLoan";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "loanno": $('#loancontNum').val(),
+                "loantrash": 2
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function makeReLoan() {
+        return new Promise(function (resolve, reject) {
+            makeModalLoanCont($('#loancontNum').val(), 1);
+            resolve();
+        })
+    }
+}
 
 $(document).on('click', '#loanCont-insert', function () {
 
@@ -406,6 +408,7 @@ $(document).on('click', '#loanCont-insert', function () {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
 
@@ -499,6 +502,7 @@ $(document).on('keyup', '.inLoanSepaInput', function (eInner) {
                     url: url,
                     type: "POST",
                     headers: headers,
+                    caches: false,
                     dataType: "json",
                     data: JSON.stringify(params),
 
@@ -531,6 +535,7 @@ $(document).on('keyup', '.inLoanSepaInput', function (eInner) {
                     url: url,
                     type: "POST",
                     headers: headers,
+                    caches: false,
                     dataType: "json",
                     data: JSON.stringify(params),
 
@@ -573,6 +578,7 @@ $(document).on('keyup', '.inLoanSepaInput', function (eInner) {
                     url: url,
                     type: "POST",
                     headers: headers,
+                    caches: false,
                     dataType: "json",
                     data: JSON.stringify(params),
 
@@ -616,6 +622,7 @@ $(document).on('keyup', '.inLoanSepaInput', function (eInner) {
                     url: url,
                     type: "POST",
                     headers: headers,
+                    caches: false,
                     dataType: "json",
                     data: JSON.stringify(params),
 
@@ -629,6 +636,136 @@ $(document).on('keyup', '.inLoanSepaInput', function (eInner) {
             })
         }
     }
+});
+
+$(document).on('click', '.delLoan', function () {
+    const aaa = $(this)
+        .parent()
+        .parent()
+        .children()[0];
+
+    const aaa1 = $(aaa).children()[0];
+    const loanSepaSeqq = $(aaa1).val();
+
+    LoadingWithMask()
+        .then(delLoanSepa)
+        .then(checkLoanSum);
+
+    function delLoanSepa(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/vedelLoanSepa";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "loansepano": loanSepaSeqq
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    makeModalLoanCont($('#loancontNum').val(), 1);
+
+                    const janSum = parseInt($('#loanjanM').val().replaceAll(',', '')) - parseInt(
+                        loanSepaMoney
+                    );
+
+                    if (janSum > 0) {
+                        updateLoanTheEndEnd().then(closeLoadingWithMask);
+                    } else {
+                        closeLoadingWithMask();
+                    }
+
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+            resolve();
+        })
+    }
+
+    function checkLoanSum() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veLoanNo";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "loanno": $('#loancontNum').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    $('#loanCont-insert').hide();
+                    $('#loanCont-del').show();
+
+                    if (r.length > 0) {
+                        const summ = parseInt(r[0].loan) - parseInt(r[0].price);
+
+                        if (summ <= 10000) {
+                            updateLoanTheEndEnd(2).then(closeLoadingWithMask);
+                        } else {
+                            updateLoanTheEndEnd(1).then(closeLoadingWithMask);
+                        }
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function updateLoanTheEndEnd(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veupdateLoan";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "loanno": $('#loancontNum').val(),
+                "loantrash": result
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
 });
 
 $(document).on('click', '#loanCont-del', function () {
@@ -656,6 +793,7 @@ $(document).on('click', '#loanCont-del', function () {
                     url: url,
                     type: "POST",
                     headers: headers,
+                    caches: false,
                     dataType: "json",
                     data: JSON.stringify(params),
 

@@ -145,7 +145,7 @@
 
 .stWay1 {
     display: flex;
-    border: 1px solid rgba(150,206,180,1);
+    border: 1px solid #FFC900;
     align-items: center;
 }
 
@@ -154,7 +154,7 @@
 }
 .stWay2 {
     display: flex;
-    border: 1px solid rgba(255,173,96,1);
+    border: 1px solid #1A5F7A;
     align-items: center;
 }
 .stWay2 input {

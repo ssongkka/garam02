@@ -31,7 +31,8 @@ function getOperListIl() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -71,7 +72,8 @@ function getOperListMonth(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -353,7 +355,8 @@ function getSeachOperList(texts) {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -572,7 +575,8 @@ function upAltmMany(money) {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
 
         success: function (r) {
@@ -626,7 +630,8 @@ function upAltmOne(domdom, money) {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
 
         success: function (r) {

@@ -395,4 +395,90 @@ public class RestVehicleController {
 
 		return list;
 	}
+
+	@PostMapping(value = "/veinmaint")
+	public int veinmaint(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.insertMainte(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/vedelmaint")
+	public int vedelmaint(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.delMainte(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veselinspec")
+	public List<VehicleInfoDTO> veselinspec(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectInspec(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veininspec")
+	public int veininspec(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.insertInspec(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/vedelinspec")
+	public int vedelinspec(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.deleteInspec(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veopermonth")
+	public List<RsvtDTO> veopermonth(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<RsvtDTO> list = vehicleService.selectOperMonth(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veopersepa")
+	public List<RsvtDTO> veopersepa(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<RsvtDTO> list = vehicleService.selectOperSepa(vehicleInfoDTO);
+
+		return list;
+	}
+
 }

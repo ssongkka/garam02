@@ -137,7 +137,8 @@ $(document).on('click', '#inNew', function () {
                     url: url,
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -220,7 +221,8 @@ function insertRsvt(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -283,7 +285,8 @@ function insertRsvt1(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -343,7 +346,8 @@ $(document).on('click', '#btn-custom-modal', function () {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             alert(r)

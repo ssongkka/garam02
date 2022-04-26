@@ -284,7 +284,8 @@ function getRegularAll() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls = '';
@@ -432,7 +433,8 @@ function getRegularDeAll() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls = '';
@@ -664,7 +666,8 @@ function getRegularCooAll() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
@@ -732,7 +735,8 @@ function getRegularAlloCa() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 const thSize = $('#tbAllo')
@@ -1112,7 +1116,8 @@ function insertAllo1111() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {},
             error: (jqXHR) => {
@@ -1294,7 +1299,8 @@ $(document).on('click', '#btnMdAll', function () {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r > 0) {
@@ -1634,6 +1640,7 @@ function getAllo(param) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1852,7 +1859,8 @@ function insertRegAlloDe(result) {
                     url: "/reg/delRegOperList1",
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(paramsDel),
                     success: function (r) {
                         if (r > 0) {
@@ -1880,7 +1888,8 @@ function insertRegAlloDe(result) {
                     url: "/reg/insertRegOper1",
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(paramsIn),
                     success: function (r) {
                         if (r > 0) {
@@ -1922,7 +1931,8 @@ function insertRegAlloDe(result) {
                     url: "/reg/updateRegOperList1",
                     type: "POST",
                     headers: headers,
-                    dataType: "json",
+                    caches: false,
+                dataType: "json",
                     data: JSON.stringify(paramsUp),
                     success: function (r) {
                         if (r > 0) {

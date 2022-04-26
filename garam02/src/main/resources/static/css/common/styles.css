@@ -368,6 +368,10 @@ table > tbody > tr > .tdRight {
 
 .table {}
 
+.table-responsive {
+    overflow-y: hidden;
+}
+
 object {
     width: 100%;
     height: 100%;

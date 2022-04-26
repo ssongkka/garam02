@@ -31,7 +31,8 @@ function getManageMD1() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -72,7 +73,8 @@ function getManageMD2() {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -187,7 +189,8 @@ function getManageMD3(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -243,7 +246,8 @@ function getManageMD4(para) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -584,7 +588,8 @@ $(document).on('keyup', '.inputManage', function (eInner) {
                         url: url,
                         type: "POST",
                         headers: headers,
-                        dataType: "json",
+                        caches: false,
+                dataType: "json",
                         data: JSON.stringify(params),
 
                         success: function (r) {
@@ -619,7 +624,8 @@ $(document).on('keyup', '.inputManage', function (eInner) {
                         url: url,
                         type: "POST",
                         headers: headers,
-                        dataType: "json",
+                        caches: false,
+                dataType: "json",
                         data: JSON.stringify(params),
 
                         success: function (r) {
@@ -725,6 +731,7 @@ function allRsvtMoneyInsert() {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(result),
 
@@ -750,6 +757,7 @@ function allRsvtMoneyInsert() {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(result),
 

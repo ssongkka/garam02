@@ -195,6 +195,26 @@ public class VehicleInfoDTO {
 	// 삭제여부
 	private Integer vemaintenancetrash;
 
+	// 번호
+	private Integer inspecseq;
+
+	// 유효기간시작일
+	private String inspecdatestart;
+
+	// 유효기간만료일
+	private String inspecdateend;
+	private String inspecdate;
+
+	private Integer inspecdistance;
+
+	// 검사시행장소
+	private String inspecplace;
+
+	private String inspecsepa;
+
+	// 삭제여부
+	private Integer inspectrash;
+
 	public Integer getLoansepano() {
 		return loansepano;
 	}
@@ -847,6 +867,70 @@ public class VehicleInfoDTO {
 
 	public void setVemaintenancetrash(Integer vemaintenancetrash) {
 		this.vemaintenancetrash = vemaintenancetrash;
+	}
+
+	public Integer getInspecseq() {
+		return inspecseq;
+	}
+
+	public void setInspecseq(Integer inspecseq) {
+		this.inspecseq = inspecseq;
+	}
+
+	public String getInspecdatestart() {
+		return inspecdatestart;
+	}
+
+	public void setInspecdatestart(String inspecdatestart) {
+		this.inspecdatestart = inspecdatestart;
+	}
+
+	public String getInspecdateend() {
+		return inspecdateend;
+	}
+
+	public void setInspecdateend(String inspecdateend) {
+		this.inspecdateend = inspecdateend;
+	}
+
+	public Integer getInspecdistance() {
+		return inspecdistance;
+	}
+
+	public void setInspecdistance(Integer inspecdistance) {
+		this.inspecdistance = inspecdistance;
+	}
+
+	public String getInspecplace() {
+		return inspecplace;
+	}
+
+	public void setInspecplace(String inspecplace) {
+		this.inspecplace = inspecplace;
+	}
+
+	public String getInspecsepa() {
+		return inspecsepa;
+	}
+
+	public void setInspecsepa(String inspecsepa) {
+		this.inspecsepa = inspecsepa;
+	}
+
+	public Integer getInspectrash() {
+		return inspectrash;
+	}
+
+	public void setInspectrash(Integer inspectrash) {
+		this.inspectrash = inspectrash;
+	}
+
+	public String getInspecdate() {
+		return inspecdate;
+	}
+
+	public void setInspecdate(String inspecdate) {
+		this.inspecdate = inspecdate;
 	}
 
 }

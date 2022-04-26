@@ -166,7 +166,8 @@ function getRegular(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 $('#rgcompa').html(r[0].regcompany);
@@ -201,7 +202,8 @@ function getRegularDeAll(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 $('#rgch-tbb')
@@ -354,6 +356,7 @@ function getRecou(iidd) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -423,6 +426,7 @@ function getRecou(iidd) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -853,7 +857,8 @@ function updateRegularDeOrder(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r == 0) {
@@ -895,7 +900,8 @@ function insertRegularDe(result) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r == 0) {
@@ -988,6 +994,7 @@ function updateRegularDe(papa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1037,6 +1044,7 @@ function delOperCar(papa) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1082,6 +1090,7 @@ function delRegularDe(code, trash) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
@@ -1119,7 +1128,8 @@ $(document).on('click', '#plusgoTb', function () {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1156,7 +1166,8 @@ $(document).on('click', '#plusoutTb', function () {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1285,7 +1296,8 @@ $(document).on('click', '.insertCo', function (eInner) {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1324,7 +1336,8 @@ $(document).on('click', '.btnn', function (eInner) {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1369,7 +1382,8 @@ $(document).on('click', '.delCo', function (eInner) {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1410,7 +1424,8 @@ $(document).on('click', '[name = "chDow"]', function (eInner) {
         url: url,
         type: "POST",
         headers: headers,
-        dataType: "json",
+        caches: false,
+                dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1450,7 +1465,8 @@ $(document).on('keyup', '#rdememoo', function (eInner) {
             url: url,
             type: "POST",
             headers: headers,
-            dataType: "json",
+            caches: false,
+                dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r == 0) {
@@ -1553,6 +1569,7 @@ function upcource(ppp) {
                 url: url,
                 type: "POST",
                 headers: headers,
+                caches: false,
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
