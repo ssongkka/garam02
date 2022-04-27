@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.employee.service.EmployeeService;
 import com.garam.web.regular.dto.RegularDTO;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -256,5 +258,33 @@ public class RestEmployeeController {
 		int rtn = employeeService.updateEmpMoneys(employeeInfoDTO);
 
 		return rtn;
+	}
+
+	@PostMapping(value = "/getempOpermonth")
+	public List<RsvtDTO> getempOpermonth(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<RsvtDTO> list = employeeService.selectempOperMonth(employeeInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/getempOpersepa")
+	public List<RsvtDTO> getempOpersepa(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<RsvtDTO> list = employeeService.selectempOperSepa(employeeInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/getempMoney")
+	public List<EmpsalaryAll> getempMoney(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<EmpsalaryAll> list = employeeService.selectMainEmpSal(employeeInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empselacc")
+	public List<VehicleInfoDTO> empselacc(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = employeeService.selectEmpveAcc(vehicleInfoDTO);
+
+		return list;
 	}
 }

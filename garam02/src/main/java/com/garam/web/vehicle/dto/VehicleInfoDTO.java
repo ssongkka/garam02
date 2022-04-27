@@ -173,6 +173,8 @@ public class VehicleInfoDTO {
 	// 횟수
 	private Integer loansepatime;
 
+	private Integer loansepatrash;
+
 	// 번호
 	private Integer vemaintenanceseq;
 
@@ -214,6 +216,27 @@ public class VehicleInfoDTO {
 
 	// 삭제여부
 	private Integer inspectrash;
+
+	private Integer veaccseq;
+
+	// 사고내용
+	private String veacccont;
+
+	// 사고일자
+	private String veaccdate;
+
+	private String veacctime;
+
+	// 사고종결일자
+	private String veaccenddate;
+
+	// 처리내용
+	private String veaccinsu;
+
+	// 사고금액
+	private Integer veaccmoney;
+
+	private Integer veacctrash;
 
 	public Integer getLoansepano() {
 		return loansepano;
@@ -797,6 +820,14 @@ public class VehicleInfoDTO {
 		this.loansepatime = loansepatime;
 	}
 
+	public Integer getLoansepatrash() {
+		return loansepatrash;
+	}
+
+	public void setLoansepatrash(Integer loansepatrash) {
+		this.loansepatrash = loansepatrash;
+	}
+
 	public void setVehicle2(String vehicle2) {
 		this.vehicle2 = vehicle2;
 	}
@@ -931,6 +962,70 @@ public class VehicleInfoDTO {
 
 	public void setInspecdate(String inspecdate) {
 		this.inspecdate = inspecdate;
+	}
+
+	public Integer getVeaccseq() {
+		return veaccseq;
+	}
+
+	public void setVeaccseq(Integer veaccseq) {
+		this.veaccseq = veaccseq;
+	}
+
+	public String getVeacccont() {
+		return veacccont;
+	}
+
+	public void setVeacccont(String veacccont) {
+		this.veacccont = veacccont;
+	}
+
+	public String getVeaccdate() {
+		return veaccdate;
+	}
+
+	public void setVeaccdate(String veaccdate) {
+		this.veaccdate = veaccdate;
+	}
+
+	public String getVeaccenddate() {
+		return veaccenddate;
+	}
+
+	public void setVeaccenddate(String veaccenddate) {
+		this.veaccenddate = veaccenddate;
+	}
+
+	public String getVeaccinsu() {
+		return veaccinsu;
+	}
+
+	public void setVeaccinsu(String veaccinsu) {
+		this.veaccinsu = veaccinsu;
+	}
+
+	public Integer getVeaccmoney() {
+		return veaccmoney;
+	}
+
+	public void setVeaccmoney(Integer veaccmoney) {
+		this.veaccmoney = veaccmoney;
+	}
+
+	public Integer getVeacctrash() {
+		return veacctrash;
+	}
+
+	public void setVeacctrash(Integer veacctrash) {
+		this.veacctrash = veacctrash;
+	}
+
+	public String getVeacctime() {
+		return veacctime;
+	}
+
+	public void setVeacctime(String veacctime) {
+		this.veacctime = veacctime;
 	}
 
 }

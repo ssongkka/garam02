@@ -636,7 +636,8 @@
 		#{loanno},
 		#{loansepaday},
 		#{loansepamoney},
-		#{loansepatime}
+		#{loansepatime},
+		1
 		);
 
 	</insert>
@@ -914,5 +915,93 @@
 		DESC;
 
 	</select>
+
+	<select id="selectveAcc" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		veacc
+
+		WHERE
+
+		veacc.carnumber = #{carnumber}
+
+	</select>
+	<select id="selectveAccSeq" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		veacc
+
+		WHERE
+
+		veacc.veaccseq = #{veaccseq}
+
+	</select>
+
+	<insert id="insertveAcc" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		INSERT INTO veacc
+
+		VALUES
+		(
+		null,
+		#{carnumber},
+		#{id},
+		#{veacccont},
+		#{veaccdate},
+		#{veacctime},
+		#{veaccenddate},
+		#{veaccinsu},
+		#{veaccmoney},
+		1
+		)
+
+	</insert>
+	<update id="updateveAcc" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE veacc
+
+		SET
+
+		id = #{id},
+		veacccont =
+		#{veacccont},
+		veaccdate =
+		#{veaccdate},
+		veacctime = #{veacctime},
+		veaccenddate = #{veaccenddate},
+		veaccinsu =
+		#{veaccinsu},
+		veaccmoney =
+		#{veaccmoney}
+
+		WHERE
+
+		veaccseq = #{veaccseq}
+
+	</update>
+
+	<delete id="deleteveAcc" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+		DELETE
+
+		FROM
+
+		veacc
+
+		WHERE
+
+		veacc.veaccseq = #{veaccseq}
+	</delete>
 
 </mapper>

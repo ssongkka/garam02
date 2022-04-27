@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.regular.dto.RegularDTO;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
 @Mapper
 public interface EmployeeMapper {
@@ -68,4 +70,12 @@ public interface EmployeeMapper {
 	public int updateRegOper1(RegularDTO regularDTO) throws Exception;
 
 	public int updateEmpMoneys(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public List<RsvtDTO> selectempOperMonth(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public List<RsvtDTO> selectempOperSepa(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public List<EmpsalaryAll> selectMainEmpSal(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectEmpveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

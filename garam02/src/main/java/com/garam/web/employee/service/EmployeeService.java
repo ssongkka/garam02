@@ -7,11 +7,13 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.regular.dto.RegularDTO;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
 public interface EmployeeService {
 	public int insertEmp(EmployeeInfoDTO employeeInfoDTO) throws Exception;
@@ -71,4 +73,12 @@ public interface EmployeeService {
 	public int updateEmpMoneys(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
 	public File empSalaryPdf(String id, String date, String ve, String name) throws Exception;
+
+	public List<RsvtDTO> selectempOperMonth(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public List<RsvtDTO> selectempOperSepa(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public List<EmpsalaryAll> selectMainEmpSal(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectEmpveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

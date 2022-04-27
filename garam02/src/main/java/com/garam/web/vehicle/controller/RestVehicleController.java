@@ -481,4 +481,66 @@ public class RestVehicleController {
 		return list;
 	}
 
+	@PostMapping(value = "/veselacc")
+	public List<VehicleInfoDTO> veselacc(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectveAcc(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veselaccseq")
+	public List<VehicleInfoDTO> veselaccseq(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectveAccSeq(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veinacc")
+	public int veinacc(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.insertveAcc(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veupacc")
+	public int veupacc(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.updateveAcc(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/vedelacc")
+	public int vedelacc(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.deleteveAcc(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
 }

@@ -1,47 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-    <div th:fragment="emp-oper" class="operEmp card-song">
-        <div class="operEmp-item">
-            <div class="dash-cal-h">
-                <div class="dash-cal-h-item dash-cal-h-item1" id="fnDownMonth">
-                    <i class="fas fa-chevron-left fa-lg"></i>
-                </div>
-                <div class="dash-cal-h-item dash-cal-h-item2" id="">
-                    <strong><input class="yearmonths" type="month" id="yearMonth01" value=""></strong>
-                </div>
-                <div class="dash-cal-h-item dash-cal-h-item3" id="fnUpMonth">
-                    <i class="fas fa-chevron-right fa-lg"></i>
+    <div th:fragment="emp-oper" class="operEmp">
+        <div class="veOperMain">
+            <h3>운행내역</h3>
+            <div class="accordion" id="accordionPanelsOper">
+                <div class="accordion-item">
+                    <h4 class="accordion-header" id="panelsStayHead-1">
+                        <button
+                            class="accordion-button"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-1"
+                            aria-expanded="true"
+                            aria-controls="panelsStayOpen-1">
+                            <div class="veOperTitle">
+                                <div class="veOperTitle-item">2022-04</div>
+                                <div class="veOperTitle-item">3회</div>
+                                <div class="veOperTitle-item">350,000</div>
+                            </div>
+                        </button>
+                    </h4>
+                    <div
+                        id="panelsStayOpen-1"
+                        class="accordion-collapse collapse show"
+                        aria-labelledby="panelsStayHead-1">
+                        <div class="accordion-body">
+                            <table class="table table-bordered">
+                                <colgroup>
+                                    <col width="18%">
+                                    <col width="26%">
+                                    <col width="26%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>날짜</th>
+                                        <th>고객정보</th>
+                                        <th>목적지</th>
+                                        <th>대당금액</th>
+                                        <th>배차금액</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="">
+                                    <tr>
+                                        <td>
+                                            <input type="hidden">
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="operEmp-item"></div>
-        <div class="operEmp-item card-song">
-            <div>
-                <h4>일반 운행 내역</h4>
-            </div>
-            <div class="table-responsive">
-                <table
-                    class="table table-striped table-hover table-bordered  table-sortable home-tb">
-                    <colgroup></colgroup>
-                    <thead>
-                        <tr>
-                            <th class="hideTh"></th>
-                            <th class="hideTh"></th>
-                            <th class="hideTh"></th>
-                            <th class="hideTh"></th>
-                            <th>#</th>
-                            <th>운행일</th>
-                            <th>목적지</th>
-                            <th>운행</th>
-                            <th>고객정보</th>
-                            <th>금액</th>
-                        </tr>
-                    </thead>
-                    <tbody id="emp-oper-tb"></tbody>
-                </table>
-            </div>
-        </div>
-        <div class="operEmp-item card-song"></div>
     </div>
 </html>

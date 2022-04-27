@@ -23,12 +23,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.garam.Utils.FTPManager;
 import com.garam.Utils.PDFUtil;
 import com.garam.Utils.Utils;
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmpRsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.dto.Empsalary;
 import com.garam.web.employee.dto.EmpsalaryAll;
 import com.garam.web.employee.mapper.EmployeeMapper;
 import com.garam.web.regular.dto.RegularDTO;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -1103,5 +1105,33 @@ public class EmployeeServiceImpl implements EmployeeService {
 		arrRtn.add(tmpArr555);
 
 		return arrRtn;
+	}
+
+	@Override
+	public List<RsvtDTO> selectempOperMonth(EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<RsvtDTO> list = employeeMapper.selectempOperMonth(employeeInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectempOperSepa(EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<RsvtDTO> list = employeeMapper.selectempOperSepa(employeeInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<EmpsalaryAll> selectMainEmpSal(EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<EmpsalaryAll> list = employeeMapper.selectMainEmpSal(employeeInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectEmpveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = employeeMapper.selectEmpveAcc(vehicleInfoDTO);
+
+		return list;
 	}
 }

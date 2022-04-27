@@ -276,6 +276,9 @@ function insertLoanSepa() {
                     const janSum = parseInt($('#loanjanM').val().replaceAll(',', '')) - parseInt(
                         $('#inputLoanMonetInsert').val().replaceAll(',', '')
                     );
+
+                    console.log('janSum   ' + janSum);
+
                     if (janSum == 0 || (janSum < 10000)) {
                         updateLoanTheEnd()
                             .then(makeReLoan)
@@ -647,9 +650,7 @@ $(document).on('click', '.delLoan', function () {
     const aaa1 = $(aaa).children()[0];
     const loanSepaSeqq = $(aaa1).val();
 
-    LoadingWithMask()
-        .then(delLoanSepa)
-        .then(checkLoanSum);
+    LoadingWithMask().then(delLoanSepa);
 
     function delLoanSepa(result) {
         return new Promise(function (resolve, reject) {
@@ -672,19 +673,10 @@ $(document).on('click', '.delLoan', function () {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    makeModalLoanCont($('#loancontNum').val(), 1);
+                    const aaaaaa = parseInt($('#loanAllmoney').val().replaceAll(',', ''));
+                    const bbbbbb = parseInt($('#loanjanM').val().replaceAll(',', ''));
 
-                    const janSum = parseInt($('#loanjanM').val().replaceAll(',', '')) - parseInt(
-                        loanSepaMoney
-                    );
-
-                    if (janSum > 0) {
-                        updateLoanTheEndEnd().then(closeLoadingWithMask);
-                    } else {
-                        closeLoadingWithMask();
-                    }
-
-                    resolve();
+                    checkLoanSum();
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);
@@ -694,7 +686,7 @@ $(document).on('click', '.delLoan', function () {
         })
     }
 
-    function checkLoanSum() {
+    function checkLoanSum(result) {
         return new Promise(function (resolve, reject) {
             const url = "/ve/veLoanNo";
             const headers = {
@@ -720,6 +712,16 @@ $(document).on('click', '.delLoan', function () {
 
                     if (r.length > 0) {
                         const summ = parseInt(r[0].loan) - parseInt(r[0].price);
+
+                        const aaaaaa = parseInt($('#loanAllmoney').val().replaceAll(',', ''));
+                        const bbbbbb = parseInt($('#loanjanM').val().replaceAll(',', ''));
+
+                        console.log("aaaaaa  " + aaaaaa);
+                        console.log("bbbbbb  " + bbbbbb);
+
+                        console.log("summ1   " + summ);
+                        console.log("summ2   " + parseInt(r[0].loan));
+                        console.log("summ3   " + parseInt(r[0].price));
 
                         if (summ <= 10000) {
                             updateLoanTheEndEnd(2).then(closeLoadingWithMask);
@@ -757,6 +759,7 @@ $(document).on('click', '.delLoan', function () {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+                    makeModalLoanCont($('#loancontNum').val(), 1);
                     resolve();
                 },
                 error: (jqXHR) => {

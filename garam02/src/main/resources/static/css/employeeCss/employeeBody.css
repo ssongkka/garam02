@@ -215,6 +215,37 @@
     margin: 2rem 1rem;
 }
 
+.hideTh {
+    display: none;
+}
+
+.infoEmp,
+.moneyEmp,
+.operEmp {
+    padding: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.veOperTitle {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-end;
+}
+
+.veOperTitle-item:nth-child(1) {
+    font-size: 1.5rem;
+    width: 20%;
+}
+.veOperTitle-item:nth-child(2) {
+    width: 5%;
+    text-align: right;
+}
+
 @media (max-width:768px) {
 
     .emp-nth {

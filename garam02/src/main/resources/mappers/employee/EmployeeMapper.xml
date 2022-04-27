@@ -4,13 +4,15 @@
 
 	<sql id="empColumns">
 		employeeinfo.id, employeeinfo.company, employeeinfo.kind,
-		employeeinfo.joind, employeeinfo.endd, employeeinfo.name,
+		employeeinfo.joind, employeeinfo.endd,
+		employeeinfo.name,
 		employeeinfo.gender, employeeinfo.birthday, employeeinfo.phone1,
 		employeeinfo.phone2,
 		employeeinfo.address, employeeinfo.garage,
 		employeeinfo.bosum,
 		employeeinfo.bobuj, employeeinfo.drvl,
-		employeeinfo.busl, employeeinfo.memo, employeeinfo.bank,
+		employeeinfo.busl,
+		employeeinfo.memo, employeeinfo.bank,
 		employeeinfo.gye,
 		employeeinfo.gyename,
 		employeeinfo.basem,
@@ -21,8 +23,7 @@
 		vehicleinfo.vehicle
 	</sql>
 
-	<insert id="insertEmp"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+	<insert id="insertEmp" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
 		INSERT INTO
 
 		employeeinfo
@@ -88,8 +89,7 @@
 		);
 	</insert>
 
-	<update id="updateEmp"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+	<update id="updateEmp" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		UPDATE
 
@@ -103,7 +103,8 @@
 		#{joind},
 		endd = #{endd},
 		name = #{name},
-		gender = #{gender},
+		gender =
+		#{gender},
 		birthday =
 		#{birthday},
 		phone1 = #{phone1},
@@ -111,7 +112,8 @@
 		address =
 		#{address},
 		garage = #{garage},
-		bosum = #{bosum},
+		bosum =
+		#{bosum},
 		bobuj = #{bobuj},
 		drvl =
 		#{drvl},
@@ -119,7 +121,8 @@
 		memo = #{memo},
 		bank = #{bank},
 		gye = #{gye},
-		gyename = #{gyename},
+		gyename =
+		#{gyename},
 		trash = #{trash},
 		<if test="img != null and img != '' ">img = #{img},</if>
 		id = #{id}
@@ -129,8 +132,7 @@
 		id = #{id};
 	</update>
 
-	<update id="deleteEmp"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+	<update id="deleteEmp" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		UPDATE
 
@@ -147,8 +149,7 @@
 		#{id};
 	</update>
 
-	<select id="selectEmpAll"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+	<select id="selectEmpAll" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
 		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		SELECT
@@ -177,8 +178,7 @@
 
 	</select>
 
-	<select id="selectEmpNameList"
-		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+	<select id="selectEmpNameList" resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		SELECT
 
@@ -190,8 +190,7 @@
 		ORDER BY name
 	</select>
 
-	<select id="selectEmpName"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+	<select id="selectEmpName" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
 		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		SELECT
@@ -207,12 +206,12 @@
 
 		WHERE employeeinfo.name = #{name}
 
-		ORDER BY name;
+		ORDER BY
+		name;
 
 	</select>
 
-	<select id="selectEmpDetail"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+	<select id="selectEmpDetail" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
 		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		SELECT
@@ -231,8 +230,7 @@
 		ORDER BY name;
 	</select>
 
-	<select id="selectEmpOperList"
-		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+	<select id="selectEmpOperList" parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
 		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
 
 		SELECT
@@ -278,7 +276,8 @@
 
 		WHERE
 
-		(operation_info.operday BETWEEN
+		(operation_info.operday
+		BETWEEN
 		#{stday} AND #{endday})
 
 		AND
@@ -298,8 +297,7 @@
 
 	</select>
 
-	<select id="selectEmpOperListCnt"
-		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+	<select id="selectEmpOperListCnt" parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
 		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
 
 		SELECT
@@ -355,4 +353,126 @@
 
 	</select>
 
+	<select id="selectempOperMonth" parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		CONCAT(YEAR(operation_info.operday), '-',
+		MONTH(operation_info.operday)) AS ctmaddress,
+
+		SUM(operation_info.atlm) AS
+		ctmtrash,
+
+		SUM(rsvt.numm) AS
+		opertype,
+
+		COUNT(operation_info.operseq) AS conm
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt = rsvt.rsvt
+
+		WHERE
+
+		operation_info.dayst = 1
+
+		AND
+
+		operation_info.operid = #{id}
+
+		GROUP
+		BY
+		ctmaddress
+
+		ORDER BY
+		YEAR(operation_info.operday) DESC,
+		MONTH(operation_info.operday) DESC
+
+
+	</select>
+
+	<select id="selectempOperSepa" parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt = rsvt.rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		operation_info.dayst = 1
+
+		AND
+
+		operation_info.operid = #{id}
+
+		ORDER BY
+		operation_info.operday
+		DESC;
+
+	</select>
+
+	<select id="selectMainEmpSal" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+		resultType="com.garam.web.employee.dto.EmpsalaryAll">
+
+		SELECT
+
+		*
+
+		FROM
+
+		personnalsalary
+
+		WHERE
+
+		personnalsalary.id = #{id}
+
+
+	</select>
+
+	<select id="selectEmpveAcc" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		veacc
+
+		WHERE
+
+		veacc.id = #{id}
+
+	</select>
 </mapper>

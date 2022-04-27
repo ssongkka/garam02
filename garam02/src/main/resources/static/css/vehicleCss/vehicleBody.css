@@ -350,6 +350,7 @@
     display: none;
 }
 
+.accVe,
 .inspecVe,
 .insumain,
 .maintenanceVe,
@@ -390,6 +391,15 @@
 .veOperTitle-item:nth-child(2) {
     width: 5%;
     text-align: right;
+}
+
+.mdaccFoot {
+    display: flex;
+    flex-direction: row;
+}
+
+.choAcc {
+    cursor: pointer;
 }
 
 @media (max-width:768px) {

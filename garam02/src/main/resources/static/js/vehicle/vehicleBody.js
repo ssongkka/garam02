@@ -558,6 +558,7 @@ function getVeInfo(carnumber) {
     if ($('#accve').css('display') === 'block') {
         LoadingWithMask()
             .then(get)
+            .then(makeAcc)
             .then(closeLoadingWithMask);
     }
 
@@ -2538,6 +2539,156 @@ function makeInspec() {
         })
     }
 }
+
+$(document).on('click', '#veTitleacc', function () {
+    makeAcc();
+});
+
+function makeAcc() {
+
+    LoadingWithMask()
+        .then(getAcc)
+        .then(closeLoadingWithMask);
+
+    function getAcc() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veselacc";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": $('#ve00').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+
+                        let acCont = '';
+                        let acInsu = '';
+                        let acenday = '';
+                        let acMon = '';
+                        let accId = '';
+
+                        const acTime = r[i]
+                            .veacctime
+                            .split(':')[0] + ':' + r[i]
+                            .veacctime
+                            .split(':')[1];
+
+                        if (r[i].veacccont.length > 6) {
+                            acCont = r[i]
+                                .veacccont
+                                .substring(0, 7) + '...';
+                        } else {
+                            acCont = r[i].veacccont;
+                        }
+
+                        if (r[i].veaccinsu) {
+                            acInsu = r[i].veaccinsu;
+                        }
+
+                        if (r[i].veaccenddate) {
+                            acenday = r[i].veaccenddate;
+                        }
+
+                        if (r[i].veaccmoney) {
+                            acMon = AddComma(r[i].veaccmoney);
+                        }
+
+                        if (r[i].id) {
+                            for (let k = 0; k < dbEmp.length; k++) {
+                                if (r[i].id == dbEmp[k].id) {
+                                    accId = dbEmp[k].name;
+                                }
+                            }
+                        } else {
+                            accId = '없음';
+                        }
+
+                        htmls += `
+                    <tr class="choAcc">
+                        <td>` + r[i].veaccdate +
+                                `
+                            <input type="hidden" value="` + r[i].veaccseq +
+                                `">
+                        </td>
+                        <td>` + acTime +
+                                `</td>
+                        <td>` + accId +
+                                `</td>
+                        <td>` + acenday +
+                                `</td>
+                        <td>` + acInsu +
+                                `</td>
+                        <td class="tdRight">` + acMon +
+                                `</td>
+                    </tr>`;
+                    }
+                    $('#accBd').html(htmls);
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+}
+
+$(document).on('click', '#newAccCont', function () {
+
+    LoadingWithMask()
+        .then(sttt1)
+        .then(sttt2)
+        .then(closeLoadingWithMask);
+
+    function sttt1() {
+        return new Promise(function (resolve, reject) {
+            $('#accDate').val(toStringByFormatting(new Date()));
+            $('#accTime').val('12:00');
+            $('#accId').val('없음');
+            $('#accEndDate').val('');
+            $('#accMoney').val('');
+            $('#accEndCont').val('');
+            $('#accCont').val('');
+
+            $('#accCont-del').hide();
+            resolve();
+        })
+    }
+
+    function sttt2() {
+        return new Promise(function (resolve, reject) {
+
+            const carN = $('#ve00').val();
+
+            const bbb = $('#ve02').children()[0];
+            const canNumNUm = $(bbb).text();
+
+            $('#accCarNum').val(carN);
+            $('#acccontNum').val('');
+
+            $('#accCont-insert').html(`입&nbsp;력`);
+
+            $('#modal-accCont-mh').text(canNumNUm + "  사고내역 입력");
+
+            $('#modal-accCont').modal('show');
+            resolve();
+        })
+    }
+});
 
 $(document).on('change', '#daystInspec', function () {
     const tmpd = ($("#daystInspec").val()).split('-');

@@ -82,4 +82,14 @@ public interface VehicleMapper {
 	public List<RsvtDTO> selectOperMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<RsvtDTO> selectOperSepa(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectveAccSeq(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int updateveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int deleteveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

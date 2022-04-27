@@ -5,6 +5,13 @@ $(document).ready(function () {
     LoadingWithMask()
         .then(getEmpAll)
         .then(closeLoadingWithMask);
+
+    $('#mainoper-home-tab').attr("disabled", true);
+    $('#operemp-profile-tab').attr("disabled", true);
+    $('#moneyemp-profile-tab').attr("disabled", true);
+    $('#infoemp-profile-tab').attr("disabled", true);
+
+    $('#insert-money').attr("disabled", true);
 });
 
 $(document).on('click', '#show-aside', function () {
@@ -34,7 +41,7 @@ function getEmpAll(name) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -402,31 +409,66 @@ function getEmpAll(name) {
 }
 
 function getEmpInfo(id) {
+    $('#mainoper-home-tab').attr("disabled", false);
+    $('#operemp-profile-tab').attr("disabled", false);
+    $('#moneyemp-profile-tab').attr("disabled", false);
+    $('#infoemp-profile-tab').attr("disabled", false);
+
+    $('#insert-money').attr("disabled", false);
+
     tbChoice(id);
     $('#emp-iidd').val(id.split('cut')[0]);
 
-    LoadingWithMask()
-        .then(getEmp1)
-        .then(getAllMList)
-        .then(getEmpOperCnt)
-        .then(getEmpOper)
-        .then(setEmpRegDays)
-        .then(getEmpRegOper)
-        .then(getEmpRegOper1)
-        .then(getEmpAllAllOper1)
-        .then(getEmpAllAllOper2)
-        .then(getEmpInMList)
-        .then(getEmpOutMList)
-        .then(getEmpBaseM)
-        .then(setCheckBox)
-        .then(operMSet)
-        .then(operRegMSet)
-        .then(sumInList)
-        .then(sumOutList)
-        .then(sumIN)
-        .then(sumOut)
-        .then(sumAll333)
-        .then(closeLoadingWithMask);
+    console.log(id);
+
+    if ($('#empMoney').css('display') === 'block') {
+        LoadingWithMask()
+            .then(getEmp1)
+            .then(getAllMList)
+            .then(getEmpOperCnt)
+            .then(getEmpOper)
+            .then(setEmpRegDays)
+            .then(getEmpRegOper)
+            .then(getEmpRegOper1)
+            .then(getEmpAllAllOper1)
+            .then(getEmpAllAllOper2)
+            .then(getEmpInMList)
+            .then(getEmpOutMList)
+            .then(getEmpBaseM)
+            .then(setCheckBox)
+            .then(operMSet)
+            .then(operRegMSet)
+            .then(sumInList)
+            .then(sumOutList)
+            .then(sumIN)
+            .then(sumOut)
+            .then(sumAll333)
+            .then(closeLoadingWithMask);
+    }
+
+    if ($('#mainoper').css('display') === 'block') {
+        LoadingWithMask()
+            .then(getEmp1)
+            .then(closeLoadingWithMask);
+    }
+    if ($('#operemp').css('display') === 'block') {
+        LoadingWithMask()
+            .then(getEmp1)
+            .then(makeEmpOper)
+            .then(closeLoadingWithMask);
+    }
+    if ($('#moneyemp').css('display') === 'block') {
+        LoadingWithMask()
+            .then(getEmp1)
+            .then(makeEmpMoney)
+            .then(closeLoadingWithMask);
+    }
+    if ($('#infoemp').css('display') === 'block') {
+        LoadingWithMask()
+            .then(getEmp1)
+            .then(makeEmpAcc)
+            .then(closeLoadingWithMask);
+    }
 
     function getEmp1() {
         return new Promise(function (resolve, reject) {
@@ -682,6 +724,28 @@ $(document).on('click', '#insert-money', function () {
                 $('.nomal-aside').css('width', '30rem');
                 $('.nomal-main').css('padding-left', '30rem');
                 $('#compa-tab').click();
+
+                LoadingWithMask()
+                    .then(getAllMList)
+                    .then(getEmpOperCnt)
+                    .then(getEmpOper)
+                    .then(setEmpRegDays)
+                    .then(getEmpRegOper)
+                    .then(getEmpRegOper1)
+                    .then(getEmpAllAllOper1)
+                    .then(getEmpAllAllOper2)
+                    .then(getEmpInMList)
+                    .then(getEmpOutMList)
+                    .then(getEmpBaseM)
+                    .then(setCheckBox)
+                    .then(operMSet)
+                    .then(operRegMSet)
+                    .then(sumInList)
+                    .then(sumOutList)
+                    .then(sumIN)
+                    .then(sumOut)
+                    .then(sumAll333)
+                    .then(closeLoadingWithMask);
             } else {
                 $('#showm').val('0');
                 $('#insert-money').html(`급여입력<i class="fas fa-plus-square"></i>`);
@@ -930,7 +994,7 @@ function insertEmp(tp) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (tp > 0) {
@@ -943,5 +1007,384 @@ function insertEmp(tp) {
                 loginSession(jqXHR.status);
             }
         });
+    }
+}
+
+$(document).on('click', '#operemp-profile-tab', function () {
+    makeEmpOper();
+});
+
+function makeEmpOper() {
+
+    LoadingWithMask()
+        .then(getEmpOper)
+        .then(getEmpOperSepa)
+        .then(closeLoadingWithMask);
+
+    function getEmpOper() {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/getempOpermonth";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "id": $('#emp-iidd').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    console.log(r);
+
+                    let arrTmpMonth = new Array();
+
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+                        let sshhoww = ``;
+                        let coll = ``;
+
+                        if (i < 1) {
+                            sshhoww = ' show';
+                        } else {
+                            coll = ' collapsed';
+                        }
+
+                        let yemonth = ``;
+                        let yemonth1 = ``;
+
+                        if (r[i].ctmaddress.split('-')[1].length < 2) {
+                            yemonth = r[i]
+                                .ctmaddress
+                                .split('-')[0] + '년 0' + r[i]
+                                .ctmaddress
+                                .split('-')[1] + '월';
+                            yemonth1 = r[i]
+                                .ctmaddress
+                                .split('-')[0] + '0' + r[i]
+                                .ctmaddress
+                                .split('-')[1];
+                        } else {
+                            yemonth = r[i]
+                                .ctmaddress
+                                .split('-')[0] + '년 ' + r[i]
+                                .ctmaddress
+                                .split('-')[1] + '월';
+                            yemonth1 = r[i]
+                                .ctmaddress
+                                .split('-')[0] + r[i]
+                                .ctmaddress
+                                .split('-')[1];
+                        }
+
+                        arrTmpMonth.push("veoperBd" + yemonth1);
+
+                        htmls += `
+                    <div class="accordion-item">
+                        <h4 class="accordion-header" id="panelsStayHead-` +
+                                i +
+                                `">
+                            <button
+                                class="accordion-button` +
+                                coll +
+                                `"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-` +
+                                i +
+                                `"
+                                aria-expanded="true"
+                                aria-controls="panelsStayOpen-` +
+                                i +
+                                `">
+                                <div class="veOperTitle">
+                                    <div class="veOperTitle-item">` +
+                                yemonth +
+                                `</div>
+                                    <div class="veOperTitle-item">` + r[i].conm +
+                                `회</div>
+                                </div>
+                            </button>
+                        </h4>
+                        <div
+                            id="panelsStayOpen-` +
+                                i +
+                                `"
+                            class="accordion-collapse collapse` +
+                                sshhoww +
+                                `"
+                            aria-labelledby="panelsStayHead-` + i +
+                                `">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col width="18%">
+                                        <col width="26%">
+                                        <col width="26%">
+                                        <col width="15%">
+                                        <col width="15%">
+                                    </colgroup>
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="sortStrP">날짜</th>
+                                            <th class="sortStrP">고객정보</th>
+                                            <th class="sortStrP">목적지</th>
+                                            <th class="sortNumP">대당금액</th>
+                                            <th class="sortNumP">배차금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="veoperBd` +
+                                yemonth1 +
+                                `"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>`;
+                    }
+
+                    $('#accordionPanelsOper').html(htmls);
+                    resolve(arrTmpMonth);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getEmpOperSepa(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/getempOpersepa";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "id": $('#emp-iidd').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let arrTmpHtmls = new Array();
+
+                    for (let i = 0; i < r.length; i++) {
+                        let tmpHtml = ``;
+
+                        const ddaayyId = 'veoperBd' + r[i]
+                            .operday
+                            .split('-')[0] + r[i]
+                            .operday
+                            .split('-')[1];
+
+                        let chNum = 0;
+
+                        for (let k = 0; k < result.length; k++) {
+                            if (ddaayyId == result[k]) {
+                                chNum = k;
+                            }
+                        }
+
+                        arrTmpHtmls[chNum] += `
+                        <tr>
+                            <td>` + r[i].operday +
+                                `
+                                <input type="hidden" value="` + r[i].operseq +
+                                `">
+                            </td>
+                            <td>` + r[i].ctmname +
+                                `</td>
+                            <td>` + r[i].desty +
+                                `</td>
+                            <td class="tdRight">` + AddComma(r[i].numm) +
+                                `</td>
+                            <td class="tdRight">` + AddComma(r[i].atlm) +
+                                `</td>
+                        </tr>`;
+                    }
+
+                    for (let i = 0; i < result.length; i++) {
+                        const iidd = '#' + result[i];
+
+                        $(iidd).html(arrTmpHtmls[i]);
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+}
+
+$(document).on('click', '#moneyemp-profile-tab', function () {
+    makeEmpMoney();
+});
+
+function makeEmpMoney() {
+
+    LoadingWithMask()
+        .then(getEmpOper)
+        .then(closeLoadingWithMask);
+
+    function getEmpOper() {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/getempMoney";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "id": $('#emp-iidd').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+
+                        const yeammm = r[i]
+                            .date
+                            .split('-')[0] + "년 " + r[i]
+                            .date
+                            .split('-')[1] + "월";
+
+                        htmls += `
+                    <tr>
+                        <td>` + yeammm +
+                                `</td>
+                        <td class="tdRight">` + AddComma(
+                            parseInt(r[i].inm) - parseInt(r[i].outm)
+                        ) + `</td>
+                        <td>` + r[i].opercnt + '회' +
+                                `</td>
+                        <td class="tdRight">` + AddComma(r[i].opermoney) +
+                                `</td>
+                        <td class="tdRight">` + AddComma(r[i].inm) +
+                                `</td>
+                        <td class="tdRight">` + AddComma(r[i].outm) +
+                                `</td>
+                    </tr>`;
+                    }
+
+                    $('#empMoneyTb').html(htmls);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+            resolve();
+        })
+    }
+}
+
+$(document).on('click', '#infoemp-profile-tab', function () {
+    makeEmpAcc();
+});
+
+function makeEmpAcc() {
+
+    LoadingWithMask()
+        .then(getAcc)
+        .then(closeLoadingWithMask);
+
+    function getAcc() {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empselacc";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "id": $('#emp-iidd').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+
+                        let acInsu = '';
+                        let acenday = '';
+                        let acMon = '';
+
+                        const acTime = r[i]
+                            .veacctime
+                            .split(':')[0] + ':' + r[i]
+                            .veacctime
+                            .split(':')[1];
+
+                        if (r[i].veaccinsu) {
+                            acInsu = r[i].veaccinsu;
+                        }
+
+                        if (r[i].veaccenddate) {
+                            acenday = r[i].veaccenddate;
+                        }
+
+                        if (r[i].veaccmoney) {
+                            acMon = AddComma(r[i].veaccmoney);
+                        }
+
+                        htmls += `
+                    <tr class="choAcc">
+                        <td>` + r[i].veaccdate +
+                                `
+                            <input type="hidden" value="` + r[i].veaccseq +
+                                `">
+                        </td>
+                        <td>` + acTime +
+                                `</td>
+                        <td>` + acenday +
+                                `</td>
+                        <td>` + acInsu +
+                                `</td>
+                        <td class="tdRight">` + acMon +
+                                `</td>
+                    </tr>`;
+                    }
+                    $('#empaccBd').html(htmls);
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
     }
 }

@@ -1040,4 +1040,38 @@ public class VehicleServiceImpl implements VehicleService {
 		return list;
 	}
 
+	@Override
+	public List<VehicleInfoDTO> selectveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectveAcc(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectveAccSeq(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectveAccSeq(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.insertveAcc(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.updateveAcc(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int deleteveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.deleteveAcc(vehicleInfoDTO);
+
+		return rtn;
+	}
 }
