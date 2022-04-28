@@ -33,7 +33,7 @@ function getRsvtListIl() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -73,7 +73,7 @@ function getRsvtListMonth(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -244,7 +244,7 @@ function getSeachRsvtList(texts) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -264,7 +264,19 @@ function makeTableRsvt(r) {
 
     if (r.length > 0) {
 
+        let cntBus = 0;
+
+        let cntConM = 0;
+        let cntNumM = 0;
+        let cntJanM = 0;
+
         for (let i = 0; i < r.length; i++) {
+
+            cntBus = cntBus + parseInt(r[i].num);
+
+            cntConM = cntConM + parseInt(r[i].conm);
+            cntNumM = cntNumM + parseInt(r[i].numm);
+            cntJanM = cntJanM + parseInt(r[i].opertrash);
 
             let stttt = ''
             if (r[i].stt) {
@@ -307,13 +319,33 @@ function makeTableRsvt(r) {
                     `</td>
 </tr>`;
         }
+
+        const htmlsF = `
+    <tr>
+        <td colspan="3">합 계</td>
+        <td colspan="2">` +
+                r.length + `건</td>
+        <td colspan="2">` + AddComma(cntBus) +
+                `대</td>
+        <td class="tdRight">` + AddComma(cntConM) +
+                `</td>
+        <td class="tdRight">` + AddComma(cntNumM) +
+                `</td>
+        <td class="tdRight">` + AddComma(cntJanM) +
+                `</td>
+        <td></td>
+        <td></td>
+    </tr>`;
+
         $('#home2-tb-il').html(htmls);
+        $('#home2-tf-il').html(htmlsF);
     } else {
         htmls = `
         <tr>
         <th colspan="12">예약정보없음</th>
         </tr>`;
         $('#home2-tb-il').html(htmls);
+        $('#home2-tf-il').html(``);
     }
 }
 
@@ -332,5 +364,5 @@ $(document).on('click', '.rsvtChohome', function () {
     $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
     $('#RsvtOperDay').val(dayday1);
 
-    getMenuRsvt(rsvt1, 0);
+    getMenuRsvt(rsvt1, null, 0);
 });

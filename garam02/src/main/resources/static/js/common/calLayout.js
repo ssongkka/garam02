@@ -207,7 +207,6 @@ function displayMain() {
             getRsvtListMonth();
         }
     }
-
     if ($('#home3').css('display') === 'block') {
         if ($('#radioOper1').is(':checked')) {
             getOperListIl();

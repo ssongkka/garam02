@@ -1,8 +1,49 @@
 $(document).on('click', '.choAcc', function () {
+
+    $('#accCont-del').show();
+    $('#accCont-insert').show();
+    $('#accContWarring').hide();
+
     const aaa = $(this).children()[0];
     const aaa1 = $(aaa).children()[0];
 
     const seqqq = $(aaa1).val();
+
+    const carN = $('#ve00').val();
+
+    const bbb = $('#ve02').children()[0];
+    const canNumNUm = $(bbb).text();
+
+    $('#accCarNum').val(carN);
+
+    $('#accCont-insert').html(`수&nbsp;정`);
+
+    $('#modal-accCont-mh').text(canNumNUm + "  사고내역 수정");
+
+    getAccDetail(seqqq);
+});
+
+$(document).on('click', '.choempAcc', function () {
+
+    $('#accCont-del').hide();
+    $('#accCont-insert').hide();
+    $('#accContWarring').show();
+
+    const aaa = $(this).children()[0];
+    const aaa1 = $(aaa).children()[0];
+
+    const seqqq = $(aaa1).val();
+
+    const carN = $('#emp-iidd').val();
+
+    const bbb = $('#emp03').children()[0];
+    const canNumNUm = $(bbb).text();
+
+    $('#accCarNum').val(carN);
+
+    $('#accCont-insert').html(`수&nbsp;정`);
+
+    $('#modal-accCont-mh').text(canNumNUm + "  사고내역");
 
     getAccDetail(seqqq);
 });
@@ -85,8 +126,6 @@ function getAccDetail(accseq) {
                     $('#accMoney').val(accMoney);
                     $('#accEndCont').val(accInsu);
                     $('#accCont').val(accCont);
-
-                    $('#accCont-del').show();
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);
@@ -99,17 +138,6 @@ function getAccDetail(accseq) {
     function showAccModal() {
         return new Promise(function (resolve, reject) {
 
-            const carN = $('#ve00').val();
-
-            const bbb = $('#ve02').children()[0];
-            const canNumNUm = $(bbb).text();
-
-            $('#accCarNum').val(carN);
-
-            $('#accCont-insert').html(`수&nbsp;정`);
-
-            $('#modal-accCont-mh').text(canNumNUm + "  사고내역 수정");
-
             $('#modal-accCont').modal('show');
             resolve();
         })
@@ -117,7 +145,6 @@ function getAccDetail(accseq) {
 }
 
 $(document).on('click', '#accCont-insert', function () {
-    console.log($('#accTime').val());
 
     if (!$('#accDate').val()) {
         alert('사고일자를 입력해주세요.\n\n모르면 접수일자를 입력해주세요.');

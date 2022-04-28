@@ -1004,4 +1004,107 @@
 		veacc.veaccseq = #{veaccseq}
 	</delete>
 
+	<select id="selectGasVe" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		vehicleinfo
+
+		WHERE
+
+
+
+		(vehicleinfo.inday  <![CDATA[<=]]>
+		#{inday} )
+
+		AND
+
+		((vehicleinfo.outday  <![CDATA[>=]]>
+		#{outday} ) OR (vehicleinfo.outday IS NULL))
+
+		ORDER BY
+		vehicleinfo.vehicle
+
+	</select>
+
+	<select id="selectGasMonth" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		vegas
+
+		LEFT JOIN
+
+		vehicleinfo
+
+		ON
+
+		vegas.carnumber = vehicleinfo.carnumber
+
+		WHERE
+
+		vegas.vegasyearmonth = #{vegasyearmonth}
+
+		ORDER BY
+		vehicleinfo.vehicle
+
+	</select>
+
+	<insert id="insertGas" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		INSERT
+
+		INTO
+
+		vegas
+
+		VALUES
+
+		(
+		NULL,
+		#{carnumber},
+		#{vegasid},
+		#{vegasyearmonth},
+		#{km},
+		#{liter},
+		#{vegasmoney},
+		#{kml},
+		#{wonkm},
+		1,
+		)
+
+	</insert>
+
+	<update id="updateGas" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE vegas
+
+		SET
+
+		km =
+		#{km},
+		liter =
+		#{liter},
+		vegasmoney = #{vegasmoney},
+		kml =
+		#{kml},
+		wonkm =
+		#{wonkm}
+
+		WHERE
+
+		vegasseq = #{vegasseq};
+
+	</update>
+
 </mapper>

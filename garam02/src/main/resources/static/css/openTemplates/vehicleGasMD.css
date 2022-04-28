@@ -1,0 +1,20 @@
+.gascal {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+}
+
+.modalGasBd {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.spanGas {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+}

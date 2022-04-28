@@ -353,6 +353,20 @@ ul {
     justify-content: center;
 }
 
+.table-scroll-body-rsvt {
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: calc(100vh - 33rem);
+}
+
+.table-scroll-body-oper {
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: calc(100vh - 34rem);
+}
+
 .home2-search1 {
     width: 10rem;
 }

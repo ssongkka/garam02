@@ -32,7 +32,7 @@ function getOperListIl() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -73,7 +73,7 @@ function getOperListMonth(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -356,7 +356,7 @@ function getSeachOperList(texts) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -378,7 +378,13 @@ function makeTableOper(r) {
 
         let htmls = ``;
 
+        let cntNumM = 0;
+        let cntAtmM = 0;
+
         for (let i = 0; i < r.length; i++) {
+
+            cntNumM = cntNumM + parseInt(r[i].numm);
+            cntAtmM = cntAtmM + parseInt(r[i].atlm);
 
             let suk = '';
             if (r[i].stday != r[i].endday) {
@@ -396,7 +402,7 @@ function makeTableOper(r) {
             let carHtml = `<td class="operChohome tdPerson">` + carcar +
                     `</td>
         <td class="operChohome tdPerson"></td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
-            if (r[i].vehicle) {
+            if (r[i].vehicle && r[i].dayst == 1) {
                 if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
                     carcar = r[i]
                         .vehicle
@@ -439,7 +445,49 @@ function makeTableOper(r) {
                     }
 
                 }
+            } else if (r[i].vehicle && r[i].dayst > 1) {
+                if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
+                    carcar = r[i]
+                        .vehicle
+                        .replaceAll('고속', '')
+                        .replaceAll('관광', '')
+                        .replaceAll('여행사', '')
+                        .replaceAll('(주)', '');
+                    carHtml = `<td class="operChohome tdPerson">` + carcar +
+                            `</td>
+                        <td class="operChohome tdPerson">` + r[i].name +
+                            `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
+                            r[i].operseq +
+                            `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+                } else {
+                    carcar = (r[i].vehicle).substring((r[i].vehicle).length - 4);
+                    let cnt = 0;
+                    for (let k = 0; k < dbCompa.length; k++) {
+                        if (dbCompa[k].company == r[i].opercom) {
+                            cnt++;
+                        }
+                    }
+
+                    if (cnt > 0) {
+                        carHtml = `<td class="operChohome tdPerson">` + carcar +
+                                `</td>
+                        <td class="operChohome tdPerson">` + r[i].name +
+                                `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
+                                r[i].operseq +
+                                `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+                    } else {
+                        carHtml = `<td class="operChohome tdPerson">` + carcar +
+                                `</td>
+                        <td class="operChohome tdPerson">` + r[i].name +
+                                `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
+                                r[i].operseq +
+                                `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+                    }
+
+                }
             }
+
+            if (r[i].dayst) {}
 
             htmls += `
         <tr>
@@ -480,15 +528,21 @@ function makeTableOper(r) {
         </tr>`;
         }
         $('#home3-tb-il').html(htmls);
+
         $("input[data-type='currency']").bind('keyup keydown', function () {
             inputNumberFormat(this);
         });
+
+        sumFoot();
+
     } else {
         htmls = `
         <tr>
         <th colspan="10">운행정보없음</th>
         </tr>`;
         $('#home3-tb-il').html(htmls);
+
+        $('#home3-tf-il').html(``);
     }
 }
 
@@ -576,7 +630,7 @@ function upAltmMany(money) {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
 
         success: function (r) {
@@ -588,6 +642,7 @@ function upAltmMany(money) {
                         .children()[0];
                     $(aaa).val(AddComma(money));
                 }
+                sumFoot();
             });
         }
     })
@@ -631,11 +686,12 @@ function upAltmOne(domdom, money) {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
 
         success: function (r) {
             $(domdom).val(AddComma(money));
+            sumFoot();
         }
     })
 }
@@ -693,5 +749,57 @@ $(document).on('click', '.operChohome', function () {
     $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
     $('#RsvtOperDay').val(dayday1);
 
-    getMenuRsvt(rsvt1, 0);
+    getMenuRsvt(rsvt1, dayday1, 0);
 });
+
+function sumFoot() {
+    const aaa = $('#home3-tb-il').children();
+
+    let realatmMoney = 0;
+    let realnumM = 0;
+
+    for (let i = 0; i < aaa.length; i++) {
+        let atmMoney = 0;
+        let numM = 0;
+
+        const aa = $(aaa[i]).children()[0];
+        const aa1 = $(aa).children()[4];
+
+        const bbb = $(aaa[i]).children()[5];
+        const bbb1 = $(bbb).children()[0];
+        const bbb11 = $(bbb1).children()[1];
+        const bbb111 = $(bbb11).children()[0];
+
+        const ccc = $(aaa[i]).children()[6];
+
+        if ($(bbb111).val()) {
+            atmMoney = parseInt($(bbb111).val().replaceAll(',', ''));
+        } else {
+            atmMoney = 0;
+        }
+
+        if ($(ccc).text()) {
+            numM = parseInt($(ccc).text().replaceAll(',', ''));
+        } else {
+            numM = 0;
+        }
+
+        realatmMoney = realatmMoney + atmMoney;
+        realnumM = realnumM + numM;
+    }
+
+    $('#home3-tf-il').html(
+        `
+<tr>
+    <td colspan="5">합 계</td>
+    <td class="tdRight">` + AddComma(realatmMoney) +
+        `</td>
+    <td class="tdRight">` + AddComma(realnumM) +
+        `</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>`
+    );
+
+}

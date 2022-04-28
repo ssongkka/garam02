@@ -1102,7 +1102,7 @@ $(document).on('click', '.middle-suk', function () {
     getSukRsvt(rsvtrsvt, 0);
 });
 
-function getMenuRsvt(rsvtrsvt, choo) {
+function getMenuRsvt(rsvtrsvt, operday, choo) {
     return new Promise(function (resolve, reject) {
         const url = "/allo/rsvtsuk";
         const headers = {
@@ -1119,11 +1119,11 @@ function getMenuRsvt(rsvtrsvt, choo) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
-                makeHtmlsMenu(r, choo);
+                makeHtmlsMenu(r, operday, choo);
                 resolve();
             },
             error: (jqXHR) => {
@@ -1133,7 +1133,7 @@ function getMenuRsvt(rsvtrsvt, choo) {
     })
 }
 
-function makeHtmlsMenu(r, cho) {
+function makeHtmlsMenu(r, operday, cho) {
 
     switch (cho) {
         case 0:
@@ -1350,7 +1350,7 @@ function makeHtmlsMenu(r, cho) {
                 const operdddd1 = $(operdddd).children()[1];
                 const tod = $(operdddd1).val();
                 // const tttod = tod + Math.floor(Math.random() * 1000);
-                htmls += '<input type="hidden" value="' + r[i].stday + '">';
+                htmls += '<input type="hidden" value="' + operday + '">';
                 htmls += '<input type="hidden" value="' + r[i].endday + '">';
                 htmls += '<input type="hidden" value="' + r[i].numm + '">';
                 htmls += '</div>';
@@ -1501,7 +1501,8 @@ function makeHtmlsMenu(r, cho) {
             };
 
             const params = {
-                "rsvt": r[0].rsvt
+                "rsvt": r[0].rsvt,
+                "operday": operday
             };
 
             $.ajax({
@@ -1769,7 +1770,7 @@ function getSukRsvt(rsvtrsvt, choo) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -2405,7 +2406,7 @@ function closeMdRsvtOper() {
 
     function ex1() {
         return new Promise(function (resolve, reject) {
-            // setCalWhite($('.dash-cal-con-item-t').attr('id'));
+            displayMain();
             resolve();
         })
     }
@@ -2860,7 +2861,7 @@ function makeHtmlsIl(ctmnono, day, cho) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {

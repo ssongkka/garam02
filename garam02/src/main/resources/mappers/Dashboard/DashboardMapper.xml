@@ -668,12 +668,29 @@
 		rsvt
 
 		left
-		join customer on rsvt.ctmno =
+		join customer
+
+		on
+
+		rsvt.ctmno =
 		customer.ctmno
 
-		WHERE
+		<if test="operday != null">
+			left join
 
-		rsvt.rsvt = #{rsvt}
+			operation_info
+
+			on
+
+			rsvt.rsvt = operation_info.rsvt
+		</if>
+
+		<where>
+			rsvt.rsvt = #{rsvt}
+			<if test="operday != null">AND operation_info.operday = #{operday}
+			</if>
+		</where>
+
 
 		ORDER BY
 		rsvt.stday,
@@ -916,8 +933,11 @@
 		operation_info.rsvt =
 		rsvt.rsvt
 
-		WHERE
-		operation_info.rsvt = #{rsvt}
+		<where>
+			rsvt.rsvt = #{rsvt}
+			<if test="operday != null">AND operation_info.operday = #{operday}
+			</if>
+		</where>
 
 		ORDER BY
 		operation_info.rsvt;

@@ -67,8 +67,6 @@ $(document).on('click', '.aaadcascasca', function () {
 
                     let trashHtml = ``;
 
-                    console.log("insusepaTrash  " + insusepaTrash);
-
                     switch (parseInt(insusepaTrash)) {
                         case 1:
                             trashHtml = `
@@ -82,8 +80,6 @@ $(document).on('click', '.aaadcascasca', function () {
                         </td>`;
                             break;
                     }
-
-                    console.log(trashHtml);
 
                     let bangHtml = ``;
 
@@ -152,8 +148,6 @@ $(document).on('click', '.aaadcascasca', function () {
 
                     let trashHtml = ``;
 
-                    console.log("insusepaTrash  " + insusepaTrash);
-
                     switch (parseInt(insusepaTrash)) {
                         case 1:
                             trashHtml = `
@@ -167,8 +161,6 @@ $(document).on('click', '.aaadcascasca', function () {
                         </td>`;
                             break;
                     }
-
-                    console.log(trashHtml);
 
                     let bangHtml = ``;
 

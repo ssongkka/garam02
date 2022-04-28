@@ -123,7 +123,7 @@ $(document).on('keyup', '.ve-car', function (eInner) {
                         type: "POST",
                         headers: headers,
                         caches: false,
-                dataType: "json",
+                        dataType: "json",
                         data: JSON.stringify(params),
                         success: function (r) {
                             if (r.length > 0) {
@@ -242,7 +242,7 @@ $(document).on('keyup', '.ve-car-one', function (eInner) {
                         type: "POST",
                         headers: headers,
                         caches: false,
-                dataType: "json",
+                        dataType: "json",
                         data: JSON.stringify(params),
                         success: function (r) {
                             if (r.length > 0) {
@@ -1525,7 +1525,6 @@ function delAllo(id) {
                 .prev()
                 .prev()
                 .prev()
-                .prev()
                 .val();
 
             const operdddd = $('.dash-cal-con-item-t').children()[0];
@@ -1581,7 +1580,7 @@ function delAllo(id) {
                                 makeHtmlsIl(ctmnono, operdddd11, 1);
                                 break;
                             case '3':
-                                getMenuRsvt(rsvtrsvt, 1);
+                                getMenuRsvt(rsvtrsvt, null, 1);
                                 break;
                         }
                     }
@@ -1654,7 +1653,7 @@ function delOne(param) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -1870,15 +1869,11 @@ function updateRsvt(result) {
 
         $('#conm-1').val($('#conm-1').val().replaceAll(',', ''));
 
-        console.log($('#conm-1').val());
-        console.log($('#num-1').val());
-
         switch ($('#cont-1').val()) {
             case '포함':
                 $('#numm-1').val(
                     Math.floor(Math.round(($('#conm-1').val() / 1.1)) / $('#num-1').val())
                 );
-                console.log($('#num-1').val());
                 break;
             case '카드':
                 $('#numm-1').val(
@@ -1998,7 +1993,7 @@ $(document).on('click', '#inNewUp', function () {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -2056,7 +2051,7 @@ $(document).on('click', '#btn-rsvt-cancle', function () {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r > 0) {
@@ -2090,7 +2085,7 @@ $(document).on('click', '#btn-rsvt-del', function () {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r > 0) {
@@ -2470,7 +2465,7 @@ function makeAllo() {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -2769,7 +2764,7 @@ function makeAllo() {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {

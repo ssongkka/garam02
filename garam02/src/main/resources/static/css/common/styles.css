@@ -115,6 +115,17 @@ table > tbody > tr > td {
     vertical-align: middle;
 }
 
+table > tfoot > tr > td {
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+table > tfoot > tr > .tdRight {
+    text-align: right;
+    vertical-align: middle;
+}
+
 table > tbody > tr > .tdRight {
     text-align: right;
     vertical-align: middle;
@@ -442,8 +453,7 @@ object {
     position: relative;
     overflow-y: scroll;
     width: 100%;
-    /* min-height: calc(100vh - 23rem); */
-    max-height: calc(100vh - 25rem);
+    max-height: calc(100vh - 33rem);
 }
 
 /* .table-scroll-body::-webkit-scrollbar {

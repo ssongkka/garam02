@@ -543,4 +543,50 @@ public class RestVehicleController {
 		return rst;
 	}
 
+	@PostMapping(value = "/veselgas")
+	public List<VehicleInfoDTO> veselgas(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectGasVe(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veselgasmonth")
+	public List<VehicleInfoDTO> veselgasmonth(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selectGasMonth(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/veingas")
+	public int veingas(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.insertGas(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
+	@PostMapping(value = "/veupgas")
+	public int veupgas(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.updateGas(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
 }

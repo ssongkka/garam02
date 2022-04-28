@@ -7,6 +7,14 @@ $(document).ready(function () {
         .then(closeLoadingWithMask);
 
     $('#daymaintIn').val(toStringByFormatting(new Date()));
+
+    $('#veTitleHome').attr("disabled", true);
+    $('#veTitleOper').attr("disabled", true);
+    $('#veTitleInsu').attr("disabled", true);
+    $('#veTitleMoney').attr("disabled", true);
+    $('#veTitleInspec').attr("disabled", true);
+    $('#veTitlemaintenance').attr("disabled", true);
+    $('#veTitleacc').attr("disabled", true);
 });
 
 $(document).on('change', '#sel-ve-1', function () {
@@ -519,6 +527,14 @@ function getVeAll(vehicle) {
 }
 
 function getVeInfo(carnumber) {
+
+    $('#veTitleHome').attr("disabled", false);
+    $('#veTitleOper').attr("disabled", false);
+    $('#veTitleInsu').attr("disabled", false);
+    $('#veTitleMoney').attr("disabled", false);
+    $('#veTitleInspec').attr("disabled", false);
+    $('#veTitlemaintenance').attr("disabled", false);
+    $('#veTitleacc').attr("disabled", false);
 
     if ($('#veMain').css('display') === 'block') {
         LoadingWithMask()
@@ -1795,8 +1811,6 @@ function makeVeOper() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
-
                     let arrTmpMonth = new Array();
 
                     let htmls = ``;
@@ -2183,7 +2197,6 @@ function makeLoan() {
 
     function getLoan(result) {
         return new Promise(function (resolve, reject) {
-            console.log($('#ve00').val());
 
             const url = "/ve/veLoanCar";
             const headers = {

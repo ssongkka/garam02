@@ -419,8 +419,6 @@ function getEmpInfo(id) {
     tbChoice(id);
     $('#emp-iidd').val(id.split('cut')[0]);
 
-    console.log(id);
-
     if ($('#empMoney').css('display') === 'block') {
         LoadingWithMask()
             .then(getEmp1)
@@ -1042,8 +1040,6 @@ function makeEmpOper() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
-
                     let arrTmpMonth = new Array();
 
                     let htmls = ``;
@@ -1362,7 +1358,7 @@ function makeEmpAcc() {
                         }
 
                         htmls += `
-                    <tr class="choAcc">
+                    <tr class="choempAcc">
                         <td>` + r[i].veaccdate +
                                 `
                             <input type="hidden" value="` + r[i].veaccseq +

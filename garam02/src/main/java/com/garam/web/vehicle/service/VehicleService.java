@@ -98,4 +98,12 @@ public interface VehicleService {
 	public int updateveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public int deleteveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectGasVe(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+	
+	public List<VehicleInfoDTO> selectGasMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int updateGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

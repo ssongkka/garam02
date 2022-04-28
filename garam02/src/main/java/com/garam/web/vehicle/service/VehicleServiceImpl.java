@@ -1074,4 +1074,33 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return rtn;
 	}
+
+	@Override
+	public List<VehicleInfoDTO> selectGasVe(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectGasVe(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectGasMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selectGasMonth(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertGas(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.insertGas(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateGas(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.updateGas(vehicleInfoDTO);
+
+		return rtn;
+	}
+
 }

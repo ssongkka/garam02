@@ -584,7 +584,6 @@
                 class="main-adise-money"
                 id="empMoney"></div>
         </main>
-
         <!-- Modal -->
         <div
             id="modal-insert"
@@ -824,6 +823,7 @@
                 </div>
             </div>
         </div>
+        <div th:replace="openTemplates/vehicleAccMD :: ve-MD-accCont"></div>
         <script th:inline="javascript">
             /*<![CDATA[*/
             const user =/*[[${user}]]*/
@@ -895,5 +895,9 @@
             language="javascript"
             type="text/javascript"
             src="/js/employee/empMoneyInsertSumM.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/openTemplates/vehicleAccContMD.js?v=2020042201"></script>
     </body>
 </html>

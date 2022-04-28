@@ -277,8 +277,6 @@ function insertLoanSepa() {
                         $('#inputLoanMonetInsert').val().replaceAll(',', '')
                     );
 
-                    console.log('janSum   ' + janSum);
-
                     if (janSum == 0 || (janSum < 10000)) {
                         updateLoanTheEnd()
                             .then(makeReLoan)
@@ -592,8 +590,6 @@ $(document).on('keyup', '.inLoanSepaInput', function (eInner) {
                         if (r.length > 0) {
                             const summ = parseInt(r[0].loan) - parseInt(r[0].price);
 
-                            console.log("summ   " + summ);
-
                             if (summ <= 10000) {
                                 updateLoanTheEndEnd(2).then(closeLoadingWithMask);
                             } else {
@@ -715,13 +711,6 @@ $(document).on('click', '.delLoan', function () {
 
                         const aaaaaa = parseInt($('#loanAllmoney').val().replaceAll(',', ''));
                         const bbbbbb = parseInt($('#loanjanM').val().replaceAll(',', ''));
-
-                        console.log("aaaaaa  " + aaaaaa);
-                        console.log("bbbbbb  " + bbbbbb);
-
-                        console.log("summ1   " + summ);
-                        console.log("summ2   " + parseInt(r[0].loan));
-                        console.log("summ3   " + parseInt(r[0].price));
 
                         if (summ <= 10000) {
                             updateLoanTheEndEnd(2).then(closeLoadingWithMask);

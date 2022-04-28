@@ -246,6 +246,11 @@
     text-align: right;
 }
 
+.choAcc,
+.choempAcc {
+    cursor: pointer;
+}
+
 @media (max-width:768px) {
 
     .emp-nth {

@@ -20,8 +20,14 @@
                     </div>
                     <div class="nomal-aside-btn-item btn-group" role="group">
                         <button type="button" class="btn btn-default " id="md-Juk">
-                            교통안전통보서
+                            교통안전
                             <i class="fas fa-file-upload"></i>
+                        </button>
+                    </div>
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default " id="md-gas">
+                            연비정보
+                            <i class="fa-solid fa-gas-pump"></i>
                         </button>
                     </div>
                 </div>
@@ -599,15 +605,16 @@
             </div>
         </div>
     </main>
-    <div th:insert="vehicle/vehicleInsertMD :: ve-MD-insert"></div>
-    <div th:insert="vehicle/vehicleFileMD :: ve-MD-file"></div>
-    <div th:insert="vehicle/vehicleRegMD :: ve-MD-reg"></div>
-    <div th:insert="vehicle/vehicleInsuMD :: ve-MD-insu"></div>
-    <div th:insert="vehicle/vehicleJukMD :: ve-MD-juk"></div>
-    <div th:insert="vehicle/vehicleJukViewMD :: ve-MD-jukView"></div>
-    <div th:insert="openTemplates/vehicleInsuContMD :: ve-MD-insuCont"></div>
-    <div th:insert="openTemplates/vehicleLoanContMD :: ve-MD-loanCont"></div>
-    <div th:insert="openTemplates/vehicleAccMD :: ve-MD-accCont"></div>
+    <div th:replace="vehicle/vehicleInsertMD :: ve-MD-insert"></div>
+    <div th:replace="vehicle/vehicleFileMD :: ve-MD-file"></div>
+    <div th:replace="vehicle/vehicleRegMD :: ve-MD-reg"></div>
+    <div th:replace="vehicle/vehicleInsuMD :: ve-MD-insu"></div>
+    <div th:replace="vehicle/vehicleJukMD :: ve-MD-juk"></div>
+    <div th:replace="vehicle/vehicleJukViewMD :: ve-MD-jukView"></div>
+    <div th:replace="openTemplates/vehicleInsuContMD :: ve-MD-insuCont"></div>
+    <div th:replace="openTemplates/vehicleLoanContMD :: ve-MD-loanCont"></div>
+    <div th:replace="openTemplates/vehicleAccMD :: ve-MD-accCont"></div>
+    <div th:replace="openTemplates/vehicleGasMD :: ve-MD-gasCont"></div>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -677,5 +684,9 @@
         language="javascript"
         type="text/javascript"
         src="/js/openTemplates/vehicleAccContMD.js?v=2020042201"></script>
+    <script
+        language="javascript"
+        type="text/javascript"
+        src="/js/openTemplates/vehicleGasMD.js?v=2020042201"></script>
 </body>
 </html>

@@ -238,6 +238,16 @@ public class VehicleInfoDTO {
 
 	private Integer veacctrash;
 
+	private Integer vegasseq;
+	private String vegasid;
+	private String vegasyearmonth;
+	private Double km;
+	private Double liter;
+	private String vegasmoney;
+	private Double kml;
+	private Double wonkm;
+	private Integer vegastrash;
+
 	public Integer getLoansepano() {
 		return loansepano;
 	}
@@ -1026,6 +1036,78 @@ public class VehicleInfoDTO {
 
 	public void setVeacctime(String veacctime) {
 		this.veacctime = veacctime;
+	}
+
+	public Integer getVegasseq() {
+		return vegasseq;
+	}
+
+	public void setVegasseq(Integer vegasseq) {
+		this.vegasseq = vegasseq;
+	}
+
+	public String getVegasid() {
+		return vegasid;
+	}
+
+	public void setVegasid(String vegasid) {
+		this.vegasid = vegasid;
+	}
+
+	public String getVegasyearmonth() {
+		return vegasyearmonth;
+	}
+
+	public void setVegasyearmonth(String vegasyearmonth) {
+		this.vegasyearmonth = vegasyearmonth;
+	}
+
+	public Double getKm() {
+		return km;
+	}
+
+	public void setKm(Double km) {
+		this.km = km;
+	}
+
+	public Double getLiter() {
+		return liter;
+	}
+
+	public void setLiter(Double liter) {
+		this.liter = liter;
+	}
+
+	public String getVegasmoney() {
+		return vegasmoney;
+	}
+
+	public void setVegasmoney(String vegasmoney) {
+		this.vegasmoney = vegasmoney;
+	}
+
+	public Double getKml() {
+		return kml;
+	}
+
+	public void setKml(Double kml) {
+		this.kml = kml;
+	}
+
+	public Double getWonkm() {
+		return wonkm;
+	}
+
+	public void setWonkm(Double wonkm) {
+		this.wonkm = wonkm;
+	}
+
+	public Integer getVegastrash() {
+		return vegastrash;
+	}
+
+	public void setVegastrash(Integer vegastrash) {
+		this.vegastrash = vegastrash;
 	}
 
 }
