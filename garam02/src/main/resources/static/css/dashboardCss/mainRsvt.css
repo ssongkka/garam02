@@ -40,8 +40,6 @@
 
 .rsvt-main {
     flex: 1;
-    margin-right: 30rem;
-    padding: 2rem;
 }
 
 .row {
@@ -126,9 +124,17 @@
 .rsvtMain {
     display: flex;
     flex-direction: column;
-    margin: 0 25rem;
     padding: 2rem;
     gap: 1rem;
+}
+
+.rsvtMain button {
+    width: 20rem;
+}
+
+.mdNewRsvtBtn {
+    display: flex;
+    gap: 3rem;
 }
 
 #ctmname:focus {

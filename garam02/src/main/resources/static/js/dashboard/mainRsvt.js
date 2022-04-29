@@ -12,6 +12,41 @@ $(document).ready(function () {
     dateInput();
 });
 
+$(document).on('click', '#pills-rsvt-tab', function () {
+    $('#stday').val(toStringByFormatting(new Date()));
+    $('#endday').val(toStringByFormatting(new Date()));
+
+    setNewRsvtModal();
+});
+
+function setNewRsvtModal() {
+    $('#bus').val('대형');
+    $('#num').val(1);
+    $('#stt').val('08:50');
+    $('#endt').val('');
+    $('#rsvpstp').val('');
+    $('#desty').val('');
+    $('#rsvtdetail').val('');
+    $('#cont').val('포함');
+    $('#conm').val('0');
+    $('#numm').val('');
+
+    $('#ctmnameIn').val('')
+    $('#ctmnoIn').val('');
+    $('#inCustSepa1').prop('checked', true);
+    $('#ctmtel1In').val('');
+    $('#ctmstpIn').val('');
+    $('#ctmdetailIn').val('');
+    $('#ctmtel2In').val('');
+    $('#ctmfaxIn').val('');
+    $('#ctmaddressIn').val('');
+    $('#ctmemailIn').val('');
+    $('#ctmcompanumIn').val('');
+    $('#ctmhomepageIn').val('');
+
+    $('#modalNewRsvt').modal('show');
+}
+
 function setStEdDay(day) {
     $('#stday').val(day);
     $('#endday').val(day);
@@ -138,7 +173,7 @@ $(document).on('click', '#inNew', function () {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -163,7 +198,7 @@ $(document).on('click', '#inNew', function () {
 
 $(document).on('click', '#insert-rsvt', function () {
 
-    if ($('#ctmnameIn').val() && $('#ctmtel1In').val()) {
+    if ($('#ctmnoIn').val()) {
         LoadingWithMask()
             .then(insertCtm)
             .then(insertRsvt)
@@ -212,7 +247,9 @@ function insertRsvt(result) {
             "endt": $('#endt').val(),
             "rsvtdetail": $('#rsvtdetail').val(),
             "cont": $('#cont').val(),
-            "conm": $('#conm').val(),
+            "conm": $('#conm')
+                .val()
+                .replaceAll(',', ''),
             "numm": $('#numm').val(),
             "confirm": null
         };
@@ -222,7 +259,7 @@ function insertRsvt(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -233,19 +270,19 @@ function insertRsvt(result) {
                         let iiiddd = '#dash-cal-con-item' + (
                             i + 1
                         );
-
                         if ($('#stday').val() == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
                             setCalWhite($(iiiddd).attr('id'));
                         }
                     }
-
+                    $('#modalNewRsvt').modal('hide');
+                    resolve();
                 } else if (r == -1) {
                     alert("예약정보 저장 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                    location.reload();
                 } else if (r == -2) {
                     alert("예약정보 저장 실패!\n\n시스템을 확인해주세요.")
+                    location.reload();
                 }
-                setCalWhite($('.dash-cal-con-item-t').attr('id'));
-                resolve();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
@@ -276,7 +313,9 @@ function insertRsvt1(result) {
             "endt": $('#endt').val(),
             "rsvtdetail": $('#rsvtdetail').val(),
             "cont": $('#cont').val(),
-            "conm": $('#conm').val(),
+            "conm": $('#conm')
+                .val()
+                .replaceAll(',', ''),
             "numm": $('#numm').val(),
             "confirm": null
         };
@@ -286,7 +325,7 @@ function insertRsvt1(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -347,7 +386,7 @@ $(document).on('click', '#btn-custom-modal', function () {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             alert(r)

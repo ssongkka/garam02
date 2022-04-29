@@ -634,6 +634,7 @@
 		(
 		null,
 		#{loanno},
+		#{loansepamonth},
 		#{loansepaday},
 		#{loansepamoney},
 		#{loansepatime},
@@ -1053,7 +1054,8 @@
 
 		WHERE
 
-		vegas.vegasyearmonth = #{vegasyearmonth}
+		vegas.vegasyearmonth =
+		#{vegasyearmonth}
 
 		ORDER BY
 		vehicleinfo.vehicle

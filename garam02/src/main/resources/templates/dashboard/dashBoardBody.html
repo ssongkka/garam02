@@ -163,6 +163,18 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
+                                    id="pills-home4-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#home4"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home"
+                                    aria-selected="true">메인1
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
                                     id="pills-home2-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#home2"
@@ -199,18 +211,6 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link"
-                                    id="pills-rsvt-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#rsvt"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="pills-profile"
-                                    aria-selected="false">운행예약
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
                                     id="pills-allo-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#allo"
@@ -219,6 +219,16 @@
                                     aria-controls="pills-profile"
                                     aria-selected="false">
                                     배차관리
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-rsvt-tab"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false">운행예약&nbsp;<i class="fa-solid fa-up-right-from-square"></i>
                                 </button>
                             </li>
                         </ul>
@@ -232,6 +242,12 @@
                         id="home"
                         role="tabpanel"
                         aria-labelledby="pills-home-tab"></div>
+                    <div
+                        th:insert="dashboard/mainHome4 :: main-home4"
+                        class="tab-pane fade"
+                        id="home4"
+                        role="tabpanel"
+                        aria-labelledby="pills-home4-tab"></div>
                     <div
                         th:insert="dashboard/mainHome2 :: main-home2"
                         class="tab-pane fade"
@@ -251,12 +267,6 @@
                         role="tabpanel"
                         aria-labelledby="pills-home-tab"></div>
                     <div
-                        th:insert="dashboard/mainRsvt :: main-rsvt"
-                        class="tab-pane fade"
-                        id="rsvt"
-                        role="tabpanel"
-                        aria-labelledby="pills-rsvt-tab"></div>
-                    <div
                         th:insert="dashboard/mainAllo :: main-allo"
                         class="tab-pane fade"
                         id="allo"
@@ -265,6 +275,7 @@
                 </div>
             </div>
         </main>
+        <div th:replace="openTemplates/modaNewRsvt :: mainNewrsvt"></div>
         <div th:replace="openTemplates/modalSetting :: mdSetting"></div>
         <div th:replace="openTemplates/offCustomer :: offCustomer"></div>
         <div th:replace="openTemplates/modalCustomer :: modalCust"></div>
@@ -376,6 +387,10 @@
             language="javascript"
             type="text/javascript"
             src="/js/dashboard/mainHome3.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainHome4.js?v=2020042201"></script>
         <script
             language="javascript"
             type="text/javascript"

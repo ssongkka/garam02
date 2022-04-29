@@ -19,7 +19,6 @@ $(document).on('click', '#newLoanCont', function () {
     $('#loanEndDay').attr("disabled", false);
     $('#loanPeri').attr("disabled", false);
     $('#loanday').attr("disabled", false);
-    $('#tbloansepaNum').attr("disabled", false);
 
     $('.loanShow').hide();
 
@@ -92,7 +91,6 @@ function makeModalLoanCont(loanNo, cho) {
                         $('#loanEndDay').attr("disabled", true);
                         $('#loanPeri').attr("disabled", true);
                         $('#loanday').attr("disabled", true);
-                        $('#tbloansepaNum').attr("disabled", true);
 
                         $('#inputLoanMonetInsert').val(AddComma(r[0].loanmonth));
 
@@ -103,7 +101,6 @@ function makeModalLoanCont(loanNo, cho) {
                             countttt = '1';
                         }
 
-                        $('#tbloansepaNum').text(countttt);
                         $('#loanbank').val(r[0].loanbank);
                         $('#loanmoney').val(AddComma(r[0].loan));
                         $('#loanmonthm').val(AddComma(r[0].loanmonth));
@@ -171,6 +168,8 @@ function makeModalLoanCont(loanNo, cho) {
                             <input type="hidden" value="` + r[i].loansepano +
                                 `">
                         </td>
+                        <td>` + r[i].loansepamonth +
+                                `</td>
                         <td>` + r[i].loansepaday +
                                 `</td>
                         <td class="tdRight">` + AddComma(
@@ -230,6 +229,18 @@ $(document).on('click', '#btnLoan', function () {
 });
 
 function insertLoanSepa() {
+    if (!$('#inputLoanNumInsert').val()) {
+        alert('회차를 입력해주세요.');
+        $('#inputLoanNumInsert').focus();
+        closeLoadingWithMask();
+        return;
+    }
+    if (!$('#inputLoanMonthInsert').val()) {
+        alert('회차월을 입력해주세요.');
+        $('#inputLoanMonthInsert').focus();
+        closeLoadingWithMask();
+        return;
+    }
     if (!$('#inputLoanDayInsert').val()) {
         alert('납부일을 입력해주세요.');
         $('#inputLoanDayInsert').focus();
@@ -255,13 +266,14 @@ function insertLoanSepa() {
 
             const params = {
                 "loanno": $('#loancontNum').val(),
+                "loansepamonth": $('#inputLoanMonthInsert').val(),
                 "loansepaday": $('#inputLoanDayInsert').val(),
                 "loansepamoney": $('#inputLoanMonetInsert')
                     .val()
                     .replaceAll(',', ''),
-                "loansepatime": $('#tbloansepaNum')
-                    .text()
-                    .replaceAll('회차', '')
+                "loansepatime": $('#inputLoanNumInsert')
+                    .val()
+                    .replaceAll(',', '')
             };
 
             $.ajax({

@@ -2017,7 +2017,7 @@ $(document).on('click', '#inNewUp', function () {
 });
 
 $(document).on('click', '#btn-rsvt-insert', function () {
-    if ($('#ctmnameUp').val() && $('#ctmtel1Up').val()) {
+    if ($('#ctmnoUp').val()) {
         if (confirm("예약정보를 수정하시겠습니까?\n\n수정한 예약정보의 배차는 모두 취소됩니다. 다시 배차해 주세요.")) {
             LoadingWithMask()
                 .then(updateCtm)

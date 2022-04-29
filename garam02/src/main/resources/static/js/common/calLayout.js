@@ -9,6 +9,17 @@ document
     }
     const calen = new cal();
 
+$(window).on('resize', function () {
+    let delay = 300;
+    let timer = null;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+        if ($('#home').css('display') === 'block') {
+            makeMainBigCal();
+        }
+    }, delay);
+});
+
 $(document).ready(function () {
 
     $('#info-limit').hide();
@@ -81,7 +92,13 @@ $(document).on('click', '#fnDownMonth', function () {
     getOperListMonth();
 
     makeCal(downMonth, null);
-    makeMainBigCal();
+    if ($('#home').css('display') === 'block') {
+        makeMainBigCal();
+    }
+
+    if ($('#home4').css('display') === 'block') {
+        makeMain2BigCal();
+    }
 });
 
 $(document).on('click', '#fnUpMonth', function () {
@@ -97,7 +114,13 @@ $(document).on('click', '#fnUpMonth', function () {
     getOperListMonth();
 
     makeCal(upMonth, null);
-    makeMainBigCal();
+    if ($('#home').css('display') === 'block') {
+        makeMainBigCal();
+    }
+
+    if ($('#home4').css('display') === 'block') {
+        makeMain2BigCal();
+    }
 });
 
 $(document).on('click', '#fnDownDay', function () {
@@ -192,11 +215,20 @@ function setCalWhite(e, cho) {
     }
 
     clTdColor();
+    clTdColor2();
 }
 
 function displayMain() {
     if ($('#home').css('display') === 'block') {
         makeMainBigCal();
+        $('#home2-tb-il').html(``);
+        $('#home3-tb-il').html(``);
+    }
+
+    if ($('#home4').css('display') === 'block') {
+        makeMain2BigCal();
+        $('#home2-tb-il').html(``);
+        $('#home3-tb-il').html(``);
     }
 
     if ($('#home2').css('display') === 'block') {
@@ -206,6 +238,7 @@ function displayMain() {
         if ($('#radioRsvt2').is(':checked')) {
             getRsvtListMonth();
         }
+        $('#home3-tb-il').html(``);
     }
     if ($('#home3').css('display') === 'block') {
         if ($('#radioOper1').is(':checked')) {
@@ -214,14 +247,19 @@ function displayMain() {
         if ($('#radioOper2').is(':checked')) {
             getOperListMonth();
         }
+        $('#home2-tb-il').html(``);
     }
 
     if ($('#manage').css('display') === 'block') {
         makeManage();
+        $('#home2-tb-il').html(``);
+        $('#home3-tb-il').html(``);
     }
 
     if ($('#allo').css('display') === 'block') {
         makeAllo();
+        $('#home2-tb-il').html(``);
+        $('#home3-tb-il').html(``);
     }
 }
 
@@ -294,7 +332,13 @@ $("#yearMonth").change(function () {
     getOperListMonth();
 
     makeCal(get_Year_Month(), null);
-    makeMainBigCal();
+    if ($('#home').css('display') === 'block') {
+        makeMainBigCal();
+    }
+
+    if ($('#home4').css('display') === 'block') {
+        makeMain2BigCal();
+    }
 });
 
 $("#yearMonthDay").change(function () {

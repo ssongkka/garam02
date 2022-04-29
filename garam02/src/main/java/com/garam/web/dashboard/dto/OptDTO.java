@@ -9,6 +9,7 @@ public class OptDTO {
 	private Integer altm1;
 	private Integer altm2;
 	private Integer altm3;
+	private Integer salday;
 
 	public Double getCard() {
 		return card;
@@ -64,6 +65,14 @@ public class OptDTO {
 
 	public void setAltm3(Integer altm3) {
 		this.altm3 = altm3;
+	}
+
+	public Integer getSalday() {
+		return salday;
+	}
+
+	public void setSalday(Integer salday) {
+		this.salday = salday;
 	}
 
 }

@@ -1,3 +1,2 @@
->22-04-29 01:12:59 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13160 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-04-29 01:12:59 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-04-29 01:13:07 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.339 seconds (JVM running for 9.64)
+>22-04-30 01:09:16 [http-nio-8080-exec-3] [com.garam.web.login.handler.TaskLogoutHandler:16] INFO  ==>> 로그아웃됨
+>22-04-30 01:10:58 [http-nio-8080-exec-10] [com.garam.web.login.handler.TaskLogoutHandler:16] INFO  ==>> 로그아웃됨

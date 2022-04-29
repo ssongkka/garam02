@@ -35,6 +35,7 @@ import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.dto.RsvtmoneyDTO;
 import com.garam.web.dashboard.mapper.DashboardMapper;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -1856,6 +1857,27 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<RsvtDTO> selectCalRsvt4(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = rsvtMapper.selectCalRsvt4(rsvtDTO);
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectCal2Loan1(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2Loan1(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectCal2Loan2(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2Loan2(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectCal2Insu(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2Insu(vehicleInfoDTO);
+
 		return list;
 	}
 }

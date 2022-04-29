@@ -1911,6 +1911,9 @@ function makeVeOper() {
                                     <tbody id="veoperBd` +
                                 yemonth1 +
                                 `"></tbody>
+                                    <tfoot id="veoperFd` +
+                                yemonth1 +
+                                `"></tfoot>
                                 </table>
                             </div>
                         </div>
@@ -1952,7 +1955,6 @@ function makeVeOper() {
                     let arrTmpHtmls = new Array();
 
                     for (let i = 0; i < r.length; i++) {
-                        let tmpHtml = ``;
 
                         const ddaayyId = 'veoperBd' + r[i]
                             .operday

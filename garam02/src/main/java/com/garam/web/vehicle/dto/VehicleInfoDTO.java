@@ -165,6 +165,8 @@ public class VehicleInfoDTO {
 	private Integer loansepano;
 
 	// 납입일
+	private String loansepamonth;
+	// 납입일
 	private String loansepaday;
 
 	// 납입액
@@ -804,6 +806,14 @@ public class VehicleInfoDTO {
 
 	public void setLoantrash(Integer loantrash) {
 		this.loantrash = loantrash;
+	}
+
+	public String getLoansepamonth() {
+		return loansepamonth;
+	}
+
+	public void setLoansepamonth(String loansepamonth) {
+		this.loansepamonth = loansepamonth;
 	}
 
 	public String getLoansepaday() {

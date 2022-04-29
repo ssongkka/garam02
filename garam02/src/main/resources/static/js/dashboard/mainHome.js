@@ -923,15 +923,6 @@ function makeMainBigCal() {
     }
 }
 
-$(window).on('resize', function () {
-    let delay = 300;
-    let timer = null;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        makeMainBigCal();
-    }, delay);
-});
-
 function getTdSize(params) {
     switch (params) {
         case 1:
@@ -3105,3 +3096,27 @@ function makeHtmlsIl(ctmnono, day, cho) {
         })
     }
 }
+
+$(document).on('click', '.calDetail', function () {
+
+    const aaa = $(this)
+        .parent()
+        .parent()
+        .prev();
+    const dayyy = $(aaa).val();
+
+    const bbb = new Date(dayyy);
+
+    const dayweek = getDayOfWeek(bbb.getDay());
+
+    $('#modalNewRsvtLabel').text(
+        '신규예약정보(' + dayyy.split('-')[0] + '년 ' + dayyy.split(
+            '-'
+        )[1] + '월 ' + dayyy.split('-')[2] + '일 ' + dayweek + ')'
+    );
+
+    $('#stday').val(dayyy);
+    $('#endday').val(dayyy);
+
+    setNewRsvtModal();
+});

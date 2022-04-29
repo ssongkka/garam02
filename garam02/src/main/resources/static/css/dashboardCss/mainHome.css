@@ -6,7 +6,21 @@
     gap: 0;
 }
 
+.main-home2 {
+    display: flex;
+    gap: 0;
+    margin-right: 30rem;
+}
+
 .home-mainCal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem 2rem;
+}
+
+.home-mainCal2 {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -142,11 +156,13 @@ ul {
     text-align: center;
 }
 
-.mainCalTable {
+.mainCalTable,
+.mainCalTable2 {
     width: 100%;
 }
 
-.mainCalTable > tbody > tr > td {
+.mainCalTable > tbody > tr > td,
+.mainCalTable2 > tbody > tr > td {
     vertical-align: top;
     padding: 0;
 }
@@ -160,6 +176,16 @@ ul {
     display: flex;
     flex-direction: row;
     padding: 1rem 2rem 0;
+
+    margin-bottom: 1rem;
+
+    cursor: pointer;
+}
+
+.mainCal2td-top {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 1rem 0;
 
     margin-bottom: 1rem;
 
@@ -181,6 +207,17 @@ ul {
     text-align: right;
 }
 
+.mainCal2td-top-day {
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.mainCal2td-top-hol {
+    flex: 1;
+    text-align: right;
+}
+
 .mainCaltd-middle {
     position: relative;
     padding: 0 2rem;
@@ -198,6 +235,19 @@ ul {
     right: 0;
 
     padding: 0.3rem 1rem;
+}
+
+.mainCal2td-middle-item {
+    margin: 0 0.3rem;
+    text-align: left;
+
+    border-radius: 3px;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    padding: 0.3rem 0;
 }
 
 .maincaltd-middle-itemb {
@@ -249,15 +299,18 @@ ul {
     color: var(--sub-color);
 }
 
-.mainCalTable > tbody > tr > .tdHovers {
+.mainCalTable > tbody > tr > .tdHovers,
+.mainCalTable2 > tbody > tr > .tdHovers {
     background-color: rgb(188 232 241 / 30%);
 }
 
-.mainCalTable > tbody > tr > .tdMainCal {
+.mainCalTable > tbody > tr > .tdMainCal,
+.mainCalTable2 > tbody > tr > .tdMainCal {
     background-color: rgba(255,220,40,.15);
 }
 
-.mainCalTable > tbody > tr > .tdCho {
+.mainCalTable > tbody > tr > .tdCho,
+.mainCalTable2 > tbody > tr > .tdCho {
     background-color: rgb(188 232 241 / 30%);
 }
 

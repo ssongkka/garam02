@@ -1870,4 +1870,122 @@
 
 	</select>
 
+	<select id="selectCal2Loan1" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*,
+
+		(SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		veloan.carnumber) AS vehicle,
+
+		(SELECT
+		veloansepa.loansepaday FROM veloansepa WHERE veloansepa.loanno = veloan.loanno AND veloansepa.loansepamonth =
+		#{owner}) AS owner
+
+		FROM
+
+		veloan
+
+		LEFT JOIN
+
+		veloansepa
+
+		ON
+
+		veloan.loanno = veloansepa.loanno
+
+		WHERE
+
+		(CONCAT(YEAR(veloan.loandatestart),'-',
+		IF(MONTH(veloan.loandatestart) <![CDATA[<]]>
+		10, CONCAT('0',MONTH(veloan.loandatestart)),
+		MONTH(veloan.loandatestart))) <![CDATA[<=]]>
+		#{owner}
+
+		AND
+
+		CONCAT(YEAR(veloan.loandateend),'-',
+		IF(MONTH(veloan.loandateend) <![CDATA[<]]>
+		10,
+		CONCAT('0',MONTH(veloan.loandateend)), MONTH(veloan.loandateend))) <![CDATA[>=]]>
+		#{owner})
+
+
+		GROUP BY
+
+		veloan.loanno
+
+
+	</select>
+	<select id="selectCal2Loan2" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*,
+
+		(SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		veloan.carnumber) AS vehicle,
+
+		MAX(veloansepa.loansepaday)
+
+		FROM
+
+		veloan
+
+		LEFT JOIN
+
+		veloansepa
+
+		ON
+
+		veloan.loanno = veloansepa.loanno
+
+		WHERE
+
+		(CONCAT(YEAR(veloan.loandatestart),'-',
+		MONTH(veloan.loandatestart)) <![CDATA[<=]]>
+		#{owner}
+
+		AND
+
+		CONCAT(YEAR(veloan.loandateend),'-',
+		MONTH(veloan.loandateend)) <![CDATA[>=]]>
+		#{owner})
+
+		GROUP BY
+		veloan.loanno
+
+		ORDER BY
+		veloan.loandayloan
+
+
+
+	</select>
+
+	<select id="selectCal2Insu" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		veinsurance
+
+		WHERE
+
+		veinsurance.insutrash = 1
+
+	</select>
+
 </mapper>

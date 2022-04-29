@@ -480,17 +480,6 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link active"
-                                    id="veTitleHome"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#veMain"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="veMain-home"
-                                    aria-selected="true">Home</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
                                     id="veTitleOper"
                                     data-bs-toggle="pill"
                                     data-bs-target="#operve"
@@ -558,14 +547,8 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div
-                                th:insert="vehicle/vehicleHome :: ve-home"
-                                class="tab-pane fade show active"
-                                id="veMain"
-                                role="tabpanel"
-                                aria-labelledby="pills-mainoper-tab"></div>
-                            <div
                                 th:insert="vehicle/vehicleOper :: ve-oper"
-                                class="tab-pane fade"
+                                class="tab-pane fade show active"
                                 id="operve"
                                 role="tabpanel"
                                 aria-labelledby="pills-operemp-tab"></div>

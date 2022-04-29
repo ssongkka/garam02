@@ -9,6 +9,7 @@ import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.dto.RsvtmoneyDTO;
+import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
 @Mapper
 public interface DashboardMapper {
@@ -113,4 +114,10 @@ public interface DashboardMapper {
 	public List<RsvtDTO> selectCalRsvt3(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectCalRsvt4(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectCal2Loan1(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectCal2Loan2(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectCal2Insu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

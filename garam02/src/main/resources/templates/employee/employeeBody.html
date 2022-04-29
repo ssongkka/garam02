@@ -373,17 +373,6 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link active"
-                                    id="mainoper-home-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#mainoper"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="mainoper-home"
-                                    aria-selected="true">Home</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
                                     id="operemp-profile-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#operemp"
@@ -419,14 +408,8 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div
-                                th:insert="employee/empHome :: emp-home"
-                                class="tab-pane fade show active"
-                                id="mainoper"
-                                role="tabpanel"
-                                aria-labelledby="pills-mainoper-tab"></div>
-                            <div
                                 th:insert="employee/empOper :: emp-oper"
-                                class="tab-pane fade"
+                                class="tab-pane fade show active"
                                 id="operemp"
                                 role="tabpanel"
                                 aria-labelledby="pills-operemp-tab"></div>

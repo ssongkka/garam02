@@ -103,21 +103,36 @@
                         <div class="loanShow">
                             <table class="table table-bordered">
                                 <colgroup>
-                                    <col width="10%">
-                                    <col width="45%">
-                                    <col width="40%">
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="25%">
+                                    <col width="35%">
                                     <col width="5%">
                                 </colgroup>
                                 <thead class="table-light">
                                     <tr>
                                         <th>회차</th>
+                                        <th>회차월</th>
                                         <th>납부일</th>
                                         <th colspan="2">납부액</th>
                                     </tr>
                                     <tr>
-                                        <th style="vertical-align: middle; text-align: center;" id="tbloansepaNum"></th>
+                                        <th id="tbloansepaNum">
+                                            <input type="text" class="form-control" id="inputLoanNumInsert">
+                                        </th>
                                         <th>
-                                            <input type="date" class="form-control" id="inputLoanDayInsert">
+                                            <input
+                                                type="month"
+                                                class="form-control"
+                                                id="inputLoanMonthInsert"
+                                                style="width: 11rem; font-weight: 500; letter-spacing: 0;">
+                                        </th>
+                                        <th>
+                                            <input
+                                                type="date"
+                                                class="form-control"
+                                                id="inputLoanDayInsert"
+                                                style="width: 11rem;">
                                         </th>
                                         <th>
                                             <input
