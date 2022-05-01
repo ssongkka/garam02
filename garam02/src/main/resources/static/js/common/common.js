@@ -14,6 +14,62 @@ $(document).ready(function () {
     $('input').attr('autocomplete', 'off');
 });
 
+$(document).on('click', '#pills-home-tab', function () {
+    goUrl('/dashboard');
+});
+$(document).on('click', '#pills-home4-tab', function () {
+    goUrl('/dashboardcal');
+});
+$(document).on('click', '#pills-home2-tab', function () {
+    goUrl('/dashboardrsvt');
+});
+$(document).on('click', '#pills-home3-tab', function () {
+    goUrl('/dashboardoper');
+});
+$(document).on('click', '#pills-manage-tab', function () {
+    goUrl('/dashboardmanage');
+});
+$(document).on('click', '#pills-allo-tab', function () {
+    goUrl('/dashboardallo');
+});
+$(document).on('click', '#pills-rsvt-tab', function () {
+    $('#stday').val(toStringByFormatting(new Date()));
+    $('#endday').val(toStringByFormatting(new Date()));
+
+    setNewRsvtModal();
+});
+
+function goUrl(paramUrl) {
+    //create element (form)
+    var newForm = $('<form></form>');
+
+    //set attribute (form)
+    newForm.attr("name", "newForm");
+    newForm.attr("action", paramUrl);
+
+    // create element & set attribute (input)
+
+    const ddd = $('.dash-cal-con-item-t').children();
+    const ddd1 = $(ddd).children()[1];
+    let dddaaayyy = $(ddd1).val();
+
+    if (!dddaaayyy) {
+        dddaaayyy = $('#yearMonth').val() + '-01';
+    }
+
+    newForm.append($('<input/>', {
+        type: 'hidden',
+        name: 'dayyy',
+        value: dddaaayyy
+    }));
+
+    // append form(to body)
+    newForm.appendTo('body');
+
+    // submit form
+    newForm.submit();
+}
+
 var tooltipTriggerList = []
     .slice
     .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -1647,4 +1703,21 @@ function getStDEnD(params) {
 function round2(num) {
     var m = Number((Math.abs(num) * 100).toPrecision(15));
     return Math.round(m) / 100 * Math.sign(num);
+}
+
+function getStDayEndDayMain() {
+    let stD = new Date($("#yearMonth").val() + '-01');
+    const stttD = new Date($("#yearMonth").val() + '-01');
+
+    stD = new Date(stD.setMonth(stD.getMonth() + 1));
+
+    stD = new Date(stD.getFullYear(), stD.getMonth(), 1);
+    stD = new Date(stD.setDate(stD.getDate() - 1));
+
+    let arrTmp = new Array();
+
+    arrTmp.push(toStringByFormatting(stttD));
+    arrTmp.push(toStringByFormatting(stD));
+
+    return arrTmp;
 }

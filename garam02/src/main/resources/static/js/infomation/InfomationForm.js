@@ -28,7 +28,7 @@ $(document).on('click', '#insert-btn', function () {
         endD = getCalTimeInputJSPtoDB(String(dateElement.value));
         $('#date_end').val(endD);
     } else {
-        $("#date_end").attr('disabled', 'disabled')
+        $("#date_end").attr('disabled', 'disabled');
     }
 
     $('#grade').val(gRade);

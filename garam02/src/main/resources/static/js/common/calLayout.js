@@ -28,14 +28,23 @@ $(document).ready(function () {
 
     getCompaInfo();
 
-    const now_D = new Date();
+    const now_D = new Date(dayyy);
 
     const nowMonth = new Date(now_D.getFullYear(), now_D.getMonth(), 1);
     const nowDay = new Date(now_D.getFullYear(), now_D.getMonth(), now_D.getDate());
 
-    const id = makeCal(nowMonth, nowDay);
+    makeCal(nowMonth, nowDay);
 
-    setCalWhite(id);
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (dayyy == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+            break;
+        }
+    }
 });
 
 $(document).on('click', '#btnYesD', function () {
@@ -218,51 +227,6 @@ function setCalWhite(e, cho) {
     clTdColor2();
 }
 
-function displayMain() {
-    if ($('#home').css('display') === 'block') {
-        makeMainBigCal();
-        $('#home2-tb-il').html(``);
-        $('#home3-tb-il').html(``);
-    }
-
-    if ($('#home4').css('display') === 'block') {
-        makeMain2BigCal();
-        $('#home2-tb-il').html(``);
-        $('#home3-tb-il').html(``);
-    }
-
-    if ($('#home2').css('display') === 'block') {
-        if ($('#radioRsvt1').is(':checked')) {
-            getRsvtListIl();
-        }
-        if ($('#radioRsvt2').is(':checked')) {
-            getRsvtListMonth();
-        }
-        $('#home3-tb-il').html(``);
-    }
-    if ($('#home3').css('display') === 'block') {
-        if ($('#radioOper1').is(':checked')) {
-            getOperListIl();
-        }
-        if ($('#radioOper2').is(':checked')) {
-            getOperListMonth();
-        }
-        $('#home2-tb-il').html(``);
-    }
-
-    if ($('#manage').css('display') === 'block') {
-        makeManage();
-        $('#home2-tb-il').html(``);
-        $('#home3-tb-il').html(``);
-    }
-
-    if ($('#allo').css('display') === 'block') {
-        makeAllo();
-        $('#home2-tb-il').html(``);
-        $('#home3-tb-il').html(``);
-    }
-}
-
 function setCalWhite1(day) {
     $("#yearMonth").val(day.substring(0, 7));
     $("#yearMonthDay").val(day);
@@ -276,9 +240,21 @@ function setCalWhite1(day) {
         const dweek = toStringByFormatting(new Date(ddd));
     }
 
-    if ($('#allo').css('display') === 'block') {
-        makeAllo();
+    displayMain();
+
+    clTdColor();
+    clTdColor2();
+}
+
+function displayMain() {
+    if ($('#home').css('display') === 'block') {
+        makeMainBigCal();
     }
+
+    if ($('#home4').css('display') === 'block') {
+        makeMain2BigCal();
+    }
+
     if ($('#home2').css('display') === 'block') {
         if ($('#radioRsvt1').is(':checked')) {
             getRsvtListIl();
@@ -296,7 +272,13 @@ function setCalWhite1(day) {
         }
     }
 
-    clTdColor();
+    if ($('#manage').css('display') === 'block') {
+        makeManage();
+    }
+
+    if ($('#allo').css('display') === 'block') {
+        makeAllo();
+    }
 }
 
 function setBigDay(day) {

@@ -39,7 +39,10 @@ public class VehicleController {
 	private final CompanyService companyService;
 
 	@GetMapping
-	public String employee(@AuthenticationPrincipal User user, Model model) throws Exception {
+	public String employee(@RequestParam(value = "carn", required = false, defaultValue = "") String carn,
+			@AuthenticationPrincipal User user, Model model) throws Exception {
+
+		model.addAttribute("carn", carn);
 
 		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
 		model.addAttribute("emp", emp);

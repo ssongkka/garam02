@@ -1059,10 +1059,6 @@ function clTdColor() {
     }
 }
 
-$(document).on('click', '#pills-home-tab', function () {
-    makeMainBigCal();
-});
-
 $(document).on('click', '.middle-suk', function () {
 
     const dayday = $(this)
@@ -1125,6 +1121,8 @@ function getMenuRsvt(rsvtrsvt, operday, choo) {
 }
 
 function makeHtmlsMenu(r, operday, cho) {
+
+    console.log(r);
 
     switch (cho) {
         case 0:
@@ -1341,7 +1339,11 @@ function makeHtmlsMenu(r, operday, cho) {
                 const operdddd1 = $(operdddd).children()[1];
                 const tod = $(operdddd1).val();
                 // const tttod = tod + Math.floor(Math.random() * 1000);
-                htmls += '<input type="hidden" value="' + operday + '">';
+                if (operday != 'null') {
+                    htmls += '<input type="hidden" value="' + r[i].stday + '">';
+                } else {
+                    htmls += '<input type="hidden" value="' + operday + '">';
+                }
                 htmls += '<input type="hidden" value="' + r[i].endday + '">';
                 htmls += '<input type="hidden" value="' + r[i].numm + '">';
                 htmls += '</div>';
@@ -1992,6 +1994,7 @@ function makeHtmlsSuk(r, cho) {
                 const operdddd1 = $(operdddd).children()[1];
                 const tod = $(operdddd1).val();
                 // const tttod = tod + Math.floor(Math.random() * 1000);
+                console.log("r[i].stday   " + r[i].stday);
                 htmls += '<input type="hidden" value="' + r[i].stday + '">';
                 htmls += '<input type="hidden" value="' + r[i].endday + '">';
                 htmls += '<input type="hidden" value="' + r[i].numm + '">';
@@ -2390,20 +2393,21 @@ $(document).on('click', '#btnMdRsvtOperBtn', function () {
 });
 
 function closeMdRsvtOper() {
+
     LoadingWithMask()
-        .then(ex1)
         .then(ex2)
+        .then(ex1)
         .then(closeLoadingWithMask);
+    function ex2() {
+        return new Promise(function (resolve, reject) {
+            $('#modalRsvtOper').modal('hide');
+            resolve();
+        })
+    }
 
     function ex1() {
         return new Promise(function (resolve, reject) {
             displayMain();
-            resolve();
-        })
-    }
-    function ex2() {
-        return new Promise(function (resolve, reject) {
-            $('#modalRsvtOper').modal('hide');
             resolve();
         })
     }

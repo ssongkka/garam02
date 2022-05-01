@@ -100,3 +100,7 @@ a {
     color: var(--sub-color);
     background-color: var(--main-color);
 }
+
+.form-label {
+    font-weight: 600;
+}

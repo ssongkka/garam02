@@ -14,6 +14,11 @@ function makeMain2BigCal() {
         .then(setMainCalendar2)
         .then(setBigCalendarHol2)
         .then(getSalDay)
+        .then(getEvent)
+        .then(getCarDayEnd2)
+        .then(getInspecDayEnd2)
+        .then(getInsuDayEnd2)
+        .then(getInsuDay2)
         .then(getLoanDay1)
         .then(setMonthMiddle)
         .then(closeLoadingWithMask);
@@ -163,8 +168,82 @@ function makeMain2BigCal() {
             arrHtmls[checkHolDay(opt[0].salday)] = `
         <div class="mainCal2td-middle-item middle-sal">
             <span class="spNum1">급여지급일</span>
+            <span class="h2ch h2chSal"><i class="fa-solid fa-calculator"></i></span>
         </div>`;
             resolve();
+        })
+    }
+
+    function getEvent() {
+        return new Promise(function (resolve, reject) {
+
+            const url = "/home4/weekselevent";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "caleventtitle": $('#calDay1').val(),
+                "caleventevent": $('#calDay42').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    for (let i = 0; i < r.length; i++) {
+
+                        let tititle = '';
+
+                        if (r[i].caleventtitle.length > 7) {
+                            tititle = r[i]
+                                .caleventtitle
+                                .substring(0, 8) + '...';
+                        } else {
+                            tititle = r[i].caleventtitle;
+                        }
+
+                        if (r[i].caleventgrade > 0) {
+
+                            arrHtmls[checkHolDay1(r[i].caleventday)] += `
+                                <div class="mainCal2td-middle-item middle-event">
+                                    <input type="hidden" value="">
+                                    <input type="hidden" value="` +
+                                    r[i].caleventseq +
+                                    `">
+                                    <span class="spNum1">
+                                        ` +
+                                    tititle +
+                                    `</span>
+                                    <span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-day"></i></span>
+                                    <span class="h2ch h2chEventgrade"><i class="fa-solid fa-exclamation"></i></span>
+                                </div>`;
+                        } else {
+                            arrHtmls[checkHolDay1(r[i].caleventday)] += `
+                                <div class="mainCal2td-middle-item middle-event">
+                                    <input type="hidden" value="">
+                                    <input type="hidden" value="` +
+                                    r[i].caleventseq +
+                                    `">
+                                    <span class="spNum1">
+                                        ` +
+                                    tititle +
+                                    `</span><span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-day"></i></span>
+                                </div>`;
+                        }
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
         })
     }
 
@@ -177,10 +256,26 @@ function makeMain2BigCal() {
                 "X-HTTP-Method-Override": "POST"
             };
 
-            const monththth = $('#yearMonth').val();
+            const monththth1 = $('#calDay1')
+                .val()
+                .split('-')[0] + '-' + $('#calDay1')
+                .val()
+                .split('-')[1];
+            const monththth2 = $('#calDay42')
+                .val()
+                .split('-')[0] + '-' + $('#calDay42')
+                .val()
+                .split('-')[1];
+            const monththth3 = $('#calDay21')
+                .val()
+                .split('-')[0] + '-' + $('#calDay21')
+                .val()
+                .split('-')[1];
 
             const params = {
-                "owner": monththth
+                "regist": monththth1,
+                "color": monththth3,
+                "expire": monththth2
             };
 
             $.ajax({
@@ -194,29 +289,85 @@ function makeMain2BigCal() {
                 success: function (r) {
                     for (let i = 0; i < r.length; i++) {
 
-                        if (r[i].owner) {
-                            console.log("r[i].owner  " + checkHolDay1(r[i].owner));
-                            arrHtmls[checkHolDay1(r[i].owner)] += `
+                        if (r[i].regist) {
+                            arrHtmls[checkHolDay1(r[i].regist)] += `
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
-                                    r[i].loanno +
+                                    r[i].carnumber +
                                     `">
-                            <span class="spNum1">` + r[i].vehicle2 +
-                                    `</span>
-                            <span class="h2loan">대출</span>
-                            <span class="h2ch">냇음</span>
+                            <input type="hidden" value="` + r[i].loanno +
+                                    `">
+                            <span class="spNum1"><span class="h2Ve">` + r[i].vehicle2 +
+                                    `</span><span class="h2loan text-decoration-line-through">대출</span></span>
+                            <span class="h2ch h2chLoan"></span>
+                        </div>`;
+                        } else {
+                            arrHtmls[checkHolDay2(r[i].loandayloan)] += `
+                            <div class="mainCal2td-middle-item middle-loan">
+                                <input type="hidden" value="` +
+                                    r[i].carnumber +
+                                    `">
+                                <input type="hidden" value="` + r[i].loanno +
+                                    `">
+                                <span class="spNum1"><span class="h2Ve">` +
+                                    r[i].vehicle2 +
+                                    `</span><span class="h2loan">대출</span></span>
+                                <span class="h2ch h2chLoan"><i class="fa-solid fa-bookmark"></i></span>
+                            </div>`;
+                        }
+
+                        if (r[i].color) {
+                            arrHtmls[checkHolDay1(r[i].color)] += `
+                        <div class="mainCal2td-middle-item middle-loan">
+                            <input type="hidden" value="` +
+                                    r[i].carnumber +
+                                    `">
+                            <input type="hidden" value="` + r[i].loanno +
+                                    `">
+                            <span class="spNum1"><span class="h2Ve">` + r[i].vehicle2 +
+                                    `</span><span class="h2loan text-decoration-line-through">대출</span></span>
+                            <span class="h2ch h2chLoan"></span>
                         </div>`;
                         } else {
                             arrHtmls[checkHolDay(r[i].loandayloan)] += `
+                            <div class="mainCal2td-middle-item middle-loan">
+                                <input type="hidden" value="` +
+                                    r[i].carnumber +
+                                    `">
+                                <input type="hidden" value="` + r[i].loanno +
+                                    `">
+                                <span class="spNum1"><span class="h2Ve">` +
+                                    r[i].vehicle2 +
+                                    `</span><span class="h2loan">대출</span></span>
+                                <span class="h2ch h2chLoan"><i class="fa-solid fa-bookmark"></i></span>
+                            </div>`;
+                        }
+
+                        if (r[i].expire) {
+                            arrHtmls[checkHolDay1(r[i].expire)] += `
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
-                                    r[i].loanno +
+                                    r[i].carnumber +
                                     `">
-                            <span class="spNum1">` + r[i].vehicle2 +
-                                    `</span>
-                            <span class="h2loan">대출</span>
-                            <span class="h2ch"></span>
+                            <input type="hidden" value="` + r[i].loanno +
+                                    `">
+                            <span class="spNum1"><span class="h2Ve">` + r[i].vehicle2 +
+                                    `</span><span class="h2loan text-decoration-line-through">대출</span></span>
+                            <span class="h2ch h2chLoan"></span>
                         </div>`;
+                        } else {
+                            arrHtmls[checkHolDay3(r[i].loandayloan)] += `
+                            <div class="mainCal2td-middle-item middle-loan">
+                                <input type="hidden" value="` +
+                                    r[i].carnumber +
+                                    `">
+                                <input type="hidden" value="` + r[i].loanno +
+                                    `">
+                                <span class="spNum1"><span class="h2Ve">` +
+                                    r[i].vehicle2 +
+                                    `</span><span class="h2loan">대출</span></span>
+                                <span class="h2ch h2chLoan"><i class="fa-solid fa-bookmark"></i></span>
+                            </div>`;
                         }
 
                     }
@@ -228,20 +379,18 @@ function makeMain2BigCal() {
             })
         })
     }
-    function getLoanDay2() {
+    function getInsuDay2() {
         return new Promise(function (resolve, reject) {
 
-            const url = "/home4/weekLoan2";
+            const url = "/home4/weekinsu";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
             };
 
-            const monththth = String(parseInt($('#yearMonth').val().split('-')[0])) + '-' +
-                    String(parseInt($('#yearMonth').val().split('-')[1]))
-
             const params = {
-                "owner": monththth
+                "inday": $('#calDay1').val(),
+                "outday": $('#calDay42').val()
             };
 
             $.ajax({
@@ -254,21 +403,174 @@ function makeMain2BigCal() {
 
                 success: function (r) {
                     for (let i = 0; i < r.length; i++) {
-
-                        for (let k = 0; k < arrHtmls.length; k++) {
-                            if (arrHtmls[i].includes(r[i].loandayloan)) {}
+                        if (r[i].insusepatrash < 1) {
+                            arrHtmls[checkHolDay1(r[i].insusepaday)] += `
+                            <div class="mainCal2td-middle-item middle-insu">
+                                <input type="hidden" value="` +
+                                    r[i].carnumber +
+                                    `">
+                                <input type="hidden" value="` + r[i].insuno +
+                                    `">
+                                <span class="spNum1">
+                                    <span class="h2Ve">` +
+                                    r[i].vehicle2 +
+                                    `</span><span class="h2insu text-decoration-line-through">보험료` + r[i].insusepatime +
+                                    `회</span></span>
+                                <span class="h2ch h2chInsu"></span>
+                            </div>`;
+                        } else {
+                            arrHtmls[checkHolDay1(r[i].insusepaday)] += `
+                            <div class="mainCal2td-middle-item middle-insu">
+                                <input type="hidden" value="` +
+                                    r[i].carnumber +
+                                    `">
+                                <input type="hidden" value="` + r[i].insuno +
+                                    `">
+                                <span class="spNum1"><span class="h2Ve">` +
+                                    r[i].vehicle2 +
+                                    `</span><span class="h2insu">보험료` + r[i].insusepatime +
+                                    `회</span></span>
+                                <span class="h2ch h2chInsu"><i class="fa-solid fa-car"></i></span>
+                            </div>`;
                         }
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+    function getCarDayEnd2() {
+        return new Promise(function (resolve, reject) {
 
-                        arrHtmls[checkHolDay(r[i].loandayloan)] += `
-                    <div class="mainCal2td-middle-item middle-loan">
-                        <input type="hidden" value="` +
-                                r[i].loanno +
+            const url = "/home4/weekcarend";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "inday": $('#calDay1').val(),
+                "outday": $('#calDay42').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    for (let i = 0; i < r.length; i++) {
+                        arrHtmls[checkHolDay1(r[i].expire)] += `
+                            <div class="mainCal2td-middle-item middle-end">
+                                <input type="hidden" value="` +
+                                r[i].carnumber +
                                 `">
-                        <span class="spNum1">` + r[i].vehicle +
-                                `</span>
-                        <span class="h2loan">대출</span>
-                        <span class="h2ch"></span>
-                    </div>`;
+                                <input type="hidden" value="` + r[i].carnumber +
+                                `">
+                                <span class="spNum1">
+                                    <span class="h2Ve">` +
+                                r[i].vehicle2 +
+                                `</span><span class="h2insuEnd">차량만료</span></span>
+                                <span class="h2ch h2chEnd"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                            </div>`;
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+    function getInspecDayEnd2() {
+        return new Promise(function (resolve, reject) {
+
+            const url = "/home4/weekinspecend";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "inday": $('#calDay1').val(),
+                "outday": $('#calDay42').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    for (let i = 0; i < r.length; i++) {
+                        arrHtmls[checkHolDay1(r[i].inspecdateend)] += `
+                            <div class="mainCal2td-middle-item middle-end">
+                                <input type="hidden" value="` +
+                                r[i].carnumber +
+                                `">
+                                <input type="hidden" value="` + r[i].inspecseq +
+                                `">
+                                <span class="spNum1">
+                                    <span class="h2Ve">` +
+                                r[i].vehicle2 +
+                                `</span><span class="h2insuEnd">점검만료</span></span>
+                                <span class="h2ch h2chEnd"><i class="fa-solid fa-wrench"></i></span>
+                            </div>`;
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+    function getInsuDayEnd2() {
+        return new Promise(function (resolve, reject) {
+
+            const url = "/home4/weekinsuend";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "inday": $('#calDay1').val(),
+                "outday": $('#calDay42').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    for (let i = 0; i < r.length; i++) {
+                        arrHtmls[checkHolDay1(r[i].insudateend)] += `
+                            <div class="mainCal2td-middle-item middle-end">
+                                <input type="hidden" value="` +
+                                r[i].carnumber +
+                                `">
+                                <input type="hidden" value="` + r[i].insuno +
+                                `">
+                                <span class="spNum1">
+                                    <span class="h2Ve">` +
+                                r[i].vehicle2 +
+                                `</span><span class="h2insuEnd">보험만료</span></span>
+                                <span class="h2ch h2chEnd"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                            </div>`;
                     }
                     resolve();
                 },
@@ -295,11 +597,18 @@ function makeMain2BigCal() {
 
 function checkHolDay(dateNum) {
 
-    const aaa = $('#tbMainCal2').children();
+    const endDate = getStDayEndDayMain()[1].split('-')[2];
+    let makeDay = '';
 
-    const makeDay = $('#yearMonth').val() + '-' + dateNum;
+    if (dateNum > endDate) {
+        makeDay = $('#yearMonth').val() + '-' + endDate;
+    } else {
+        makeDay = $('#yearMonth').val() + '-' + dateNum;
+    }
 
     let paramddaayy = new Date(makeDay);
+
+    const aaa = $('#tbMainCal2').children();
 
     for (let i = 0; i < aaa.length; i++) {
         const bbb = $(aaa[i]).children();
@@ -315,7 +624,7 @@ function checkHolDay(dateNum) {
             const ggg = $(ccc).children()[2];
 
             if (toStringByFormatting(paramddaayy) == dayyy) {
-                if (!cssss) {
+                if (cssss == `color: rgb(131, 144, 162);` || !cssss) {
                     return parseInt($(ggg).attr('id').split('cal2Mid')[1]) - 1;
                 } else {
                     paramddaayy = new Date(paramddaayy.setDate(paramddaayy.getDate() + 1));
@@ -340,6 +649,90 @@ function checkHolDay1(dateDay) {
 
             if (dateDay == dayyy) {
                 return parseInt($(ggg).attr('id').split('cal2Mid')[1]) - 1;
+            }
+        }
+    }
+}
+
+function checkHolDay2(dateNum) {
+
+    let endDate = new Date($('#yearMonth').val() + '-01');
+    endDate = new Date(endDate.setDate(endDate.getDate() - 1)).getDate();
+
+    let makeDay = '';
+
+    if (parseInt(dateNum) > parseInt(endDate)) {
+        makeDay = $('#calDay1')
+            .val()
+            .split('-')[0] + '-' + $('#calDay1')
+            .val()
+            .split('-')[1] + '-' + endDate;
+    } else {
+        makeDay = $('#calDay1')
+            .val()
+            .split('-')[0] + '-' + $('#calDay1')
+            .val()
+            .split('-')[1] + '-' + dateNum;
+    }
+
+    let paramddaayy = new Date(makeDay);
+
+    const aaa = $('#tbMainCal2').children();
+
+    for (let i = 0; i < aaa.length; i++) {
+        const bbb = $(aaa[i]).children();
+        for (let k = 0; k < bbb.length; k++) {
+            const ccc = $(bbb[k]).children()[0];
+            const ddd = $(ccc).children()[0];
+            const dayyy = $(ddd).val();
+
+            const eee = $(ccc).children()[1];
+            const eee1 = $(eee).children()[0];
+            const cssss = $(eee1).attr('style');
+
+            const ggg = $(ccc).children()[2];
+
+            if (toStringByFormatting(paramddaayy) == dayyy) {
+                if (cssss == `color: rgb(131, 144, 162);` || !cssss) {
+                    return parseInt($(ggg).attr('id').split('cal2Mid')[1]) - 1;
+                } else {
+                    paramddaayy = new Date(paramddaayy.setDate(paramddaayy.getDate() + 1));
+                }
+            }
+        }
+    }
+}
+function checkHolDay3(dateNum) {
+
+    const makeDay = $('#calDay42')
+        .val()
+        .split('-')[0] + '-' + $('#calDay42')
+        .val()
+        .split('-')[1] + '-' + dateNum;
+
+    let paramddaayy = new Date(makeDay);
+
+    const aaa = $('#tbMainCal2').children();
+
+    for (let i = 0; i < aaa.length; i++) {
+        const bbb = $(aaa[i]).children();
+        for (let k = 0; k < bbb.length; k++) {
+            const ccc = $(bbb[k]).children()[0];
+            const ddd = $(ccc).children()[0];
+            const dayyy = $(ddd).val();
+
+            const eee = $(ccc).children()[1];
+            const eee1 = $(eee).children()[0];
+            const cssss = $(eee1).attr('style');
+
+            const ggg = $(ccc).children()[2];
+
+            if (toStringByFormatting(paramddaayy) == dayyy) {
+                if (cssss == `color: rgb(131, 144, 162);` || !cssss) {
+                    return parseInt($(ggg).attr('id').split('cal2Mid')[1]) - 1;
+                } else {
+                    paramddaayy = new Date(paramddaayy.setDate(paramddaayy.getDate() + 1));
+                }
             }
         }
     }
@@ -447,6 +840,34 @@ function clTdColor2() {
     }
 }
 
-$(document).on('click', '#pills-home4-tab', function () {
-    makeMain2BigCal();
+$(document).on('click', '.middle-end', function () {
+    const ddd = $(this).children()[2];
+    const ddd1 = $(ddd).children()[0];
+
+    const carNum = $(ddd1).text();
+
+    goCarDetail(carNum);
 });
+
+function goCarDetail(paramCarn) {
+    //create element (form)
+    var newForm = $('<form></form>');
+
+    console.log("paramCarn  " + paramCarn);
+
+    //set attribute (form)
+    newForm.attr("name", "newForm");
+    newForm.attr("action", "/vehicle");
+    newForm.attr("target", "차량정보");
+    newForm.append($('<input/>', {
+        type: 'hidden',
+        name: 'carn',
+        value: paramCarn
+    }));
+
+    // append form(to body)
+    newForm.appendTo('body');
+
+    // submit form
+    newForm.submit();
+}

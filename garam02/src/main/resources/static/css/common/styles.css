@@ -402,6 +402,7 @@ object {
     display: none;
     left: 0;
     top: 0;
+    cursor: wait;
 }
 
 #mask svg {

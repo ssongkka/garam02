@@ -537,6 +537,8 @@ function insertOper(id, num) {
                 params.push(asd);
             }
 
+            console.log(params);
+
             const url = "/allo/insert";
             const headers = {
                 "Content-Type": "application/json",
@@ -2193,10 +2195,6 @@ $(document).on('click', '.btnPaPer', function () {
         })
     }
 
-});
-
-$(document).on('click', '#pills-allo-tab', function () {
-    makeAllo();
 });
 
 function makeAllo() {

@@ -3,15 +3,6 @@ $(document).ready(function () {
     $("#searchPeEdRsvt").attr("disabled", true);
 });
 
-$(document).on('click', '#pills-home2-tab', function () {
-
-    $('#radioRsvt2').prop("checked", true);
-
-    LoadingWithMask()
-        .then(getRsvtListMonth)
-        .then(closeLoadingWithMask);
-});
-
 function getRsvtListIl() {
     return new Promise(function (resolve, reject) {
         const day = $('#yearMonthDay').val();

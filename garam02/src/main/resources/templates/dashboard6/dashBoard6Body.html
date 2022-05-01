@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <body th:fragment="main-body">
+    <body th:fragment="main-body6">
         <!-- 자동완성 방지용 -->
         <input type="text" style="width:0px;height:0px;position: absolute;">
         <input type="password" style="width:0px;height:0px;position: absolute;">
@@ -150,10 +150,9 @@
                         <ul class="nav nav-pills nav-justified dd-nav" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button
-                                    class="nav-link active"
+                                    class="nav-link"
                                     id="pills-home-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#home"
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-home"
@@ -165,7 +164,6 @@
                                     class="nav-link"
                                     id="pills-home4-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#home4"
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-home"
@@ -177,7 +175,6 @@
                                     class="nav-link"
                                     id="pills-home2-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#home2"
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-home2"
@@ -189,7 +186,6 @@
                                     class="nav-link"
                                     id="pills-home3-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#home3"
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-home3"
@@ -201,7 +197,6 @@
                                     class="nav-link"
                                     id="pills-manage-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#manage"
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-profile"
@@ -210,10 +205,9 @@
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button
-                                    class="nav-link"
+                                    class="nav-link active"
                                     id="pills-allo-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#allo"
                                     type="button"
                                     role="tab"
                                     aria-controls="pills-profile"
@@ -237,38 +231,8 @@
                 <!-- Tab panes -->
                 <div class="tab-content tab-cont">
                     <div
-                        th:insert="dashboard/mainHome :: main-home"
+                        th:insert="dashboard6/mainAllo :: main-allo"
                         class="tab-pane fade show active"
-                        id="home"
-                        role="tabpanel"
-                        aria-labelledby="pills-home-tab"></div>
-                    <div
-                        th:insert="dashboard/mainHome4 :: main-home4"
-                        class="tab-pane fade"
-                        id="home4"
-                        role="tabpanel"
-                        aria-labelledby="pills-home4-tab"></div>
-                    <div
-                        th:insert="dashboard/mainHome2 :: main-home2"
-                        class="tab-pane fade"
-                        id="home2"
-                        role="tabpanel"
-                        aria-labelledby="pills-home-tab"></div>
-                    <div
-                        th:insert="dashboard/mainManage :: main-manage"
-                        class="tab-pane fade"
-                        id="manage"
-                        role="tabpanel"
-                        aria-labelledby="pills-manage-tab"></div>
-                    <div
-                        th:insert="dashboard/mainHome3 :: main-home3"
-                        class="tab-pane fade"
-                        id="home3"
-                        role="tabpanel"
-                        aria-labelledby="pills-home-tab"></div>
-                    <div
-                        th:insert="dashboard/mainAllo :: main-allo"
-                        class="tab-pane fade"
                         id="allo"
                         role="tabpanel"
                         aria-labelledby="pills-allo-tab"></div>
@@ -277,7 +241,6 @@
         </main>
         <div th:replace="openTemplates/modaNewRsvt :: mainNewrsvt"></div>
         <div th:replace="openTemplates/modalSetting :: mdSetting"></div>
-        <div th:replace="openTemplates/offCustomer :: offCustomer"></div>
         <div th:replace="openTemplates/modalCustomer :: modalCust"></div>
         <div th:replace="openTemplates/modalCustomerUp :: modalCustUp"></div>
         <div th:replace="openTemplates/makePaperModal :: modalPaper0"></div>
@@ -285,10 +248,6 @@
         <div th:replace="openTemplates/makePaperModal :: modalPaper2"></div>
         <div th:replace="openTemplates/modalRsvt :: modalRsvt"></div>
         <div th:replace="openTemplates/modalOne :: modalOne"></div>
-        <div th:replace="openTemplates/modalBigCal1 :: mdBigCal"></div>
-        <div th:replace="openTemplates/modalBigCal1 :: modalBigCal"></div>
-        <div th:replace="openTemplates/modalBigCal2 :: mdBigCal2"></div>
-        <div th:replace="openTemplates/modalBigCal2 :: modalBigCal2"></div>
         <div th:replace="openTemplates/modalRsvtMoney :: modalRsvtMoney"></div>
         <div th:replace="openTemplates/modalRsvtOper :: modalRsvtOper"></div>
         <div>
@@ -340,6 +299,10 @@
             const dbCutomer =/*[[${customer}]]*/
             'default';
             /*]]>*/
+            /*<![CDATA[*/
+            const dayyy =/*[[${dayyy}]]*/
+            'default';
+            /*]]>*/
         </script>
 
         <script
@@ -355,14 +318,6 @@
             type="text/javascript"
             src="/js/boot/bootstrap.bundle.js"></script>
         <script language="javascript" type="text/javascript" src="/js/boot/all.js"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/common/summernote-lite.js"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/common/summernote-ko-KR.js"></script>
         <script
             language="javascript"
             type="text/javascript"
@@ -399,10 +354,7 @@
             language="javascript"
             type="text/javascript"
             src="/js/dashboard/mainAllo.js?v=2020042201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/dashboard/mainAlloReg.js?v=2020042201"></script>
+
         <script
             language="javascript"
             type="text/javascript"
@@ -411,10 +363,6 @@
             language="javascript"
             type="text/javascript"
             src="/js/openTemplates/modalSetting.js?v=2020042201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/openTemplates/offCustomer.js?v=2020042201"></script>
         <script
             language="javascript"
             type="text/javascript"
@@ -427,12 +375,6 @@
             language="javascript"
             type="text/javascript"
             src="/js/openTemplates/makePaperModal.js?v=2020042201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/openTemplates/modalBigCal1.js?v=2020042201"></script>
-        <!-- <script language="javascript" type="text/javascript"
-        src="/js/openTemplates/modalBigCal2.js?v=2020042201"></script> -->
         <script
             language="javascript"
             type="text/javascript"

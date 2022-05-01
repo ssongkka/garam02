@@ -3,15 +3,6 @@ $(document).ready(function () {
     $("#searchPeEdOper").attr("disabled", true);
 });
 
-$(document).on('click', '#pills-home3-tab', function () {
-
-    $('#radioOper2').prop("checked", true);
-
-    LoadingWithMask()
-        .then(getOperListMonth)
-        .then(closeLoadingWithMask);
-});
-
 function getOperListIl() {
     return new Promise(function (resolve, reject) {
         const day = $('#yearMonthDay').val();

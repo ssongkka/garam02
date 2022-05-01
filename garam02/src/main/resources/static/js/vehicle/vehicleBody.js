@@ -2,9 +2,14 @@ const good = '1px solid #ccc';
 const bad = '2px solid rgba(255, 0, 0, 0.5)';
 
 $(document).ready(function () {
-    LoadingWithMask()
+
+    LoadingWithMask(dbcarn)
         .then(getVeAll)
         .then(closeLoadingWithMask);
+
+    if (dbcarn) {
+        $('#ve-search').val(dbcarn);
+    }
 
     $('#daymaintIn').val(toStringByFormatting(new Date()));
 

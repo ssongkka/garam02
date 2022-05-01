@@ -281,16 +281,8 @@ $(document).on('keyup', '.inGasSepa', function (eInner) {
             .val()
             .replaceAll(',', '');
 
-        console.log(cannn);
-        console.log(distan);
-        console.log(gasL);
-        console.log(gasM);
-
         const kmL = round2(distan / gasL);
         const wonKm = Math.round(gasM / distan);
-
-        console.log("kmL   " + kmL);
-        console.log("wonKm   " + wonKm);
 
         const ggg = $(aaa1[4]).children();
         const ggg1 = $(ggg).children()[0];

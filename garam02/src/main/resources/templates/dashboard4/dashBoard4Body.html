@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <body th:fragment="main-body4">
+        <!-- 자동완성 방지용 -->
+        <input type="text" style="width:0px;height:0px;position: absolute;">
+        <input type="password" style="width:0px;height:0px;position: absolute;">
+        <!-- 자동완성 방지용 -->
+
+        <header class="header">
+            <div class="logo">
+                <span class="detail-user-1" th:text="${user.company}"></span>
+            </div>
+            <div class="hd-search">
+                <div class="he-serach-group">
+                    <form action="">
+                        <div class="hd-search-icon fas fa-search"></div>
+                        <input type="text" placeholder="검색">
+                    </form>
+                </div>
+            </div>
+            <div class="hd-user">
+                <div id="detail-user">
+                    <span class="detail-user-1">
+                        <i class="fa-solid fa-user-large"></i>
+                    </span>
+                    <span class="detail-user-2" th:text="${user.position}"></span>
+                    <span class="detail-user-3" th:text="${user.name}"></span></div>
+                <div class="fas fa-bars" id="menu-btn"></div>
+            </div>
+            <div class="deail-form card-song">
+                <a class="deail-form-item">
+                    <i class="fa-solid fa-user-pen"></i>
+                    내정보
+                </a>
+                <a class="deail-form-item" id="btnSetting">
+                    <i class="fa-solid fa-gear"></i>설정</a>
+                <a
+                    sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')"
+                    class="deail-form-item">
+                    <i class="fa-solid fa-chart-line"></i>관리자</a>
+                <a sec:authorize="isAuthenticated()" class="deail-form-item">
+                    <i class="fa-solid fa-right-from-bracket"></i>로그아웃</a>
+            </div>
+        </header>
+        <aside class="aside">
+            <div class="ad-cal">
+                <input type="hidden" id="today">
+                <div class="ad-cal-cals">
+                    <div class="ad-cal-items ad-cal-items-1 card-song" id="calendar">
+                        <div class="dash-cal">
+                            <div class="dash-cal-h">
+                                <div class="">
+                                    <a class="btn" id="fnDownMonth">
+                                        <i class="fas fa-chevron-left fa-lg"></i>
+                                    </a>
+                                </div>
+                                <div class="dash-cal-h-item dash-cal-h-item2" id="">
+                                    <strong><input type="month" id="yearMonth" value=""></strong>
+                                </div>
+                                <div class="">
+                                    <a class="btn" id="fnUpMonth">
+                                        <i class="fas fa-chevron-right fa-lg"></i>
+                                    </a>
+                                </div>
+                                <div class="dash-cal-h-item dash-cal-h-item4">
+                                    <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
+                                    control-id="ControlID-1">어제</button> -->
+                                    <button type="button" class="btn btn-secondary btn-xs" id="btnToD">오늘</button>
+                                    <button type="button" class="btn btn-secondary btn-xs" id="btnTomD">내일</button>
+                                </div>
+                            </div>
+                            <div class="dash-cal-con" id="dash-cal-contents"></div>
+                        </div>
+                    </div>
+                    <div class="ad-cal-items ad-cal-items-2 card-song">
+                        <blockquote>
+                            <p id="bigDay">&nbsp;</p>
+                            <footer>
+                                <cite title="Source Title" id="cal1">&nbsp;</cite>
+                            </footer>
+                        </blockquote>
+                    </div>
+                    <div class="ad-cal-items ad-cal-items-4 card-song">
+                        <blockquote id="midday"></blockquote>
+                    </div>
+                    <div class="home-main-item-2">
+                        <div class="home-main-item-22 card-song" id="card-ve"></div>
+                        <div class="home-main-item-22 card-song" id="card-emp"></div>
+                        <div class="home-main-item-22-1">
+                            <a class="home-main-item-22-1-item card-song" id="goRe">
+                                정기운행정보
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ad-cal-comp">
+                    <div class="ad-cal-items comp card-song">
+                        <div>
+                            <span id="comp-name">(주)새천년관광</span>
+                            <span id="comp-ceo"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span id="comp-add"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span>사업자등록번호</span>
+                            <span>:</span>
+                            <span id="comp-num1"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span>대표번호</span>
+                            <span>:</span>
+                            <span id="comp-tel"></span>
+                        </div>
+                        <div class="comp-item">
+                            <span>이메일</span>
+                            <span>:</span>
+                            <span id="comp-email"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+            <div class="tab-pane" role="tabpanel">
+                <div class="dd-main-nav">
+                    <div class="card-song dash-cal-d" id="dash-phone">
+                        <div class="dash-cal-d-item">
+                            <a class="btn" id="fnDownDay">
+                                <i class="fas fa-chevron-left fa-lg"></i>
+                            </a>
+                        </div>
+                        <div class="dash-cal-d-item dash-cal-d-item2" id="">
+                            <strong><input type="date" id="yearMonthDay" value="2021-06-01"></strong>
+                        </div>
+                        <div class="dash-cal-d-item">
+                            <a class="btn" id="fnUpDay">
+                                <i class="fas fa-chevron-right fa-lg"></i>
+                            </a>
+                        </div>
+                        <div class="dash-cal-d-item dash-cal-d-item4">
+                            <!-- <button type="button" class="btn btn-primary btn-xs" id="btnYesD"
+                            control-id="ControlID-1">어제</button> -->
+                            <button type="button" class="btn btn-secondary btn-xs" id="btnToD">오늘</button>
+                            <button type="button" class="btn btn-secondary btn-xs" id="btnTomD">내일</button>
+                        </div>
+                    </div>
+                    <!-- Nav tabs -->
+                    <div>
+                        <ul class="nav nav-pills nav-justified dd-nav" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-home-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home"
+                                    aria-selected="true">메인
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-home4-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home"
+                                    aria-selected="true">메인1
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-home2-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home2"
+                                    aria-selected="true">예약정보관리
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link active"
+                                    id="pills-home3-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-home3"
+                                    aria-selected="true">운행정보관리
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-manage-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false">입금관리
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-allo-tab"
+                                    data-bs-toggle="pill"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false">
+                                    배차관리
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                    class="nav-link"
+                                    id="pills-rsvt-tab"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false">운행예약&nbsp;<i class="fa-solid fa-up-right-from-square"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content tab-cont">
+                    <div
+                        th:insert="dashboard4/mainHome3 :: main-home3"
+                        class="tab-pane fade show active"
+                        id="home3"
+                        role="tabpanel"
+                        aria-labelledby="pills-home-tab"></div>
+                </div>
+            </div>
+        </main>
+        <div th:replace="openTemplates/modaNewRsvt :: mainNewrsvt"></div>
+        <div th:replace="openTemplates/modalSetting :: mdSetting"></div>
+        <div th:replace="openTemplates/modalCustomer :: modalCust"></div>
+        <div th:replace="openTemplates/modalCustomerUp :: modalCustUp"></div>
+        <div th:replace="openTemplates/makePaperModal :: modalPaper0"></div>
+        <div th:replace="openTemplates/makePaperModal :: modalPaper1"></div>
+        <div th:replace="openTemplates/makePaperModal :: modalPaper2"></div>
+        <div th:replace="openTemplates/modalRsvt :: modalRsvt"></div>
+        <div th:replace="openTemplates/modalOne :: modalOne"></div>
+        <div th:replace="openTemplates/modalRsvtOper :: modalRsvtOper"></div>
+        <div>
+            <datalist id="car-info">
+                <option
+                    th:each="ve : ${ve}"
+                    th:value="${ve.vehicle2}"
+                    th:label="${ve.vehicle2}"
+                    th:data-value="${ve.carnumber}"
+                    th:data-owner="${ve.owner}"></option>
+                <option
+                    th:each="othercompa : ${othercompa}"
+                    th:value="${othercompa.ctmname}"
+                    th:label="${othercompa.ctmname}"
+                    th:data-value="${othercompa.ctmname}"
+                    th:data-owner="${othercompa.ctmname}"></option>
+            </datalist>
+            <datalist id="per-info">
+                <option
+                    id="aaaccc"
+                    th:each="emp : ${emp}"
+                    th:value="${emp.name}"
+                    th:label="${emp.name}"
+                    th:data-value="${emp.id}"></option>
+            </datalist>
+        </div>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const opt =/*[[${opt}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbuser =/*[[${user}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbCompa =/*[[${compa}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbVe =/*[[${ve}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbEmp =/*[[${emp}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbCutomer =/*[[${customer}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dayyy =/*[[${dayyy}]]*/
+            'default';
+            /*]]>*/
+        </script>
+
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/boot/bootstrap.bundle.js"></script>
+        <script language="javascript" type="text/javascript" src="/js/boot/all.js"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/common/common.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/common/calendar.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/common/calLayout.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainHome.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainHome2.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainHome3.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainHome4.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainRsvt.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainAllo.js?v=2020042201"></script>
+
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/dashboard/mainManage.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/openTemplates/modalSetting.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/openTemplates/offCustomer.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/openTemplates/insertCustomer.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/openTemplates/updateCustomer.js?v=2020042201"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/openTemplates/makePaperModal.js?v=2020042201"></script>
+    </body>
+</html>

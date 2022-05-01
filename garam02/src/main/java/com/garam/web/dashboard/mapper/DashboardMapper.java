@@ -9,6 +9,7 @@ import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.dto.RsvtmoneyDTO;
+import com.garam.web.dashboard.dto.ScheDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
 @Mapper
@@ -120,4 +121,20 @@ public interface DashboardMapper {
 	public List<VehicleInfoDTO> selectCal2Loan2(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectCal2Insu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectCal2InsuEnd(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectCal2carEnd(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectCal2Inspec(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<ScheDTO> selectCalEvent(ScheDTO scheDTO) throws Exception;
+
+	public List<ScheDTO> selectCalEventSeq(ScheDTO scheDTO) throws Exception;
+
+	public int insertCalEvent(ScheDTO scheDTO) throws Exception;
+
+	public int updateCalEvent(ScheDTO scheDTO) throws Exception;
+
+	public int deleteCalEvent(ScheDTO scheDTO) throws Exception;
 }

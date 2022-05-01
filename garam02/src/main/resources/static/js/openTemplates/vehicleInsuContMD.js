@@ -1,232 +1,3 @@
-$(document).on('click', '.aaadcascasca', function () {
-
-    const aaa = $(this)
-        .parent()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .children();
-    const realinsucontNum = $(aaa[0]).val();
-    const insuSepaNum = $(aaa[1]).val();
-
-    const carN = $('#ve00').val();
-
-    const bbb = $('#ve02').children()[0];
-    const canNumNUm = $(bbb).text();
-
-    LoadingWithMask()
-        .then(makeSepaInsu)
-        .then(showMdInsucont)
-        .then(closeLoadingWithMask);
-
-    function makeSepaInsu() {
-        return new Promise(function (resolve, reject) {
-            $('#insuContName').val('');
-            $('#insuStDay').val('');
-            $('#insuEndDay').val('');
-            $('#insuNum').val('');
-            $('#inputZip').val('0');
-
-            $('#insuCont-insert').hide();
-
-            const aaa = $('#tbinsu').children();
-
-            let htmls = ``;
-
-            for (let k = 0; k < aaa.length; k++) {
-                const aaa1 = $(aaa[k]).children()[5];
-                const aaa11 = $(aaa1).children();
-
-                if (realinsucontNum == $(aaa11[0]).val()) {
-                    const bbb = $(aaa[k]).children()[1];
-                    const bbb1 = $(bbb).text();
-
-                    const ccc = $(aaa[k]).children()[2];
-                    const ccc1 = $(ccc).text();
-
-                    const ddd = $(aaa[k]).children()[3];
-                    const ddd1 = $(ddd).text();
-
-                    const eee = $(aaa[k]).children()[4];
-                    const eee1 = $(eee).text();
-
-                    $('#insuContName').val(realinsucontNum);
-                    $('#insuStDay').val(ccc1);
-                    $('#insuEndDay').val(ddd1);
-                    // $('#insuNum').val(aaa.length);
-                    $('#inputZip').val(AddComma(eee1));
-
-                    const fff = $($(aaa[k]).children()[6]).text();
-                    const fff1 = $($(aaa[k]).children()[7]).text();
-                    const fff2 = $($(aaa[k]).children()[8]).text();
-
-                    const insusepaTrash = $(aaa11[2]).val();
-
-                    const insusepanumnum = $(aaa11[1]).val();
-
-                    let trashHtml = ``;
-
-                    switch (parseInt(insusepaTrash)) {
-                        case 1:
-                            trashHtml = `
-                        <td>
-                        </td>`;
-                            break;
-                        case 2:
-                            trashHtml = `
-                        <td class="table-success">
-                        완료
-                        </td>`;
-                            break;
-                    }
-
-                    let bangHtml = ``;
-
-                    switch (fff1) {
-                        case "미정":
-                            bangHtml = `
-                    <option value="미정" selected>미정</option>
-                    <option value="입금">입금</option>
-                    <option value="카드">카드</option>`;
-                            break;
-                        case "입금":
-                            bangHtml = `
-                    <option value="미정">미정</option>
-                    <option value="입금" selected>입금</option>
-                    <option value="카드">카드</option>`;
-                            break;
-                        case "카드":
-                            bangHtml = `
-                    <option value="미정">미정</option>
-                    <option value="입금">입금</option>
-                    <option value="카드" selected>카드</option>`;
-                            break;
-                    }
-
-                    htmls += `
-                <tr>
-                    <td>1회
-                        <input type="hidden" value="` +
-                            insusepanumnum +
-                            `">
-                    </td>
-                    <td><input type="date" class="form-control" value="` +
-                            fff +
-                            `"></td>
-                    <td>
-                        <select class="form-select">
-                            ` +
-                            bangHtml +
-                            `
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control inInsuSepa" value="` +
-                            fff2 +
-                            `" data-type="currency">
-                    </td>
-                    ` +
-                            trashHtml + `
-                </tr>`;
-
-                }
-            }
-            for (let k = 0; k < aaa.length; k++) {
-                const aaa1 = $(aaa[k]).children()[0];
-                const aaa11 = $(aaa1).children();
-
-                if (realinsucontNum == $(aaa11[0]).val()) {
-
-                    const fff = $($(aaa[k]).children()[1]).text();
-                    const fff1 = $($(aaa[k]).children()[2]).text();
-                    const fff2 = $($(aaa[k]).children()[3]).text();
-
-                    const insusepaTrash = $(aaa11[2]).val();
-
-                    const insusepanumnum = $(aaa11[1]).val();
-
-                    let trashHtml = ``;
-
-                    switch (parseInt(insusepaTrash)) {
-                        case 1:
-                            trashHtml = `
-                        <td>
-                        </td>`;
-                            break;
-                        case 2:
-                            trashHtml = `
-                        <td class="table-success">
-                        완료
-                        </td>`;
-                            break;
-                    }
-
-                    let bangHtml = ``;
-
-                    switch (fff1) {
-                        case "미정":
-                            bangHtml = `
-                    <option value="미정" selected>미정</option>
-                    <option value="입금">입금</option>
-                    <option value="카드">카드</option>`;
-                            break;
-                        case "입금":
-                            bangHtml = `
-                    <option value="미정">미정</option>
-                    <option value="입금" selected>입금</option>
-                    <option value="카드">카드</option>`;
-                            break;
-                        case "카드":
-                            bangHtml = `
-                    <option value="미정">미정</option>
-                    <option value="입금">입금</option>
-                    <option value="카드" selected>카드</option>`;
-                            break;
-                    }
-
-                    htmls += `
-                <tr>
-                    <td>` + $(aaa1)
-                        .text()
-                        .trim() +
-                                `회
-                        <input type="hidden" value="` +
-                                insusepanumnum +
-                                `">
-                    </td>
-                    <td><input type="date" class="form-control" value="` +
-                                fff +
-                                `"></td>
-                    <td>
-                        <select class="form-select">
-                            ` +
-                                bangHtml +
-                                `
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control inInsuSepa" value="` +
-                                fff2 +
-                                `" data-type="currency">
-                    </td>
-                    ` +
-                                trashHtml + `
-                </tr>`;
-
-                }
-            }
-
-            $('#tb-md-insucont').html(htmls);
-            $("input[data-type='currency']").bind('keyup keydown', function () {
-                inputNumberFormat(this);
-            });
-
-            resolve();
-        })
-    }
-});
-
 $(document).on('click', '.choInsu', function () {
 
     const aaa = $(this)
@@ -239,6 +10,39 @@ $(document).on('click', '.choInsu', function () {
     const realinsucontNum = $(aaa[0]).val();
 
     $('#insuCont-insert').hide();
+
+    const carN = $('#ve00').val();
+
+    const bbb = $('#ve02').children()[0];
+    const canNumNUm = $(bbb).text();
+
+    $('#insuCarNum').val(carN);
+    $('#insucontNum').val(realinsucontNum);
+    $('#modal-insuCont-mh').text(canNumNUm + "  보험정보");
+
+    makeModalInsuCont(realinsucontNum);
+});
+
+$(document).on('click', '.middle-insu', function () {
+
+    const aaa = $(this).children()[1];
+
+    const realinsucontNum = $(aaa).val();
+
+    $('#insuCont-insert').hide();
+
+    const bbb = $(this).children()[0];
+
+    const carN = $(bbb).val();
+
+    const ddd = $(this).children()[2];
+    const ddd1 = $(ddd).children()[0];
+
+    const carNum = $(ddd1).text();
+
+    $('#insuCarNum').val(carN);
+    $('#insucontNum').val(realinsucontNum);
+    $('#modal-insuCont-mh').text(carNum + "  보험정보");
 
     makeModalInsuCont(realinsucontNum);
 
@@ -399,15 +203,6 @@ function makeModalInsuCont(insucontNum, cho) {
 
     function showMdInsucont(result) {
         return new Promise(function (resolve, reject) {
-
-            const carN = $('#ve00').val();
-
-            const bbb = $('#ve02').children()[0];
-            const canNumNUm = $(bbb).text();
-
-            $('#insuCarNum').val(carN);
-            $('#insucontNum').val(result);
-            $('#modal-insuCont-mh').text(canNumNUm + "  보험정보");
 
             $('#insuContName').attr("disabled", true);
             $('#insuStDay').attr("disabled", true);
@@ -580,7 +375,7 @@ $(document).on('keyup', '.inInsuSepa', function (eInner) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
@@ -786,7 +581,7 @@ $(document).on('click', '#insuCont-del', function () {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {

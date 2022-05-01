@@ -39,6 +39,53 @@ $(document).on('click', '.trChoLoan', function () {
 
     const loanNoo = $(aaa1).val();
 
+    const carN = $('#ve00').val();
+
+    const bbb = $('#ve02').children()[0];
+    const canNumNUm = $(bbb).text();
+
+    $('#loanCarNum').val(carN);
+    $('#loancontNum').val(loanNoo);
+
+    $('#modal-loanCont-mh').text(canNumNUm + "  대출정보");
+
+    $('#inputLoanNumInsert').val('');
+    $('#inputLoanDayInsert').val(toStringByFormatting(new Date()));
+    $('#inputLoanMonthInsert').val('');
+
+    makeModalLoanCont(loanNoo);
+});
+
+$(document).on('click', '.middle-loan', function () {
+    const aaa = $(this).children()[1];
+
+    const loanNoo = $(aaa).val();
+
+    const bbb = $(this)
+        .parent()
+        .parent();
+    const bbb1 = $(bbb).children()[0];
+
+    const thisDay = $(bbb1).val();
+
+    const ddd = $(this).children()[2];
+    const ddd1 = $(ddd).children()[0];
+
+    const carNum = $(ddd1).text();
+
+    const ccc = $(this).children()[0];
+
+    const carN = $(ccc).val();
+
+    $('#loanCarNum').val(carN);
+    $('#loancontNum').val(loanNoo);
+
+    $('#modal-loanCont-mh').text(carNum + "  대출정보");
+
+    $('#inputLoanNumInsert').val('');
+    $('#inputLoanDayInsert').val(thisDay);
+    $('#inputLoanMonthInsert').val('');
+
     makeModalLoanCont(loanNoo);
 });
 
@@ -199,18 +246,6 @@ function makeModalLoanCont(loanNo, cho) {
 
     function showMdLoancont(result) {
         return new Promise(function (resolve, reject) {
-            const carN = $('#ve00').val();
-
-            const bbb = $('#ve02').children()[0];
-            const canNumNUm = $(bbb).text();
-
-            $('#loanCarNum').val(carN);
-            $('#loancontNum').val(result);
-
-            $('#modal-loanCont-mh').text(canNumNUm + "  대출정보");
-
-            $('#inputLoanDayInsert').val(toStringByFormatting(new Date()));
-
             $('#modal-loanCont').modal('show');
             resolve();
         })
@@ -834,7 +869,13 @@ $(document).on('click', '#loanContX', function () {
 
     function st1() {
         return new Promise(function (resolve, reject) {
-            makeLoan();
+
+            if ($('#home4').css('display') === 'block') {
+                makeMain2BigCal();
+            } else {
+                makeLoan();
+            }
+
             resolve();
         })
     }
@@ -855,13 +896,21 @@ $(document).on('click', '#loanContBtn', function () {
 
     function st1() {
         return new Promise(function (resolve, reject) {
-            makeLoan();
+
+            if ($('#home4').css('display') === 'block') {
+                makeMain2BigCal();
+            } else {
+                makeLoan();
+            }
+
             resolve();
         })
     }
     function st2() {
         return new Promise(function (resolve, reject) {
+
             $('#modal-loanCont').modal('hide');
+
             resolve();
         })
     }

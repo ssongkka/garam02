@@ -12,13 +12,6 @@ $(document).ready(function () {
     dateInput();
 });
 
-$(document).on('click', '#pills-rsvt-tab', function () {
-    $('#stday').val(toStringByFormatting(new Date()));
-    $('#endday').val(toStringByFormatting(new Date()));
-
-    setNewRsvtModal();
-});
-
 function setNewRsvtModal() {
     $('#bus').val('대형');
     $('#num').val(1);

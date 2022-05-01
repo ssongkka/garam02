@@ -34,6 +34,7 @@ import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.dto.RsvtmoneyDTO;
+import com.garam.web.dashboard.dto.ScheDTO;
 import com.garam.web.dashboard.mapper.DashboardMapper;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.itextpdf.text.BaseColor;
@@ -1880,4 +1881,61 @@ public class MainServiceImpl implements MainService {
 
 		return list;
 	}
+
+	@Override
+	public List<VehicleInfoDTO> selectCal2InsuEnd(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2InsuEnd(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectCal2carEnd(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2carEnd(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectCal2Inspec(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2Inspec(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<ScheDTO> selectCalEvent(ScheDTO scheDTO) throws Exception {
+		List<ScheDTO> list = rsvtMapper.selectCalEvent(scheDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<ScheDTO> selectCalEventSeq(ScheDTO scheDTO) throws Exception {
+		List<ScheDTO> list = rsvtMapper.selectCalEventSeq(scheDTO);
+
+		return list;
+	}
+
+	@Override
+	public int insertCalEvent(ScheDTO scheDTO) throws Exception {
+		int rtn = rsvtMapper.insertCalEvent(scheDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateCalEvent(ScheDTO scheDTO) throws Exception {
+		int rtn = rsvtMapper.updateCalEvent(scheDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int deleteCalEvent(ScheDTO scheDTO) throws Exception {
+		int rtn = rsvtMapper.deleteCalEvent(scheDTO);
+
+		return rtn;
+	}
+
 }

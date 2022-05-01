@@ -1885,7 +1885,15 @@
 
 		(SELECT
 		veloansepa.loansepaday FROM veloansepa WHERE veloansepa.loanno = veloan.loanno AND veloansepa.loansepamonth =
-		#{owner}) AS owner
+		#{regist}) AS regist,
+		(SELECT
+		veloansepa.loansepaday FROM veloansepa WHERE veloansepa.loanno = veloan.loanno AND
+		veloansepa.loansepamonth =
+		#{color}) AS color,
+		(SELECT
+		veloansepa.loansepaday FROM veloansepa WHERE veloansepa.loanno =
+		veloan.loanno AND veloansepa.loansepamonth =
+		#{expire}) AS expire
 
 		FROM
 
@@ -1897,7 +1905,8 @@
 
 		ON
 
-		veloan.loanno = veloansepa.loanno
+		veloan.loanno =
+		veloansepa.loanno
 
 		WHERE
 
@@ -1905,7 +1914,7 @@
 		IF(MONTH(veloan.loandatestart) <![CDATA[<]]>
 		10, CONCAT('0',MONTH(veloan.loandatestart)),
 		MONTH(veloan.loandatestart))) <![CDATA[<=]]>
-		#{owner}
+		#{regist}
 
 		AND
 
@@ -1913,60 +1922,12 @@
 		IF(MONTH(veloan.loandateend) <![CDATA[<]]>
 		10,
 		CONCAT('0',MONTH(veloan.loandateend)), MONTH(veloan.loandateend))) <![CDATA[>=]]>
-		#{owner})
+		#{expire})
 
 
 		GROUP BY
 
 		veloan.loanno
-
-
-	</select>
-	<select id="selectCal2Loan2" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
-		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
-
-		SELECT
-
-		*,
-
-		(SELECT
-		vehicleinfo.vehicle FROM
-		vehicleinfo WHERE vehicleinfo.carnumber
-		=
-		veloan.carnumber) AS vehicle,
-
-		MAX(veloansepa.loansepaday)
-
-		FROM
-
-		veloan
-
-		LEFT JOIN
-
-		veloansepa
-
-		ON
-
-		veloan.loanno = veloansepa.loanno
-
-		WHERE
-
-		(CONCAT(YEAR(veloan.loandatestart),'-',
-		MONTH(veloan.loandatestart)) <![CDATA[<=]]>
-		#{owner}
-
-		AND
-
-		CONCAT(YEAR(veloan.loandateend),'-',
-		MONTH(veloan.loandateend)) <![CDATA[>=]]>
-		#{owner})
-
-		GROUP BY
-		veloan.loanno
-
-		ORDER BY
-		veloan.loandayloan
-
 
 
 	</select>
@@ -1976,7 +1937,49 @@
 
 		SELECT
 
-		*
+		*,
+		(SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		veinsurance.carnumber) AS
+		vehicle
+
+		FROM
+
+		veinsurancesepa
+
+		LEFT
+		JOIN
+
+		veinsurance
+
+		ON
+
+		veinsurancesepa.insuno = veinsurance.insuno
+
+		WHERE
+
+		veinsurancesepa.insusepaday BETWEEN #{inday} AND
+		#{outday}
+
+		ORDER BY
+		vehicle
+
+	</select>
+
+	<select id="selectCal2InsuEnd" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		veinsurance.carnumber) AS
+		vehicle
 
 		FROM
 
@@ -1984,8 +1987,151 @@
 
 		WHERE
 
-		veinsurance.insutrash = 1
+		veinsurance.insudateend BETWEEN #{inday} AND #{outday}
+
+		AND
+
+		veinsurance.insutrash =
+		1
+
+	</select>
+	<select id="selectCal2carEnd" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		vehicleinfo
+
+		WHERE
+
+		vehicleinfo.expire BETWEEN #{inday} AND #{outday}
+
+		AND
+
+		vehicleinfo.trash =
+		1
+
+	</select>
+	<select id="selectCal2Inspec" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+		vehicleinfo.vehicle FROM
+		vehicleinfo WHERE vehicleinfo.carnumber
+		=
+		veinspection.carnumber) AS
+		vehicle
+
+		FROM
+
+		veinspection
+
+		WHERE
+
+		veinspection.inspecdateend BETWEEN #{inday} AND #{outday}
+
+		AND
+
+		veinspection.inspectrash =
+		1
 
 	</select>
 
+	<select id="selectCalEvent" parameterType="com.garam.web.dashboard.dto.ScheDTO"
+		resultType="com.garam.web.dashboard.dto.ScheDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		calevent
+
+		WHERE
+
+		calevent.caleventday BETWEEN #{caleventtitle} AND #{caleventevent}
+
+		AND
+
+		calevent.caleventtrash = 1
+
+	</select>
+
+	<select id="selectCalEventSeq" parameterType="com.garam.web.dashboard.dto.ScheDTO"
+		resultType="com.garam.web.dashboard.dto.ScheDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		calevent
+
+		WHERE
+
+		calevent.caleventseq = #{caleventseq}
+
+	</select>
+
+	<insert id="insertCalEvent" parameterType="com.garam.web.dashboard.dto.ScheDTO">
+		INSERT
+
+		INTO
+
+		calevent
+
+		VALUES
+		(
+		null,
+		#{caleventday},
+		#{caleventgrade},
+		#{caleventtime},
+		#{caleventtitle},
+		#{caleventevent},
+		1
+		);
+	</insert>
+
+	<update id="updateCalEvent" parameterType="com.garam.web.dashboard.dto.ScheDTO">
+		UPDATE
+
+		calevent
+
+		SET
+
+		caleventday = #{caleventday},
+		caleventgrade =
+		#{caleventgrade},
+		caleventtime = #{caleventtime},
+		caleventevent = #{caleventevent},
+		caleventtitle = #{caleventtitle},
+		caleventtrash = 1
+
+		WHERE
+
+		caleventseq = #{caleventseq};
+	</update>
+
+	<delete id="deleteCalEvent" parameterType="com.garam.web.dashboard.dto.ScheDTO">
+
+		DELETE
+
+		FROM
+
+		calevent
+
+		WHERE
+
+		caleventseq = #{caleventseq};
+
+	</delete>
 </mapper>

@@ -1,9 +1,5 @@
 $(document).ready(function () {});
 
-$(document).on('click', '#pills-manage-tab', function () {
-    makeManage();
-});
-
 function makeManage() {
     const operdddd = $('.dash-cal-con-item-t').children()[0];
     const operdddd1 = $(operdddd).children()[1];

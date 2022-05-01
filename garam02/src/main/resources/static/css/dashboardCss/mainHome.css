@@ -185,9 +185,7 @@ ul {
 .mainCal2td-top {
     display: flex;
     flex-direction: row;
-    padding: 1rem 1rem 0;
-
-    margin-bottom: 1rem;
+    padding: 1rem 1.3rem;
 
     cursor: pointer;
 }
@@ -238,16 +236,11 @@ ul {
 }
 
 .mainCal2td-middle-item {
-    margin: 0 0.3rem;
     text-align: left;
-
     border-radius: 3px;
-
-    top: 0;
-    left: 0;
-    right: 0;
-
-    padding: 0.3rem 0;
+    margin: 0.3rem;
+    padding: 0 0.5rem;
+    display: flex;
 }
 
 .maincaltd-middle-itemb {
@@ -422,6 +415,56 @@ ul {
 
 .home2-search1 {
     width: 10rem;
+}
+
+.h2ch {
+    display: flex;
+    align-items: center;
+}
+
+.h2Ve {
+    margin-right: 0.5rem;
+}
+
+.h2chSal {
+    color: #ffa800;
+}
+
+.h2chLoan {
+    color: #cde7f3;
+}
+
+.h2chInsu {
+    color: #ffc8c8;
+}
+
+.h2chEnd,
+.h2chEventgrade {
+    color: #c20000;
+}
+
+.h2chEvent {
+    color: #272e56;
+}
+
+.mainCal2td-middle-item:hover {
+    cursor: pointer;
+
+    background: var(--main-color);
+    color: var(--sub-color);
+}
+
+#modalScheBD {
+    padding: 3rem;
+}
+
+.scheCheck {
+    display: flex;
+    gap: 3rem;
+}
+
+.modalScheFD {
+    display: flex;
 }
 
 #searchDateRsvt {}
