@@ -16,8 +16,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 3rem 2rem;
+    margin: 3rem 2rem;
 }
 
 .home-mainCal2 {
@@ -63,7 +62,7 @@ ul {
 
 .home-tap-1 {}
 
-.home-main-item-44:nth-child(1) {
+.home-main-item-44:nth-child(2) {
     flex: 1;
 }
 
@@ -75,7 +74,7 @@ ul {
     cursor: pointer;
 }
 
-.home-main-item-444:nth-child(1) {
+.home-main-item-444:nth-child(2) {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,7 +83,7 @@ ul {
     gap: 5rem;
 }
 
-.home-main-item-444:nth-child(1) label {
+.home-main-item-444:nth-child(2) label {
     font-size: 1.5rem;
 }
 
@@ -326,12 +325,14 @@ ul {
 .home2-item1 {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 2rem;
 }
 
 .home2-item2 {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -454,6 +455,19 @@ ul {
     color: var(--sub-color);
 }
 
+table > tbody > tr > .big45home2 {
+    margin: 1rem;
+    color: #009f5c;
+}
+table > tbody > tr > .big25home2 {
+    margin: 1rem;
+    color: #f2600e;
+}
+table > tbody > tr > .big28home2 {
+    margin: 1rem;
+    color: #1862c6;
+}
+
 #modalScheBD {
     padding: 3rem;
 }
@@ -468,6 +482,12 @@ ul {
 }
 
 #searchDateRsvt {}
+
+#home4Aside {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
 
 @media (max-width:1024px) {
     .home-main {

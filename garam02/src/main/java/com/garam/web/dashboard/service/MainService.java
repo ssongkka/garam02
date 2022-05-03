@@ -121,13 +121,23 @@ public interface MainService {
 
 	public List<VehicleInfoDTO> selectCal2InsuEnd(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
+	public List<VehicleInfoDTO> selectInsuDDay(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selectCal2carEndDday(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 	public List<VehicleInfoDTO> selectCal2carEnd(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectCal2Inspec(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
+	public List<VehicleInfoDTO> selectCal2InspecDday(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<RsvtDTO> selectrsvtCal2Aside(List<Map<String, Object>> map) throws Exception;
+
 	public List<ScheDTO> selectCalEvent(ScheDTO scheDTO) throws Exception;
 
 	public List<ScheDTO> selectCalEventSeq(ScheDTO scheDTO) throws Exception;
+
+	public List<ScheDTO> selectCalEventInfo(ScheDTO scheDTO) throws Exception;
 
 	public int insertCalEvent(ScheDTO scheDTO) throws Exception;
 

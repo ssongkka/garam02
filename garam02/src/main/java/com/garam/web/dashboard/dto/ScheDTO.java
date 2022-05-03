@@ -4,6 +4,12 @@ public class ScheDTO {
 
 	private Integer caleventseq;
 
+	private String caleventintime;
+
+	private String caleventchtime;
+
+	private String caleventemp;
+
 	private String caleventday;
 
 	private Integer caleventgrade;
@@ -22,6 +28,30 @@ public class ScheDTO {
 
 	public void setCaleventseq(Integer caleventseq) {
 		this.caleventseq = caleventseq;
+	}
+
+	public String getCaleventintime() {
+		return caleventintime;
+	}
+
+	public void setCaleventintime(String caleventintime) {
+		this.caleventintime = caleventintime;
+	}
+
+	public String getCaleventchtime() {
+		return caleventchtime;
+	}
+
+	public void setCaleventchtime(String caleventchtime) {
+		this.caleventchtime = caleventchtime;
+	}
+
+	public String getCaleventemp() {
+		return caleventemp;
+	}
+
+	public void setCaleventemp(String caleventemp) {
+		this.caleventemp = caleventemp;
 	}
 
 	public String getCaleventday() {

@@ -2,7 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
     <div th:fragment="main-home" class="main-home">
-        <div class="home-mainCal">
+        <div class="home-mainCal card-song">
+            <div th:replace="dashboard/dashboardMainHeadCal :: main-headCal"></div>
             <div class="home-main-item-1">
                 <div class="mainCal">
                     <table class="table table-bordered mainCalTable">

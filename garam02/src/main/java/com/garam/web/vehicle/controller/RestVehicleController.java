@@ -212,6 +212,22 @@ public class RestVehicleController {
 		return rst;
 	}
 
+	@PostMapping(value = "/veupdateinsu")
+	public int veupdateinsu(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = vehicleService.updateInsu(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+
+		return rst;
+	}
+
 	@PostMapping(value = "/veinsertinsusepa")
 	public int veinsertinsusepa(@RequestBody List<Map<String, Object>> map) throws Exception {
 		int rtn = vehicleService.insertInsuSepa(map);

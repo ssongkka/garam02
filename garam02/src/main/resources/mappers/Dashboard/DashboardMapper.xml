@@ -1926,8 +1926,10 @@
 
 
 		GROUP BY
-
 		veloan.loanno
+
+		ORDER BY
+		vehicle
 
 
 	</select>
@@ -1974,6 +1976,7 @@
 		SELECT
 
 		*,
+		MAX(veinsurance.insudateend),
 		(SELECT
 		vehicleinfo.vehicle FROM
 		vehicleinfo WHERE vehicleinfo.carnumber
@@ -1989,10 +1992,45 @@
 
 		veinsurance.insudateend BETWEEN #{inday} AND #{outday}
 
+		GROUP BY
+		veinsurance.insuno
+
+	</select>
+
+	<select id="selectInsuDDay" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+		*,
+		MAX(veinsurance.insudateend) AS vegasyearmonth,
+		DATEDIFF(date(veinsurance.insudateend), now()) as vegasid
+
+		FROM
+
+		veinsurance
+
+		LEFT JOIN
+
+		vehicleinfo
+
+		ON
+
+		veinsurance.carnumber = vehicleinfo.carnumber
+
+		WHERE
+
+		DATEDIFF(date(veinsurance.insudateend), NOW()) <![CDATA[<=]]>
+		#{price}
+
 		AND
 
-		veinsurance.insutrash =
-		1
+		vehicleinfo.trash = 1
+
+		GROUP BY
+		veinsurance.carnumber
+
+		ORDER BY
+		vegasid
 
 	</select>
 	<select id="selectCal2carEnd" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
@@ -2014,6 +2052,35 @@
 
 		vehicleinfo.trash =
 		1
+
+	</select>
+	<select id="selectCal2carEndDday" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+		*,
+		MAX(vehicleinfo.expire) AS vegasyearmonth,
+		DATEDIFF(date(vehicleinfo.expire), now()) as vegasid,
+		vehicleinfo.vehicle
+
+		FROM
+
+		vehicleinfo
+
+		WHERE
+
+		DATEDIFF(date(vehicleinfo.expire), NOW()) <![CDATA[<=]]>
+		#{price}
+
+		AND
+
+		vehicleinfo.trash = 1
+
+		GROUP BY
+		vehicleinfo.carnumber
+
+		ORDER BY
+		vegasid
 
 	</select>
 	<select id="selectCal2Inspec" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
@@ -2042,6 +2109,68 @@
 		veinspection.inspectrash =
 		1
 
+	</select>
+	<select id="selectCal2InspecDday" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+		*,
+		MAX(veinspection.inspecdateend) AS vegasyearmonth,
+		DATEDIFF(date(veinspection.inspecdateend), now()) as
+		vegasid
+
+		FROM
+
+		veinspection
+
+		LEFT JOIN
+
+		vehicleinfo
+
+		ON
+
+		veinspection.carnumber = vehicleinfo.carnumber
+
+		WHERE
+
+		DATEDIFF(date(veinspection.inspecdateend), NOW()) <![CDATA[<=]]>
+		#{price}
+
+		AND
+
+		vehicleinfo.trash = 1
+
+		GROUP BY
+		veinspection.carnumber
+
+		ORDER BY
+		vegasid
+
+	</select>
+
+	<select id="selectrsvtCal2Aside" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		<foreach collection="rsvthome" item="value" separator="UNION">
+			SELECT
+
+			IF(rsvt.stday = rsvt.endday, rsvt.stday, #{value.stday}) AS stday,
+			SUM(rsvt.num) AS num,
+			rsvt.bus
+
+			FROM
+			rsvt
+
+			WHERE
+
+			(rsvt.stday <![CDATA[<=]]>
+			#{value.stday})
+			AND
+			(rsvt.endday <![CDATA[>=]]>
+			#{value.stday})
+
+			GROUP BY
+			rsvt.bus
+		</foreach>
 	</select>
 
 	<select id="selectCalEvent" parameterType="com.garam.web.dashboard.dto.ScheDTO"
@@ -2082,6 +2211,27 @@
 
 	</select>
 
+	<select id="selectCalEventInfo" parameterType="com.garam.web.dashboard.dto.ScheDTO"
+		resultType="com.garam.web.dashboard.dto.ScheDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		calevent
+
+		WHERE
+
+		calevent.caleventday IS NULL
+
+		AND
+
+		calevent.caleventtime IS NULL
+
+	</select>
+
 	<insert id="insertCalEvent" parameterType="com.garam.web.dashboard.dto.ScheDTO">
 		INSERT
 
@@ -2092,9 +2242,12 @@
 		VALUES
 		(
 		null,
+		now(),
+		null,
+		#{caleventemp},
 		#{caleventday},
-		#{caleventgrade},
 		#{caleventtime},
+		#{caleventgrade},
 		#{caleventtitle},
 		#{caleventevent},
 		1
@@ -2108,12 +2261,14 @@
 
 		SET
 
+		caleventchtime = now(),
 		caleventday = #{caleventday},
 		caleventgrade =
 		#{caleventgrade},
 		caleventtime = #{caleventtime},
 		caleventevent = #{caleventevent},
-		caleventtitle = #{caleventtitle},
+		caleventtitle =
+		#{caleventtitle},
 		caleventtrash = 1
 
 		WHERE

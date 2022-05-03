@@ -878,6 +878,13 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
+	public int updateInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.updateInsu(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
 	public int insertInsuSepa(List<Map<String, Object>> map) throws Exception {
 
 		HashMap<String, Object> insusepa = new HashMap<>();

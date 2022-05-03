@@ -39,6 +39,8 @@ public interface VehicleMapper {
 
 	public int insertInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
+	public int updateInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 	public int insertInsuSepa(HashMap<String, Object> map) throws Exception;
 
 	public int deleteInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;

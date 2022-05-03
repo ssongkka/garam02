@@ -224,14 +224,16 @@
 }
 
 .allo-side {
+    overflow-y: auto;
     border-left: 1px solid rgba(34,34,48,.1);
     background: white;
     width: 30rem;
     position: fixed;
-    height: 100%;
+    top: 10.5rem;
+    bottom: 0;
     right: 0;
     z-index: 1000;
-    padding: 2rem 1rem;
+    padding: 1rem;
 }
 
 .no-allo {

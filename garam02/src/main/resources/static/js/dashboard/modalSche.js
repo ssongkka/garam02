@@ -22,15 +22,34 @@ $(document).on('change', '#scheAllDay', function () {
 
 $(document).on('click', '.cal2Detail', function () {
 
+    $('#scheGong').attr('disabled', false);
+    $('#scheAllDay').attr('disabled', false);
+    $('#scheGrade').attr('disabled', false);
+
+    $('#scheDay').attr('disabled', false);
+    $('#scheTime').attr('disabled', false);
+
+    $('#scheTitle').attr('disabled', false);
+    $('#scheEvent').attr('disabled', false);
+
+    $('#sche-del').attr('disabled', false);
+    $('#sche-insert').attr('disabled', false);
+
     const aaa = $(this)
         .parent()
         .parent()
         .prev();
     const thisDayyy = $(aaa).val();
 
+    $('#scheGong').attr('checked', false);
     $('#scheAllDay').attr('checked', true);
+    $('#scheGrade').attr('checked', false);
+
     $('#scheTime').attr('disabled', true);
 
+    $('#scheEmp').val(dbuser.position + ' ' + dbuser.name);
+    $('#scheInTime').text('');
+    $('#scheChTime').text('');
     $('#scheDay').val(thisDayyy);
     $('#scheTime').val('12:00');
     $('#scheTitle').val('');
@@ -48,11 +67,20 @@ $(document).on('click', '.cal2Detail', function () {
 $(document).on('click', '.middle-event', function () {
 
     const bbb = $(this).children()[1];
-    console.log(bbb);
     const eventSeq = $(bbb).val();
 
-    console.log();
+    showScheMD(eventSeq);
+});
 
+$(document).on('click', '.eventAside', function () {
+    const aaa = $(this).children()[1];
+    const aaa1 = $(aaa).children()[0];
+    const eventSeq = $(aaa1).val();
+
+    showScheMD(eventSeq);
+});
+
+function showScheMD(eventSeq) {
     LoadingWithMask()
         .then(getCalEvent)
         .then(showScheMD)
@@ -83,6 +111,23 @@ $(document).on('click', '.middle-event', function () {
 
                     $('#scheDay').attr('disabled', false);
                     $('#scheTime').attr('disabled', false);
+
+                    $('#scheEmp').val(r[0].caleventemp);
+
+                    console.log("r[0].caleventintime   " + r[0].caleventintime);
+                    console.log("r[0].caleventchtime   " + r[0].caleventchtime);
+
+                    if (r[0].caleventintime) {
+                        $('#scheInTime').text(r[0].caleventintime);
+                    } else {
+                        $('#scheInTime').text('');
+                    }
+
+                    if (r[0].caleventchtime) {
+                        $('#scheChTime').text(r[0].caleventchtime);
+                    } else {
+                        $('#scheChTime').text('');
+                    }
 
                     if (!r[0].caleventday) {
                         $('#scheGong').attr('checked', true);
@@ -122,17 +167,46 @@ $(document).on('click', '.middle-event', function () {
         })
     }
 
-    function showScheMD() {
+    function showScheMD(result) {
         return new Promise(function (resolve, reject) {
-            $('#sche-del').show();
-            $('#sche-insert').text('수 정');
 
-            $('#modalScheC').modal('show');
+            if ($('#scheEmp').val() == (dbuser.position + ' ' + dbuser.name)) {
+                $('#scheGong').attr('disabled', false);
+                $('#scheAllDay').attr('disabled', false);
+                $('#scheGrade').attr('disabled', false);
+
+                $('#scheTitle').attr('disabled', false);
+                $('#scheEvent').attr('disabled', false);
+
+                $('#sche-del').show();
+                $('#sche-del').attr('disabled', false);
+                $('#sche-insert').text('수 정');
+                $('#sche-insert').attr('disabled', false);
+
+                $('#modalScheC').modal('show');
+            } else {
+                $('#scheGong').attr('disabled', true);
+                $('#scheAllDay').attr('disabled', true);
+                $('#scheGrade').attr('disabled', true);
+
+                $('#scheDay').attr('disabled', true);
+                $('#scheTime').attr('disabled', true);
+
+                $('#scheTitle').attr('disabled', true);
+                $('#scheEvent').attr('disabled', true);
+
+                $('#sche-del').show();
+                $('#sche-del').attr('disabled', true);
+                $('#sche-insert').text('수 정');
+                $('#sche-insert').attr('disabled', true);
+
+                $('#modalScheC').modal('show');
+            }
+
             resolve();
         })
     }
-
-});
+}
 
 $(document).on('click', '#sche-insert', function () {
 
@@ -202,6 +276,7 @@ $(document).on('click', '#sche-insert', function () {
 
             const params = {
                 "caleventseq": calevNo,
+                "caleventemp": dbuser.position + ' ' + dbuser.name,
                 "caleventday": calevDay,
                 "caleventgrade": calevGrade,
                 "caleventtime": calevTime,
@@ -222,6 +297,7 @@ $(document).on('click', '#sche-insert', function () {
                         alert("일정 저장");
                         $('#modalScheC').modal('hide');
                         makeMain2BigCal();
+                        makeBigcal2Aside();
                         resolve();
                     } else if (r == -1) {
                         alert("일정 저장 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
@@ -275,6 +351,7 @@ $(document).on('click', '#sche-del', function () {
                         alert("일정 삭제 완료");
                         $('#modalScheC').modal('hide');
                         makeMain2BigCal();
+                        makeBigcal2Aside();
                         resolve();
                     } else if (r == -1) {
                         alert("일정 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")

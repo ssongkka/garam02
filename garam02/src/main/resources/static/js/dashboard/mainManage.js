@@ -22,7 +22,7 @@ function makeManage() {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
 
         success: function (r) {
@@ -125,108 +125,130 @@ function getManage(list) {
                 for (let i = 0; i < uniqueCtm.length; i++) {
                     switch (arrSepa[i]) {
                         case 0:
+
                             ilHtml += `
-                    <tr>
-                        <td class="thNone">` +
+                            <tr class="mainManageMore">
+                                <td>` +
+                                    (++cntIl) +
+                                    `
+                                    <input type="hidden" value="` +
                                     uniqueCtm[i] +
+                                    `">
+                                    <input type="hidden" value="` +
+                                    arrDay[i] +
+                                    `">
+                                    <input type="hidden" value="` +
+                                    arrSepa[i] +
+                                    `">
+                                </td>
+                                <td>` +
+                                    arrName[i] +
                                     `</td>
-                        <td class="thNone">` + arrDay[i] +
-                                    `</td>
-                        <td class="thNone">` + arrSepa[i] +
-                                    `</td>
-                        <td>` + (++cntIl) +
-                                    `</td>
-                        <td>` + arrName[i] +
-                                    `</td>
-                        <td>` + arrCnt[i] + '건' +
-                                    `</td>
-                        <td>` + arrCnt1[i] + '대' +
-                                    `</td>
-                        <td style="text-align: left; padding-left: 2rem;">` +
+                                <td>` + arrCnt[i] +
+                                    `건</td>
+                                <td>` + arrCnt1[i] +
+                                    `대</td>
+                                <td style="text-align: left; padding-left: 2rem;">` +
                                     arrDesty[i] +
                                     `</td>
-                        <td class="tdRight">` + AddComma(arrMoney[i]) +
+                                <td class="tdRight">` + AddComma(
+                                arrMoney[i]
+                            ) +
                                     `</td>
-                        <td class="tdRight" id="inMMM` + i +
+                                <td class="tdRight" id="inMMM` + i +
                                     `"></td>
-                        <td class="tdRight" id="janMMM` + i +
+                                <td class="tdRight" id="janMMM` + i +
                                     `"></td>
-                        <td> <a class="manageMore"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
-                    </tr>`
+                            </tr>`;
+                            break;
+
                             break;
 
                         case 1:
+
                             hakHtml += `
-                    <tr>
-                        <td class="thNone">` +
+                            <tr class="mainManageMore">
+                                <td>` +
+                                    (++cntHak) +
+                                    `
+                                    <input type="hidden" value="` +
                                     uniqueCtm[i] +
+                                    `">
+                                    <input type="hidden" value="` +
+                                    arrDay[i] +
+                                    `">
+                                    <input type="hidden" value="` +
+                                    arrSepa[i] +
+                                    `">
+                                </td>
+                                <td>` +
+                                    arrName[i] +
                                     `</td>
-                        <td class="thNone">` + arrDay[i] +
-                                    `</td>
-                        <td class="thNone">` + arrSepa[i] +
-                                    `</td>
-                        <td>` + (++cntHak) +
-                                    `</td>
-                        <td>` + arrName[i] +
-                                    `</td>
-                        <td>` + arrCnt[i] + '건' +
-                                    `</td>
-                        <td>` + arrCnt1[i] + '대' +
-                                    `</td>
-                        <td style="text-align: left; padding-left: 2rem;">` +
+                                <td>` + arrCnt[i] +
+                                    `건</td>
+                                <td>` + arrCnt1[i] +
+                                    `대</td>
+                                <td style="text-align: left; padding-left: 2rem;">` +
                                     arrDesty[i] +
                                     `</td>
-                        <td class="tdRight">` + AddComma(arrMoney[i]) +
+                                <td class="tdRight">` + AddComma(
+                                arrMoney[i]
+                            ) +
                                     `</td>
-                        <td class="tdRight" id="inMMM` + i +
+                                <td class="tdRight" id="inMMM` + i +
                                     `"></td>
-                        <td class="tdRight" id="janMMM` + i +
+                                <td class="tdRight" id="janMMM` + i +
                                     `"></td>
-                        <td> <a class="manageMore"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
-                    </tr>`
+                            </tr>`;
                             break;
 
                         case 2:
                             guHtml += `
-                    <tr>
-                        <td class="thNone">` +
+                            <tr class="mainManageMore">
+                                <td>` +
+                                    (++cntGu) +
+                                    `
+                                    <input type="hidden" value="` +
                                     uniqueCtm[i] +
+                                    `">
+                                    <input type="hidden" value="` +
+                                    arrDay[i] +
+                                    `">
+                                    <input type="hidden" value="` +
+                                    arrSepa[i] +
+                                    `">
+                                </td>
+                                <td>` +
+                                    arrName[i] +
                                     `</td>
-                        <td class="thNone">` + arrDay[i] +
-                                    `</td>
-                        <td class="thNone">` + arrSepa[i] +
-                                    `</td>
-                        <td>` + (++cntGu) +
-                                    `</td>
-                        <td>` + arrName[i] +
-                                    `</td>
-                        <td>` + arrCnt[i] + '건' +
-                                    `</td>
-                        <td>` + arrCnt1[i] + '대' +
-                                    `</td>
-                        <td style="text-align: left; padding-left: 2rem;">` +
+                                <td>` + arrCnt[i] +
+                                    `건</td>
+                                <td>` + arrCnt1[i] +
+                                    `대</td>
+                                <td style="text-align: left; padding-left: 2rem;">` +
                                     arrDesty[i] +
                                     `</td>
-                        <td class="tdRight">` + AddComma(arrMoney[i]) +
+                                <td class="tdRight">` + AddComma(
+                                arrMoney[i]
+                            ) +
                                     `</td>
-                        <td class="tdRight" id="inMMM` + i +
+                                <td class="tdRight" id="inMMM` + i +
                                     `"></td>
-                        <td class="tdRight" id="janMMM` + i +
+                                <td class="tdRight" id="janMMM` + i +
                                     `"></td>
-                        <td><a class="manageMore"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
-                    </tr>`
+                            </tr>`;
                             break;
                     }
                 }
 
                 if (cntIl < 1) {
-                    ilHtml = `<tr><td colspan="12">예약 정보 없음</td></tr>`;
+                    ilHtml = `<tr><td colspan="11">예약 정보 없음</td></tr>`;
                 }
                 if (cntHak < 1) {
-                    hakHtml = `<tr><td colspan="12">예약 정보 없음</td></tr>`;
+                    hakHtml = `<tr><td colspan="11">예약 정보 없음</td></tr>`;
                 }
                 if (cntGu < 1) {
-                    guHtml = `<tr><td colspan="12">예약 정보 없음</td></tr>`;
+                    guHtml = `<tr><td colspan="11">예약 정보 없음</td></tr>`;
                 }
 
                 $('#tb-ilManage').html(ilHtml);
@@ -234,9 +256,9 @@ function getManage(list) {
                 $('#tb-guManage').html(guHtml);
 
             } else {
-                $('#tb-ilManage').html(`<tr><td colspan="12">예약 정보 없음</td></tr>`);
-                $('#tb-hakManage').html(`<tr><td colspan="12">예약 정보 없음</td></tr>`);
-                $('#tb-guManage').html(`<tr><td colspan="12">예약 정보 없음</td></tr>`);
+                $('#tb-ilManage').html(`<tr><td colspan="11">예약 정보 없음</td></tr>`);
+                $('#tb-hakManage').html(`<tr><td colspan="11">예약 정보 없음</td></tr>`);
+                $('#tb-guManage').html(`<tr><td colspan="11">예약 정보 없음</td></tr>`);
             }
             resolve(arrSumRsvt);
         })
@@ -265,7 +287,7 @@ function getManage(list) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
                     async: false,
 
@@ -292,22 +314,11 @@ function getManage(list) {
     }
 }
 
-$(document).on('click', '.manageMore', function () {
-    const aaa = $(this)
-        .parent()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .prev()
-        .prev();
+$(document).on('click', '.mainManageMore', function () {
+    const aaa = $(this).children()[0];
+    const aaa1 = $(aaa).children()[0];
 
-    const tmpCtmno = $(aaa).text();
+    const tmpCtmno = $(aaa1).val();
 
     $('#manageCtmno').val(tmpCtmno);
 

@@ -44,6 +44,10 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <label for="scheEmp" class="form-label">담 당 자</label>
+                            <input type="text" class="form-control" id="scheEmp" readonly="readonly">
+                        </div>
                         <div class="col-6">
                             <label for="scheDay" class="form-label">날 짜</label>
                             <input type="date" class="form-control" id="scheDay">
@@ -59,6 +63,14 @@
                         <div class="col-md-12">
                             <label for="scheEvent" class="form-label">내 용</label>
                             <textarea rows="5" class="form-control" id="scheEvent"></textarea>
+                        </div>
+                        <div class="col-12" style="display: flex; gap: 1rem;">
+                            <span>입력일 :
+                            </span>
+                            <span id="scheInTime"></span>
+                            <span>수정일 :
+                            </span>
+                            <span id="scheChTime"></span>
                         </div>
                     </div>
                 </div>

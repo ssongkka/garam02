@@ -40,8 +40,8 @@ function getOperListIl() {
 function getOperListMonth(result) {
     return new Promise(function (resolve, reject) {
 
-        let stD = new Date($("#yearMonth").val() + '-01');
-        const stttD = new Date($("#yearMonth").val() + '-01');
+        let stD = new Date($('.yearMonth').val() + '-01');
+        const stttD = new Date($('.yearMonth').val() + '-01');
 
         stD = new Date(stD.setMonth(stD.getMonth() + 1));
 
@@ -81,12 +81,14 @@ function getOperListMonth(result) {
 $(document).on('click', '#radioOper1', function () {
     LoadingWithMask()
         .then(getOperListIl)
+        .then(getRsvtListMonthAside)
         .then(closeLoadingWithMask);
 });
 
 $(document).on('click', '#radioOper2', function () {
     LoadingWithMask()
         .then(getOperListMonth)
+        .then(getRsvtListMonthAside)
         .then(closeLoadingWithMask);
 });
 
@@ -96,8 +98,8 @@ $(document).on('click', '#searchChOper', function () {
         $("#searchPeStOper").attr("disabled", true);
         $("#searchPeEdOper").attr("disabled", true);
     } else {
-        let stD = new Date($("#yearMonth").val() + '-01');
-        const stttD = new Date($("#yearMonth").val() + '-01');
+        let stD = new Date($('.yearMonth').val() + '-01');
+        const stttD = new Date($('.yearMonth').val() + '-01');
 
         stD = new Date(stD.setMonth(stD.getMonth() + 1));
 
@@ -392,7 +394,7 @@ function makeTableOper(r) {
             let carcar = '';
             let carHtml = `<td class="operChohome tdPerson">` + carcar +
                     `</td>
-        <td class="operChohome tdPerson"></td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+        <td class="operChohome tdPerson"></td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td><td></td>`;
             if (r[i].vehicle && r[i].dayst == 1) {
                 if (isNaN((r[i].vehicle).substring((r[i].vehicle).length - 4))) {
                     carcar = r[i]
@@ -407,7 +409,9 @@ function makeTableOper(r) {
                             `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                             r[i].operseq +
                             `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
-                            AddComma(r[i].atlm) + `"></div></div></td>`;
+                            AddComma(r[i].atlm) +
+                            `"></div></div></td><td class="tdRight operChohome">` + AddComma(r[i].numm) +
+                            `</td>`;
                 } else {
                     carcar = (r[i].vehicle).substring((r[i].vehicle).length - 4);
                     let cnt = 0;
@@ -424,7 +428,9 @@ function makeTableOper(r) {
                                 `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                                 r[i].operseq +
                                 `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
-                                AddComma(r[i].atlm) + `"></div></div></td>`;
+                                AddComma(r[i].atlm) +
+                                `"></div></div></td><td class="tdRight operChohome">` + AddComma(r[i].numm) +
+                                `</td>`;
                     } else {
                         carHtml = `<td class="operChohome tdPerson">` + carcar +
                                 `</td>
@@ -432,7 +438,9 @@ function makeTableOper(r) {
                                 `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                                 r[i].operseq +
                                 `"></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="` +
-                                AddComma(r[i].atlm) + `"></div></div></td>`;
+                                AddComma(r[i].atlm) +
+                                `"></div></div></td><td class="tdRight operChohome">` + AddComma(r[i].numm) +
+                                `</td>`;
                     }
 
                 }
@@ -449,7 +457,7 @@ function makeTableOper(r) {
                         <td class="operChohome tdPerson">` + r[i].name +
                             `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                             r[i].operseq +
-                            `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+                            `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td><td class="tdRight operChohome">0</td>`;
                 } else {
                     carcar = (r[i].vehicle).substring((r[i].vehicle).length - 4);
                     let cnt = 0;
@@ -465,14 +473,14 @@ function makeTableOper(r) {
                         <td class="operChohome tdPerson">` + r[i].name +
                                 `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                                 r[i].operseq +
-                                `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+                                `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td><td class="tdRight operChohome">0</td>`;
                     } else {
                         carHtml = `<td class="operChohome tdPerson">` + carcar +
                                 `</td>
                         <td class="operChohome tdPerson">` + r[i].name +
                                 `</td><td class="tdPerson"><div class="tdMoney"><div class=""><input class="form-check-input" type="checkbox" name="chAtm" value="` +
                                 r[i].operseq +
-                                `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td>`;
+                                `" disabled></div><div class=""><input type="text" class="form-control operAltMIn" style="height: 2rem;" data-type="currency" onfocus="this.select()" value="" disabled></div></div></td><td class="tdRight operChohome">0</td>`;
                     }
 
                 }
@@ -508,8 +516,7 @@ function makeTableOper(r) {
             <td class="operChohome">` + destyyy +
                     `</td>
             ` + carHtml +
-                    `<td class="tdRight operChohome">` + AddComma(r[i].numm) +
-                    `</td>
+                    `
             <td class="operChohome">` + r[i].num +
                     `</td>
             <td class="operChohome">` + r[i].rsvpstp +

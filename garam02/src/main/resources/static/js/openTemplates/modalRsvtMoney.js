@@ -32,7 +32,7 @@ function getManageMD1() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -74,7 +74,7 @@ function getManageMD2() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -190,7 +190,7 @@ function getManageMD3(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -247,7 +247,7 @@ function getManageMD4(para) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -589,7 +589,7 @@ $(document).on('keyup', '.inputManage', function (eInner) {
                         type: "POST",
                         headers: headers,
                         caches: false,
-                dataType: "json",
+                        dataType: "json",
                         data: JSON.stringify(params),
 
                         success: function (r) {
@@ -625,7 +625,7 @@ $(document).on('keyup', '.inputManage', function (eInner) {
                         type: "POST",
                         headers: headers,
                         caches: false,
-                dataType: "json",
+                        dataType: "json",
                         data: JSON.stringify(params),
 
                         success: function (r) {

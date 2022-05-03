@@ -128,13 +128,12 @@ function makeModalInsuCont(insucontNum, cho) {
                         switch (parseInt(r[i].insusepatrash)) {
                             case 1:
                                 trashHtml = `
-                        <td>
+                        <td><button class="btn btn-success" id="btnInsuSepaUp">납부</button>
                         </td>`;
                                 break;
-                            case 2:
+                            case 0:
                                 trashHtml = `
-                        <td class="table-success">
-                        완료
+                        <td><button class="btn btn-warning" id="btnInsuSepaUp">취소</button>
                         </td>`;
                                 break;
                         }
@@ -168,10 +167,12 @@ function makeModalInsuCont(insucontNum, cho) {
                                 `회
                         <input type="hidden" value="` + r[i].insusepano +
                                 `">
+                        <input type="hidden" value="` + r[i].insusepatrash +
+                                `">
                     </td>
                     <td><input type="date" class="form-control" value="` +
                                 r[i].insusepaday +
-                                `"></td>
+                                `" style="width: 11rem;"></td>
                     <td>
                         <select class="form-select">
                             ` +
@@ -313,82 +314,149 @@ $(document).on('change', '#insuNum', function () {
     });
 });
 
-$(document).on('keyup', '.inInsuSepa', function (eInner) {
-    var keyValue = eInner.which; //enter key
-    if (keyValue == 13) {
-        const aaa = $(this)
-            .parent()
-            .parent()
-            .children();
+$(document).on('click', '#btnInsuSepaUp', function () {
+    const aaa = $(this)
+        .parent()
+        .parent()
+        .children();
 
-        const bbb = $(aaa[0]).children()[0];
-        const bbb1 = $(aaa[1]).children()[0];
-        const bbb11 = $(aaa[2]).children()[0];
-        const bbb111 = $(aaa[3]).children()[0];
+    const bbb = $(aaa[0]).children()[0];
+    const ccc = $(aaa[0]).children()[1];
+    const bbb1 = $(aaa[1]).children()[0];
+    const bbb11 = $(aaa[2]).children()[0];
+    const bbb111 = $(aaa[3]).children()[0];
 
-        const insuSepaNum = $(bbb).val();
-        const insuSepaDay = $(bbb1).val();
-        const insuSepaSepa = $(bbb11).val();
-        const insuSepaMoney = $(bbb111)
-            .val()
-            .replaceAll(',', '');
+    const insuSepaNum = $(bbb).val();
+    const insuSepaTrash = $(ccc).val();
+    const insuSepaDay = $(bbb1).val();
+    const insuSepaSepa = $(bbb11).val();
+    const insuSepaMoney = $(bbb111)
+        .val()
+        .replaceAll(',', '');
 
-        if (!$(bbb1).val()) {
-            alert('날짜를 입력해주세요.');
-            $(bbb1).focus();
-            return;
-        }
+    let trashsh = 0;
 
-        if (!$(bbb11).val()) {
-            alert('수납방법을 입력해주세요.');
-            $(bbb11).focus();
-            return;
-        }
+    if (parseInt(insuSepaTrash) < 1) {
+        trashsh = 1;
+    } else {
+        trashsh = 0;
+    }
 
-        if (!$(bbb111).val()) {
-            alert('금액을 입력해주세요.');
-            $(bbb111).focus();
-            return;
-        }
+    $(ccc).val(trashsh);
 
-        LoadingWithMask()
-            .then(updateInsuSepa)
-            .then(closeLoadingWithMask);
+    const qqq = $('#tb-md-insucont').children();
 
-        function updateInsuSepa() {
-            return new Promise(function (resolve, reject) {
-                const url = "/ve/veinsusepaM";
-                const headers = {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
-                };
+    let cntTrash = 0;
+    for (let i = 0; i < qqq.length; i++) {
+        const qqq1 = $(qqq[i]).children()[0];
+        const qqq11 = $(qqq1).children()[1];
+        const qTrash = $(qqq11).val();
 
-                const params = {
-                    "insusepaday": insuSepaDay,
-                    "insusepapayment": insuSepaSepa,
-                    "insusepamoney": insuSepaMoney,
-                    "insusepano": insuSepaNum
-                };
+        cntTrash = cntTrash + parseInt(qTrash);
+    }
 
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    headers: headers,
-                    caches: false,
-                    dataType: "json",
-                    data: JSON.stringify(params),
+    console.log("cntTrash   " + cntTrash);
 
-                    success: function (r) {
-                        makeModalInsuCont($('#insucontNum').val(), 1);
-                        makeInsu();
-                        resolve();
-                    },
-                    error: (jqXHR) => {
-                        loginSession(jqXHR.status);
-                    }
-                })
+    let upConfirm = 0;
+    if (cntTrash < 1) {
+        upConfirm = 0;
+    } else {
+        upConfirm = 1;
+    }
+
+    if (!$(bbb1).val()) {
+        alert('날짜를 입력해주세요.');
+        $(bbb1).focus();
+        return;
+    }
+
+    if (!$(bbb11).val()) {
+        alert('수납방법을 입력해주세요.');
+        $(bbb11).focus();
+        return;
+    }
+
+    if (!$(bbb111).val()) {
+        alert('금액을 입력해주세요.');
+        $(bbb111).focus();
+        return;
+    }
+
+    LoadingWithMask()
+        .then(updateInsuSepa)
+        .then(upTrash)
+        .then(closeLoadingWithMask);
+
+    function updateInsuSepa() {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veinsusepaM";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "insusepaday": insuSepaDay,
+                "insusepapayment": insuSepaSepa,
+                "insusepamoney": insuSepaMoney,
+                "insusepano": insuSepaNum,
+                "insusepatrash": trashsh
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
             })
-        }
+        })
+    }
+
+    function upTrash(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/ve/veupdateinsu";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "insuno": $('#insucontNum').val(),
+                "insutrash": upConfirm
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    makeModalInsuCont($('#insucontNum').val(), 1);
+                    if ($('#home4').css('display') === 'block') {
+                        makeMain2BigCal();
+                        makeBigcal2Aside();
+                    } else {
+                        makeInsu();
+                    }
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+            resolve();
+        })
     }
 });
 

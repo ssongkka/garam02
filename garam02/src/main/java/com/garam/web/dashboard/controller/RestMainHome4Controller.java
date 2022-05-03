@@ -1,6 +1,7 @@
 package com.garam.web.dashboard.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.dto.ScheDTO;
 import com.garam.web.dashboard.service.MainService;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
@@ -45,6 +47,14 @@ public class RestMainHome4Controller {
 		return list;
 	}
 
+	@PostMapping(value = "/weekinsudday")
+	public List<VehicleInfoDTO> weekinsudday(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		List<VehicleInfoDTO> list = rsvtService.selectInsuDDay(vehicleInfoDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/weekcarend")
 	public List<VehicleInfoDTO> weekcarend(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
 
@@ -53,10 +63,34 @@ public class RestMainHome4Controller {
 		return list;
 	}
 
+	@PostMapping(value = "/weekcarenddday")
+	public List<VehicleInfoDTO> weekcarenddday(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		List<VehicleInfoDTO> list = rsvtService.selectCal2carEndDday(vehicleInfoDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/weekinspecend")
 	public List<VehicleInfoDTO> weekinspecend(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
 
 		List<VehicleInfoDTO> list = rsvtService.selectCal2Inspec(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/weekinspecenddday")
+	public List<VehicleInfoDTO> weekinspecenddday(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		List<VehicleInfoDTO> list = rsvtService.selectCal2InspecDday(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/weekrsvtaside")
+	public List<RsvtDTO> weekrsvtaside(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectrsvtCal2Aside(map);
 
 		return list;
 	}
@@ -73,6 +107,14 @@ public class RestMainHome4Controller {
 	public List<ScheDTO> weekseleventseq(@RequestBody ScheDTO scheDTO) throws Exception {
 
 		List<ScheDTO> list = rsvtService.selectCalEventSeq(scheDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/weekseleventinfo")
+	public List<ScheDTO> weekseleventinfo(@RequestBody ScheDTO scheDTO) throws Exception {
+
+		List<ScheDTO> list = rsvtService.selectCalEventInfo(scheDTO);
 
 		return list;
 	}

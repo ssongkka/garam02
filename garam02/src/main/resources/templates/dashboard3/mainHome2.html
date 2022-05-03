@@ -5,6 +5,7 @@
         <div class="home-main">
             <div class="home-main-item-4">
                 <div class="tab-pane card-song home-tap" role="tabpanel">
+                    <div th:replace="dashboard/dashboardMainHeadCal :: main-headCal"></div>
                     <div class="home-main-item-444">
                         <div class="home2-item1">
                             <div class="form-check form-check-inline">
@@ -155,6 +156,30 @@
                 </div>
             </div>
         </div>
-        <div class="allo-side">asdasdasd</div>
+        <div class="allo-side scBar">
+            <div class="home2Main">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered table-sm">
+                        <colgroup>
+                            <col width="35%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="20%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>날짜</th>
+                                <th>대형</th>
+                                <th>중형</th>
+                                <th>우등</th>
+                                <th>총</th>
+                            </tr>
+                        </thead>
+                        <tbody id="home2Tb"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </html>

@@ -3,13 +3,16 @@
     <div th:fragment="main-manage" class="manage">
         <div class="main-manage">
             <div class="main-manage-item ilManage card-song">
+                <div th:replace="dashboard/dashboardMainHeadCal :: main-headCal"></div>
+            </div>
+            <div class="main-manage-item ilManage card-song">
                 <div>
                     <h3>일반 운행</h3>
                 </div>
                 <div>
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped table-hover">
                         <colgroup>
-                            <col width="5%">
+                            <col width="10%">
                             <col width="20%">
                             <col width="5%">
                             <col width="5%">
@@ -17,7 +20,6 @@
                             <col width="10%">
                             <col width="10%">
                             <col width="10%">
-                            <col width="5%">
                         </colgroup>
                         <thead class="table-light">
                             <tr>
@@ -32,10 +34,24 @@
                                 <th>총금액</th>
                                 <th>입금액</th>
                                 <th>잔액</th>
-                                <th>더보기</th>
                             </tr>
                         </thead>
-                        <tbody id="tb-ilManage"></tbody>
+                        <tbody id="tb-ilManage">
+                            <tr>
+                                <td>
+                                    <input type="hidden" value="">
+                                    <input type="hidden" value="">
+                                    <input type="hidden" value="">
+                                </td>
+                                <td>고객</td>
+                                <td>고객</td>
+                                <td>고객</td>
+                                <td>고객</td>
+                                <td>고객</td>
+                                <td>고객</td>
+                                <td>고객</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -44,9 +60,9 @@
                     <h3>학생단체 운행</h3>
                 </div>
                 <div>
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped table-hover">
                         <colgroup>
-                            <col width="5%">
+                            <col width="10%">
                             <col width="20%">
                             <col width="5%">
                             <col width="5%">
@@ -54,7 +70,6 @@
                             <col width="10%">
                             <col width="10%">
                             <col width="10%">
-                            <col width="5%">
                         </colgroup>
                         <thead class="table-light">
                             <tr>
@@ -69,7 +84,6 @@
                                 <th>총금액</th>
                                 <th>입금액</th>
                                 <th>잔액</th>
-                                <th>더보기</th>
                             </tr>
                         </thead>
                         <tbody id="tb-hakManage"></tbody>
@@ -81,9 +95,9 @@
                     <h3>거래처 운행</h3>
                 </div>
                 <div>
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped table-hover">
                         <colgroup>
-                            <col width="5%">
+                            <col width="10%">
                             <col width="20%">
                             <col width="5%">
                             <col width="5%">
@@ -91,7 +105,6 @@
                             <col width="10%">
                             <col width="10%">
                             <col width="10%">
-                            <col width="5%">
                         </colgroup>
                         <thead class="table-light">
                             <tr>
@@ -106,7 +119,6 @@
                                 <th>총금액</th>
                                 <th>입금액</th>
                                 <th>잔액</th>
-                                <th>더보기</th>
                             </tr>
                         </thead>
                         <tbody id="tb-guManage"></tbody>

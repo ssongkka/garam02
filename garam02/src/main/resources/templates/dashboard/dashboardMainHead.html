@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <header th:fragment="main-head" class="header">
+        <input type="text" style="width:0px;height:0px;position: absolute;" id="hideId">
+        <input
+            type="password"
+            style="width:0px;height:0px;position: absolute;"
+            id="hidePw">
+        <div class="logo">
+            <span class="detail-user-1" th:text="${user.company}"></span>
+        </div>
+        <div class="hd-search">
+            <div class="he-serach-group">
+                <form action="">
+                    <div class="hd-search-icon fas fa-search"></div>
+                    <input type="text" placeholder="검색"></form>
+            </div>
+        </div>
+        <div class="hd-user">
+            <div id="detail-user">
+                <span class="detail-user-1">
+                    <i class="fa-solid fa-user-large"></i>
+                </span>
+                <span class="detail-user-2" th:text="${user.position}"></span>
+                <span class="detail-user-3" th:text="${user.name}"></span>
+            </div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+        <div class="deail-form card-song">
+            <a class="deail-form-item">
+                <i class="fa-solid fa-user-pen"></i>
+                내정보
+            </a>
+            <a class="deail-form-item" id="btnSetting">
+                <i class="fa-solid fa-gear"></i>설정</a>
+            <a
+                sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')"
+                class="deail-form-item">
+                <i class="fa-solid fa-chart-line"></i>관리자</a>
+            <a sec:authorize="isAuthenticated()" class="deail-form-item">
+                <i class="fa-solid fa-right-from-bracket"></i>로그아웃</a>
+        </div>
+    </header>
+</html>

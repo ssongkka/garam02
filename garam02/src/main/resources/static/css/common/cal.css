@@ -135,15 +135,6 @@
     gap: 0.3rem;
 }
 
-#btnToD {
-    font-size: 1rem;
-    padding: 1px 5px;
-}
-#btnTomD {
-    font-size: 1rem;
-    padding: 1px 5px;
-}
-
 @media (max-width:1024px) {
     .dash-phone-fix {}
     .dash-cal-d {

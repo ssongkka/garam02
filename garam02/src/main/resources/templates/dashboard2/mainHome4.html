@@ -2,7 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
     <div th:fragment="main-home4" class="main-home2">
-        <div class="home-mainCal2">
+        <div class="home-mainCal card-song">
+            <div th:replace="dashboard/dashboardMainHeadCal :: main-headCal"></div>
             <div class="home-main-item-1">
                 <div class="mainCal">
                     <table class="table table-bordered mainCalTable2">
@@ -927,6 +928,86 @@
                 </div>
             </div>
         </div>
-        <div class="allo-side">asdasdasd</div>
+        <div class="allo-side scBar" id="home4Aside">
+            <div class="home4Info">
+                <h4>공지사항</h4>
+                <div class="home4Info-item" id="home4Info">
+                    <table class="table table-hover table-sm">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="60%">
+                            <col width="30%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th colspan="2">제목</th>
+                                <th>작성자</th>
+                            </tr>
+                        </thead>
+                        <tbody id="home4InfoTb"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="home4EndCar">
+                <h4>차량만료</h4>
+                <div class="home4EndCar-item" id="home4EndCar">
+                    <table class="table table-hover table-sm">
+                        <colgroup>
+                            <col width="30%">
+                            <col width="40%">
+                            <col width="30%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>차량번호</th>
+                                <th>만료일</th>
+                                <th>남은기간</th>
+                            </tr>
+                        </thead>
+                        <tbody id="home4EndCarTb"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="home4EndInsu">
+                <h4>보험만료</h4>
+                <div class="home4EndInsu-item" id="home4EndInsu">
+                    <table class="table table-hover table-sm">
+                        <colgroup>
+                            <col width="30%">
+                            <col width="40%">
+                            <col width="30%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>차량번호</th>
+                                <th>만료일</th>
+                                <th>남은기간</th>
+                            </tr>
+                        </thead>
+                        <tbody id="home4EndInsuTb"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="home4EndInsu">
+                <h4>점검만료</h4>
+                <div class="home4EndInsu-item" id="home4EndInsu">
+                    <table class="table table-hover table-sm">
+                        <colgroup>
+                            <col width="30%">
+                            <col width="40%">
+                            <col width="30%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>차량번호</th>
+                                <th>만료일</th>
+                                <th>남은기간</th>
+                            </tr>
+                        </thead>
+                        <tbody id="home4EndInsepcTb"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </html>

@@ -77,14 +77,14 @@ $(document).on('click', '.middle-loan', function () {
 
     const carN = $(ccc).val();
 
-    $('#loanCarNum').val(carN);
+    $('#loanCarNum').val('');
     $('#loancontNum').val(loanNoo);
 
     $('#modal-loanCont-mh').text(carNum + "  대출정보");
 
     $('#inputLoanNumInsert').val('');
     $('#inputLoanDayInsert').val(thisDay);
-    $('#inputLoanMonthInsert').val('');
+    $('#inputLoanMonthInsert').val(carN);
 
     makeModalLoanCont(loanNoo);
 });
@@ -276,6 +276,39 @@ function insertLoanSepa() {
         closeLoadingWithMask();
         return;
     }
+
+    const ddd = $('#tb-md-loancont').children();
+    let cnt = 0;
+    let cnt1 = 0;
+    for (let i = 0; i < ddd.length; i++) {
+        const eee = $(ddd[i]).children()[1];
+        const tdMonth = $(eee).text();
+
+        const ggg = $(ddd[i]).children()[0];
+        const tdNum = $(ggg).text();
+        if ($('#inputLoanMonthInsert').val() == tdMonth) {
+            cnt++;
+        }
+
+        if (parseInt($('#inputLoanNumInsert').val()) == parseInt(tdNum)) {
+            cnt1++;
+        }
+    }
+
+    if (cnt1 > 0) {
+        alert('중복된 회차가있습니다. 확인해주세요.');
+        $('#inputLoanNumInsert').focus();
+        closeLoadingWithMask();
+        return;
+    }
+
+    if (cnt > 0) {
+        alert('중복된 회차월이있습니다. 확인해주세요.');
+        $('#inputLoanMonthInsert').focus();
+        closeLoadingWithMask();
+        return;
+    }
+
     if (!$('#inputLoanDayInsert').val()) {
         alert('납부일을 입력해주세요.');
         $('#inputLoanDayInsert').focus();
@@ -872,6 +905,7 @@ $(document).on('click', '#loanContX', function () {
 
             if ($('#home4').css('display') === 'block') {
                 makeMain2BigCal();
+                makeBigcal2Aside();
             } else {
                 makeLoan();
             }
@@ -899,6 +933,7 @@ $(document).on('click', '#loanContBtn', function () {
 
             if ($('#home4').css('display') === 'block') {
                 makeMain2BigCal();
+                makeBigcal2Aside();
             } else {
                 makeLoan();
             }

@@ -48,6 +48,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().antMatchers("/dashboard/**").hasAnyRole("USER", "MANAGER", "ADMIN");
 
+		http.authorizeRequests().antMatchers("/dashboardcal/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/dashboardrsvt/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/dashboardoper/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/dashboardmanage/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
+		http.authorizeRequests().antMatchers("/dashboardallo/**").hasAnyRole("USER", "MANAGER", "ADMIN");
+
 		http.authorizeRequests().antMatchers("/allo/**").hasAnyRole("USER", "MANAGER", "ADMIN");
 
 		http.authorizeRequests().antMatchers("/customer/**").hasAnyRole("USER", "MANAGER", "ADMIN");

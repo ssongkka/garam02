@@ -74,7 +74,7 @@ class cal {
             );
         }
 
-        $("#yearMonth").val(d);
+        $(".yearMonth").val(d);
 
         const check = now_D.getMonth();
         let stD = this.getCalStD(now_D);

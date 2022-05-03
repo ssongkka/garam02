@@ -1890,8 +1890,22 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public List<VehicleInfoDTO> selectInsuDDay(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectInsuDDay(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
 	public List<VehicleInfoDTO> selectCal2carEnd(VehicleInfoDTO vehicleInfoDTO) throws Exception {
 		List<VehicleInfoDTO> list = rsvtMapper.selectCal2carEnd(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selectCal2carEndDday(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2carEndDday(vehicleInfoDTO);
 
 		return list;
 	}
@@ -1904,6 +1918,28 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public List<VehicleInfoDTO> selectCal2InspecDday(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = rsvtMapper.selectCal2InspecDday(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectrsvtCal2Aside(List<Map<String, Object>> map) throws Exception {
+
+		HashMap<String, Object> rsvthome = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rsvthome.put("rsvthome", map);
+		}
+
+		System.out.println(rsvthome);
+
+		List<RsvtDTO> rtn = rsvtMapper.selectrsvtCal2Aside(rsvthome);
+
+		return rtn;
+	}
+
+	@Override
 	public List<ScheDTO> selectCalEvent(ScheDTO scheDTO) throws Exception {
 		List<ScheDTO> list = rsvtMapper.selectCalEvent(scheDTO);
 
@@ -1913,6 +1949,13 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<ScheDTO> selectCalEventSeq(ScheDTO scheDTO) throws Exception {
 		List<ScheDTO> list = rsvtMapper.selectCalEventSeq(scheDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<ScheDTO> selectCalEventInfo(ScheDTO scheDTO) throws Exception {
+		List<ScheDTO> list = rsvtMapper.selectCalEventInfo(scheDTO);
 
 		return list;
 	}

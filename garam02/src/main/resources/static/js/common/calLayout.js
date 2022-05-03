@@ -22,6 +22,31 @@ $(window).on('resize', function () {
 
 $(document).ready(function () {
 
+    if ($('#home').css('display') === 'block') {
+        $('#pills-home-tab').addClass('active');
+    }
+
+    if ($('#home4').css('display') === 'block') {
+        $('#pills-home4-tab').addClass('active');
+
+    }
+
+    if ($('#home2').css('display') === 'block') {
+        $('#pills-home2-tab').addClass('active');
+    }
+
+    if ($('#home3').css('display') === 'block') {
+        $('#pills-home3-tab').addClass('active');
+    }
+
+    if ($('#manage').css('display') === 'block') {
+        $('#pills-manage-tab').addClass('active');
+    }
+
+    if ($('#allo').css('display') === 'block') {
+        $('#pills-allo-tab').addClass('active');
+    }
+
     $('#info-limit').hide();
 
     cardVeEmpMake();
@@ -60,7 +85,7 @@ $(document).on('click', '#btnYesD', function () {
     setCalWhite(id);
 });
 
-$(document).on('click', '#btnToD', function () {
+$(document).on('click', '.btnToD', function () {
 
     var now_D = new Date();
 
@@ -72,7 +97,7 @@ $(document).on('click', '#btnToD', function () {
     setCalWhite(id);
 });
 
-$(document).on('click', '#btnTomD', function () {
+$(document).on('click', '.btnTomD', function () {
 
     var now_D = new Date();
 
@@ -85,11 +110,11 @@ $(document).on('click', '#btnTomD', function () {
     setCalWhite(id);
 });
 
-$(document).on('click', '#fnDownMonth', function () {
+$(document).on('click', '.fnDownMonth', function () {
 
     var now_D = get_Year_Month();
     var downMonth = new Date(now_D.setMonth(now_D.getMonth() - 1));
-    $("#yearMonth").val(toStringByFormatting(downMonth).substring(0, 7));
+    $(".yearMonth").val(toStringByFormatting(downMonth).substring(0, 7));
     $("#yearMonthDay").val(
         toStringByFormatting(downMonth).substring(0, 7) + '-01'
     );
@@ -101,19 +126,13 @@ $(document).on('click', '#fnDownMonth', function () {
     getOperListMonth();
 
     makeCal(downMonth, null);
-    if ($('#home').css('display') === 'block') {
-        makeMainBigCal();
-    }
-
-    if ($('#home4').css('display') === 'block') {
-        makeMain2BigCal();
-    }
+    displayMain();
 });
 
-$(document).on('click', '#fnUpMonth', function () {
+$(document).on('click', '.fnUpMonth', function () {
     var now_D = get_Year_Month();
     var upMonth = new Date(now_D.setMonth(now_D.getMonth() + 1));
-    $("#yearMonth").val(toStringByFormatting(upMonth).substring(0, 7));
+    $(".yearMonth").val(toStringByFormatting(upMonth).substring(0, 7));
     $("#yearMonthDay").val(toStringByFormatting(upMonth).substring(0, 7) + '-01');
 
     $('#radioRsvt2').prop("checked", true);
@@ -123,13 +142,7 @@ $(document).on('click', '#fnUpMonth', function () {
     getOperListMonth();
 
     makeCal(upMonth, null);
-    if ($('#home').css('display') === 'block') {
-        makeMainBigCal();
-    }
-
-    if ($('#home4').css('display') === 'block') {
-        makeMain2BigCal();
-    }
+    displayMain();
 });
 
 $(document).on('click', '#fnDownDay', function () {
@@ -177,7 +190,7 @@ $(document).on('click', '#fnUpDay', function () {
 });
 
 function get_Year_Month() {
-    const aaa = $("#yearMonth").val();
+    const aaa = $(".yearMonth").val();
     const bbb = aaa.split('-');
     const year = parseInt(bbb[0]);
     const month = parseInt(bbb[1]);
@@ -200,12 +213,12 @@ function setCalWhite(e, cho) {
     const day = calen_Rsvt.setCalclss(e);
 
     const aaa = toStringByFormatting(new Date(day)).split('-')[1];;
-    const bbb = $("#yearMonth")
+    const bbb = $(".yearMonth")
         .val()
         .split('-')[1];
 
-    if (!$("#yearMonth").val()) {
-        $("#yearMonth").val(day.substring(0, 7));
+    if (!$(".yearMonth").val()) {
+        $(".yearMonth").val(day.substring(0, 7));
     }
 
     $("#yearMonthDay").val(day);
@@ -228,7 +241,7 @@ function setCalWhite(e, cho) {
 }
 
 function setCalWhite1(day) {
-    $("#yearMonth").val(day.substring(0, 7));
+    $(".yearMonth").val(day.substring(0, 7));
     $("#yearMonthDay").val(day);
     setBigDay(day);
     getAlloList(day);
@@ -253,6 +266,7 @@ function displayMain() {
 
     if ($('#home4').css('display') === 'block') {
         makeMain2BigCal();
+        makeBigcal2Aside();
     }
 
     if ($('#home2').css('display') === 'block') {
@@ -262,6 +276,7 @@ function displayMain() {
         if ($('#radioRsvt2').is(':checked')) {
             getRsvtListMonth();
         }
+        getRsvtListMonthAside();
     }
     if ($('#home3').css('display') === 'block') {
         if ($('#radioOper1').is(':checked')) {
@@ -270,6 +285,7 @@ function displayMain() {
         if ($('#radioOper2').is(':checked')) {
             getOperListMonth();
         }
+        getRsvtListMonthAside();
     }
 
     if ($('#manage').css('display') === 'block') {
@@ -306,24 +322,17 @@ function getCalStD(month) {
     return stD;
 }
 
-$("#yearMonth").change(function () {
+$(document).on('change', '.yearMonth', function () {
     $('#radioRsvt2').prop("checked", true);
     $('#radioOper2').prop("checked", true);
 
-    getRsvtListMonth();
-    getOperListMonth();
+    const gogogoDate = new Date($(this).val());
 
-    makeCal(get_Year_Month(), null);
-    if ($('#home').css('display') === 'block') {
-        makeMainBigCal();
-    }
-
-    if ($('#home4').css('display') === 'block') {
-        makeMain2BigCal();
-    }
+    makeCal(gogogoDate, null);
+    displayMain();
 });
 
-$("#yearMonthDay").change(function () {
+$(document).on('change', '.yearMonthDay', function () {
     makeCal(get_Year_Month1(), null);
 
     for (let i = 0; i < 42; i++) {
@@ -338,8 +347,13 @@ $("#yearMonthDay").change(function () {
 });
 
 function makeCal(nowD, day) {
+    console.log("nowD    " + nowD);
+
     const ddddddd = toStringByFormatting(nowD);
-    $("#yearMonth").val(ddddddd.split('-')[0] + '-' + ddddddd.split('-')[1])
+    console.log(ddddddd.split('-')[0] + '-' + ddddddd.split('-')[1]);
+    $(".yearMonth").val(ddddddd.split('-')[0] + '-' + ddddddd.split('-')[1])
+
+    console.log($('.yearMonth').val());
 
     let rtn = '';
 

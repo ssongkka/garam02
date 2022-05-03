@@ -27,7 +27,7 @@ function makeMain2BigCal() {
 
     function setMainCalendar2(result) {
         return new Promise(function (resolve, reject) {
-            const aaa = new Date($("#yearMonth").val());
+            const aaa = new Date($('.yearMonth').val());
 
             const check = aaa.getMonth();
             let stD = getCalStD(aaa);
@@ -210,7 +210,6 @@ function makeMain2BigCal() {
                         }
 
                         if (r[i].caleventgrade > 0) {
-
                             arrHtmls[checkHolDay1(r[i].caleventday)] += `
                                 <div class="mainCal2td-middle-item middle-event">
                                     <input type="hidden" value="">
@@ -221,7 +220,7 @@ function makeMain2BigCal() {
                                         ` +
                                     tititle +
                                     `</span>
-                                    <span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-day"></i></span>
+                                    <span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-check"></i></i></span>
                                     <span class="h2ch h2chEventgrade"><i class="fa-solid fa-exclamation"></i></span>
                                 </div>`;
                         } else {
@@ -234,7 +233,7 @@ function makeMain2BigCal() {
                                     <span class="spNum1">
                                         ` +
                                     tititle +
-                                    `</span><span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-day"></i></span>
+                                    `</span><span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-check"></i></span>
                                 </div>`;
                         }
                     }
@@ -293,7 +292,7 @@ function makeMain2BigCal() {
                             arrHtmls[checkHolDay1(r[i].regist)] += `
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
-                                    r[i].carnumber +
+                                    monththth1 +
                                     `">
                             <input type="hidden" value="` + r[i].loanno +
                                     `">
@@ -305,7 +304,7 @@ function makeMain2BigCal() {
                             arrHtmls[checkHolDay2(r[i].loandayloan)] += `
                             <div class="mainCal2td-middle-item middle-loan">
                                 <input type="hidden" value="` +
-                                    r[i].carnumber +
+                                    monththth1 +
                                     `">
                                 <input type="hidden" value="` + r[i].loanno +
                                     `">
@@ -320,7 +319,7 @@ function makeMain2BigCal() {
                             arrHtmls[checkHolDay1(r[i].color)] += `
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
-                                    r[i].carnumber +
+                                    monththth3 +
                                     `">
                             <input type="hidden" value="` + r[i].loanno +
                                     `">
@@ -332,7 +331,7 @@ function makeMain2BigCal() {
                             arrHtmls[checkHolDay(r[i].loandayloan)] += `
                             <div class="mainCal2td-middle-item middle-loan">
                                 <input type="hidden" value="` +
-                                    r[i].carnumber +
+                                    monththth3 +
                                     `">
                                 <input type="hidden" value="` + r[i].loanno +
                                     `">
@@ -347,7 +346,7 @@ function makeMain2BigCal() {
                             arrHtmls[checkHolDay1(r[i].expire)] += `
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
-                                    r[i].carnumber +
+                                    monththth2 +
                                     `">
                             <input type="hidden" value="` + r[i].loanno +
                                     `">
@@ -359,7 +358,7 @@ function makeMain2BigCal() {
                             arrHtmls[checkHolDay3(r[i].loandayloan)] += `
                             <div class="mainCal2td-middle-item middle-loan">
                                 <input type="hidden" value="` +
-                                    r[i].carnumber +
+                                    monththth2 +
                                     `">
                                 <input type="hidden" value="` + r[i].loanno +
                                     `">
@@ -595,15 +594,261 @@ function makeMain2BigCal() {
     }
 }
 
+function makeBigcal2Aside() {
+
+    LoadingWithMask()
+        .then(getInfo)
+        .then(getEndCar)
+        .then(getEndInsu)
+        .then(getEndInspec)
+        .then(closeLoadingWithMask);
+
+    function getInfo() {
+        return new Promise(function (resolve, reject) {
+            const url = "/home4/weekseleventinfo";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {};
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+                    for (let i = 0; i < r.length; i++) {
+
+                        let titlee = ``;
+                        if (r[i].caleventtitle.length > 10) {
+                            titlee = r[i]
+                                .caleventtitle
+                                .substring(0, 11) + '...';
+                        } else {
+                            titlee = r[i].caleventtitle;
+                        }
+
+                        let gradee = ``;
+                        if (parseInt(r[i].caleventgrade) > 0) {
+                            gradee = `<i class="fa-solid fa-exclamation h2chEventgrade"></i>`;
+                        }
+
+                        htmls += `
+                    <tr class="eventAside">
+                        <th>` +
+                                gradee +
+                                `</th>
+                        <th style="text-align: left;">
+                        ` +
+                                titlee +
+                                `
+                        <input type="hidden" value="` + r[i].caleventseq +
+                                `">
+                        </th>
+                        <th>` + r[i].caleventemp +
+                                `</th>
+                    </tr>`;
+                    }
+
+                    resolve();
+
+                    $('#home4InfoTb').html(htmls);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getEndCar() {
+        return new Promise(function (resolve, reject) {
+            const url = "/home4/weekcarenddday";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "price": 30
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+
+                        let dDayyy = ``;
+                        if (parseInt(r[i].vegasid) < 0) {
+                            dDayyy = `<td class="h2chEventgrade">` + r[i].vegasid + `일</td>`;
+                        } else {
+                            dDayyy = `<td>` + r[i].vegasid + `일</td>`;
+                        }
+
+                        htmls += `
+                        <tr class="carAside">
+                            <td>` +
+                                r[i].vehicle2 +
+                                `
+                                <input type="hidden" value="` + r[i].carnumber +
+                                `">
+                            </td>
+                            <td>` + r[i].vegasyearmonth +
+                                `</td>` + dDayyy +
+                                `
+                        </tr>`;;
+                    }
+
+                    $('#home4EndCarTb').html(htmls);
+
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getEndInsu() {
+        return new Promise(function (resolve, reject) {
+            const url = "/home4/weekinsudday";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "price": 30
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+
+                        let dDayyy = ``;
+                        if (parseInt(r[i].vegasid) < 0) {
+                            dDayyy = `<td class="h2chEventgrade">` + r[i].vegasid + `일</td>`;
+                        } else {
+                            dDayyy = `<td>` + r[i].vegasid + `일</td>`;
+                        }
+
+                        htmls += `
+                        <tr class="carAside">
+                            <td>` +
+                                r[i].vehicle2 +
+                                `
+                                <input type="hidden" value="` + r[i].carnumber +
+                                `">
+                            </td>
+                            <td>` + r[i].vegasyearmonth +
+                                `</td>
+                                ` + dDayyy +
+                                `
+                        </tr>`;;
+                    }
+
+                    $('#home4EndInsuTb').html(htmls);
+
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getEndInspec() {
+        return new Promise(function (resolve, reject) {
+            const url = "/home4/weekinspecenddday";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "price": 30
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    for (let i = 0; i < r.length; i++) {
+                        let dDayyy = ``;
+                        if (parseInt(r[i].vegasid) < 0) {
+                            dDayyy = `<td class="h2chEventgrade">` + r[i].vegasid + `일</td>`;
+                        } else {
+                            dDayyy = `<td>` + r[i].vegasid + `일</td>`;
+                        }
+
+                        htmls += `
+                        <tr class="carAside">
+                            <td>` +
+                                r[i].vehicle2 +
+                                `
+                                <input type="hidden" value="` + r[i].carnumber +
+                                `">
+                            </td>
+                            <td>` + r[i].vegasyearmonth +
+                                `</td>
+                            ` + dDayyy +
+                                `
+                        </tr>`;;
+                    }
+
+                    $('#home4EndInsepcTb').html(htmls);
+
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+}
+
 function checkHolDay(dateNum) {
 
     const endDate = getStDayEndDayMain()[1].split('-')[2];
     let makeDay = '';
 
     if (dateNum > endDate) {
-        makeDay = $('#yearMonth').val() + '-' + endDate;
+        makeDay = $('.yearMonth').val() + '-' + endDate;
     } else {
-        makeDay = $('#yearMonth').val() + '-' + dateNum;
+        makeDay = $('.yearMonth').val() + '-' + dateNum;
     }
 
     let paramddaayy = new Date(makeDay);
@@ -656,7 +901,7 @@ function checkHolDay1(dateDay) {
 
 function checkHolDay2(dateNum) {
 
-    let endDate = new Date($('#yearMonth').val() + '-01');
+    let endDate = new Date($('.yearMonth').val() + '-01');
     endDate = new Date(endDate.setDate(endDate.getDate() - 1)).getDate();
 
     let makeDay = '';
@@ -844,7 +1089,21 @@ $(document).on('click', '.middle-end', function () {
     const ddd = $(this).children()[2];
     const ddd1 = $(ddd).children()[0];
 
-    const carNum = $(ddd1).text();
+    const carNum = $(ddd1)
+        .text()
+        .trim();
+
+    goCarDetail(carNum);
+});
+
+$(document).on('click', '.carAside', function () {
+    const ddd = $(this).children()[0];
+
+    const carNum = $(ddd)
+        .text()
+        .trim();
+
+    console.log("carNum   " + carNum);
 
     goCarDetail(carNum);
 });
@@ -871,3 +1130,5 @@ function goCarDetail(paramCarn) {
     // submit form
     newForm.submit();
 }
+
+$(document).on('click', '.carAside', function () {});

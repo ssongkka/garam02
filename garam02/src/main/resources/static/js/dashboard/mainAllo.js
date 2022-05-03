@@ -1173,20 +1173,20 @@ function getAlloList(day) {
                     let cal = '';
                     if (r.length > 0) {
                         if (r[0].holiday) {
-                            mid += '<p>' + r[0].holiday + '</p>';
+                            mid += '<span style="color: rgb(207, 47, 17);">' + r[0].holiday + '</span>';
                         }
                         if (r[0].anniversary) {
-                            mid += '<p>' + r[0].anniversary + '</p>';
+                            mid += '<span>' + r[0].anniversary + '</span>';
                         }
                         if (r[0].season) {
-                            mid += '<p>' + r[0].season + '</p>';
+                            mid += '<span>' + r[0].season + '</span>';
                         }
                         if (r[0].etc) {
-                            mid += '<p>' + r[0].etc + '</p>';
+                            mid += '<span>' + r[0].etc + '</span>';
                         }
 
                         if (!mid) {
-                            mid += `<p>이벤트 없음</p>`;
+                            mid += `<span></span>`;
                         }
 
                         let lunal = r[0]
@@ -1203,7 +1203,7 @@ function getAlloList(day) {
                             cal = '음력 정보없음';
                         }
                     } else {
-                        mid += `<p>이벤트 없음</p>`;
+                        mid += `<span></span>`;
                         cal = '음력 정보없음';
                     }
                     $('#midday').html(mid);

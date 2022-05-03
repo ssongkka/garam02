@@ -369,6 +369,22 @@
 		);
 	</insert>
 
+	<update id="updateInsu" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE
+
+		veinsurance
+
+		SET
+
+		insutrash = #{insutrash}
+
+		WHERE
+
+		insuno = #{insuno};
+
+	</update>
+
 	<insert id="insertInsuSepa" parameterType="java.util.HashMap">
 		INSERT
 
@@ -426,7 +442,6 @@
 		veinsurance.insuno = #{insuno}
 	</select>
 
-
 	<select id="selectInsuSepaCar" parameterType="java.util.HashMap"
 		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
@@ -478,7 +493,7 @@
 
 		veinsurancesepa.insusepamoney = #{insusepamoney},
 
-		veinsurancesepa.insusepatrash = 2
+		veinsurancesepa.insusepatrash = #{insusepatrash}
 
 		WHERE
 

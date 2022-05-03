@@ -40,8 +40,8 @@ function getRsvtListIl() {
 
 function getRsvtListMonth(result) {
     return new Promise(function (resolve, reject) {
-        let stD = new Date($("#yearMonth").val() + '-01');
-        const stttD = new Date($("#yearMonth").val() + '-01');
+        let stD = new Date($('.yearMonth').val() + '-01');
+        const stttD = new Date($('.yearMonth').val() + '-01');
 
         stD = new Date(stD.setMonth(stD.getMonth() + 1));
 
@@ -78,15 +78,63 @@ function getRsvtListMonth(result) {
     })
 }
 
+function getRsvtListMonthAside(result) {
+    return new Promise(function (resolve, reject) {
+        let arrTmpDay = new Array();
+
+        for (let i = 0; i < parseInt(getStDayEndDayMain()[1].split('-')[2]); i++) {
+            let stD = new Date(getStDayEndDayMain()[0]);
+            stD = new Date(stD.setDate(stD.getDate() + i));
+
+            arrTmpDay.push(toStringByFormatting(stD));
+        }
+
+        const url = "/home4/weekrsvtaside";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        let params = new Array();
+
+        for (let i = 0; i < arrTmpDay.length; i++) {
+            const asd = {
+                "stday": arrTmpDay[i]
+            };
+
+            params.push(asd);
+        }
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            caches: false,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+                makeAsideRsvt(r);
+                resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    })
+}
+
 $(document).on('click', '#radioRsvt1', function () {
     LoadingWithMask()
         .then(getRsvtListIl)
+        .then(getRsvtListMonthAside)
         .then(closeLoadingWithMask);
 });
 
 $(document).on('click', '#radioRsvt2', function () {
     LoadingWithMask()
         .then(getRsvtListMonth)
+        .then(getRsvtListMonthAside)
         .then(closeLoadingWithMask);
 });
 
@@ -96,8 +144,8 @@ $(document).on('click', '#searchChRsvt', function () {
         $("#searchPeStRsvt").attr("disabled", true);
         $("#searchPeEdRsvt").attr("disabled", true);
     } else {
-        let stD = new Date($("#yearMonth").val() + '-01');
-        const stttD = new Date($("#yearMonth").val() + '-01');
+        let stD = new Date($('.yearMonth').val() + '-01');
+        const stttD = new Date($('.yearMonth').val() + '-01');
 
         stD = new Date(stD.setMonth(stD.getMonth() + 1));
 
@@ -340,6 +388,150 @@ function makeTableRsvt(r) {
     }
 }
 
+function makeAsideRsvt(r) {
+
+    console.log(r);
+
+    let arrTmpDay = new Array();
+
+    for (let i = 0; i < parseInt(getStDayEndDayMain()[1].split('-')[2]); i++) {
+        let stD = new Date(getStDayEndDayMain()[0]);
+        stD = new Date(stD.setDate(stD.getDate() + i));
+
+        arrTmpDay.push(toStringByFormatting(stD));
+    }
+
+    let arr45 = new Array();
+    let arr25 = new Array();
+    let arr28 = new Array();
+    let arrMoney = new Array();
+    for (let k = 0; k < arrTmpDay.length; k++) {
+        let tmp45 = 0;
+        let tmp25 = 0;
+        let tmp28 = 0;
+        let tmpM = 0;
+        for (let i = 0; i < r.length; i++) {
+            if (arrTmpDay[k] == r[i].stday) {
+                switch (r[i].bus) {
+                    case '대형':
+                        tmp45 = tmp45 + parseInt(r[i].num);
+                        break;
+                    case '중형':
+                        tmp25 = tmp25 + parseInt(r[i].num);
+                        break;
+                    case '우등':
+                        tmp28 = tmp28 + parseInt(r[i].num);
+                        break;
+                }
+                tmpM = tmpM + parseInt(r[i].conm);
+            }
+        }
+        arr45.push(tmp45);
+        arr25.push(tmp25);
+        arr28.push(tmp28);
+        arrMoney.push(AddComma(tmpM));
+    }
+
+    let htmls = ``;
+
+    for (let k = 0; k < arrTmpDay.length; k++) {
+
+        const ccc = $('.dash-cal-con-item-t').children()[0];
+        const ccc1 = $(ccc).children()[1];
+
+        const calDay = $(ccc1).val();
+
+        let sttylee = '';
+        if (arrTmpDay[k] == calDay) {
+            sttylee += 'style="background: var(--sub-color);"';
+        }
+
+        let cntBus = 0;
+
+        let tmp4455 = '';
+        if (arr45[k]) {
+            tmp4455 = `
+            <td class="big45home2 tdRight" ` + sttylee +
+                    `>
+                <span class="">` + arr45[k] +
+                    `</span>
+            </td>`;
+
+            cntBus = cntBus + parseInt(arr45[k]);
+
+        } else {
+            tmp4455 = `
+            <td class="tdRight" ` + sttylee +
+                    `>
+            </td>`;
+        }
+
+        let tmp2255 = '';
+        if (arr25[k]) {
+            tmp2255 = `
+            <td class="big25home2 tdRight" ` + sttylee +
+                    `>
+                <span class="">` + arr25[k] +
+                    `</span>
+            </td>`;
+
+            cntBus = cntBus + parseInt(arr25[k]);
+
+        } else {
+            tmp2255 = `
+            <td class="tdRight" ` + sttylee +
+                    `>
+            </td>`;
+        }
+
+        let tmp2288 = '';
+        if (arr28[k]) {
+            tmp2288 = `
+            <td class="big28home2 tdRight" ` + sttylee +
+                    `>
+                <span class="">` + arr28[k] +
+                    `</span>
+            </td>`;
+
+            cntBus = cntBus + parseInt(arr28[k]);
+
+        } else {
+            tmp2288 = `
+            <td class="tdRight" ` + sttylee +
+                    `>
+            </td>`;
+        }
+
+        const dayday = parseInt(arrTmpDay[k].split('-')[2]) + '일 ' +
+                getDayOfWeek(new Date(arrTmpDay[k]).getDay()).replaceAll('요일', '');
+
+        let dayTr = ``;
+        for (let i = 0; i < 42; i++) {
+            let iiiddd = '#dash-cal-con-item' + (
+                i + 1
+            );
+            if (arrTmpDay[k] == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+                if ($(iiiddd).attr('style')) {
+                    dayTr = `<td style="` + $(iiiddd).attr('style') + `;" ` + sttylee + `>` +
+                            dayday + `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
+                } else {
+                    dayTr = `<td ` + sttylee + `>` + dayday +
+                            `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
+                }
+            }
+        }
+
+        htmls += `
+    <tr class="home23Aside" ` + sttylee + `>` + dayTr + tmp4455 +
+                tmp2255 + tmp2288 +
+                `<td class="tdRight" style="font-weight: 600;" ` + sttylee + `>` + cntBus +
+                `</td>
+    </tr>`;
+    }
+
+    $('#home2Tb').html(htmls);
+}
+
 $(document).on('click', '.rsvtChohome', function () {
 
     const aaa = $(this).children()[0];
@@ -356,4 +548,22 @@ $(document).on('click', '.rsvtChohome', function () {
     $('#RsvtOperDay').val(dayday1);
 
     getMenuRsvt(rsvt1, null, 0);
+});
+
+$(document).on('click', '.home23Aside', function () {
+
+    const aaa = $(this).children()[0];
+    const aaa1 = $(aaa).children()[0];
+
+    const dayday = $(aaa1).val();
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (dayday == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'));
+        }
+    }
 });

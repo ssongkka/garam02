@@ -10,8 +10,10 @@ const veFolder = 'http://ssongkkyu.cdn3.cafe24.com/src/ve/';
 const tableCh = '#337ab7';
 
 $(document).ready(function () {
-
     $('input').attr('autocomplete', 'off');
+
+    $('#hideId').css('background', 'var(--sub-color)');
+    $('#hideId').css('color', 'var(--main-color)');
 });
 
 $(document).on('click', '#pills-home-tab', function () {
@@ -54,7 +56,7 @@ function goUrl(paramUrl) {
     let dddaaayyy = $(ddd1).val();
 
     if (!dddaaayyy) {
-        dddaaayyy = $('#yearMonth').val() + '-01';
+        dddaaayyy = $('.yearMonth').val() + '-01';
     }
 
     newForm.append($('<input/>', {
@@ -1611,7 +1613,9 @@ function tbChoice(id) {
         .children('td')
         .css('color', 'var(--main-color)');
 }
+
 function tbChoiceThis(param) {
+
     $('td').css('background', 'none');
     $('td').css('color', 'black');
 
@@ -1706,8 +1710,8 @@ function round2(num) {
 }
 
 function getStDayEndDayMain() {
-    let stD = new Date($("#yearMonth").val() + '-01');
-    const stttD = new Date($("#yearMonth").val() + '-01');
+    let stD = new Date($(".yearMonth").val() + '-01');
+    const stttD = new Date($(".yearMonth").val() + '-01');
 
     stD = new Date(stD.setMonth(stD.getMonth() + 1));
 

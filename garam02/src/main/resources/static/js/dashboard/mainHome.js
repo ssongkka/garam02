@@ -23,7 +23,7 @@ function makeMainBigCal() {
 
     function setMainCalendar(result) {
         return new Promise(function (resolve, reject) {
-            const aaa = new Date($("#yearMonth").val());
+            const aaa = new Date($('.yearMonth').val());
 
             const check = aaa.getMonth();
             let stD = getCalStD(aaa);
@@ -1335,14 +1335,18 @@ function makeHtmlsMenu(r, operday, cho) {
                         'glass-plus"></i></button>';
                 htmls += '';
                 htmls += '</div>';
+
                 const operdddd = $('.dash-cal-con-item-t').children()[0];
                 const operdddd1 = $(operdddd).children()[1];
                 const tod = $(operdddd1).val();
                 // const tttod = tod + Math.floor(Math.random() * 1000);
-                if (operday != 'null') {
-                    htmls += '<input type="hidden" value="' + r[i].stday + '">';
-                } else {
+
+                console.log("operday   " + operday);
+
+                if (operday != null) {
                     htmls += '<input type="hidden" value="' + operday + '">';
+                } else {
+                    htmls += '<input type="hidden" value="' + r[i].stday + '">';
                 }
                 htmls += '<input type="hidden" value="' + r[i].endday + '">';
                 htmls += '<input type="hidden" value="' + r[i].numm + '">';
@@ -1990,11 +1994,12 @@ function makeHtmlsSuk(r, cho) {
                         'glass-plus"></i></button>';
                 htmls += '';
                 htmls += '</div>';
+
                 const operdddd = $('.dash-cal-con-item-t').children()[0];
                 const operdddd1 = $(operdddd).children()[1];
                 const tod = $(operdddd1).val();
                 // const tttod = tod + Math.floor(Math.random() * 1000);
-                console.log("r[i].stday   " + r[i].stday);
+
                 htmls += '<input type="hidden" value="' + r[i].stday + '">';
                 htmls += '<input type="hidden" value="' + r[i].endday + '">';
                 htmls += '<input type="hidden" value="' + r[i].numm + '">';
@@ -2684,11 +2689,11 @@ function makeHtmlsIl(ctmnono, day, cho) {
                                 'glass-plus"></i></button>';
                         htmls += '';
                         htmls += '</div>';
-                        const aaa = $('.dash-cal-con-item-t')
-                            .children()
-                            .children()[1];
-                        const tod = $(aaa).val();
-                        // const tttod = tod + Math.floor(Math.random() * 1000);
+
+                        const operdddd = $('.dash-cal-con-item-t').children()[0];
+                        const operdddd1 = $(operdddd).children()[1];
+                        const tod = $(operdddd1).val();
+
                         htmls += '<input type="hidden" value="' + r[i].stday + '">';
                         htmls += '<input type="hidden" value="' + r[i].endday + '">';
                         htmls += '<input type="hidden" value="' + r[i].numm + '">';

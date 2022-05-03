@@ -6,33 +6,33 @@ $(document).ready(function () {
         const now = new Date();
         const oneMonthAgo = new Date(now.setMonth(now.getMonth() - 1));
         const fff = toStringByFormatting(oneMonthAgo);
-        $('.yearmonths').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
+        $('#yearMonths').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
     } else {
-        $('.yearmonths').val(nownownow.split('-')[0] + '-' + nownownow.split('-')[1]);
+        $('#yearMonths').val(nownownow.split('-')[0] + '-' + nownownow.split('-')[1]);
     }
 });
 
 $(document).on('click', '#fnUpMonth', function () {
-    const getYM = $('.yearmonths').val();
+    const getYM = $('#yearMonths').val();
     const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
 
     const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() + 1));
     const fff = toStringByFormatting(oneMonthAgo);
-    $('.yearmonths').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
+    $('#yearMonths').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
     getEmpOperListCompa($('#emp-iidd').val());
 });
 $(document).on('click', '#fnDownMonth', function () {
-    const getYM = $('.yearmonths').val();
+    const getYM = $('#yearMonths').val();
     const nowMonth = new Date(getYM.split('-')[0], getYM.split('-')[1] - 1, 1);
 
     const oneMonthAgo = new Date(nowMonth.setMonth(nowMonth.getMonth() - 1));
     const fff = toStringByFormatting(oneMonthAgo);
-    $('.yearmonths').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
+    $('#yearMonths').val(fff.split('-')[0] + '-' + fff.split('-')[1]);
     getEmpOperListCompa($('#emp-iidd').val());
 });
 
 
 
-$(document).on('change', '.yearmonths', function () {
+$(document).on('change', '#yearMonths', function () {
     getEmpOperListCompa($('#emp-iidd').val());
 });

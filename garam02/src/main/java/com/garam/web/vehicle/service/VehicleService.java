@@ -45,6 +45,8 @@ public interface VehicleService {
 
 	public int insertInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
+	public int updateInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 	public int insertInsuSepa(List<Map<String, Object>> map) throws Exception;
 
 	public int deleteInsu(VehicleInfoDTO vehicleInfoDTO) throws Exception;
@@ -100,7 +102,7 @@ public interface VehicleService {
 	public int deleteveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectGasVe(VehicleInfoDTO vehicleInfoDTO) throws Exception;
-	
+
 	public List<VehicleInfoDTO> selectGasMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public int insertGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
