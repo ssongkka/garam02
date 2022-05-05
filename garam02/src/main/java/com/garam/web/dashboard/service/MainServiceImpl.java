@@ -1981,4 +1981,9 @@ public class MainServiceImpl implements MainService {
 		return rtn;
 	}
 
+	@Override
+	public List<RsvtDTO> selectManageAside(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectManageAside(rsvtDTO);
+		return list;
+	}
 }

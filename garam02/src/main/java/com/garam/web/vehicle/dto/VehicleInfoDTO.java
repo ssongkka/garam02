@@ -250,6 +250,8 @@ public class VehicleInfoDTO {
 	private Double wonkm;
 	private Integer vegastrash;
 
+	private String approvalno;
+
 	public Integer getLoansepano() {
 		return loansepano;
 	}
@@ -1118,6 +1120,14 @@ public class VehicleInfoDTO {
 
 	public void setVegastrash(Integer vegastrash) {
 		this.vegastrash = vegastrash;
+	}
+
+	public String getApprovalno() {
+		return approvalno;
+	}
+
+	public void setApprovalno(String approvalno) {
+		this.approvalno = approvalno;
 	}
 
 }

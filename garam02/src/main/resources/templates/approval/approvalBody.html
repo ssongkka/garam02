@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <body th:fragment="approval-body">
+        <aside th:replace="approval/approvalSide :: approvalSide"></aside>
+        <main class="approvalMain">
+            <div class="approvalUp">
+                <div class="approvalUp-cont approvalUp-he card-song">
+                    <div class="approvalUp-cont-title">
+                        <div class="table-responsive tablefir">
+                            <table class="approvalUpDojang">
+                                <colgroup>
+                                    <col width="20%">
+                                    <col width="16%">
+                                    <col width="16%">
+                                    <col width="16%">
+                                    <col width="16%">
+                                    <col width="16%">
+                                </colgroup>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="colorG colorUp">문서종류</td>
+                                        <td colspan="2" class="colorUp">
+                                            <select class="form-select" id="">
+                                                <option value="일일보고서" label="일일보고서" selected="selected"></option>
+                                            </select>
+                                        </td>
+                                        <td class="colorG colorUp">문서번호</td>
+                                        <td colspan="2" class="colorUp"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colorG">기안날짜</td>
+                                        <td colspan="2">
+                                            <input type="date" class="form-control">
+                                        </td>
+                                        <td class="colorG">기안자</td>
+                                        <td colspan="2" th:text="${user.position + ' ' + user.name}"></td>
+                                    </tr>
+                                    <tr class="giJik">
+                                        <td rowspan="4" class="colorG colorUp">결재</td>
+                                        <td class="colorG colorUp">담당자</td>
+                                        <td class="colorG colorUp"></td>
+                                        <td class="colorG colorUp"></td>
+                                        <td class="colorG colorUp"></td>
+                                        <td class="colorG colorUp"></td>
+                                    </tr>
+                                    <tr class="giName">
+                                        <td th:text="${user.name}" class="colorDownNo"></td>
+                                        <td class="colorDownNo">
+                                            <select class="form-select" id="">
+                                                <option value="" label=""></option>
+                                                <option
+                                                    th:each="userAll : ${userAll}"
+                                                    th:if="${user.id != userAll.id}"
+                                                    th:value="${userAll.position + ' ' + userAll.name}"
+                                                    th:label="${userAll.position + ' ' + userAll.name}"></option>
+                                            </select>
+                                        </td>
+                                        <td class="colorDownNo">
+                                            <select class="form-select" id="" disabled="disabled">
+                                                <option value="" label=""></option>
+                                                <option
+                                                    th:each="userAll : ${userAll}"
+                                                    th:if="${user.id != userAll.id}"
+                                                    th:value="${userAll.position + ' ' + userAll.name}"
+                                                    th:label="${userAll.position + ' ' + userAll.name}"></option>
+                                            </select>
+                                        </td>
+                                        <td class="colorDownNo">
+                                            <select class="form-select" id="" disabled="disabled">
+                                                <option value="" label=""></option>
+                                                <option
+                                                    th:each="userAll : ${userAll}"
+                                                    th:if="${user.id != userAll.id}"
+                                                    th:value="${userAll.position + ' ' + userAll.name}"
+                                                    th:label="${userAll.position + ' ' + userAll.name}"></option>
+                                            </select>
+                                        </td>
+                                        <td class="colorDownNo">
+                                            <select class="form-select" id="" disabled="disabled">
+                                                <option value="" label=""></option>
+                                                <option
+                                                    th:each="userAll : ${userAll}"
+                                                    th:if="${user.id != userAll.id}"
+                                                    th:value="${userAll.position + ' ' + userAll.name}"
+                                                    th:label="${userAll.position + ' ' + userAll.name}"></option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="giName">
+                                        <td class="colorUpNo"></td>
+                                        <td class="colorUpNo">
+                                            <select class="form-select" id="">
+                                                <option value="" label="" selected="selected"></option>
+                                                <option value="출장" label="출장"></option>
+                                                <option value="휴가" label="휴가"></option>
+                                                <option value="전결" label="전결"></option>
+                                            </select>
+                                        </td>
+                                        <td class="colorUpNo">
+                                            <select class="form-select" id="" disabled="disabled">
+                                                <option value="" label="" selected="selected"></option>
+                                                <option value="출장" label="출장"></option>
+                                                <option value="휴가" label="휴가"></option>
+                                                <option value="전결" label="전결"></option>
+                                            </select>
+                                        </td>
+                                        <td class="colorUpNo">
+                                            <select class="form-select" id="" disabled="disabled">
+                                                <option value="" label="" selected="selected"></option>
+                                                <option value="출장" label="출장"></option>
+                                                <option value="휴가" label="휴가"></option>
+                                                <option value="전결" label="전결"></option>
+                                            </select>
+                                        </td>
+                                        <td class="colorUpNo">
+                                            <select class="form-select" id="" disabled="disabled">
+                                                <option value="" label="" selected="selected"></option>
+                                                <option value="출장" label="출장"></option>
+                                                <option value="휴가" label="휴가"></option>
+                                                <option value="전결" label="전결"></option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="giDay">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colorG colorUp">협조자</td>
+                                        <td colspan="5" class="colorUp" style="text-align: left;">
+                                            <span>
+                                                <select class="form-select" style="width: 11rem;" id="">
+                                                    <option value="" label=""></option>
+                                                    <option
+                                                        th:each="userAll : ${userAll}"
+                                                        th:if="${user.id != userAll.id}"
+                                                        th:value="${userAll.position + ' ' + userAll.name}"
+                                                        th:label="${userAll.position + ' ' + userAll.name}"></option>
+                                                </select>
+                                            </span>
+                                            <span id="suCham"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="colorG colorUp">수신참조</td>
+                                        <td colspan="5" class="colorUp" style="text-align: left;">
+                                            <span>
+                                                <select class="form-select" style="width: 11rem;" id="">
+                                                    <option value="" label=""></option>
+                                                    <option
+                                                        th:each="userAll : ${userAll}"
+                                                        th:if="${user.id != userAll.id}"
+                                                        th:value="${userAll.position + ' ' + userAll.name}"
+                                                        th:label="${userAll.position + ' ' + userAll.name}"></option>
+                                                </select>
+                                            </span>
+                                            <span id="hyepjo"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="approvalUp-cont-title">
+                        <div class="table-responsive tablefir"></div>
+                    </div>
+                </div>
+                <div class="approvalUp-set approvalUp-he card-song"></div>
+            </div>
+        </main>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const opt =/*[[${opt}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbuser =/*[[${user}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbCompa =/*[[${compa}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbVe =/*[[${ve}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+            const dbEmp =/*[[${emp}]]*/
+            'default';
+            /*]]>*/
+            /*<![CDATA[*/
+        </script>
+
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/boot/bootstrap.bundle.js"></script>
+        <script language="javascript" type="text/javascript" src="/js/boot/all.js"></script>
+        <script language="javascript" type="text/javascript" src="/js/common/common.js"></script>
+    </body>
+
+</html>

@@ -164,6 +164,8 @@ public class RsvtDTO {
 
 	private String name;
 
+	private String approvalno;
+
 	public Integer getDayst() {
 		return dayst;
 	}
@@ -526,6 +528,14 @@ public class RsvtDTO {
 
 	public void setCtmseq(Integer ctmseq) {
 		this.ctmseq = ctmseq;
+	}
+
+	public String getApprovalno() {
+		return approvalno;
+	}
+
+	public void setApprovalno(String approvalno) {
+		this.approvalno = approvalno;
 	}
 
 }

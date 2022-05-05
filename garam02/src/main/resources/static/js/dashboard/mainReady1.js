@@ -29,6 +29,7 @@ $(document).ready(function () {
 
     if ($('#manage').css('display') === 'block') {
         makeManage();
+        makeManageAside();
     }
 
     if ($('#allo').css('display') === 'block') {

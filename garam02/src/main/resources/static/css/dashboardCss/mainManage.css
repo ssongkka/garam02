@@ -12,7 +12,7 @@
     gap: 1rem;
     flex: 1;
     margin-right: 30rem;
-    padding: 3rem 10rem;
+    padding: 1rem 11rem;
 }
 
 .main-manage-item {
@@ -20,7 +20,7 @@
     flex-direction: column;
     gap: 1rem;
 
-    padding: 1rem;
+    padding: 2rem;
 }
 
 @media (max-width:1024px) {}

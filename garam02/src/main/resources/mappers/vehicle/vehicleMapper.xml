@@ -69,7 +69,8 @@
 		null,
 		null,
 		null,
-		1
+		1,
+		null
 		);
 
 	</insert>
@@ -365,7 +366,8 @@
 		#{insudateend},
 		#{insutime},
 		#{insumoney},
-		1
+		1,
+		null
 		);
 	</insert>
 
@@ -401,7 +403,8 @@
 			#{value.insusepamoney},
 			#{value.insusepaday},
 			#{value.insusepatime},
-			1
+			1,
+			null
 			)
 		</foreach>
 	</insert>
@@ -620,8 +623,9 @@
 		#{loanperiod},
 		#{loandayloan},
 		#{loanbank},
-		1
-		);
+		1,
+		null
+		)
 	</insert>
 
 	<update id="updateloan" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
@@ -653,7 +657,8 @@
 		#{loansepaday},
 		#{loansepamoney},
 		#{loansepatime},
-		1
+		1,
+		null
 		);
 
 	</insert>
@@ -775,7 +780,8 @@
 		#{vemaintenancenum},
 		#{vemaintenancecompany},
 		#{vemaintenancemoney},
-		1
+		1,
+		null
 		);
 
 	</insert>
@@ -817,7 +823,12 @@
 
 	<insert id="insertInspec" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
 
-		INSERT INTO veinspection
+		INSERT
+
+		INTO
+
+		veinspection
+
 		VALUES
 		(
 		null,
@@ -828,7 +839,8 @@
 		#{inspecdistance},
 		#{inspecplace},
 		#{inspecsepa},
-		1
+		1,
+		null
 		);
 
 	</insert>
@@ -980,7 +992,8 @@
 		#{veaccenddate},
 		#{veaccinsu},
 		#{veaccmoney},
-		1
+		1,
+		null
 		)
 
 	</insert>
@@ -1098,6 +1111,7 @@
 		#{kml},
 		#{wonkm},
 		1,
+		null
 		)
 
 	</insert>

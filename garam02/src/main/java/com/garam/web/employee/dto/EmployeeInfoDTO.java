@@ -91,6 +91,8 @@ public class EmployeeInfoDTO {
 	// 이미지파일이름
 	private String img;
 
+	private String approvalno;
+
 	// 재직여부
 	private Integer trash;
 
@@ -364,27 +366,12 @@ public class EmployeeInfoDTO {
 		this.vehicle = vehicle;
 	}
 
-	@Override
-	public String toString() {
-		return "EmployeeInfoDTO [tp=" + tp + ", id=" + id + ", company=" + company + ", kind=" + kind + ", joind="
-				+ joind + ", joindDay=" + joindDay + ", endd=" + endd + ", name=" + name + ", gender=" + gender
-				+ ", birthday=" + birthday + ", age=" + age + ", phone1=" + phone1 + ", phone2=" + phone2 + ", address="
-				+ address + ", garage=" + garage + ", bosum=" + bosum + ", bobuj=" + bobuj + ", drvl=" + drvl
-				+ ", busl=" + busl + ", memo=" + memo + ", bank=" + bank + ", gye=" + gye + ", gyename=" + gyename
-				+ ", basem=" + basem + ", kukm=" + kukm + ", gunm=" + gunm + ", gom=" + gom + ", sanm=" + sanm
-				+ ", img=" + img + ", trash=" + trash + ", carnumber=" + carnumber + ", vehicle=" + vehicle + ", bus="
-				+ bus + ", getBus()=" + getBus() + ", getCarnumber()=" + getCarnumber() + ", getTp()=" + getTp()
-				+ ", getId()=" + getId() + ", getCompany()=" + getCompany() + ", getKind()=" + getKind()
-				+ ", getJoind()=" + getJoind() + ", getJoindDay()=" + getJoindDay() + ", getEndd()=" + getEndd()
-				+ ", getName()=" + getName() + ", getGender()=" + getGender() + ", getBirthday()=" + getBirthday()
-				+ ", getAge()=" + getAge() + ", getPhone1()=" + getPhone1() + ", getPhone2()=" + getPhone2()
-				+ ", getAddress()=" + getAddress() + ", getGarage()=" + getGarage() + ", getBosum()=" + getBosum()
-				+ ", getBobuj()=" + getBobuj() + ", getDrvl()=" + getDrvl() + ", getBusl()=" + getBusl()
-				+ ", getMemo()=" + getMemo() + ", getBank()=" + getBank() + ", getGye()=" + getGye() + ", getGyename()="
-				+ getGyename() + ", getBasem()=" + getBasem() + ", getKukm()=" + getKukm() + ", getGunm()=" + getGunm()
-				+ ", getGom()=" + getGom() + ", getSanm()=" + getSanm() + ", getImg()=" + getImg() + ", getTrash()="
-				+ getTrash() + ", getVehicle()=" + getVehicle() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+	public String getApprovalno() {
+		return approvalno;
+	}
+
+	public void setApprovalno(String approvalno) {
+		this.approvalno = approvalno;
 	}
 
 }

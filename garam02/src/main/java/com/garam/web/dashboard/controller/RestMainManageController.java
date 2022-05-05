@@ -121,4 +121,12 @@ public class RestMainManageController {
 		return list;
 	}
 
+	@PostMapping(value = "/selectRsvtAside")
+	public List<RsvtDTO> selectRsvtAside(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectManageAside(rsvtDTO);
+
+		return list;
+	}
+
 }

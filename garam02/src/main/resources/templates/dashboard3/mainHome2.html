@@ -4,8 +4,10 @@
     <div th:fragment="main-home2" class="main-home">
         <div class="home-main">
             <div class="home-main-item-4">
-                <div class="tab-pane card-song home-tap" role="tabpanel">
+                <div class="card-song">
                     <div th:replace="dashboard/dashboardMainHeadCal :: main-headCal"></div>
+                </div>
+                <div class="tab-pane card-song home-tap" role="tabpanel">
                     <div class="home-main-item-444">
                         <div class="home2-item1">
                             <div class="form-check form-check-inline">
@@ -144,8 +146,8 @@
                                             <col width="5%"/>
                                         </colgroup>
                                         <caption>
-                                            <p>1.대당금액은 부가세, 카드 수수료를 제외한 금액임</p>
-                                            <p>2. 데이터양이 많으면 성능이 저하될 수 있습니다. 검색기능을 이용해주세요.</p>
+                                            <span>1.대당금액은 부가세, 카드 수수료를 제외한 금액임</span>
+                                            <span>2. 데이터양이 많으면 성능이 저하될 수 있습니다. 검색기능을 이용해주세요.</span>
                                         </caption>
                                         <tfoot id="home2-tf-il"></tfoot>
                                     </table>
@@ -176,7 +178,7 @@
                                 <th>총</th>
                             </tr>
                         </thead>
-                        <tbody id="home2Tb"></tbody>
+                        <tbody id="home2AsideTb"></tbody>
                     </table>
                 </div>
             </div>

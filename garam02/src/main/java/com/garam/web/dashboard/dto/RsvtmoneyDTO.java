@@ -27,6 +27,8 @@ public class RsvtmoneyDTO {
 	// 삭제여부
 	private Integer moneytrash;
 
+	private String approvalno;
+
 	public Integer getRsvtmoneyseq() {
 		return rsvtmoneyseq;
 	}
@@ -97,6 +99,14 @@ public class RsvtmoneyDTO {
 
 	public void setMoneytrash(Integer moneytrash) {
 		this.moneytrash = moneytrash;
+	}
+
+	public String getApprovalno() {
+		return approvalno;
+	}
+
+	public void setApprovalno(String approvalno) {
+		this.approvalno = approvalno;
 	}
 
 }

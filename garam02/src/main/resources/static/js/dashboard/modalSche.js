@@ -73,7 +73,7 @@ $(document).on('click', '.middle-event', function () {
 });
 
 $(document).on('click', '.eventAside', function () {
-    const aaa = $(this).children()[1];
+    const aaa = $(this).children()[0];
     const aaa1 = $(aaa).children()[0];
     const eventSeq = $(aaa1).val();
 

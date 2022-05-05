@@ -342,3 +342,126 @@ $(document).on('click', '.mainManageMore', function () {
         })
     }
 });
+
+function makeManageAside() {
+    const url = "/manage/selectRsvtAside";
+    const headers = {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+    };
+
+    const params = {
+        "stday": getStDayEndDayMain()[0],
+        "endday": getStDayEndDayMain()[1]
+    };
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        headers: headers,
+        caches: false,
+        dataType: "json",
+        data: JSON.stringify(params),
+
+        success: function (r) {
+            getManageAside(r);
+        },
+        error: (jqXHR) => {
+            loginSession(jqXHR.status);
+        }
+    })
+}
+
+function getManageAside(r) {
+
+    let arrTmpDay = new Array();
+
+    for (let i = 0; i < parseInt(getStDayEndDayMain()[1].split('-')[2]); i++) {
+        let stD = new Date(getStDayEndDayMain()[0]);
+        stD = new Date(stD.setDate(stD.getDate() + i));
+
+        arrTmpDay.push(toStringByFormatting(stD));
+    }
+
+    let htmls = ``;
+    for (let k = 0; k < arrTmpDay.length; k++) {
+        const ccc = $('.dash-cal-con-item-t').children()[0];
+        const ccc1 = $(ccc).children()[1];
+
+        const calDay = $(ccc1).val();
+
+        let sttylee = '';
+        if (arrTmpDay[k] == calDay) {
+            sttylee += 'style="background: var(--sub-color);"';
+        }
+
+        let cntIl = 0;
+        let cntHak = 0;
+        let cntGu = 0;
+
+        let cntJan = 0;
+
+        for (let i = 0; i < r.length; i++) {
+            if (arrTmpDay[k] == r[i].stday) {
+                switch (parseInt(r[i].ctmsepa)) {
+                    case 0:
+                        cntIl++;
+                        break;
+                    case 1:
+                        cntHak++;
+                        break;
+                    case 2:
+                        cntGu++;
+                        break;
+                }
+                if (r[i].ctmtrash) {
+                    cntJan = cntJan + parseInt(r[i].ctmtrash);
+                }
+            }
+        }
+
+        const dayday = parseInt(arrTmpDay[k].split('-')[2]) + '일 ' +
+                getDayOfWeek(new Date(arrTmpDay[k]).getDay()).replaceAll('요일', '');
+
+        let dayTr = ``;
+        for (let i = 0; i < 42; i++) {
+            let iiiddd = '#dash-cal-con-item' + (
+                i + 1
+            );
+            if (arrTmpDay[k] == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+                if ($(iiiddd).attr('style')) {
+                    dayTr = `<td style="` + $(iiiddd).attr('style') + `;" ` + sttylee + `>` +
+                            dayday + `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
+                } else {
+                    dayTr = `<td ` + sttylee + `>` + dayday +
+                            `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
+                }
+            }
+        }
+
+        if (!cntIl) {
+            cntIl = '';
+        }
+        if (!cntHak) {
+            cntHak = '';
+        }
+        if (!cntGu) {
+            cntGu = '';
+        }
+
+        htmls += `
+    <tr class="home23Aside" ` + sttylee + `>
+        ` + dayTr +
+                `
+        <td ` + sttylee + `>` + cntIl +
+                `</td>
+        <td ` + sttylee + `>` + cntHak +
+                `</td>
+        <td ` + sttylee + `>` + cntGu +
+                `</td>
+        <td class="tdRight" ` + sttylee + `>` + AddComma(cntJan) +
+                `</td>
+    </tr>`;
+    }
+    $('#manegeAsideTb').html(htmls);
+}

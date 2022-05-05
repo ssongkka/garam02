@@ -1,5 +1,7 @@
 package com.garam.web.login.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,14 @@ public class RestUserController {
 	public int updateUserPw(@RequestBody UserDTO userDTO) throws Exception {
 
 		int rtn = userMyService.updateUserPw(userDTO);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/getuser")
+	public List<UserDTO> getuser() throws Exception {
+
+		List<UserDTO> rtn = userMyService.selectUser();
 
 		return rtn;
 	}

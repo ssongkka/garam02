@@ -28,34 +28,6 @@
 
 		employeeinfo
 
-		(id,
-		company,
-		kind,
-		joind,
-		endd,
-		name,
-		gender,
-		birthday,
-		phone1,
-		phone2,
-		address,
-		garage,
-		bosum,
-		bobuj,
-		drvl,
-		busl,
-		memo,
-		bank,
-		gye,
-		gyename,
-		basem,
-		kukm,
-		gunm,
-		gom,
-		sanm,
-		img,
-		trash)
-
 		VALUES
 
 		(
@@ -85,7 +57,8 @@
 		#{gom},
 		#{sanm},
 		#{img},
-		1
+		1,
+		null
 		);
 	</insert>
 

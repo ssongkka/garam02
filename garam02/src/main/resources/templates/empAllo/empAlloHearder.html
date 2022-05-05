@@ -4,77 +4,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다
-        -->
-        <th:block layout:fragment="title">
-            <title>메인</title>
-        </th:block>
+        <title>메인</title>
 
-        <!-- 부트스트랩 -->
-        <link rel="stylesheet" href="/css/boot/bootstrap.css">
-        <link rel="stylesheet" href="/css/boot/all.css">
-        <link
-            rel="stylesheet"
-            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
-        <link
-            th:if="${user.color == 0}"
-            rel="stylesheet"
-            href="/css/optCss/optCss0.css">
-        <link
-            th:if="${user.color == 1}"
-            rel="stylesheet"
-            href="/css/optCss/optCss1.css">
-        <link
-            th:if="${user.color == 10}"
-            rel="stylesheet"
-            href="/css/optCss/optCss10.css">
-        <link
-            th:if="${user.color == 11}"
-            rel="stylesheet"
-            href="/css/optCss/optCss11.css">
-        <link
-            th:if="${user.color == 12}"
-            rel="stylesheet"
-            href="/css/optCss/optCss12.css">
-        <link
-            th:if="${user.color == 13}"
-            rel="stylesheet"
-            href="/css/optCss/optCss13.css">
-        <link
-            th:if="${user.color == 14}"
-            rel="stylesheet"
-            href="/css/optCss/optCss14.css">
-        <link
-            th:if="${user.color == 15}"
-            rel="stylesheet"
-            href="/css/optCss/optCss15.css">
-        <link
-            th:if="${user.color == 16}"
-            rel="stylesheet"
-            href="/css/optCss/optCss16.css">
-        <link
-            th:if="${user.color == 17}"
-            rel="stylesheet"
-            href="/css/optCss/optCss17.css">
-        <link
-            th:if="${user.color == 18}"
-            rel="stylesheet"
-            href="/css/optCss/optCss18.css">
-        <link
-            th:if="${user.color == 19}"
-            rel="stylesheet"
-            href="/css/optCss/optCss19.css">
-        <link
-            th:if="${user.color == 20}"
-            rel="stylesheet"
-            href="/css/optCss/optCss20.css">
-        <link rel="stylesheet" href="/css/common/boot_Custom.css?v=2020042201">
-        <link rel="stylesheet" href="/css/common/cal.css?v=2020042201">
-        <link rel="stylesheet" href="/css/common/styles.css?v=2020042201">
-        <link rel="stylesheet" href="/css/common/btn.css?v=2020042201">
-        <link rel="stylesheet" href="/css/common/calLayout.css?v=2020042201">
-        <link rel="stylesheet" href="/css/dashboardCss/mainHome.css?v=2020042201">
-        <link rel="stylesheet" href="/css/dashboardCss/mainRsvt.css?v=2020042201">
-        <link rel="stylesheet" href="/css/dashboardCss/mainAllo.css?v=2020042201">
+        <th:block th:replace="layout/linkGroupCss :: linkCss"></th:block>
+        <link rel="stylesheet" href="/css/common/calLayout.css?v=2020050401">
+        <link rel="stylesheet" href="/css/dashboardCss/mainHome.css?v=2020050401">
+        <link rel="stylesheet" href="/css/dashboardCss/mainRsvt.css?v=2020050401">
+        <link rel="stylesheet" href="/css/dashboardCss/mainAllo.css?v=2020050401">
     </head>

@@ -635,21 +635,23 @@ function makeBigcal2Aside() {
                         }
 
                         let gradee = ``;
+                        let sttyle = ``;
                         if (parseInt(r[i].caleventgrade) > 0) {
                             gradee = `<i class="fa-solid fa-exclamation h2chEventgrade"></i>`;
+                            sttyle = `style="text-align: left;"`;
+                        } else {
+                            sttyle = `style="text-align: left; padding-left: 2rem;"`;
                         }
 
                         htmls += `
                     <tr class="eventAside">
-                        <th>` +
-                                gradee +
-                                `</th>
-                        <th style="text-align: left;">
-                        ` +
-                                titlee +
-                                `
-                        <input type="hidden" value="` + r[i].caleventseq +
+                        <th ` +
+                                sttyle +
+                                `>
+                            <input type="hidden" value="` + r[i].caleventseq +
                                 `">
+                        ` + gradee + titlee +
+                                `
                         </th>
                         <th>` + r[i].caleventemp +
                                 `</th>

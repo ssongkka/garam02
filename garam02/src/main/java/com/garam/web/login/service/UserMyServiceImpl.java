@@ -1,5 +1,7 @@
 package com.garam.web.login.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,13 @@ public class UserMyServiceImpl implements UserMyService {
 		userDTO.setPw(encoPw);
 
 		int rtn = userMapper.insertUser(userDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<UserDTO> selectUser() throws Exception {
+		List<UserDTO> rtn = userMapper.selectUser();
 
 		return rtn;
 	}

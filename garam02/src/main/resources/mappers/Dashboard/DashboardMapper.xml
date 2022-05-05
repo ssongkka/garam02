@@ -124,10 +124,9 @@
 	<insert id="insertRsvt" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		INSERT INTO
+
 		rsvt
-		(
-		<include refid="rsvtColumns" />
-		)
+
 		VALUES
 		(
 		null
@@ -136,7 +135,8 @@
 		, now()
 		, null
 		, #{empin}
-		, #{stday}
+		,
+		#{stday}
 		,
 		#{endday}
 		, #{bus}
@@ -145,25 +145,27 @@
 		, #{rsvpstp}
 		,
 		#{stt}
-		, #{endt}
+		,
+		#{endt}
 		,
 		#{rsvtdetail}
 		,
 		#{cont}
 		, #{conm}
 		, #{numm}
-		, #{confirm}
+		,
+		#{confirm}
 		, null
 		, 1
-		);
+		, null
+		)
 	</insert>
 
 	<insert id="insertManyRsvt" parameterType="java.util.HashMap">
 
-		INSERT INTO rsvt
-		(
-		<include refid="rsvtColumns" />
-		)
+		INSERT INTO
+
+		rsvt
 
 		VALUES
 		<foreach collection="rsvt" item="value" separator=",">
@@ -188,7 +190,8 @@
 			#{value.numm},
 			null,
 			null,
-			1
+			1,
+			null
 			)
 		</foreach>
 	</insert>
@@ -1535,7 +1538,8 @@
 		#{moneytong},
 		#{moneymemo},
 		#{moneymoney},
-		1
+		1,
+		null
 		);
 	</insert>
 
@@ -1559,7 +1563,8 @@
 			#{value.moneytong},
 			#{value.moneymemo},
 			#{value.moneymoney},
-			1
+			1,
+			null
 			)
 		</foreach>
 	</insert>
@@ -2286,7 +2291,42 @@
 
 		WHERE
 
-		caleventseq = #{caleventseq};
+		caleventseq = #{caleventseq}
 
 	</delete>
+
+	<select id="selectManageAside" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		rsvt.*,
+		IFNULL(SUM(rsvtmoney.moneymoney) ,0) AS ctmseq,
+		IFNULL((rsvt.conm - SUM(rsvtmoney.moneymoney)),
+		rsvt.conm) AS ctmtrash,
+		(SELECT customer.ctmsepa FROM customer WHERE customer.ctmno = rsvt.ctmno) AS ctmsepa
+
+		FROM
+
+		rsvt
+
+		LEFT JOIN
+
+		rsvtmoney
+
+		ON
+
+		rsvt.rsvt = rsvtmoney.rsvt
+
+		WHERE
+
+		rsvt.stday BETWEEN #{stday} AND #{endday}
+
+		GROUP BY
+		rsvt.rsvt
+
+		ORDER BY
+		rsvt.stday
+
+	</select>
 </mapper>

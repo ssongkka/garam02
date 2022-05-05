@@ -27,6 +27,7 @@
 #cal1 {
     font-size: 1.3rem;
     margin-left: 2rem;
+    color: var(--text-grey);
 }
 
 #midday {

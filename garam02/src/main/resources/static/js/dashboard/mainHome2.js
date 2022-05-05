@@ -529,7 +529,7 @@ function makeAsideRsvt(r) {
     </tr>`;
     }
 
-    $('#home2Tb').html(htmls);
+    $('#home2AsideTb').html(htmls);
 }
 
 $(document).on('click', '.rsvtChohome', function () {

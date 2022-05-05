@@ -144,4 +144,6 @@ public interface MainService {
 	public int updateCalEvent(ScheDTO scheDTO) throws Exception;
 
 	public int deleteCalEvent(ScheDTO scheDTO) throws Exception;
+
+	public List<RsvtDTO> selectManageAside(RsvtDTO rsvtDTO) throws Exception;
 }
