@@ -229,7 +229,7 @@ function insertRsvt(result) {
 
         const params = {
             "ctmno": result,
-            "empin": $('#empin').val(),
+            "empin": dbuser.id,
             "stday": $('#stday').val(),
             "endday": $('#endday').val(),
             "bus": $('#bus').val(),
@@ -295,7 +295,7 @@ function insertRsvt1(result) {
 
         const params = {
             "ctmno": "0",
-            "empin": $('#empin').val(),
+            "empin": dbuser.id,
             "stday": $('#stday').val(),
             "endday": $('#endday').val(),
             "bus": $('#bus').val(),

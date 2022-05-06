@@ -578,7 +578,7 @@ $(document).on('keyup', '.inputManage', function (eInner) {
                         "rsvtmoneyseq": rvseq,
                         "rsvt": rsvttt,
                         "moneyday": rsvtDay,
-                        "moneyuser": dbuser.name,
+                        "moneyuser": dbuser.id,
                         "moneytong": rsvtTong,
                         "moneymemo": rsvtMemo,
                         "moneymoney": rsvtM
@@ -707,7 +707,7 @@ function allRsvtMoneyInsert() {
                     const asd = {
                         "rsvt": rsvttt,
                         "moneyday": $('#allDate').val(),
-                        "moneyuser": dbuser.name,
+                        "moneyuser": dbuser.id,
                         "moneytong": $('#allTong').val(),
                         "moneymemo": $('#allMemo').val(),
                         "moneymoney": rsvrFootM

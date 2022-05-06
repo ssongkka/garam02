@@ -12,6 +12,12 @@
     min-height: calc(100vh - 4rem);
 }
 
+.apprUp {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .approvalUp-cont {
     flex: 1;
 
@@ -23,6 +29,12 @@
 
 .approvalUp-set {
     flex: 1;
+
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .giLineTable > tbody > tr > td {
@@ -50,8 +62,14 @@
     background: #0000000a;
     font-weight: 600;
 }
+.approvalUpDojang > tbody > tr > .colorUp1 {
+    border-top: 1px solid black;
+}
 .approvalUpDojang > tbody > tr > .colorUp {
     border-top: 2px solid black;
+}
+.approvalUpDojang > tbody > tr > .colorDown {
+    border-bottom: 2px solid black;
 }
 .approvalUpDojang > tbody > tr > .colorUpNo {
     border-top: 0 solid transparent;
@@ -92,8 +110,22 @@
     width: 100%;
 }
 
-#hyepjo,
-#suCham {
+.clHelpCham {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+
+.clHelpCham-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+#spCham,
+#spHelp {
     display: flex;
     flex-direction: row;
     gap: 1rem;

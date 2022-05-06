@@ -131,6 +131,16 @@ table > tbody > tr > .tdRight {
     vertical-align: middle;
 }
 
+table > tfoot > tr > .tdLeft {
+    text-align: left;
+    vertical-align: middle;
+}
+
+table > tbody > tr > .tdLeft {
+    text-align: left;
+    vertical-align: middle;
+}
+
 .nav p {
     margin: 0;
 }

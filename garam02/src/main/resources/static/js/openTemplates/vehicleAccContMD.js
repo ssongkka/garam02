@@ -83,7 +83,12 @@ function getAccDetail(accseq) {
                         .split(':')[0] + ':' + r[0]
                         .veacctime
                         .split(':')[1];
-                    const accCont = r[0].veacccont;
+                    const accCont = r[0]
+                        .veacccont
+                        .replaceAll('<br/>', '\n')
+                        .replaceAll('<br>', '\n')
+                        .replaceAll('&nbsp;', ' ');
+
                     let accEndDay = '';
                     let accInsu = '';
                     let accMoney = '';
@@ -219,10 +224,15 @@ $(document).on('click', '#accCont-insert', function () {
                 "X-HTTP-Method-Override": "POST"
             };
 
+            const veaccContt = $('#accCont')
+                .val()
+                .replaceAll(' ', '&nbsp;')
+                .replaceAll('\n', '<br/>');
+
             const params = {
                 "carnumber": $('#ve00').val(),
                 "id": iiiidddd,
-                "veacccont": $('#accCont').val(),
+                "veacccont": veaccContt,
                 "veaccdate": $('#accDate').val(),
                 "veacctime": $('#accTime').val(),
                 "veaccenddate": edDay,
@@ -271,10 +281,15 @@ $(document).on('click', '#accCont-insert', function () {
                 "X-HTTP-Method-Override": "POST"
             };
 
+            const veaccContt = $('#accCont')
+                .val()
+                .replaceAll(' ', '&nbsp;')
+                .replaceAll('\n', '<br/>');
+
             const params = {
                 "veaccseq": $('#acccontNum').val(),
                 "id": iiiidddd,
-                "veacccont": $('#accCont').val(),
+                "veacccont": veaccContt,
                 "veaccdate": $('#accDate').val(),
                 "veacctime": $('#accTime').val(),
                 "veaccenddate": edDay,

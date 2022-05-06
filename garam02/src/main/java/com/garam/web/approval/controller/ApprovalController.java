@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.garam.Utils.UiUtils;
 import com.garam.company.dto.CompanyDTO;
 import com.garam.company.service.CompanyService;
+import com.garam.web.approval.dto.ApprovalDTO;
+import com.garam.web.approval.service.ApprovalService;
 import com.garam.web.dashboard.dto.OptDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.dashboard.service.MainService;
@@ -34,6 +36,7 @@ public class ApprovalController extends UiUtils {
 	private final VehicleService vehicleService;
 	private final CompanyService companyService;
 	private final UserMyService userMyService;
+	private final ApprovalService approvalService;
 
 	@GetMapping
 	public String rsvt(@AuthenticationPrincipal User user, Model model) throws Exception {
@@ -61,6 +64,9 @@ public class ApprovalController extends UiUtils {
 
 		List<UserDTO> userAll = userMyService.selectUser();
 		model.addAttribute("userAll", userAll);
+
+		List<ApprovalDTO> apppaper = approvalService.selectapppaper();
+		model.addAttribute("apppaper", apppaper);
 
 		return "approval/approval";
 	}

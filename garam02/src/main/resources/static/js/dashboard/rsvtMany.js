@@ -450,7 +450,7 @@ $(document).on('click', '#insert-many', function () {
                     const asd = {
                         "rsvt": get_Rsvt(11, $(aaa[index]).val(), index),
                         "ctmno": $('#m-no').val(),
-                        "empin": $('#empin').val(),
+                        "empin": dbuser.id,
                         "stday": $(aaa[index]).val(),
                         "endday": $(aaa[index + 1]).val(),
                         "bus": $(aaa[index + 2]).val(),

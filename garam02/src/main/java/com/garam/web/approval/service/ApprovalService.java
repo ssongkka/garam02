@@ -1,16 +1,13 @@
-package com.garam.web.approval.mapper;
+package com.garam.web.approval.service;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 
 import com.garam.web.approval.dto.ApprovalDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 
-@Mapper
-public interface ApprovalMapper {
+public interface ApprovalService {
 	public List<ApprovalDTO> selectapppaper() throws Exception;
 
 	public List<ApprovalDTO> selectapppaperline(ApprovalDTO approvalDTO) throws Exception;

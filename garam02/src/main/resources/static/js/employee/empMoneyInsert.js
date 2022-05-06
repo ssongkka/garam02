@@ -1127,7 +1127,7 @@ function saveSalary(sepa) {
                 "opermoney": opermoney,
                 "inm": inm,
                 "outm": outm,
-                "empin": empin
+                "empin": user.id
             };
             $.ajax({
                 url: url,
@@ -1668,7 +1668,7 @@ $(document).on('keyup', '.regmoney', function (eInner) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
                     success: function (r) {
                         resolve();
