@@ -33,6 +33,12 @@
     text-align: left;
     font-size: 1.5rem;
     padding-left: 0.5rem;
+
+    font-weight: 600;
+}
+
+.apprContT svg {
+    color: var(--text-grey);
 }
 
 table > .theadApprTh > tr {

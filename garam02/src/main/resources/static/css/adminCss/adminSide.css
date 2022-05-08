@@ -20,7 +20,7 @@ aside .logo {
     align-items: center;
     justify-content: center;
 
-    margin-top: 3rem;
+    padding: 3rem 0;
 
     font-family: "Bae";
     color: var(--sub-color);
@@ -48,7 +48,12 @@ aside .logo span {
 
 .aside-main span:hover {
     cursor: pointer;
-    background: red;
+    background: var(--sub-color);
+    color: var(--main-color);
+}
+
+.side-item span a {
+    color: var(--sub-color);
 }
 
 .aside-main hr {

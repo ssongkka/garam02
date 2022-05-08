@@ -24,8 +24,6 @@ public class ApprovalDTO {
 
 	private String approvalcont;
 
-	private String approvalfoot;
-
 	private String approvalupday;
 
 	private Integer approvalcondi;
@@ -83,6 +81,18 @@ public class ApprovalDTO {
 	private Integer approvalpaperlineorder;
 
 	private Integer approvalpaperlinetrash;
+
+	private Integer approvalfootseq;
+
+	private Integer approvalfootnum;
+
+	private String approvalfootintime;
+
+	private String approvalfootchtime;
+
+	private String approvalfootcont;
+
+	private Integer approvalfoottrash;
 
 	public String getId() {
 		return id;
@@ -170,14 +180,6 @@ public class ApprovalDTO {
 
 	public void setApprovalcont(String approvalcont) {
 		this.approvalcont = approvalcont;
-	}
-
-	public String getApprovalfoot() {
-		return approvalfoot;
-	}
-
-	public void setApprovalfoot(String approvalfoot) {
-		this.approvalfoot = approvalfoot;
 	}
 
 	public String getApprovalupday() {
@@ -410,6 +412,54 @@ public class ApprovalDTO {
 
 	public void setApprovalpaperlinetrash(Integer approvalpaperlinetrash) {
 		this.approvalpaperlinetrash = approvalpaperlinetrash;
+	}
+
+	public Integer getApprovalfootseq() {
+		return approvalfootseq;
+	}
+
+	public void setApprovalfootseq(Integer approvalfootseq) {
+		this.approvalfootseq = approvalfootseq;
+	}
+
+	public Integer getApprovalfootnum() {
+		return approvalfootnum;
+	}
+
+	public void setApprovalfootnum(Integer approvalfootnum) {
+		this.approvalfootnum = approvalfootnum;
+	}
+
+	public String getApprovalfootcont() {
+		return approvalfootcont;
+	}
+
+	public String getApprovalfootintime() {
+		return approvalfootintime;
+	}
+
+	public void setApprovalfootintime(String approvalfootintime) {
+		this.approvalfootintime = approvalfootintime;
+	}
+
+	public String getApprovalfootchtime() {
+		return approvalfootchtime;
+	}
+
+	public void setApprovalfootchtime(String approvalfootchtime) {
+		this.approvalfootchtime = approvalfootchtime;
+	}
+
+	public void setApprovalfootcont(String approvalfootcont) {
+		this.approvalfootcont = approvalfootcont;
+	}
+
+	public Integer getApprovalfoottrash() {
+		return approvalfoottrash;
+	}
+
+	public void setApprovalfoottrash(Integer approvalfoottrash) {
+		this.approvalfoottrash = approvalfoottrash;
 	}
 
 }

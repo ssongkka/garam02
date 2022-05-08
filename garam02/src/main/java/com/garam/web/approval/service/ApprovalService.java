@@ -1,6 +1,8 @@
 package com.garam.web.approval.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.garam.web.approval.dto.ApprovalDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
@@ -39,4 +41,44 @@ public interface ApprovalService {
 	public List<VehicleInfoDTO> selectApprInspec(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectApprMaint(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int insertAppr(ApprovalDTO approvalDTO) throws Exception;
+
+	public int insertApprFoot(ApprovalDTO approvalDTO) throws Exception;
+
+	public int insertApprLine(List<Map<String, Object>> map) throws Exception;
+
+	public int insertApprHelp(List<Map<String, Object>> map) throws Exception;
+
+	public int insertApprCham(List<Map<String, Object>> map) throws Exception;
+
+	public int deleteApprFoot(ApprovalDTO approvalDTO) throws Exception;
+
+	public int updateApprFoot(ApprovalDTO approvalDTO) throws Exception;
+
+	public int updateApprEmp(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprVe(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprAcc(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprSal(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprRsvtMoney(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprRsvt(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprInsu(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprInsuSepa(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprLoan(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprLoanSepa(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprInsepc(List<Map<String, Object>> map) throws Exception;
+
+	public int updateApprMaint(List<Map<String, Object>> map) throws Exception;
+
+	public List<ApprovalDTO> selectApprIng(ApprovalDTO approvalDTO) throws Exception;
 }

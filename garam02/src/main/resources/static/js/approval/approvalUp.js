@@ -30,6 +30,7 @@ $(document).on('change', '#appGiDate', function () {
 function getGiPaper() {
 
     LoadingWithMask()
+        .then(makeDocuNo)
         .then(getPaperLine)
         .then(getPaperHelp)
         .then(setApprTitle)
@@ -47,9 +48,41 @@ function getGiPaper() {
             .then(getUpInsuInspec)
             .then(getUpInsuMaint)
             .then(closeLoadingWithMask);
+        $('#apprGo').attr('disabled', false);
     } else {
+        $('#apprGo').attr('disabled', true);
         $('.apprUp').hide();
         closeLoadingWithMask();
+    }
+
+    function makeDocuNo() {
+        return new Promise(function (resolve, reject) {
+            let str = '';
+            for (let i = 0; i < 3; i++) {
+                switch (parseInt((Math.random() * 3) + 1)) {
+                    case 1:
+                        str += parseInt(Math.random() * 9);
+                        break;
+                    case 2:
+                        str += String.fromCharCode(parseInt((Math.random() * 26) + 65));
+                        break;
+                    case 3:
+                        str += String.fromCharCode(parseInt((Math.random() * 26) + 97));
+                        break;
+                }
+            }
+
+            let dNum = '';
+
+            switch ($('#appGiPaper').val()) {
+                case '일일보고서':
+                    dNum = toStringByFormatting(new Date()).replaceAll('-', '') + '-01-' + str;
+                    break;
+            }
+
+            $('#appGiNo').text(dNum);
+            resolve();
+        })
     }
 
     function getPaperLine() {
@@ -91,38 +124,59 @@ function getGiPaper() {
                     $('#appGiLineP4').text('');
                     $('#appGiLineN4').val('');
 
+                    let whatNum = 1;
                     for (let i = 0; i < r.length; i++) {
-                        switch (parseInt(r[i].approvalpaperlineorder)) {
-                            case 1:
-                                $('#appGiLineP1').text(r[i].position);
-                                $('#appGiLineN1').val(r[i].id);
-
-                                // $('#appGiLineN1').attr('disabled', false);
-                                $('#appGiLineC1').attr('disabled', false);
-                                break;
-                            case 2:
-                                $('#appGiLineP2').text(r[i].position);
-                                $('#appGiLineN2').val(r[i].id);
-
-                                // $('#appGiLineN2').attr('disabled', false);
-                                $('#appGiLineC2').attr('disabled', false);
-                                break;
-                            case 3:
-                                $('#appGiLineP3').text(r[i].position);
-                                $('#appGiLineN3').val(r[i].id);
-
-                                // $('#appGiLineN3').attr('disabled', false);
-                                $('#appGiLineC3').attr('disabled', false);
-                                break;
-                            case 4:
-                                $('#appGiLineP4').text(r[i].position);
-                                $('#appGiLineN4').val(r[i].id);
-
-                                // $('#appGiLineN4').attr('disabled', false);
-                                $('#appGiLineC4').attr('disabled', false);
-                                break;
+                        if (r[i].id == dbuser.id) {
+                            whatNum = r[i].approvalpaperlineorder + 1;
                         }
                     }
+
+                    for (let i = 0; i < r.length; i++) {
+                        if (whatNum == parseInt(r[i].approvalpaperlineorder)) {
+                            $('#appGiLineP1').text(r[i].position);
+                            $('#appGiLineN1').val(r[i].id);
+
+                            // $('#appGiLineN1').attr('disabled', false);
+                            $('#appGiLineC1').attr('disabled', false);
+                        }
+                    }
+
+                    whatNum++;
+
+                    for (let i = 0; i < r.length; i++) {
+                        if (whatNum == parseInt(r[i].approvalpaperlineorder)) {
+                            $('#appGiLineP2').text(r[i].position);
+                            $('#appGiLineN2').val(r[i].id);
+
+                            // $('#appGiLineN1').attr('disabled', false);
+                            $('#appGiLineC2').attr('disabled', false);
+                        }
+                    }
+
+                    whatNum++;
+
+                    for (let i = 0; i < r.length; i++) {
+                        if (whatNum == parseInt(r[i].approvalpaperlineorder)) {
+                            $('#appGiLineP3').text(r[i].position);
+                            $('#appGiLineN3').val(r[i].id);
+
+                            // $('#appGiLineN1').attr('disabled', false);
+                            $('#appGiLineC3').attr('disabled', false);
+                        }
+                    }
+
+                    whatNum++;
+
+                    for (let i = 0; i < r.length; i++) {
+                        if (whatNum == parseInt(r[i].approvalpaperlineorder)) {
+                            $('#appGiLineP4').text(r[i].position);
+                            $('#appGiLineN4').val(r[i].id);
+
+                            // $('#appGiLineN1').attr('disabled', false);
+                            $('#appGiLineC4').attr('disabled', false);
+                        }
+                    }
+
                     resolve();
                 },
                 error: (jqXHR) => {
@@ -160,16 +214,14 @@ function getGiPaper() {
                         if (dbuser.id != r[i].id) {
                             htmls += `
                         <div class="clHelpCham-item">
-                            <div>` +
-                                    r[i].position + ' ' + r[i].name +
-                                    `</div>
+                            <input type="hidden" value="` +
+                                    r[i].id +
+                                    `">
                             <div>
-                            </div>
+                            ` + r[i].position +
+                                    '</div><div>' + r[i].name +
+                                    `</div>
                         </div>`
-                            // htmls += ` <div class="clHelpCham-item">     <div>` +
-                            // r[i].approvalpaperhelpposition + ' ' + r[i].approvalpaperhelpname + `</div>
-                            // <div>         <a disalbe>             <i class="fa-solid fa-xmark"></i> </a>
-                            // </div> </div>`
                         }
                     }
 
@@ -466,14 +518,17 @@ function getGiPaper() {
                                 .vehicle
                                 .substring(r[i].vehicle.length - 4) +
                                         `</td>
-                            <td>` + AddComma(
+                            <td class="tdRight">` + AddComma(
                                 parseInt(r[i].inm) - parseInt(r[i].outm)
                             ) +
                                     `</td>
-                            <td>` + AddComma(parseInt(r[i].inm)) +
+                            <td class="tdRight">` + AddComma(
+                                parseInt(r[i].inm)
+                            ) +
                                     `</td>
-                            <td>` + AddComma(parseInt(r[i].outm)) +
-                                    `</td>
+                            <td class="tdRight">` + AddComma(
+                                parseInt(r[i].outm)
+                            ) + `</td>
                         </tr>`;
                         }
 
@@ -1167,59 +1222,75 @@ function setApprTitle() {
 }
 
 function setJonghabINM(inM) {
-    let realINM = $('#jonghabINM')
-        .text()
-        .replaceAll(',', '');
 
-    if ($('#jonghabINM').text()) {
-        realINM = $('#jonghabINM')
-            .text()
-            .replaceAll(',', '');
-    } else {
-        realINM = 0;
+    JonghabINM().then(sumJonghabM);
+
+    function JonghabINM() {
+        return new Promise(function (resolve, reject) {
+            let realINM = $('#jonghabINM')
+                .text()
+                .replaceAll(',', '');
+
+            if ($('#jonghabINM').text()) {
+                realINM = $('#jonghabINM')
+                    .text()
+                    .replaceAll(',', '');
+            } else {
+                realINM = 0;
+            }
+
+            console.log(AddComma(parseInt(realINM)));
+            console.log(AddComma(parseInt(inM)));
+
+            $('#jonghabINM').text(AddComma(parseInt(realINM) + parseInt(inM)));
+            resolve();
+        })
     }
-
-    console.log(AddComma(parseInt(realINM)));
-    console.log(AddComma(parseInt(inM)));
-
-    $('#jonghabINM').text(AddComma(parseInt(realINM) + parseInt(inM)));
-
-    sumJonghabM();
 }
 
 function setJonghabOUTM(outM) {
-    let realOUTM = $('#jonghabOUTM')
-        .text()
-        .replaceAll(',', '');
 
-    if ($('#jonghabOUTM').text()) {
-        realOUTM = $('#jonghabOUTM')
-            .text()
-            .replaceAll(',', '');
-    } else {
-        realOUTM = 0;
+    JonghabOUTM().then(sumJonghabM);
+
+    function JonghabOUTM() {
+        return new Promise(function (resolve, reject) {
+            let realOUTM = $('#jonghabOUTM')
+                .text()
+                .replaceAll(',', '');
+
+            if ($('#jonghabOUTM').text()) {
+                realOUTM = $('#jonghabOUTM')
+                    .text()
+                    .replaceAll(',', '');
+            } else {
+                realOUTM = 0;
+            }
+
+            $('#jonghabOUTM').text(AddComma(parseInt(realOUTM) + parseInt(outM)));
+
+            resolve();
+        })
     }
-
-    $('#jonghabOUTM').text(AddComma(parseInt(realOUTM) + parseInt(outM)));
-
-    sumJonghabM();
 }
 
 function sumJonghabM() {
-    const inM = $('#jonghabINM')
-        .text()
-        .replaceAll(',', '');
-    const outM = $('#jonghabOUTM')
-        .text()
-        .replaceAll(',', '');
+    return new Promise(function (resolve, reject) {
+        const inM = $('#jonghabINM')
+            .text()
+            .replaceAll(',', '');
+        const outM = $('#jonghabOUTM')
+            .text()
+            .replaceAll(',', '');
 
-    $('#jonghabALLM').text(AddComma(parseInt(inM) - parseInt(outM)));
+        $('#jonghabALLM').text(AddComma(parseInt(inM) - parseInt(outM)));
 
-    if (AddComma(parseInt(inM) - parseInt(outM)) > 0) {
-        $('#jonghabALLM').css('color', '#0D6EFD');
-    } else {
-        $('#jonghabALLM').css('color', '#D73038');
-    }
+        if ((parseInt(inM) - parseInt(outM)) > 0) {
+            $('#jonghabALLM').css('color', '#0D6EFD');
+        } else {
+            $('#jonghabALLM').css('color', '#D73038');
+        }
+        resolve();
+    })
 }
 
 $(document).on('click', '#apprUpEmpAllCh', function () {
@@ -1286,7 +1357,7 @@ $(document).on('click', '#btnapprUpEmp', function () {
     $('#apprEmpTB').html(htmls);
 
     $('#apprSumCountEmp').show();
-    $('#jonghabEMP').text(cnt + '명');
+    $('#jonghabEMP').text(cnt + ' 명');
 
     console.log($('#asdddd').html());
 });
@@ -1372,7 +1443,7 @@ $(document).on('click', '#btnapprUpVe', function () {
     $('#apprVeTB').html(htmls);
 
     $('#apprSumCountVe').show();
-    $('#jonghabVE').text(cnt + '대');
+    $('#jonghabVE').text(cnt + ' 대');
 });
 
 $(document).on('click', '#clearApprVe', function () {
@@ -1464,6 +1535,105 @@ $(document).on('click', '#clearApprAcc', function () {
     });
     $('#apprAcc').hide();
     $('#apprAccTB').html(``);
+});
+
+$(document).on('click', '#apprUpSalAllCh', function () {
+    if (this.checked) {
+        $('input:checkbox[name="apprUpSalN"]').each(function () {
+            this.checked = true;
+        });
+    } else {
+        $('input:checkbox[name="apprUpSalN"]').each(function () {
+            this.checked = false;
+        });
+    }
+});
+
+$(document).on('click', 'input:checkbox[name="apprUpSalN"]', function () {
+    $('#apprUpSalAllCh').attr(
+        'checked',
+        $('input:checkbox[name="apprUpSalN"]').length == $('input:checkbox[name="apprUpSalN"]:checked').length
+    );
+});
+
+$(document).on('click', '#btnapprUpSal', function () {
+    $('#apprUpSalAllCh').attr('disabled', true);
+    $('#btnapprUpSal').attr('disabled', true);
+
+    let htmls = ``;
+    let cnt = 0;
+
+    let cntInAllMMM = 0;
+    let cntInInMMM = 0;
+    let cntInOutMMM = 0;
+
+    $('input:checkbox[name="apprUpSalN"]').each(function () {
+        $(this).attr('disabled', true);
+
+        if (this.checked) {
+            const bbb = $(this)
+                .parent()
+                .parent();
+
+            const ccc = $(bbb).children();
+
+            const monthsalsal = $(ccc[2]).text();
+            const name = $(ccc[3]).text();
+            const veve = $(ccc[4]).text();
+            const allMM = $(ccc[5]).text();
+            const inMM = $(ccc[6]).text();
+            const outMM = $(ccc[7]).text();
+
+            htmls += `
+        <tr>
+            <td>` + (++cnt) +
+                    `</td>
+            <td>` + monthsalsal +
+                    `</td>
+            <td>` + name +
+                    `</td>
+            <td>` + veve +
+                    `</td>
+            <td class="tdRight">` + AddComma(allMM) +
+                    `</td>
+            <td class="tdRight">` + AddComma(inMM) +
+                    `</td>
+            <td class="tdRight">` + AddComma(outMM) +
+                    `</td>
+        </tr>`;
+
+            cntInAllMMM = cntInAllMMM + parseInt(allMM.replaceAll(',', ''));
+            cntInInMMM = cntInInMMM + parseInt(inMM.replaceAll(',', ''));
+            cntInOutMMM = cntInOutMMM + parseInt(outMM.replaceAll(',', ''));
+        }
+    });
+    $('#apprSal').show();
+    $('#apprSalTB').html(htmls);
+
+    $('#apprSalFTCnt').text(cnt + '건');
+    $('#apprSalFTAllM').text(AddComma(cntInAllMMM));
+    $('#apprSalFTInM').text(AddComma(cntInInMMM));
+    $('#apprSalFTOutM').text(AddComma(cntInOutMMM));
+
+    setJonghabOUTM(cntInAllMMM);
+});
+
+$(document).on('click', '#clearApprSal', function () {
+    setJonghabOUTM(-1 * parseInt($('#apprSalFTAllM').text().replaceAll(',', '')));
+
+    $('#apprUpSalAllCh').attr('disabled', false);
+    $('#btnapprUpSal').attr('disabled', false);
+
+    $('input:checkbox[name="apprUpSalN"]').each(function () {
+        $(this).attr('disabled', false);
+    });
+    $('#apprSal').hide();
+    $('#apprSalTB').html(``);
+
+    $('#apprSalFTCnt').text('');
+    $('#apprSalFTAllM').text(AddComma(''));
+    $('#apprSalFTInM').text(AddComma(''));
+    $('#apprSalFTOutM').text(AddComma(''));
 });
 
 $(document).on('click', '#apprUpRsvtMoneyAllCh', function () {
@@ -1724,6 +1894,7 @@ $(document).on('click', '#btnapprUpInsu', function () {
     });
     $('#apprInsu').show();
     $('#apprInsuTB').html(htmls);
+    makeVeSum();
 });
 
 $(document).on('click', '#clearApprInsu', function () {
@@ -1806,6 +1977,8 @@ $(document).on('click', '#btnapprUpInsuSepa', function () {
     $('#apprInsuSepaFTAllM').text(AddComma(cntMMM));
 
     setJonghabOUTM(cntMMM);
+
+    makeVeSum();
 });
 
 $(document).on('click', '#clearApprInsuSepa', function () {
@@ -1895,6 +2068,8 @@ $(document).on('click', '#btnapprUpLoan', function () {
     });
     $('#apprLoan').show();
     $('#apprLoanTB').html(htmls);
+
+    makeVeSum();
 });
 
 $(document).on('click', '#clearApprLoan', function () {
@@ -1983,6 +2158,8 @@ $(document).on('click', '#btnapprUpLoanSepa', function () {
     $('#apprLoanSepaFTAllM').text(AddComma(cntMMM));
 
     setJonghabOUTM(cntMMM);
+
+    makeVeSum();
 });
 
 $(document).on('click', '#clearApprLoanSepa', function () {
@@ -2069,6 +2246,8 @@ $(document).on('click', '#btnapprUpInspec', function () {
     });
     $('#apprInspec').show();
     $('#apprInspecTB').html(htmls);
+
+    makeVeSum();
 });
 
 $(document).on('click', '#clearApprInspec', function () {
@@ -2157,6 +2336,8 @@ $(document).on('click', '#btnapprUpMainte', function () {
     $('#apprMainteFTAllM').text(AddComma(cntMMM));
 
     setJonghabOUTM(cntMMM);
+
+    makeVeSum();
 });
 
 $(document).on('click', '#clearApprMainte', function () {
@@ -2175,4 +2356,1161 @@ $(document).on('click', '#clearApprMainte', function () {
 
     $('#apprMainteFTCnt').text('');
     $('#apprMainteFTAllM').text('');
+});
+
+function makeVeSum() {
+
+    let tmpArrVe = new Array();
+
+    $('input:checkbox[name="apprUpInsuN"]').each(function () {
+        if (this.checked) {
+            const bbb = $(this)
+                .parent()
+                .parent();
+            const ccc = $(bbb).children();
+            const ve = $(ccc[2]).text();
+
+            tmpArrVe.push(ve);
+        }
+    });
+    $('input:checkbox[name="apprUpInsuSepaN"]').each(function () {
+        if (this.checked) {
+            const bbb = $(this)
+                .parent()
+                .parent();
+            const ccc = $(bbb).children();
+            const ve = $(ccc[2]).text();
+
+            tmpArrVe.push(ve);
+        }
+    });
+    $('input:checkbox[name="apprUpLoanN"]').each(function () {
+        if (this.checked) {
+            const bbb = $(this)
+                .parent()
+                .parent();
+            const ccc = $(bbb).children();
+            const ve = $(ccc[2]).text();
+
+            tmpArrVe.push(ve);
+        }
+    });
+    $('input:checkbox[name="apprUpLoanSepaN"]').each(function () {
+        if (this.checked) {
+            const bbb = $(this)
+                .parent()
+                .parent();
+            const ccc = $(bbb).children();
+            const ve = $(ccc[2]).text();
+
+            tmpArrVe.push(ve);
+        }
+    });
+    $('input:checkbox[name="apprUpMainteN"]').each(function () {
+        if (this.checked) {
+            const bbb = $(this)
+                .parent()
+                .parent();
+            const ccc = $(bbb).children();
+            const ve = $(ccc[2]).text();
+
+            tmpArrVe.push(ve);
+        }
+    });
+    $('input:checkbox[name="apprUpInspecN"]').each(function () {
+        if (this.checked) {
+            const bbb = $(this)
+                .parent()
+                .parent();
+            const ccc = $(bbb).children();
+            const ve = $(ccc[2]).text();
+
+            tmpArrVe.push(ve);
+        }
+    });
+
+    const uniqueVe = [...new Set(tmpArrVe)];
+
+    uniqueVe.sort(function (a, b) {
+        if (a > b) 
+            return 1;
+        if (a === b) 
+            return 0;
+        if (a < b) 
+            return -1;
+        }
+    );
+
+    console.log(uniqueVe);
+
+    let arrVe = new Array();
+    let arrCont = new Array();
+    let arrDay = new Array();
+    let arrBgo = new Array();
+
+    for (let i = 0; i < uniqueVe.length; i++) {
+        $('input:checkbox[name="apprUpInsuN"]').each(function () {
+            if (this.checked) {
+                const bbb = $(this)
+                    .parent()
+                    .parent();
+                const ccc = $(bbb).children();
+                const ve = $(ccc[2]).text();
+                const day = $(ccc[3]).text();
+                const time = $(ccc[5]).text();
+                const money = $(ccc[6]).text();
+
+                if (uniqueVe[i] == ve) {
+                    arrVe.push(uniqueVe[i]);
+                    arrCont.push('보험가입');
+                    arrDay.push(day);
+                    arrBgo.push(money + '원(' + time + ' 분할)');
+                }
+            }
+        });
+
+        $('input:checkbox[name="apprUpInsuSepaN"]').each(function () {
+            if (this.checked) {
+                const bbb = $(this)
+                    .parent()
+                    .parent();
+                const ccc = $(bbb).children();
+                const ve = $(ccc[2]).text();
+                const day = $(ccc[3]).text();
+
+                const time = $(ccc[5]).text();
+                const money = $(ccc[6]).text();
+
+                if (uniqueVe[i] == ve) {
+                    arrVe.push(uniqueVe[i]);
+                    arrCont.push('보험료납부');
+                    arrDay.push(day);
+                    arrBgo.push(money + '원(' + time + ')');
+                }
+            }
+        });
+        $('input:checkbox[name="apprUpLoanN"]').each(function () {
+            if (this.checked) {
+                const bbb = $(this)
+                    .parent()
+                    .parent();
+                const ccc = $(bbb).children();
+                const ve = $(ccc[2]).text();
+                const day = $(ccc[6]).text();
+
+                const bank = $(ccc[3]).text();
+                const money = $(ccc[4]).text();
+
+                if (uniqueVe[i] == ve) {
+                    arrVe.push(uniqueVe[i]);
+                    arrCont.push('대출가입');
+                    arrDay.push(day);
+                    arrBgo.push(money + '원(' + bank + ')');
+                }
+            }
+        });
+
+        $('input:checkbox[name="apprUpLoanSepaN"]').each(function () {
+            if (this.checked) {
+                const bbb = $(this)
+                    .parent()
+                    .parent();
+                const ccc = $(bbb).children();
+                const ve = $(ccc[2]).text();
+                const day = $(ccc[3]).text();
+
+                const time = $(ccc[5]).text();
+                const money = $(ccc[6]).text();
+
+                if (uniqueVe[i] == ve) {
+                    arrVe.push(uniqueVe[i]);
+                    arrCont.push('대출상환');
+                    arrDay.push(day);
+                    arrBgo.push(money + '원(' + time + ')');
+                }
+            }
+        });
+
+        $('input:checkbox[name="apprUpInspecN"]').each(function () {
+            if (this.checked) {
+                const bbb = $(this)
+                    .parent()
+                    .parent();
+                const ccc = $(bbb).children();
+                const ve = $(ccc[2]).text();
+
+                const time = $(ccc[5]).text();
+                const sepa = $(ccc[8]).text();
+
+                if (uniqueVe[i] == ve) {
+                    arrVe.push(uniqueVe[i]);
+                    arrCont.push('차량검사');
+                    arrDay.push(time);
+                    arrBgo.push(sepa);
+                }
+            }
+        });
+
+        let contInsepc = 0;
+        let contInsepcCh = 0;
+        $('input:checkbox[name="apprUpMainteN"]').each(function () {
+            if (this.checked) {
+                const bbb = $(this)
+                    .parent()
+                    .parent();
+                const ccc = $(bbb).children();
+                const ve = $(ccc[2]).text();
+
+                const money = $(ccc[8]).text();
+
+                if (uniqueVe[i] == ve) {
+                    contInsepcCh++;
+                    contInsepc = contInsepc + parseInt(money.replaceAll(',', ''));
+                }
+            }
+        });
+
+        if (contInsepc > 0) {
+            arrVe.push(uniqueVe[i]);
+            arrCont.push('차량정비');
+            arrDay.push(contInsepcCh + "건");
+            arrBgo.push(AddComma(contInsepc) + '원');
+        }
+    }
+
+    let arrCntUniVe = new Array();
+    for (let i = 0; i < uniqueVe.length; i++) {
+        let tmpCnt = 0;
+        for (let k = 0; k < arrVe.length; k++) {
+            if (uniqueVe[i] == arrVe[k]) {
+                tmpCnt++;
+            }
+        }
+        arrCntUniVe.push(tmpCnt);
+    }
+
+    let htmls = ``;
+    for (let i = 0; i < uniqueVe.length; i++) {
+        let cnt = 1;
+        for (let k = 0; k < arrVe.length; k++) {
+            if (uniqueVe[i] == arrVe[k]) {
+                if (arrCntUniVe[i] == 1) {
+                    htmls += `
+                        <tr>
+                        <td>` + (i + 1) +
+                            `</td>
+                        <td>` + uniqueVe[i] +
+                            `</td>
+                        <td>` + arrCont[k] +
+                            `</td>
+                        <td>` + arrDay[k] +
+                            `</td>
+                        <td>` + arrBgo[k] +
+                            `</td>
+                        </tr>`;
+                } else {
+                    if (cnt == 1) {
+                        htmls += `
+                            <tr>
+                            <td rowspan="` +
+                                arrCntUniVe[i] + `">` + (i + 1) +
+                                `</td>
+                            <td rowspan="` + arrCntUniVe[i] + `">` +
+                                uniqueVe[i] +
+                                `</td>
+                            <td>` + arrCont[k] +
+                                `</td>
+                            <td>` + arrDay[k] +
+                                `</td>;
+                            <td>` + arrBgo[k] +
+                                `</td>
+                            </tr>`;
+                        cnt++;
+                    } else if (cnt == arrCntUniVe[i]) {
+                        htmls += `
+                            <tr>
+                            <td>` +
+                                arrCont[k] +
+                                `</td>
+                            <td>` + arrDay[k] +
+                                `</td>
+                            <td>` + arrBgo[k] +
+                                `</td>
+                            </tr>`;
+                        cnt = 1;
+                    } else {
+                        htmls += `
+                            <tr>
+                            <td>` +
+                                arrCont[k] +
+                                `</td>
+                            <td>` + arrDay[k] +
+                                `</td>
+                            <td>` + arrBgo[k] +
+                                `</td>
+                            </tr>`;
+                        cnt++;
+                    }
+                }
+            }
+        }
+    }
+
+    if (htmls) {
+        $('#apprSumVeTB').html(htmls);
+        $('#apprSumVe').show();
+    } else {
+        $('#apprSumVeTB').html(``);
+        $('#apprSumVe').hide();
+    }
+
+}
+
+$(document).on('click', '#apprGo', function () {
+
+    let arrTmpEmp = new Array();
+    $('input:checkbox[name="apprUpEmpN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpEmp.push(aaa1);
+        }
+    });
+
+    let arrTmpVe = new Array();
+    $('input:checkbox[name="apprUpVeN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpVe.push(aaa1);
+        }
+    });
+
+    let arrTmpAcc = new Array();
+    $('input:checkbox[name="apprUpAccN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpAcc.push(aaa1);
+        }
+    });
+
+    let arrTmpSal = new Array();
+    $('input:checkbox[name="apprUpSalN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpSal.push(aaa1);
+        }
+    });
+
+    let arrTmpRsvtMoney = new Array();
+    $('input:checkbox[name="apprUpRsvtMoneyN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpRsvtMoney.push(aaa1);
+        }
+    });
+
+    let arrTmpRsvt = new Array();
+    $('input:checkbox[name="apprUpRsvtN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpRsvt.push(aaa1);
+        }
+    });
+
+    let arrTmpInsu = new Array();
+    $('input:checkbox[name="apprUpInsuN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpInsu.push(aaa1);
+        }
+    });
+
+    let arrTmpInsuSepa = new Array();
+    $('input:checkbox[name="apprUpInsuSepaN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpInsuSepa.push(aaa1);
+        }
+    });
+
+    let arrTmpLoan = new Array();
+    $('input:checkbox[name="apprUpLoanN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpLoan.push(aaa1);
+        }
+    });
+
+    let arrTmpLoanSepa = new Array();
+    $('input:checkbox[name="apprUpLoanSepaN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpLoanSepa.push(aaa1);
+        }
+    });
+
+    let arrTmpInsepc = new Array();
+    $('input:checkbox[name="apprUpInspecN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpInsepc.push(aaa1);
+        }
+    });
+
+    let arrTmpMaint = new Array();
+    $('input:checkbox[name="apprUpMainteN"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this).next();
+            const aaa1 = $(aaa).val();
+            arrTmpMaint.push(aaa1);
+        }
+    });
+
+    let paramsEmp = new Array();
+    let paramsVe = new Array();
+    let paramsAcc = new Array();
+    let paramsSal = new Array();
+    let paramsRsvtMoney = new Array();
+    let paramsRsvt = new Array();
+    let paramsInsu = new Array();
+    let paramsInsuSepa = new Array();
+    let paramsLoan = new Array();
+    let paramsLoanSepa = new Array();
+    let paramsInsepc = new Array();
+    let paramsMaint = new Array();
+
+    for (let i = 0; i < arrTmpEmp.length; i++) {
+        const asd = {
+            "id": arrTmpEmp[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsEmp.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpVe.length; i++) {
+        const asd = {
+            "carnumber": arrTmpVe[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsVe.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpAcc.length; i++) {
+        const asd = {
+            "veaccseq": arrTmpAcc[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsAcc.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpSal.length; i++) {
+        const asd = {
+            "salno": arrTmpSal[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsSal.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpRsvtMoney.length; i++) {
+        const asd = {
+            "rsvtmoneyseq": arrTmpRsvtMoney[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsRsvtMoney.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpRsvt.length; i++) {
+        const asd = {
+            "rsvt": arrTmpRsvt[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsRsvt.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpInsu.length; i++) {
+        const asd = {
+            "insuno": arrTmpInsu[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsInsu.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpInsuSepa.length; i++) {
+        const asd = {
+            "insusepano": arrTmpInsuSepa[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsInsuSepa.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpLoan.length; i++) {
+        const asd = {
+            "loanno": arrTmpLoan[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsLoan.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpLoanSepa.length; i++) {
+        const asd = {
+            "loansepano": arrTmpLoanSepa[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsLoanSepa.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpInsepc.length; i++) {
+        const asd = {
+            "inspecseq": arrTmpInsepc[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsInsepc.push(asd);
+    }
+
+    for (let i = 0; i < arrTmpMaint.length; i++) {
+        const asd = {
+            "vemaintenanceseq": arrTmpMaint[i],
+            "approvalno": $('#appGiNo').text()
+        };
+        paramsMaint.push(asd);
+    }
+
+    LoadingWithMask()
+        .then(insertAppr)
+        .then(insertApprFoot)
+        .then(insertApprLine)
+        .then(insertApprHelp)
+        .then(updateApprEmp)
+        .then(updateApprVe)
+        .then(updateApprAcc)
+        .then(updateApprSal)
+        .then(updateApprRsvtMoney)
+        .then(updateApprRsvt)
+        .then(updateApprInsu)
+        .then(updateApprInsuSepa)
+        .then(updateApprLoan)
+        .then(updateApprLoanSepa)
+        .then(updateApprInspec)
+        .then(updateApprMaint)
+        .then(closeLoadingWithMask);
+
+    function insertAppr() {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/insertappr";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const approvalno = $('#appGiNo').text();
+            const id = dbuser.id;
+            const approvalposition = dbuser.position;
+            const approvalpaper = $('#appGiPaper').val();
+            const approvalday = $('#appGiDate').val();
+            const approvaltitle = $('#apprTitle').text();
+            const approvalcont = $('#apprUpcontents').html();
+
+            const params = {
+                "approvalno": approvalno,
+                "id": id,
+                "approvalposition": approvalposition,
+                "approvalpaper": approvalpaper,
+                "approvalday": approvalday,
+                "approvaltitle": approvaltitle,
+                "approvalcont": approvalcont
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function insertApprFoot(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/insertapprfoot";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if ($('#apprfoot').val()) {
+                const id = dbuser.id;
+                const approvalfootcont = $('#apprfoot')
+                    .val()
+                    .replaceAll(' ', '&nbsp;')
+                    .replaceAll('\n', '<br/>');
+
+                const params = {
+                    "approvalno": $('#appGiNo').text(),
+                    "id": id,
+                    "approvalfootnum": 1,
+                    "approvalfootcont": approvalfootcont
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        resolve();
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve();
+            }
+
+        })
+    }
+
+    function insertApprLine(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/insertapprline";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            let tmpArrPosition = new Array();
+            let tmpArrId = new Array();
+            let tmpArrcondi = new Array();
+            let tmpArrNum = new Array();
+
+            if ($('#appGiLineN1').val()) {
+                tmpArrPosition.push($('#appGiLineP1').text());
+                tmpArrId.push($('#appGiLineN1').val());
+                if ($('#appGiLineP1').val()) {
+                    tmpArrcondi.push($('#appGiLineP1').val());
+                } else {
+                    tmpArrcondi.push(null);
+                }
+                tmpArrNum.push(1);
+            }
+
+            if ($('#appGiLineN2').val()) {
+                tmpArrPosition.push($('#appGiLineP2').text());
+                tmpArrId.push($('#appGiLineN2').val());
+                if ($('#appGiLineP2').val()) {
+                    tmpArrcondi.push($('#appGiLineP2').val());
+                } else {
+                    tmpArrcondi.push(null);
+                }
+                tmpArrNum.push(2);
+            }
+
+            if ($('#appGiLineN3').val()) {
+                tmpArrPosition.push($('#appGiLineP3').text());
+                tmpArrId.push($('#appGiLineN3').val());
+                if ($('#appGiLineP3').val()) {
+                    tmpArrcondi.push($('#appGiLineP3').val());
+                } else {
+                    tmpArrcondi.push(null);
+                }
+                tmpArrNum.push(3);
+            }
+
+            if ($('#appGiLineN4').val()) {
+                tmpArrPosition.push($('#appGiLineP4').text());
+                tmpArrId.push($('#appGiLineN4').val());
+                if ($('#appGiLineP4').val()) {
+                    tmpArrcondi.push($('#appGiLineP4').val());
+                } else {
+                    tmpArrcondi.push(null);
+                }
+                tmpArrNum.push(4);
+            }
+
+            let params = new Array();
+
+            for (let i = 0; i < tmpArrId.length; i++) {
+                const asd = {
+                    "approvalno": $('#appGiNo').text(),
+                    "id": tmpArrId[i],
+                    "approvallineposition": tmpArrPosition[i]
+                        .replaceAll('\n', '')
+                        .trim(),
+                    "approvallineorder": tmpArrNum[i],
+                    "approvallinesepa": tmpArrcondi[i]
+                };
+                params.push(asd);
+            }
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function insertApprHelp(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/insertapprhelp";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            let params = new Array();
+
+            const aaa = $('#spHelp').children();
+
+            for (let i = 0; i < aaa.length; i++) {
+
+                const bbb = $(aaa[i]).children()[0];
+                const idid = $(bbb).val();
+                const bbb1 = $(aaa[i]).children()[1];
+                const posi = $(bbb1)
+                    .text()
+                    .replaceAll('\n', '')
+                    .trim();
+
+                const asd = {
+                    "approvalno": $('#appGiNo').text(),
+                    "id": idid,
+                    "approvalhelpposition": posi,
+                    "approvalhelporder": (i + 1)
+                };
+                params.push(asd);
+            }
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function updateApprEmp(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateEmp";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsEmp.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsEmp),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprVe(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateVe";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsVe.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsVe),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprAcc(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateAcc";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsAcc.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsAcc),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprSal(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateSal";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsSal.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsSal),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprRsvtMoney(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateRsvtMoney";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsRsvtMoney.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsRsvtMoney),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprRsvt(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateRsvt";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsRsvt.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsRsvt),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprInsu(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateInsu";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsInsu.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsInsu),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprInsuSepa(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateInsuSepa";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsInsuSepa.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsInsuSepa),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprLoan(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateLoan";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsLoan.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsLoan),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprLoanSepa(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateLoanSepa";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsLoanSepa.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsLoanSepa),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprInspec(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateInspec";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsInsepc.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsInsepc),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+
+            }
+        })
+    }
+
+    function updateApprMaint(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/appr/apprUpdateMaint";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            if (paramsMaint.length > 0) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(paramsMaint),
+
+                    success: function (r) {
+                        result = result * r;
+                        resolve(result);
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            } else {
+                resolve(result);
+            }
+        })
+    }
 });

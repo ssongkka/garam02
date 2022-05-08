@@ -174,7 +174,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td id="asdddd" colspan="6" class="colorUp1">
+                                        <td id="apprUpcontents" colspan="6" class="colorUp1">
                                             <div class="" id="apprSummary">
                                                 <div class="apprSumAll">
                                                     <div class="apprContT">종 합
@@ -188,9 +188,9 @@
                                                             </colgroup>
                                                             <thead class="theadApprTh">
                                                                 <tr>
-                                                                    <th>지급액</th>
                                                                     <th>입금액</th>
-                                                                    <th>합계</th>
+                                                                    <th>지급액</th>
+                                                                    <th>합&nbsp;계</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -262,8 +262,8 @@
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <div class="apprSal" style="display: none;">
-                                                    <div class="apprContT">급여정보(2022년04월)<a id="clearApprSal">
+                                                <div id="apprSal" style="display: none;">
+                                                    <div class="apprContT">급여정보<a id="clearApprSal">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </a>
                                                     </div>
@@ -271,6 +271,7 @@
                                                         <table class="table-bordered table-sm">
                                                             <colgroup>
                                                                 <col width="50px"/>
+                                                                <col width="auto"/>
                                                                 <col width="100px"/>
                                                                 <col width="100px"/>
                                                                 <col width="auto"/>
@@ -280,20 +281,22 @@
                                                             <thead class="theadApprTh">
                                                                 <tr>
                                                                     <th>#</th>
+                                                                    <th>급여월</th>
                                                                     <th>승무원</th>
                                                                     <th>운행차량</th>
+                                                                    <th>급여</th>
                                                                     <th>지급액</th>
                                                                     <th>공제액</th>
-                                                                    <th>급여</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody></tbody>
+                                                            <tbody id="apprSalTB"></tbody>
                                                             <tfoot>
                                                                 <tr>
                                                                     <td colspan="3">합 계</td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
+                                                                    <td class="tdRight" id="apprSalFTCnt"></td>
+                                                                    <td class="tdRight" id="apprSalFTAllM"></td>
+                                                                    <td class="tdRight" id="apprSalFTInM"></td>
+                                                                    <td class="tdRight" id="apprSalFTOutM"></td>
                                                                 </tr>
                                                             </tfoot>
                                                         </table>
@@ -343,7 +346,7 @@
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <div id="apprSumVe">
+                                                <div id="apprSumVe" style="display: none;">
                                                     <div class="apprContT">차량별 지급액
                                                     </div>
                                                     <div class="table-responsive">
@@ -353,23 +356,17 @@
                                                                 <col width="100px"/>
                                                                 <col width="auto"/>
                                                                 <col width="auto"/>
-                                                                <col width="auto"/>
                                                             </colgroup>
                                                             <thead class="theadApprTh">
                                                                 <tr>
                                                                     <th>#</th>
                                                                     <th>차량번호</th>
                                                                     <th>내용</th>
-                                                                    <th>금액</th>
-                                                                    <th>총 금액</th>
+                                                                    <th>날짜</th>
+                                                                    <th>비고</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <td colspan="4">합 계</td>
-                                                                    <td></td>
-                                                                </tr>
-                                                            </tfoot>
+                                                            <tbody id="apprSumVeTB"></tbody>
                                                         </table>
                                                     </div>
                                                 </div>
@@ -432,7 +429,7 @@
                                                                     <th>소속</th>
                                                                     <th>제조사</th>
                                                                     <th>등급</th>
-                                                                    <th>인원</th>
+                                                                    <th>승차인원</th>
                                                                     <th>등록일</th>
                                                                 </tr>
                                                             </thead>
@@ -441,7 +438,7 @@
                                                     </div>
                                                 </div>
                                                 <div id="apprRsvt" style="display: none;">
-                                                    <div class="apprContT">예약내용<a id="clearApprRsvt">
+                                                    <div class="apprContT">운행예약<a id="clearApprRsvt">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </a>
                                                     </div>
@@ -512,7 +509,7 @@
                                                     </div>
                                                 </div>
                                                 <div id="apprInsuSepa" style="display: none;">
-                                                    <div class="apprContT">보험납부내역<a id="clearApprInsuSepa">
+                                                    <div class="apprContT">보험료납부내역<a id="clearApprInsuSepa">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </a>
                                                     </div>
@@ -712,7 +709,9 @@
                             </table>
                         </div>
                     </div>
-                    <div class="approvalContent"></div>
+                    <div class="approvalBtn">
+                        <button type="button" class="btn btn-success" id="apprGo" disabled="disabled">결재 상신</button>
+                    </div>
                 </div>
                 <div class="approvalUp-set approvalUp-he card-song">
                     <div class="apprUp" id="apprUpEmp" style="display: none;">
@@ -818,7 +817,7 @@
                         </div>
                     </div>
                     <div class="apprUp" id="apprUpSal" style="display: none;">
-                        <div class="apprContT">급여정보(2022년04월)</div>
+                        <div class="apprContT">급여정보</div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-sm">
                                 <colgroup>
@@ -829,7 +828,7 @@
                                     <col width="80px"/>
                                     <col width="auto"/>
                                     <col width="auto"/>
-                                    <col width="23%"/>
+                                    <col width="auto"/>
                                 </colgroup>
                                 <thead class="table-light">
                                     <tr>
@@ -838,9 +837,9 @@
                                         <th>급여월</th>
                                         <th>승무원</th>
                                         <th>운행차량</th>
+                                        <th>급여</th>
                                         <th>지급액</th>
                                         <th>공제액</th>
-                                        <th>급여</th>
                                     </tr>
                                 </thead>
                                 <tbody id="apprUpSalTB"></tbody>
@@ -1157,6 +1156,9 @@
         'default';
         /*]]>*/
         /*<![CDATA[*/
+        const dbAllUser =/*[[${userAll}]]*/
+        'default';
+        /*]]>*/
     </script>
 
     <th:block th:replace="layout/linkGroupScript :: linkScript"></th:block>

@@ -41,6 +41,10 @@ $(document).on('click', '#pills-rsvt-tab', function () {
     setNewRsvtModal();
 });
 
+$(document).on('click', '#logoSide', function () {
+    goUrl('/dashboard');
+});
+
 function goUrl(paramUrl) {
     //create element (form)
     var newForm = $('<form></form>');

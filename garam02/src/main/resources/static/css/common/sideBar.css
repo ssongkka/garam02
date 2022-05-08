@@ -20,7 +20,8 @@ aside .logo {
     align-items: center;
     justify-content: center;
 
-    margin-top: 3rem;
+    padding: 0.5rem 0;
+    margin: 2.5rem 0;
 
     font-family: "Bae";
     color: var(--sub-color);
@@ -34,7 +35,7 @@ aside .logo span {
 }
 
 .aside-main {
-    padding: 3rem;
+    padding: 0 3rem;
 
     display: flex;
     flex-direction: column;
@@ -42,13 +43,15 @@ aside .logo span {
     gap: 1rem;
 }
 
-.aside-main span {
+.aside-main a {
+    color: var(--sub-color);
     padding: 0.5rem 1rem;
 }
 
-.aside-main span:hover {
+.aside-main a:hover {
     cursor: pointer;
-    background: red;
+    background: var(--sub-color);
+    color: var(--main-color);
 }
 
 .aside-main hr {

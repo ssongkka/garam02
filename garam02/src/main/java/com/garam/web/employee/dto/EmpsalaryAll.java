@@ -27,6 +27,10 @@ public class EmpsalaryAll {
 	// 삭제여부
 	private Integer strash;
 
+	private String vehicle;
+
+	private String name;
+
 	public Integer getSalno() {
 		return salno;
 	}
@@ -113,6 +117,22 @@ public class EmpsalaryAll {
 
 	public void setStrash(Integer strash) {
 		this.strash = strash;
+	}
+
+	public String getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(String vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

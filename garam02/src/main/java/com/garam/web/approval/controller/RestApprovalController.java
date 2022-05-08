@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.garam.web.approval.dto.ApprovalDTO;
 import com.garam.web.approval.service.ApprovalService;
 import com.garam.web.dashboard.dto.RsvtDTO;
+import com.garam.web.dashboard.dto.RsvtmoneyDTO;
 import com.garam.web.dashboard.dto.ScheDTO;
 import com.garam.web.dashboard.service.MainService;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
@@ -144,6 +145,156 @@ public class RestApprovalController {
 		List<VehicleInfoDTO> list = approvalService.selectApprMaint(vehicleInfoDTO);
 
 		return list;
+	}
+
+	@PostMapping(value = "/insertappr")
+	public int insertappr(@RequestBody ApprovalDTO approvalDTO) throws Exception {
+
+		int rtn = approvalService.insertAppr(approvalDTO);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertapprfoot")
+	public int insertapprfoot(@RequestBody ApprovalDTO approvalDTO) throws Exception {
+
+		int rtn = approvalService.insertApprFoot(approvalDTO);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertapprline")
+	public int insertapprline(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+		try {
+			rtn = approvalService.insertApprLine(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertapprhelp")
+	public int insertapprhelp(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+		try {
+			rtn = approvalService.insertApprHelp(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertapprcham")
+	public int insertapprcham(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+		try {
+			rtn = approvalService.insertApprCham(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateEmp")
+	public int apprUpdateEmp(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprEmp(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/delapprfoot")
+	public int delapprfoot(@RequestBody ApprovalDTO approvalDTO) throws Exception {
+
+		int rtn = approvalService.deleteApprFoot(approvalDTO);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateVe")
+	public int apprUpdateVe(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprVe(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateAcc")
+	public int apprUpdateAcc(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprAcc(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateSal")
+	public int apprUpdateSal(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprSal(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateRsvtMoney")
+	public int apprUpdateRsvtMoney(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprRsvtMoney(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateRsvt")
+	public int apprUpdateRsvt(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprRsvt(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateInsu")
+	public int apprUpdateInsu(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprInsu(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateInsuSepa")
+	public int apprUpdateInsuSepa(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprInsuSepa(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateLoan")
+	public int apprUpdateLoan(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprLoan(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateLoanSepa")
+	public int apprUpdateLoanSepa(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprLoanSepa(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateInspec")
+	public int apprUpdateInspec(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprInsepc(map);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/apprUpdateMaint")
+	public int apprUpdateMaint(@RequestBody List<Map<String, Object>> map) throws Exception {
+		int rtn = approvalService.updateApprMaint(map);
+
+		return rtn;
 	}
 
 	@PostMapping(value = "/weekdelevent")

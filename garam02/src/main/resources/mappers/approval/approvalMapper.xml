@@ -245,8 +245,8 @@
 
 	</select>
 
-	<select id="selectApprSal" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
-		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+	<select id="selectApprSal" parameterType="com.garam.web.employee.dto.EmpsalaryAll"
+		resultType="com.garam.web.employee.dto.EmpsalaryAll">
 
 		SELECT
 
@@ -256,7 +256,10 @@
 		vehicleinfo WHERE vehicleinfo.id
 		=
 		personnalsalary.id) AS
-		vehicle
+		vehicle,
+		(SELECT
+		employeeinfo.name FROM employeeinfo
+		WHERE employeeinfo.id = personnalsalary.id) AS name
 
 		FROM
 
@@ -268,7 +271,8 @@
 
 		ON
 
-		personnalsalary.approvalno = approval.approvalno
+		personnalsalary.approvalno =
+		approval.approvalno
 
 		LEFT JOIN
 
@@ -709,6 +713,414 @@
 
 		ORDER BY
 		vehicleinfo.vehicle
+
+	</select>
+
+	<insert id="insertAppr" parameterType="com.garam.web.approval.dto.ApprovalDTO">
+		INSERT
+
+		INTO
+
+		approval
+
+		VALUES
+		(
+		null,
+		#{approvalno},
+		#{id},
+		#{approvalposition},
+		#{approvalpaper},
+		#{approvalday},
+		#{approvaltitle},
+		#{approvalcont},
+		NOW(),
+		1,
+		1
+		);
+	</insert>
+
+	<insert id="insertApprFoot" parameterType="com.garam.web.approval.dto.ApprovalDTO">
+
+		INSERT
+
+		INTO
+
+		approvalfoot
+
+		VALUES
+		(
+		null,
+		#{approvalno},
+		#{id},
+		#{approvalfootnum},
+		NOW(),
+		null,
+		#{approvalfootcont},
+		1
+		);
+
+	</insert>
+
+	<insert id="insertApprLine" parameterType="java.util.HashMap">
+
+		INSERT
+
+		INTO
+
+		approvalline
+
+		VALUES
+
+		<foreach collection="apprOthers" item="value" separator=",">
+			(
+			null,
+			#{value.approvalno},
+			#{value.id},
+			#{value.approvallineposition},
+			#{value.approvallineorder},
+			#{value.approvallinesepa},
+			null,
+			1
+			)
+		</foreach>
+
+	</insert>
+
+	<insert id="insertApprHelp" parameterType="java.util.HashMap">
+
+		INSERT
+
+		INTO
+
+		approvalhelp
+
+		VALUES
+
+		<foreach collection="apprOthers" item="value" separator=",">
+			(
+			null,
+			#{value.approvalno},
+			#{value.id},
+			#{value.approvalhelpposition},
+			#{value.approvalhelporder},
+			1
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertApprCham" parameterType="java.util.HashMap">
+
+		INSERT
+
+		INTO
+
+		approvalcham
+
+		VALUES
+
+		<foreach collection="apprOthers" item="value" separator=",">
+			(
+			null,
+			#{value.approvalno},
+			#{value.id},
+			#{value.approvalchamposition},
+			#{value.approvalchamorder},
+			1
+			)
+		</foreach>
+
+	</insert>
+
+	<update id="updateApprFoot" parameterType="com.garam.web.approval.dto.ApprovalDTO">
+
+		UPDATE
+
+		approvalfoot
+
+		SET
+
+		approvalfootchtime = NOW(),
+		approvalfootcont =
+		#{approvalfootcont},
+		approvalfoottrash = 1
+
+		WHERE
+
+		approvalfootseq = #{approvalfootseq};
+
+	</update>
+
+	<delete id="deleteApprFoot" parameterType="com.garam.web.approval.dto.ApprovalDTO">
+
+		DELETE
+
+		FROM
+
+		approvalfoot
+
+		WHERE
+
+		approvalfootseq = #{approvalfootseq};
+
+	</delete>
+
+	<update id="updateApprEmp" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			employeeinfo
+
+			SET
+
+			employeeinfo.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			employeeinfo.id =
+			#{value.id}
+		</foreach>
+	</update>
+
+	<update id="updateApprVe" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			vehicleinfo
+
+			SET
+
+			vehicleinfo.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			vehicleinfo.carnumber =
+			#{value.carnumber}
+		</foreach>
+	</update>
+
+	<update id="updateApprAcc" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			veacc
+
+			SET
+
+			veacc.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			veacc.veaccseq =
+			#{value.veaccseq}
+		</foreach>
+	</update>
+
+	<update id="updateApprSal" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			personnalsalary
+
+			SET
+
+			personnalsalary.approvalno = #{value.approvalno}
+
+			WHERE
+
+			personnalsalary.salno =
+			#{value.salno}
+		</foreach>
+	</update>
+
+	<update id="updateApprRsvtMoney" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			rsvtmoney
+
+			SET
+
+			rsvtmoney.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			rsvtmoney.rsvtmoneyseq =
+			#{value.rsvtmoneyseq}
+		</foreach>
+	</update>
+
+	<update id="updateApprRsvt" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			rsvt
+
+			SET
+
+			rsvt.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			rsvt.rsvt =
+			#{value.rsvt}
+		</foreach>
+	</update>
+
+	<update id="updateApprInsu" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			veinsurance
+
+			SET
+
+			veinsurance.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			veinsurance.insuno =
+			#{value.insuno}
+		</foreach>
+	</update>
+
+	<update id="updateApprInsuSepa" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			veinsurancesepa
+
+			SET
+
+			veinsurancesepa.approvalno = #{value.approvalno}
+
+			WHERE
+
+			veinsurancesepa.insusepano =
+			#{value.insusepano}
+		</foreach>
+	</update>
+
+	<update id="updateApprLoan" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			veloan
+
+			SET
+
+			veloan.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			veloan.loanno =
+			#{value.loanno}
+		</foreach>
+	</update>
+
+	<update id="updateApprLoanSepa" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			veloansepa
+
+			SET
+
+			veloansepa.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			veloansepa.loansepano =
+			#{value.loansepano}
+		</foreach>
+	</update>
+
+	<update id="updateApprInsepc" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			veinspection
+
+			SET
+
+			veinspection.approvalno =
+			#{value.approvalno}
+
+			WHERE
+
+			veinspection.inspecseq =
+			#{value.inspecseq}
+		</foreach>
+	</update>
+
+	<update id="updateApprMaint" parameterType="java.util.HashMap">
+		<foreach collection="appr" item="value" index="index" separator=";">
+			UPDATE
+
+			vemaintenance
+
+			SET
+
+			vemaintenance.approvalno = #{value.approvalno}
+
+			WHERE
+
+			vemaintenance.vemaintenanceseq =
+			#{value.vemaintenanceseq}
+		</foreach>
+	</update>
+
+	<select id="selectApprIng" parameterType="com.garam.web.approval.dto.ApprovalDTO"
+		resultType="com.garam.web.approval.dto.ApprovalDTO">
+
+		SELECT
+
+		approvalline.approvallineseq, approvalline.approvalno, approvalline.id,
+		approvalline.approvallineposition, approvalline.approvallineorder,
+		approvalline.approvallinesepa,
+		approvalline.approvallineday, approvalline.approvallinetrash,
+		approval.approvalseq, approval.approvalno, approval.id AS
+		name,
+		approval.approvalposition, approval.approvalpaper, approval.approvalday,
+		approval.approvaltitle,
+		approval.approvalupday, approval.approvalcondi, approval.approvaltrash
+
+		FROM
+
+		approvalline
+
+		LEFT JOIN
+
+		approval
+
+		ON
+
+		approvalline.approvalno = approval.approvalno
+
+		WHERE
+
+		approval.approvalcondi > 0
+
+		AND
+
+		approvalline.approvallineorder =
+		approval.approvalcondi
+
+		AND
+
+		approvalline.id = #{id}
+
+		AND
+
+		approvalline.approvallineday IS
+		NULL
 
 	</select>
 </mapper>

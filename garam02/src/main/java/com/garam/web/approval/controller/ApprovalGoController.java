@@ -28,8 +28,8 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/approvalgo")
-public class ApprovalController extends UiUtils {
+@RequestMapping(value = "/approval")
+public class ApprovalGoController extends UiUtils {
 
 	private final MainService rsvtService;
 	private final EmployeeService employeeService;
@@ -68,6 +68,6 @@ public class ApprovalController extends UiUtils {
 		List<ApprovalDTO> apppaper = approvalService.selectapppaper();
 		model.addAttribute("apppaper", apppaper);
 
-		return "approval/approvalGo";
+		return "approval/approval";
 	}
 }

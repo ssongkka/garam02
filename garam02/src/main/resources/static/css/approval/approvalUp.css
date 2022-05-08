@@ -18,13 +18,18 @@
     gap: 1rem;
 }
 
+.approvalBtn {
+    text-align: right;
+}
+
 .approvalUp-cont {
     flex: 1;
 
-    padding: 3rem;
+    padding: 2rem;
 
     display: flex;
     flex-direction: column;
+    gap: 2rem;
 }
 
 .approvalUp-set {
@@ -88,6 +93,11 @@
 .approvalUpDojang > tbody > .giDay {
     height: 3rem;
     font-size: 1rem;
+}
+
+.approvalUpDojang table > tfoot > tr {
+    background: #0000001a;
+    border-top: double 0.3rem black;
 }
 
 .approvalUp-cont-title-item1 {
