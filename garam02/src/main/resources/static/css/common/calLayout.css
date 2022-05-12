@@ -322,7 +322,7 @@ blockquote {
 }
 
 .tab-cont {
-    padding-top: 5rem;
+    padding: 5rem 0 0;
 }
 
 .home-main-item-2 {
@@ -442,8 +442,12 @@ blockquote {
     margin-left: 1rem;
 }
 
+.mainNav {
+    display: block;
+}
+
 @media (max-width:1024px) {
-    .aside {
+    /* .aside {
         display: none;
     }
 
@@ -469,7 +473,7 @@ blockquote {
 
     .header .hd-user {
         width: 20rem;
-    }
+    } */
 }
 
 @media (max-width:768px) {
@@ -482,14 +486,12 @@ blockquote {
         font-size: 6rem;
         width: 10rem;
         margin: 0 5rem;
-        /* background: red; */
     }
 
     .header .hd-icon div div {
         display: block;
         font-size: 1.5rem;
         text-align: center;
-        /* background: red; */
     }
 
     .header .hd-search {
@@ -534,7 +536,7 @@ blockquote {
     }
 
     .tab-cont {
-        padding-top: 13rem;
+        padding: 0;
     }
 
     .header .logo {
@@ -552,5 +554,9 @@ blockquote {
 
     .header .deail-form {
         right: 1rem;
+    }
+
+    .mainNav {
+        display: none;
     }
 }

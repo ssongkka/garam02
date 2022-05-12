@@ -10,14 +10,9 @@ document
     const calen = new cal();
 
 $(window).on('resize', function () {
-    let delay = 300;
-    let timer = null;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        if ($('#home').css('display') === 'block') {
-            makeMainBigCal();
-        }
-    }, delay);
+    // let delay = 300; let timer = null; clearTimeout(timer); timer =
+    // setTimeout(function () {     if ($('#home').css('display') === 'block') {
+    // makeMainBigCal();     } }, delay);
 });
 
 $(document).ready(function () {
@@ -210,6 +205,8 @@ function get_Year_Month1() {
 }
 
 function setCalWhite(e, cho) {
+    const calen_Rsvt = new cal();
+
     const day = calen_Rsvt.setCalclss(e);
 
     const aaa = toStringByFormatting(new Date(day)).split('-')[1];;

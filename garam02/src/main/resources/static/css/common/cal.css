@@ -136,7 +136,7 @@
 }
 
 @media (max-width:1024px) {
-    .dash-phone-fix {}
+    /* .dash-phone-fix {}
     .dash-cal-d {
         display: flex;
         flex-direction: row;
@@ -149,11 +149,11 @@
 
         left: 0;
         right: 0;
-    }
+    } */
 }
 
 @media (max-width:768px) {
-    .dash-phone-fix {}
+    /* .dash-phone-fix {}
     .dash-cal-d {
         display: flex;
         flex-direction: row;
@@ -165,5 +165,5 @@
 
         left: 0;
         right: 0;
-    }
+    } */
 }

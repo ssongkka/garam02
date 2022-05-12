@@ -92,6 +92,10 @@ caption {
     padding-left: 2rem;
 }
 
+main {
+    padding-bottom: 0;
+}
+
 .badge {
     margin: 0 1rem;
 }
@@ -501,5 +505,9 @@ object {
 
     .dd-nav .nav-link {
         padding: 1rem 0;
+    }
+
+    main {
+        padding-bottom: 8rem;
     }
 }

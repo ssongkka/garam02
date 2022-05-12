@@ -1729,3 +1729,15 @@ function getStDayEndDayMain() {
 
     return arrTmp;
 }
+
+$(document).on('click', '#cellBottomRsvt', function () {
+
+    $('#stday').val(toStringByFormatting(new Date()));
+    $('#endday').val(toStringByFormatting(new Date()));
+
+    $("#daynight").text(' (당일)');
+    $("#daynight").css('color', 'blue');
+
+    setNewRsvtModal();
+
+});

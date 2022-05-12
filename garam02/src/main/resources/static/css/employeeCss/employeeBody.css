@@ -206,6 +206,10 @@
     width: 150px;
 }
 
+.dd-nav2-Main {
+    overflow-y: hidden;
+}
+
 .dd-nav2 {
     background: none;
     padding: 2rem;
@@ -239,10 +243,10 @@
 
 .veOperTitle-item:nth-child(1) {
     font-size: 1.5rem;
-    width: 20%;
+    width: 40%;
 }
 .veOperTitle-item:nth-child(2) {
-    width: 5%;
+    width: 15%;
     text-align: right;
 }
 
@@ -278,7 +282,7 @@
     }
 
     .emp-head-detail {
-        margin-top: 2rem;
+        margin-top: 1rem;
         padding-left: 0;
     }
 
@@ -339,5 +343,17 @@
 
     .emp-pic {
         align-items: center;
+    }
+
+    .infoEmp,
+    .moneyEmp,
+    .operEmp {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .dd-nav2 {
+        width: 60rem;
+        padding: 0.5rem;
     }
 }

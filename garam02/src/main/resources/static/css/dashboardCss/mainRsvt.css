@@ -165,44 +165,6 @@
     width: 12rem;
 }
 
-@media (max-width:1024px) {
-    .header .hd-icon {
-        display: none;
-    }
+@media (max-width:1024px) {}
 
-    .rsvt {
-        flex-direction: column;
-    }
-
-    .rsvt-l {}
-
-    .rsvt-main {
-        padding: 1rem 15rem;
-        margin: 0;
-    }
-
-    .rsvtMain {
-        margin: 1rem 0;
-    }
-}
-
-@media (max-width:768px) {
-    .header .hd-icon {
-        display: none;
-    }
-
-    .rsvt {
-        flex-direction: column;
-    }
-
-    .rsvt-l {}
-
-    .rsvt-main {
-        padding: 1rem;
-        margin: 0;
-    }
-
-    .rsvtMain {
-        margin: 1rem 0;
-    }
-}
+@media (max-width:768px) {}

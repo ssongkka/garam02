@@ -476,74 +476,76 @@
                 <div class="main-aside-item card-song">
                     <div role="tabpanel">
                         <!-- Nav tabs -->
-                        <ul class="nav nav-pills nav-justified dd-nav dd-nav2" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link active"
-                                    id="veTitleOper"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#operve"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="operve-profile"
-                                    aria-selected="false">운행내역</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="veTitleInsu"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#insuve"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="insuve-profile"
-                                    aria-selected="false">보험</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="veTitleMoney"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#moneyve"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="moneyve-profile"
-                                    aria-selected="false">대출</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="veTitleInspec"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#inspecve"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="inspecve-profile"
-                                    aria-selected="false">검사</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="veTitlemaintenance"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#maintenanceve"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="maintenanceve-profile"
-                                    aria-selected="false">정비</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="veTitleacc"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#accve"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="accve-profile"
-                                    aria-selected="false">사고</button>
-                            </li>
-                        </ul>
+                        <div class="dd-nav2-Main">
+                            <ul class="nav nav-pills nav-justified dd-nav dd-nav2" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link active"
+                                        id="veTitleOper"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#operve"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="operve-profile"
+                                        aria-selected="false">운행내역</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link"
+                                        id="veTitleInsu"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#insuve"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="insuve-profile"
+                                        aria-selected="false">보험</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link"
+                                        id="veTitleMoney"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#moneyve"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="moneyve-profile"
+                                        aria-selected="false">대출</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link"
+                                        id="veTitleInspec"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#inspecve"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="inspecve-profile"
+                                        aria-selected="false">검사</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link"
+                                        id="veTitlemaintenance"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#maintenanceve"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="maintenanceve-profile"
+                                        aria-selected="false">정비</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link"
+                                        id="veTitleacc"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#accve"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="accve-profile"
+                                        aria-selected="false">사고</button>
+                                </li>
+                            </ul>
+                        </div>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div
@@ -587,6 +589,7 @@
                 </div>
             </div>
         </div>
+        <div th:replace="dashboard/dashboardBottom :: main-bottom"></div>
     </main>
     <div th:replace="vehicle/vehicleInsertMD :: ve-MD-insert"></div>
     <div th:replace="vehicle/vehicleFileMD :: ve-MD-file"></div>
@@ -598,6 +601,7 @@
     <div th:replace="openTemplates/vehicleLoanContMD :: ve-MD-loanCont"></div>
     <div th:replace="openTemplates/vehicleAccMD :: ve-MD-accCont"></div>
     <div th:replace="openTemplates/vehicleGasMD :: ve-MD-gasCont"></div>
+    <div th:replace="openTemplates/modaNewRsvt :: mainNewrsvt"></div>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -630,22 +634,38 @@
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/vehicle/vehicleBody.js?v=2020050401"></script>
+        src="/js/vehicle/vehicleBody.js?v=2020051201"></script>
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/openTemplates/vehicleInsuContMD.js?v=2020050401"></script>
+        src="/js/openTemplates/vehicleInsuContMD.js?v=2020051201"></script>
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/openTemplates/vehicleloanContMD.js?v=2020050401"></script>
+        src="/js/openTemplates/vehicleloanContMD.js?v=2020051201"></script>
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/openTemplates/vehicleAccContMD.js?v=2020050401"></script>
+        src="/js/openTemplates/vehicleAccContMD.js?v=2020051201"></script>
     <script
         language="javascript"
         type="text/javascript"
-        src="/js/openTemplates/vehicleGasMD.js?v=2020050401"></script>
+        src="/js/openTemplates/vehicleGasMD.js?v=2020051201"></script>
+    <script
+        language="javascript"
+        type="text/javascript"
+        src="/js/dashboard/mainHomeCell.js?v=2020051201"></script>
+    <script
+        language="javascript"
+        type="text/javascript"
+        src="/js/dashboard/mainRsvt.js?v=2020051201"></script>
+    <script
+        language="javascript"
+        type="text/javascript"
+        src="/js/openTemplates/insertCustomer.js?v=2020051201"></script>
+    <script
+        language="javascript"
+        type="text/javascript"
+        src="/js/openTemplates/updateCustomer.js?v=2020051201"></script>
 </body>
 </html>

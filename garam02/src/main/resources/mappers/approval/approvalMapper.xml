@@ -739,6 +739,23 @@
 		);
 	</insert>
 
+	<update id="updateAppr" parameterType="com.garam.web.approval.dto.ApprovalDTO">
+
+		UPDATE
+
+		approval
+
+		SET
+
+		approvalcondi = #{approvalcondi}
+
+		WHEW
+
+		approvalno =
+		#{approvalno}
+
+	</update>
+
 	<insert id="insertApprFoot" parameterType="com.garam.web.approval.dto.ApprovalDTO">
 
 		INSERT
@@ -752,7 +769,10 @@
 		null,
 		#{approvalno},
 		#{id},
-		#{approvalfootnum},
+		#{approvalfootposition},
+		IFNULL((SELECT MAX(approvalfootnum) FROM approvalfoot ALIAS_FOR_SUBQUERY WHERE
+		approvalno =
+		#{approvalno}), 0) + 1,
 		NOW(),
 		null,
 		#{approvalfootcont},
@@ -785,6 +805,28 @@
 		</foreach>
 
 	</insert>
+
+	<update id="updateApprLine" parameterType="com.garam.web.approval.dto.ApprovalDTO">
+
+		UPDATE
+
+		approvalline
+
+		SET
+
+		approvallinesepa = #{approvallinesepa},
+		approvallineday = NOW()
+
+		WHERE
+
+		approvalno =
+		#{approvalno}
+
+		AND
+
+		id= #{id}
+
+	</update>
 
 	<insert id="insertApprHelp" parameterType="java.util.HashMap">
 
@@ -1121,6 +1163,112 @@
 
 		approvalline.approvallineday IS
 		NULL
+
+	</select>
+
+	<select id="selectApprNo" parameterType="com.garam.web.approval.dto.ApprovalDTO"
+		resultType="com.garam.web.approval.dto.ApprovalDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+		user.name FROM
+		user WHERE user.id =
+		approval.id) AS name
+
+		FROM
+
+		approval
+
+		WHERE
+
+		approval.approvalno =
+		#{approvalno}
+
+	</select>
+
+	<select id="selectApprLine" parameterType="com.garam.web.approval.dto.ApprovalDTO"
+		resultType="com.garam.web.approval.dto.ApprovalDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+		user.name FROM
+		user WHERE user.id =
+		approvalline.id) AS name
+
+		FROM
+
+		approvalline
+
+		WHERE
+
+		approvalline.approvalno = #{approvalno}
+
+	</select>
+
+	<select id="selectApprHelp" parameterType="com.garam.web.approval.dto.ApprovalDTO"
+		resultType="com.garam.web.approval.dto.ApprovalDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+		user.name FROM
+		user WHERE user.id =
+		approvalhelp.id) AS name
+
+		FROM
+
+		approvalhelp
+
+		WHERE
+
+		approvalhelp.approvalno = #{approvalno}
+
+	</select>
+
+	<select id="selectApprCham" parameterType="com.garam.web.approval.dto.ApprovalDTO"
+		resultType="com.garam.web.approval.dto.ApprovalDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+		user.name FROM
+		user WHERE user.id =
+		approvalcham.id) AS name
+
+		FROM
+
+		approvalcham
+
+		WHERE
+
+		approvalcham.approvalno = #{approvalno}
+
+	</select>
+
+	<select id="selectApprFoot" parameterType="com.garam.web.approval.dto.ApprovalDTO"
+		resultType="com.garam.web.approval.dto.ApprovalDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+		user.name FROM
+		user WHERE user.id =
+		approvalfoot.id) AS name
+
+		FROM
+
+		approvalfoot
+
+		WHERE
+
+		approvalfoot.approvalno = #{approvalno}
 
 	</select>
 </mapper>

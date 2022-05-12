@@ -2885,6 +2885,8 @@ $(document).on('click', '#apprGo', function () {
         paramsMaint.push(asd);
     }
 
+    $('.clearAppr').remove();
+
     LoadingWithMask()
         .then(insertAppr)
         .then(insertApprFoot)
@@ -2966,7 +2968,7 @@ $(document).on('click', '#apprGo', function () {
                 const params = {
                     "approvalno": $('#appGiNo').text(),
                     "id": id,
-                    "approvalfootnum": 1,
+                    "approvalfootposition": dbuser.position,
                     "approvalfootcont": approvalfootcont
                 };
 

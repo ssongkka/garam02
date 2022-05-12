@@ -1119,7 +1119,7 @@ function makeEmpOper() {
                                 `"
                             aria-labelledby="panelsStayHead-` + i +
                                 `">
-                            <div class="accordion-body">
+                            <div class="accordion-body table-responsive">
                                 <table class="table table-bordered">
                                     <colgroup>
                                         <col width="18%">

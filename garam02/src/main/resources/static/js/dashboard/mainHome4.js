@@ -128,33 +128,58 @@ function makeMain2BigCal() {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    for (let i = 0; i < r.length; i++) {
-                        if (r[i].holiday) {
-                            for (let k = 0; k < 42; k++) {
-                                const trNum = Math.floor(k / 7);
-                                let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                                if (k < 7) {
-                                    tdNum = k;
-                                }
+                    if (r.length > 0) {
+                        for (let i = 0; i < r.length; i++) {
+                            if (r[i].holiday) {
+                                for (let k = 0; k < 42; k++) {
+                                    const trNum = Math.floor(k / 7);
+                                    let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                                const aaa = $('#tbMainCal2').children()[trNum];
-                                const bbb = $(aaa).children()[tdNum];
+                                    if (k < 7) {
+                                        tdNum = k;
+                                    }
 
-                                const bbb1 = $(bbb).children()[0];
+                                    const aaa = $('#tbMainCal2').children()[trNum];
+                                    const bbb = $(aaa).children()[tdNum];
 
-                                const bbb4 = $(bbb1).children()[0];
-                                const bbb2 = $(bbb1).children()[1];
-                                const bbb3 = $(bbb2).children()[1];
-                                const bbb5 = $(bbb2).children()[0];
+                                    const bbb1 = $(bbb).children()[0];
 
-                                if ($(bbb4).val() == r[i].solarcal) {
-                                    $(bbb5).css('color', '#CF2F11');
-                                    $(bbb3).text(r[i].holiday);
+                                    const bbb4 = $(bbb1).children()[0];
+                                    const bbb2 = $(bbb1).children()[1];
+                                    const bbb3 = $(bbb2).children()[1];
+                                    const bbb5 = $(bbb2).children()[0];
+
+                                    if ($(bbb4).val() == r[i].solarcal) {
+                                        $(bbb5).css('color', '#CF2F11');
+                                        $(bbb3).text(r[i].holiday);
+                                    } else {
+                                        $(bbb3).html(`&nbsp;`);
+                                    }
                                 }
                             }
                         }
+                    } else {
+                        for (let k = 0; k < 42; k++) {
+                            const trNum = Math.floor(k / 7);
+                            let tdNum = k % Math.floor(parseInt(trNum) * 7);
+
+                            if (k < 7) {
+                                tdNum = k;
+                            }
+
+                            const aaa = $('#tbMainCal2').children()[trNum];
+                            const bbb = $(aaa).children()[tdNum];
+
+                            const bbb1 = $(bbb).children()[0];
+
+                            const bbb2 = $(bbb1).children()[1];
+                            const bbb3 = $(bbb2).children()[1];
+
+                            $(bbb3).html(`&nbsp;`);
+                        }
                     }
+
                     resolve(result);
                 },
                 error: (jqXHR) => {
@@ -166,10 +191,13 @@ function makeMain2BigCal() {
     function getSalDay() {
         return new Promise(function (resolve, reject) {
             arrHtmls[checkHolDay(opt[0].salday)] = `
+    <div class="mainCaltd-middle">
         <div class="mainCal2td-middle-item middle-sal">
             <span class="spNum1">급여지급일</span>
             <span class="h2ch h2chSal"><i class="fa-solid fa-calculator"></i></span>
-        </div>`;
+        </div>
+        <div class="maincaltd-middle-itemb">&nbsp;</div>
+    </div>`;
             resolve();
         })
     }
@@ -211,6 +239,7 @@ function makeMain2BigCal() {
 
                         if (r[i].caleventgrade > 0) {
                             arrHtmls[checkHolDay1(r[i].caleventday)] += `
+                            <div class="mainCaltd-middle">
                                 <div class="mainCal2td-middle-item middle-event">
                                     <input type="hidden" value="">
                                     <input type="hidden" value="` +
@@ -222,9 +251,12 @@ function makeMain2BigCal() {
                                     `</span>
                                     <span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-check"></i></i></span>
                                     <span class="h2ch h2chEventgrade"><i class="fa-solid fa-exclamation"></i></span>
-                                </div>`;
+                                </div>
+                                <div class="maincaltd-middle-itemb">&nbsp;</div>
+                            </div>`;
                         } else {
                             arrHtmls[checkHolDay1(r[i].caleventday)] += `
+                            <div class="mainCaltd-middle">
                                 <div class="mainCal2td-middle-item middle-event">
                                     <input type="hidden" value="">
                                     <input type="hidden" value="` +
@@ -234,7 +266,9 @@ function makeMain2BigCal() {
                                         ` +
                                     tititle +
                                     `</span><span class="h2ch h2chEvent"><i class="fa-solid fa-calendar-check"></i></span>
-                                </div>`;
+                                </div>
+                                <div class="maincaltd-middle-itemb">&nbsp;</div>
+                            </div>`;
                         }
                     }
                     resolve();
@@ -290,6 +324,7 @@ function makeMain2BigCal() {
 
                         if (r[i].regist) {
                             arrHtmls[checkHolDay1(r[i].regist)] += `
+                    <div class="mainCaltd-middle">
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
                                     monththth1 +
@@ -299,9 +334,12 @@ function makeMain2BigCal() {
                             <span class="spNum1"><span class="h2Ve">` + r[i].vehicle2 +
                                     `</span><span class="h2loan text-decoration-line-through">대출</span></span>
                             <span class="h2ch h2chLoan"></span>
-                        </div>`;
+                        </div>
+                        <div class="maincaltd-middle-itemb">&nbsp;</div>
+                    </div>`;
                         } else {
                             arrHtmls[checkHolDay2(r[i].loandayloan)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-loan">
                                 <input type="hidden" value="` +
                                     monththth1 +
@@ -312,11 +350,14 @@ function makeMain2BigCal() {
                                     r[i].vehicle2 +
                                     `</span><span class="h2loan">대출</span></span>
                                 <span class="h2ch h2chLoan"><i class="fa-solid fa-bookmark"></i></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                         }
 
                         if (r[i].color) {
                             arrHtmls[checkHolDay1(r[i].color)] += `
+                    <div class="mainCaltd-middle">
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
                                     monththth3 +
@@ -326,9 +367,12 @@ function makeMain2BigCal() {
                             <span class="spNum1"><span class="h2Ve">` + r[i].vehicle2 +
                                     `</span><span class="h2loan text-decoration-line-through">대출</span></span>
                             <span class="h2ch h2chLoan"></span>
-                        </div>`;
+                        </div>
+                        <div class="maincaltd-middle-itemb">&nbsp;</div>
+                    </div>`;
                         } else {
                             arrHtmls[checkHolDay(r[i].loandayloan)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-loan">
                                 <input type="hidden" value="` +
                                     monththth3 +
@@ -339,11 +383,14 @@ function makeMain2BigCal() {
                                     r[i].vehicle2 +
                                     `</span><span class="h2loan">대출</span></span>
                                 <span class="h2ch h2chLoan"><i class="fa-solid fa-bookmark"></i></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                         }
 
                         if (r[i].expire) {
                             arrHtmls[checkHolDay1(r[i].expire)] += `
+                    <div class="mainCaltd-middle">
                         <div class="mainCal2td-middle-item middle-loan">
                             <input type="hidden" value="` +
                                     monththth2 +
@@ -353,9 +400,12 @@ function makeMain2BigCal() {
                             <span class="spNum1"><span class="h2Ve">` + r[i].vehicle2 +
                                     `</span><span class="h2loan text-decoration-line-through">대출</span></span>
                             <span class="h2ch h2chLoan"></span>
-                        </div>`;
+                        </div>
+                        <div class="maincaltd-middle-itemb">&nbsp;</div>
+                    </div>`;
                         } else {
                             arrHtmls[checkHolDay3(r[i].loandayloan)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-loan">
                                 <input type="hidden" value="` +
                                     monththth2 +
@@ -366,7 +416,9 @@ function makeMain2BigCal() {
                                     r[i].vehicle2 +
                                     `</span><span class="h2loan">대출</span></span>
                                 <span class="h2ch h2chLoan"><i class="fa-solid fa-bookmark"></i></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                         }
 
                     }
@@ -404,6 +456,7 @@ function makeMain2BigCal() {
                     for (let i = 0; i < r.length; i++) {
                         if (r[i].insusepatrash < 1) {
                             arrHtmls[checkHolDay1(r[i].insusepaday)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-insu">
                                 <input type="hidden" value="` +
                                     r[i].carnumber +
@@ -416,9 +469,12 @@ function makeMain2BigCal() {
                                     `</span><span class="h2insu text-decoration-line-through">보험료` + r[i].insusepatime +
                                     `회</span></span>
                                 <span class="h2ch h2chInsu"></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                         } else {
                             arrHtmls[checkHolDay1(r[i].insusepaday)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-insu">
                                 <input type="hidden" value="` +
                                     r[i].carnumber +
@@ -430,7 +486,9 @@ function makeMain2BigCal() {
                                     `</span><span class="h2insu">보험료` + r[i].insusepatime +
                                     `회</span></span>
                                 <span class="h2ch h2chInsu"><i class="fa-solid fa-car"></i></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                         }
                     }
                     resolve();
@@ -466,6 +524,7 @@ function makeMain2BigCal() {
                 success: function (r) {
                     for (let i = 0; i < r.length; i++) {
                         arrHtmls[checkHolDay1(r[i].expire)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-end">
                                 <input type="hidden" value="` +
                                 r[i].carnumber +
@@ -477,7 +536,9 @@ function makeMain2BigCal() {
                                 r[i].vehicle2 +
                                 `</span><span class="h2insuEnd">차량만료</span></span>
                                 <span class="h2ch h2chEnd"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                     }
                     resolve();
                 },
@@ -512,6 +573,7 @@ function makeMain2BigCal() {
                 success: function (r) {
                     for (let i = 0; i < r.length; i++) {
                         arrHtmls[checkHolDay1(r[i].inspecdateend)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-end">
                                 <input type="hidden" value="` +
                                 r[i].carnumber +
@@ -523,7 +585,9 @@ function makeMain2BigCal() {
                                 r[i].vehicle2 +
                                 `</span><span class="h2insuEnd">점검만료</span></span>
                                 <span class="h2ch h2chEnd"><i class="fa-solid fa-wrench"></i></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                     }
                     resolve();
                 },
@@ -558,6 +622,7 @@ function makeMain2BigCal() {
                 success: function (r) {
                     for (let i = 0; i < r.length; i++) {
                         arrHtmls[checkHolDay1(r[i].insudateend)] += `
+                        <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-end">
                                 <input type="hidden" value="` +
                                 r[i].carnumber +
@@ -569,7 +634,9 @@ function makeMain2BigCal() {
                                 r[i].vehicle2 +
                                 `</span><span class="h2insuEnd">보험만료</span></span>
                                 <span class="h2ch h2chEnd"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                            </div>`;
+                            </div>
+                            <div class="maincaltd-middle-itemb">&nbsp;</div>
+                        </div>`;
                     }
                     resolve();
                 },
@@ -637,7 +704,7 @@ function makeBigcal2Aside() {
                         let gradee = ``;
                         let sttyle = ``;
                         if (parseInt(r[i].caleventgrade) > 0) {
-                            gradee = `<i class="fa-solid fa-exclamation h2chEventgrade"></i>`;
+                            gradee = `<span class="fa-solid fa-exclamation h2chEventgrade"></span>`;
                             sttyle = `style="text-align: left;"`;
                         } else {
                             sttyle = `style="text-align: left; padding-left: 2rem;"`;
@@ -650,10 +717,14 @@ function makeBigcal2Aside() {
                                 `>
                             <input type="hidden" value="` + r[i].caleventseq +
                                 `">
-                        ` + gradee + titlee +
+                        <div class="evAsieGrade">
+                        ` +
+                                gradee + titlee +
                                 `
+                        </div>
                         </th>
-                        <th>` + r[i].caleventemp +
+                        <th>` +
+                                r[i].caleventemp +
                                 `</th>
                     </tr>`;
                     }

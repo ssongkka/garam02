@@ -10,7 +10,7 @@
     flex: 1.5;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .main-aside-item-head-item:nth-child(1) {
@@ -483,5 +483,16 @@
 
     #ve-form {
         flex-direction: column;
+    }
+
+    .accVe,
+    .inspecVe,
+    .insumain,
+    .maintenanceVe,
+    .moneyVe,
+    .operVe {
+        padding: 1rem;
+
+        gap: 1rem;
     }
 }

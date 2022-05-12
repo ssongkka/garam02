@@ -9,7 +9,7 @@
         tabindex="-1"
         aria-labelledby="modalPaper0Label"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="modalPaper0Ti">운행 관련 서류 생성</h3>
@@ -57,7 +57,7 @@
         tabindex="-1"
         aria-labelledby="modalPaper1Label"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">계약서 생성</h3>
@@ -86,7 +86,7 @@
         tabindex="-1"
         aria-labelledby="modalPaper2Label"
         aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">운행 배차 서류 생성</h3>
@@ -108,28 +108,31 @@
                                 th:data-value="${compa.company}"></option>
                         </select>
                         <h3>
-                            <i class="fa-solid fa-file-signature"></i>배차 서류 목록</h3>
-                        <table
-                            class="table table-striped table-hover table-bordered"
-                            id="tb-make-order">
-                            <colgroup>
-                                <col width="10%">
-                                <col width="15%">
-                                <col width="auto">
-                                <col width="10%">
-                                <col width="10%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>선택</th>
-                                    <th>서류</th>
-                                    <th>위</th>
-                                    <th>아래</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tb-paper2"></tbody>
-                        </table>
+                            <i class="fa-solid fa-file-signature"></i>배차 서류 목록
+                        </h3>
+                        <div class="table-responsive">
+                            <table
+                                class="table table-striped table-hover table-bordered"
+                                id="tb-make-order">
+                                <colgroup>
+                                    <col width="10%">
+                                    <col width="15%">
+                                    <col width="auto">
+                                    <col width="10%">
+                                    <col width="10%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>선택</th>
+                                        <th>서류</th>
+                                        <th>위</th>
+                                        <th>아래</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb-paper2"></tbody>
+                            </table>
+                        </div>
                         <form th:action="@{/dashboard/makePapper}" id="formPapper">
                             <input type="hidden" name="companyyy" id="companyyy" value="">
                             <input type="hidden" name="dayyy" id="dayyy" value="">
@@ -159,7 +162,7 @@
                                     <h4>
                                         <i class="fas fa-map-marker-alt"></i>목적지</h4>
                                 </div>
-                                <div>
+                                <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <colgroup>
                                             <col width="5%">

@@ -99,7 +99,7 @@ function getRegularAll(name) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls1 = '';
@@ -174,7 +174,7 @@ function getRegular(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 $('#rgcompa').html(
@@ -217,7 +217,7 @@ function getRegularDeAll(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls = '';
@@ -283,7 +283,7 @@ function getRegularDe(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 $('#rdname').html(r[0].rdname);
@@ -382,7 +382,7 @@ function getRegularCource(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
 

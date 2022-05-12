@@ -330,4 +330,54 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 		return rtn;
 	}
+
+	@Override
+	public List<ApprovalDTO> selectApprNo(ApprovalDTO approvalDTO) throws Exception {
+		List<ApprovalDTO> rtn = approvalMapper.selectApprNo(approvalDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<ApprovalDTO> selectApprLine(ApprovalDTO approvalDTO) throws Exception {
+		List<ApprovalDTO> rtn = approvalMapper.selectApprLine(approvalDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<ApprovalDTO> selectApprHelp(ApprovalDTO approvalDTO) throws Exception {
+		List<ApprovalDTO> rtn = approvalMapper.selectApprHelp(approvalDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<ApprovalDTO> selectApprCham(ApprovalDTO approvalDTO) throws Exception {
+		List<ApprovalDTO> rtn = approvalMapper.selectApprCham(approvalDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<ApprovalDTO> selectApprFoot(ApprovalDTO approvalDTO) throws Exception {
+		List<ApprovalDTO> rtn = approvalMapper.selectApprFoot(approvalDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateAppr(ApprovalDTO approvalDTO) throws Exception {
+		int rtn = approvalMapper.updateAppr(approvalDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public int updateApprLine(ApprovalDTO approvalDTO) throws Exception {
+		int rtn = approvalMapper.updateApprLine(approvalDTO);
+
+		return rtn;
+	}
+
 }

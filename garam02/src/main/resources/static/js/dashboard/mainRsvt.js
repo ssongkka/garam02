@@ -1,5 +1,3 @@
-const calen_Rsvt = new cal();
-
 $(document).ready(function () {
     $("#ctmname").focus();
 

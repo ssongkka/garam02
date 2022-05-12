@@ -81,4 +81,18 @@ public interface ApprovalService {
 	public int updateApprMaint(List<Map<String, Object>> map) throws Exception;
 
 	public List<ApprovalDTO> selectApprIng(ApprovalDTO approvalDTO) throws Exception;
+
+	public List<ApprovalDTO> selectApprNo(ApprovalDTO approvalDTO) throws Exception;
+
+	public List<ApprovalDTO> selectApprLine(ApprovalDTO approvalDTO) throws Exception;
+
+	public List<ApprovalDTO> selectApprHelp(ApprovalDTO approvalDTO) throws Exception;
+
+	public List<ApprovalDTO> selectApprCham(ApprovalDTO approvalDTO) throws Exception;
+
+	public List<ApprovalDTO> selectApprFoot(ApprovalDTO approvalDTO) throws Exception;
+
+	public int updateAppr(ApprovalDTO approvalDTO) throws Exception;
+
+	public int updateApprLine(ApprovalDTO approvalDTO) throws Exception;
 }

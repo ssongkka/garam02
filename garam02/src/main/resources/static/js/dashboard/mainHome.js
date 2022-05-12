@@ -124,33 +124,57 @@ function makeMainBigCal() {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    for (let i = 0; i < r.length; i++) {
-                        if (r[i].holiday) {
-                            for (let k = 0; k < 42; k++) {
-                                const trNum = Math.floor(k / 7);
-                                let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                                if (k < 7) {
-                                    tdNum = k;
-                                }
+                    if (r.length > 0) {
+                        for (let i = 0; i < r.length; i++) {
+                            if (r[i].holiday) {
+                                for (let k = 0; k < 42; k++) {
+                                    const trNum = Math.floor(k / 7);
+                                    let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                                const aaa = $('#tbMainCal').children()[trNum];
-                                const bbb = $(aaa).children()[tdNum];
+                                    if (k < 7) {
+                                        tdNum = k;
+                                    }
 
-                                const bbb1 = $(bbb).children()[0];
+                                    const aaa = $('#tbMainCal').children()[trNum];
+                                    const bbb = $(aaa).children()[tdNum];
 
-                                const bbb4 = $(bbb1).children()[0];
-                                const bbb2 = $(bbb1).children()[1];
-                                const bbb3 = $(bbb2).children()[1];
-                                const bbb5 = $(bbb2).children()[0];
+                                    const bbb1 = $(bbb).children()[0];
 
-                                if ($(bbb4).val() == r[i].solarcal) {
-                                    $(bbb5).css('color', '#CF2F11');
-                                    $(bbb3).text(r[i].holiday);
+                                    const bbb4 = $(bbb1).children()[0];
+                                    const bbb2 = $(bbb1).children()[1];
+                                    const bbb3 = $(bbb2).children()[1];
+                                    const bbb5 = $(bbb2).children()[0];
+
+                                    if ($(bbb4).val() == r[i].solarcal) {
+                                        $(bbb5).css('color', '#CF2F11');
+                                        $(bbb3).text(r[i].holiday);
+                                    } else {
+                                        $(bbb3).html(`&nbsp;`);
+                                    }
                                 }
                             }
                         }
+                    } else {
+                        for (let k = 0; k < 42; k++) {
+                            const trNum = Math.floor(k / 7);
+                            let tdNum = k % Math.floor(parseInt(trNum) * 7);
+
+                            if (k < 7) {
+                                tdNum = k;
+                            }
+
+                            const aaa = $('#tbMainCal').children()[trNum];
+                            const bbb = $(aaa).children()[tdNum];
+
+                            const bbb1 = $(bbb).children()[0];
+
+                            const bbb2 = $(bbb1).children()[1];
+                            const bbb3 = $(bbb2).children()[1];
+                            $(bbb3).html(`&nbsp;`);
+                        }
                     }
+
                     resolve(result);
                 },
                 error: (jqXHR) => {
@@ -643,42 +667,58 @@ function makeMainBigCal() {
 
                                         switch (r[i].ctmsepa) {
                                             case 0:
-                                                qwer += `<span class="spNum1">` + r[i].desty + `</span>`;
+                                                qwer += `<div class="spNum1">` + r[i].desty + `</div>`;
                                                 break;
                                             case 1:
-                                                qwer += `<span class="spNum1">` + r[i].ctmname + `</span>`;
+                                                qwer += `<div class="spNum1">` + r[i]
+                                                    .ctmname
+                                                    .replaceAll('등학교', '')
+                                                    .replaceAll('학교', '') + `</div>`;
                                                 break;
                                             case 2:
-                                                qwer += `<span class="spNum1">` + r[i].desty + `</span>`;
+                                                qwer += `<div class="spNum1">` + r[i].desty + `</div>`;
                                                 break;
                                             default:
                                                 break;
                                         }
 
                                         if (r[i].ctmtel1 > 0) {
-                                            qwer += `<span class="spNum2 big45">` + r[i].ctmtel1 + `</span>`;
+                                            qwer += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
                                         }
                                         if (r[i].ctmtel2 > 0) {
-                                            qwer += `<span class="spNum2 big25">` + r[i].ctmtel2 + `</span>`;
+                                            qwer += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
                                         }
                                         if (r[i].ctmemail > 0) {
-                                            qwer += `<span class="spNum2 big28">` + r[i].ctmemail + `</span>`;
+                                            qwer += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
                                         }
 
                                         let qwer1 = '';
 
                                         switch (r[i].ctmsepa) {
                                             case 0:
-                                                qwer1 += `<span class="spNum1">` + r[i].desty + `</span>`;
+                                                qwer1 += `<div class="spNum1">` + r[i].desty + `</div>`;
                                                 break;
                                             case 1:
-                                                qwer1 += `<span class="spNum1">` + r[i].ctmname + `</span>`;
+                                                qwer1 += `<div class="spNum1">` + r[i]
+                                                    .ctmname
+                                                    .replaceAll('등학교', '')
+                                                    .replaceAll('학교', '') + `</div>`;
                                                 break;
                                             case 2:
-                                                qwer1 += `<span class="spNum1">` + r[i].desty + `</span>`;
+                                                qwer1 += `<div class="spNum1">` + r[i].desty + `</div>`;
                                                 break;
                                             default:
                                                 break;
+                                        }
+
+                                        if (r[i].ctmtel1 > 0) {
+                                            qwer1 += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                        }
+                                        if (r[i].ctmtel2 > 0) {
+                                            qwer1 += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                        }
+                                        if (r[i].ctmemail > 0) {
+                                            qwer1 += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
                                         }
 
                                         if (k == 0) {
@@ -803,26 +843,35 @@ function makeMainBigCal() {
 
                             switch (r[i].ctmsepa) {
                                 case 0:
-                                    qwer += `<span class="spNum1">` + r[i].ctmname + `</span>`;
+                                    qwer += `<div class="spNum1">` + r[i]
+                                        .ctmname
+                                        .replaceAll('등학교', '')
+                                        .replaceAll('학교', '') + `</div>`;
                                     break;
                                 case 1:
-                                    qwer += `<span class="spNum1">` + r[i].ctmname + `</span>`;
+                                    qwer += `<div class="spNum1">` + r[i]
+                                        .ctmname
+                                        .replaceAll('등학교', '')
+                                        .replaceAll('학교', '') + `</div>`;
                                     break;
                                 case 2:
-                                    qwer += `<span class="spNum1">` + r[i].ctmname + `</span>`;
+                                    qwer += `<div class="spNum1">` + r[i]
+                                        .ctmname
+                                        .replaceAll('등학교', '')
+                                        .replaceAll('학교', '') + `</div>`;
                                     break;
                                 default:
                                     break;
                             }
 
                             if (r[i].ctmtel1 > 0) {
-                                qwer += `<span class="spNum2 big45">` + r[i].ctmtel1 + `</span>`;
+                                qwer += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
                             }
                             if (r[i].ctmtel2 > 0) {
-                                qwer += `<span class="spNum2 big25">` + r[i].ctmtel2 + `</span>`;
+                                qwer += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
                             }
                             if (r[i].ctmemail > 0) {
-                                qwer += `<span class="spNum2 big28">` + r[i].ctmemail + `</span>`;
+                                qwer += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
                             }
 
                             for (let j2 = 0; j2 < ccc1.length; j2++) {
@@ -835,13 +884,13 @@ function makeMainBigCal() {
                                 if ($(ctmval).val() == r[i].ctmno) {
                                     let qqqq = ``;
                                     if (r[i].ctmtel1 > 0) {
-                                        qqqq += `<span class="spNum2 big45">` + r[i].ctmtel1 + `</span>`;
+                                        qqqq += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
                                     }
                                     if (r[i].ctmtel2 > 0) {
-                                        qqqq += `<span class="spNum2 big25">` + r[i].ctmtel2 + `</span>`;
+                                        qqqq += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
                                     }
                                     if (r[i].ctmemail > 0) {
-                                        qqqq += `<span class="spNum2 big28">` + r[i].ctmemail + `</span>`;
+                                        qqqq += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
                                     }
                                     $(chch).append(qqqq);
                                     break;
@@ -885,24 +934,24 @@ function makeMainBigCal() {
                             let htmll28 = ``;
 
                             if (bus45Cnt > 0) {
-                                htmll45 = `<span class="big45">` + bus45Cnt + `</span>`;
+                                htmll45 = `<div class="mainCaltd-foot-item big45">` + bus45Cnt + `</div>`;
                             } else {
-                                htmll45 = `<span class="">   </span>`;
-                            }
-
-                            if (bus25Cnt > 0) {
-                                htmll25 = `<span class="big25">` + bus25Cnt + `</span>`;
-                            } else {
-                                htmll25 = `<span class="">   </span>`;
+                                htmll45 = `<div class="mainCaltd-foot-item">&nbsp;</div>`;
                             }
 
                             if (bus28Cnt > 0) {
-                                htmll28 = `<span class="big28">` + bus28Cnt + `</span>`;
+                                htmll28 = `<div class="mainCaltd-foot-item big28">` + bus28Cnt + `</div>`;
                             } else {
-                                htmll28 = `<span class="">   </span>`;
+                                htmll28 = `<div class="mainCaltd-foot-item">&nbsp;</div>`;
                             }
 
-                            const htmll = htmll45 + htmll25 + htmll28;
+                            if (bus25Cnt > 0) {
+                                htmll25 = `<div class="mainCaltd-foot-item big25">` + bus25Cnt + `</div>`;
+                            } else {
+                                htmll25 = `<div class="mainCaltd-foot-item">&nbsp;</div>`;
+                            }
+
+                            const htmll = htmll45 + htmll28 + htmll25;
 
                             const iiddd = '#calMid' + (
                                 parseInt(k) + 1
@@ -3128,4 +3177,14 @@ $(document).on('click', '.calDetail', function () {
     $('#endday').val(dayyy);
 
     setNewRsvtModal();
+
+    for (let i = 0; i < 42; i++) {
+        let iiiddd = '#dash-cal-con-item' + (
+            i + 1
+        );
+
+        if (dayyy == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+            setCalWhite($(iiiddd).attr('id'), 1);
+        }
+    }
 });

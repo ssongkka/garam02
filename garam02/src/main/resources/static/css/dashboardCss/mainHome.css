@@ -17,6 +17,11 @@
     display: flex;
     flex-direction: column;
     margin: 1rem 2rem;
+
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
+    background: white;
 }
 
 .home-mainCal2 {
@@ -25,6 +30,11 @@
     flex-direction: column;
     gap: 2rem;
     padding: 3rem 2rem;
+
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
+    background: white;
 }
 
 .home-main {
@@ -226,7 +236,10 @@ ul {
     padding: 0 2rem;
 }
 
+.mainCal2td-middle-item,
 .mainCaltd-middle-item {
+    display: flex;
+
     position: absolute;
     margin: 0 0.3rem;
     text-align: left;
@@ -316,16 +329,16 @@ ul {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     gap: 1rem;
 
     margin: 2rem 0 0.5rem;
+
+    padding: 0 0.5rem;
 }
 
-.mainCaltd-foot span {
-    width: 26%;
-
-    cursor: default;
+.mainCaltd-foot-item {
+    flex: 1;
 }
 
 .home2-item1 {
@@ -434,23 +447,28 @@ ul {
 }
 
 .h2chSal {
+    display: block;
     color: #ffa800;
 }
 
 .h2chLoan {
+    display: block;
     color: #cde7f3;
 }
 
 .h2chInsu {
+    display: block;
     color: #ffc8c8;
 }
 
 .h2chEnd,
 .h2chEventgrade {
+    display: block;
     color: #c20000;
 }
 
 .h2chEvent {
+    display: block;
     color: #272e56;
 }
 
@@ -495,75 +513,16 @@ table > tbody > tr > .big28home2 {
     gap: 3rem;
 }
 
-@media (max-width:1024px) {
-    .home-main {
-        flex-direction: column;
-        gap: 2rem;
-        margin-right: 0;
-        padding: 0;
-    }
-
-    .main-home {
-        flex-direction: column;
-        gap: 2rem;
-        padding: 1rem;
-        margin: 0;
-    }
-
-    .home-main-item-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .home-main-item-22-1 {
-        grid-column-start: 1;
-        grid-column-end: 3;
-        grid-row-start: 2;
-        grid-row-end: 3;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-
-    .home-main-item-22-1-item {
-        padding: 1rem 0;
-    }
+.evAsieGrade {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-@media (max-width:768px) {
-    .home-main {
-        padding: 0;
-        margin: 0;
-        flex-direction: column;
-    }
-
-    .main-home {
-        flex-direction: column;
-        gap: 2rem;
-        padding: 1rem;
-        margin: 0;
-    }
-
-    .home-main-item-2 {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .home-main-item-22 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .home-main-item-22-1-item {
-        height: auto;
-        padding: 1rem;
-    }
-
-    .home-tap .table {
-        margin-bottom: 1rem;
-    }
-    .home-main-item-22-1 {
-        grid-template-columns: 1fr 1fr;
-    }
+.main-bottom {
+    display: none;
 }
+
+@media (max-width:1024px) {}
+
+@media (max-width:768px) {}

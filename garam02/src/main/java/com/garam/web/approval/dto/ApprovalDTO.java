@@ -86,6 +86,8 @@ public class ApprovalDTO {
 
 	private Integer approvalfootnum;
 
+	private String approvalfootposition;
+
 	private String approvalfootintime;
 
 	private String approvalfootchtime;
@@ -460,6 +462,14 @@ public class ApprovalDTO {
 
 	public void setApprovalfoottrash(Integer approvalfoottrash) {
 		this.approvalfoottrash = approvalfoottrash;
+	}
+
+	public String getApprovalfootposition() {
+		return approvalfootposition;
+	}
+
+	public void setApprovalfootposition(String approvalfootposition) {
+		this.approvalfootposition = approvalfootposition;
 	}
 
 }
