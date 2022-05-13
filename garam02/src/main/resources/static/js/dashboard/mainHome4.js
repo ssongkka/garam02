@@ -129,53 +129,51 @@ function makeMain2BigCal() {
                 data: JSON.stringify(params),
                 success: function (r) {
 
-                    if (r.length > 0) {
+                    for (let k = 0; k < 42; k++) {
                         for (let i = 0; i < r.length; i++) {
                             if (r[i].holiday) {
-                                for (let k = 0; k < 42; k++) {
-                                    const trNum = Math.floor(k / 7);
-                                    let tdNum = k % Math.floor(parseInt(trNum) * 7);
+                                const trNum = Math.floor(k / 7);
+                                let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                                    if (k < 7) {
-                                        tdNum = k;
-                                    }
+                                if (k < 7) {
+                                    tdNum = k;
+                                }
 
-                                    const aaa = $('#tbMainCal2').children()[trNum];
-                                    const bbb = $(aaa).children()[tdNum];
+                                const aaa = $('#tbMainCal2').children()[trNum];
+                                const bbb = $(aaa).children()[tdNum];
 
-                                    const bbb1 = $(bbb).children()[0];
+                                const bbb1 = $(bbb).children()[0];
 
-                                    const bbb4 = $(bbb1).children()[0];
-                                    const bbb2 = $(bbb1).children()[1];
-                                    const bbb3 = $(bbb2).children()[1];
-                                    const bbb5 = $(bbb2).children()[0];
+                                const bbb4 = $(bbb1).children()[0];
+                                const bbb2 = $(bbb1).children()[1];
+                                const bbb3 = $(bbb2).children()[1];
+                                const bbb5 = $(bbb2).children()[0];
 
-                                    if ($(bbb4).val() == r[i].solarcal) {
-                                        $(bbb5).css('color', '#CF2F11');
-                                        $(bbb3).text(r[i].holiday);
-                                    } else {
-                                        $(bbb3).html(`&nbsp;`);
-                                    }
+                                if ($(bbb4).val() == r[i].solarcal) {
+                                    $(bbb5).css('color', '#CF2F11');
+                                    $(bbb3).text(r[i].holiday);
+                                    $(bbb3).css('color', '#CF2F11');
                                 }
                             }
                         }
-                    } else {
-                        for (let k = 0; k < 42; k++) {
-                            const trNum = Math.floor(k / 7);
-                            let tdNum = k % Math.floor(parseInt(trNum) * 7);
+                    }
+                    for (let k = 0; k < 42; k++) {
+                        const trNum = Math.floor(k / 7);
+                        let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                            if (k < 7) {
-                                tdNum = k;
-                            }
+                        if (k < 7) {
+                            tdNum = k;
+                        }
 
-                            const aaa = $('#tbMainCal2').children()[trNum];
-                            const bbb = $(aaa).children()[tdNum];
+                        const aaa = $('#tbMainCal2').children()[trNum];
+                        const bbb = $(aaa).children()[tdNum];
 
-                            const bbb1 = $(bbb).children()[0];
+                        const bbb1 = $(bbb).children()[0];
 
-                            const bbb2 = $(bbb1).children()[1];
-                            const bbb3 = $(bbb2).children()[1];
+                        const bbb2 = $(bbb1).children()[1];
+                        const bbb3 = $(bbb2).children()[1];
 
+                        if (!$(bbb3).text()) {
                             $(bbb3).html(`&nbsp;`);
                         }
                     }
@@ -1056,26 +1054,13 @@ function checkHolDay3(dateNum) {
     }
 }
 
-$(document).ready(function () {
-    $(".mainCalTable2 tbody tr td .mainCal2td-top .mainCal2td-top-hol").mouseover(
-        function () {
-            $(this)
-                .parent()
-                .parent()
-                .parent()
-                .addClass('tdHovers');
-        }
-    );
-    $(".mainCalTable2 tbody tr td .mainCal2td-top .mainCal2td-top-hol").mouseout(
-        function () {
-            $(this)
-                .parent()
-                .parent()
-                .parent()
-                .removeClass('tdHovers');
-        }
-    );
-});
+// $(document).ready(function () {     $(".mainCalTable2 tbody tr td
+// .mainCal2td-top .mainCal2td-top-hol").mouseover(         function () {
+// $(this)                 .parent()                 .parent() .parent()
+// .addClass('tdHovers');         }     ); $(".mainCalTable2 tbody tr td
+// .mainCal2td-top .mainCal2td-top-hol").mouseout( function () { $(this)
+// .parent() .parent()                 .parent() .removeClass('tdHovers'); }
+// ); });
 
 $(document).ready(function () {
     $(".mainCalTable2 tbody tr td .mainCal2td-top .mainCal2td-top-day").mouseover(
@@ -1098,20 +1083,11 @@ $(document).ready(function () {
     );
 });
 
-$(document).on('click', '.mainCal2td-top-hol', function () {
-    const aaa = $(this)
-        .parent()
-        .next();
-
-    const getidd = $(aaa).attr('id');
-    const getidd1 = getidd.split('cal2Mid');
-
-    const realNum = getidd1[1];
-
-    const iiddddd = 'dash-cal-con-item' + realNum;
-
-    setCalWhite(iiddddd, 1);
-});
+// $(document).on('click', '.mainCal2td-top-hol', function () {     const aaa =
+// $(this)         .parent()         .next();     const getidd =
+// $(aaa).attr('id');     const getidd1 = getidd.split('cal2Mid');     const
+// realNum = getidd1[1];     const iiddddd = 'dash-cal-con-item' + realNum;
+// setCalWhite(iiddddd, 1); });
 $(document).on('click', '.mainCal2td-top-day', function () {
     const aaa = $(this)
         .parent()

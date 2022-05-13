@@ -175,12 +175,10 @@
     align-items: center;
     transform: scaleY(0);
     transform-origin: top;
-    transition: 0.1s linear;
 }
 
 .header .deail-form.active {
     transform: scaleY(1);
-    transition: 0.1s linear;
 }
 
 .header .deail-form label:hover {

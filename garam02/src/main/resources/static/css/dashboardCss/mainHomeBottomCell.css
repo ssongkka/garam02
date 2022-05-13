@@ -25,12 +25,31 @@
 
         z-index: 1054;
     }
-    .cellBottom button {
-        padding: 0.5rem;
+    .cellBottom svg:hover {
+        color: var(--main-color);
     }
 
     .cellBottom svg {
         font-size: 2rem;
         color: #727272;
+    }
+
+    .h2chEnd,
+    .h2chEventgrade {
+        display: flex;
+        align-items: center;
+    }
+
+    .h2chEnd svg,
+    .h2chEventgrade svg {
+        font-size: 1rem;
+    }
+
+    table > tbody > tr > .h2chEventgrade {
+        justify-content: center;
+    }
+
+    #md-rsvt-bd {
+        padding: 2rem;
     }
 }

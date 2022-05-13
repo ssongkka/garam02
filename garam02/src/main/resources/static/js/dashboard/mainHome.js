@@ -125,52 +125,54 @@ function makeMainBigCal() {
                 data: JSON.stringify(params),
                 success: function (r) {
 
-                    if (r.length > 0) {
-                        for (let i = 0; i < r.length; i++) {
-                            if (r[i].holiday) {
-                                for (let k = 0; k < 42; k++) {
-                                    const trNum = Math.floor(k / 7);
-                                    let tdNum = k % Math.floor(parseInt(trNum) * 7);
+                    for (let i = 0; i < r.length; i++) {
+                        if (r[i].holiday) {
+                            for (let k = 0; k < 42; k++) {
+                                const trNum = Math.floor(k / 7);
+                                let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                                    if (k < 7) {
-                                        tdNum = k;
-                                    }
+                                if (k < 7) {
+                                    tdNum = k;
+                                }
 
-                                    const aaa = $('#tbMainCal').children()[trNum];
-                                    const bbb = $(aaa).children()[tdNum];
+                                const aaa = $('#tbMainCal').children()[trNum];
+                                const bbb = $(aaa).children()[tdNum];
 
-                                    const bbb1 = $(bbb).children()[0];
+                                const bbb1 = $(bbb).children()[0];
 
-                                    const bbb4 = $(bbb1).children()[0];
-                                    const bbb2 = $(bbb1).children()[1];
-                                    const bbb3 = $(bbb2).children()[1];
-                                    const bbb5 = $(bbb2).children()[0];
+                                const bbb4 = $(bbb1).children()[0];
+                                const bbb2 = $(bbb1).children()[1];
+                                const bbb3 = $(bbb2).children()[1];
+                                const bbb5 = $(bbb2).children()[0];
 
-                                    if ($(bbb4).val() == r[i].solarcal) {
-                                        $(bbb5).css('color', '#CF2F11');
-                                        $(bbb3).text(r[i].holiday);
-                                    } else {
-                                        $(bbb3).html(`&nbsp;`);
-                                    }
+                                if ($(bbb4).val() == r[i].solarcal) {
+                                    $(bbb5).css('color', '#CF2F11');
+                                    $(bbb3).text(r[i].holiday);
+                                    $(bbb3).css('color', '#CF2F11');
                                 }
                             }
                         }
-                    } else {
-                        for (let k = 0; k < 42; k++) {
-                            const trNum = Math.floor(k / 7);
-                            let tdNum = k % Math.floor(parseInt(trNum) * 7);
+                    }
 
-                            if (k < 7) {
-                                tdNum = k;
-                            }
+                    for (let k = 0; k < 42; k++) {
+                        const trNum = Math.floor(k / 7);
+                        let tdNum = k % Math.floor(parseInt(trNum) * 7);
 
-                            const aaa = $('#tbMainCal').children()[trNum];
-                            const bbb = $(aaa).children()[tdNum];
+                        if (k < 7) {
+                            tdNum = k;
+                        }
 
-                            const bbb1 = $(bbb).children()[0];
+                        const aaa = $('#tbMainCal').children()[trNum];
+                        const bbb = $(aaa).children()[tdNum];
 
-                            const bbb2 = $(bbb1).children()[1];
-                            const bbb3 = $(bbb2).children()[1];
+                        const bbb1 = $(bbb).children()[0];
+
+                        const bbb2 = $(bbb1).children()[1];
+                        const bbb3 = $(bbb2).children()[1];
+
+                        console.log(k + $(bbb3).text());
+
+                        if (!$(bbb3).text()) {
                             $(bbb3).html(`&nbsp;`);
                         }
                     }

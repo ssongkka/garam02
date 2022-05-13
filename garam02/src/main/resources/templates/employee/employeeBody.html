@@ -798,17 +798,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫 기</button>
-                            <button type="button" class="btn btn-primary" id="btn-insert">Save changes</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer mdf-insert" style="gap: 2rem;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫&nbsp;기</button>
+                        <button type="button" class="btn btn-primary" id="btn-insert">저&nbsp;장</button>
                     </div>
                 </div>
             </div>
         </div>
         <div th:replace="dashboard/dashboardBottom :: main-bottom"></div>
         <div th:replace="openTemplates/vehicleAccMD :: ve-MD-accCont"></div>
-        <div th:replace="openTemplates/modaNewRsvt :: mainNewrsvt"></div>
         <script th:inline="javascript">
             /*<![CDATA[*/
             const user =/*[[${user}]]*/
@@ -860,17 +859,5 @@
             language="javascript"
             type="text/javascript"
             src="/js/dashboard/mainHomeCell.js?v=2020051201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/dashboard/mainRsvt.js?v=2020051201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/openTemplates/insertCustomer.js?v=2020051201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/openTemplates/updateCustomer.js?v=2020051201"></script>
     </body>
 </html>

@@ -7,7 +7,7 @@ $(document).ready(function () {
     showPlusBtn();
     hidePlusDetail();
 
-    dateInput();
+    // dateInput();
 });
 
 function setNewRsvtModal() {

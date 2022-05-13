@@ -243,10 +243,9 @@
 
 .veOperTitle-item:nth-child(1) {
     font-size: 1.5rem;
-    width: 40%;
 }
 .veOperTitle-item:nth-child(2) {
-    width: 15%;
+    width: 5%;
     text-align: right;
 }
 

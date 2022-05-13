@@ -11,9 +11,10 @@
         </div>
         <div class="hd-search">
             <div class="he-serach-group">
-                <form action="">
+                <form th:action="@{/search}" method="post">
                     <div class="hd-search-icon fas fa-search"></div>
-                    <input type="text" placeholder="검색"></form>
+                    <input type="text" placeholder="검색" name="search">
+                </form>
             </div>
         </div>
         <div class="hd-user">

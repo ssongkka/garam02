@@ -82,7 +82,7 @@ function setCtmer(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
 
@@ -174,7 +174,7 @@ function getReg(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r[0].regcompany) {
@@ -317,7 +317,7 @@ $(document).on('click', '#inNewUp', function () {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(params),
 
                     success: function (r) {
