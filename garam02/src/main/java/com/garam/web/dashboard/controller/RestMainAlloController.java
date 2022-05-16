@@ -251,4 +251,11 @@ public class RestMainAlloController {
 
 		return list;
 	}
+
+	@PostMapping(value = "/selAllo2fir")
+	public List<RsvtDTO> selAllo2fir(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtService.selectAllo2Fir(rsvtDTO);
+
+		return list;
+	}
 }

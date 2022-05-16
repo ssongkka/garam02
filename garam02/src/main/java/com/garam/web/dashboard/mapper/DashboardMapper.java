@@ -149,4 +149,6 @@ public interface DashboardMapper {
 	public int deleteCalEvent(ScheDTO scheDTO) throws Exception;
 
 	public List<RsvtDTO> selectManageAside(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAllo2Fir(RsvtDTO rsvtDTO) throws Exception;
 }

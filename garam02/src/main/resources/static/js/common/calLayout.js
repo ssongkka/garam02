@@ -345,13 +345,10 @@ $(document).on('change', '.yearMonthDay', function () {
 });
 
 function makeCal(nowD, day) {
-    console.log("nowD    " + nowD);
 
     const ddddddd = toStringByFormatting(nowD);
-    console.log(ddddddd.split('-')[0] + '-' + ddddddd.split('-')[1]);
     $(".yearMonth").val(ddddddd.split('-')[0] + '-' + ddddddd.split('-')[1])
 
-    console.log($('.yearMonth').val());
 
     let rtn = '';
 

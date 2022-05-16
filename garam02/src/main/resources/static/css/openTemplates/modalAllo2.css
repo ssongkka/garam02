@@ -1,0 +1,182 @@
+.modalAllo2BD {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    padding: 2rem 3rem;
+}
+
+.allTitle {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 1rem;
+}
+
+.allTitle-atM {
+    text-align: right;
+}
+
+.btnAlloCh {
+    padding: 0.5rem;
+}
+
+.allTitle-Ch {
+    flex: 1;
+    text-align: left;
+}
+
+.allTitle-Ch a svg {
+    font-size: 2rem;
+}
+
+.allTitle-desty {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.alloAll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 3rem;
+}
+
+.alloTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 2rem;
+}
+
+.alloTitle-item1 {
+    font-size: 1.8rem;
+}
+
+.allNum,
+.alloEmp,
+.alloM,
+.alloVe {
+    height: 100%;
+}
+
+.allNum {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 4rem;
+
+}
+
+.alloEmp,
+.alloM,
+.alloOwner,
+.alloVe {
+    border-radius: 0;
+    width: 12rem;
+    border-left-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: 1.3rem;
+}
+
+.alloOwner {
+    flex: 1;
+    height: 100%;
+}
+
+.alloOne,
+.alloX {
+    width: 6rem;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.allo {
+    border: 0 solid transparent;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.alloAllM {
+    padding-right: 0.5rem;
+    background: #fcf8e3;
+    width: 12rem;
+    height: 3rem;
+}
+
+#modalAllo2 .alloNumClk {
+    cursor: pointer;
+}
+
+#modalAllo2 .alloNumClkDe {
+    background: var(--main-color);
+    border: 1px solid var(--main-color);
+    border-bottom: 1px solid #dee2e6;
+
+    color: var(--sub-color);
+}
+
+.alloAllo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#modalAllo2 .form-control,
+#modalAllo2 .input-group-text {
+    border-radius: 0;
+    text-align: center;
+}
+
+#modalAllo2 .input-group {
+    border: 1px solid #dee2e6;
+}
+
+#modalAllo2 .table {
+    width: 100%;
+}
+
+.alloAllo input:focus {
+    outline: none;
+}
+
+.alloCont {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.alloCont-item {
+    border: 1px solid #dee2e6;
+
+}
+
+@media (max-width:768px) {
+    .allTitle {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .alloAllo {
+        grid-template-columns: 1fr;
+    }
+
+    .allTitle-item {
+        text-align: left;
+    }
+}

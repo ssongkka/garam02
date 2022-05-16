@@ -2329,4 +2329,44 @@
 		rsvt.stday
 
 	</select>
+
+	<select id="selectAllo2Fir" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		*
+
+		FROM
+
+		rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno = customer.ctmno
+
+		<where>
+			<if test="ctmno != null">AND rsvt.ctmno = #{ctmno}
+			</if>
+			<if test="rsvt == null">AND rsvt.stday = rsvt.endday
+			</if>
+			<if test="rsvt != null">AND rsvt.rsvt = #{rsvt}
+			</if>
+			<if test="stday != null">
+				AND
+
+				((rsvt.stday <![CDATA[<=]]>
+				#{stday})
+
+				AND
+
+				(rsvt.endday <![CDATA[>=]]>
+				#{stday}))
+			</if>
+		</where>
+	</select>
 </mapper>

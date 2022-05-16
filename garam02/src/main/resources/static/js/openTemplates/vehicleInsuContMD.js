@@ -355,8 +355,6 @@ $(document).on('click', '#btnInsuSepaUp', function () {
         cntTrash = cntTrash + parseInt(qTrash);
     }
 
-    console.log("cntTrash   " + cntTrash);
-
     let upConfirm = 0;
     if (cntTrash < 1) {
         upConfirm = 0;

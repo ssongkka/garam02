@@ -537,8 +537,6 @@ function insertOper(id, num) {
                 params.push(asd);
             }
 
-            console.log(params);
-
             const url = "/allo/insert";
             const headers = {
                 "Content-Type": "application/json",

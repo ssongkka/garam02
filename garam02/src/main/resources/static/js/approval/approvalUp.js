@@ -1239,9 +1239,6 @@ function setJonghabINM(inM) {
                 realINM = 0;
             }
 
-            console.log(AddComma(parseInt(realINM)));
-            console.log(AddComma(parseInt(inM)));
-
             $('#jonghabINM').text(AddComma(parseInt(realINM) + parseInt(inM)));
             resolve();
         })
@@ -1359,7 +1356,6 @@ $(document).on('click', '#btnapprUpEmp', function () {
     $('#apprSumCountEmp').show();
     $('#jonghabEMP').text(cnt + ' 명');
 
-    console.log($('#asdddd').html());
 });
 
 $(document).on('click', '#clearApprEmp', function () {
@@ -2440,8 +2436,6 @@ function makeVeSum() {
             return -1;
         }
     );
-
-    console.log(uniqueVe);
 
     let arrVe = new Array();
     let arrCont = new Array();

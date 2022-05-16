@@ -1986,4 +1986,10 @@ public class MainServiceImpl implements MainService {
 		List<RsvtDTO> list = rsvtMapper.selectManageAside(rsvtDTO);
 		return list;
 	}
+
+	@Override
+	public List<RsvtDTO> selectAllo2Fir(RsvtDTO rsvtDTO) throws Exception {
+		List<RsvtDTO> list = rsvtMapper.selectAllo2Fir(rsvtDTO);
+		return list;
+	}
 }

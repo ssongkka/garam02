@@ -52,11 +52,11 @@ function makeMainBigCal() {
                     colorNoday = '1';
                 } else {
                     if (stD.getDay() == 6) {
-                        colorDay = '#6fa0e3';
+                        colorDay = '#4b89dc75';
                     } else if (stD.getDay() == 0) {
-                        colorDay = '#f0674f"';
+                        colorDay = '#cf2f117a"';
                     } else {
-                        colorDay = '#8390A2';
+                        colorDay = '#2125297a';
                     }
                     colorNoday = '1';
                 }
@@ -169,8 +169,6 @@ function makeMainBigCal() {
 
                         const bbb2 = $(bbb1).children()[1];
                         const bbb3 = $(bbb2).children()[1];
-
-                        console.log(k + $(bbb3).text());
 
                         if (!$(bbb3).text()) {
                             $(bbb3).html(`&nbsp;`);
@@ -1173,8 +1171,6 @@ function getMenuRsvt(rsvtrsvt, operday, choo) {
 
 function makeHtmlsMenu(r, operday, cho) {
 
-    console.log(r);
-
     switch (cho) {
         case 0:
             LoadingWithMask()
@@ -1391,8 +1387,6 @@ function makeHtmlsMenu(r, operday, cho) {
                 const operdddd1 = $(operdddd).children()[1];
                 const tod = $(operdddd1).val();
                 // const tttod = tod + Math.floor(Math.random() * 1000);
-
-                console.log("operday   " + operday);
 
                 if (operday != null) {
                     htmls += '<input type="hidden" value="' + operday + '">';
@@ -2496,8 +2490,13 @@ $(document).on('click', '.middle-il', function () {
         }
     }
 
-    makeHtmlsIl(ctmnono, dayday, 0);
+    makeModalIl(dayday, ctmnono);
 });
+
+function makeHtmlsIl2() {
+    console.log('하이요');
+    $('#modalAllo2').modal('show');
+}
 
 function makeHtmlsIl(ctmnono, day, cho) {
 

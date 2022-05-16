@@ -56,11 +56,11 @@ function makeMain2BigCal() {
                     colorNoday = '1';
                 } else {
                     if (stD.getDay() == 6) {
-                        colorDay = '#6fa0e3';
+                        colorDay = '#4b89dc75';
                     } else if (stD.getDay() == 0) {
-                        colorDay = '#f0674f"';
+                        colorDay = '#cf2f117a"';
                     } else {
-                        colorDay = '#8390A2';
+                        colorDay = '#2125297a';
                     }
                     colorNoday = '1';
                 }
@@ -1059,8 +1059,8 @@ function checkHolDay3(dateNum) {
 // $(this)                 .parent()                 .parent() .parent()
 // .addClass('tdHovers');         }     ); $(".mainCalTable2 tbody tr td
 // .mainCal2td-top .mainCal2td-top-hol").mouseout( function () { $(this)
-// .parent() .parent()                 .parent() .removeClass('tdHovers'); }
-// ); });
+// .parent() .parent()                 .parent() .removeClass('tdHovers'); } );
+// });
 
 $(document).ready(function () {
     $(".mainCalTable2 tbody tr td .mainCal2td-top .mainCal2td-top-day").mouseover(
@@ -1152,16 +1152,12 @@ $(document).on('click', '.carAside', function () {
         .text()
         .trim();
 
-    console.log("carNum   " + carNum);
-
     goCarDetail(carNum);
 });
 
 function goCarDetail(paramCarn) {
     //create element (form)
     var newForm = $('<form></form>');
-
-    console.log("paramCarn  " + paramCarn);
 
     //set attribute (form)
     newForm.attr("name", "newForm");

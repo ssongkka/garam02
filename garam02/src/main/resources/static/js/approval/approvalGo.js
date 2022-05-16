@@ -29,8 +29,6 @@ function getApprIngList() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log("asdawdad");
-                    console.log(r);
 
                     let htmls = ``;
 

@@ -390,8 +390,6 @@ function makeTableRsvt(r) {
 
 function makeAsideRsvt(r) {
 
-    console.log(r);
-
     let arrTmpDay = new Array();
 
     for (let i = 0; i < parseInt(getStDayEndDayMain()[1].split('-')[2]); i++) {

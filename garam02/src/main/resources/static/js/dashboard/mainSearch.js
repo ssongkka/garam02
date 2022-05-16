@@ -31,7 +31,6 @@ function getSearch() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
 
                     let htmls = ``;
 
@@ -113,7 +112,6 @@ function getSearch() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
 
                     let htmls = ``;
 
@@ -194,7 +192,6 @@ function getSearch() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
                     resolve();
                 },
                 error: (jqXHR) => {

@@ -114,9 +114,6 @@ function showScheMD(eventSeq) {
 
                     $('#scheEmp').val(r[0].caleventemp);
 
-                    console.log("r[0].caleventintime   " + r[0].caleventintime);
-                    console.log("r[0].caleventchtime   " + r[0].caleventchtime);
-
                     if (r[0].caleventintime) {
                         $('#scheInTime').text(r[0].caleventintime);
                     } else {
