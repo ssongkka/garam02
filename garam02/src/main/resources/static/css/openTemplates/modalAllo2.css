@@ -35,8 +35,12 @@
 }
 
 .allTitle-desty {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
+}
+
+.allTitle-busnum {
+    padding: 0 0.5rem;
 }
 
 .alloAll {
@@ -56,6 +60,11 @@
 
 .alloTitle-item1 {
     font-size: 1.8rem;
+    font-weight: 600;
+}
+.alloTitle-item4 {
+    flex: 1;
+    text-align: right;
 }
 
 .allNum,
@@ -127,7 +136,6 @@
 #modalAllo2 .alloNumClkDe {
     background: var(--main-color);
     border: 1px solid var(--main-color);
-    border-bottom: 1px solid #dee2e6;
 
     color: var(--sub-color);
 }
@@ -141,6 +149,10 @@
 #modalAllo2 .input-group-text {
     border-radius: 0;
     text-align: center;
+}
+
+#modalAllo2 .form-control {
+    border-right: 0 solid transparent;
 }
 
 #modalAllo2 .input-group {
@@ -164,6 +176,54 @@
 .alloCont-item {
     border: 1px solid #dee2e6;
 
+}
+
+.alloDelX {
+    border: 1px solid #dee2e6;
+    border-left: 0 solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alloDelX a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alloDelX svg {
+    color: var(--text-grey);
+}
+
+#modalAllo2 .allo1 {
+    border: 1px solid #FFC900;
+    border-right: 0 solid transparent;
+}
+#modalAllo2 .allo2 {
+    border: 1px solid #1A5F7A;
+    border-right: 0 solid transparent;
+}
+#modalAllo2 .allo3 {
+    border: 1px solid #d9534f;
+    border-right: 0 solid transparent;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#modalAllo2 .allo11 {
+    border: 1px solid #FFC900;
+    border-left: 0 solid transparent;
+}
+#modalAllo2 .allo21 {
+    border: 1px solid #1A5F7A;
+    border-left: 0 solid transparent;
+}
+#modalAllo2 .allo31 {
+    border: 1px solid #d9534f;
+    border-left: 0 solid transparent;
 }
 
 @media (max-width:768px) {

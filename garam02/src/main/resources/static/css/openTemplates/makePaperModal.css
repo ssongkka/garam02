@@ -42,11 +42,17 @@
     height: 3rem;
 }
 
+#modalPaper2 h4 {
+    margin: 0;
+}
+
 .paper2-item {
     padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    height: 100%;
 }
 
 .paper2-item:nth-child(1) {
@@ -87,4 +93,11 @@
 
 .paper2-allo-item h4 {
     text-align: left;
+}
+
+.papperTitleRsvt {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
 }

@@ -160,11 +160,68 @@ public class RsvtDTO {
 	// 삭제여부
 	private Integer opertrash;
 
-	private String vehicle;
-
 	private String name;
 
 	private String approvalno;
+
+	// 차대번호
+	private String carnumber;
+
+	// 차량번호
+	private String vehicle;
+
+	// 차량번호
+	private String vehicle2;
+
+	// 회사이름
+	private String company;
+
+	// 소유자
+	private String owner;
+
+	// 사원번호
+	private String id;
+
+	private String img1;
+
+	private String img2;
+
+	private String img3;
+
+	private Integer jukseq;
+
+	private String jukday;
+
+	private String jukname;
+
+	private String ve1;
+
+	private String id1;
+
+	private String ve2;
+
+	private String id2;
+
+	private String ve3;
+
+	private String id3;
+
+	private String ve4;
+
+	private String id4;
+
+	private String ve5;
+
+	private String id5;
+
+	private Integer juktrash;
+
+	private String regd;
+	private String reg;
+	private String insud;
+	private String insu;
+	private String jukd;
+	private String juk;
 
 	public Integer getDayst() {
 		return dayst;
@@ -536,6 +593,230 @@ public class RsvtDTO {
 
 	public void setApprovalno(String approvalno) {
 		this.approvalno = approvalno;
+	}
+
+	public String getCarnumber() {
+		return carnumber;
+	}
+
+	public void setCarnumber(String carnumber) {
+		this.carnumber = carnumber;
+	}
+
+	public String getVehicle2() {
+		return vehicle2;
+	}
+
+	public void setVehicle2(String vehicle2) {
+		this.vehicle2 = vehicle2;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getImg1() {
+		return img1;
+	}
+
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
+
+	public String getImg2() {
+		return img2;
+	}
+
+	public void setImg2(String img2) {
+		this.img2 = img2;
+	}
+
+	public String getImg3() {
+		return img3;
+	}
+
+	public void setImg3(String img3) {
+		this.img3 = img3;
+	}
+
+	public Integer getJukseq() {
+		return jukseq;
+	}
+
+	public void setJukseq(Integer jukseq) {
+		this.jukseq = jukseq;
+	}
+
+	public String getJukday() {
+		return jukday;
+	}
+
+	public void setJukday(String jukday) {
+		this.jukday = jukday;
+	}
+
+	public String getJukname() {
+		return jukname;
+	}
+
+	public void setJukname(String jukname) {
+		this.jukname = jukname;
+	}
+
+	public String getVe1() {
+		return ve1;
+	}
+
+	public void setVe1(String ve1) {
+		this.ve1 = ve1;
+	}
+
+	public String getId1() {
+		return id1;
+	}
+
+	public void setId1(String id1) {
+		this.id1 = id1;
+	}
+
+	public String getVe2() {
+		return ve2;
+	}
+
+	public void setVe2(String ve2) {
+		this.ve2 = ve2;
+	}
+
+	public String getId2() {
+		return id2;
+	}
+
+	public void setId2(String id2) {
+		this.id2 = id2;
+	}
+
+	public String getVe3() {
+		return ve3;
+	}
+
+	public void setVe3(String ve3) {
+		this.ve3 = ve3;
+	}
+
+	public String getId3() {
+		return id3;
+	}
+
+	public void setId3(String id3) {
+		this.id3 = id3;
+	}
+
+	public String getVe4() {
+		return ve4;
+	}
+
+	public void setVe4(String ve4) {
+		this.ve4 = ve4;
+	}
+
+	public String getId4() {
+		return id4;
+	}
+
+	public void setId4(String id4) {
+		this.id4 = id4;
+	}
+
+	public String getVe5() {
+		return ve5;
+	}
+
+	public void setVe5(String ve5) {
+		this.ve5 = ve5;
+	}
+
+	public String getId5() {
+		return id5;
+	}
+
+	public void setId5(String id5) {
+		this.id5 = id5;
+	}
+
+	public Integer getJuktrash() {
+		return juktrash;
+	}
+
+	public void setJuktrash(Integer juktrash) {
+		this.juktrash = juktrash;
+	}
+
+	public String getRegd() {
+		return regd;
+	}
+
+	public void setRegd(String regd) {
+		this.regd = regd;
+	}
+
+	public String getReg() {
+		return reg;
+	}
+
+	public void setReg(String reg) {
+		this.reg = reg;
+	}
+
+	public String getInsud() {
+		return insud;
+	}
+
+	public void setInsud(String insud) {
+		this.insud = insud;
+	}
+
+	public String getInsu() {
+		return insu;
+	}
+
+	public void setInsu(String insu) {
+		this.insu = insu;
+	}
+
+	public String getJukd() {
+		return jukd;
+	}
+
+	public void setJukd(String jukd) {
+		this.jukd = jukd;
+	}
+
+	public String getJuk() {
+		return juk;
+	}
+
+	public void setJuk(String juk) {
+		this.juk = juk;
 	}
 
 }

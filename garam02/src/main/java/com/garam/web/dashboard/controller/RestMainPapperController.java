@@ -30,9 +30,9 @@ public class RestMainPapperController {
 	}
 
 	@PostMapping(value = "/papperAllo2")
-	public List<RsvtDTO> papperAllo2(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+	public List<RsvtDTO> papperAllo2(@RequestBody List<Map<String, Object>> map) throws Exception {
 
-		List<RsvtDTO> list = rsvtService.selectPapperAllo2(rsvtDTO);
+		List<RsvtDTO> list = rsvtService.selectPapperAllo2(map);
 
 		return list;
 	}

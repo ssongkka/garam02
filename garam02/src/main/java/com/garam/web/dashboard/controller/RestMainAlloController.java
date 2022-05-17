@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.garam.web.dashboard.dto.RegularOperDTO;
 import com.garam.web.dashboard.dto.RsvtDTO;
+import com.garam.web.dashboard.dto.RsvtmoneyDTO;
 import com.garam.web.dashboard.service.MainService;
 import com.lowagie.text.Anchor;
 
@@ -257,5 +258,28 @@ public class RestMainAlloController {
 		List<RsvtDTO> list = rsvtService.selectAllo2Fir(rsvtDTO);
 
 		return list;
+	}
+
+	@PostMapping(value = "/selAllo2sec")
+	public List<RsvtDTO> selAllo2sec(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		List<RsvtDTO> list = rsvtService.selectAllo2Sec(map);
+
+		return list;
+	}
+
+	@PostMapping(value = "/inAllo2")
+	public int inAllo2(@RequestBody RsvtDTO rsvtDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = rsvtService.insertAllo2(rsvtDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
 	}
 }

@@ -153,7 +153,7 @@
 }
 .stWay3 {
     display: flex;
-    border: 1px solid rgba(217,83,79,1);
+    border: 1px solid #d9534f;
     align-items: center;
 }
 

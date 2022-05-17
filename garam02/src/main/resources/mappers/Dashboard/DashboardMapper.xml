@@ -231,7 +231,12 @@
 		WHERE
 
 		rsvt =
-		#{rsvt};
+		#{rsvt}
+
+		AND
+
+		operconfirm IS NULL
+		;
 
 		UPDATE
 
@@ -1364,106 +1369,23 @@
 
 		ON
 
-		rsvt.ctmno =
-		customer.ctmno
+		rsvt.ctmno = customer.ctmno
 
-		WHERE
-
-		rsvt.ctmno = #{ctmno}
-
-		AND
-
-		rsvt.stday =
-		#{stday}
-
-		ORDER
-		BY
-
-		customer.ctmseq,
-		customer.ctmsepa,
-		customer.ctmname;
+		<where>
+			<if test="ctmno != null">AND rsvt.ctmno = #{ctmno}
+			</if>
+			<if test="stday != null">
+				AND rsvt.stday = #{stday}
+			</if>
+			AND rsvt.rsvttrash = 1
+		</where>
 	</select>
 	<select id="selectPapperAllo2" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 
 		SELECT
 
-		*,
-		IFNULL((SELECT
-		employeeinfo.name FROM
-		employeeinfo
-		WHERE employeeinfo.id =
-		operation_info.operid),
-		operation_info.operid)
-		AS name,
-
-		(SELECT
-		employeeinfo.phone1 FROM
-		employeeinfo
-		WHERE
-		employeeinfo.id =
-		operation_info.operid)
-		AS
-		ctmtel1,
-
-		IFNULL((SELECT
-		vehicleinfo.vehicle FROM
-		vehicleinfo WHERE
-		vehicleinfo.carnumber
-		=
-		operation_info.opercar),
-		operation_info.opercar)
-		AS
-		vehicle,
-
-		(SELECT
-		vehicleinfo.reg FROM
-		vehicleinfo WHERE
-		vehicleinfo.carnumber
-		=
-		operation_info.opercar)
-		AS
-		ctmemail,
-
-		(SELECT
-		vehicleinfo.insu FROM
-		vehicleinfo WHERE
-		vehicleinfo.carnumber
-		=
-		operation_info.opercar)
-		AS
-		ctmfax,
-
-		(SELECT
-		vehicleinfo.juk FROM
-		vehicleinfo WHERE
-		vehicleinfo.carnumber
-		=
-		operation_info.opercar)
-		AS
-		ctmcompanum,
-
-		(SELECT
-		vehicleinfo.jukd FROM
-		vehicleinfo WHERE
-		vehicleinfo.carnumber
-		=
-		operation_info.opercar)
-		AS
-		ctmname,
-
-		(SELECT
-		employeeinfo.name FROM
-		employeeinfo
-		WHERE employeeinfo.id =
-		(SELECT
-		vehicleinfo.jukd FROM
-		vehicleinfo WHERE
-		vehicleinfo.carnumber
-		=
-		operation_info.opercar))
-		AS
-		ctmaddress
+		*
 
 		FROM
 
@@ -1471,31 +1393,27 @@
 
 		LEFT JOIN
 
-		rsvt
+		vehicleinfo
 
 		ON
 
-		operation_info.rsvt =
-		rsvt.rsvt
+		vehicleinfo.carnumber = operation_info.opercar
+
+		LEFT JOIN
+
+		jukfile
+
+		ON
+
+		vehicleinfo.juk = jukfile.jukname
 
 		WHERE
 
-		operation_info.rsvt =
-		#{rsvt}
-
-		AND
-
-		operation_info.opertype
-		=
-		1
-
-		AND
-
-		operation_info.dayst = 1
-
-		ORDER BY
-
-		operation_info.operno
+		operation_info.rsvt
+		IN
+		<foreach collection="rsvtoper" item="value" index="index" separator="," open="(" close=")">
+			#{value.rsvt}
+		</foreach>
 
 	</select>
 
@@ -2369,4 +2287,52 @@
 			</if>
 		</where>
 	</select>
+
+	<select id="selectAllo2Sec" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		*
+
+		FROM
+
+		operation_info
+
+		WHERE
+
+		operation_info.rsvt
+		IN
+		<foreach collection="rsvtoper" item="value" index="index" separator="," open="(" close=")">
+			#{value.rsvt}
+		</foreach>
+	</select>
+
+	<insert id="insertAllo2" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		INSERT
+
+		INTO
+
+		operation_info
+
+		VALUES
+
+		(
+		null,
+		#{opernum},
+		#{rsvt},
+		#{operday},
+		#{dayst},
+		#{operno},
+		#{opercom},
+		#{opercar},
+		#{operid},
+		#{atlm},
+		#{opertype},
+		#{operconfirm},
+		#{opermemo},
+		1
+		)
+
+	</insert>
 </mapper>

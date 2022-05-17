@@ -82,7 +82,7 @@ public interface MainService {
 
 	public List<RsvtDTO> selectPapperAllo1(RsvtDTO rsvtDTO) throws Exception;
 
-	public List<RsvtDTO> selectPapperAllo2(RsvtDTO rsvtDTO) throws Exception;
+	public List<RsvtDTO> selectPapperAllo2(List<Map<String, Object>> map) throws Exception;
 
 	public File makePapper(String companyyy, String dayyy, String ctmmm, String rsvttt, String paperCh)
 			throws Exception;
@@ -148,4 +148,8 @@ public interface MainService {
 	public List<RsvtDTO> selectManageAside(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAllo2Fir(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAllo2Sec(List<Map<String, Object>> map) throws Exception;
+
+	public int insertAllo2(RsvtDTO rsvtDTO) throws Exception;
 }

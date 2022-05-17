@@ -88,7 +88,7 @@ public interface DashboardMapper {
 
 	public List<RsvtDTO> selectPapperAllo1(RsvtDTO rsvtDTO) throws Exception;
 
-	public List<RsvtDTO> selectPapperAllo2(RsvtDTO rsvtDTO) throws Exception;
+	public List<RsvtDTO> selectPapperAllo2(HashMap<String, Object> map) throws Exception;
 
 	public List<RsvtmoneyDTO> selRsvtMoney(RsvtmoneyDTO rsvtmoneyDTO) throws Exception;
 
@@ -151,4 +151,8 @@ public interface DashboardMapper {
 	public List<RsvtDTO> selectManageAside(RsvtDTO rsvtDTO) throws Exception;
 
 	public List<RsvtDTO> selectAllo2Fir(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectAllo2Sec(HashMap<String, Object> map) throws Exception;
+
+	public int insertAllo2(RsvtDTO rsvtDTO) throws Exception;
 }

@@ -12,130 +12,11 @@ $(document).on('click', '#btnAlloPaper', function () {
     function modalPaper2Show1() {
         return new Promise(function (resolve, reject) {
             LoadingWithMask()
-                .then(setPapperOrder)
                 .then(setPapperAllo1)
                 .then(setPapperAllo2)
                 .then(setEnd)
                 .then(closeLoadingWithMask);
 
-            function setPapperOrder() {
-                return new Promise(function (resolve, reject) {
-                    $('#tb-paper2').html(
-                        `
-            <tr>
-                <td>1</td>
-                <td><input type="checkbox" checked="checked" name="paperCh" value="1"></td>
-                <td>기사배치표</td>
-                <td>
-                    <button class="btn btn-default btnUp">
-                        <i class="fas fa-angle-up"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-default btnDown">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td><input type="checkbox" checked="checked" name="paperCh" value="2"></td>
-                <td>음주측정확인서</td>
-                <td>
-                    <button class="btn btn-default btnUp">
-                        <i class="fas fa-angle-up"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-default btnDown">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td><input type="checkbox" checked="checked" name="paperCh" value="3"></td>
-                <td>직영차량 운행 각서
-                </td>
-                <td>
-                    <button class="btn btn-default btnUp">
-                        <i class="fas fa-angle-up"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-default btnDown">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td><input type="checkbox" checked="checked" name="paperCh" value="4"></td>
-                <td>차량안전점검표
-                </td>
-                <td>
-                    <button class="btn btn-default btnUp">
-                        <i class="fas fa-angle-up"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-default btnDown">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td><input type="checkbox" checked="checked" name="paperCh" value="5"></td>
-                <td>차량등록증
-                </td>
-                <td>
-                    <button class="btn btn-default btnUp">
-                        <i class="fas fa-angle-up"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-default btnDown">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td><input type="checkbox" checked="checked" name="paperCh" value="6"></td>
-                <td>차량보험증
-                </td>
-                <td>
-                    <button class="btn btn-default btnUp">
-                        <i class="fas fa-angle-up"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-default btnDown">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td><input type="checkbox" checked="checked" name="paperCh" value="7"></td>
-                <td>교통안전통보서
-                </td>
-                <td>
-                    <button class="btn btn-default btnUp">
-                        <i class="fas fa-angle-up"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-default btnDown">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </td>
-            </tr>`
-                    );
-                    resolve();
-                })
-            }
             function setEnd() {
                 return new Promise(function (resolve, reject) {
                     $('input:checkbox[name=paperCh]').prop('checked', true);
@@ -212,8 +93,7 @@ function setPapperAllo1() {
 
         const params = {
             "ctmno": $('#paperCtm').val(),
-            "stday": $('#paperDay').val(),
-            "endday": $('#paperDay').val()
+            "stday": $('#paperDay').val()
         };
 
         $.ajax({
@@ -221,11 +101,15 @@ function setPapperAllo1() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
+                console.log(r);
+
                 let tmpArr = new Array();
+
+                let tmpRsvtArr = new Array();
 
                 let htmls = ``;
 
@@ -234,15 +118,18 @@ function setPapperAllo1() {
 
                     htmls += `
                 <div class="paper2-allo-item">
-                    <div>
-                        <h4>
-                            <i class="fas fa-map-marker-alt"></i>` +
+                    <div class="papperTitleRsvt">
+                    <h4>
+                    <i class="fas fa-map-marker-alt"></i>` +
                             r[i].desty +
                             `</h4>
+                    <input type="checkbox" name="papperRsvtCh" checked>
                     </div>
                     <div>
                         <input type="hidden" value="` +
                             r[i].rsvt +
+                            `">
+                        <input type="hidden" value="` + r[i].num +
                             `">
                         <table class="table table-striped table-bordered">
                             <colgroup>
@@ -265,7 +152,35 @@ function setPapperAllo1() {
                                 <th>서류2</th>
                                 <th>서류3</th>
                             </thead>
-                            <tbody></tbody>
+                            <tbody name="papperTb">`;
+
+                    for (let k = 0; k < r[i].num; k++) {
+                        htmls += `
+                    <tr>
+                        <td>
+                            <input type="hidden" value="` +
+                                r[i].rsvt +
+                                `">
+                            <input type="hidden" value="` + (k + 1) +
+                                `">
+                            <input type="hidden" value="">
+                            <input type="hidden" value="">
+                            <input type="hidden" value="">
+                            ` +
+                                (k + 1) +
+                                `
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><input type="text" class="form-control" value=""></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>`;
+                    }
+
+                    htmls += ` </tbody>
                         </table>
                     </div>
                 </div>`;
@@ -289,146 +204,105 @@ function setPapperAllo2(result) {
             "X-HTTP-Method-Override": "POST"
         };
 
-        let tmpRsvt = '';
+        let params = new Array();
 
-        for (let k = 0; k < result.length; k++) {
-
-            if (k < 1) {
-                tmpRsvt += result[k];
-            } else {
-                tmpRsvt += '/////' + result[k];
-            }
-
-            const params = {
-                "rsvt": result[k]
+        for (let i = 0; i < result.length; i++) {
+            const asd = {
+                "rsvt": result[i]
             };
+            params.push(asd);
+        }
 
-            $.ajax({
-                url: url,
-                type: "POST",
-                headers: headers,
-                caches: false,
-                dataType: "json",
-                data: JSON.stringify(params),
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            caches: false,
+            dataType: "json",
+            data: JSON.stringify(params),
 
-                success: function (r) {
-                    let htmls = ``;
+            success: function (r) {
+                console.log(r);
 
-                    for (let i = 0; i < r.length; i++) {
+                $('tbody[name="papperTb"]').each(function () {
+                    const aaa = $(this).children();
+                    for (let k = 0; k < aaa.length; k++) {
 
-                        let ve = '';
-                        let na = '';
-                        let add = '';
-                        let cna = '';
-                        let memoo = '';
+                        const bbb = $(aaa[k]).children()[0];
+                        const bbb1 = $(bbb).children()[0];
+                        const rsvtttt = $(bbb1).val();
 
-                        if (r[i].vehicle) {
-                            ve = r[i].vehicle;
-                        }
-                        if (r[i].name) {
-                            na = r[i].name;
-                        }
-                        if (r[i].ctmaddress) {
-                            add = r[i].ctmaddress;
-                        }
-                        if (r[i].ctmname) {
-                            cna = r[i].ctmname;
-                        }
-                        if (r[i].opermemo) {
-                            memoo = r[i].opermemo;
-                        }
+                        const ccc = $(bbb).children()[1];
+                        const numbersss = $(ccc).val();
+
+                        console.log(rsvtttt);
 
                         const iconOk = '<i class="fa-solid fa-check" style="color: darkgreen;"></i>';
                         const iconNo = '<i class="fa-solid fa-xmark" style="color: darkred;"></i>';
-                        let cntInCh = 0;
 
-                        let reg = '';
-                        let insu = '';
-                        let juk = '';
+                        for (let i = 0; i < r.length; i++) {
+                            if (rsvtttt == r[i].rsvt && numbersss == r[i].operno) {
+                                const asd = $(aaa[k]).children()[1];
+                                $(asd).text(r[i].vehicle);
 
-                        if (r[i].ctmemail) {
-                            reg = iconOk;
-                        } else {
-                            reg = iconNo;
-                            cntInCh++;
+                                let ididid = '';
+                                if (r[i].id) {
+                                    for (let l = 0; l < dbEmp.length; l++) {
+                                        if (r[i].id == dbEmp[l].id) {
+                                            ididid = dbEmp[l].name;
+                                        }
+                                    }
+                                }
+
+                                const asd1 = $(aaa[k]).children()[2];
+                                $(asd1).text(ididid);
+
+                                let jukman = '';
+                                if (r[i].jukd) {
+                                    for (let l = 0; l < dbEmp.length; l++) {
+                                        if (r[i].jukd == dbEmp[l].id) {
+                                            jukman = dbEmp[l].name;
+                                        }
+                                    }
+                                }
+
+                                const asd11 = $(aaa[k]).children()[3];
+                                $(asd11).text(jukman);
+
+                                const asdd11 = $(aaa[k]).children()[4];
+                                const asdd111 = $(asdd11).children()[0];
+                                $(asdd111).val(r[i].opermemo);
+
+                                const asd111 = $(aaa[k]).children()[5];
+                                if (r[i].reg) {
+                                    $(asd111).html(iconOk);
+                                } else {
+                                    $(asd111).html(iconNo);
+                                }
+
+                                const asd1111 = $(aaa[k]).children()[6];
+                                if (r[i].insu) {
+                                    $(asd1111).html(iconOk);
+                                } else {
+                                    $(asd1111).html(iconNo);
+                                }
+
+                                const asd11111 = $(aaa[k]).children()[7];
+                                if (r[i].juk) {
+                                    $(asd11111).html(iconOk);
+                                } else {
+                                    $(asd11111).html(iconNo);
+                                }
+
+                            }
                         }
 
-                        if (r[i].ctmfax) {
-                            insu = iconOk;
-                        } else {
-                            insu = iconNo;
-                            cntInCh++;
-                        }
-
-                        if (r[i].ctmcompanum) {
-                            juk = iconOk;
-                        } else {
-                            juk = iconNo;
-                            cntInCh++;
-                        }
-
-                        let memoOk = '';
-
-                        if (cntInCh > 0) {
-                            memoOk = `<input type="text" class="form-control" value="` + memoo +
-                                    `" disabled="disabled">`;
-                            $('#btnPapperMake').prop("disabled", true);
-                            $('#btnPapperMake').html(
-                                `배차서류생성<i class="fa-solid fa-xmark" style="color: darkred;"></i>`
-                            );
-                            $('#btnFootCont').text("차량 관련 서류가 모두있어야 '배차서류' 생성가능합니다.");
-                        } else {
-                            memoOk = `<input type="text" class="form-control" value="` + memoo + `">`;
-                        }
-
-                        htmls += `
-                <tr>
-                    <td class="thNone">` + r[i].opercar +
-                                `</td>
-                    <td class="thNone">` + r[i].operid +
-                                `</td>
-                    <td class="thNone">` + cna +
-                                `</td>
-                    <td>` + (i + 1) +
-                                `</td>
-                    <td>` + ve +
-                                `</td>
-                    <td>` + na +
-                                `</td>
-                    <td>` + add +
-                                `</td>
-                    <td>` + memoOk +
-                                `
-                    </td>
-                    <td>` + reg +
-                                `</td>
-                    <td>` + insu +
-                                `</td>
-                    <td>` + juk +
-                                `</td>
-                </tr>`
                     }
+                });
+            }
+        });
 
-                    const aaa = $('#paper2-allo').children();
-
-                    for (let j = 0; j < aaa.length; j++) {
-                        const aaa1 = $(aaa[j]).children();
-                        const aaa2 = $(aaa1[1]).children()[0];
-                        const aaa3 = $(aaa2).val();
-
-                        if (result[k] == aaa3) {
-                            const bbb = $(aaa2).next();
-                            const bbb1 = $(bbb).children()[2];
-                            $(bbb1).html(htmls);
-                        }
-                    }
-                },
-                error: (jqXHR) => {
-                    loginSession(jqXHR.status);
-                }
-            })
-        }
-        $('#rsvttt').val(tmpRsvt);
+        $('#rsvttt').val();
 
         resolve();
 
@@ -526,7 +400,7 @@ function insertMemo() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r > -1) {

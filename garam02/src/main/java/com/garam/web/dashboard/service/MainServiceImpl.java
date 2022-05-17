@@ -313,7 +313,6 @@ public class MainServiceImpl implements MainService {
 			if (Integer.parseInt((String) map.get(i).get("opertype")) > 1) {
 				cnt1++;
 			}
-
 		}
 
 		RsvtDTO dto = new RsvtDTO();
@@ -520,8 +519,13 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<RsvtDTO> selectPapperAllo2(RsvtDTO rsvtDTO) throws Exception {
-		List<RsvtDTO> list = rsvtMapper.selectPapperAllo2(rsvtDTO);
+	public List<RsvtDTO> selectPapperAllo2(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> rsvtoper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rsvtoper.put("rsvtoper", map);
+		}
+
+		List<RsvtDTO> list = rsvtMapper.selectPapperAllo2(rsvtoper);
 
 		return list;
 	}
@@ -545,7 +549,7 @@ public class MainServiceImpl implements MainService {
 		for (int i = 0; i < tmpArr_Rsvt.length; i++) {
 			RsvtDTO tmpRsvt = new RsvtDTO();
 			tmpRsvt.setRsvt(tmpArr_Rsvt[i]);
-			list_Rsvt.add(rsvtMapper.selectPapperAllo2(tmpRsvt));
+//			list_Rsvt.add(rsvtMapper.selectPapperAllo2(tmpRsvt));
 		}
 
 		List<CompanyDTO> listCompa = companyMapper.selectCompany();
@@ -1991,5 +1995,24 @@ public class MainServiceImpl implements MainService {
 	public List<RsvtDTO> selectAllo2Fir(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = rsvtMapper.selectAllo2Fir(rsvtDTO);
 		return list;
+	}
+
+	@Override
+	public List<RsvtDTO> selectAllo2Sec(List<Map<String, Object>> map) throws Exception {
+		HashMap<String, Object> rsvtoper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rsvtoper.put("rsvtoper", map);
+		}
+
+		List<RsvtDTO> list = rsvtMapper.selectAllo2Sec(rsvtoper);
+
+		return list;
+	}
+
+	@Override
+	public int insertAllo2(RsvtDTO rsvtDTO) throws Exception {
+		int rtn = rsvtMapper.insertAllo2(rsvtDTO);
+
+		return rtn;
 	}
 }
