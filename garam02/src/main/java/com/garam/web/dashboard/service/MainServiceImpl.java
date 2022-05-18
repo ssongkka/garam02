@@ -549,7 +549,7 @@ public class MainServiceImpl implements MainService {
 		for (int i = 0; i < tmpArr_Rsvt.length; i++) {
 			RsvtDTO tmpRsvt = new RsvtDTO();
 			tmpRsvt.setRsvt(tmpArr_Rsvt[i]);
-//			list_Rsvt.add(rsvtMapper.selectPapperAllo2(tmpRsvt));
+			list_Rsvt.add(rsvtMapper.selectPapperAllo3(tmpRsvt));
 		}
 
 		List<CompanyDTO> listCompa = companyMapper.selectCompany();

@@ -89,8 +89,8 @@ function makeModalIl(dday, cctono) {
                         }
 
                         htmls += `
-                        <div class="alloCont-item">
-                            <table class="table">
+                        <div class="alloCont-item card-song">
+                            <table class="">
                                 <colgroup></colgroup>
                                 <tbody>
                                     <tr>
@@ -180,11 +180,11 @@ function makeModalIl(dday, cctono) {
                             <input type="hidden" value="">
                             <input type="hidden" value="">
                             <input type="hidden" value="">
-                            <div class="alloDelX">
+                            <div class="input-group-text alloDelX">
                                 <a class="alloDelXBtn">
-                                    <i class="fa-solid fa-xmark"></i>
+                                    <i class="fa-solid fa-x"></i>
                                 </a>
-                        </div>
+                            </div>
                         </div>`;
                         }
 
@@ -267,15 +267,13 @@ function makeModalIl(dday, cctono) {
                         }
 
                         let howNum = 0;
-                        if (uniqueAltm[0]) {
-                            howNum = uniqueAltm[0];
-                        }
 
-                        for (let i = 1; i < uniqueAltm.length; i++) {
-                            if (tmpCntM[i - 1] < tmpCntM[i]) {
+                        let tmpCh = 0;
+
+                        for (let i = 0; i < uniqueAltm.length; i++) {
+                            if (tmpCh < tmpCntM[i]) {
+                                tmpCh = tmpCntM[i];
                                 howNum = uniqueAltm[i];
-                            } else {
-                                howNum = uniqueAltm[i - 1];
                             }
                         }
 
@@ -339,13 +337,15 @@ function makeModalIl(dday, cctono) {
 
                                 if (r[i].operconfirm) {
                                     $(aaa[1]).attr('disabled', true);
-                                    $(aaa[15]).css('background', '#e9ecef');
+                                    $(aaa[15]).attr('disabled', true);
                                     const lll = $(aaa[15]).children()[0];
-                                    $(lll).attr('disabled', true);
+                                    $(lll).removeClass('alloDelXBtn');
+                                    $(lll)
+                                        .parent()
+                                        .html(`<i class="fa-solid fa-check" style="color: green;"></i>`);
                                 }
 
                                 $('div[name="allTitle"]').each(function () {
-
                                     const qqq = $(this).children();
                                     const rsvttt = $(qqq[0]).val();
 
@@ -377,16 +377,14 @@ function makeModalIl(dday, cctono) {
 }
 
 $(document).on('keyup', '.allinde', function (eInner) {
-    var keyValue = eInner.which; //enter key
-    if (keyValue == 37 || keyValue == 38) {
+    var keyValue = eInner.which;
+    if (keyValue == 37) {
         const tabnum = $(this).attr('tabindex');
-
         $('[tabindex=' + (
             parseInt(tabnum) - 1
         ) + ']').focus();
-    } else if (keyValue == 39 || keyValue == 40) {
+    } else if (keyValue == 39) {
         const tabnum = $(this).attr('tabindex');
-
         $('[tabindex=' + (
             parseInt(tabnum) + 1
         ) + ']').focus();
@@ -394,7 +392,7 @@ $(document).on('keyup', '.allinde', function (eInner) {
 });
 
 $(document).on('keyup', '.veAllo', function (eInner) {
-    var keyValue = eInner.which; //enter key
+    var keyValue = eInner.which;
     if (keyValue == 13) {
         console.log(this);
         insertOper2(this);
@@ -881,3 +879,26 @@ function delAllo2(doms) {
         })
     }
 }
+
+$(document).on('keyup', '.alloAllM', function (eInner) {
+    var keyValue = eInner.which; //enter key
+    if (keyValue == 13) {
+        const aaa = $(this)
+            .parent()
+            .parent()
+            .parent()
+            .parent()
+            .parent()
+            .parent();
+
+        const aaa1 = $(aaa).next();
+        const aaa2 = $(aaa1).children();
+
+        for (let i = 0; i < aaa2.length; i++) {
+            const bbb = $(aaa2[i]).children()[3];
+            const operNNN = $(bbb).val();
+
+            console.log(operNNN);
+        }
+    }
+});

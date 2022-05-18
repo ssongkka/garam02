@@ -9,6 +9,12 @@
     src: url("/fonts/BMHANNA_11yrs_otf.otf");
 }
 
+:root {
+    --compa-color: #f1c17512;
+    --person-color: #87c5da17;
+    --otherCompa-color: #dc35451f;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -42,8 +48,9 @@ section {
     padding: 2rem 7%;
 }
 
-a {
+a:hover {
     cursor: pointer;
+    color: var(--main-color);
 }
 
 input {

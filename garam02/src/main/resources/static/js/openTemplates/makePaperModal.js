@@ -105,11 +105,7 @@ function setPapperAllo1() {
             data: JSON.stringify(params),
 
             success: function (r) {
-                console.log(r);
-
                 let tmpArr = new Array();
-
-                let tmpRsvtArr = new Array();
 
                 let htmls = ``;
 
@@ -124,6 +120,9 @@ function setPapperAllo1() {
                             r[i].desty +
                             `</h4>
                     <input type="checkbox" name="papperRsvtCh" checked>
+                    <input type="hidden" value="` +
+                            r[i].rsvt +
+                            `">
                     </div>
                     <div>
                         <input type="hidden" value="` +
@@ -163,6 +162,7 @@ function setPapperAllo1() {
                                 `">
                             <input type="hidden" value="` + (k + 1) +
                                 `">
+                            <input type="hidden" value="">
                             <input type="hidden" value="">
                             <input type="hidden" value="">
                             <input type="hidden" value="">
@@ -222,8 +222,7 @@ function setPapperAllo2(result) {
             data: JSON.stringify(params),
 
             success: function (r) {
-                console.log(r);
-
+                let cntDocu = 0;
                 $('tbody[name="papperTb"]').each(function () {
                     const aaa = $(this).children();
                     for (let k = 0; k < aaa.length; k++) {
@@ -235,13 +234,23 @@ function setPapperAllo2(result) {
                         const ccc = $(bbb).children()[1];
                         const numbersss = $(ccc).val();
 
-                        console.log(rsvtttt);
-
                         const iconOk = '<i class="fa-solid fa-check" style="color: darkgreen;"></i>';
                         const iconNo = '<i class="fa-solid fa-xmark" style="color: darkred;"></i>';
 
                         for (let i = 0; i < r.length; i++) {
                             if (rsvtttt == r[i].rsvt && numbersss == r[i].operno) {
+
+                                const ggg = $(aaa[k]).children()[0];
+                                const ggg1 = $(ggg).children()[2];
+                                const ggg11 = $(ggg).children()[3];
+                                const ggg111 = $(ggg).children()[4];
+                                const ggg1111 = $(ggg).children()[5];
+
+                                $(ggg1).val(r[i].opernum);
+                                $(ggg11).val(r[i].opercar);
+                                $(ggg111).val(r[i].operid);
+                                $(ggg1111).val(r[i].operseq);
+
                                 const asd = $(aaa[k]).children()[1];
                                 $(asd).text(r[i].vehicle);
 
@@ -278,6 +287,7 @@ function setPapperAllo2(result) {
                                     $(asd111).html(iconOk);
                                 } else {
                                     $(asd111).html(iconNo);
+                                    cntDocu++;
                                 }
 
                                 const asd1111 = $(aaa[k]).children()[6];
@@ -285,6 +295,7 @@ function setPapperAllo2(result) {
                                     $(asd1111).html(iconOk);
                                 } else {
                                     $(asd1111).html(iconNo);
+                                    cntDocu++;
                                 }
 
                                 const asd11111 = $(aaa[k]).children()[7];
@@ -292,13 +303,37 @@ function setPapperAllo2(result) {
                                     $(asd11111).html(iconOk);
                                 } else {
                                     $(asd11111).html(iconNo);
+                                    cntDocu++;
                                 }
-
                             }
                         }
 
                     }
                 });
+
+                $('tbody[name="papperTb"]').each(function () {
+                    const aaa = $(this).children();
+                    for (let k = 0; k < aaa.length; k++) {
+                        const asd = $(aaa[k]).children()[1];
+                        if (!$(asd).text()) {
+                            cntDocu++;
+                        }
+                    }
+                })
+
+                if (cntDocu > 0) {
+                    $('#btnPapperMake').prop("disabled", true);
+                    $('#btnPapperMake').html(
+                        `배차서류생성<i class="fa-solid fa-xmark" style="color: darkred;"></i>`
+                    );
+                    $('#btnFootCont').text("배차 완료 및 차량 관련 서류가 모두있어야 '배차서류' 생성가능합니다.");
+                } else {
+                    $('#btnPapperMake').prop("disabled", false);
+                    $('#btnPapperMake').html(
+                        `배차서류생성<i class="fa-solid fa-check" style="color: darkgreen;"></i>`
+                    );
+                    $('#btnFootCont').text("");
+                }
             }
         });
 
@@ -324,6 +359,22 @@ $(document).on('click', '#btnPapperMake', function () {
 function makePapper() {
     return new Promise(function (resolve, reject) {
 
+        let rsvtCheckBox = '';
+        $('input:checkbox[name="papperRsvtCh"]').each(function () {
+            if (this.checked) {
+                const aaa = $(this).next();
+                const rsvtCh = $(aaa).val();
+
+                if (rsvtCheckBox) {
+                    rsvtCheckBox = '/////' + rsvtCh;
+                } else {
+                    rsvtCheckBox = rsvtCh;
+                }
+            }
+        })
+
+        $('#rsvttt').val(rsvtCheckBox);
+
         let tmpArr = '';
 
         const aaa = $('#tb-paper2').children();
@@ -334,8 +385,6 @@ function makePapper() {
 
             const bbb2 = $(bbb[1]).children();;
             const bbb22 = $(bbb2).is(':checked');
-
-            const numm = bbb1;
 
             if (bbb22) {
                 tmpArr += $(bbb2).val();
@@ -361,39 +410,25 @@ function insertMemo() {
 
         let params = new Array();
 
-        const aaa = $('#paper2-allo').children();
+        $('tbody[name="papperTb"]').each(function () {
+            const aaa = $(this).children();
+            for (let k = 0; k < aaa.length; k++) {
+                const ccc = $(aaa[k]).children()[0];
+                const ccc1 = $(ccc).children()[5];
+                const carnnn = $(ccc1).val();
 
-        for (let i = 0; i < aaa.length; i++) {
-
-            const bbb = $(aaa[i]).children()[1];
-            const bbb1 = $(bbb).children()[1];
-            const bbb2 = $(bbb1).children()[2];
-            const bbb4 = $(bbb2).children();
-
-            const bbb3 = $(bbb).children()[0];
-
-            const rsvttt = $(bbb3).val();
-
-            for (let k = 0; k < bbb4.length; k++) {
-                const ccc = $(bbb4[k]).children();
-
-                const carnnn = $(ccc[0]).text();
-                const iidd = $(ccc[1]).text();
-
-                const tmpp = $(ccc[7]).children();
-                const memmo = $(tmpp).val();
+                const ddd = $(aaa[k]).children()[4];
+                const ddd1 = $(ddd).children();
+                const memmo = $(ddd1).val();
 
                 const asd = {
-                    "opercar": carnnn,
-                    "operid": iidd,
-                    "rsvt": rsvttt,
-                    "operday": $('#paperDay').val(),
+                    "operseq": carnnn,
                     "opermemo": memmo
                 };
 
                 params.push(asd);
             }
-        }
+        })
 
         $.ajax({
             url: url,
@@ -406,6 +441,7 @@ function insertMemo() {
                 if (r > -1) {
                     resolve();
                 } else {
+                    alert("생성실패 시스템을 확인해주세요.");
                     closeLoadingWithMask();
                 }
             },

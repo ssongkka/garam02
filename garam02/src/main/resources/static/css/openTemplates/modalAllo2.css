@@ -35,6 +35,7 @@
 }
 
 .allTitle-desty {
+    letter-spacing: 0.1rem;
     font-size: 1.5rem;
     font-weight: 600;
 }
@@ -54,8 +55,9 @@
 .alloTitle {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
     gap: 2rem;
+    padding: 1rem 1rem 1rem 3rem;
 }
 
 .alloTitle-item1 {
@@ -129,6 +131,10 @@
     height: 3rem;
 }
 
+#modalAllo2 table {
+    width: 100%;
+}
+
 #modalAllo2 .alloNumClk {
     cursor: pointer;
 }
@@ -143,6 +149,7 @@
 .alloAllo {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    border-top: 1px solid #dee2e6;
 }
 
 #modalAllo2 .form-control,
@@ -179,11 +186,13 @@
 }
 
 .alloDelX {
-    border: 1px solid #dee2e6;
     border-left: 0 solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    padding: 0;
+    background: transparent;
 }
 
 .alloDelX a {
@@ -194,18 +203,19 @@
 
 .alloDelX svg {
     color: var(--text-grey);
+    font-size: 1rem;
 }
 
 #modalAllo2 .allo1 {
-    border: 1px solid #FFC900;
+    background: var(--compa-color);
     border-right: 0 solid transparent;
 }
 #modalAllo2 .allo2 {
-    border: 1px solid #1A5F7A;
+    background: var(--person-color);
     border-right: 0 solid transparent;
 }
 #modalAllo2 .allo3 {
-    border: 1px solid #d9534f;
+    background: var(--otherCompa-color);
     border-right: 0 solid transparent;
 
     overflow: hidden;
@@ -214,16 +224,23 @@
 }
 
 #modalAllo2 .allo11 {
-    border: 1px solid #FFC900;
+    background: var(--compa-color);
     border-left: 0 solid transparent;
 }
 #modalAllo2 .allo21 {
-    border: 1px solid #1A5F7A;
+    background: var(--person-color);
     border-left: 0 solid transparent;
 }
 #modalAllo2 .allo31 {
-    border: 1px solid #d9534f;
+    background: var(--otherCompa-color);
     border-left: 0 solid transparent;
+}
+#modalAllo2 .alloComp svg {
+    color: transparent;
+}
+
+#modalAllo2 .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: 0;
 }
 
 @media (max-width:768px) {
