@@ -91,7 +91,7 @@ function getRegularAll(name) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls1 = '';
@@ -102,6 +102,7 @@ function getRegularAll(name) {
                     switch (r[i].regtrash) {
                         case 1:
                             cnt1++;
+
                             htmls1 += '<tr id="' + r[i].conum + '" onclick="getRegularInfo(this.id)" style="cursor:po' +
                                     'inter">';
                             htmls1 += '<td>';
@@ -118,27 +119,75 @@ function getRegularAll(name) {
                                 htmls1 += '';
                             }
                             htmls1 += '</td>';
+
+                            htmls1 += '<td>';
+                            if (r[i].regphone) {
+                                htmls1 += r[i].regphone;
+                            } else {
+                                htmls1 += '';
+                            }
+                            htmls1 += '</td>';
+
+                            htmls1 += '<td>';
+                            if (r[i].regendd) {
+                                htmls1 += r[i].regendd;
+                            } else {
+                                htmls1 += '';
+                            }
+                            htmls1 += '</td>';
+
+                            htmls1 += '<td>';
+                            if (r[i].fax) {
+                                htmls1 += r[i].fax + "대";
+                            } else {
+                                htmls1 += '';
+                            }
+                            htmls1 += '</td>';
                             htmls1 += '</tr>'
                             break;
                         case 0:
                             cnt2++;
-                            htmls2 += '<tr id="' + r[i].conum + '" onclick="getRegularInfo(this.id)" style="cursor:po' +
+                            htmls1 += '<tr id="' + r[i].conum + '" onclick="getRegularInfo(this.id)" style="cursor:po' +
                                     'inter">';
-                            htmls2 += '<td>';
+                            htmls1 += '<td>';
                             if (r[i].regcompany) {
-                                htmls2 += r[i].regcompany;
+                                htmls1 += r[i].regcompany;
                             } else {
-                                htmls2 += '';
+                                htmls1 += '';
                             }
-                            htmls2 += '</td>';
-                            htmls2 += '<td>';
+                            htmls1 += '</td>';
+                            htmls1 += '<td>';
+                            if (r[i].regperson) {
+                                htmls1 += r[i].regperson;
+                            } else {
+                                htmls1 += '';
+                            }
+                            htmls1 += '</td>';
+
+                            htmls1 += '<td>';
+                            if (r[i].regphone) {
+                                htmls1 += r[i].regphone;
+                            } else {
+                                htmls1 += '';
+                            }
+                            htmls1 += '</td>';
+
+                            htmls1 += '<td>';
                             if (r[i].regendd) {
-                                htmls2 += r[i].regendd;
+                                htmls1 += r[i].regendd;
                             } else {
-                                htmls2 += '';
+                                htmls1 += '';
                             }
-                            htmls2 += '</td>';
-                            htmls2 += '</tr>'
+                            htmls1 += '</td>';
+
+                            htmls1 += '<td>';
+                            if (r[i].fax) {
+                                htmls1 += r[i].fax + "대";
+                            } else {
+                                htmls1 += '';
+                            }
+                            htmls1 += '</td>';
+                            htmls1 += '</tr>'
                             break;
                     }
                 }
@@ -180,7 +229,7 @@ function getRegular(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -233,7 +282,7 @@ function getRegularDeAll(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -321,7 +370,7 @@ function getRegularDe(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
 
             success: function (r) {
@@ -433,9 +482,9 @@ function getRegularCource(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
-            
+
             success: function (r) {
 
                 let sepa = new Array();

@@ -1,4 +1,4 @@
-function makeModalIl(dday, cctono) {
+function makeModalIl(dday, cctono, rsvt) {
 
     const daysss = dday.split('-')[0] + '년 ' + dday.split('-')[1] + '월 ' + dday.split(
         '-'
@@ -21,7 +21,8 @@ function makeModalIl(dday, cctono) {
 
             const params = {
                 "ctmno": cctono,
-                "stday": dday
+                "stday": dday,
+                "rsvt": rsvt
             };
 
             $.ajax({
@@ -33,6 +34,24 @@ function makeModalIl(dday, cctono) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+                    console.log(r);
+
+                    $('.alloTitle').removeClass('ctm-ttt-back1');
+                    $('.alloTitle').removeClass('ctm-ttt-back2');
+                    $('.alloTitle').removeClass('ctm-ttt-back3');
+
+                    switch (parseInt(r[0].ctmsepa)) {
+                        case 0:
+                            $('.alloTitle').addClass('ctm-ttt-back1');
+                            break;
+                        case 1:
+                            $('.alloTitle').addClass('ctm-ttt-back2');
+                            break;
+                        case 2:
+                            $('.alloTitle').addClass('ctm-ttt-back3');
+                            break;
+                    }
+
                     let tell = `연락처 없음`;
                     let tell1 = ``;
                     if (r[0].ctmtel1) {
@@ -53,6 +72,8 @@ function makeModalIl(dday, cctono) {
 
                     $('#alloMdctmNo').val(r[0].ctmno);
                     $('#alloMdDay').val(dday);
+                    $('#alloMdStDay').val(r[0].stday);
+                    $('#alloMdEdDay').val(r[0].endday);
                     $('#alloMdctoName').text(r[0].ctmname);
                     $('#alloMdctoAdd').text(addd);
 
@@ -88,6 +109,11 @@ function makeModalIl(dday, cctono) {
                                 break;
                         }
 
+                        let daybaks = '';
+                        if (r[i].stday != r[i].endday) {
+                            daybaks = betweenDate(r[i].stday, dday, r[i].endday);
+                        }
+
                         htmls += `
                         <div class="alloCont-item card-song">
                             <table class="">
@@ -100,7 +126,7 @@ function makeModalIl(dday, cctono) {
                                 r[i].rsvt +
                                 `">
                                                 <div class="allTitle-item allTitle-desty">` +
-                                r[i].desty +
+                                r[i].desty + `<br/>` + daybaks +
                                 `</div>
                                                 <div class="allTitle-item allTitle-busnum ` +
                                 buss + `">` + r[i].bus + ' ' + r[i].num +
@@ -142,6 +168,13 @@ function makeModalIl(dday, cctono) {
 
                         for (let k = 0; k < r[i].num; k++) {
 
+                            let veTool = '';
+                            let hocha = (k + 1) + '호차 자세히';
+                            if (parseInt(r[0].ctmno) == 0) {
+                                veTool = '고객정보 입력 후 배차해주세요';
+                                hocha = ``;
+                            }
+
                             let numm = '';
                             if (k < 9) {
                                 numm = `0` + (k + 1);
@@ -150,17 +183,24 @@ function makeModalIl(dday, cctono) {
                             }
 
                             htmls += `
-                        <div class="input-group">
+                        <div class="input-group"  
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="` +
+                                    veTool +
+                                    `">
                             <div
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
                             title="` +
-                                    (k + 1) +
-                                    `호차 자세히"
-                            class="input-group-text alloNumClk">` +
-                                    numm +
+                                    hocha +
+                                    `"
+                            class="input-group-text alloNumClk">` + numm +
                                     `</div>
-                            <input type="text" class="form-control allinde veAllo" list="car-info" onfocus="this.select()" name="veAlloName" tabindex="` +
+                            <input type="text"
+                                class="form-control allinde veAllo"
+                                list="car-info" onfocus="this.select()"
+                                name="veAlloName" tabindex="` +
                                     ++cntTabIndex +
                                     `">
                             <input type="hidden" value="` + r[i].rsvt +
@@ -248,7 +288,7 @@ function makeModalIl(dday, cctono) {
 
                         let tmpAlm = new Array();
                         for (let i = 0; i < r.length; i++) {
-                            if (rsvttt == r[i].rsvt) {
+                            if (rsvttt == r[i].rsvt && r[i].opertype == 1 && $('#alloMdDay').val() == r[i].operday) {
                                 tmpAlm.push(r[i].atlm);
                             }
                         }
@@ -277,8 +317,21 @@ function makeModalIl(dday, cctono) {
                             }
                         }
 
+                        if (uniqueAltm.length == 2) {
+                            if (uniqueAltm[0] > uniqueAltm[1]) {
+                                howNum = uniqueAltm[0];
+                            } else {
+                                howNum = uniqueAltm[1];
+                            }
+                        }
+
                         const ccc = $(aaa[8]).children()[0];
-                        $(ccc).val(AddComma(howNum));
+
+                        if (howNum) {
+                            $(ccc).val(AddComma(howNum));
+                        } else {
+                            $(ccc).val(0);
+                        }
                     });
 
                     $('input:text[name="veAlloName"]').each(function () {
@@ -288,9 +341,18 @@ function makeModalIl(dday, cctono) {
 
                         const nums = parseInt($(aaa[0]).text());
 
+                        console.log("$('#alloMdctmNo').val()  " + $('#alloMdctmNo').val());
+
+                        if (parseInt($('#alloMdctmNo').val()) == 0) {
+                            $(aaa[1]).attr('disabled', true);
+                            $(aaa[15]).attr('disabled', true);
+                            const lll = $(aaa[15]).children()[0];
+                            $(lll).removeClass('alloDelXBtn');
+                        }
+
                         for (let i = 0; i < r.length; i++) {
 
-                            if (rsvt == r[i].rsvt && nums == r[i].operno && r[i].opertype == 1) {
+                            if (rsvt == r[i].rsvt && nums == r[i].operno && r[i].opertype == 1 && $('#alloMdDay').val() == r[i].operday) {
                                 $(aaa[3]).val(r[i].opernum);
                                 $(aaa[6]).val(r[i].dayst);
                                 $(aaa[7]).val(r[i].operno);
@@ -343,6 +405,8 @@ function makeModalIl(dday, cctono) {
                                     $(lll)
                                         .parent()
                                         .html(`<i class="fa-solid fa-check" style="color: green;"></i>`);
+
+                                    $(aa).attr('data-bs-original-title', '급여 마감된 배차');
                                 }
 
                                 $('div[name="allTitle"]').each(function () {
@@ -351,7 +415,8 @@ function makeModalIl(dday, cctono) {
 
                                     if (rsvttt == r[i].rsvt) {
                                         const ccc = $(qqq[8]).children()[0];
-                                        if (parseInt(r[i].atlm) != parseInt($(ccc).val().replaceAll(',', ''))) {
+
+                                        if (parseInt(r[i].atlm) != parseInt($(ccc).val().replaceAll(',', '')) && $('#alloMdDay').val() == r[i].operday) {
                                             $(aaa[0]).addClass('alloNumClkDe');
                                         }
                                     }
@@ -394,7 +459,6 @@ $(document).on('keyup', '.allinde', function (eInner) {
 $(document).on('keyup', '.veAllo', function (eInner) {
     var keyValue = eInner.which;
     if (keyValue == 13) {
-        console.log(this);
         insertOper2(this);
     } else if (keyValue == 27) {}
 });
@@ -409,6 +473,7 @@ function insertOper2(doms) {
     function setAllo21() {
         return new Promise(function (resolve, reject) {
             var val = $(doms).val();
+            console.log(val);
             var carnum = $('#car-info option')
                 .filter(function () {
                     return this.value == val;
@@ -419,6 +484,10 @@ function insertOper2(doms) {
                     return this.value == val;
                 })
                 .data('owner');
+
+            console.log("carnum  " + carnum);
+            console.log("carowner  " + carowner);
+            console.log(!carnum);
 
             if (!carnum) {
                 alert("차량정보가없습니다. 확인해주세요.");
@@ -823,15 +892,12 @@ function delAllo2(doms) {
                 let date = new Date(tod);
 
                 const ddd = toStringByFormatting(date.addDays(i));
-                for (let l = 0; l < 5; l++) {
-                    const asd = {
-                        "opernum": opernummmm,
-                        "operday": ddd,
-                        "operno": hochacha,
-                        "opertype": l
-                    };
-                    params.push(asd);
-                }
+                const asd = {
+                    "opernum": opernummmm,
+                    "operday": ddd,
+                    "operno": hochacha
+                };
+                params.push(asd);
             }
 
             const url = "/allo/del";
@@ -849,6 +915,8 @@ function delAllo2(doms) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+
+                    $(aaa[0]).removeClass('alloNumClkDe');
 
                     $(aaa[1]).removeClass('allo1');
                     $(aaa[1]).removeClass('allo2');
@@ -883,22 +951,107 @@ function delAllo2(doms) {
 $(document).on('keyup', '.alloAllM', function (eInner) {
     var keyValue = eInner.which; //enter key
     if (keyValue == 13) {
-        const aaa = $(this)
-            .parent()
-            .parent()
-            .parent()
-            .parent()
-            .parent()
-            .parent();
 
-        const aaa1 = $(aaa).next();
-        const aaa2 = $(aaa1).children();
+        const domss = this;
 
-        for (let i = 0; i < aaa2.length; i++) {
-            const bbb = $(aaa2[i]).children()[3];
-            const operNNN = $(bbb).val();
+        if ($(domss).val()) {
+            LoadingWithMask()
+                .then(setCont)
+                .then(upAtmAll)
+                .then(closeLoadingWithMask);
+        } else {
+            alert("배차금액을 입력해주세요.");
+        }
 
-            console.log(operNNN);
+        function setCont(result) {
+            return new Promise(function (resolve, reject) {
+                let arrArr = new Array();
+
+                const altmmm = $(domss)
+                    .val()
+                    .replaceAll(',', '');
+
+                const aaa = $(domss)
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent();
+
+                const aaa1 = $(aaa).next();
+                const aaa2 = $(aaa1).children();
+
+                let arrTmpOp = new Array();
+                for (let i = 0; i < aaa2.length; i++) {
+                    const bbb = $(aaa2[i]).children()[3];
+                    const operNNN = $(bbb).val();
+
+                    const ccc = $(aaa2[i]).children()[0];
+                    const typepe = $(ccc).attr('class');
+
+                    const ddd = $(aaa2[i]).children()[13];
+                    const confirmmm = $(ddd).val();
+
+                    console.log("confirmmm   " + confirmmm);
+
+                    if (operNNN && !typepe.includes('alloNumClkDe') && !confirmmm) {
+                        arrTmpOp.push(operNNN);
+                    }
+                }
+
+                arrArr.push(arrTmpOp, altmmm);
+
+                if (arrTmpOp.length > 0) {
+                    resolve(arrArr);
+                } else {
+                    closeLoadingWithMask();
+                }
+            })
+        }
+
+        function upAtmAll(result) {
+            return new Promise(function (resolve, reject) {
+                let params = new Array();
+
+                for (let i = 0; i < result[0].length; i++) {
+                    const asd = {
+                        "opernum": result[0][i],
+                        "atlm": result[1]
+                    };
+                    params.push(asd);
+                }
+
+                const url = "/allo/updatealtM";
+                const headers = {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                };
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    headers: headers,
+                    caches: false,
+                    dataType: "json",
+                    data: JSON.stringify(params),
+
+                    success: function (r) {
+                        if (r > -1) {
+                            resolve();
+                        } else if (r == -1) {
+                            alert("배차금액 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.");
+                            location.reload();
+                        } else if (r == -2) {
+                            alert("배차금액 입력 실패!\n\n시스템을 확인해주세요.");
+                            location.reload();
+                        }
+                    },
+                    error: (jqXHR) => {
+                        loginSession(jqXHR.status);
+                    }
+                })
+            })
         }
     }
 });

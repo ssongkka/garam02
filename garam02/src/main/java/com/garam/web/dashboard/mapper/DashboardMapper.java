@@ -30,6 +30,8 @@ public interface DashboardMapper {
 
 	public int updateOper(HashMap<String, Object> map) throws Exception;
 
+	public int updateOperaltM(HashMap<String, Object> map) throws Exception;
+
 	public int updateRsvt(RsvtDTO rsvtDTO) throws Exception;
 
 	public int cancleRsvt(RsvtDTO rsvtDTO) throws Exception;

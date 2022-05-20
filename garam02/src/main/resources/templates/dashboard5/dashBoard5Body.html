@@ -26,30 +26,7 @@
         <div th:replace="openTemplates/modalCustomerUp :: modalCustUp"></div>
         <div th:replace="openTemplates/modalRsvt :: modalRsvt"></div>
         <div th:replace="openTemplates/modalRsvtMoney :: modalRsvtMoney"></div>
-        <div>
-            <datalist id="car-info">
-                <option
-                    th:each="ve : ${ve}"
-                    th:value="${ve.vehicle2}"
-                    th:label="${ve.vehicle2}"
-                    th:data-value="${ve.carnumber}"
-                    th:data-owner="${ve.owner}"></option>
-                <option
-                    th:each="othercompa : ${othercompa}"
-                    th:value="${othercompa.ctmname}"
-                    th:label="${othercompa.ctmname}"
-                    th:data-value="${othercompa.ctmname}"
-                    th:data-owner="${othercompa.ctmname}"></option>
-            </datalist>
-            <datalist id="per-info">
-                <option
-                    id="aaaccc"
-                    th:each="emp : ${emp}"
-                    th:value="${emp.name}"
-                    th:label="${emp.name}"
-                    th:data-value="${emp.id}"></option>
-            </datalist>
-        </div>
+        <div th:replace="openTemplates/dataVeEmp :: dataVeEmp"></div>
         <script th:inline="javascript">
             /*<![CDATA[*/
             const opt =/*[[${opt}]]*/

@@ -1,17 +1,16 @@
 @charset "UTF-8";
 
 .nomal-aside {
-    width: 30rem;
+    width: 60rem;
 }
 
 .nomal-main {
-    padding-left: 30rem;
+    padding-left: 60rem;
     display: flex;
 }
 
 .main-aside {
     flex: 1;
-    margin-right: 30rem;
     display: flex;
     flex-direction: column;
 }

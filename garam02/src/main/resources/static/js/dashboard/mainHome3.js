@@ -517,7 +517,7 @@ function makeTableOper(r) {
                     `</td>
             ` + carHtml +
                     `
-            <td class="operChohome">` + r[i].num +
+            <td class="operChohome">` + r[i].operno +
                     `</td>
             <td class="operChohome">` + r[i].rsvpstp +
                     `</td>
@@ -747,7 +747,9 @@ $(document).on('click', '.operChohome', function () {
     $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
     $('#RsvtOperDay').val(dayday1);
 
-    getMenuRsvt(rsvt1, dayday1, 0);
+    // getMenuRsvt(rsvt1, dayday1, 0);
+
+    makeModalIl(dayday1, null, rsvt1);
 });
 
 function sumFoot() {

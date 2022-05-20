@@ -521,7 +521,7 @@ function makeAsideRsvt(r) {
 
         htmls += `
     <tr class="home23Aside" ` + sttylee + `>` + dayTr + tmp4455 +
-                tmp2255 + tmp2288 +
+                tmp2288 + tmp2255 +
                 `<td class="tdRight" style="font-weight: 600;" ` + sttylee + `>` + cntBus +
                 `</td>
     </tr>`;
@@ -545,7 +545,9 @@ $(document).on('click', '.rsvtChohome', function () {
     $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
     $('#RsvtOperDay').val(dayday1);
 
-    getMenuRsvt(rsvt1, null, 0);
+    // getMenuRsvt(rsvt1, null, 0);
+
+    makeModalIl(dayday1, null, rsvt1);
 });
 
 $(document).on('click', '.home23Aside', function () {

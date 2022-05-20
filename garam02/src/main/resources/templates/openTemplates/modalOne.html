@@ -12,9 +12,12 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <input type="hidden" id="mdOneHCton" value="0">
-                    <input type="hidden" id="mdOneHOper" value="0">
-                    <input type="hidden" id="mdOneHDay" value="0">
+                    <input type="hidden" id="mdOneHCton" value="">
+                    <input type="hidden" id="mdOneHRsvt" value="">
+                    <input type="hidden" id="mdOneHOper" value="">
+                    <input type="hidden" id="mdOneHDay" value="">
+                    <input type="hidden" id="mdOneHEdDay" value="">
+                    <input type="hidden" id="mdOneHNum" value="">
                     <h3 class="modal-title" id="">편도운행정보</h3>
                     <button
                         type="button"
@@ -53,6 +56,13 @@
                                 <th>
                                     <select class="form-select" id="mdOneTd4" name="mdone4">
                                         <option th:each="emp : ${emp}" th:value="${emp.id}" th:label="${emp.name}"></option>
+                                        <option
+                                            th:each="othercompa : ${othercompa}"
+                                            th:value="${othercompa.ctmname}"
+                                            th:label="${othercompa.ctmname}"
+                                            th:data-value="${othercompa.ctmname}"
+                                            th:data-owner="${othercompa.ctmname}"
+                                            th:data-id="${othercompa.ctmname}"></option>
                                     </select>
                                 </th>
                                 <th>
@@ -82,6 +92,13 @@
                                     <select class="form-select" id="mdOneTd24" name="mdone4">
                                         <option value="" label=""></option>
                                         <option th:each="emp : ${emp}" th:value="${emp.id}" th:label="${emp.name}"></option>
+                                        <option
+                                            th:each="othercompa : ${othercompa}"
+                                            th:value="${othercompa.ctmname}"
+                                            th:label="${othercompa.ctmname}"
+                                            th:data-value="${othercompa.ctmname}"
+                                            th:data-owner="${othercompa.ctmname}"
+                                            th:data-id="${othercompa.ctmname}"></option>
                                     </select>
                                 </td>
                                 <td>
@@ -115,6 +132,13 @@
                                     <select class="form-select" id="mdOneTd34" name="mdone4">
                                         <option value="" label=""></option>
                                         <option th:each="emp : ${emp}" th:value="${emp.id}" th:label="${emp.name}"></option>
+                                        <option
+                                            th:each="othercompa : ${othercompa}"
+                                            th:value="${othercompa.ctmname}"
+                                            th:label="${othercompa.ctmname}"
+                                            th:data-value="${othercompa.ctmname}"
+                                            th:data-owner="${othercompa.ctmname}"
+                                            th:data-id="${othercompa.ctmname}"></option>
                                     </select>
                                 </td>
                                 <td>
@@ -141,13 +165,20 @@
                                         type="text"
                                         class="form-control"
                                         list="car-info"
-                                        id="mdOneTd44"
+                                        id="mdOneTd43"
                                         name="mdone3">
                                 </td>
                                 <td>
                                     <select class="form-select" id="mdOneTd44" name="mdone4">
                                         <option value="" label=""></option>
                                         <option th:each="emp : ${emp}" th:value="${emp.id}" th:label="${emp.name}"></option>
+                                        <option
+                                            th:each="othercompa : ${othercompa}"
+                                            th:value="${othercompa.ctmname}"
+                                            th:label="${othercompa.ctmname}"
+                                            th:data-value="${othercompa.ctmname}"
+                                            th:data-owner="${othercompa.ctmname}"
+                                            th:data-id="${othercompa.ctmname}"></option>
                                     </select>
                                 </td>
                                 <td>
@@ -181,6 +212,13 @@
                                     <select class="form-select" id="mdOneTd54" name="mdone4">
                                         <option value="" label=""></option>
                                         <option th:each="emp : ${emp}" th:value="${emp.id}" th:label="${emp.name}"></option>
+                                        <option
+                                            th:each="othercompa : ${othercompa}"
+                                            th:value="${othercompa.ctmname}"
+                                            th:label="${othercompa.ctmname}"
+                                            th:data-value="${othercompa.ctmname}"
+                                            th:data-owner="${othercompa.ctmname}"
+                                            th:data-id="${othercompa.ctmname}"></option>
                                     </select>
                                 </td>
                                 <td>

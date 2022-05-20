@@ -27,7 +27,7 @@
 
 html {
     font-size: 62.5%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 /* html::-webkit-scrollbar {
@@ -512,7 +512,7 @@ body .modal {
         grid-template-columns: 1fr 1fr;
     }
     .table {
-        width: 73rem;
+        /* width: 73rem; */
     }
 
     .dd-nav .nav-link {

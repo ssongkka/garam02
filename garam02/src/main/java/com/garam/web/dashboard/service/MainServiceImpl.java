@@ -356,6 +356,37 @@ public class MainServiceImpl implements MainService {
 		return list;
 	}
 
+	@Override
+	public int insertOperOne(List<Map<String, Object>> map) throws Exception {
+
+		HashMap<String, Object> oper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			oper.put("oper", map);
+		}
+
+		int rtn = 0;
+		if (map.get(0).get("operseq").equals("") || map.get(0).get("operseq").toString().length() == 0) {
+			rtn = rsvtMapper.insertOper(oper);
+		} else {
+			rtn = rsvtMapper.updateOper(oper);
+		}
+
+		return rtn;
+	}
+
+	@Override
+	public int updateOperaltM(List<Map<String, Object>> map) throws Exception {
+
+		HashMap<String, Object> oper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			oper.put("oper", map);
+		}
+
+		int rtn = rsvtMapper.updateOperaltM(oper);
+
+		return rtn;
+	}
+
 	private String get_Oper(String code) {
 		String oper = code + "-"
 				+ LocalDateTime.now().toString().substring(2, 22).replace("-", "").replace(":", "").replace(".", "-");
@@ -410,6 +441,85 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public int updateRsvt(RsvtDTO rsvtDTO) throws Exception {
+
+		List<RsvtDTO> tmpList = rsvtMapper.selectRSVT(rsvtDTO);
+
+		if (tmpList.get(0).getCtmno().equals(rsvtDTO.getCtmno())) {
+			rsvtDTO.setCtmno(null);
+		}
+
+		System.out.println("tmpList.get(0).getCtmno()  " + tmpList.get(0).getCtmno());
+		System.out.println("rsvtDTO.getCtmno()   " + rsvtDTO.getCtmno());
+
+		if (tmpList.get(0).getStday().equals(rsvtDTO.getStday())) {
+			rsvtDTO.setStday(null);
+		}
+
+		if (tmpList.get(0).getEndday().equals(rsvtDTO.getEndday())) {
+			rsvtDTO.setEndday(null);
+		}
+
+		if (tmpList.get(0).getBus().equals(rsvtDTO.getBus())) {
+			rsvtDTO.setBus(null);
+		}
+
+		if (tmpList.get(0).getNum() == rsvtDTO.getNum()) {
+			rsvtDTO.setNum(null);
+		}
+
+		System.out.println("tmpList.get(0).getNum()  " + tmpList.get(0).getNum());
+		System.out.println("rsvtDTO.getNum()   " + rsvtDTO.getNum());
+
+		if (tmpList.get(0).getDesty().equals(rsvtDTO.getDesty())) {
+			rsvtDTO.setDesty(null);
+		}
+
+		if (tmpList.get(0).getRsvpstp().equals(rsvtDTO.getRsvpstp())) {
+			rsvtDTO.setRsvpstp(null);
+		}
+
+		if (tmpList.get(0).getStt().equals(rsvtDTO.getStt())) {
+			rsvtDTO.setStt(null);
+		}
+
+		String edt1 = "";
+		String edt2 = "";
+
+		if (tmpList.get(0).getEndt() != null) {
+			edt1 = tmpList.get(0).getEndt();
+		}
+
+		if (rsvtDTO.getEndt() != null) {
+			edt2 = rsvtDTO.getEndt();
+		}
+
+		if (edt1.equals(edt2)) {
+			rsvtDTO.setEndt(null);
+		}
+
+		if (tmpList.get(0).getRsvtdetail().equals(rsvtDTO.getRsvtdetail())) {
+			rsvtDTO.setRsvtdetail(null);
+		}
+
+		if (tmpList.get(0).getCont().equals(rsvtDTO.getCont())) {
+			rsvtDTO.setCont(null);
+		}
+
+		System.out.println("tmpList.get(0).getConm()  " + tmpList.get(0).getConm());
+		System.out.println("rsvtDTO.getConm()   " + rsvtDTO.getConm());
+		System.out.println(tmpList.get(0).getConm().equals(rsvtDTO.getConm()));
+
+		if (tmpList.get(0).getConm().equals(rsvtDTO.getConm())) {
+			rsvtDTO.setConm(null);
+		}
+
+		if (tmpList.get(0).getNumm().equals(rsvtDTO.getNumm())) {
+			rsvtDTO.setNumm(null);
+		}
+
+		System.out.println("tmpList.get(0).getNumm()  " + tmpList.get(0).getNumm());
+		System.out.println("rsvtDTO.getNumm()   " + rsvtDTO.getNumm());
+
 		int rtn = rsvtMapper.updateRsvt(rsvtDTO);
 
 		return rtn;
@@ -454,56 +564,60 @@ public class MainServiceImpl implements MainService {
 	public List<RsvtDTO> selectCustomerCheck(RsvtDTO rsvtDTO) throws Exception {
 		List<RsvtDTO> list = new ArrayList<RsvtDTO>();
 
-		System.out.println("rsvtDTO.getCtmno()    " + rsvtDTO.getCtmno());
-
-		if (rsvtDTO.getCtmno().length() > 0) {
-			int rtn = rsvtMapper.updateCtm(rsvtDTO);
+		if (rsvtDTO.getCtmname().length() < 1 && rsvtDTO.getCtmtel1().length() < 1) {
+			rsvtDTO.setCtmno("0");
 			list.add(rsvtDTO);
 
-			if (rtn < 1) {
-				list.get(0).setCtmtrash(-1);
-			}
 		} else {
-			RsvtDTO tmpRsvt = rsvtDTO;
-			String tmpTel1 = tmpRsvt.getCtmtel1();
-			String tmpTel = "";
+			if (rsvtDTO.getCtmno().length() > 0) {
+				int rtn = rsvtMapper.updateCtm(rsvtDTO);
+				list.add(rsvtDTO);
 
-			if (rsvtDTO.getCtmtel1().length() > 4) {
-				if (rsvtDTO.getCtmtel1().substring(rsvtDTO.getCtmtel1().length() - 4).length() == 4) {
-					tmpTel = rsvtDTO.getCtmtel1().substring(rsvtDTO.getCtmtel1().length() - 4);
+				if (rtn < 1) {
+					list.get(0).setCtmtrash(-1);
+				}
+			} else {
+				RsvtDTO tmpRsvt = rsvtDTO;
+				String tmpTel1 = tmpRsvt.getCtmtel1();
+				String tmpTel = "";
+
+				if (rsvtDTO.getCtmtel1().length() > 4) {
+					if (rsvtDTO.getCtmtel1().substring(rsvtDTO.getCtmtel1().length() - 4).length() == 4) {
+						tmpTel = rsvtDTO.getCtmtel1().substring(rsvtDTO.getCtmtel1().length() - 4);
+						tmpRsvt.setCtmtel1(tmpTel);
+					} else {
+						tmpRsvt.setCtmtel1("9999999999");
+					}
+				} else if (rsvtDTO.getCtmtel1().length() == 4) {
+					tmpTel = rsvtDTO.getCtmtel1();
 					tmpRsvt.setCtmtel1(tmpTel);
 				} else {
 					tmpRsvt.setCtmtel1("9999999999");
 				}
-			} else if (rsvtDTO.getCtmtel1().length() == 4) {
-				tmpTel = rsvtDTO.getCtmtel1();
-				tmpRsvt.setCtmtel1(tmpTel);
-			} else {
-				tmpRsvt.setCtmtel1("9999999999");
-			}
 
-			list = rsvtMapper.selectCustomerCheck(tmpRsvt);
-			int rtn = 0;
-			if (list.size() > 0) {
-				if (list.size() < 2 && rsvtDTO.getCtmname().equals(list.get(0).getCtmname())) {
-					rtn = rsvtMapper.updateCtm(list.get(0));
+				list = rsvtMapper.selectCustomerCheck(tmpRsvt);
+				int rtn = 0;
+				if (list.size() > 0) {
+					if (list.size() < 2 && rsvtDTO.getCtmname().equals(list.get(0).getCtmname())) {
+						rtn = rsvtMapper.updateCtm(list.get(0));
+
+						if (rtn < 1) {
+							list.get(0).setCtmtrash(-1);
+						}
+					} else {
+						list.get(0).setCtmtrash(100);
+					}
+				} else {
+					rsvtDTO.setCtmno(get_Oper("C"));
+					list.clear();
+					list.add(tmpRsvt);
+					list.get(0).setCtmno(get_Oper("C"));
+					list.get(0).setCtmtel1(tmpTel1);
+					rtn = rsvtMapper.insertCtm(rsvtDTO);
 
 					if (rtn < 1) {
 						list.get(0).setCtmtrash(-1);
 					}
-				} else {
-					list.get(0).setCtmtrash(100);
-				}
-			} else {
-				rsvtDTO.setCtmno(get_Oper("C"));
-				list.clear();
-				list.add(tmpRsvt);
-				list.get(0).setCtmno(get_Oper("C"));
-				list.get(0).setCtmtel1(tmpTel1);
-				rtn = rsvtMapper.insertCtm(rsvtDTO);
-
-				if (rtn < 1) {
-					list.get(0).setCtmtrash(-1);
 				}
 			}
 		}

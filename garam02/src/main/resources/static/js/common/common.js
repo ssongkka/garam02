@@ -76,6 +76,29 @@ function goUrl(paramUrl) {
     newForm.submit();
 }
 
+function goUrlDay(paramUrl, dayyyy) {
+    //create element (form)
+    var newForm = $('<form></form>');
+
+    //set attribute (form)
+    newForm.attr("name", "newForm");
+    newForm.attr("action", paramUrl);
+
+    // create element & set attribute (input)
+
+    newForm.append($('<input/>', {
+        type: 'hidden',
+        name: 'dayyy',
+        value: dayyyy
+    }));
+
+    // append form(to body)
+    newForm.appendTo('body');
+
+    // submit form
+    newForm.submit();
+}
+
 var tooltipTriggerList = []
     .slice
     .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -88,114 +111,113 @@ function LoadingWithMask(param) {
 
         mask = `<div id='mask' style="width:100% ; height:100% ;">
         <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        style="margin: auto; background: none; display: block; shape-rendering: auto;"
-        width="100px"
-        height="100px"
-        viewbox="0 0 100 100"
-        preserveaspectratio="xMidYMid">
-        <circle cx="84" cy="50" r="10" fill="#f05125">
-            <animate
-                attributename="r"
-                repeatcount="indefinite"
-                dur="0.4166666666666667s"
-                calcmode="spline"
-                keytimes="0;1"
-                values="10;0"
-                keysplines="0 0.5 0.5 1"
-                begin="0s"/>
-            <animate
-                attributename="fill"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="discrete"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="#f05125;#32a0da;#7fbb42;#fdb813;#f05125"
-                begin="0s"/>
-        </circle>
-        <circle cx="16" cy="50" r="10" fill="#f05125">
-            <animate
-                attributename="r"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="0;0;10;10;10"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="0s"/>
-            <animate
-                attributename="cx"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="16;16;16;50;84"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="0s"/>
-        </circle>
-        <circle cx="50" cy="50" r="10" fill="#fdb813">
-            <animate
-                attributename="r"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="0;0;10;10;10"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="-0.4166666666666667s"/>
-            <animate
-                attributename="cx"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="16;16;16;50;84"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="-0.4166666666666667s"/>
-        </circle>
-        <circle cx="84" cy="50" r="10" fill="#7fbb42">
-            <animate
-                attributename="r"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="0;0;10;10;10"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="-0.8333333333333334s"/>
-            <animate
-                attributename="cx"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="16;16;16;50;84"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="-0.8333333333333334s"/>
-        </circle>
-        <circle cx="16" cy="50" r="10" fill="#32a0da">
-            <animate
-                attributename="r"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="0;0;10;10;10"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="-1.25s"/>
-            <animate
-                attributename="cx"
-                repeatcount="indefinite"
-                dur="1.6666666666666667s"
-                calcmode="spline"
-                keytimes="0;0.25;0.5;0.75;1"
-                values="16;16;16;50;84"
-                keysplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                begin="-1.25s"/>
-        </circle>
-        <!-- [ldio] generated by https://loading.io/ -->
-    </svg>
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="margin: auto; background: none; display: block; shape-rendering: auto;"
+    width="100px"
+    height="100px"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="xMidYMid">
+    <circle cx="84" cy="50" r="10" fill="#072824">
+        <animate
+            attributeName="r"
+            repeatCount="indefinite"
+            dur="0.4166666666666667s"
+            calcMode="spline"
+            keyTimes="0;1"
+            values="10;0"
+            keySplines="0 0.5 0.5 1"
+            begin="0s"></animate>
+        <animate
+            attributeName="fill"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="discrete"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="#072824;#6ca55e;#3d7a52;#1b4f3e;#072824"
+            begin="0s"></animate>
+    </circle>
+    <circle cx="16" cy="50" r="10" fill="#072824">
+        <animate
+            attributeName="r"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="0;0;10;10;10"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="0s"></animate>
+        <animate
+            attributeName="cx"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="16;16;16;50;84"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="0s"></animate>
+    </circle>
+    <circle cx="50" cy="50" r="10" fill="#1b4f3e">
+        <animate
+            attributeName="r"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="0;0;10;10;10"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="-0.4166666666666667s"></animate>
+        <animate
+            attributeName="cx"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="16;16;16;50;84"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="-0.4166666666666667s"></animate>
+    </circle>
+    <circle cx="84" cy="50" r="10" fill="#3d7a52">
+        <animate
+            attributeName="r"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="0;0;10;10;10"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="-0.8333333333333334s"></animate>
+        <animate
+            attributeName="cx"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="16;16;16;50;84"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="-0.8333333333333334s"></animate>
+    </circle>
+    <circle cx="16" cy="50" r="10" fill="#6ca55e">
+        <animate
+            attributeName="r"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="0;0;10;10;10"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="-1.25s"></animate>
+        <animate
+            attributeName="cx"
+            repeatCount="indefinite"
+            dur="1.6666666666666667s"
+            calcMode="spline"
+            keyTimes="0;0.25;0.5;0.75;1"
+            values="16;16;16;50;84"
+            keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+            begin="-1.25s"></animate>
+    </circle>
+</svg>
     </div>`;
 
         $('body').append(mask);

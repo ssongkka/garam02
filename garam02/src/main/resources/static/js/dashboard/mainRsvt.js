@@ -7,7 +7,6 @@ $(document).ready(function () {
     showPlusBtn();
     hidePlusDetail();
 
-    // dateInput();
 });
 
 function setNewRsvtModal() {
@@ -189,16 +188,19 @@ $(document).on('click', '#inNew', function () {
 
 $(document).on('click', '#insert-rsvt', function () {
 
-    if ($('#ctmnoIn').val()) {
-        LoadingWithMask()
-            .then(insertCtm)
-            .then(insertRsvt)
-            .then(closeLoadingWithMask);
-    } else {
-        LoadingWithMask()
-            .then(insertRsvt1)
-            .then(closeLoadingWithMask);
+    if (!$('#stday').val()) {
+        alert("출발일을 입력해주세요.");
+        $('#stday').focus();
+        return;
     }
+
+    $('#modalNewRsvt').modal('hide');
+
+    LoadingWithMask()
+        .then(insertCtm)
+        .then(insertRsvt)
+        .then(closeLoadingWithMask);
+
 })
 
 function insertRsvt(result) {
@@ -257,15 +259,30 @@ function insertRsvt(result) {
                 if (r > 0) {
                     alert("예약정보 저장");
 
-                    for (let i = 0; i < 42; i++) {
-                        let iiiddd = '#dash-cal-con-item' + (
-                            i + 1
-                        );
-                        if ($('#stday').val() == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
-                            setCalWhite($(iiiddd).attr('id'));
-                        }
+                    if ($('#home').css('display') === 'block') {
+                        goUrlDay('/dashboard', $('#stday').val());
                     }
-                    $('#modalNewRsvt').modal('hide');
+
+                    if ($('#home4').css('display') === 'block') {
+                        goUrlDay('/dashboardcal', $('#stday').val());
+                    }
+
+                    if ($('#home2').css('display') === 'block') {
+                        goUrlDay('/dashboardrsvt', $('#stday').val());
+                    }
+
+                    if ($('#home3').css('display') === 'block') {
+                        goUrlDay('/dashboardoper', $('#stday').val());
+                    }
+
+                    if ($('#manage').css('display') === 'block') {
+                        goUrlDay('/dashboardmanage', $('#stday').val());
+                    }
+
+                    if ($('#allo').css('display') === 'block') {
+                        goUrlDay('/dashboardallo', $('#stday').val());
+                    }
+
                     resolve();
                 } else if (r == -1) {
                     alert("예약정보 저장 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")

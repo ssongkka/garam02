@@ -232,14 +232,14 @@
     padding: 0.8rem 1.5rem;
 }
 
-.ad-cal hr {
+/* .ad-cal hr {
     border: 0;
     width: 100%;
     height: 0.1rem;
     background: rgb(20 20 31 / 0%);
     margin-top: 1rem;
     margin-bottom: 1rem;
-}
+} */
 
 .ad-cal-items-1 {
     height: 28rem;
@@ -283,6 +283,12 @@ blockquote {
     margin: 0;
 }
 
+.ad-cal-comp {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
 .comp {
     font-size: 1.3rem;
     display: flex;
@@ -290,10 +296,30 @@ blockquote {
     gap: 1rem;
 }
 
+.comp-item-con1 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.comp-item-con2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .comp-item {
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    flex-direction: column;
+}
+
+.comp-itemT {
+    font-size: 1.2rem;
+    color: var(--text-grey);
+}
+
+#comp-add {
+    font-size: 1.2rem;
 }
 
 .ad-cal-items-3 {}
@@ -303,6 +329,7 @@ blockquote {
     padding-top: 5rem;
     padding-left: 30rem;
     min-height: calc(100vh - 0rem);
+    max-height: calc(100vh - 0rem);
 }
 
 .dd-main-header {
@@ -320,7 +347,15 @@ blockquote {
 }
 
 .tab-cont {
-    padding: 5rem 0 0;
+    padding: 6rem 0 0;
+}
+
+.tab-cont::-webkit-scrollbar {
+    width: 1rem;
+}
+
+.tab-cont::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 21%, 11%, 0.1);
 }
 
 .home-main-item-2 {
@@ -370,8 +405,9 @@ blockquote {
 .home-main-item-222:nth-child(1) {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     font-size: 4rem;
+    width: 20%;
 }
 .home-main-item-222:nth-child(1) svg {
     font-size: 3rem;
@@ -383,6 +419,7 @@ blockquote {
     height: 100%;
     display: flex;
     flex-direction: column;
+    width: 40%;
 
 }
 
@@ -393,10 +430,10 @@ blockquote {
 }
 
 .home-main-item-222-span:nth-child(1) {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 .home-main-item-222-span:nth-child(2) {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     letter-spacing: 0.2rem;
 }

@@ -151,6 +151,36 @@ public class RestMainAlloController {
 		return list;
 	}
 
+	@PostMapping(value = "/insertone")
+	public int insertone(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = rsvtService.insertOperOne(map);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
+	@PostMapping(value = "/updatealtM")
+	public int updatealtM(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = rsvtService.updateOperaltM(map);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
 	@PostMapping(value = "/del")
 	public int delAllo(@RequestBody List<Map<String, Object>> map) throws Exception {
 

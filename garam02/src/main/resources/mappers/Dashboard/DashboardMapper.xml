@@ -235,6 +235,10 @@
 
 		AND
 
+		operation_info.operno > #{num}
+
+		AND
+
 		operconfirm IS NULL
 		;
 
@@ -249,18 +253,23 @@
 		<if test="stday != null and stday != '' ">
 			rsvt.stday =
 			#{stday},
+			rsvt.approvalno = null,
 		</if>
 		<if test="endday != null and endday != '' ">
 			rsvt.endday = #{endday},
+			rsvt.approvalno = null,
 		</if>
 		<if test="bus != null and bus != '' ">
 			rsvt.bus = #{bus},
+			rsvt.approvalno = null,
 		</if>
 		<if test="num != null and num != '' ">
 			rsvt.num = #{num},
+			rsvt.approvalno = null,
 		</if>
 		<if test="desty != null and desty != '' ">
 			rsvt.desty = #{desty},
+			rsvt.approvalno = null,
 		</if>
 		<if test="rsvpstp != null and rsvpstp != '' ">
 			rsvt.rsvpstp = #{rsvpstp},
@@ -277,10 +286,12 @@
 		<if test="cont != null and cont != '' ">
 			rsvt.cont =
 			#{cont},
+			rsvt.approvalno = null,
 		</if>
 		<if test="conm != null and conm != '' ">
 			rsvt.conm =
 			#{conm},
+			rsvt.approvalno = null,
 		</if>
 		<if test="numm != null and numm != '' ">
 			rsvt.numm = #{numm},
@@ -330,6 +341,23 @@
 
 			opertype =
 			#{value.opertype}
+		</foreach>
+	</update>
+	<update id="updateOperaltM" parameterType="java.util.HashMap">
+		<foreach collection="oper" item="value" index="index" separator=";">
+			UPDATE
+
+			operation_info
+
+			SET
+
+			atlm = #{value.atlm}
+
+			WHERE
+
+			opernum =
+			#{value.opernum}
+
 		</foreach>
 	</update>
 	<update id="updateOperMemo" parameterType="java.util.HashMap">
@@ -1173,7 +1201,7 @@
 
 		SELECT
 
-		operation_info.*,
+		*,
 
 		IFNULL((SELECT
 		vehicleinfo.vehicle
@@ -1199,6 +1227,14 @@
 
 		operation_info
 
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt = rsvt.rsvt
+
 		WHERE
 
 		operday =
@@ -1222,25 +1258,26 @@
 
 			operation_info
 
-			WHERE
+			<where>
+				<if test="value.opertype != null">
+					AND
+					opertype =
+					#{value.opertype}
+				</if>
+				AND
+				operday =
+				#{value.operday}
 
-			operday =
-			#{value.operday}
+				AND
 
-			AND
+				opernum =
+				#{value.opernum}
 
-			opernum =
-			#{value.opernum}
+				AND
 
-			AND
-
-			operno =
-			#{value.operno}
-
-			AND
-
-			opertype =
-			#{value.opertype}
+				operno =
+				#{value.operno}
+			</where>
 		</foreach>
 	</delete>
 
@@ -2429,6 +2466,44 @@
 		#{opertype},
 		#{operconfirm},
 		#{opermemo},
+		1
+		)
+
+	</insert>
+	<insert id="insertAllo3" parameterType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		INSERT
+
+		INTO
+
+		operation_info
+
+		VALUES
+
+		(
+		null,
+		#{opernum},
+		#{rsvt},
+		#{operday},
+		#{dayst},
+		#{operno},
+		(SELECT
+
+		vehicleinfo.owner
+
+		FROM
+
+		vehicleinfo
+
+		WHERE
+
+		vehicleinfo.carnumber = #{opercar}),
+		#{opercar},
+		#{operid},
+		#{atlm},
+		#{opertype},
+		null,
+		null,
 		1
 		)
 

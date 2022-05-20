@@ -46,6 +46,7 @@ function makeMain2BigCal() {
 
                 let colorDay = '';
                 let colorNoday = '1';
+                let colorOpt = '1';
 
                 if (check == stD.getMonth()) {
                     if (stD.getDay() == 6) {
@@ -55,12 +56,15 @@ function makeMain2BigCal() {
                     }
                     colorNoday = '1';
                 } else {
+                    colorOpt = '0.3'
                     if (stD.getDay() == 6) {
-                        colorDay = '#4b89dc75';
+                        // colorDay = '#4b89dc75';
+                        colorDay = '#4B89DC';
                     } else if (stD.getDay() == 0) {
-                        colorDay = '#cf2f117a"';
+                        // colorDay = '#cf2f117a"';
+                        colorDay = '#CF2F11';
                     } else {
-                        colorDay = '#2125297a';
+                        // colorDay = '#2125297a';
                     }
                     colorNoday = '1';
                 }
@@ -94,6 +98,7 @@ function makeMain2BigCal() {
 
                 $(bbb3).text(stD.getDate() + '일');
                 $(bbb3).css('color', colorDay);
+                $(bbb3).css('opacity', colorOpt);
 
                 $(bbb31).text('');
 

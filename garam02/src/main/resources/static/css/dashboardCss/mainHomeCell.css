@@ -168,4 +168,12 @@
     .h2Ve {
         margin-right: 0.1rem;
     }
+
+    .modalAllo2BD {
+        padding: 1rem;
+    }
+
+    .table-scroll-body-home1 {
+        max-height: calc(100vh - 25rem);
+    }
 }

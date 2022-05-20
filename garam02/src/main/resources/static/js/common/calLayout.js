@@ -17,6 +17,8 @@ $(window).on('resize', function () {
 
 $(document).ready(function () {
 
+    getRegCard();
+
     if ($('#home').css('display') === 'block') {
         $('#pills-home-tab').addClass('active');
     }
@@ -66,6 +68,42 @@ $(document).ready(function () {
         }
     }
 });
+
+function getRegCard() {
+    return new Promise(function (resolve, reject) {
+        const url = "/reg/regRegular";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {};
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            caches: false,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+
+                let cntNo = 0;
+                for (let i = 0; i < r.length; i++) {
+                    cntNo = cntNo + parseInt(r[i].fax);
+                }
+
+                $('#cardRegGye').text(r.length);
+                $('#cardRegNo').text(cntNo);
+                resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    })
+}
 
 $(document).on('click', '#btnYesD', function () {
 
@@ -348,7 +386,6 @@ function makeCal(nowD, day) {
 
     const ddddddd = toStringByFormatting(nowD);
     $(".yearMonth").val(ddddddd.split('-')[0] + '-' + ddddddd.split('-')[1])
-
 
     let rtn = '';
 
@@ -649,8 +686,7 @@ function cardVeEmpMake() {
         htmlsEmp += '<span class="home-main-item-222-span"><span data-bs-toggle="tooltip" data-bs-p' +
                 'lacement="top" title="회사">' + cntEmp2[i] + '</span><span>/</span><span data-bs' +
                 '-toggle="tooltip" data-bs-placement="top" title="개인">' + cntEmp3[i] + '</span>' +
-                '<span>/</span><span data-bs-toggle="tooltip" data-bs-placement="top" title="예비' +
-                '">' + cntEmp4[i] + '</span></span>';
+                '</span>';
         htmlsEmp += '</div>';
     }
     htmlsEmp += '</div>';
@@ -692,29 +728,17 @@ $(document).on('click', '.logo', function () {
 });
 
 $(document).on('click', '#card-emp', function () {
-    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
-    // window.screenLeft; var yPos = 10;
-
     window.open('/employee', '인사정보')
 });
 
 $(document).on('click', '#card-ve', function () {
-    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
-    // window.screenLeft; var yPos = 10;
-
     window.open('/vehicle', '차량정보');
 });
 
-$(document).on('click', '#goRe', function () {
-    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
-    // window.screenLeft; var yPos = 10;
-
+$(document).on('click', '#card-reg', function () {
     window.open('/regular', '정기운행정보');
 });
 
 $(document).on('click', '#goCustomer', function () {
-    // var w = 800; var h = 900; var xPos = (document.body.offsetWidth) - w; xPos +=
-    // window.screenLeft; var yPos = 10;
-
     window.open('/customers', '고객정보');
 });

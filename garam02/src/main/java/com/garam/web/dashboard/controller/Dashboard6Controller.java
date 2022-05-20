@@ -19,6 +19,8 @@ import com.garam.web.dashboard.service.MainService;
 import com.garam.web.employee.dto.EmployeeInfoDTO;
 import com.garam.web.employee.service.EmployeeService;
 import com.garam.web.login.entity.User;
+import com.garam.web.regular.dto.RegularDTO;
+import com.garam.web.regular.service.RegularService;
 import com.garam.web.vehicle.dto.VehicleInfoDTO;
 import com.garam.web.vehicle.service.VehicleService;
 
@@ -33,6 +35,7 @@ public class Dashboard6Controller extends UiUtils {
 	private final EmployeeService employeeService;
 	private final VehicleService vehicleService;
 	private final CompanyService companyService;
+	private final RegularService regularService;
 
 	@GetMapping
 	public String rsvt(@RequestParam(value = "dayyy", required = false) String dayyy,
@@ -64,6 +67,9 @@ public class Dashboard6Controller extends UiUtils {
 
 		List<RsvtDTO> othercompa = rsvtService.selectCustomerOtherCompa();
 		model.addAttribute("othercompa", othercompa);
+
+		List<RegularDTO> regList = regularService.selctRegular(null);
+		model.addAttribute("regList", regList);
 
 		return "dashboard6/dashBoard6";
 	}

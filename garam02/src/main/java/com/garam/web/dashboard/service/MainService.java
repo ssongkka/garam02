@@ -26,6 +26,10 @@ public interface MainService {
 
 	public List<RsvtDTO> insertOper(List<Map<String, Object>> map) throws Exception;
 
+	public int insertOperOne(List<Map<String, Object>> map) throws Exception;
+
+	public int updateOperaltM(List<Map<String, Object>> map) throws Exception;
+
 	public int updateRsvt(RsvtDTO rsvtDTO) throws Exception;
 
 	public int cancleRsvt(RsvtDTO rsvtDTO) throws Exception;
