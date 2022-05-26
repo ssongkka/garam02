@@ -1785,7 +1785,11 @@ function insertJuk(result) {
 }
 
 $(document).on('click', '#veTitleOper', function () {
-    makeVeOper();
+    if ($('#ve00').val()) {
+        makeVeOper();
+    } else {
+        checkVeBtn()
+    }
 });
 
 function makeVeOper() {
@@ -1925,7 +1929,53 @@ function makeVeOper() {
                     </div>`;
                     }
 
-                    $('#accordionPanelsOper').html(htmls);
+                    if (htmls) {
+                        $('#accordionPanelsOper').html(htmls);
+                    } else {
+                        $('#accordionPanelsOper').html(
+                            `
+                        <div class="accordion-item">
+                            <h4 class="accordion-header" id="panelsStayHead-1">
+                                <button
+                                    class="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-1"
+                                    aria-expanded="true"
+                                    aria-controls="panelsStayOpen-1">
+                                    <div class="veOperTitle"></div>
+                                </button>
+                            </h4>
+                            <div
+                                id="panelsStayOpen-1"
+                                class="accordion-collapse collapse show"
+                                aria-labelledby="panelsStayHead-1">
+                                <div class="accordion-body table-responsive">
+                                    <table class="table table-bordered">
+                                        <colgroup>
+                                            <col width="18%">
+                                            <col width="26%">
+                                            <col width="26%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>날짜</th>
+                                                <th>고객정보</th>
+                                                <th>목적지</th>
+                                                <th>대당금액</th>
+                                                <th>배차금액</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id=""></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>`
+                        );
+                    }
+
                     resolve(arrTmpMonth);
                 },
                 error: (jqXHR) => {
@@ -2009,7 +2059,11 @@ function makeVeOper() {
 }
 
 $(document).on('click', '#veTitleInsu', function () {
-    makeInsu();
+    if ($('#ve00').val()) {
+        makeInsu();
+    } else {
+        checkVeBtn()
+    }
 });
 
 function makeInsu() {
@@ -2193,7 +2247,11 @@ function makeInsu() {
 }
 
 $(document).on('click', '#veTitleMoney', function () {
-    makeLoan();
+    if ($('#ve00').val()) {
+        makeLoan();
+    } else {
+        checkVeBtn()
+    }
 });
 
 function makeLoan() {
@@ -2320,7 +2378,11 @@ function makeLoan() {
 }
 
 $(document).on('click', '#veTitlemaintenance', function () {
-    makeMaintenance();
+    if ($('#ve00').val()) {
+        makeMaintenance();
+    } else {
+        checkVeBtn()
+    }
 });
 
 function makeMaintenance() {
@@ -2493,7 +2555,11 @@ function makeMaintenance() {
 }
 
 $(document).on('click', '#veTitleInspec', function () {
-    makeInspec();
+    if ($('#ve00').val()) {
+        makeInspec();
+    } else {
+        checkVeBtn()
+    }
 });
 
 function makeInspec() {
@@ -2561,7 +2627,11 @@ function makeInspec() {
 }
 
 $(document).on('click', '#veTitleacc', function () {
-    makeAcc();
+    if ($('#ve00').val()) {
+        makeAcc();
+    } else {
+        checkVeBtn()
+    }
 });
 
 function makeAcc() {
@@ -3010,3 +3080,7 @@ $(document).on('click', '.delMaint', function () {
         })
     }
 });
+
+function checkVeBtn() {
+    alert("차량을 선택해주세요.");
+}

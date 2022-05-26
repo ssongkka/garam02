@@ -285,7 +285,7 @@ function getRegularAll() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls = '';
@@ -434,7 +434,7 @@ function getRegularDeAll() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmls = '';
@@ -667,7 +667,7 @@ function getRegularCooAll() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
@@ -736,7 +736,7 @@ function getRegularAlloCa() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 const thSize = $('#tbAllo')
@@ -778,12 +778,16 @@ function getRegularAlloCa() {
                                         tmpMin = r[i].regoperno;
                                         let carcar = '';
                                         if (isNaN((r[i].idvehicle).substring((r[i].idvehicle).length - 4))) {
-                                            carcar = r[i]
-                                                .idvehicle
-                                                .replaceAll('고속', '')
-                                                .replaceAll('관광', '')
-                                                .replaceAll('여행사', '')
-                                                .replaceAll('(주)', '');
+                                            if (r[i].idvehicle.length > 5) {
+                                                carcar = r[i]
+                                                    .idvehicle
+                                                    .replaceAll('고속', '')
+                                                    .replaceAll('관광', '')
+                                                    .replaceAll('여행사', '')
+                                                    .replaceAll('(주)', '');
+                                            } else {
+                                                carcar = r[i].idvehicle;
+                                            }
                                         } else {
                                             carcar = (r[i].idvehicle).substring((r[i].idvehicle).length - 4);
                                         }
@@ -1117,7 +1121,7 @@ function insertAllo1111() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {},
             error: (jqXHR) => {
@@ -1158,7 +1162,7 @@ $(document).on('click', '#btnMdAll', function () {
         const ttmp22222 = $(ttmp11111).children();
 
         if (($(ttmp2).val() && !$(ttmp22).val()) || (!$(ttmp2).val() && $(ttmp22).val())) {
-            alert("차량과 승무원을 같이 입력해주세요.\n\n차량과 승무원 중 하나만 입력 할 수 없습니다.");
+            alert("차량과 승무원을 같이 입력해주세요.\n\n차량과 승무원 모두 입력해야합니다.");
             return;
         }
 
@@ -1300,7 +1304,7 @@ $(document).on('click', '#btnMdAll', function () {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r > 0) {
@@ -1860,7 +1864,7 @@ function insertRegAlloDe(result) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(paramsDel),
                     success: function (r) {
                         if (r > 0) {
@@ -1889,7 +1893,7 @@ function insertRegAlloDe(result) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(paramsIn),
                     success: function (r) {
                         if (r > 0) {
@@ -1932,7 +1936,7 @@ function insertRegAlloDe(result) {
                     type: "POST",
                     headers: headers,
                     caches: false,
-                dataType: "json",
+                    dataType: "json",
                     data: JSON.stringify(paramsUp),
                     success: function (r) {
                         if (r > 0) {

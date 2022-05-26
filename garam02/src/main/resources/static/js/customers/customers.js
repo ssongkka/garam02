@@ -139,10 +139,10 @@ function getRegularAll(name) {
                 }
 
                 if (htmls1.length < 1) {
-                    htmls1 = `<tr><td colspan="3">정보 없음</td></tr>`;
+                    htmls1 = `<tr><td colspan="5">정보 없음</td></tr>`;
                 }
                 if (htmls2.length < 1) {
-                    htmls2 = `<tr><td colspan="2">정보 없음</td></tr>`;
+                    htmls2 = `<tr><td colspan="5">정보 없음</td></tr>`;
                 }
 
                 $('#rg-tb-com-go').html(htmls1);

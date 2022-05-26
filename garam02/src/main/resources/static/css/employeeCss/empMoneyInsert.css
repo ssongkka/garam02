@@ -447,15 +447,23 @@
     width: 100%;
 }
 
-.offAll1-item:nth-child(2) {
-    min-height: calc(100vh - 50rem);
-    max-height: calc(100vh - 50rem);
-    overflow-y: auto;
+.offAll1-item:nth-child(2) {}
+.offAll2-item:nth-child(2) {}
+
+.table-scroll-body-emp-Oper {
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    min-height: calc(100vh - 22rem);
+    max-height: calc(100vh - 22rem);
 }
-.offAll2-item:nth-child(2) {
-    min-height: calc(100vh - 59rem);
-    max-height: calc(100vh - 59rem);
-    overflow-y: auto;
+
+.table-scroll-body-Emp-off {
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    min-height: calc(100vh - 60rem);
+    max-height: calc(100vh - 60rem);
 }
 
 @media (max-width:768px) {

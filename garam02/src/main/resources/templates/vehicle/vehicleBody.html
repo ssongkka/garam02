@@ -7,29 +7,14 @@
         <!-- 자동완성 방지용 -->
         <aside class="nomal-aside">
             <div class="nomal-aside-main">
-                <div class="nomal-aside-btn">
-                    <div class="nomal-aside-btn-item btn-group" role="group">
-                        <button type="button" class="btn btn-default" id="md-New">신규입력<i class="fas fa-plus-square"></i>
-                        </button>
-                    </div>
-                    <div class="nomal-aside-btn-item btn-group" role="group">
-                        <button type="button" class="btn btn-default" id="md-File">
-                            차량명세서
-                            <i class="fas fa-download"></i>
-                        </button>
-                    </div>
-                    <div class="nomal-aside-btn-item btn-group" role="group">
-                        <button type="button" class="btn btn-default " id="md-Juk">
-                            교통안전
-                            <i class="fas fa-file-upload"></i>
-                        </button>
-                    </div>
-                    <div class="nomal-aside-btn-item btn-group" role="group">
-                        <button type="button" class="btn btn-default " id="md-gas">
-                            연비정보
-                            <i class="fa-solid fa-gas-pump"></i>
-                        </button>
-                    </div>
+                <div class="logo">
+                    <span
+                        class="detail-user-1"
+                        th:text="${user.company}"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="left"
+                        title="홈으로"></span>
+                    <span class="detail-user-2">차량정보</span>
                 </div>
                 <div class="nomal-aside-search">
                     <div class="hd-search">
@@ -320,7 +305,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hd-tb-bt"></div>
+                </div>
+                <div class="nomal-aside-btn">
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="md-New">신규입력<i class="fas fa-plus-square"></i>
+                        </button>
+                    </div>
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="md-File">
+                            차량명세서
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default " id="md-Juk">
+                            교통안전
+                            <i class="fas fa-file-upload"></i>
+                        </button>
+                    </div>
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default " id="md-gas">
+                            연비정보
+                            <i class="fa-solid fa-gas-pump"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </aside>

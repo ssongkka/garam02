@@ -65,13 +65,13 @@ function getTrHtmls() {
     </td>
     <td>
         <button class="btn btn1 btn-default" onclick="up(this)">
-           <i class="fas fa-angle-up"></i></i>
-       </button>
+            <i class="fas fa-angle-up"></i></i>
+        </button>
     </td>
     <td>
-         <button class="btn btn1 btn-default" onclick="down(this)">
+        <button class="btn btn1 btn-default" onclick="down(this)">
             <i class="fas fa-angle-down"></i></i>
-         </button>
+        </button>
     </td>
     <td class="thNone"></td>
     <td class="thNone"></td>
@@ -82,7 +82,7 @@ function getTrHtmls() {
 $(document).on('click', '#md-rgCh', function () {
     const wh = confirm("정기운행 정보로 돌아가시겠습니까?\n\n저장되지 않은 정보는 사라집니다.");
     if (wh) {
-        window.open('/regular', '정기운행정보');
+        window.location.href = "/regular";
     }
 });
 
@@ -167,12 +167,20 @@ function getRegular(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
+
+                let endD = '';
+                if (r[0].regendd) {
+                    endD = r[0].regstartd + ' ~ ' + r[0].regendd;
+                } else {
+                    endD = r[0].regstartd + ' ~ ';
+                }
+
                 $('#rgcompa').html(r[0].regcompany);
                 $('#rgadd').text(r[0].regaddress);
-                $('#rgper').text(r[0].regstartd + ' ~ ' + r[0].regendd);
+                $('#rgper').text(endD);
                 $('#rgname').text(r[0].regperson);
                 $('#rgtel').text(r[0].regphone);
                 $('#rgtel').attr('href', 'tel:' + r[0].regphone);
@@ -203,7 +211,7 @@ function getRegularDeAll(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 $('#rgch-tbb')
@@ -858,7 +866,7 @@ function updateRegularDeOrder(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r == 0) {
@@ -901,7 +909,7 @@ function insertRegularDe(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r == 0) {
@@ -984,8 +992,8 @@ function updateRegularDe(papa) {
                 "rdname": $(aa1).val(),
                 "rdbus": $(bb1).val(),
                 "rdconn": $(cc1).val(),
-                "rdmoney": ($(dd1).val()).replace(',', ''),
-                "rdaltm": ($(ee1).val()).replace(',', ''),
+                "rdmoney": ($(dd1).val()).replaceAll(',', ''),
+                "rdaltm": ($(ee1).val()).replaceAll(',', ''),
                 "opercar": carnum,
                 "rdtrash": 1
             };
@@ -1129,7 +1137,7 @@ $(document).on('click', '#plusgoTb', function () {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1167,7 +1175,7 @@ $(document).on('click', '#plusoutTb', function () {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1297,7 +1305,7 @@ $(document).on('click', '.insertCo', function (eInner) {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1337,7 +1345,7 @@ $(document).on('click', '.btnn', function (eInner) {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1383,7 +1391,7 @@ $(document).on('click', '.delCo', function (eInner) {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1425,7 +1433,7 @@ $(document).on('click', '[name = "chDow"]', function (eInner) {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         success: function (r) {
             if (r == 0) {
@@ -1466,7 +1474,7 @@ $(document).on('keyup', '#rdememoo', function (eInner) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r == 0) {

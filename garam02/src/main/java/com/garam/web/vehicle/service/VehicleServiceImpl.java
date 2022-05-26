@@ -617,45 +617,45 @@ public class VehicleServiceImpl implements VehicleService {
 
 		tmpMap1.put("juk", jukfileDTO.getJukname());
 		tmpMap1.put("jukd", jukfileDTO.getId1());
-		tmpMap1.put("carNumber", jukfileDTO.getVe1());
+		tmpMap1.put("carnumber", jukfileDTO.getVe1());
 
 		Map<String, Object> tmpMap2 = new HashMap<String, Object>();
 
 		tmpMap2.put("juk", jukfileDTO.getJukname());
 		tmpMap2.put("jukd", jukfileDTO.getId2());
-		tmpMap2.put("carNumber", jukfileDTO.getVe2());
+		tmpMap2.put("carnumber", jukfileDTO.getVe2());
 
 		Map<String, Object> tmpMap3 = new HashMap<String, Object>();
 
 		tmpMap3.put("juk", jukfileDTO.getJukname());
 		tmpMap3.put("jukd", jukfileDTO.getId3());
-		tmpMap3.put("carNumber", jukfileDTO.getVe3());
+		tmpMap3.put("carnumber", jukfileDTO.getVe3());
 
 		Map<String, Object> tmpMap4 = new HashMap<String, Object>();
 
 		tmpMap4.put("juk", jukfileDTO.getJukname());
 		tmpMap4.put("jukd", jukfileDTO.getId4());
-		tmpMap4.put("carNumber", jukfileDTO.getVe4());
+		tmpMap4.put("carnumber", jukfileDTO.getVe4());
 
 		Map<String, Object> tmpMap5 = new HashMap<String, Object>();
 
 		tmpMap5.put("juk", jukfileDTO.getJukname());
 		tmpMap5.put("jukd", jukfileDTO.getId5());
-		tmpMap5.put("carNumber", jukfileDTO.getVe5());
+		tmpMap5.put("carnumber", jukfileDTO.getVe5());
 
-		if (tmpMap1.get("carNumber").toString().length() > 0) {
+		if (tmpMap1.get("carnumber").toString().length() > 0) {
 			map1.add(tmpMap1);
 		}
-		if (tmpMap2.get("carNumber").toString().length() > 0) {
+		if (tmpMap2.get("carnumber").toString().length() > 0) {
 			map1.add(tmpMap2);
 		}
-		if (tmpMap3.get("carNumber").toString().length() > 0) {
+		if (tmpMap3.get("carnumber").toString().length() > 0) {
 			map1.add(tmpMap3);
 		}
-		if (tmpMap4.get("carNumber").toString().length() > 0) {
+		if (tmpMap4.get("carnumber").toString().length() > 0) {
 			map1.add(tmpMap4);
 		}
-		if (tmpMap5.get("carNumber").toString().length() > 0) {
+		if (tmpMap5.get("carnumber").toString().length() > 0) {
 			map1.add(tmpMap5);
 		}
 
@@ -752,45 +752,45 @@ public class VehicleServiceImpl implements VehicleService {
 
 		tmpMap1.put("juk", jukfileDTO.getJukname() + ".PDF");
 		tmpMap1.put("jukd", jukfileDTO.getId1());
-		tmpMap1.put("carNumber", jukfileDTO.getVe1());
+		tmpMap1.put("carnumber", jukfileDTO.getVe1());
 
 		Map<String, Object> tmpMap2 = new HashMap<String, Object>();
 
 		tmpMap2.put("juk", jukfileDTO.getJukname() + ".PDF");
 		tmpMap2.put("jukd", jukfileDTO.getId2());
-		tmpMap2.put("carNumber", jukfileDTO.getVe2());
+		tmpMap2.put("carnumber", jukfileDTO.getVe2());
 
 		Map<String, Object> tmpMap3 = new HashMap<String, Object>();
 
 		tmpMap3.put("juk", jukfileDTO.getJukname() + ".PDF");
 		tmpMap3.put("jukd", jukfileDTO.getId3());
-		tmpMap3.put("carNumber", jukfileDTO.getVe3());
+		tmpMap3.put("carnumber", jukfileDTO.getVe3());
 
 		Map<String, Object> tmpMap4 = new HashMap<String, Object>();
 
 		tmpMap4.put("juk", jukfileDTO.getJukname() + ".PDF");
 		tmpMap4.put("jukd", jukfileDTO.getId4());
-		tmpMap4.put("carNumber", jukfileDTO.getVe4());
+		tmpMap4.put("carnumber", jukfileDTO.getVe4());
 
 		Map<String, Object> tmpMap5 = new HashMap<String, Object>();
 
 		tmpMap5.put("juk", jukfileDTO.getJukname() + ".PDF");
 		tmpMap5.put("jukd", jukfileDTO.getId5());
-		tmpMap5.put("carNumber", jukfileDTO.getVe5());
+		tmpMap5.put("carnumber", jukfileDTO.getVe5());
 
-		if (tmpMap1.get("carNumber").toString().length() > 0) {
+		if (tmpMap1.get("carnumber").toString().length() > 0) {
 			map.add(tmpMap1);
 		}
-		if (tmpMap2.get("carNumber").toString().length() > 0) {
+		if (tmpMap2.get("carnumber").toString().length() > 0) {
 			map.add(tmpMap2);
 		}
-		if (tmpMap3.get("carNumber").toString().length() > 0) {
+		if (tmpMap3.get("carnumber").toString().length() > 0) {
 			map.add(tmpMap3);
 		}
-		if (tmpMap4.get("carNumber").toString().length() > 0) {
+		if (tmpMap4.get("carnumber").toString().length() > 0) {
 			map.add(tmpMap4);
 		}
-		if (tmpMap5.get("carNumber").toString().length() > 0) {
+		if (tmpMap5.get("carnumber").toString().length() > 0) {
 			map.add(tmpMap5);
 		}
 

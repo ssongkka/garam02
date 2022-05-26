@@ -193,10 +193,10 @@ function getRegularAll(name) {
                 }
 
                 if (htmls1.length < 1) {
-                    htmls1 = `<tr><td colspan="3">정보 없음</td></tr>`;
+                    htmls1 = `<tr><td colspan="5">정보 없음</td></tr>`;
                 }
                 if (htmls2.length < 1) {
-                    htmls2 = `<tr><td colspan="2">정보 없음</td></tr>`;
+                    htmls2 = `<tr><td colspan="5">정보 없음</td></tr>`;
                 }
 
                 $('#rg-tb-com-go').html(htmls1);
@@ -233,11 +233,19 @@ function getRegular(result) {
             data: JSON.stringify(params),
 
             success: function (r) {
+
+                let endD = '';
+                if (r[0].regendd) {
+                    endD = r[0].regstartd + ' ~ ' + r[0].regendd;
+                } else {
+                    endD = r[0].regstartd + ' ~ ';
+                }
+
                 $('#ctmnoReal').val(r[0].ctmno);
 
                 $('#rgcompa').html(r[0].regcompany);
                 $('#rgadd').text(r[0].regaddress);
-                $('#rgper').text(r[0].regstartd + ' ~ ' + r[0].regendd);
+                $('#rgper').text(endD);
                 $('#rgname').text(r[0].regperson);
                 $('#rgtel').text(r[0].regphone);
                 $('#rgtel').attr('href', 'tel:' + r[0].regphone);

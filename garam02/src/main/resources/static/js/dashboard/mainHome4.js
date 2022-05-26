@@ -44,31 +44,6 @@ function makeMain2BigCal() {
 
                 arrDays.push(toStringByFormatting(stD));
 
-                let colorDay = '';
-                let colorNoday = '1';
-                let colorOpt = '1';
-
-                if (check == stD.getMonth()) {
-                    if (stD.getDay() == 6) {
-                        colorDay = '#4B89DC';
-                    } else if (stD.getDay() == 0) {
-                        colorDay = '#CF2F11';
-                    }
-                    colorNoday = '1';
-                } else {
-                    colorOpt = '0.3'
-                    if (stD.getDay() == 6) {
-                        // colorDay = '#4b89dc75';
-                        colorDay = '#4B89DC';
-                    } else if (stD.getDay() == 0) {
-                        // colorDay = '#cf2f117a"';
-                        colorDay = '#CF2F11';
-                    } else {
-                        // colorDay = '#2125297a';
-                    }
-                    colorNoday = '1';
-                }
-
                 const trNum = Math.floor(i / 7);
                 let tdNum = i % Math.floor(parseInt(trNum) * 7);
 
@@ -79,14 +54,47 @@ function makeMain2BigCal() {
                 const aaa = $('#tbMainCal2').children()[trNum];
                 const bbb = $(aaa).children()[tdNum];
 
-                $(bbb).css('opacity', colorNoday);
-
                 const bbb1 = $(bbb).children()[0];
                 const bbb2 = $(bbb1).children()[1];
                 const bbb3 = $(bbb2).children()[0];
                 const bbb31 = $(bbb2).children()[1];
 
                 const bbb4 = $(bbb1).children()[0];
+
+                const bbb5 = $(bbb2).children()[3];
+
+                console.log(bbb5);
+
+                let colorDay = '';
+                let colorNoday = '1';
+                let colorOpt = '1';
+
+                if (check == stD.getMonth()) {
+                    if (stD.getDay() == 6) {
+                        $(bbb5).val(0);
+                        colorDay = '#4B89DC';
+                    } else if (stD.getDay() == 0) {
+                        $(bbb5).val(0);
+                        colorDay = '#CF2F11';
+                    } else {
+                        $(bbb5).val(1);
+                    }
+                    colorNoday = '1';
+                } else {
+                    colorOpt = '0.3'
+                    if (stD.getDay() == 6) {
+                        $(bbb5).val(0);
+                        colorDay = '#4B89DC';
+                    } else if (stD.getDay() == 0) {
+                        $(bbb5).val(0);
+                        colorDay = '#CF2F11';
+                    } else {
+                        $(bbb5).val(1);
+                    }
+                    colorNoday = '1';
+                }
+
+                $(bbb).css('opacity', colorNoday);
 
                 $(bbb4).val(toStringByFormatting(stD));
 
@@ -153,11 +161,13 @@ function makeMain2BigCal() {
                                 const bbb2 = $(bbb1).children()[1];
                                 const bbb3 = $(bbb2).children()[1];
                                 const bbb5 = $(bbb2).children()[0];
+                                const bbb6 = $(bbb2).children()[3];
 
                                 if ($(bbb4).val() == r[i].solarcal) {
                                     $(bbb5).css('color', '#CF2F11');
                                     $(bbb3).text(r[i].holiday);
                                     $(bbb3).css('color', '#CF2F11');
+                                    $(bbb6).val(0);
                                 }
                             }
                         }
@@ -323,9 +333,14 @@ function makeMain2BigCal() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+
+                    console.log("rrr");
+                    console.log(r);
+
                     for (let i = 0; i < r.length; i++) {
 
                         if (r[i].regist) {
+
                             arrHtmls[checkHolDay1(r[i].regist)] += `
                     <div class="mainCaltd-middle">
                         <div class="mainCal2td-middle-item middle-loan">
@@ -341,6 +356,7 @@ function makeMain2BigCal() {
                         <div class="maincaltd-middle-itemb">&nbsp;</div>
                     </div>`;
                         } else {
+
                             arrHtmls[checkHolDay2(r[i].loandayloan)] += `
                         <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-loan">
@@ -939,13 +955,13 @@ function checkHolDay(dateNum) {
             const dayyy = $(ddd).val();
 
             const eee = $(ccc).children()[1];
-            const eee1 = $(eee).children()[0];
-            const cssss = $(eee1).attr('style');
+            const eee1 = $(eee).children()[3];
+            const cssss = $(eee1).val();
 
             const ggg = $(ccc).children()[2];
 
             if (toStringByFormatting(paramddaayy) == dayyy) {
-                if (cssss == `color: rgb(131, 144, 162);` || !cssss) {
+                if (parseInt(cssss) > 0) {
                     return parseInt($(ggg).attr('id').split('cal2Mid')[1]) - 1;
                 } else {
                     paramddaayy = new Date(paramddaayy.setDate(paramddaayy.getDate() + 1));
@@ -1008,13 +1024,12 @@ function checkHolDay2(dateNum) {
             const dayyy = $(ddd).val();
 
             const eee = $(ccc).children()[1];
-            const eee1 = $(eee).children()[0];
-            const cssss = $(eee1).attr('style');
+            const eee1 = $(eee).children()[3];
+            const cssss = $(eee1).val();
 
             const ggg = $(ccc).children()[2];
-
             if (toStringByFormatting(paramddaayy) == dayyy) {
-                if (cssss == `color: rgb(131, 144, 162);` || !cssss) {
+                if (parseInt(cssss) > 0) {
                     return parseInt($(ggg).attr('id').split('cal2Mid')[1]) - 1;
                 } else {
                     paramddaayy = new Date(paramddaayy.setDate(paramddaayy.getDate() + 1));
@@ -1043,13 +1058,13 @@ function checkHolDay3(dateNum) {
             const dayyy = $(ddd).val();
 
             const eee = $(ccc).children()[1];
-            const eee1 = $(eee).children()[0];
-            const cssss = $(eee1).attr('style');
+            const eee1 = $(eee).children()[3];
+            const cssss = $(eee1).val();
 
             const ggg = $(ccc).children()[2];
 
             if (toStringByFormatting(paramddaayy) == dayyy) {
-                if (cssss == `color: rgb(131, 144, 162);` || !cssss) {
+                if (parseInt(cssss) > 0) {
                     return parseInt($(ggg).attr('id').split('cal2Mid')[1]) - 1;
                 } else {
                     paramddaayy = new Date(paramddaayy.setDate(paramddaayy.getDate() + 1));

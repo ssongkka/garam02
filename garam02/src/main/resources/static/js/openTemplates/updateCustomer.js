@@ -165,6 +165,7 @@ function ernmUp() {
 
 function updateCtm() {
     return new Promise(function (resolve, reject) {
+
         const sepa = $('input[name=ctmsepaUp]:checked').val();
 
         const url = "/rsvt/checkCtm";
@@ -187,6 +188,8 @@ function updateCtm() {
             "ctmstp": $('#ctmstpUp').val(),
             "ctmdetail": $('#ctmdetailUp').val()
         };
+
+        console.log(params);
 
         $.ajax({
             url: url,

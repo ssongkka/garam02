@@ -20,15 +20,46 @@
     padding-top: 0;
 }
 
+.nomal-aside .logo {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2rem;
+
+    font-family: "Bae";
+
+    cursor: pointer;
+
+    /* background: var(--main-color); */
+}
+
+.nomal-aside .logo .detail-user-1 {
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+
+    /* color: var(--sub-color); */
+}
+
+.nomal-aside .logo .detail-user-2 {
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+
+    /* color: var(--sub-color); */
+}
+
 .nomal-aside-main {
     display: flex;
     flex-direction: column;
+
+    padding-top: 2rem;
 }
 
 .nomal-aside-btn {
     display: flex;
     gap: 1rem;
     padding: 1rem;
+
+    box-shadow: 0 -4px 4px -4px rgb(0 0 0 / 50%);
 }
 
 .nomal-aside-btn-item {
@@ -103,11 +134,13 @@
 }
 
 .scBarEmp {
-    max-height: calc(100vh - 19rem);
+    min-height: calc(100vh - 23rem);
+    max-height: calc(100vh - 23rem);
 }
 
 .scBarVe {
-    max-height: calc(100vh - 21rem);
+    min-height: calc(100vh - 23rem);
+    max-height: calc(100vh - 23rem);
 }
 
 .hd-tb-bt {

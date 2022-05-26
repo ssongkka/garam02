@@ -31,7 +31,12 @@
 		regular.conum
 
 		<where>
+			regulardetail.rdtrash IS NULL
+
+			OR
+
 			regulardetail.rdtrash = 1
+			
 			<if test="regcompany != null">OR regcompany Like CONCAT('%',#{regcompany},'%') </if>
 		</where>
 
@@ -237,7 +242,7 @@
 		codenum = #{codenum}
 
 		ORDER BY
-		rct, goutnum, rcnum
+		rcnum, rct, goutnum
 	</select>
 
 	<select id="selectRegularcourseAllo" parameterType="com.garam.web.regular.dto.RegularDTO"
@@ -388,7 +393,8 @@
 		#{regcontract},
 		#{regmoney},
 		#{regmemo},
-		1
+		1,
+		null
 		)
 
 	</insert>

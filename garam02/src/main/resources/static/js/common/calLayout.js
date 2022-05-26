@@ -726,19 +726,3 @@ $(document).on('click', '#btnSetting', function () {
 $(document).on('click', '.logo', function () {
     location.reload();
 });
-
-$(document).on('click', '#card-emp', function () {
-    window.open('/employee', '인사정보')
-});
-
-$(document).on('click', '#card-ve', function () {
-    window.open('/vehicle', '차량정보');
-});
-
-$(document).on('click', '#card-reg', function () {
-    window.open('/regular', '정기운행정보');
-});
-
-$(document).on('click', '#goCustomer', function () {
-    window.open('/customers', '고객정보');
-});

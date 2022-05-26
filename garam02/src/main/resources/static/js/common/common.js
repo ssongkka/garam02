@@ -1634,10 +1634,10 @@ function tbChoice(id) {
 
     $('#' + id)
         .children('td')
-        .css('background', 'var(--sub-color)');
+        .css('background', 'var(--main-color)');
     $('#' + id)
         .children('td')
-        .css('color', 'var(--main-color)');
+        .css('color', 'var(--sub-color)');
 }
 
 function tbChoiceThis(param) {
@@ -1647,10 +1647,10 @@ function tbChoiceThis(param) {
 
     $(param)
         .children('td')
-        .css('background', 'var(--sub-color)');
+        .css('background', 'var(--main-color)');
     $(param)
         .children('td')
-        .css('color', 'var(--main-color)');
+        .css('color', 'var(--sub-color)');
 }
 
 function tbChoiceSe(id) {
@@ -1667,10 +1667,10 @@ function tbChoiceSe(id) {
 
     $('#' + id)
         .children('td')
-        .css('background', 'var(--sub-color)');
+        .css('background', 'var(--main-color)');
     $('#' + id)
         .children('td')
-        .css('color', 'var(--main-color)');
+        .css('color', 'var(--sub-color)');
 }
 
 //숫자만남기고제거
@@ -1753,7 +1753,6 @@ function getStDayEndDayMain() {
 }
 
 $(document).on('click', '#cellBottomRsvt', function () {
-
     $('#stday').val(toStringByFormatting(new Date()));
     $('#endday').val(toStringByFormatting(new Date()));
 
@@ -1761,5 +1760,8 @@ $(document).on('click', '#cellBottomRsvt', function () {
     $("#daynight").css('color', 'blue');
 
     setNewRsvtModal();
+});
 
+$(document).on('click', '.logo', function () {
+    goUrlDay('/dashboard', '');
 });

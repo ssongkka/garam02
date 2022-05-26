@@ -7,18 +7,14 @@
         <!-- 자동완성 방지용 -->
         <aside class="nomal-aside">
             <div class="nomal-aside-main">
-                <div class="nomal-aside-btn">
-                    <div class="nomal-aside-btn-item btn-group" role="group">
-                        <button type="button" class="btn btn-default" id="md-New">
-                            신규입력<i class="fas fa-plus-square"></i>
-                        </button>
-                    </div>
-                    <div class="nomal-aside-btn-item btn-group" role="group">
-                        <button type="button" class="btn btn-default" id="insert-money">
-                            급여입력<i class="fas fa-plus-square"></i>
-                        </button>
-                        <input type="hidden" id="showm" value="0">
-                    </div>
+                <div class="logo">
+                    <span
+                        class="detail-user-1"
+                        th:text="${user.company}"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="left"
+                        title="홈으로"></span>
+                    <span class="detail-user-2">인사정보</span>
                 </div>
                 <div class="nomal-aside-search">
                     <div class="hd-search">
@@ -244,7 +240,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hd-tb-bt"></div>
+                    </div>
+                </div>
+                <div class="nomal-aside-btn">
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="md-New">
+                            신규입력<i class="fas fa-plus-square"></i>
+                        </button>
+                    </div>
+                    <div class="nomal-aside-btn-item btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="insert-money">
+                            급여입력<i class="fas fa-plus-square"></i>
+                        </button>
+                        <input type="hidden" id="showm" value="0">
                     </div>
                 </div>
             </div>
@@ -509,54 +517,128 @@
                             <div class="offAll1-item">
                                 <h3>일반운행 목록</h3>
                             </div>
-                            <div class="offAll1-item scBar">
-                                <table class="table table-bordered table-striped tbEmpRegAllo">
-                                    <colgroup>
-                                        <col width="5%"/>
-                                        <col width="20%"/>
-                                        <col width="30%"/>
-                                        <col width="30%"/>
-                                        <col width="15%"/>
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>운행일</th>
-                                            <th>목적지</th>
-                                            <th>출발지</th>
-                                            <th>금액</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="offAlloInTb"></tbody>
-                                    <tfoot></tfoot>
-                                </table>
+                            <div class="offAll1-item">
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-bordered table-striped tbEmpRegAllo">
+                                                <colgroup>
+                                                    <col width="5%"/>
+                                                    <col width="20%"/>
+                                                    <col width="30%"/>
+                                                    <col width="30%"/>
+                                                    <col width="15%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>운행일</th>
+                                                        <th>목적지</th>
+                                                        <th>출발지</th>
+                                                        <th>금액</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scroll-body-Emp-off">
+                                    <table class="table table-bordered table-striped tbEmpRegAllo">
+                                        <colgroup>
+                                            <col width="5%"/>
+                                            <col width="20%"/>
+                                            <col width="30%"/>
+                                            <col width="30%"/>
+                                            <col width="15%"/>
+                                        </colgroup>
+                                        <tbody id="offAlloInTb"></tbody>
+                                        <tfoot></tfoot>
+                                    </table>
+                                </div>
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-bordered table-striped tbEmpRegAllo">
+                                                <colgroup>
+                                                    <col width="5%"/>
+                                                    <col width="20%"/>
+                                                    <col width="30%"/>
+                                                    <col width="30%"/>
+                                                    <col width="15%"/>
+                                                </colgroup>
+                                                <tfoot>
+                                                    <td colspan="3">합 계</td>
+                                                    <td id="offEmpOperMCnt"></td>
+                                                    <td class="tdRight" id="offEmpOperMAll"></td>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="offAll2">
                             <div class="offAll2-item">
                                 <h3>정기운행 목록</h3>
                             </div>
-                            <div class="offAll2-item scBar">
-                                <table class="table table-bordered table-striped tbEmpRegAllo">
-                                    <colgroup>
-                                        <col width="5%"/>
-                                        <col width="20%"/>
-                                        <col width="30%"/>
-                                        <col width="30%"/>
-                                        <col width="15%"/>
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>운행일</th>
-                                            <th>회사</th>
-                                            <th>노선</th>
-                                            <th>금액</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="offAlloRegInTb"></tbody>
-                                    <tfoot></tfoot>
-                                </table>
+                            <div class="offAll2-item ">
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-bordered table-striped tbEmpRegAllo">
+                                                <colgroup>
+                                                    <col width="5%"/>
+                                                    <col width="20%"/>
+                                                    <col width="30%"/>
+                                                    <col width="30%"/>
+                                                    <col width="15%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>운행일</th>
+                                                        <th>회사</th>
+                                                        <th>노선</th>
+                                                        <th>금액</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scroll-body-Emp-off">
+                                    <table class="table table-bordered table-striped tbEmpRegAllo">
+                                        <colgroup>
+                                            <col width="5%"/>
+                                            <col width="20%"/>
+                                            <col width="30%"/>
+                                            <col width="30%"/>
+                                            <col width="15%"/>
+                                        </colgroup>
+                                        <tbody id="offAlloRegInTb"></tbody>
+                                        <tfoot></tfoot>
+                                    </table>
+                                </div>
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-bordered table-striped tbEmpRegAllo">
+                                                <colgroup>
+                                                    <col width="5%"/>
+                                                    <col width="20%"/>
+                                                    <col width="30%"/>
+                                                    <col width="30%"/>
+                                                    <col width="15%"/>
+                                                </colgroup>
+                                                <tfoot>
+                                                    <td colspan="3">합 계</td>
+                                                    <td id="offEmpRegMCnt"></td>
+                                                    <td class="tdRight" id="offEmpRegMAll"></td>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

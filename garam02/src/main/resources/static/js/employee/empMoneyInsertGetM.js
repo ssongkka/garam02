@@ -61,7 +61,7 @@ function getEmpOperCnt() {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 const map = new Map();
@@ -98,7 +98,7 @@ function getEmpOper(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
 
@@ -647,7 +647,7 @@ function getEmpRegOper(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let goodArr = new Array();
@@ -692,7 +692,7 @@ function getEmpRegOper1(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmlRegOper = '';
@@ -871,10 +871,13 @@ function getEmpAllAllOper1(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmlsTb = ``;
+
+                let operAllM = 0;
+
                 for (let i = 0; i < r.length; i++) {
                     htmlsTb += `<tr>`
                     htmlsTb += `<td>` + (i + 1) + `</td>`;
@@ -889,9 +892,16 @@ function getEmpAllAllOper1(result) {
                     htmlsTb += `</td>`;
                     htmlsTb += `<td class="tdRight">`;
                     htmlsTb += AddComma(r[i].atlm);
+
+                    operAllM = operAllM + parseInt(r[i].atlm);
+
                     htmlsTb += `</td>`;
                     htmlsTb += `</tr>`
                 }
+
+                $('#offEmpOperMCnt').text(r.length);
+                $('#offEmpOperMAll').text(AddComma(operAllM));
+
                 $('#offAlloInTb').html(htmlsTb);
                 resolve();
             },
@@ -920,7 +930,7 @@ function getEmpAllAllOper3(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let htmlsTb = ``;
@@ -972,13 +982,16 @@ function getEmpAllAllOper2(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 let cnt = 0;
 
                 let htmlsTb = ``;
                 let htmlsTb1 = ``;
+
+                let regMAll = 0;
+
                 for (let i = 0; i < r.length; i++) {
                     cnt++;
                     htmlsTb += `<tr>`
@@ -1010,7 +1023,12 @@ function getEmpAllAllOper2(result) {
                     htmlsTb1 += `<td class="tdRight">` + AddComma(r[i].regoperatlm) + `</td>`;
                     htmlsTb1 += `</tr>`
 
+                    regMAll = regMAll + parseInt(r[i].regoperatlm);
+
                 }
+                $('#offEmpRegMCnt').text(r.length);
+                $('#offEmpRegMAll').text(AddComma(regMAll));
+
                 $('#emp-reg-money-tb').html(htmlsTb);
                 $('#bgoper2').text(cnt);
                 $('#offAlloRegInTb').html(htmlsTb1);
@@ -1038,7 +1056,7 @@ function getEmpRegOperCour(arrTmp) {
         type: "POST",
         headers: headers,
         caches: false,
-                dataType: "json",
+        dataType: "json",
         data: JSON.stringify(params),
         async: false,
         success: function (r) {
@@ -1075,14 +1093,14 @@ function getAllMList(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
                     $('#operO').val(r[0].per * 100);
                     $('#emp-sal').val(1);
                     $('#inBtnGroup').html(
-                        `<a type="button" class="btn btn-info" id="printbtn">급여명세서 생성<i class="fa-solid fa-file-circle-plus"></i></i>
+                        `<a type="button" class="btn btn-info" id="printbtn">급여명세서 생성<i class="fa-solid fa-envelope-open-text"></i>
                     </a>`
                     );
                 } else {
@@ -1121,7 +1139,7 @@ function getEmpInMList(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
@@ -1214,7 +1232,7 @@ function getEmpOutMList(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
                 if (r.length > 0) {
@@ -1327,7 +1345,7 @@ function getEmpBaseM(result) {
             type: "POST",
             headers: headers,
             caches: false,
-                dataType: "json",
+            dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
 
