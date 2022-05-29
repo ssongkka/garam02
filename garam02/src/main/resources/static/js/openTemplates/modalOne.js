@@ -425,6 +425,12 @@ function delOneWay2(doms, num) {
             .then(closeLoadingWithMask);
     }
 
+    const ttrrID = $(aaa)
+        .attr('id')
+        .split('mdOneTr')[1];
+
+    const rearIIDD = '#mdOneTd' + ttrrID;
+
     function delOne2(result) {
 
         return new Promise(function (resolve, reject) {
@@ -460,6 +466,11 @@ function delOneWay2(doms, num) {
 
                 success: function (r) {
                     if (r > -1) {
+                        $(rearIIDD + 1).val('');
+                        $(rearIIDD + 3).val('');
+                        $(rearIIDD + 4).val('');
+                        $(rearIIDD + 5).val('');
+                        showAlloVeWhat($('#mdOneHDay').val());
                         getMdOneShow($('#mdOneHOper').val(), $('#mdOneHDay').val(), 1);
                         resolve();
                     } else if (r == -1) {
@@ -561,14 +572,12 @@ $(document).on('keyup', '#mdOneTd23', function (eInner) {
     if (keyValue == 13) {
 
         const val = $('#mdOneTd23').val();
-        console.log(val);
 
         var caridid = $('#car-info option')
             .filter(function () {
                 return this.value == val;
             })
             .data('id');
-        console.log(caridid);
 
         $('#mdOneTd24').val(caridid);
 
@@ -933,8 +942,6 @@ function insertOperOne2(doms, paramArray) {
                 params.push(asd);
             }
 
-            console.log(params);
-
             const url = "/allo/insertone";
             const headers = {
                 "Content-Type": "application/json",
@@ -948,6 +955,7 @@ function insertOperOne2(doms, paramArray) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
+                    showAlloVeWhat($('#mdOneHDay').val());
                     getMdOneShow($('#mdOneHOper').val(), $('#mdOneHDay').val(), 1);
                     resolve();
                 },

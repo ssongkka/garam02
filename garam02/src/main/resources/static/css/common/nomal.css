@@ -22,7 +22,7 @@
 
 .nomal-aside .logo {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     gap: 2rem;
 
@@ -30,7 +30,8 @@
 
     cursor: pointer;
 
-    /* background: var(--main-color); */
+    color: var(--sub-color);
+
 }
 
 .nomal-aside .logo .detail-user-1 {
@@ -50,8 +51,6 @@
 .nomal-aside-main {
     display: flex;
     flex-direction: column;
-
-    padding-top: 2rem;
 }
 
 .nomal-aside-btn {
@@ -77,6 +76,12 @@
 .nomal-aside-search {
     padding: 1rem;
     z-index: 1050;
+
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+
+    background: var(--main-color);
 }
 
 .hd-search {
@@ -93,7 +98,7 @@
 }
 
 .hd-search .hd-search-icon {
-    padding-left: 2rem;
+    padding-left: 0.5rem;
     font-size: 1.5rem;
 }
 .hd-search .hd-search-icon svg {
@@ -129,18 +134,17 @@
 .hd-tb {
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
-    padding: 1rem;
     overflow-y: scroll;
 }
 
 .scBarEmp {
-    min-height: calc(100vh - 23rem);
-    max-height: calc(100vh - 23rem);
+    /* min-height: calc(100vh - 18rem);
+    max-height: calc(100vh - 18rem); */
 }
 
 .scBarVe {
-    min-height: calc(100vh - 23rem);
-    max-height: calc(100vh - 23rem);
+    min-height: calc(100vh - 18rem);
+    max-height: calc(100vh - 18rem);
 }
 
 .hd-tb-bt {

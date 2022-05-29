@@ -1,4 +1,15 @@
-$(document).ready(function () {});
+$(document).ready(function () {
+    if ($('#pills-home-tab').attr('class').includes('active')) {
+        $('#home1Cal').show();
+        $('#home4Cal').hide();
+    }
+
+    if ($('#pills-home4-tab').attr('class').includes('active')) {
+        $('#home1Cal').hide();
+        $('#home4Cal').show();
+    }
+
+});
 
 function makeMainBigCal() {
 
@@ -783,10 +794,10 @@ function makeMainBigCal() {
                                 if (saveDom.length > 1) {
                                     if (l == saveDom.length - 1) {
                                         $(saveDom[l]).css('margin-left', '0')
-                                        $(saveDom[l]).css('margin-right', '0.3rem')
+                                        $(saveDom[l]).css('margin-right', '0.5rem')
                                         $(saveDom[l]).css('border-radius', '0 3px 3px 0')
                                     } else if (l == 0) {
-                                        $(saveDom[l]).css('margin-left', '0.3rem')
+                                        $(saveDom[l]).css('margin-left', '0.5rem')
                                         $(saveDom[l]).css('margin-right', '0')
                                         $(saveDom[l]).css('border-radius', '3px 0 0 3px')
                                     } else {
@@ -829,6 +840,11 @@ function makeMainBigCal() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+
+                    let bus45All = 0;
+                    let bus25All = 0;
+                    let bus28All = 0;
+
                     if (r.length) {
                         for (let i = 0; i < r.length; i++) {
                             let number = 0;
@@ -934,6 +950,10 @@ function makeMainBigCal() {
                             bus25Cnt = bus25Cnt + parseInt(arrSukCnt25[k]);
                             bus28Cnt = bus28Cnt + parseInt(arrSukCnt28[k]);
 
+                            bus45All = bus45All + bus45Cnt;
+                            bus25All = bus25All + bus25Cnt;
+                            bus28All = bus28All + bus28Cnt;
+
                             let htmll45 = ``;
                             let htmll25 = ``;
                             let htmll28 = ``;
@@ -966,7 +986,13 @@ function makeMainBigCal() {
 
                             $(aaa).html(htmll);
                         }
+
                     }
+
+                    $('#big45AllCal').text(bus45All);
+                    $('#big28AllCal').text(bus28All);
+                    $('#big25AllCal').text(bus25All);
+
                     resolve();
                 },
                 error: (jqXHR) => {
@@ -1140,9 +1166,9 @@ $(document).on('click', '.middle-suk', function () {
         }
     }
 
-    makeModalIl(dayday, null, rsvtrsvt);
-    // getSukRsvt(rsvtrsvt, 0);
+    showAlloVeWhat(dayday, 1);
 
+    makeModalIl(dayday, null, rsvtrsvt);
 });
 
 function getMenuRsvt(rsvtrsvt, operday, choo) {
@@ -2497,11 +2523,12 @@ $(document).on('click', '.middle-il', function () {
         }
     }
 
+    showAlloVeWhat(dayday, 1);
+
     makeModalIl(dayday, ctmnono, null);
 });
 
 function makeHtmlsIl2() {
-    console.log('하이요');
     $('#modalAllo2').modal('show');
 }
 

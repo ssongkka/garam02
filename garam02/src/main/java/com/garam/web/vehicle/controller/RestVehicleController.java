@@ -573,12 +573,18 @@ public class RestVehicleController {
 		return list;
 	}
 
-	@PostMapping(value = "/veingas")
-	public int veingas(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+	@PostMapping(value = "/veupgas")
+	public int veupgas(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
 
 		int rst = 0;
 		try {
-			rst = vehicleService.insertGas(vehicleInfoDTO);
+
+			if (vehicleInfoDTO.getKm() < 1 || vehicleInfoDTO.getLiter() < 1 || vehicleInfoDTO.getVegasmoney() < 1) {
+				rst = vehicleService.delGas(vehicleInfoDTO);
+			} else {
+				rst = vehicleService.updateGas(vehicleInfoDTO);
+			}
+
 		} catch (DataAccessException e) {
 			rst = -1;
 
@@ -589,20 +595,26 @@ public class RestVehicleController {
 		return rst;
 	}
 
-	@PostMapping(value = "/veupgas")
-	public int veupgas(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+	@PostMapping(value = "/veingas")
+	public int veingas(@RequestBody List<Map<String, Object>> map) throws Exception {
 
 		int rst = 0;
 		try {
-			rst = vehicleService.updateGas(vehicleInfoDTO);
+			rst = vehicleService.insertGas(map);
 		} catch (DataAccessException e) {
 			rst = -1;
 
 		} catch (Exception e) {
 			rst = -2;
 		}
-
 		return rst;
+	}
+
+	@PostMapping(value = "/veallovech")
+	public List<VehicleInfoDTO> veallovech(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleService.selAlloVeCh(vehicleInfoDTO);
+
+		return list;
 	}
 
 }

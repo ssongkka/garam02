@@ -442,7 +442,10 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int updateRsvt(RsvtDTO rsvtDTO) throws Exception {
 
+		System.out.println("ggggggggggg");
 		List<RsvtDTO> tmpList = rsvtMapper.selectRSVT(rsvtDTO);
+		System.out.println("ggggggggggg");
+		System.out.println(tmpList.get(0).getCtmno().equals(rsvtDTO.getCtmno()));
 
 		if (tmpList.get(0).getCtmno().equals(rsvtDTO.getCtmno())) {
 			rsvtDTO.setCtmno(null);
@@ -470,15 +473,48 @@ public class MainServiceImpl implements MainService {
 		System.out.println("tmpList.get(0).getNum()  " + tmpList.get(0).getNum());
 		System.out.println("rsvtDTO.getNum()   " + rsvtDTO.getNum());
 
-		if (tmpList.get(0).getDesty().equals(rsvtDTO.getDesty())) {
+		String desty1 = "";
+		String desty2 = "";
+
+		if (tmpList.get(0).getDesty() != null) {
+			desty1 = tmpList.get(0).getDesty();
+		}
+
+		if (rsvtDTO.getDesty() != null) {
+			desty2 = rsvtDTO.getDesty();
+		}
+
+		if (desty1.equals(desty2)) {
 			rsvtDTO.setDesty(null);
 		}
 
-		if (tmpList.get(0).getRsvpstp().equals(rsvtDTO.getRsvpstp())) {
+		String stp1 = "";
+		String stp2 = "";
+
+		if (tmpList.get(0).getRsvpstp() != null) {
+			stp1 = tmpList.get(0).getRsvpstp();
+		}
+
+		if (rsvtDTO.getRsvpstp() != null) {
+			stp2 = rsvtDTO.getRsvpstp();
+		}
+
+		if (stp1.equals(stp2)) {
 			rsvtDTO.setRsvpstp(null);
 		}
 
-		if (tmpList.get(0).getStt().equals(rsvtDTO.getStt())) {
+		String stt1 = "";
+		String stt2 = "";
+
+		if (tmpList.get(0).getStt() != null) {
+			stt1 = tmpList.get(0).getStt();
+		}
+
+		if (rsvtDTO.getStt() != null) {
+			stt2 = rsvtDTO.getStt();
+		}
+
+		if (stt1.equals(stt2)) {
 			rsvtDTO.setStt(null);
 		}
 
@@ -497,7 +533,18 @@ public class MainServiceImpl implements MainService {
 			rsvtDTO.setEndt(null);
 		}
 
-		if (tmpList.get(0).getRsvtdetail().equals(rsvtDTO.getRsvtdetail())) {
+		String rsvtDe1 = "";
+		String rsvtDe2 = "";
+
+		if (tmpList.get(0).getRsvtdetail() != null) {
+			rsvtDe1 = tmpList.get(0).getRsvtdetail();
+		}
+
+		if (rsvtDTO.getRsvtdetail() != null) {
+			rsvtDe2 = tmpList.get(0).getRsvtdetail();
+		}
+
+		if (rsvtDe1.equals(rsvtDe2)) {
 			rsvtDTO.setRsvtdetail(null);
 		}
 

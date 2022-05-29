@@ -7,16 +7,16 @@
         <!-- 자동완성 방지용 -->
         <aside class="nomal-aside">
             <div class="nomal-aside-main">
-                <div class="logo">
-                    <span
-                        class="detail-user-1"
-                        th:text="${user.company}"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="left"
-                        title="홈으로"></span>
-                    <span class="detail-user-2">차량정보</span>
-                </div>
                 <div class="nomal-aside-search">
+                    <div class="logo">
+                        <span
+                            class="detail-user-1"
+                            th:text="${user.company}"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="left"
+                            title="홈으로"></span>
+                        <span class="detail-user-2">차량정보</span>
+                    </div>
                     <div class="hd-search">
                         <div class="hd-serach-group">
                             <div class="hd-search-icon">
@@ -597,8 +597,8 @@
                 </div>
             </div>
         </div>
-        <div th:replace="dashboard/dashboardBottom :: main-bottom"></div>
     </main>
+    <div th:replace="dashboard/dashboardBottom :: main-bottom"></div>
     <div th:replace="vehicle/vehicleInsertMD :: ve-MD-insert"></div>
     <div th:replace="vehicle/vehicleFileMD :: ve-MD-file"></div>
     <div th:replace="vehicle/vehicleRegMD :: ve-MD-reg"></div>

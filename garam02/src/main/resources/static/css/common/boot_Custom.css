@@ -107,3 +107,9 @@ a:hover {
 .form-label {
     font-weight: 600;
 }
+
+.table-responsive {
+    overflow-y: auto;
+    
+}
+

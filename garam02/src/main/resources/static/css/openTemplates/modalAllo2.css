@@ -247,12 +247,14 @@
     .allTitle {
         display: grid;
         grid-template-columns: 2fr 1fr;
+        padding: 1rem;
     }
 
     .alloTitle {
         display: grid;
         grid-template-columns: 1fr;
         gap: 0.5rem;
+        padding: 1rem;
     }
 
     .alloTitle-item1 {

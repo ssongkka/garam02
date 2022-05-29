@@ -99,7 +99,13 @@ public interface VehicleMapper {
 
 	public List<VehicleInfoDTO> selectGasMonth(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
-	public int insertGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+	public int insertGas(HashMap<String, Object> map) throws Exception;
 
 	public int updateGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public int updateManyGas(HashMap<String, Object> map) throws Exception;
+
+	public int delGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<VehicleInfoDTO> selAlloVeCh(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

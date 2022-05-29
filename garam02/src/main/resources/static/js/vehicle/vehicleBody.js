@@ -631,8 +631,18 @@ function getVeInfo(carnumber) {
                     } else {
                         $('#ve20').html('<span>&nbsp;</span>');
                     }
+
                     if (r[0].owner) {
-                        $('#ve05').html('<span>' + r[0].owner + '</span>');
+
+                        let owow = r[0].owner;
+                        for (let i = 0; i < dbEmp.length; i++) {
+                            if (dbEmp[i].id == r[0].owner) {
+                                owow = dbEmp[i].name;
+                            }
+                        }
+
+                        $('#ve05').html('<span>' + owow + '</span>');
+
                     } else {
                         $('#ve05').html('<span>&nbsp;</span>');
                     }

@@ -63,7 +63,6 @@ function makeMain2BigCal() {
 
                 const bbb5 = $(bbb2).children()[3];
 
-                console.log(bbb5);
 
                 let colorDay = '';
                 let colorNoday = '1';
@@ -334,9 +333,6 @@ function makeMain2BigCal() {
 
                 success: function (r) {
 
-                    console.log("rrr");
-                    console.log(r);
-
                     for (let i = 0; i < r.length; i++) {
 
                         if (r[i].regist) {
@@ -591,6 +587,7 @@ function makeMain2BigCal() {
 
                 success: function (r) {
                     for (let i = 0; i < r.length; i++) {
+
                         arrHtmls[checkHolDay1(r[i].inspecdateend)] += `
                         <div class="mainCaltd-middle">
                             <div class="mainCal2td-middle-item middle-end">

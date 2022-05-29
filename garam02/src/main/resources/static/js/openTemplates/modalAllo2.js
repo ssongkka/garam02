@@ -7,9 +7,17 @@ function makeModalIl(dday, cctono, rsvt) {
     $('#modalAllo2Label').text(daysss);
 
     LoadingWithMask()
+        .then(showAlloMd2)
         .then(getAllo1)
         .then(getAllo2)
         .then(closeLoadingWithMask);
+
+    function showAlloMd2() {
+        return new Promise(function (resolve, reject) {
+            $('#modalAllo2').modal('show');
+            resolve();
+        })
+    }
 
     function getAllo1(result) {
         return new Promise(function (resolve, reject) {
@@ -34,7 +42,6 @@ function makeModalIl(dday, cctono, rsvt) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
 
                     $('.alloTitle').removeClass('ctm-ttt-back1');
                     $('.alloTitle').removeClass('ctm-ttt-back2');
@@ -341,8 +348,6 @@ function makeModalIl(dday, cctono, rsvt) {
 
                         const nums = parseInt($(aaa[0]).text());
 
-                        console.log("$('#alloMdctmNo').val()  " + $('#alloMdctmNo').val());
-
                         if (parseInt($('#alloMdctmNo').val()) == 0) {
                             $(aaa[1]).attr('disabled', true);
                             $(aaa[15]).attr('disabled', true);
@@ -437,8 +442,6 @@ function makeModalIl(dday, cctono, rsvt) {
             })
         })
     }
-
-    $('#modalAllo2').modal('show');
 }
 
 $(document).on('keyup', '.allinde', function (eInner) {
@@ -473,7 +476,6 @@ function insertOper2(doms) {
     function setAllo21() {
         return new Promise(function (resolve, reject) {
             var val = $(doms).val();
-            console.log(val);
             var carnum = $('#car-info option')
                 .filter(function () {
                     return this.value == val;
@@ -484,10 +486,6 @@ function insertOper2(doms) {
                     return this.value == val;
                 })
                 .data('owner');
-
-            console.log("carnum  " + carnum);
-            console.log("carowner  " + carowner);
-            console.log(!carnum);
 
             if (!carnum) {
                 alert("차량정보가없습니다. 확인해주세요.");
@@ -615,6 +613,8 @@ function insertOper2(doms) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+
+                    showAlloVeWhat(operddddd);
 
                     $(aaa[3]).val(r[0].opernum);
                     $(aaa[14]).val(1);
@@ -916,6 +916,8 @@ function delAllo2(doms) {
 
                 success: function (r) {
 
+                    showAlloVeWhat(tod);
+
                     $(aaa[0]).removeClass('alloNumClkDe');
 
                     $(aaa[1]).removeClass('allo1');
@@ -958,6 +960,7 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
             LoadingWithMask()
                 .then(setCont)
                 .then(upAtmAll)
+                .then(tabset)
                 .then(closeLoadingWithMask);
         } else {
             alert("배차금액을 입력해주세요.");
@@ -993,8 +996,6 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
                     const ddd = $(aaa2[i]).children()[13];
                     const confirmmm = $(ddd).val();
 
-                    console.log("confirmmm   " + confirmmm);
-
                     if (operNNN && !typepe.includes('alloNumClkDe') && !confirmmm) {
                         arrTmpOp.push(operNNN);
                     }
@@ -1005,7 +1006,7 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
                 if (arrTmpOp.length > 0) {
                     resolve(arrArr);
                 } else {
-                    closeLoadingWithMask();
+                    tabset().then(closeLoadingWithMask);
                 }
             })
         }
@@ -1053,5 +1054,26 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
                 })
             })
         }
+
+        function tabset() {
+            return new Promise(function (resolve, reject) {
+                const tabnum = $(domss).attr('tabindex');
+                $('[tabindex=' + (
+                    parseInt(tabnum) + 1
+                ) + ']').focus();
+                resolve();
+            })
+        }
     }
 });
+
+$(document).on('click', '#modalAllo2X', function () {
+    closeAllo2();
+});
+$(document).on('click', '#modalAllo2Btn', function () {
+    closeAllo2();
+});
+
+function closeAllo2(params) {
+    $('#offAlloVe').offcanvas('hide');
+}

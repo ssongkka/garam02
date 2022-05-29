@@ -245,7 +245,7 @@ public class VehicleInfoDTO {
 	private String vegasyearmonth;
 	private Double km;
 	private Double liter;
-	private String vegasmoney;
+	private int vegasmoney;
 	private Double kml;
 	private Double wonkm;
 	private Integer vegastrash;
@@ -1090,11 +1090,11 @@ public class VehicleInfoDTO {
 		this.liter = liter;
 	}
 
-	public String getVegasmoney() {
+	public int getVegasmoney() {
 		return vegasmoney;
 	}
 
-	public void setVegasmoney(String vegasmoney) {
+	public void setVegasmoney(int vegasmoney) {
 		this.vegasmoney = vegasmoney;
 	}
 

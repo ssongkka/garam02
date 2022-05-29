@@ -4,6 +4,19 @@
 
 #empNomal {}
 
+.nomal-aside {
+    width: 30rem;
+}
+
+.nomal-aside-search {
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.nomal-main {
+    padding-left: 30rem;
+}
+
 .yearmonthsMoney {
     font-size: 1.6rem;
 }
@@ -44,14 +57,27 @@
     margin: 0;
 }
 
+.table-scroll-body-emp {
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    min-height: calc(100vh - 25rem);
+    max-height: calc(100vh - 25rem);
+}
+
+.evNav .nav-link {
+    padding: 0.5rem 0;
+}
+
 #emp-reg-money-tb tr {
     cursor: Auto;
 }
 
 .moneyInsertEmp {
-    min-height: calc(100vh - 6rem);
+    min-height: calc(100vh - 0rem);
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
+    padding: 1rem;
 }
 
 .moneyInsertEmp-item {
@@ -454,8 +480,8 @@
     position: relative;
     overflow-y: scroll;
     width: 100%;
-    min-height: calc(100vh - 22rem);
-    max-height: calc(100vh - 22rem);
+    min-height: calc(100vh - 18rem);
+    max-height: calc(100vh - 18rem);
 }
 
 .table-scroll-body-Emp-off {

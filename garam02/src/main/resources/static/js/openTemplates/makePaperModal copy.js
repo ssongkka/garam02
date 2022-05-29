@@ -314,7 +314,6 @@ function setPapperAllo2(result) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
 
                     let cntInCh = 0;
                     let size = 0;
@@ -446,20 +445,16 @@ function setPapperAllo2(result) {
                     $('#btnFootCont').text("배차 완료 및 차량 관련 서류가 모두있어야 '배차서류' 생성가능합니다.");
 
                     if (cntInCh < 1) {
-                        console.log("하이1");
 
                         let chTbSize = 1;
                         $('tbody[name="papperTb"]').each(function () {
                             const aaa = $(this).children();
                             const size = aaa.length;
 
-                            console.log("size   " + size);
-
                             chTbSize = chTbSize * size;
                         });
 
                         if (chTbSize > 0) {
-                            console.log("하이2");
                             $('#btnPapperMake').prop("disabled", false);
                             $('#btnPapperMake').html(
                                 `배차서류생성<i class="fa-solid fa-check" style="color: darkgreen;"></i>`

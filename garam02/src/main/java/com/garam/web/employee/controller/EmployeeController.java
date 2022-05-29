@@ -70,6 +70,33 @@ public class EmployeeController extends UiUtils {
 		return "employee/employee";
 	}
 
+	@GetMapping(value = "/sal")
+	public String employeeMoney(@AuthenticationPrincipal User user, Model model) throws Exception {
+
+		model.addAttribute("user", user);
+
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
+		model.addAttribute("customer", list);
+
+		List<CompanyDTO> company = companyService.selectCompany();
+		model.addAttribute("company", company);
+
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
+
+		List<OptDTO> opt = rsvtService.selectOpt();
+		model.addAttribute("opt", opt);
+
+		List<RsvtDTO> othercompa = rsvtService.selectCustomerOtherCompa();
+		model.addAttribute("othercompa", othercompa);
+
+		return "employee/employeeSal";
+	}
+
 	@GetMapping(value = "/pdfDown")
 	public ResponseEntity<Object> downPdf(@RequestParam(value = "id", required = true) String id,
 			@RequestParam(value = "name", required = true) String name,

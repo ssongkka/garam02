@@ -1934,7 +1934,6 @@ function updateRsvt(result) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
-                    console.log(r);
                     if (r > -1) {
                         alert("운행정보가 수정되었습니다.");
                         if ($('#home').css('display') === 'block') {

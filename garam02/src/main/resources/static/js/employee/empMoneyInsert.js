@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    LoadingWithMask()
+        .then(getEmpAllM)
+        .then(closeLoadingWithMask);
+
     $("#operO").attr("disabled", true);
     $("#operO").val(opt[0].oper * 100);
 
@@ -77,6 +82,316 @@ $(document).ready(function () {
         );
     }
 });
+
+function getEmpAllM(name) {
+    return new Promise(function (resolve, reject) {
+        const url = "/emp/empAll";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const params = {
+            "name": name
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            caches: false,
+            dataType: "json",
+            data: JSON.stringify(params),
+
+            success: function (r) {
+                let htmls = '';
+                let htmlsCompa = '';
+                let htmlsSolo = '';
+                let htmlsYeb = '';
+                let htmlsOutman = '';
+
+                let cnt = 0;
+                let cntCompa = 0;
+                let cntSolo = 0;
+                let cntYeb = 0;
+                let cntOutman = 0;
+
+                for (let i = 0; i < r.length; i++) {
+                    if (r[i].trash == 1) {
+                        cnt++;
+
+                        htmls += '<tr id="' + r[i].id + 'cut" onclick="getEmpInfoM(this.id)">';
+                        htmls += '<td>'
+                        htmls += '<span class="tr-emp">'
+                        htmls += r[i].name;
+                        htmls += '</span>'
+                        htmls += '</td>'
+                        if (r[i].vehicle) {
+                            htmls += '<td>'
+                            htmls += '<span class="tr-ve">'
+                            htmls += r[i]
+                                .vehicle
+                                .substring(r[i].vehicle.length - 4);
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td>'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+                        if (r[i].kind) {
+                            htmls += '<td class="">'
+                            htmls += '<span>'
+                            htmls += r[i].kind;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td class="">'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+
+                        if (r[i].birthday) {
+                            htmls += '<td class="size-hidden ">'
+                            htmls += '<span>'
+                            htmls += r[i].birthday;
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        } else {
+                            htmls += '<td class="size-hidden ">'
+                            htmls += '<span>'
+                            htmls += '</span>'
+                            htmls += '</td>'
+                        }
+                        htmls += '</tr>'
+                    }
+                    if (r[i].trash == 0) {
+                        cntOutman++;
+
+                        htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfoM(this.id)">';
+                        htmlsOutman += '<td>'
+                        htmlsOutman += '<span class="tr-emp">'
+                        htmlsOutman += r[i].name;
+                        htmlsOutman += '</span>'
+                        htmlsOutman += '</td>'
+                        if (r[i].kind) {
+                            htmlsOutman += '<td>'
+                            htmlsOutman += '<span>'
+                            htmlsOutman += r[i].kind;
+                            htmlsOutman += '</span>'
+                            htmlsOutman += '</td>'
+                        } else {
+                            htmlsOutman += '<td>'
+                            htmlsOutman += '<span>'
+                            htmlsOutman += '</span>'
+                            htmlsOutman += '</td>'
+                        }
+                        if (r[i].birthday) {
+                            htmlsOutman += '<td class="">'
+                            htmlsOutman += '<span>'
+                            htmlsOutman += r[i].birthday;
+                            htmlsOutman += '</span>'
+                            htmlsOutman += '</td>'
+                        } else {
+                            htmlsOutman += '<td class="">'
+                            htmlsOutman += '<span>'
+                            htmlsOutman += '</span>'
+                            htmlsOutman += '</td>'
+                        }
+                        htmlsOutman += '</tr>'
+                    }
+
+                    if (r[i].kind == '회사' && r[i].trash == 1) {
+                        cntCompa++;
+
+                        htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfoM(this.id)">';
+                        htmlsCompa += '<td>'
+                        htmlsCompa += '<span class="tr-emp">'
+                        htmlsCompa += r[i].name;
+                        htmlsCompa += '</span>'
+                        htmlsCompa += '</td>'
+                        if (r[i].vehicle) {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span class="tr-ve">'
+                            htmlsCompa += r[i]
+                                .vehicle
+                                .substring(r[i].vehicle.length - 4);
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        if (r[i].kind) {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].kind;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td>'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+
+                        if (r[i].birthday) {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += r[i].birthday;
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        } else {
+                            htmlsCompa += '<td class="size-hidden">'
+                            htmlsCompa += '<span>'
+                            htmlsCompa += '</span>'
+                            htmlsCompa += '</td>'
+                        }
+                        htmlsCompa += '</tr>'
+                    }
+                    if (r[i].kind == '개인' && r[i].trash == 1) {
+                        cntSolo++;
+
+                        htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfoM(this.id)">';
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span class="tr-emp">'
+                        htmlsSolo += r[i].name;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
+                        if (r[i].vehicle) {
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span class="tr-ve">'
+                            htmlsSolo += r[i]
+                                .vehicle
+                                .substring(r[i].vehicle.length - 4);
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        } else {
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        }
+                        if (r[i].kind) {
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += r[i].kind;
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        } else {
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        }
+
+                        if (r[i].birthday) {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += r[i].birthday;
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        } else {
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
+                        }
+                        htmlsSolo += '</tr>'
+                    }
+                    if (r[i].kind == '예비' && r[i].trash == 1) {
+                        cntYeb++;
+
+                        htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfoM(this.id)">';
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span class="tr-emp">'
+                        htmlsYeb += r[i].name;
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                        if (r[i].kind) {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += r[i].kind;
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        } else {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        }
+                        if (r[i].birthday) {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += r[i].birthday;
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        } else {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        }
+                        htmlsYeb += '</tr>'
+                    }
+                }
+                $('#emp-tb-all').html(htmls);
+                $('#emp-tb-compa').html(htmlsCompa);
+                $('#emp-tb-solo').html(htmlsSolo);
+                $('#emp-tb-yeb').html(htmlsYeb);
+                $('#emp-tb-outman').html(htmlsOutman);
+
+                $('#bgAll').text(cnt);
+                $('#bgCompa').text(cntCompa);
+                $('#bgSolo').text(cntSolo);
+                $('#bgYeb').text(cntYeb);
+                $('#bgOutman').text(cntOutman);
+                resolve();
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        })
+    })
+}
+
+function getEmpInfoM(id) {
+    $('#mainoper-home-tab').attr("disabled", false);
+    $('#operemp-profile-tab').attr("disabled", false);
+    $('#moneyemp-profile-tab').attr("disabled", false);
+    $('#infoemp-profile-tab').attr("disabled", false);
+
+    $('#insert-money').attr("disabled", false);
+
+    tbChoice(id);
+    $('#emp-iidd').val(id.split('cut')[0]);
+
+    LoadingWithMask()
+        .then(getAllMList)
+        .then(getEmpOperCnt)
+        .then(getEmpOper)
+        .then(setEmpRegDays)
+        .then(getEmpRegOper)
+        .then(getEmpRegOper1)
+        .then(getEmpAllAllOper1)
+        .then(getEmpAllAllOper2)
+        .then(getEmpInMList)
+        .then(getEmpOutMList)
+        .then(getEmpBaseM)
+        .then(setCheckBox)
+        .then(operMSet)
+        .then(operRegMSet)
+        .then(sumInList)
+        .then(sumOutList)
+        .then(sumIN)
+        .then(sumOut)
+        .then(sumAll333)
+        .then(closeLoadingWithMask);
+}
 
 $(document).on('click', '#oper3-tab', function () {
     const aaa = $('#oper3').css('visibility');

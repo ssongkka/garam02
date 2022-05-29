@@ -1097,8 +1097,40 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public int insertGas(VehicleInfoDTO vehicleInfoDTO) throws Exception {
-		int rtn = vehicleMapper.insertGas(vehicleInfoDTO);
+	public int insertGas(List<Map<String, Object>> map) throws Exception {
+
+		List<Map<String, Object>> mapIn = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> mapUp = new ArrayList<Map<String, Object>>();
+
+		for (int i = 0; i < map.size(); i++) {
+			System.out.println(map.get(i).get("vegasseq"));
+			if (map.get(i).get("vegasseq") == null) {
+				mapIn.add(map.get(i));
+			} else {
+				mapUp.add(map.get(i));
+			}
+		}
+
+		HashMap<String, Object> vegasin = new HashMap<>();
+		HashMap<String, Object> vegasup = new HashMap<>();
+
+		for (int i = 0; i < mapIn.size(); i++) {
+			vegasin.put("vegasin", mapIn);
+		}
+
+		for (int i = 0; i < mapUp.size(); i++) {
+			vegasup.put("vegasup", mapUp);
+		}
+
+		int rtn = 0;
+
+		if (vegasin.size() > 0) {
+			rtn = vehicleMapper.insertGas(vegasin);
+		}
+
+		if (vegasup.size() > 0) {
+			rtn = vehicleMapper.updateManyGas(vegasup);
+		}
 
 		return rtn;
 	}
@@ -1108,6 +1140,20 @@ public class VehicleServiceImpl implements VehicleService {
 		int rtn = vehicleMapper.updateGas(vehicleInfoDTO);
 
 		return rtn;
+	}
+
+	@Override
+	public int delGas(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = vehicleMapper.delGas(vehicleInfoDTO);
+
+		return rtn;
+	}
+
+	@Override
+	public List<VehicleInfoDTO> selAlloVeCh(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		List<VehicleInfoDTO> list = vehicleMapper.selAlloVeCh(vehicleInfoDTO);
+
+		return list;
 	}
 
 }

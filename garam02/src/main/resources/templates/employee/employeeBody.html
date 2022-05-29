@@ -7,16 +7,17 @@
         <!-- 자동완성 방지용 -->
         <aside class="nomal-aside">
             <div class="nomal-aside-main">
-                <div class="logo">
-                    <span
-                        class="detail-user-1"
-                        th:text="${user.company}"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="left"
-                        title="홈으로"></span>
-                    <span class="detail-user-2">인사정보</span>
-                </div>
+
                 <div class="nomal-aside-search">
+                    <div class="logo">
+                        <span
+                            class="detail-user-1"
+                            th:text="${user.company}"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="left"
+                            title="홈으로"></span>
+                        <span class="detail-user-2">인사정보</span>
+                    </div>
                     <div class="hd-search">
                         <div class="hd-serach-group">
                             <div class="hd-search-icon">
@@ -129,26 +130,48 @@
                                 id="all"
                                 role="tabpanel"
                                 aria-labelledby="all-tab">
-                                <div class="table-responsive">
-                                    <table
-                                        class="table table-striped table-hover table-bordered  table-sortable"
-                                        id="ddssaa">
-                                        <colgroup>
-                                            <!-- <col width="25%"/> <col width="15%"/> <col width="15%"/> <col width="20%"/>
-                                            <col width="15%"/> <col width="10%"/> -->
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th>이름</th>
-                                                <th>차량</th>
-                                                <th>소속</th>
-                                                <th class="size-hidden">생년월일</th>
-                                                <th class="size-hidden">나이</th>
-                                                <th class="size-hidden">종류</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="emp-tb-all"></tbody>
-                                    </table>
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table
+                                                class="table table-striped table-hover table-bordered  table-sortable"
+                                                id="ddssaa">
+                                                <colgroup>
+                                                    <col width="25%"/>
+                                                    <col width="15%"/>
+                                                    <col width="15%"/>
+                                                    <col width="20%"/>
+                                                    <col width="15%"/>
+                                                    <col width="10%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>이름</th>
+                                                        <th>차량</th>
+                                                        <th>소속</th>
+                                                        <th class="size-hidden">생년월일</th>
+                                                        <th class="size-hidden">나이</th>
+                                                        <th class="size-hidden">종류</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="table-scroll-body-emp">
+                                        <table
+                                            class="table table-striped table-hover table-bordered  table-sortable"
+                                            id="ddssaa">
+                                            <colgroup>
+                                                <col width="25%"/>
+                                                <col width="15%"/>
+                                                <col width="15%"/>
+                                                <col width="20%"/>
+                                                <col width="15%"/>
+                                                <col width="10%"/>
+                                            </colgroup>
+                                            <tbody id="emp-tb-all"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div
@@ -156,64 +179,120 @@
                                 id="compa"
                                 role="tabpanel"
                                 aria-labelledby="compa-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-bordered table-sortable">
-                                        <colgroup>
-                                            <!-- <col width="25%"/> <col width="15%"/> <col width="15%"/> <col width="20%"/>
-                                            <col width="15%"/> <col width="10%"/> -->
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th>이름</th>
-                                                <th>차량</th>
-                                                <th>소속</th>
-                                                <th class="size-hidden">생년월일</th>
-                                                <th class="size-hidden">나이</th>
-                                                <th class="size-hidden">종류</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="emp-tb-compa"></tbody>
-                                    </table>
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-striped table-hover table-bordered table-sortable">
+                                                <colgroup>
+                                                    <col width="25%"/>
+                                                    <col width="15%"/>
+                                                    <col width="15%"/>
+                                                    <col width="20%"/>
+                                                    <col width="15%"/>
+                                                    <col width="10%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>이름</th>
+                                                        <th>차량</th>
+                                                        <th>소속</th>
+                                                        <th class="size-hidden">생년월일</th>
+                                                        <th class="size-hidden">나이</th>
+                                                        <th class="size-hidden">종류</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="table-scroll-body-emp">
+                                            <table class="table table-striped table-hover table-bordered table-sortable">
+                                                <colgroup>
+                                                    <col width="25%"/>
+                                                    <col width="15%"/>
+                                                    <col width="15%"/>
+                                                    <col width="20%"/>
+                                                    <col width="15%"/>
+                                                    <col width="10%"/>
+                                                </colgroup>
+                                                <tbody id="emp-tb-compa"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="solo" role="tabpanel" aria-labelledby="solo-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-bordered  table-sortable">
-                                        <colgroup>
-                                            <!-- <col width="25%"/> <col width="15%"/> <col width="15%"/> <col width="20%"/>
-                                            <col width="15%"/> <col width="10%"/> -->
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th>이름</th>
-                                                <th>차량</th>
-                                                <th>소속</th>
-                                                <th class="size-hidden">생년월일</th>
-                                                <th class="size-hidden">나이</th>
-                                                <th class="size-hidden">종류</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="emp-tb-solo"></tbody>
-                                    </table>
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-striped table-hover table-bordered  table-sortable">
+                                                <colgroup>
+                                                    <col width="25%"/>
+                                                    <col width="15%"/>
+                                                    <col width="15%"/>
+                                                    <col width="20%"/>
+                                                    <col width="15%"/>
+                                                    <col width="10%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>이름</th>
+                                                        <th>차량</th>
+                                                        <th>소속</th>
+                                                        <th class="size-hidden">생년월일</th>
+                                                        <th class="size-hidden">나이</th>
+                                                        <th class="size-hidden">종류</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="table-scroll-body-emp">
+                                        <table class="table table-striped table-hover table-bordered  table-sortable">
+                                            <colgroup>
+                                                <col width="25%"/>
+                                                <col width="15%"/>
+                                                <col width="15%"/>
+                                                <col width="20%"/>
+                                                <col width="15%"/>
+                                                <col width="10%"/>
+                                            </colgroup>
+                                            <tbody id="emp-tb-solo"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="yeb" role="tabpanel" aria-labelledby="yeb-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-bordered  table-sortable">
-                                        <colgroup>
-                                            <!-- <col width="25%"/> <col width="25%"/> <col width="25%"/> <col width="25%"/>
-                                            -->
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th>이름</th>
-                                                <th>소속</th>
-                                                <th>생년월일</th>
-                                                <th>나이</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="emp-tb-yeb"></tbody>
-                                    </table>
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-striped table-hover table-bordered  table-sortable">
+                                                <colgroup>
+                                                    <col width="25%"/>
+                                                    <col width="25%"/>
+                                                    <col width="25%"/>
+                                                    <col width="25%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>이름</th>
+                                                        <th>소속</th>
+                                                        <th>생년월일</th>
+                                                        <th>나이</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="table-scroll-body-emp">
+                                        <table class="table table-striped table-hover table-bordered  table-sortable">
+                                            <colgroup>
+                                                <col width="25%"/>
+                                                <col width="25%"/>
+                                                <col width="25%"/>
+                                                <col width="25%"/>
+                                            </colgroup>
+                                            <tbody id="emp-tb-yeb"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div
@@ -221,22 +300,38 @@
                                 id="outman"
                                 role="tabpanel"
                                 aria-labelledby="outman-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-bordered  table-sortable">
-                                        <colgroup>
-                                            <!-- <col width="25%"/> <col width="25%"/> <col width="25%"/> <col width="25%"/>
-                                            -->
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th>이름</th>
-                                                <th>소속</th>
-                                                <th>생년월일</th>
-                                                <th>나이</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="emp-tb-outman"></tbody>
-                                    </table>
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="table-scroll-head-inner">
+                                            <table class="table table-striped table-hover table-bordered  table-sortable">
+                                                <colgroup>
+                                                    <col width="25%"/>
+                                                    <col width="25%"/>
+                                                    <col width="25%"/>
+                                                    <col width="25%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>이름</th>
+                                                        <th>소속</th>
+                                                        <th>생년월일</th>
+                                                        <th>나이</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="table-scroll-body-emp">
+                                        <table class="table table-striped table-hover table-bordered  table-sortable">
+                                            <colgroup>
+                                                <col width="25%"/>
+                                                <col width="25%"/>
+                                                <col width="25%"/>
+                                                <col width="25%"/>
+                                            </colgroup>
+                                            <tbody id="emp-tb-outman"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -249,9 +344,12 @@
                         </button>
                     </div>
                     <div class="nomal-aside-btn-item btn-group" role="group">
-                        <button type="button" class="btn btn-default" id="insert-money">
+                        <a
+                            type="button"
+                            href="/employee/sal"
+                            class="btn btn-default">
                             급여입력<i class="fas fa-plus-square"></i>
-                        </button>
+                        </a>
                         <input type="hidden" id="showm" value="0">
                     </div>
                 </div>
@@ -438,65 +536,6 @@
                 </div>
             </div>
             <div
-                class="offcanvas offcanvas-bottom"
-                data-bs-scroll="true"
-                data-bs-backdrop="false"
-                tabindex="-1"
-                id="oper3"
-                aria-labelledby="offcanvasTopLabel">
-                <div class="offcanvas-header">
-                    <h3 id="oper3Label"></h3>
-                    <button
-                        type="button"
-                        class="btn-close text-reset"
-                        data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body-regOper">
-                    <div class="main-EmpReg-main">
-                        <table class="table table-bordered table-striped tbEmpRegAllo">
-                            <colgroup>
-                                <col width="5%"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                                <col width="auto"/>
-                            </colgroup>
-                            <thead id="thDays"></thead>
-                            <tbody id="tbAllo"></tbody>
-                            <tfoot id="tfBtn"></tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div
                 class="offcanvas offcanvas-end"
                 data-bs-scroll="true"
                 data-bs-backdrop="false"
@@ -511,143 +550,7 @@
                         data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body-regOper">
-                    <div class="main-EmpAllo-main">
-                        <div class="offAll1">
-                            <div class="offAll1-item">
-                                <h3>일반운행 목록</h3>
-                            </div>
-                            <div class="offAll1-item">
-                                <div class="table-scroll">
-                                    <div class="table-scroll-head">
-                                        <div class="table-scroll-head-inner">
-                                            <table class="table table-bordered table-striped tbEmpRegAllo">
-                                                <colgroup>
-                                                    <col width="5%"/>
-                                                    <col width="20%"/>
-                                                    <col width="30%"/>
-                                                    <col width="30%"/>
-                                                    <col width="15%"/>
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>운행일</th>
-                                                        <th>목적지</th>
-                                                        <th>출발지</th>
-                                                        <th>금액</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-scroll-body-Emp-off">
-                                    <table class="table table-bordered table-striped tbEmpRegAllo">
-                                        <colgroup>
-                                            <col width="5%"/>
-                                            <col width="20%"/>
-                                            <col width="30%"/>
-                                            <col width="30%"/>
-                                            <col width="15%"/>
-                                        </colgroup>
-                                        <tbody id="offAlloInTb"></tbody>
-                                        <tfoot></tfoot>
-                                    </table>
-                                </div>
-                                <div class="table-scroll">
-                                    <div class="table-scroll-head">
-                                        <div class="table-scroll-head-inner">
-                                            <table class="table table-bordered table-striped tbEmpRegAllo">
-                                                <colgroup>
-                                                    <col width="5%"/>
-                                                    <col width="20%"/>
-                                                    <col width="30%"/>
-                                                    <col width="30%"/>
-                                                    <col width="15%"/>
-                                                </colgroup>
-                                                <tfoot>
-                                                    <td colspan="3">합 계</td>
-                                                    <td id="offEmpOperMCnt"></td>
-                                                    <td class="tdRight" id="offEmpOperMAll"></td>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offAll2">
-                            <div class="offAll2-item">
-                                <h3>정기운행 목록</h3>
-                            </div>
-                            <div class="offAll2-item ">
-                                <div class="table-scroll">
-                                    <div class="table-scroll-head">
-                                        <div class="table-scroll-head-inner">
-                                            <table class="table table-bordered table-striped tbEmpRegAllo">
-                                                <colgroup>
-                                                    <col width="5%"/>
-                                                    <col width="20%"/>
-                                                    <col width="30%"/>
-                                                    <col width="30%"/>
-                                                    <col width="15%"/>
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>운행일</th>
-                                                        <th>회사</th>
-                                                        <th>노선</th>
-                                                        <th>금액</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-scroll-body-Emp-off">
-                                    <table class="table table-bordered table-striped tbEmpRegAllo">
-                                        <colgroup>
-                                            <col width="5%"/>
-                                            <col width="20%"/>
-                                            <col width="30%"/>
-                                            <col width="30%"/>
-                                            <col width="15%"/>
-                                        </colgroup>
-                                        <tbody id="offAlloRegInTb"></tbody>
-                                        <tfoot></tfoot>
-                                    </table>
-                                </div>
-                                <div class="table-scroll">
-                                    <div class="table-scroll-head">
-                                        <div class="table-scroll-head-inner">
-                                            <table class="table table-bordered table-striped tbEmpRegAllo">
-                                                <colgroup>
-                                                    <col width="5%"/>
-                                                    <col width="20%"/>
-                                                    <col width="30%"/>
-                                                    <col width="30%"/>
-                                                    <col width="15%"/>
-                                                </colgroup>
-                                                <tfoot>
-                                                    <td colspan="3">합 계</td>
-                                                    <td id="offEmpRegMCnt"></td>
-                                                    <td class="tdRight" id="offEmpRegMAll"></td>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div
-                th:insert="employee/empMoneyInsert :: emp-money-in"
-                class="main-adise-money"
-                id="empMoney"></div>
         </main>
         <!-- Modal -->
         <div
@@ -917,22 +820,6 @@
             language="javascript"
             type="text/javascript"
             src="/js/employee/employeeBody.js?v=2020051201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/employee/empOper.js?v=2020051201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/employee/empMoneyInsert.js?v=2020051201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/employee/empMoneyInsertGetM.js?v=2020051201"></script>
-        <script
-            language="javascript"
-            type="text/javascript"
-            src="/js/employee/empMoneyInsertSumM.js?v=2020051201"></script>
         <script
             language="javascript"
             type="text/javascript"

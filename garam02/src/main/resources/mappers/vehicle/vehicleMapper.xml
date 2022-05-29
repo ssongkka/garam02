@@ -1090,7 +1090,7 @@
 
 	</select>
 
-	<insert id="insertGas" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+	<insert id="insertGas" parameterType="java.util.HashMap">
 
 		INSERT
 
@@ -1100,24 +1100,24 @@
 
 		VALUES
 
-		(
-		NULL,
-		#{carnumber},
-		#{vegasid},
-		#{vegasyearmonth},
-		#{km},
-		#{liter},
-		#{vegasmoney},
-		#{kml},
-		#{wonkm},
-		1,
-		null
-		)
-
+		<foreach collection="vegasin" item="value" separator=",">
+			(
+			NULL,
+			#{value.carnumber},
+			#{value.vegasid},
+			#{value.vegasyearmonth},
+			#{value.km},
+			#{value.liter},
+			#{value.vegasmoney},
+			#{value.kml},
+			#{value.wonkm},
+			1,
+			null
+			)
+		</foreach>
 	</insert>
 
 	<update id="updateGas" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
-
 		UPDATE vegas
 
 		SET
@@ -1134,8 +1134,93 @@
 
 		WHERE
 
+		vegasseq = #{vegasseq}
+	</update>
+
+	<update id="updateManyGas" parameterType="java.util.HashMap">
+		<foreach collection="vegasup" item="value" index="index" separator=";">
+			UPDATE vegas
+
+			SET
+
+			km =
+			#{value.km},
+			liter =
+			#{value.liter},
+			vegasmoney = #{value.vegasmoney},
+			kml =
+			#{value.kml},
+			wonkm =
+			#{value.wonkm}
+
+			WHERE
+
+			vegasseq =
+			#{value.vegasseq}
+		</foreach>
+	</update>
+
+
+	<delete id="delGas" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		DELETE
+
+		FROM
+
+		vegas
+
+		WHERE
+
 		vegasseq = #{vegasseq};
 
-	</update>
+	</delete>
+
+	<select id="selAlloVeCh" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		*,
+		(SELECT
+
+		operation_info.opernum
+
+		FROM
+
+		operation_info
+
+		WHERE
+
+		operation_info.opercar = vehicleinfo.carnumber
+
+		AND
+
+		operation_info.operday = #{insudatestart}
+
+		GROUP BY
+
+		operation_info.opercar) AS insudatestart
+
+		FROM
+
+		vehicleinfo
+
+		WHERE
+
+		vehicleinfo.inday <![CDATA[<=]]>
+		#{insudatestart}
+
+		AND
+
+		(vehicleinfo.outday IS NULL OR vehicleinfo.outday <![CDATA[>=]]>
+		#{insudatestart})
+
+		ORDER BY
+		vehicleinfo.vehicle
+
+
+	</select>
+
+
 
 </mapper>

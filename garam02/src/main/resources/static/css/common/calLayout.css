@@ -43,7 +43,7 @@
     display: flex;
     flex-direction: row;
     gap: 5rem;
-    padding: 1rem;
+    padding: 1rem 2rem 1rem 1rem;
 }
 
 .dashImg {
@@ -115,7 +115,7 @@
 }
 
 .header .hd-search .hd-search-icon {
-    padding-left: 2rem;
+    padding-left: 0.5rem;
     font-size: 1.5rem;
 }
 
@@ -250,6 +250,25 @@
     padding: 1rem;
     display: flex;
     align-items: center;
+}
+
+.ad-cal-home1 {
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.allBig {
+    width: 5rem;
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ad-cal-items-4 blockquote {
@@ -551,7 +570,9 @@ blockquote {
     .main {
         padding-top: 5rem;
         padding-left: 0;
-        min-height: calc(100vh - 0rem);
+
+        min-height: 100%;
+        max-height: 100%;
     }
 
     .dd-main-nav {
