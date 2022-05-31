@@ -7,6 +7,10 @@ $(document).ready(function () {
     showPlusDetail();
 });
 
+window.onload = function () {
+    showManyModal();
+};
+
 $(document).on('click', '#backMain', function () {
     window.open('/dashboard', '_parent');
 });
@@ -25,11 +29,11 @@ $(document).on('click', '#plus-btn', function () {
         .children()[aaa - 1];
     let htmls = '<tr>';
     htmls += '<td>';
-    htmls += '<input type="date" class="input-sm" onchange="ccc(this)"';
+    htmls += '<input type="date" class="form-control input-sm" onchange="ccc(this)"';
     htmls += ' value="' + $('#std').val() + '">';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<input type="date" class="input-sm"';
+    htmls += '<input type="date" class="form-control input-sm"';
     htmls += ' value="' + $('#edd').val() + '">';
     htmls += '</td>';
     htmls += '<td>';
@@ -95,13 +99,13 @@ $(document).on('click', '#plus-btn', function () {
     htmls += '</select>';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<input type="time" class="input-sm" value="08:30">';
+    htmls += '<input type="time" class="form-control input-sm" value="08:30">';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<input type="time" class="input-sm">';
+    htmls += '<input type="time" class="form-control input-sm">';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<input type="text"';
+    htmls += '<input type="text" class="form-control" onfocus="this.select()"';
 
     if (!$('#t-stp').text() || $('#t-stp').text() == "출발지") {
         htmls += ' value="' + $('#stp').text() + '">';
@@ -111,10 +115,10 @@ $(document).on('click', '#plus-btn', function () {
 
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<input type="text">';
+    htmls += '<input type="text" class="form-control" onfocus="this.select()">';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<input type="text">';
+    htmls += '<input type="text" class="form-control" onfocus="this.select()">';
     htmls += '</td>';
     htmls += '<td>';
     htmls += '<select class="form-select input-sm">';
@@ -124,14 +128,14 @@ $(document).on('click', '#plus-btn', function () {
     htmls += '</select>';
     htmls += '</td>';
     htmls += '<td>';
-    htmls += '<input type="text"';
-    // htmls += 'data-type="currency"';
+    htmls += '<input type="text" class="form-control" onfocus="this.select()"';
+    htmls += 'data-type="currency"';
     htmls += 'class="input-sm ipm"';
     htmls += 'value="0"';
     htmls += 'style="text-align: right;">';
     htmls += '</td>';
     htmls += '<td class="th-ct">';
-    htmls += '<a class="far fa-times-circle" onclick="minusCont(this)"></a>';
+    htmls += '<a class="" onclick="minusCont(this)"><i class="fa-solid fa-xmark"></i></a>';
     htmls += '</td>';
     htmls += '</tr>';
     $('#tbMany').append(htmls);
@@ -236,17 +240,6 @@ $(document).on('click', '#plus-btn', function () {
     $(ddd).focus();
 });
 
-$(document).on('shown.bs.modal', '#modal-ctm', function () {
-    if ($('#t-name').text() && $('#t-name').text() != '고객이름') {
-        $('#ctmnameUp').val($('#t-name').text());
-    } else {
-        $('#ctmnameUp').val('');
-    }
-
-    $('#ctmlseqqqUp').val($('#m-no').val());
-    $('#ctmnoUp').val($('#m-no').val());
-});
-
 $(document).on('change', '#std', function () {
     $("#edd").val($("#std").val())
 });
@@ -267,8 +260,21 @@ function ccc(value) {
 }
 
 $(document).on('click', '#asdBtn', function () {
-    $('#modal-ctm').modal('show');
+    showManyModal();
 })
+
+function showManyModal() {
+    if ($('#t-name').text() && $('#t-name').text() != '고객이름') {
+        $('#ctmnameUp').val($('#t-name').text());
+    } else {
+        $('#ctmnameUp').val('');
+    }
+
+    $('#ctmlseqqqUp').val($('#m-no').val());
+    $('#ctmnoUp').val($('#m-no').val());
+
+    $('#modal-ctm').modal('show');
+}
 
 $(document).on('click', '#inNewUp', function () {
     $('#modalCustomUp').modal('hide');
@@ -426,13 +432,32 @@ $(document).on('click', '#insert-many', function () {
 
                 let params = new Array();
                 $(aaa[0]).val()
-                for (let index = 0; index < aaa.length; index = index + 12) {
 
-                    const contt = $(aaa[index + 9]).val();
-                    const conmm = $(aaa[index + 10])
+                const aaa1 = $('#tbMany').children();
+
+                for (let i = 0; i < aaa1.length; i++) {
+                    const bbb = $(aaa1[i]).children();
+
+                    const qqq = $(bbb[0]).children()[0];
+                    const www = $(bbb[1]).children()[0];
+                    const eee = $(bbb[2]).children()[0];
+                    const rrr = $(bbb[3]).children()[0];
+                    const ttt = $(bbb[4]).children()[0];
+                    const yyy = $(bbb[5]).children()[0];
+                    const uuu = $(bbb[6]).children()[0];
+                    const iii = $(bbb[7]).children()[0];
+                    const ooo = $(bbb[8]).children()[0];
+                    const ppp = $(bbb[9]).children()[0];
+                    const lll = $(bbb[10]).children()[0];
+
+                    const numnum = $(rrr)
                         .val()
-                        .replaceAll(",", "");
-                    const numnum = $(aaa[index + 3]).val();
+                        .replaceAll(',', '');
+                    const conmm = $(lll)
+                        .val()
+                        .replaceAll(',', '');
+                    const contt = $(ppp).val();
+
                     let nummm = 0;
 
                     switch (contt) {
@@ -448,24 +473,26 @@ $(document).on('click', '#insert-many', function () {
                     }
 
                     const asd = {
-                        "rsvt": get_Rsvt(11, $(aaa[index]).val(), index),
+                        "rsvt": '',
                         "ctmno": $('#m-no').val(),
                         "empin": dbuser.id,
-                        "stday": $(aaa[index]).val(),
-                        "endday": $(aaa[index + 1]).val(),
-                        "bus": $(aaa[index + 2]).val(),
+                        "stday": $(qqq).val(),
+                        "endday": $(www).val(),
+                        "bus": $(eee).val(),
                         "num": numnum,
-                        "desty": $(aaa[index + 7]).val(),
-                        "rsvpstp": $(aaa[index + 6]).val(),
-                        "stt": $(aaa[index + 4]).val(),
-                        "endt": $(aaa[index + 5]).val(),
-                        "rsvtdetail": $(aaa[index + 8]).val(),
+                        "desty": $(iii).val(),
+                        "rsvpstp": $(uuu).val(),
+                        "stt": $(ttt).val(),
+                        "endt": $(yyy).val(),
+                        "rsvtdetail": $(ooo).val(),
                         "cont": contt,
                         "numm": nummm,
                         "conm": conmm
                     };
                     params.push(asd);
                 }
+
+                console.log(params);
 
                 const url = "/rsvtmany/insert";
                 const headers = {
@@ -480,7 +507,6 @@ $(document).on('click', '#insert-many', function () {
                     caches: false,
                     dataType: "json",
                     data: JSON.stringify(params),
-
                     success: function (r) {
                         if (r > 0) {
                             let rtn = confirm(
@@ -492,13 +518,13 @@ $(document).on('click', '#insert-many', function () {
                                 location.reload();
                             }
                         } else if (r == 0) {
-                            alert("예약정보 입력 실패!\n\n시스템을 확인해주세요.")
+                            alert("예약정보 입력 실패!\n\n시스템을 확인해주세요.");
                             location.reload();
                         } else if (r == -1) {
-                            alert("예약정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
+                            alert("예약정보 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.");
                             location.reload();
                         } else if (r == -2) {
-                            alert("예약정보 입력 실패!\n\n시스템을 확인해주세요.")
+                            alert(" 예약정보 입력 실패 !\n\n시스템을 확인해주세요.");
                             location.reload();
                         }
                     },

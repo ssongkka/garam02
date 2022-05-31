@@ -1,13 +1,13 @@
 $(document).ready(function () {
-    if ($('#pills-home-tab').attr('class').includes('active')) {
-        $('#home1Cal').show();
-        $('#home4Cal').hide();
-    }
+    // if ($('#pills-home-tab').attr('class').includes('active')) {
+    //     $('#home1Cal').show();
+    //     $('#home4Cal').hide();
+    // }
 
-    if ($('#pills-home4-tab').attr('class').includes('active')) {
-        $('#home1Cal').hide();
-        $('#home4Cal').show();
-    }
+    // if ($('#pills-home4-tab').attr('class').includes('active')) {
+    //     $('#home1Cal').hide();
+    //     $('#home4Cal').show();
+    // }
 
 });
 
@@ -699,13 +699,28 @@ function makeMainBigCal() {
                                         }
 
                                         if (r[i].ctmtel1 > 0) {
-                                            qwer += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                            if (r[i].ctmtel1 == r[i].rsvttrash) {
+                                                qwer += `<div class="spNum2 big45 text-decoration-line-through">` + r[i].ctmtel1 +
+                                                        `</div>`;
+                                            } else {
+                                                qwer += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                            }
                                         }
                                         if (r[i].ctmtel2 > 0) {
-                                            qwer += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                            if (r[i].ctmtel2 == r[i].rsvttrash) {
+                                                qwer += `<div class="spNum2 big25 text-decoration-line-through">` + r[i].ctmtel2 +
+                                                        `</div>`;
+                                            } else {
+                                                qwer += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                            }
                                         }
                                         if (r[i].ctmemail > 0) {
-                                            qwer += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                            if (r[i].ctmemail == r[i].rsvttrash) {
+                                                qwer += `<div class="spNum2 big28 text-decoration-line-through">` + r[i].ctmemail +
+                                                        `</div>`;
+                                            } else {
+                                                qwer += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                            }
                                         }
 
                                         let qwer1 = '';
@@ -728,13 +743,28 @@ function makeMainBigCal() {
                                         }
 
                                         if (r[i].ctmtel1 > 0) {
-                                            qwer1 += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                            if (r[i].ctmtel1 == r[i].rsvttrash) {
+                                                qwer1 += `<div class="spNum2 big45 text-decoration-line-through">` + r[i].ctmtel1 +
+                                                        `</div>`;
+                                            } else {
+                                                qwer1 += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                            }
                                         }
                                         if (r[i].ctmtel2 > 0) {
-                                            qwer1 += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                            if (r[i].ctmtel2 == r[i].rsvttrash) {
+                                                qwer1 += `<div class="spNum2 big25 text-decoration-line-through">` + r[i].ctmtel2 +
+                                                        `</div>`;
+                                            } else {
+                                                qwer1 += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                            }
                                         }
                                         if (r[i].ctmemail > 0) {
-                                            qwer1 += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                            if (r[i].ctmemail == r[i].rsvttrash) {
+                                                qwer1 += `<div class="spNum2 big28 text-decoration-line-through">` + r[i].ctmemail +
+                                                        `</div>`;
+                                            } else {
+                                                qwer1 += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                            }
                                         }
 
                                         if (k == 0) {
@@ -788,6 +818,7 @@ function makeMainBigCal() {
                                 for (let l3 = 1; l3 < arrTmpDay[l].split('').length; l3++) {
                                     rrem = rrem + getTdSize(parseInt(arrTmpDay[l].split('')[l3]));
                                 }
+                                $(saveDom[l]).attr('name', 'suk');
                                 $(saveDom[l]).attr('class', 'mainCaltd-middle-item middle-suk card-song');
                                 $(saveDom[l]).css('right', (rrem * -1) + "px");
 
@@ -849,7 +880,7 @@ function makeMainBigCal() {
                         for (let i = 0; i < r.length; i++) {
                             let number = 0;
                             for (let k = 0; k < arrDays.length; k++) {
-                                if (r[i].stday == arrDays[k]) {
+                                if (r[i].ve1 == arrDays[k]) {
                                     number = parseInt(k) + 1;
                                 }
                             }
@@ -886,13 +917,28 @@ function makeMainBigCal() {
                             }
 
                             if (r[i].ctmtel1 > 0) {
-                                qwer += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                if (r[i].ctmtel1 == r[i].id1) {
+                                    qwer += `<div class="spNum2 big45 text-decoration-line-through">` + r[i].ctmtel1 +
+                                            `</div>`;
+                                } else {
+                                    qwer += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                }
                             }
                             if (r[i].ctmtel2 > 0) {
-                                qwer += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                if (r[i].ctmtel2 == r[i].id2) {
+                                    qwer += `<div class="spNum2 big25 text-decoration-line-through">` + r[i].ctmtel2 +
+                                            `</div>`;
+                                } else {
+                                    qwer += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                }
                             }
                             if (r[i].ctmemail > 0) {
-                                qwer += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                if (r[i].ctmemail == r[i].id3) {
+                                    qwer += `<div class="spNum2 big28 text-decoration-line-through">` + r[i].ctmemail +
+                                            `</div>`;
+                                } else {
+                                    qwer += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                }
                             }
 
                             for (let j2 = 0; j2 < ccc1.length; j2++) {
@@ -902,25 +948,41 @@ function makeMainBigCal() {
                                 const sepaa = $(ccc1[j2]).children()[4];
                                 const texttt = $(chch).text();
 
-                                if ($(ctmval).val() == r[i].ctmno) {
+                                if ($(ctmval).val() == r[i].ve2) {
                                     let qqqq = ``;
                                     if (r[i].ctmtel1 > 0) {
-                                        qqqq += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                        if (r[i].ctmtel1 == r[i].id1) {
+                                            qqqq += `<div class="spNum2 big45 text-decoration-line-through">` + r[i].ctmtel1 +
+                                                    `</div>`;
+                                        } else {
+                                            qqqq += `<div class="spNum2 big45">` + r[i].ctmtel1 + `</div>`;
+                                        }
                                     }
                                     if (r[i].ctmtel2 > 0) {
-                                        qqqq += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                        if (r[i].ctmtel2 == r[i].id2) {
+                                            qqqq += `<div class="spNum2 big25 text-decoration-line-through">` + r[i].ctmtel2 +
+                                                    `</div>`;
+                                        } else {
+                                            qqqq += `<div class="spNum2 big25">` + r[i].ctmtel2 + `</div>`;
+                                        }
                                     }
                                     if (r[i].ctmemail > 0) {
-                                        qqqq += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                        if (r[i].ctmemail == r[i].id3) {
+                                            qqqq += `<div class="spNum2 big28 text-decoration-line-through">` + r[i].ctmemail +
+                                                    `</div>`;
+                                        } else {
+                                            qqqq += `<div class="spNum2 big28">` + r[i].ctmemail + `</div>`;
+                                        }
                                     }
                                     $(chch).append(qqqq);
                                     break;
                                 } else {
                                     if (!texttt) {
                                         $(chch).addClass('middle-il');
+                                        $(chch).attr('name', 'il');
                                         $(chch).html(qwer);
-                                        $(dayval).val(r[i].stday);
-                                        $(ctmval).val(r[i].ctmno);
+                                        $(dayval).val(r[i].ve1);
+                                        $(ctmval).val(r[i].ve2);
                                         $(sepaa).val(0);
                                         break;
                                     }
@@ -933,7 +995,7 @@ function makeMainBigCal() {
                             let bus25Cnt = 0;
                             let bus28Cnt = 0;
                             for (let i = 0; i < r.length; i++) {
-                                if (r[i].stday == arrDays[k]) {
+                                if (r[i].ve1 == arrDays[k]) {
                                     if (r[i].ctmtel1 > 0) {
                                         bus45Cnt = bus45Cnt + parseInt(r[i].ctmtel1);
                                     }
@@ -3223,3 +3285,158 @@ $(document).on('click', '.calDetail', function () {
         }
     }
 });
+
+function checkAlloLine() {
+
+    const std = $('#stDayCal').val();
+    const edd = $('#endDayCal').val();
+
+    LoadingWithMask()
+        .then(getCalRsvt1)
+        .then(getCalRsvt2)
+        .then(closeAllo2)
+        .then(closeLoadingWithMask);
+
+    function getCalRsvt1(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/home/homeCal1";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "stday": std,
+                "endday": edd
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    $('div[name="suk"]').each(function () {
+
+                        const dday = $(this)
+                            .next()
+                            .next()
+                            .val();
+                        const rsvtNum = $(this)
+                            .next()
+                            .next()
+                            .next()
+                            .val();
+
+                        const aaa = $(this).children()[1];
+
+                        for (let i = 0; i < r.length; i++) {
+                            if (dday == r[i].stday && rsvtNum == r[i].rsvt) {
+                                if (r[i].ctmtel1 > 0) {
+                                    if (r[i].ctmtel1 == r[i].rsvttrash) {
+                                        $(aaa).addClass('text-decoration-line-through');
+                                    } else {
+                                        $(aaa).removeClass('text-decoration-line-through');
+                                    }
+                                }
+                                if (r[i].ctmtel2 > 0) {
+                                    if (r[i].ctmtel2 == r[i].rsvttrash) {
+                                        $(aaa).addClass('text-decoration-line-through');
+                                    } else {
+                                        $(aaa).removeClass('text-decoration-line-through');
+                                    }
+                                }
+                                if (r[i].ctmemail > 0) {
+                                    if (r[i].ctmemail == r[i].rsvttrash) {
+                                        $(aaa).addClass('text-decoration-line-through');
+                                    } else {
+                                        $(aaa).removeClass('text-decoration-line-through');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    resolve();
+                }
+            })
+        })
+    }
+
+    function getCalRsvt2(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/home/homeCal2";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "stday": std,
+                "endday": edd
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    $('div[name="il"]').each(function () {
+
+                        const dday = $(this)
+                            .next()
+                            .next()
+                            .val();
+                        const ctmnonono = $(this)
+                            .next()
+                            .next()
+                            .next()
+                            .val();
+
+                        const aaa = $(this).children()[1];
+
+                        for (let i = 0; i < r.length; i++) {
+                            if (dday == r[i].ve1 && ctmnonono == r[i].ve2) {
+                                if (r[i].ctmtel1 > 0) {
+                                    if (r[i].ctmtel1 == r[i].id1) {
+                                        $(aaa).addClass('text-decoration-line-through');
+                                    } else {
+                                        $(aaa).removeClass('text-decoration-line-through');
+                                    }
+                                }
+                                if (r[i].ctmtel2 > 0) {
+                                    if (r[i].ctmtel2 == r[i].id2) {
+                                        $(aaa).addClass('text-decoration-line-through');
+                                    } else {
+                                        $(aaa).removeClass('text-decoration-line-through');
+                                    }
+                                }
+                                if (r[i].ctmemail > 0) {
+                                    if (r[i].ctmemail == r[i].id3) {
+                                        $(aaa).addClass('text-decoration-line-through');
+                                    } else {
+                                        $(aaa).removeClass('text-decoration-line-through');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    resolve();
+                }
+            })
+        })
+    };
+
+    function closeAllo2() {
+        return new Promise(function (resolve, reject) {
+            $('#offAlloVe').offcanvas('hide');
+            resolve();
+        })
+    }
+}

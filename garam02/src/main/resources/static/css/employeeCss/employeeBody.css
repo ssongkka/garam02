@@ -363,4 +363,9 @@
         width: 60rem;
         padding: 0.5rem;
     }
+
+    .table-scroll-body-emp {
+        min-height: calc(100vh - 31rem);
+        max-height: calc(100vh - 31rem);
+    }
 }

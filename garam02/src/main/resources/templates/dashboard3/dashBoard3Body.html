@@ -32,6 +32,7 @@
         <div th:replace="openTemplates/modalRsvt :: modalRsvt"></div>
         <div th:replace="openTemplates/modalRsvtOper :: modalRsvtOper"></div>
         <div th:replace="openTemplates/dataVeEmp :: dataVeEmp"></div>
+        <div th:replace="openTemplates/checkAlloVe :: offAlloVe"></div>
         <script th:inline="javascript">
             /*<![CDATA[*/
             const opt =/*[[${opt}]]*/
@@ -65,5 +66,9 @@
 
         <th:block th:replace="layout/linkGroupScript :: linkScript"></th:block>
         <th:block th:replace="dashboard/dashlinkGroupScript :: dashLinkScript"></th:block>
+        <script
+            language="javascript"
+            type="text/javascript"
+            src="/js/openTemplates/checkAlloVe.js?v=2020051201"></script>
     </body>
 </html>

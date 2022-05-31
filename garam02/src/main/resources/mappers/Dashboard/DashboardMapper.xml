@@ -1399,6 +1399,33 @@
 			AND rsvt.rsvttrash = 1
 		</where>
 	</select>
+
+	<select id="selectPapperAllo1_1" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+		SELECT
+
+		*
+
+		FROM
+
+		rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno = customer.ctmno
+
+		WHERE
+
+		rsvt.rsvt
+		IN
+		<foreach collection="rsvtoper" item="value" index="index" separator="," open="(" close=")">
+			#{value.rsvt}
+		</foreach>
+	</select>
 	<select id="selectPapperAllo2" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
 		resultType="com.garam.web.dashboard.dto.RsvtDTO">
 
@@ -1738,7 +1765,24 @@
 		SUM(rsvt.num), 0) AS 'ctmtel2', rsvt.bus, rsvt.rsvt, IF(rsvt.bus
 		='우등',
 		SUM(rsvt.num),
-		0) AS 'ctmemail'
+		0) AS 'ctmemail',
+		(SELECT
+
+		COUNT(operation_info.operseq)
+
+		FROM
+
+		operation_info
+
+		WHERE
+
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		AND
+
+		operation_info.operday = rsvt.stday
+		) AS rsvttrash
 
 		FROM rsvt
 
@@ -1784,11 +1828,129 @@
 
 		SELECT
 
-		rsvt.stday,rsvt.endday, rsvt.ctmno, customer.ctmname, rsvt.desty, customer.ctmsepa, IF(rsvt.bus
+		rsvt.stday AS ve1, rsvt.endday, rsvt.ctmno AS ve2, customer.ctmname, rsvt.desty, customer.ctmsepa,
+		IF(rsvt.bus
 		='대형', SUM(rsvt.num), 0) AS 'ctmtel1', IF(rsvt.bus ='중형',
-		SUM(rsvt.num), 0) AS 'ctmtel2', rsvt.bus, rsvt.rsvt,
+		SUM(rsvt.num), 0) AS 'ctmtel2', rsvt.bus,
+		rsvt.rsvt,
 		IF(rsvt.bus ='우등',
-		SUM(rsvt.num), 0) AS 'ctmemail'
+		SUM(rsvt.num), 0) AS 'ctmemail',
+		(
+		SELECT
+
+		COUNT(rsvt.num)
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		rsvt.rsvt = operation_info.rsvt
+
+		WHERE
+
+		rsvt.ctmno = ve2
+
+		AND
+
+		operation_info.operday = ve1
+
+		AND
+
+		rsvt.stday = rsvt.endday
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		rsvt.bus = '대형'
+
+		) AS id1,
+		(
+		SELECT
+
+		COUNT(rsvt.num)
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		rsvt.rsvt =
+		operation_info.rsvt
+
+		WHERE
+
+		rsvt.ctmno = ve2
+
+		AND
+
+		operation_info.operday = ve1
+
+		AND
+
+		rsvt.stday = rsvt.endday
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		rsvt.bus = '중형'
+
+		) AS id2,
+		(
+		SELECT
+
+		COUNT(rsvt.num)
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		rsvt.rsvt =
+		operation_info.rsvt
+
+		WHERE
+
+		rsvt.ctmno = ve2
+
+		AND
+
+		operation_info.operday = ve1
+
+		AND
+
+		rsvt.stday = rsvt.endday
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		rsvt.bus = '우등'
+
+		) AS id3
 
 		FROM rsvt
 

@@ -74,11 +74,14 @@
 }
 
 .nomal-aside-search {
-    padding: 1rem;
+    height: 5rem;
     z-index: 1050;
+
+    padding: 0 1rem;
 
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 5rem;
 
     background: var(--main-color);
@@ -134,7 +137,6 @@
 .hd-tb {
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
-    overflow-y: scroll;
 }
 
 .scBarEmp {

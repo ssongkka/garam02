@@ -2,13 +2,10 @@ package com.garam.web.dashboard.service;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,14 +14,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.garam.Utils.FTPManager;
 import com.garam.Utils.PDFUtil;
@@ -139,8 +133,24 @@ public class MainServiceImpl implements MainService {
 	}
 
 	private String get_Rsvt(String stday) {
+		String str = "";
+		for (int i = 0; i < 3; i++) {
+			switch ((int) ((Math.random() * 3) + 1)) {
+			case 1:
+				str += Integer.toString((int) (Math.random() * 9));
+				break;
+			case 2:
+				str += (char) (int) ((Math.random() * 26) + 65);
+				break;
+			case 3:
+				str += (char) (int) ((Math.random() * 26) + 97);
+				break;
+			}
+		}
+
 		String rsvt = "R-" + stday.substring(2).replace("-", "") + "-"
-				+ LocalDateTime.now().toString().substring(2, 22).replace("-", "").replace(":", "").replace(".", "-");
+				+ LocalDateTime.now().toString().substring(2, 20).replace("-", "").replace(":", "").replace(".", "-")
+				+ str;
 
 		return rsvt;
 	}
@@ -285,6 +295,10 @@ public class MainServiceImpl implements MainService {
 			if (map.get(i).get("endt").equals("") || map.get(i).get("endt").toString().length() == 0) {
 				map.get(i).replace("endt", null);
 			}
+		}
+
+		for (int i = 0; i < map.size(); i++) {
+			map.get(i).replace("rsvt", get_Rsvt((String) map.get(i).get("stday")));
 		}
 
 		HashMap<String, Object> rsvt = new HashMap<>();
@@ -703,7 +717,20 @@ public class MainServiceImpl implements MainService {
 		rsvtDto.setStday(dayyy);
 		rsvtDto.setEndday(dayyy);
 
-		List<RsvtDTO> listCtm = rsvtMapper.selectPapperAllo1(rsvtDto);
+		List<Map<String, Object>> map = new ArrayList<Map<String, Object>>();
+
+		for (int i = 0; i < tmpArr_Rsvt.length; i++) {
+			Map<String, Object> tmpmap = new HashMap<String, Object>();
+			tmpmap.put("rsvt", tmpArr_Rsvt[i]);
+			map.add(tmpmap);
+		}
+
+		HashMap<String, Object> rsvtoper = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			rsvtoper.put("rsvtoper", map);
+		}
+
+		List<RsvtDTO> listCtm = rsvtMapper.selectPapperAllo1_1(rsvtoper);
 
 		ArrayList<List<RsvtDTO>> list_Rsvt = new ArrayList<List<RsvtDTO>>();
 
@@ -716,6 +743,8 @@ public class MainServiceImpl implements MainService {
 		List<CompanyDTO> listCompa = companyMapper.selectCompany();
 
 		ArrayList<File> arr_File = new ArrayList<File>();
+
+		FTPClient ftp = ftpmanager.connect();
 
 		for (int i = 0; i < tmpArr_Papper.length; i++) {
 			switch (tmpArr_Papper[i]) {
@@ -732,13 +761,13 @@ public class MainServiceImpl implements MainService {
 				arr_File.add(getAnjunPDF(companyyy, dayyy, listCtm, list_Rsvt, listCompa));
 				break;
 			case "5":
-				arr_File.addAll(getVePapperPDF(list_Rsvt));
+				arr_File.addAll(getVePapperPDF(list_Rsvt, ftp));
 				break;
 			case "6":
-				arr_File.addAll(getVeInsuPDF(list_Rsvt));
+				arr_File.addAll(getVeInsuPDF(list_Rsvt, ftp));
 				break;
 			case "7":
-				arr_File.addAll(getVeJukPDF(list_Rsvt));
+				arr_File.addAll(getVeJukPDF(list_Rsvt, ftp));
 				break;
 			}
 		}
@@ -765,6 +794,8 @@ public class MainServiceImpl implements MainService {
 		PDFmerger.setDestinationStream(bout2);
 
 		PDFmerger.mergeDocuments(null);
+
+		ftpmanager.disconnect(ftp);
 
 		return file;
 	}
@@ -802,13 +833,25 @@ public class MainServiceImpl implements MainService {
 
 		String dddaaa = dayyy.split("-")[0] + "년 " + dayyy.split("-")[1] + "월 " + dayyy.split("-")[2] + "일";
 
+		ArrayList<String> tmpArrDesty = new ArrayList<String>();
+		for (int i = 0; i < listCtm.size(); i++) {
+			tmpArrDesty.add(listCtm.get(i).getDesty());
+		}
+
+		ArrayList<String> resultList = new ArrayList<String>();
+		for (int i = 0; i < tmpArrDesty.size(); i++) {
+			if (!resultList.contains(tmpArrDesty.get(i))) {
+				resultList.add(tmpArrDesty.get(i));
+			}
+		}
+
 		String desty = "";
 
-		for (int i = 0; i < listCtm.size(); i++) {
+		for (int i = 0; i < resultList.size(); i++) {
 			if (i < 1) {
-				desty += listCtm.get(i).getDesty();
+				desty += resultList.get(i);
 			} else {
-				desty += ", " + listCtm.get(i).getDesty();
+				desty += ", " + resultList.get(i);
 			}
 		}
 
@@ -1810,12 +1853,8 @@ public class MainServiceImpl implements MainService {
 		return file;
 	}
 
-	private ArrayList<File> getVePapperPDF(ArrayList<List<RsvtDTO>> list_Rsvt)
+	private ArrayList<File> getVePapperPDF(ArrayList<List<RsvtDTO>> list_Rsvt, FTPClient ftp)
 			throws MalformedURLException, IOException {
-
-		FTPClient ftp = ftpmanager.connect();
-
-		System.out.println("ㅁㅇㅁㅈㅇㅁㅇ  " + ftp.isConnected());
 
 		ArrayList<File> rtnFiles = new ArrayList<File>();
 
@@ -1829,8 +1868,6 @@ public class MainServiceImpl implements MainService {
 				File tempFile = File.createTempFile("tmp" + Integer.toString(a), ".tmp");
 				tempFile.deleteOnExit();
 
-				System.out.println(FILE_URL);
-
 				FileOutputStream fos = new FileOutputStream(tempFile);
 				if (ftp.retrieveFile(FILE_URL, fos)) {
 					rtnFiles.add(tempFile);
@@ -1841,11 +1878,8 @@ public class MainServiceImpl implements MainService {
 		return rtnFiles;
 	}
 
-	private ArrayList<File> getVeInsuPDF(ArrayList<List<RsvtDTO>> list_Rsvt) throws MalformedURLException, IOException {
-
-		FTPClient ftp = ftpmanager.connect();
-
-		System.out.println("ㅁㅇㅁㅈㅇㅁㅇ  " + ftp.isConnected());
+	private ArrayList<File> getVeInsuPDF(ArrayList<List<RsvtDTO>> list_Rsvt, FTPClient ftp)
+			throws MalformedURLException, IOException {
 
 		ArrayList<File> rtnFiles = new ArrayList<File>();
 
@@ -1871,11 +1905,8 @@ public class MainServiceImpl implements MainService {
 		return rtnFiles;
 	}
 
-	private ArrayList<File> getVeJukPDF(ArrayList<List<RsvtDTO>> list_Rsvt) throws MalformedURLException, IOException {
-
-		FTPClient ftp = ftpmanager.connect();
-
-		System.out.println("ㅁㅇㅁㅈㅇㅁㅇ  " + ftp.isConnected());
+	private ArrayList<File> getVeJukPDF(ArrayList<List<RsvtDTO>> list_Rsvt, FTPClient ftp)
+			throws MalformedURLException, IOException {
 
 		ArrayList<File> rtnFiles = new ArrayList<File>();
 
@@ -1909,6 +1940,7 @@ public class MainServiceImpl implements MainService {
 				rtnFiles.add(tempFile);
 			}
 		}
+
 		return rtnFiles;
 	}
 

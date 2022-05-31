@@ -616,13 +616,13 @@ function cardVeEmpMake() {
                 if (dbVe[j].trash == 1) {
                     switch (dbVe[j].bus) {
                         case '대형':
-                            ++cntVe2[i];
+                            cntVe2[i]++;
                             break;
                         case '중형':
-                            ++cntVe3[i];
+                            cntVe3[i]++;
                             break;
                         case '우등':
-                            ++cntVe4[i];
+                            cntVe4[i]++;
                             break;
                     }
                 }
@@ -636,13 +636,13 @@ function cardVeEmpMake() {
                 if (dbEmp[k].trash == 1) {
                     switch (dbEmp[k].kind) {
                         case '회사':
-                            ++cntEmp2[i];
+                            cntEmp2[i]++;
                             break;
                         case '개인':
-                            ++cntEmp3[i];
+                            cntEmp3[i]++;
                             break;
                         case '예비':
-                            ++cntEmp4[i];
+                            cntEmp4[i]++;
                             break;
                     }
                 }

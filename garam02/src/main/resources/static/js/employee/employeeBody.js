@@ -57,6 +57,8 @@ function getEmpAll(name) {
                 let cntYeb = 0;
                 let cntOutman = 0;
 
+                console.log(r);
+
                 for (let i = 0; i < r.length; i++) {
                     if (r[i].trash == 1) {
                         cnt++;
@@ -426,6 +428,7 @@ function getEmpInfo(id) {
             .then(getEmpOperCnt)
             .then(getEmpOper)
             .then(setEmpRegDays)
+            .then(setEmpRegHol)
             .then(getEmpRegOper)
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)
@@ -728,6 +731,7 @@ $(document).on('click', '#insert-money', function () {
                     .then(getEmpOperCnt)
                     .then(getEmpOper)
                     .then(setEmpRegDays)
+                    .then(setEmpRegHol)
                     .then(getEmpRegOper)
                     .then(getEmpRegOper1)
                     .then(getEmpAllAllOper1)

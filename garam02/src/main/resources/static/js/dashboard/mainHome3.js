@@ -747,8 +747,7 @@ $(document).on('click', '.operChohome', function () {
     $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
     $('#RsvtOperDay').val(dayday1);
 
-    // getMenuRsvt(rsvt1, dayday1, 0);
-
+    showAlloVeWhat(dayday1, 1)
     makeModalIl(dayday1, null, rsvt1);
 });
 

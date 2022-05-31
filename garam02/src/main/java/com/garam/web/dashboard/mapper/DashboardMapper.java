@@ -90,6 +90,8 @@ public interface DashboardMapper {
 
 	public List<RsvtDTO> selectPapperAllo1(RsvtDTO rsvtDTO) throws Exception;
 
+	public List<RsvtDTO> selectPapperAllo1_1(HashMap<String, Object> map) throws Exception;
+
 	public List<RsvtDTO> selectPapperAllo2(HashMap<String, Object> map) throws Exception;
 
 	public List<RsvtDTO> selectPapperAllo3(RsvtDTO rsvtDTO) throws Exception;

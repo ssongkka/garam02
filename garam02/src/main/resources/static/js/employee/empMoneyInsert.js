@@ -371,10 +371,12 @@ function getEmpInfoM(id) {
     $('#emp-iidd').val(id.split('cut')[0]);
 
     LoadingWithMask()
+        .then(getEmpDetailM)
         .then(getAllMList)
         .then(getEmpOperCnt)
         .then(getEmpOper)
         .then(setEmpRegDays)
+        .then(setEmpRegHol)
         .then(getEmpRegOper)
         .then(getEmpRegOper1)
         .then(getEmpAllAllOper1)
@@ -391,6 +393,65 @@ function getEmpInfoM(id) {
         .then(sumOut)
         .then(sumAll333)
         .then(closeLoadingWithMask);
+
+    function getEmpDetailM() {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empdetail";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "id": id.split('cut')[0]
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    if (r[0].id) {
+                        $('#m-id').val(r[0].id);
+                    } else {
+                        $('#m-id').val('');
+                    }
+
+                    if (r[0].name) {
+                        $('#m-name').html('<span>' + r[0].name + '</span>');
+                    } else {
+                        $('#m-name').html('<span></span>');
+                    }
+                    if (r[0].birthday) {
+                        $('#m-bir').html('<span>' + r[0].birthday + '</span>');
+                    } else {
+                        $('#m-bir').html('<span></span>');
+                    }
+                    if (r[0].joind) {
+                        $('#m-ind').html('<span>' + r[0].joind + '</span>');
+                    } else {
+                        $('#m-ind').html('<span></span>');
+                    }
+
+                    let compaName = '';
+                    if (r[0].regcompany) {
+                        compaName = r[0].regcompany + ' ' + r[0].rdname;
+                        $('#m-reg').html('<span>' + compaName + '</span>');
+                    } else {
+                        $('#m-reg').html('<span>일반 운행 차량</span>');
+                    }
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
 }
 
 $(document).on('click', '#oper3-tab', function () {
@@ -1352,6 +1413,7 @@ function saveSalary(sepa) {
             .then(getEmpOperCnt)
             .then(getEmpOper)
             .then(setEmpRegDays)
+            .then(setEmpRegHol)
             .then(getEmpRegOper)
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)
@@ -1382,6 +1444,7 @@ function saveSalary(sepa) {
             .then(getEmpOperCnt)
             .then(getEmpOper)
             .then(setEmpRegDays)
+            .then(setEmpRegHol)
             .then(getEmpRegOper)
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)
@@ -1784,6 +1847,7 @@ $(document).on('dblclick', '.chreginM', function () {
             .then(getEmpOperCnt)
             .then(getEmpOper)
             .then(setEmpRegDays)
+            .then(setEmpRegHol)
             .then(getEmpRegOper)
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)
@@ -1807,6 +1871,7 @@ $(document).on('dblclick', '.chreginM', function () {
             .then(getEmpOperCnt)
             .then(getEmpOper)
             .then(setEmpRegDays)
+            .then(setEmpRegHol)
             .then(getEmpRegOper)
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)
@@ -1937,6 +2002,7 @@ $(document).on('keyup', '.regmoney', function (eInner) {
             .then(getEmpOperCnt)
             .then(getEmpOper)
             .then(setEmpRegDays)
+            .then(setEmpRegHol)
             .then(getEmpRegOper)
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)

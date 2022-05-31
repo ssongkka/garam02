@@ -1936,35 +1936,12 @@ function updateRsvt(result) {
                 success: function (r) {
                     if (r > -1) {
                         alert("운행정보가 수정되었습니다.");
-                        if ($('#home').css('display') === 'block') {
-                            goUrlDay('/dashboard', $('#stday-1').val());
-                        }
-
-                        if ($('#home4').css('display') === 'block') {
-                            goUrlDay('/dashboardcal', $('#stday-1').val());
-                        }
-
-                        if ($('#home2').css('display') === 'block') {
-                            goUrlDay('/dashboardrsvt', $('#stday-1').val());
-                        }
-
-                        if ($('#home3').css('display') === 'block') {
-                            goUrlDay('/dashboardoper', $('#stday-1').val());
-                        }
-
-                        if ($('#manage').css('display') === 'block') {
-                            goUrlDay('/dashboardmanage', $('#stday-1').val());
-                        }
-
-                        if ($('#allo').css('display') === 'block') {
-                            goUrlDay('/dashboardallo', $('#stday-1').val());
-                        }
                     } else if (r == -1) {
                         alert("운행정보 수정 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
                     } else if (r == -2) {
                         alert("운행정보 수정 실패!\n\n시스템을 확인해주세요.")
                     }
-                    resolve();
+                    location.reload();
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);

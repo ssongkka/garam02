@@ -368,9 +368,9 @@ function makeTableRsvt(r) {
                 `대</td>
         <td class="tdRight">` + AddComma(cntConM) +
                 `</td>
-        <td class="tdRight">` + AddComma(cntNumM) +
-                `</td>
-        <td class="tdRight">` + AddComma(cntJanM) +
+        <td class="">-</td>
+        <td class="tdRight">` +
+                AddComma(cntJanM) +
                 `</td>
         <td></td>
         <td></td>
@@ -545,8 +545,7 @@ $(document).on('click', '.rsvtChohome', function () {
     $('#modalRsvtOperLabel').text(dayday1 + ' ' + getDayOfWeek(ddddd.getDay()));
     $('#RsvtOperDay').val(dayday1);
 
-    // getMenuRsvt(rsvt1, null, 0);
-
+    showAlloVeWhat(dayday1, 1)
     makeModalIl(dayday1, null, rsvt1);
 });
 

@@ -287,7 +287,6 @@ function makeModalIl(dday, cctono, rsvt) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-
                     $('div[name="allTitle"]').each(function () {
 
                         const aaa = $(this).children();
@@ -299,6 +298,17 @@ function makeModalIl(dday, cctono, rsvt) {
                                 tmpAlm.push(r[i].atlm);
                             }
                         }
+
+                        let aveSum = 0;
+                        let aveAlm = 0;
+                        for (let i = 0; i < tmpAlm.length; i++) {
+                            aveSum = aveSum + parseInt(tmpAlm[i]);
+                        }
+
+                        aveAlm = parseInt(aveSum / tmpAlm.length);
+                        console.log("aveSum", aveSum);
+                        console.log("tmpAlm.length", tmpAlm.length);
+                        console.log("aveAlm", aveAlm);
 
                         const uniqueAltm = [...new Set(tmpAlm)];
 
@@ -329,6 +339,19 @@ function makeModalIl(dday, cctono, rsvt) {
                                 howNum = uniqueAltm[0];
                             } else {
                                 howNum = uniqueAltm[1];
+                            }
+                        }
+
+                        let chaE = 0;
+                        for (let i = 0; i < tmpAlm.length; i++) {
+                            if (i < 1) {
+                                chaE = Math.abs(parseInt(aveAlm) - parseInt(tmpAlm[i]));
+                                howNum = tmpAlm[i];
+                            }
+
+                            if (chaE > Math.abs(parseInt(aveAlm) - parseInt(tmpAlm[i]))) {
+                                chaE = Math.abs(parseInt(aveAlm) - parseInt(tmpAlm[i]));
+                                howNum = tmpAlm[i];
                             }
                         }
 
@@ -440,6 +463,13 @@ function makeModalIl(dday, cctono, rsvt) {
                     loginSession(jqXHR.status);
                 }
             })
+        })
+    }
+
+    function goTab() {
+        return new Promise(function (resolve, reject) {
+            $('[tabindex=1]').focus();
+            resolve();
         })
     }
 }
@@ -823,6 +853,7 @@ function getRsvtCh(rsvttt, ctmnonono) {
 
 $(document).on('click', '#alloMdbtnPapper', function () {
     $('#modalAllo2').modal('hide');
+    $('#offAlloVe').offcanvas('hide');
 
     const name = $('#alloMdctoName').text();
     const tel = $('#alloMdctoTel').text();
@@ -970,9 +1001,24 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
             return new Promise(function (resolve, reject) {
                 let arrArr = new Array();
 
-                const altmmm = $(domss)
+                let altmmm = $(domss)
                     .val()
                     .replaceAll(',', '');
+
+                switch (altmmm.length) {
+                    case 1:
+                        altmmm = altmmm * 10000;
+                        break;
+                    case 2:
+                        altmmm = altmmm * 10000;
+                        break;
+                    case 3:
+                        altmmm = altmmm * 10000;
+                        break;
+                    default:
+                        altmmm = altmmm;
+                        break;
+                }
 
                 const aaa = $(domss)
                     .parent()
@@ -1006,7 +1052,7 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
                 if (arrTmpOp.length > 0) {
                     resolve(arrArr);
                 } else {
-                    tabset().then(closeLoadingWithMask);
+                    tabset(altmmm).then(closeLoadingWithMask);
                 }
             })
         }
@@ -1039,7 +1085,7 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
 
                     success: function (r) {
                         if (r > -1) {
-                            resolve();
+                            resolve(result[1]);
                         } else if (r == -1) {
                             alert("배차금액 입력 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.");
                             location.reload();
@@ -1055,8 +1101,10 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
             })
         }
 
-        function tabset() {
+        function tabset(result) {
             return new Promise(function (resolve, reject) {
+                $(domss).val(AddComma(result));
+
                 const tabnum = $(domss).attr('tabindex');
                 $('[tabindex=' + (
                     parseInt(tabnum) + 1
@@ -1068,12 +1116,8 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
 });
 
 $(document).on('click', '#modalAllo2X', function () {
-    closeAllo2();
+    checkAlloLine();
 });
 $(document).on('click', '#modalAllo2Btn', function () {
-    closeAllo2();
+    checkAlloLine();
 });
-
-function closeAllo2(params) {
-    $('#offAlloVe').offcanvas('hide');
-}

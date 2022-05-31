@@ -147,6 +147,8 @@
 			<if test="name != null">OR vehicleinfo.vehicle Like CONCAT('%',#{name},'%') </if>
 		</where>
 
+		GROUP BY employeeinfo.id
+
 		ORDER BY name;
 
 	</select>
@@ -189,14 +191,36 @@
 
 		SELECT
 
-		<include refid="empColumns" />
+		*
 
-		FROM employeeinfo
+		FROM
 
-		LEFT JOIN vehicleinfo
+		employeeinfo
 
-		ON employeeinfo.id =
+		LEFT JOIN
+
+		vehicleinfo
+
+		ON
+
+		employeeinfo.id =
 		vehicleinfo.id
+
+		LEFT JOIN
+
+		regulardetail
+
+		ON
+
+		regulardetail.opercar = vehicleinfo.carnumber
+
+		LEFT JOIN
+
+		regular
+
+		ON
+
+		regular.conum = regulardetail.conum
 
 		WHERE employeeinfo.id = #{id}
 

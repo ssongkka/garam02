@@ -4,6 +4,7 @@ function getEmpMoneyListCompa() {
         .then(getEmpOperCnt)
         .then(getEmpOper)
         .then(setEmpRegDays)
+        .then(setEmpRegHol)
         .then(getEmpRegOper)
         .then(getEmpRegOper1)
         .then(getEmpAllAllOper1)
@@ -27,6 +28,7 @@ function getEmpOperListCompa() {
         .then(getEmpOperCnt)
         .then(getEmpOper)
         .then(setEmpRegDays)
+        .then(setEmpRegHol)
         .then(getEmpRegOper)
         .then(getEmpRegOper1)
         .then(getEmpAllAllOper1)
@@ -627,6 +629,60 @@ function setEmpRegDays() {
     })
 }
 
+function setEmpRegHol(result) {
+    return new Promise(function (resolve, reject) {
+        const url = "/calendar/event";
+        const headers = {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        };
+
+        const aaa = $('#thDays').children();
+        const bbb = $(aaa[2]).children();
+        const bbb1 = $(bbb[0]).text();
+
+        let sttdd = getStDEnD(bbb1.split('-')[0] + '-' + bbb1.split('-')[1]);
+
+        const params = {
+            "stD": sttdd[0],
+            "endD": sttdd[1]
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: headers,
+            caches: false,
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (r) {
+
+                for (let k = 0; k < r.length; k++) {
+                    if (r[k].holiday) {
+                        const aaa = $('#thDays').children();
+                        const bbb = $(aaa[2]).children();
+                        const ccc = $(aaa[0]).children();
+                        const ddd = $(aaa[1]).children();
+
+                        for (let i = 0; i < bbb.length; i++) {
+                            const tbDay = parseInt($(ccc[i + 1]).text().replaceAll('일', ''));
+                            const realDay = parseInt(r[k].solarcal.split('-')[2]);
+                            if (realDay == tbDay) {
+                                $(ccc[i + 1]).css('color', '#CF2F11');
+                                $(ddd[i]).css('color', '#CF2F11');
+                            }
+                        }
+                    }
+                }
+                resolve(result);
+            },
+            error: (jqXHR) => {
+                loginSession(jqXHR.status);
+            }
+        });
+    })
+}
+
 function getEmpRegOper(result) {
     return new Promise(function (resolve, reject) {
 
@@ -1032,6 +1088,9 @@ function getEmpAllAllOper2(result) {
                 $('#emp-reg-money-tb').html(htmlsTb);
                 $('#bgoper2').text(cnt);
                 $('#offAlloRegInTb').html(htmlsTb1);
+
+                $('#m-reg').text();
+
                 resolve();
             },
             error: (jqXHR) => {

@@ -89,7 +89,7 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">운행 배차 서류 생성</h3>
+                    <h3 class="modal-title" id="modalPaper2title">운행 배차 서류 생성</h3>
                     <button
                         type="button"
                         class="btn-close"
@@ -256,10 +256,10 @@
                     <div class="paper2-item card-song">
                         <div class="baeTile">
                             <h3>
-                                <i class="fa-solid fa-bus-simple"></i>배차 목록
+                                <i class="fa-solid fa-bus-simple"></i>운행 및 배차 목록
                             </h3>
                             <div class="baeTile-item">
-                                <small>서류1 -차량등록증
+                                <small>서류1 - 차량등록증
                                 </small>
                                 <small>서류2 - 차량보험
                                 </small>
@@ -317,8 +317,10 @@
                     </div>
                 </div>
                 <div class="modal-footer" style="gap: 2rem;">
+                    <div style="flex: 1;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    </div>
                     <span id="btnFootCont" style="padding-right: 1rem;"></span>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                     <button type="button" class="btn btn-primary" id="btnPapperMake">배차서류생성<i class="fa-solid fa-check" style="color: darkgreen;"></i>
                     </button>
                 </div>

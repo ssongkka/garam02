@@ -19,6 +19,12 @@ $(document).on('click', '#btnAlloPaper', function () {
 
             function setEnd() {
                 return new Promise(function (resolve, reject) {
+                    const name = $('#alloMdctoName').text();
+                    const tel = $('#alloMdctoTel').text();
+                    const asd = $('#alloMdStDay').val();
+
+                    $('#modalPaper2title').text(asd + " 출발 '" + name + "' 배차 서류 생성");
+
                     $('input:checkbox[name=paperCh]').prop('checked', true);
 
                     $('#selCompa').val(dbuser.company);
@@ -112,16 +118,33 @@ function setPapperAllo1() {
                 for (let i = 0; i < r.length; i++) {
                     tmpArr.push(r[i].rsvt);
 
+                    let makeiidd = '';
+                    for (let k = 0; k < 6; k++) {
+                        switch (parseInt((Math.random() * 3) + 1)) {
+                            case 1:
+                                makeiidd += parseInt(Math.random() * 9);
+                                break;
+                            case 2:
+                                makeiidd += String.fromCharCode(parseInt((Math.random() * 26) + 65));
+                                break;
+                            case 3:
+                                makeiidd += String.fromCharCode(parseInt((Math.random() * 26) + 97));
+                                break;
+                        }
+                    }
+
                     htmls += `
                 <div class="paper2-allo-item">
                     <div class="papperTitleRsvt">
-                    <h4>
-                    <i class="fas fa-map-marker-alt"></i>` +
-                            r[i].desty +
-                            `</h4>
-                    <input type="checkbox" name="papperRsvtCh" checked>
-                    <input type="hidden" value="` +
-                            r[i].rsvt +
+                    <label for="` +
+                            makeiidd +
+                            `"><h3>
+                    <i class="fas fa-map-marker-alt"></i>` + r[i].desty +
+                            `</h3></label>
+                    <input type="checkbox" name="papperRsvtCh" id="` +
+                            makeiidd +
+                            `" checked>
+                    <input type="hidden" value="` + r[i].rsvt +
                             `">
                     </div>
                     <div>
@@ -252,7 +275,12 @@ function setPapperAllo2(result) {
                                 $(ggg1111).val(r[i].operseq);
 
                                 const asd = $(aaa[k]).children()[1];
-                                $(asd).text(r[i].vehicle);
+
+                                if (r[i].vehicle) {
+                                    $(asd).text(r[i].vehicle);
+                                } else {
+                                    $(asd).text(r[i].opercar);
+                                }
 
                                 let ididid = '';
                                 if (r[i].id) {
@@ -366,12 +394,14 @@ function makePapper() {
                 const rsvtCh = $(aaa).val();
 
                 if (rsvtCheckBox) {
-                    rsvtCheckBox = '/////' + rsvtCh;
+                    rsvtCheckBox += '/////' + rsvtCh;
                 } else {
                     rsvtCheckBox = rsvtCh;
                 }
             }
         })
+
+        console.log(rsvtCheckBox);
 
         $('#rsvttt').val(rsvtCheckBox);
 
@@ -410,25 +440,36 @@ function insertMemo() {
 
         let params = new Array();
 
-        $('tbody[name="papperTb"]').each(function () {
-            const aaa = $(this).children();
-            for (let k = 0; k < aaa.length; k++) {
-                const ccc = $(aaa[k]).children()[0];
-                const ccc1 = $(ccc).children()[5];
-                const carnnn = $(ccc1).val();
+        $('input:checkbox[name="papperRsvtCh"]').each(function () {
+            if (this.checked) {
+                const aaa = $(this)
+                    .parent()
+                    .next()
+                    .children()[2];
 
-                const ddd = $(aaa[k]).children()[4];
-                const ddd1 = $(ddd).children();
-                const memmo = $(ddd1).val();
+                const aaa1 = $(aaa).children()[2];
+                const aaa2 = $(aaa1).children();
 
-                const asd = {
-                    "operseq": carnnn,
-                    "opermemo": memmo
-                };
+                for (let i = 0; i < aaa2.length; i++) {
+                    const ccc = $(aaa2[i]).children()[0];
+                    const ccc1 = $(ccc).children()[5];
+                    const carnnn = $(ccc1).val();
 
-                params.push(asd);
+                    const ddd = $(aaa2[i]).children()[4];
+                    const ddd1 = $(ddd).children();
+                    const memmo = $(ddd1).val();
+
+                    const asd = {
+                        "operseq": carnnn,
+                        "opermemo": memmo
+                    };
+
+                    params.push(asd);
+                }
             }
         })
+
+        console.log(params);
 
         $.ajax({
             url: url,
@@ -451,3 +492,57 @@ function insertMemo() {
         })
     })
 }
+
+$(document).on('click', 'input:checkbox[name="papperRsvtCh"]', function () {
+    let ch = 0;
+    $('input:checkbox[name="papperRsvtCh"]').each(function () {
+        if (this.checked) {
+            const aaa = $(this)
+                .parent()
+                .next()
+                .children()[2];
+
+            const aaa1 = $(aaa).children()[2];
+            const aaa2 = $(aaa1).children();
+
+            for (let i = 0; i < aaa2.length; i++) {
+                const bbb = $(aaa2[i]).children();
+
+                const ve = $(bbb[1]).text();
+
+                const ccc1 = $(bbb[5]).children();
+                const ccc2 = $(bbb[6]).children();
+                const ccc3 = $(bbb[7]).children();
+
+                const p1 = $(ccc1)
+                    .attr('class')
+                    .includes('fa-xmark');
+                const p2 = $(ccc2)
+                    .attr('class')
+                    .includes('fa-xmark');
+                const p3 = $(ccc3)
+                    .attr('class')
+                    .includes('fa-xmark');
+
+                if (!ve || p1 || p2 || p3) {
+                    ch++;
+                }
+            }
+        }
+    })
+
+    if (ch > 0) {
+        $('#btnPapperMake').prop("disabled", true);
+        $('#btnPapperMake').html(
+            `배차서류생성<i class="fa-solid fa-xmark" style="color: darkred;"></i>`
+        );
+        $('#btnFootCont').text("배차 완료 및 차량 관련 서류가 모두있어야 '배차서류' 생성가능합니다.");
+    } else {
+        $('#btnPapperMake').prop("disabled", false);
+        $('#btnPapperMake').html(
+            `배차서류생성<i class="fa-solid fa-check" style="color: darkgreen;"></i>`
+        );
+        $('#btnFootCont').text("");
+    }
+
+});

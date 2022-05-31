@@ -36,7 +36,7 @@
         width: 80%;
         left: auto;
         right: -100%;
-        padding-top: 5rem;
+        margin-top: 5rem;
     }
     .nomal-aside.active {
         right: 0;
@@ -44,6 +44,12 @@
         border-radius: 0.25rem;
         box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
         background: white;
+        z-index: 1055;
+    }
+
+    .nomal-aside-search {
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .hd-tb {
@@ -61,5 +67,14 @@
 
     .tab-flex {
         flex-direction: row;
+    }
+
+    .table-scroll-body-ve {
+        min-height: calc(100vh - 36rem);
+        max-height: calc(100vh - 36rem);
+    }
+
+    .nomal-aside-main {
+        z-index: 1055;
     }
 }
