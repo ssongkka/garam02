@@ -76,6 +76,26 @@ function getMdOneShow(opNum, toDay, sepa) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+                    $('#mdOneTd21').val('');
+                    $('#mdOneTd23').val('');
+                    $('#mdOneTd24').val('');
+                    $('#mdOneTd25').val('');
+
+                    $('#mdOneTd31').val('');
+                    $('#mdOneTd33').val('');
+                    $('#mdOneTd34').val('');
+                    $('#mdOneTd35').val();
+
+                    $('#mdOneTd41').val('');
+                    $('#mdOneTd43').val('');
+                    $('#mdOneTd44').val('');
+                    $('#mdOneTd45').val();
+
+                    $('#mdOneTd51').val('');
+                    $('#mdOneTd53').val('');
+                    $('#mdOneTd54').val('');
+                    $('#mdOneTd55').val('');
+
                     $('#mdOneTr2').css('display', 'none')
                     $('#mdOneTr3').css('display', 'none')
                     $('#mdOneTr4').css('display', 'none')

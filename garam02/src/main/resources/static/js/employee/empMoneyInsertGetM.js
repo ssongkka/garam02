@@ -115,9 +115,9 @@ function getEmpOper(result) {
                                 if (result.get(r[i].opernum) > 1) {
                                     if (r[i].opertype > 1) {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTrNot()">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)" checked="checked" disabled="disabled"></td>';
+                                        htmls += '<tr onclick="chTrNot()">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
+                                                '"disabled"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -141,9 +141,9 @@ function getEmpOper(result) {
                                     } else {
                                         if (r[i].opernum != check) {
                                             cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTrNot()">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked" disabled="disabled"></td>';
+                                            htmls += '<tr onclick="chTrNot()">';
+                                            htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
+                                                    '"disabled"></td>';
                                             htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -169,9 +169,9 @@ function getEmpOper(result) {
                                 } else {
                                     if (r[i].opertype > 1) {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTrNot()">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)" checked="checked" disabled="disabled"></td>';
+                                        htmls += '<tr onclick="chTrNot()">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
+                                                '"disabled"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -194,9 +194,9 @@ function getEmpOper(result) {
                                         htmls += '</tr>';
                                     } else {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTrNot()">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)" checked="checked" disabled="disabled"></td>';
+                                        htmls += '<tr onclick="chTrNot()">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
+                                                '"disabled"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -224,9 +224,8 @@ function getEmpOper(result) {
                                 if (result.get(r[i].opernum) > 1) {
                                     if (r[i].opertype > 1) {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)"></td>';
+                                        htmls += '<tr class = "empSaltr">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -250,9 +249,8 @@ function getEmpOper(result) {
                                     } else {
                                         if (r[i].opernum != check) {
                                             cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)"></td>';
+                                            htmls += '<tr class = "empSaltr">';
+                                            htmls += '<td><input type="checkbox" class="mCH" name="mCHN"></td>';
                                             htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -279,9 +277,8 @@ function getEmpOper(result) {
 
                                     if (r[i].opertype > 1) {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)"></td>';
+                                        htmls += '<tr class = "empSaltr">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -304,9 +301,8 @@ function getEmpOper(result) {
                                         htmls += '</tr>';
                                     } else {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)"></td>';
+                                        htmls += '<tr class = "empSaltr">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -334,9 +330,8 @@ function getEmpOper(result) {
                                 if (result.get(r[i].opernum) > 1) {
                                     if (r[i].opertype > 1) {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)" checked="checked"></td>';
+                                        htmls += '<tr class = "empSaltr">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -360,9 +355,8 @@ function getEmpOper(result) {
                                     } else {
                                         if (r[i].opernum != check) {
                                             cnt++;
-                                            htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                            htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                    'd)" checked="checked"></td>';
+                                            htmls += '<tr class = "empSaltr">';
+                                            htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked"></td>';
                                             htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -389,9 +383,8 @@ function getEmpOper(result) {
 
                                     if (r[i].opertype > 1) {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)" checked="checked"></td>';
+                                        htmls += '<tr class = "empSaltr">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -414,9 +407,8 @@ function getEmpOper(result) {
                                         htmls += '</tr>';
                                     } else {
                                         cnt++;
-                                        htmls += '<tr id="mTr-' + i + '" onclick="chTr(this.id)">';
-                                        htmls += '<td><input type="checkbox" class="mCH" id="mCh-' + i + '" onclick="chCh(this.i' +
-                                                'd)" checked="checked"></td>';
+                                        htmls += '<tr class = "empSaltr">';
+                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked"></td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -448,7 +440,7 @@ function getEmpOper(result) {
                 }
                 $('#emp-oper-money-tb').html(htmls);
                 $('#bgoper1').text(cnt);
-                checkChAll();
+                chCheckAll();
                 resolve();
             },
             error: (jqXHR) => {
@@ -894,6 +886,7 @@ function getEmpRegOper1(result) {
                     </tr>`;
                 }
                 $('#tbAllo').html(htmlRegOper);
+                $('#bgoper4').text(r.length);
                 var tooltipTriggerList = []
                     .slice
                     .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -955,7 +948,7 @@ function getEmpAllAllOper1(result) {
                     htmlsTb += `</tr>`
                 }
 
-                $('#offEmpOperMCnt').text(r.length);
+                $('#offEmpOperMCnt').text(r.length + '건');
                 $('#offEmpOperMAll').text(AddComma(operAllM));
 
                 $('#offAlloInTb').html(htmlsTb);
@@ -1060,6 +1053,20 @@ function getEmpAllAllOper2(result) {
                     htmlsTb += `<td>` + r[i].regcompany + `</td>`;
                     htmlsTb += `<td>` + r[i].rdname + `</td>`;
 
+                    let rcccsepaa = '';
+                    switch (r[i].rcsepa) {
+                        case 1:
+                            rcccsepaa = '출근';
+                            break;
+                        case 2:
+                            rcccsepaa = '퇴근';
+                            break;
+                        default:
+                            break;
+                    }
+
+                    htmlsTb += `<td>` + rcccsepaa + `</td>`;
+
                     if ($('#emp-sal').val() > 0) {
                         htmlsTb += `<td><input type="text" class="regmoney" data-type="currency" onfocus="this.select()" value="` +
                                 AddComma(r[i].regoperatlm) +
@@ -1082,7 +1089,7 @@ function getEmpAllAllOper2(result) {
                     regMAll = regMAll + parseInt(r[i].regoperatlm);
 
                 }
-                $('#offEmpRegMCnt').text(r.length);
+                $('#offEmpRegMCnt').text(r.length + '건');
                 $('#offEmpRegMAll').text(AddComma(regMAll));
 
                 $('#emp-reg-money-tb').html(htmlsTb);
@@ -1485,24 +1492,17 @@ function getEmpBaseM(result) {
 }
 function setCheckBox(result) {
     return new Promise(function (resolve, reject) {
-        const aaaa = $('#mCh-All')
-            .parent()
-            .parent()
-            .parent()
-            .next()
-            .children();
-
         if ($('#emp-sal').val() > 0) {
             $('#mCh-All').attr("disabled", true);
-            for (let i = 0; i < aaaa.length; i++) {
-                const bbbb = $(aaaa[i]);
-                const cccc = $(bbbb.children().children());
-                $(bbbb).attr('onclick', 'chTrNot()');
-                $(cccc).attr("disabled", true);
-            }
+            $('input:checkbox[name="mCHN"]').each(function () {
+                $(this).attr("disabled", true);
+            });
             unclkName();
         } else {
             $('#mCh-All').attr("disabled", false);
+            $('input:checkbox[name="mCHN"]').each(function () {
+                $(this).attr("disabled", false);
+            });
             clkName();
         }
         resolve();

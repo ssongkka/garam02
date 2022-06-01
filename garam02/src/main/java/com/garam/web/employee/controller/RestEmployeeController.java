@@ -245,6 +245,13 @@ public class RestEmployeeController {
 		return rtn;
 	}
 
+	@PostMapping(value = "/updateRegOper2")
+	public int updateRegOper2(@RequestBody RegularDTO regularDTO) throws Exception {
+		int rtn = employeeService.updateRegOper2(regularDTO);
+
+		return rtn;
+	}
+
 	@PostMapping(value = "/updateRegOper1")
 	public int updateRegOper1(@RequestBody RegularDTO regularDTO) throws Exception {
 

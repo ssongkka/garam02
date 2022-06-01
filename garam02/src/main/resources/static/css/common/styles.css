@@ -13,6 +13,9 @@
     --compa-color: #f1c17512;
     --person-color: #87c5da17;
     --otherCompa-color: #dc35451f;
+    --compa-color1: #f1c175;
+    --person-color1: #87c5da;
+    --otherCompa-color1: #dc3545;
 }
 
 * {
@@ -105,6 +108,11 @@ main {
 
 .badge {
     margin: 0 1rem;
+}
+
+.scBar {
+    box-sizing: content-box;
+    overflow-y: scroll;
 }
 
 .scBar::-webkit-scrollbar {

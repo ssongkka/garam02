@@ -6,8 +6,7 @@
 		no, sday, id, separation, date, contents, money, strash
 	</sql>
 
-	<select id="selectOperMoney"
-		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+	<select id="selectOperMoney" parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
 		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
 		SELECT
 
@@ -29,8 +28,7 @@
 
 		operation_info.opertrash != #{opertrash}
 	</select>
-	<select id="selectRegOperMoney"
-		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+	<select id="selectRegOperMoney" parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
 		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
 		SELECT
 
@@ -53,8 +51,7 @@
 		operation_info.opertrash != #{opertrash}
 	</select>
 
-	<select id="SelectEmpBaseMoney"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+	<select id="SelectEmpBaseMoney" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
 		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		SELECT
@@ -72,8 +69,7 @@
 
 	<update id="empUpOper" parameterType="java.util.HashMap">
 
-		<foreach collection="upoper" item="value" index="index"
-			separator=";">
+		<foreach collection="upoper" item="value" index="index" separator=";">
 
 			UPDATE
 
@@ -81,7 +77,8 @@
 
 			SET
 
-			operconfirm = #{value.operconfirm},
+			operconfirm =
+			#{value.operconfirm},
 			opertrash = #{value.opertrash}
 
 			WHERE
@@ -108,8 +105,7 @@
 		</foreach>
 	</update>
 
-	<update id="updateRegOper1"
-		parameterType="com.garam.web.regular.dto.RegularDTO">
+	<update id="updateRegOper1" parameterType="com.garam.web.regular.dto.RegularDTO">
 
 		UPDATE
 
@@ -130,8 +126,7 @@
 		#{regoperid}
 
 	</update>
-	<update id="empUpOper2"
-		parameterType="com.garam.web.employee.dto.EmpRsvtDTO">
+	<update id="empUpOper2" parameterType="com.garam.web.employee.dto.EmpRsvtDTO">
 
 		UPDATE
 
@@ -151,8 +146,7 @@
 		operid = #{operid}
 	</update>
 
-	<update id="updateRegOper"
-		parameterType="com.garam.web.regular.dto.RegularDTO">
+	<update id="updateRegOper" parameterType="com.garam.web.regular.dto.RegularDTO">
 
 		UPDATE
 
@@ -182,9 +176,34 @@
 		regoperid =
 		#{regoperid}
 	</update>
+	<update id="updateRegOper2" parameterType="com.garam.web.regular.dto.RegularDTO">
 
-	<update id="updateEmpMoneys"
-		parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
+		UPDATE
+
+		operation_reg
+
+		SET
+
+		<if test="regopertrash != null and regopertrash != ''">
+			regopertrash =
+			#{regopertrash},
+		</if>
+
+		regoperconfirm =
+		#{regoperconfirm},
+
+
+		regoperatlm =
+		#{regoperatlm}
+
+		WHERE
+
+		operregseq =
+		#{operregseq}
+
+	</update>
+
+	<update id="updateEmpMoneys" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		UPDATE
 
@@ -193,20 +212,21 @@
 		SET
 
 		employeeinfo.basem = #{basem},
-		employeeinfo.kukm = #{kukm},
+		employeeinfo.kukm
+		= #{kukm},
 		employeeinfo.gunm = #{gunm},
 		employeeinfo.gom = #{gom},
 		employeeinfo.sanm = #{sanm}
 
 		WHERE
 
-		employeeinfo.id = #{id}
+		employeeinfo.id =
+		#{id}
 
 
 	</update>
 
-	<select id="selInMoney"
-		parameterType="com.garam.web.employee.dto.Empsalary"
+	<select id="selInMoney" parameterType="com.garam.web.employee.dto.Empsalary"
 		resultType="com.garam.web.employee.dto.Empsalary">
 
 		SELECT
@@ -225,8 +245,7 @@
 
 		personnalplus.sday = #{sday}
 	</select>
-	<select id="selOutMoney"
-		parameterType="com.garam.web.employee.dto.Empsalary"
+	<select id="selOutMoney" parameterType="com.garam.web.employee.dto.Empsalary"
 		resultType="com.garam.web.employee.dto.Empsalary">
 
 		SELECT
@@ -246,8 +265,7 @@
 		personnalminus.sday = #{sday}
 	</select>
 
-	<select id="selRegOperList"
-		parameterType="com.garam.web.regular.dto.RegularDTO"
+	<select id="selRegOperList" parameterType="com.garam.web.regular.dto.RegularDTO"
 		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
@@ -278,8 +296,7 @@
 		operation_reg.regoperday,
 		operation_reg.regoperno
 	</select>
-	<select id="selEmpRegOperList"
-		parameterType="com.garam.web.regular.dto.RegularDTO"
+	<select id="selEmpRegOperList" parameterType="com.garam.web.regular.dto.RegularDTO"
 		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
@@ -310,8 +327,7 @@
 		operation_reg.operregseq,
 		operation_reg.regoperday
 	</select>
-	<select id="selEmpRegOperList1"
-		parameterType="com.garam.web.regular.dto.RegularDTO"
+	<select id="selEmpRegOperList1" parameterType="com.garam.web.regular.dto.RegularDTO"
 		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
@@ -335,8 +351,7 @@
 		regularcourse.rct, regularcourse.goutnum
 	</select>
 
-	<select id="selEmpRegOperList2"
-		parameterType="com.garam.web.regular.dto.RegularDTO"
+	<select id="selEmpRegOperList2" parameterType="com.garam.web.regular.dto.RegularDTO"
 		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
@@ -396,7 +411,8 @@
 
 		ON
 
-		operation_reg.codenum = regulardetail.codenum
+		operation_reg.codenum =
+		regulardetail.codenum
 
 		WHERE
 
@@ -417,8 +433,7 @@
 
 	</select>
 
-	<select id="selectEmpAllAllo"
-		parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
+	<select id="selectEmpAllAllo" parameterType="com.garam.web.employee.dto.EmpRsvtDTO"
 		resultType="com.garam.web.employee.dto.EmpRsvtDTO">
 
 		SELECT
@@ -464,7 +479,8 @@
 
 		WHERE
 
-		operation_info.operid = #{operid}
+		operation_info.operid =
+		#{operid}
 
 		AND
 
@@ -484,8 +500,7 @@
 
 	</select>
 
-	<select id="selectEmpAllAllo1"
-		parameterType="com.garam.web.regular.dto.RegularDTO"
+	<select id="selectEmpAllAllo1" parameterType="com.garam.web.regular.dto.RegularDTO"
 		resultType="com.garam.web.regular.dto.RegularDTO">
 
 		SELECT
@@ -559,7 +574,8 @@
 
 		ON
 
-		operation_reg.conum = regular.conum
+		operation_reg.conum =
+		regular.conum
 
 		LEFT JOIN
 
@@ -579,17 +595,13 @@
 		operation_reg.regoperconfirm =
 		#{regoperconfirm}
 
-		GROUP BY
-		operation_reg.regopernum
-
 		ORDER BY
 		operation_reg.regoperday,
 		regulardetail.rdnum,
 		operation_reg.operregseq
 	</select>
 
-	<select id="selAllMoney"
-		parameterType="com.garam.web.employee.dto.EmpsalaryAll"
+	<select id="selAllMoney" parameterType="com.garam.web.employee.dto.EmpsalaryAll"
 		resultType="com.garam.web.employee.dto.EmpsalaryAll">
 
 		SELECT
@@ -608,8 +620,7 @@
 
 		personnalsalary.date = #{date}
 	</select>
-	<delete id="delInM"
-		parameterType="com.garam.web.employee.dto.Empsalary">
+	<delete id="delInM" parameterType="com.garam.web.employee.dto.Empsalary">
 		DELETE FROM
 
 		personnalplus
@@ -620,10 +631,10 @@
 
 		AND
 
-		personnalplus.sday = #{sday};
+		personnalplus.sday =
+		#{sday};
 	</delete>
-	<delete id="delOutM"
-		parameterType="com.garam.web.employee.dto.Empsalary">
+	<delete id="delOutM" parameterType="com.garam.web.employee.dto.Empsalary">
 		DELETE FROM
 
 		personnalminus
@@ -635,7 +646,8 @@
 
 		AND
 
-		personnalminus.sday = #{sday};
+		personnalminus.sday
+		= #{sday};
 	</delete>
 
 	<insert id="insertInM" parameterType="java.util.HashMap">
@@ -687,8 +699,7 @@
 		</foreach>
 	</insert>
 
-	<insert id="insertAllMoney"
-		parameterType="com.garam.web.employee.dto.EmpsalaryAll">
+	<insert id="insertAllMoney" parameterType="com.garam.web.employee.dto.EmpsalaryAll">
 
 		INSERT INTO
 

@@ -836,6 +836,7 @@ function getRegularAlloCa() {
                             let tmpMin = 100;
 
                             let tmlCar = new Array();
+                            let cntCar = 0;
 
                             for (let i = 0; i < r.length; i++) {
                                 if (dddayTh === r[i].regoperday && codenumnums === r[i].codenum) {
@@ -865,6 +866,9 @@ function getRegularAlloCa() {
 
                                     }
                                     tmlCar.push(r[i].regopercar);
+                                    if (r[i].regopercar != r[i].regorcar) {
+                                        cntCar++;
+                                    }
                                 }
                             }
                             $(ccc4).val(opernumT);
@@ -875,12 +879,11 @@ function getRegularAlloCa() {
 
                             const arrUnique = [...new Set(tmlCar)];
 
-                            if (arrUnique.length > 1) {
+                            if (arrUnique.length > 1 || cntCar > 0) {
                                 $(bbb).css('color', '#FF4040');
                             } else {
                                 $(bbb).css('color', 'none');
                             }
-
                         }
                     }
                 }
@@ -1736,21 +1739,20 @@ function getAllo(param) {
                                     }
 
                                     if (dbCompa[j].company == r[i].regopercom) {
-                                        $(bb11).css('border-color', '#96ceb4');
-                                        $(bb22).css('border-color', '#96ceb4');
+                                        $(bb11).css('border-color', 'var(--person-color1)');
+                                        $(bb22).css('border-color', 'var(--person-color1)');
                                         break;
                                     } else {
                                         if (!$(bb11).val()) {
-                                            $(bb11).css('border-color', '#black');
-                                            $(bb22).css('border-color', '#black');
+                                            // $(bb11).css('border-color', '#black'); $(bb22).css('border-color', '#black');
                                             break;
                                         } else if (ggg) {
-                                            $(bb11).css('border-color', '#ffad60');
-                                            $(bb22).css('border-color', '#ffad60');
+                                            $(bb11).css('border-color', 'var(--compa-color1)');
+                                            $(bb22).css('border-color', 'var(--compa-color1)');
                                             break;
                                         } else {
-                                            $(bb11).css('border-color', '#d9534f');
-                                            $(bb22).css('border-color', '#d9534f');
+                                            $(bb11).css('border-color', 'var(--otherCompa-color1)');
+                                            $(bb22).css('border-color', 'var(--otherCompa-color1)');
                                             break;
                                         }
                                     }

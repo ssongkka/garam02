@@ -390,6 +390,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public int updateRegOper2(RegularDTO regularDTO) throws Exception {
+		int rtn = employeeMapper.updateRegOper2(regularDTO);
+
+		return rtn;
+	}
+
+	@Override
 	public int empUpOper(List<Map<String, Object>> map) throws Exception {
 
 		HashMap<String, Object> upoper = new HashMap<>();

@@ -68,6 +68,8 @@ public interface EmployeeService {
 
 	public int updateRegOper(RegularDTO regularDTO) throws Exception;
 
+	public int updateRegOper2(RegularDTO regularDTO) throws Exception;
+
 	public int updateRegOper1(RegularDTO regularDTO) throws Exception;
 
 	public int updateEmpMoneys(EmployeeInfoDTO employeeInfoDTO) throws Exception;

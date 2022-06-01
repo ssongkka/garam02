@@ -117,56 +117,6 @@ function getEmpAllM(name) {
                 let cntOutman = 0;
 
                 for (let i = 0; i < r.length; i++) {
-                    if (r[i].trash == 1) {
-                        cnt++;
-
-                        htmls += '<tr id="' + r[i].id + 'cut" onclick="getEmpInfoM(this.id)">';
-                        htmls += '<td>'
-                        htmls += '<span class="tr-emp">'
-                        htmls += r[i].name;
-                        htmls += '</span>'
-                        htmls += '</td>'
-                        if (r[i].vehicle) {
-                            htmls += '<td>'
-                            htmls += '<span class="tr-ve">'
-                            htmls += r[i]
-                                .vehicle
-                                .substring(r[i].vehicle.length - 4);
-                            htmls += '</span>'
-                            htmls += '</td>'
-                        } else {
-                            htmls += '<td>'
-                            htmls += '<span>'
-                            htmls += '</span>'
-                            htmls += '</td>'
-                        }
-                        if (r[i].kind) {
-                            htmls += '<td class="">'
-                            htmls += '<span>'
-                            htmls += r[i].kind;
-                            htmls += '</span>'
-                            htmls += '</td>'
-                        } else {
-                            htmls += '<td class="">'
-                            htmls += '<span>'
-                            htmls += '</span>'
-                            htmls += '</td>'
-                        }
-
-                        if (r[i].birthday) {
-                            htmls += '<td class="size-hidden ">'
-                            htmls += '<span>'
-                            htmls += r[i].birthday;
-                            htmls += '</span>'
-                            htmls += '</td>'
-                        } else {
-                            htmls += '<td class="size-hidden ">'
-                            htmls += '<span>'
-                            htmls += '</span>'
-                            htmls += '</td>'
-                        }
-                        htmls += '</tr>'
-                    }
                     if (r[i].trash == 0) {
                         cntOutman++;
 
@@ -339,13 +289,11 @@ function getEmpAllM(name) {
                         htmlsYeb += '</tr>'
                     }
                 }
-                $('#emp-tb-all').html(htmls);
                 $('#emp-tb-compa').html(htmlsCompa);
                 $('#emp-tb-solo').html(htmlsSolo);
                 $('#emp-tb-yeb').html(htmlsYeb);
                 $('#emp-tb-outman').html(htmlsOutman);
 
-                $('#bgAll').text(cnt);
                 $('#bgCompa').text(cntCompa);
                 $('#bgSolo').text(cntSolo);
                 $('#bgYeb').text(cntYeb);
@@ -635,117 +583,90 @@ $(document).on('change', '#operO', function () {
     sumAllpro();
 });
 
-function chTr(id) {
-    const iidd = '#' + id;
-    const asd = $(iidd)
-        .children()
-        .children()
-        .attr('id');
-    const iiiddd = '#' + asd;
+$(document).on('click', '.empSaltr', function () {
+    upOperTr(this);
+});
 
-    let trta = 0;
-
-    if ($(iiiddd).is(':checked')) {
-        $(iiiddd).prop("checked", false);
-        trta = 1;
-    } else {
-        $(iiiddd).prop("checked", true);
-        trta = 2;
-    }
-
-    chInDay(iiiddd);
-    const iiidddddd = $('#emp-iidd').val();
-    const carcarcar = $(iiiddd)
+$(document).on('click', '.mCH', function () {
+    const aaa = $(this)
         .parent()
-        .next()
-        .text();
-    const typetype = $(iiiddd)
-        .parent()
-        .next()
-        .next()
-        .text();
-    const opnumnumnum = $(iiiddd)
-        .parent()
-        .next()
-        .next()
-        .next()
-        .text();
-    const opnononono = $(iiiddd)
-        .parent()
-        .next()
-        .next()
-        .next()
-        .next()
-        .text();
-    const daydayday = $(iiiddd)
-        .parent()
-        .next()
-        .next()
-        .next()
-        .next()
-        .next()
-        .next()
-        .next()
-        .next()
-        .next()
-        .next()
-        .next()
-        .text();
+        .parent();
 
-    const tmpArr = new Array();
-    const tmpArr1 = new Array();
+    upOperTr(aaa);
+});
 
-    tmpArr1.push(opnumnumnum);
-    tmpArr1.push(opnononono);
-    tmpArr1.push(typetype);
-    tmpArr1.push(iiidddddd);
-    tmpArr1.push(carcarcar);
-    tmpArr1.push(daydayday);
-    tmpArr1.push(trta);
+function upOperTr(domstr) {
+    if ($('#emp-sal').val() < 1) {
+        const aaa = $(domstr).children();
 
-    tmpArr.push(tmpArr1);
+        const qqq = $(aaa[0]).children()[0];
 
-    updateOper(tmpArr);
-    checkChAll();
-}
+        const carnnn = $(aaa[1]).text();
+        const opertypeee = $(aaa[2]).text();
+        const opernummm = $(aaa[3]).text();
+        const opernooo = $(aaa[4]).text();
 
-function chTrNot() {
-    alert("급여마감된 운행정보는 수정 할 수 없습니다.");
-}
-function chCh(id) {
-    const iidd = '#' + id;
-    if ($(iidd).is(':checked')) {
-        $(iidd).prop("checked", false);
-    } else {
-        $(iidd).prop("checked", true);
-    }
-}
+        let daydayday;
+        const iiidddddd = $('#emp-iidd').val();
 
-function checkChAll() {
-    let check = 1;
+        let trta = 0;
+        if ($(qqq).is(':checked')) {
+            $(qqq).prop("checked", false);
+            trta = 1;
 
-    const aaaa = $('#mCh-All')
-        .parent()
-        .parent()
-        .parent()
-        .next()
-        .children();
+            $(aaa[11]).text('');
 
-    for (let i = 0; i < aaaa.length; i++) {
-        const bbbb = $(aaaa[i]);
-        const cccc = $(bbbb.children().children());
-        if ($(cccc).is(':checked')) {
-            check = check * 1;
+            daydayday = null;
+
         } else {
-            check = check * 0;
-        }
-    }
+            $(qqq).prop("checked", true);
+            trta = 2;
 
-    if (check > 0) {
+            $(aaa[11]).text($('#yearmonthsMoney2').val());
+
+            daydayday = $('#yearmonthsMoney2').val();
+        }
+
+        const tmpArr = new Array();
+        const tmpArr1 = new Array();
+
+        tmpArr1.push(opernummm);
+        tmpArr1.push(opernooo);
+        tmpArr1.push(opertypeee);
+        tmpArr1.push(iiidddddd);
+        tmpArr1.push(carnnn);
+        tmpArr1.push(daydayday);
+        tmpArr1.push(trta);
+
+        tmpArr.push(tmpArr1);
+
+        updateOper(tmpArr);
+    } else {
+        alert("급여마감된 운행정보는 수정 할 수 없습니다.");
+    }
+}
+
+function chCheckAll() {
+    const aaa = $('#emp-oper-money-tb')
+        .children()
+        .length;
+
+    let ch = 0;
+    $('input:checkbox[name="mCHN"]').each(function () {
+        if ($(this).is(':checked')) {
+            ch++;
+        }
+    });
+
+    if (parseInt(aaa) === parseInt(ch)) {
         $('#mCh-All').prop("checked", true);
     } else {
         $('#mCh-All').prop("checked", false);
     }
+}
+
+function chTrNot() {
+    alert("급여마감된 운행정보는 수정 할 수 없습니다.");
 }
 
 function updateOper(cont) {
@@ -797,6 +718,7 @@ function updateOper(cont) {
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
+                    chCheckAll();
                     resolve(r);
                 },
                 error: (jqXHR) => {
@@ -814,161 +736,78 @@ function updateOper(cont) {
     }
 }
 
-function chInDay(params) {
-    if ($(params).is(':checked')) {
-        $(params)
-            .parent()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .text($('#yearmonthsMoney2').val());
-    } else {
-        $(params)
-            .parent()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .next()
-            .text('');
-    }
-}
-
-$(document).on('change', '#mCh-All', function () {
-    const aaaa = $(this)
-        .parent()
-        .parent()
-        .parent()
-        .next()
-        .children();
-
+$(document).on('click', '#mCh-All', function () {
+    const tmpArr = new Array();
     if ($(this).is(':checked')) {
-        const tmpArr = new Array();
-        for (let i = 0; i < aaaa.length; i++) {
+        $('input:checkbox[name="mCHN"]').each(function () {
+            if (!$(this).is(':checked')) {
 
-            const bbbb = $(aaaa[i]);
-            const cccc = $(bbbb.children().children());
+                this.checked = true;
 
-            if (!$(cccc).prop('disabled')) {
+                const aaa = $(this)
+                    .parent()
+                    .parent();
+                const bbb = $(aaa).children();
 
-                $(cccc).prop("checked", true);
-                chInDay(cccc);
+                const carnnn = $(bbb[1]).text();
+                const opertypeee = $(bbb[2]).text();
+                const opernummm = $(bbb[3]).text();
+                const opernooo = $(bbb[4]).text();
 
+                $(bbb[11]).text($('#yearmonthsMoney2').val());
+
+                const daydayday = $(bbb[11]).text();
                 const iiidddddd = $('#emp-iidd').val();
-                const carcarcar = $(cccc)
-                    .parent()
-                    .next()
-                    .text();
-                const typetype = $(cccc)
-                    .parent()
-                    .next()
-                    .next()
-                    .text();
-                const opnumnumnum = $(cccc)
-                    .parent()
-                    .next()
-                    .next()
-                    .next()
-                    .text();
-                const opnononono = $(cccc)
-                    .parent()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .text();
-                const daydayday = $(cccc)
-                    .parent()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .text();
+
                 const tmpArr1 = new Array();
 
-                tmpArr1.push(opnumnumnum);
-                tmpArr1.push(opnononono);
-                tmpArr1.push(typetype);
+                tmpArr1.push(opernummm);
+                tmpArr1.push(opernooo);
+                tmpArr1.push(opertypeee);
                 tmpArr1.push(iiidddddd);
-                tmpArr1.push(carcarcar);
+                tmpArr1.push(carnnn);
                 tmpArr1.push(daydayday);
                 tmpArr1.push(2);
 
                 tmpArr.push(tmpArr1);
             }
-        }
-        updateOper(tmpArr);
-
+        });
     } else {
-        const tmpArr = new Array();
-        for (let i = 0; i < aaaa.length; i++) {
-            const bbbb = $(aaaa[i]);
-            const cccc = $(bbbb.children().children());
+        $('input:checkbox[name="mCHN"]').each(function () {
+            if ($(this).is(':checked')) {
 
-            if (!$(cccc).prop('disabled')) {
+                this.checked = false;
 
-                $(cccc).prop("checked", false);
-                chInDay(cccc);
+                const aaa = $(this)
+                    .parent()
+                    .parent();
+                const bbb = $(aaa).children();
+
+                const carnnn = $(bbb[1]).text();
+                const opertypeee = $(bbb[2]).text();
+                const opernummm = $(bbb[3]).text();
+                const opernooo = $(bbb[4]).text();
+
+                $(bbb[11]).text('');
+
+                const daydayday = null;
                 const iiidddddd = $('#emp-iidd').val();
-                const carcarcar = $(cccc)
-                    .parent()
-                    .next()
-                    .text();
-                const typetype = $(cccc)
-                    .parent()
-                    .next()
-                    .next()
-                    .text();
-                const opnumnumnum = $(cccc)
-                    .parent()
-                    .next()
-                    .next()
-                    .next()
-                    .text();
-                const opnononono = $(cccc)
-                    .parent()
-                    .next()
-                    .next()
-                    .next()
-                    .next()
-                    .text();
 
                 const tmpArr1 = new Array();
 
-                tmpArr1.push(opnumnumnum);
-                tmpArr1.push(opnononono);
-                tmpArr1.push(typetype);
+                tmpArr1.push(opernummm);
+                tmpArr1.push(opernooo);
+                tmpArr1.push(opertypeee);
                 tmpArr1.push(iiidddddd);
-                tmpArr1.push(carcarcar);
+                tmpArr1.push(carnnn);
                 tmpArr1.push(null);
                 tmpArr1.push(1);
 
                 tmpArr.push(tmpArr1);
             }
-        }
-        updateOper(tmpArr);
+        });
     }
+    updateOper(tmpArr);
 });
 
 $(document).on('keyup', '.input-M', function (eInner) {
@@ -1852,10 +1691,6 @@ $(document).on('dblclick', '.chreginM', function () {
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)
             .then(getEmpAllAllOper2)
-            .then(getEmpInMList)
-            .then(getEmpOutMList)
-            .then(getEmpBaseM)
-            .then(setCheckBox)
             .then(operMSet)
             .then(operRegMSet)
             .then(sumInList)
@@ -1876,10 +1711,6 @@ $(document).on('dblclick', '.chreginM', function () {
             .then(getEmpRegOper1)
             .then(getEmpAllAllOper1)
             .then(getEmpAllAllOper2)
-            .then(getEmpInMList)
-            .then(getEmpOutMList)
-            .then(getEmpBaseM)
-            .then(setCheckBox)
             .then(operMSet)
             .then(operRegMSet)
             .then(sumInList)
@@ -1993,6 +1824,7 @@ $(document).on('keyup', '.regmoney', function (eInner) {
             .prev()
             .prev()
             .prev()
+            .prev()
             .prev();
         const aaa33 = $(aaa3).text();
 
@@ -2022,7 +1854,7 @@ $(document).on('keyup', '.regmoney', function (eInner) {
 
         function upRegAlloM(result) {
             return new Promise(function (resolve, reject) {
-                const url = "/emp/updateRegOper";
+                const url = "/emp/updateRegOper2";
                 const headers = {
                     "Content-Type": "application/json",
                     "X-HTTP-Method-Override": "POST"
@@ -2031,8 +1863,7 @@ $(document).on('keyup', '.regmoney', function (eInner) {
                 const params = {
                     "regoperconfirm": aaa22,
                     "regoperatlm": moneyy,
-                    "regopernum": aaa33,
-                    "regoperid": $('#emp-iidd').val()
+                    "operregseq": aaa33
                 };
                 $.ajax({
                     url: url,

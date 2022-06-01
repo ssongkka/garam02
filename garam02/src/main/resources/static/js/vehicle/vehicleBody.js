@@ -102,8 +102,9 @@ function getVeAll(vehicle) {
                 let htmlsUdong = '';
                 let htmlsCompa = '';
                 let htmlsGae = '';
+
                 for (let i = 0; i < r.length; i++) {
-                    if (r[i].trash == 1) {
+                    if (parseInt(r[i].trash) == 1) {
                         cnt++;
                         htmls += '<tr id="' + r[i].carnumber + 'cut" onclick="getVeInfo(this.id)" style="cursor:' +
                                 'pointer;">';
@@ -162,7 +163,8 @@ function getVeAll(vehicle) {
                         }
                         htmls += '</tr>'
                     }
-                    if (r[i].trash == 0) {
+
+                    if (parseInt(r[i].trash) == 0) {
                         cntEnd++;
                         htmlsEnd += '<tr id="' + r[i].carnumber + 'cutEnd" onclick="getVeInfo(this.id)" style="curs' +
                                 'or:pointer;">';
@@ -209,7 +211,8 @@ function getVeAll(vehicle) {
                         }
                         htmlsEnd += '</tr>'
                     }
-                    if (r[i].bus == '대형' && r[i].trash == 1) {
+
+                    if (r[i].bus == '대형' && parseInt(r[i].trash) == 1) {
                         cntDae++;
                         htmlsDae += '<tr id="' + r[i].carnumber + 'cutDae" onclick="getVeInfo(this.id)" style="curs' +
                                 'or:pointer;">';
@@ -268,7 +271,7 @@ function getVeAll(vehicle) {
                         }
                         htmlsDae += '</tr>'
                     }
-                    if (r[i].bus == '중형' && r[i].trash == 1) {
+                    if (r[i].bus == '중형' && parseInt(r[i].trash) == 1) {
                         cntJung++;
                         htmlsJung += '<tr id="' + r[i].carnumber + 'cutJung" onclick="getVeInfo(this.id)" style="cur' +
                                 'sor:pointer;">';
@@ -327,7 +330,7 @@ function getVeAll(vehicle) {
                         }
                         htmlsJung += '</tr>'
                     }
-                    if (r[i].bus == '우등' && r[i].trash == 1) {
+                    if (r[i].bus == '우등' && parseInt(r[i].trash) == 1) {
                         cntUdong++;
                         htmlsUdong += '<tr id="' + r[i].carnumber + 'cutUdong" onclick="getVeInfo(this.id)" style="cu' +
                                 'rsor:pointer;">';
@@ -386,7 +389,7 @@ function getVeAll(vehicle) {
                         }
                         htmlsUdong += '</tr>'
                     }
-                    if (r[i].company == r[i].owner && r[i].trash == 1) {
+                    if (r[i].company == r[i].owner && parseInt(r[i].trash) == 1) {
                         cntCompa++;
                         htmlsCompa += '<tr id="' + r[i].carnumber + 'cutCompa" onclick="getVeInfo(this.id)" style="cu' +
                                 'rsor:pointer;">';
@@ -445,7 +448,7 @@ function getVeAll(vehicle) {
                         }
                         htmlsCompa += '</tr>'
                     }
-                    if (r[i].company != r[i].owner && r[i].trash == 1) {
+                    if (r[i].company != r[i].owner && parseInt(r[i].trash) == 1) {
 
                         cntGae++;
                         htmlsGae += '<tr id="' + r[i].carnumber + 'cutGae" onclick="getVeInfo(this.id)" style="curs' +
