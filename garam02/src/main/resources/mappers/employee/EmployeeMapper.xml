@@ -222,7 +222,8 @@
 
 		regular.conum = regulardetail.conum
 
-		WHERE employeeinfo.id = #{id}
+		WHERE
+		employeeinfo.id = #{id}
 
 		ORDER BY name;
 	</select>

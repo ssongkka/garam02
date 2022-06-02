@@ -294,4 +294,84 @@ public class RestEmployeeController {
 
 		return list;
 	}
+
+	@PostMapping(value = "/empDealAllMList")
+	public List<EmpsalaryAll> empDealAllMList(@RequestBody EmpsalaryAll empsalaryAll) throws Exception {
+		List<EmpsalaryAll> list = employeeService.dealAllMoney(empsalaryAll);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empDealInMDel")
+	public int empDealInMDel(@RequestBody Empsalary empsalary) throws Exception {
+		int rtn = employeeService.delDealInM(empsalary);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertDealInM")
+	public int insertDealInM(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+
+		try {
+			rtn = employeeService.insertDealInM(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
+	@PostMapping(value = "/empDealOutMDel")
+	public int empDealOutMDel(@RequestBody Empsalary empsalary) throws Exception {
+		int rtn = employeeService.delDealOutM(empsalary);
+
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertDealOutM")
+	public int insertDealOutM(@RequestBody List<Map<String, Object>> map) throws Exception {
+
+		int rtn = 0;
+
+		try {
+			rtn = employeeService.insertDealOutM(map);
+		} catch (DataAccessException e) {
+			rtn = -1;
+		} catch (Exception e) {
+			rtn = -2;
+		}
+		return rtn;
+	}
+
+	@PostMapping(value = "/insertDealAllM")
+	public int insertDealAllM(@RequestBody EmpsalaryAll empsalaryAll) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = employeeService.insertDealAllMoney(empsalaryAll);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
+
+	@PostMapping(value = "/empDealInMList")
+	public List<Empsalary> empDealInMList(@RequestBody Empsalary empsalary) throws Exception {
+		List<Empsalary> list = employeeService.dealInMoney(empsalary);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empDealOutMList")
+	public List<Empsalary> empDealOutMList(@RequestBody Empsalary empsalary) throws Exception {
+		List<Empsalary> list = employeeService.dealOutMoney(empsalary);
+
+		return list;
+	}
 }

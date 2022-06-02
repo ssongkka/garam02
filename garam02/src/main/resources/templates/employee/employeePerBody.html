@@ -16,7 +16,7 @@
                             data-bs-toggle="tooltip"
                             data-bs-placement="left"
                             title="홈으로"></span>
-                        <span class="detail-user-2">인사정보</span>
+                        <span class="detail-user-2">거래정보</span>
                     </div>
                     <div class="hd-search">
                         <div class="hd-serach-group">
@@ -43,16 +43,33 @@
                             <li class="nav-item" role="presentation">
                                 <button
                                     class="nav-link tab-flex active"
-                                    id="compa-tab"
+                                    id="solo-tab"
                                     data-bs-toggle="tab"
-                                    data-bs-target="#compa"
+                                    data-bs-target="#solo"
                                     type="button"
                                     role="tab"
-                                    aria-controls="compa"
+                                    aria-controls="solo"
                                     aria-selected="true">
                                     <div class="tab-flex-ve">
-                                        <span>회사</span>
-                                        <span class="badge bg-secondary" id="bgCompa">00</span>
+                                        <span>개인</span>
+                                        <span class="badge bg-secondary" id="bgSolo">00</span>
+                                    </div>
+
+                                </button>
+                            </li>
+                            <li class="nav-item size-hidden" role="presentation">
+                                <button
+                                    class="nav-link tab-flex"
+                                    id="yeb-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#yeb"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="yeb"
+                                    aria-selected="false">
+                                    <div class="tab-flex-ve">
+                                        <span>예비</span>
+                                        <span class="badge bg-secondary" id="bgYeb">00</span>
                                     </div>
                                 </button>
                             </li>
@@ -77,9 +94,9 @@
                         <div class="tab-content hd-tb">
                             <div
                                 class="tab-pane fade show active"
-                                id="compa"
+                                id="solo"
                                 role="tabpanel"
-                                aria-labelledby="compa-tab">
+                                aria-labelledby="solo-tab">
                                 <div class="table-scroll">
                                     <div class="table-scroll-head">
                                         <div class="scBar">
@@ -109,7 +126,41 @@
                                                 <col width="23%"/>
                                                 <col width="auto%"/>
                                             </colgroup>
-                                            <tbody id="emp-tb-compa"></tbody>
+                                            <tbody id="emp-tb-solo"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="yeb" role="tabpanel" aria-labelledby="yeb-tab">
+                                <div class="table-scroll">
+                                    <div class="table-scroll-head">
+                                        <div class="scBar">
+                                            <table class="table table-striped table-hover table-bordered">
+                                                <colgroup>
+                                                    <col width="23%"/>
+                                                    <col width="23%"/>
+                                                    <col width="23%"/>
+                                                    <col width="auto%"/>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="sortStr">이름</th>
+                                                        <th class="sortStr">소속</th>
+                                                        <th class="sortStr">생년월일</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="table-scroll-body-emp scBar">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <colgroup>
+                                                <col width="23%"/>
+                                                <col width="23%"/>
+                                                <col width="23%"/>
+                                                <col width="auto%"/>
+                                            </colgroup>
+                                            <tbody id="emp-tb-yeb"></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -424,8 +475,12 @@
                                     <td id="m-ind"></td>
                                 </tr>
                                 <tr>
-                                    <td>정기운행</td>
-                                    <td colspan="5" id="m-reg" style="text-align: left; padding-left: 3rem;"></td>
+                                    <td>운행회사</td>
+                                    <td id="m-reg1"></td>
+                                    <td>노선</td>
+                                    <td id="m-reg2"></td>
+                                    <td>배차금액</td>
+                                    <td id="m-reg3"></td>
                                 </tr>
                             </table>
                         </div>
@@ -453,8 +508,8 @@
                                     </div>
                                     <div class="itttem1">
                                         <select class="form-control input-M" id="inp-cont2">
-                                            <option value="경비">경비</option>
-                                            <option value="수당">수당</option>
+                                            <option value="입금">입금</option>
+                                            <option value="정기운행">정기</option>
                                             <option value="기타">기타</option>
                                         </select>
                                     </div>
@@ -548,8 +603,8 @@
                                     <div class="itttem2">
                                         <select class="form-control output-M" id="inp-cont12" autofocus="autofocus">
                                             <option value="기타" selected="selected">기타</option>
-                                            <option value="운행">운행</option>
-                                            <option value="보험료">보험료</option>
+                                            <option value="대출">대출</option>
+                                            <option value="차량보험">차량보험</option>
                                             <option value="세금">세금</option>
                                         </select>
                                     </div>
@@ -633,16 +688,7 @@
                                             <col width="60%"/>
                                         </colgroup>
                                         <tr>
-                                            <td>기본급</td>
-                                            <td class="moneyininin"><input
-                                                class="moneyinput"
-                                                id="in-baseM"
-                                                type="text"
-                                                data-type="currency"
-                                                onfocus="this.select()"></td>
-                                        </tr>
-                                        <tr>
-                                            <td id="tdPer">운행수당</td>
+                                            <td id="tdPer">운행</td>
                                             <td class="moneyininin">
                                                 <div class="operDis">
                                                     <span id="in-operB">
@@ -656,19 +702,29 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>운행경비</td>
+                                            <td>입금</td>
                                             <td class="moneyininin">
                                                 <span id="in-goM"></span></td>
                                         </tr>
                                         <tr>
-                                            <td>기타수당</td>
+                                            <td>정기운행</td>
                                             <td class="moneyininin">
-                                                <span id="in-gisuM"></span></td>
+                                                <span id="in-gitaM"></span></td>
                                         </tr>
                                         <tr>
                                             <td>기타</td>
                                             <td class="moneyininin">
-                                                <span id="in-gitaM"></span></td>
+                                                <span id="in-gisuM"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td class="moneyininin">
+                                                <span id=""></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td class="moneyininin">
+                                                <span id=""></span></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -696,14 +752,28 @@
                                             <col width="60%"/>
                                         </colgroup>
                                         <tr>
+                                            <td>관리비</td>
+                                            <td class="moneyininin"><input
+                                                class="moneyinput"
+                                                id="in-baseM"
+                                                type="text"
+                                                data-type="currency"
+                                                onfocus="this.select()"></td>
+                                        </tr>
+                                        <tr>
                                             <td>4대보험</td>
                                             <td class="moneyininin">
                                                 <span id="out-sadea"></span></td>
                                         </tr>
                                         <tr>
-                                            <td>기타공제</td>
+                                            <td>대출</td>
                                             <td class="moneyininin">
-                                                <span id="out-gitaM"></span></td>
+                                                <span id="out-gitaM1"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>차량보험</td>
+                                            <td class="moneyininin">
+                                                <span id="out-gitaM2"></span></td>
                                         </tr>
                                         <tr>
                                             <td>세금</td>
@@ -711,14 +781,9 @@
                                                 <span id="out-saeM"></span></td>
                                         </tr>
                                         <tr>
-                                            <td>&nbsp;</td>
+                                            <td>기타</td>
                                             <td class="moneyininin">
-                                                <span id=""></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td class="moneyininin">
-                                                <span id=""></span></td>
+                                                <span id="out-gitaM"></span></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -747,9 +812,19 @@
                                         <col width="50%"/>
                                     </colgroup>
                                     <tr class="moneys" style="font-size: 1.5rem;">
-                                        <td>실지급액</td>
+                                        <td>전월 이월</td>
                                         <td class="moneyininin">
-                                            <span id="AllM"></span></td>
+                                            <span id="AllM1" style="text-align: right;"></span></td>
+                                    </tr>
+                                    <tr class="moneys" style="font-size: 1.5rem;">
+                                        <td>금월 지급액</td>
+                                        <td class="moneyininin">
+                                            <span id="AllM" style="text-align: right;"></span></td>
+                                    </tr>
+                                    <tr class="moneys" style="font-size: 1.5rem;">
+                                        <td>잔 액</td>
+                                        <td class="moneyininin">
+                                            <span id="AllM2" style="text-align: right;"></span></td>
                                     </tr>
                                 </table>
                             </div>
@@ -996,15 +1071,15 @@
         <script
             language="javascript"
             type="text/javascript"
-            src="/js/employee/empMoneyInsert.js?v=2020051201"></script>
+            src="/js/employee/empMoneyPerInsert.js?v=2020051201"></script>
         <script
             language="javascript"
             type="text/javascript"
-            src="/js/employee/empMoneyInsertGetM.js?v=2020051201"></script>
+            src="/js/employee/empMoneyPerInsertGetM.js?v=2020051201"></script>
         <script
             language="javascript"
             type="text/javascript"
-            src="/js/employee/empMoneyInsertSumM.js?v=2020051201"></script>
+            src="/js/employee/empMoneyPerInsertSumM.js?v=2020051201"></script>
         <script
             language="javascript"
             type="text/javascript"

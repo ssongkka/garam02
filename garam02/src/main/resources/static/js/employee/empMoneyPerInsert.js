@@ -104,16 +104,16 @@ function getEmpAllM(name) {
             data: JSON.stringify(params),
 
             success: function (r) {
-                let htmls = '';
-                let htmlsCompa = '';
+                let htmlsSolo = '';
+                let htmlsYeb = '';
                 let htmlsOutman = '';
 
-                let cnt = 0;
-                let cntCompa = 0;
+                let cntSolo = 0;
+                let cntYeb = 0;
                 let cntOutman = 0;
 
                 for (let i = 0; i < r.length; i++) {
-                    if (r[i].kind == '회사' && r[i].trash == 0) {
+                    if (r[i].kind == '개인' && r[i].trash == 0) {
                         cntOutman++;
 
                         htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfoM(this.id)">';
@@ -149,61 +149,98 @@ function getEmpAllM(name) {
                         htmlsOutman += '</tr>'
                     }
 
-                    if (r[i].kind == '회사' && r[i].trash == 1) {
-                        cntCompa++;
+                    if (r[i].kind == '개인' && r[i].trash == 1) {
+                        cntSolo++;
 
-                        htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfoM(this.id)">';
-                        htmlsCompa += '<td>'
-                        htmlsCompa += '<span class="tr-emp">'
-                        htmlsCompa += r[i].name;
-                        htmlsCompa += '</span>'
-                        htmlsCompa += '</td>'
+                        htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfoM(this.id)">';
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span class="tr-emp">'
+                        htmlsSolo += r[i].name;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
                         if (r[i].vehicle) {
-                            htmlsCompa += '<td>'
-                            htmlsCompa += '<span class="tr-ve">'
-                            htmlsCompa += r[i]
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span class="tr-ve">'
+                            htmlsSolo += r[i]
                                 .vehicle
                                 .substring(r[i].vehicle.length - 4);
-                            htmlsCompa += '</span>'
-                            htmlsCompa += '</td>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
                         } else {
-                            htmlsCompa += '<td>'
-                            htmlsCompa += '<span>'
-                            htmlsCompa += '</span>'
-                            htmlsCompa += '</td>'
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
                         }
                         if (r[i].kind) {
-                            htmlsCompa += '<td>'
-                            htmlsCompa += '<span>'
-                            htmlsCompa += r[i].kind;
-                            htmlsCompa += '</span>'
-                            htmlsCompa += '</td>'
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += r[i].kind;
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
                         } else {
-                            htmlsCompa += '<td>'
-                            htmlsCompa += '<span>'
-                            htmlsCompa += '</span>'
-                            htmlsCompa += '</td>'
+                            htmlsSolo += '<td>'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
                         }
 
                         if (r[i].birthday) {
-                            htmlsCompa += '<td class="size-hidden">'
-                            htmlsCompa += '<span>'
-                            htmlsCompa += r[i].birthday;
-                            htmlsCompa += '</span>'
-                            htmlsCompa += '</td>'
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += r[i].birthday;
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
                         } else {
-                            htmlsCompa += '<td class="size-hidden">'
-                            htmlsCompa += '<span>'
-                            htmlsCompa += '</span>'
-                            htmlsCompa += '</td>'
+                            htmlsSolo += '<td class="size-hidden">'
+                            htmlsSolo += '<span>'
+                            htmlsSolo += '</span>'
+                            htmlsSolo += '</td>'
                         }
-                        htmlsCompa += '</tr>'
+                        htmlsSolo += '</tr>'
+                    }
+                    if (r[i].kind == '예비' && r[i].trash == 1) {
+                        cntYeb++;
+
+                        htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfoM(this.id)">';
+                        htmlsYeb += '<td>'
+                        htmlsYeb += '<span class="tr-emp">'
+                        htmlsYeb += r[i].name;
+                        htmlsYeb += '</span>'
+                        htmlsYeb += '</td>'
+                        if (r[i].kind) {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += r[i].kind;
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        } else {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        }
+                        if (r[i].birthday) {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += r[i].birthday;
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        } else {
+                            htmlsYeb += '<td>'
+                            htmlsYeb += '<span>'
+                            htmlsYeb += '</span>'
+                            htmlsYeb += '</td>'
+                        }
+                        htmlsYeb += '</tr>'
                     }
                 }
-                $('#emp-tb-compa').html(htmlsCompa);
+                $('#emp-tb-solo').html(htmlsSolo);
+                $('#emp-tb-yeb').html(htmlsYeb);
                 $('#emp-tb-outman').html(htmlsOutman);
 
-                $('#bgCompa').text(cntCompa);
+                $('#bgSolo').text(cntSolo);
+                $('#bgYeb').text(cntYeb);
                 $('#bgOutman').text(cntOutman);
                 resolve();
             },
@@ -292,12 +329,20 @@ function getEmpInfoM(id) {
                         $('#m-ind').html('<span></span>');
                     }
 
-                    let compaName = '';
                     if (r[0].regcompany) {
-                        compaName = r[0].regcompany + ' ' + r[0].rdname;
-                        $('#m-reg').html('<span>' + compaName + '</span>');
+                        $('#m-reg1').html('<span>' + r[0].regcompany + '</span>');
+                        $('#m-reg2').html('<span>' + r[0].rdname + '</span>');
+                        let rdM = ``;
+                        if (parseInt(r[0].rdconn) > 1) {
+                            rdM = '(횟수)' + AddComma(r[0].rdaltm);
+                        } else {
+                            rdM = '(월)' + AddComma(r[0].rdaltm);
+                        }
+                        $('#m-reg3').html('<span>' + rdM + '</span>');
                     } else {
-                        $('#m-reg').html('<span>일반 운행 차량</span>');
+                        $('#m-reg1').html('-');
+                        $('#m-reg2').html('-');
+                        $('#m-reg3').html('-');
                     }
                     resolve();
                 },
@@ -1105,17 +1150,16 @@ function delTb(params) {
     }
     setNum();
 }
-
-$(document).on('click', '#noSave', function () {
-    const ok = confirm("임시저장 하시겠습니까?\n\n임시저장된 급여내역은 급여내역서를 발급할 수 없습니다. 마감을 해주세요.");
+$(document).on('click', '#noDealSave', function () {
+    const ok = confirm("임시저장 하시겠습니까?\n\n임시저장된 거래내역은 거래내역서를 발급할 수 없습니다. 마감을 해주세요.");
     if (ok) {
-        saveSalary(1);
+        saveDeal(1);
     }
 });
-$(document).on('click', '#yesSave', function () {
-    const ok = confirm("급여 마감하시겠습니까?\n\n마감된 급여내역은 수정 할 수 없습니다.");
+$(document).on('click', '#yesDealSave', function () {
+    const ok = confirm("거래내역을 마감하시겠습니까?\n\n마감된 거래내역은 수정 할 수 없습니다.");
     if (ok) {
-        saveSalary(0);
+        saveDeal(0);
     }
 });
 $(document).on('click', '#printbtn', function () {
@@ -1147,7 +1191,7 @@ $(document).on('click', '#printbtn', function () {
     $('#pdf-form').submit();
 });
 
-function saveSalary(sepa) {
+function saveDeal(sepa) {
 
     if (sepa > 0) {
         LoadingWithMask()
@@ -1212,13 +1256,13 @@ function saveSalary(sepa) {
 
     function insertAllM(params) {
         return new Promise(function (resolve, reject) {
-            const url = "/emp/insertAllM";
+            const url = "/emp/insertDealAllM";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
             };
 
-            const per = $('#operO').val() / 100;
+            const per = 1;
             const opercnt = $('#in-operC')
                 .text()
                 .split('건')[0];
@@ -1231,8 +1275,9 @@ function saveSalary(sepa) {
             const outm = $('#out-outAllM')
                 .text()
                 .replaceAll(',', '');
-
-            const empin = user.position + ' ' + user.name;
+            const janM = $('#AllM2')
+                .text()
+                .replaceAll(',', '');
 
             const params = {
                 "id": $('#emp-iidd').val(),
@@ -1242,6 +1287,7 @@ function saveSalary(sepa) {
                 "opermoney": opermoney,
                 "inm": inm,
                 "outm": outm,
+                "janm": janM,
                 "empin": user.id
             };
             $.ajax({
@@ -1367,7 +1413,7 @@ function saveSalary(sepa) {
 
     function delInMg() {
         return new Promise(function (resolve, reject) {
-            const url = "/emp/empInMDel";
+            const url = "/emp/empDealInMDel";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
@@ -1396,17 +1442,6 @@ function saveSalary(sepa) {
         return new Promise(function (resolve, reject) {
 
             let params = new Array();
-
-            const ddday = {
-                "id": $('#emp-iidd').val(),
-                "sday": $('#yearmonthsMoney2').val(),
-                "separation": '기본급',
-                "date": null,
-                "contents": '기본급',
-                "money": ($('#in-baseM').val()).replaceAll(',', ''),
-                "strash": sepa
-            };
-            params.push(ddday);
             const size = $('#emp-in-money-tb')
                 .children()
                 .length;
@@ -1445,7 +1480,7 @@ function saveSalary(sepa) {
                 params.push(asd);
             }
 
-            const url = "/emp/insertInM";
+            const url = "/emp/insertDealInM";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
@@ -1469,7 +1504,7 @@ function saveSalary(sepa) {
     }
     function delOutMg(result) {
         return new Promise(function (resolve, reject) {
-            const url = "/emp/empOutMDel";
+            const url = "/emp/empDealOutMDel";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
@@ -1498,6 +1533,17 @@ function saveSalary(sepa) {
         return new Promise(function (resolve, reject) {
 
             let params = new Array();
+
+            const ddday = {
+                "id": $('#emp-iidd').val(),
+                "sday": $('#yearmonthsMoney2').val(),
+                "separation": '관리비',
+                "date": null,
+                "contents": '관리비',
+                "money": ($('#in-baseM').val()).replaceAll(',', ''),
+                "strash": sepa
+            };
+            params.push(ddday);
 
             const size = $('#emp-out-money-tb')
                 .children()
@@ -1548,7 +1594,7 @@ function saveSalary(sepa) {
                 params.push(asd);
             }
 
-            const url = "/emp/insertOutM";
+            const url = "/emp/insertDealOutM";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"

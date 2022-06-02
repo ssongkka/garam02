@@ -1141,4 +1141,82 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return list;
 	}
+
+	@Override
+	public List<Empsalary> dealInMoney(Empsalary empsalary) throws Exception {
+		List<Empsalary> list = employeeMapper.dealInMoney(empsalary);
+
+		return list;
+	}
+
+	@Override
+	public List<Empsalary> dealOutMoney(Empsalary empsalary) throws Exception {
+		List<Empsalary> list = employeeMapper.dealOutMoney(empsalary);
+
+		return list;
+	}
+
+	@Override
+	public List<EmpsalaryAll> dealAllMoney(EmpsalaryAll empsalaryAll) throws Exception {
+		List<EmpsalaryAll> list = employeeMapper.dealAllMoney(empsalaryAll);
+
+		return list;
+	}
+
+	@Override
+	public int delDealInM(Empsalary empsalary) throws Exception {
+		int rtn = employeeMapper.delDealInM(empsalary);
+
+		return rtn;
+	}
+
+	@Override
+	public int delDealOutM(Empsalary empsalary) throws Exception {
+		int rtn = employeeMapper.delDealOutM(empsalary);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertDealInM(List<Map<String, Object>> map) throws Exception {
+		for (int i = 0; i < map.size(); i++) {
+			if (map.get(i).get("money").equals("") || map.get(i).get("money").toString().length() == 0) {
+				map.get(i).replace("money", "0");
+			}
+		}
+
+		HashMap<String, Object> inM = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			inM.put("imM", map);
+		}
+
+		int rtn = employeeMapper.insertDealInM(inM);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertDealOutM(List<Map<String, Object>> map) throws Exception {
+		for (int i = 0; i < map.size(); i++) {
+			if (map.get(i).get("money").equals("") || map.get(i).get("money").toString().length() == 0) {
+				map.get(i).replace("money", "0");
+			}
+		}
+
+		HashMap<String, Object> outM = new HashMap<>();
+		for (int i = 0; i < map.size(); i++) {
+			outM.put("outM", map);
+		}
+
+		int rtn = employeeMapper.insertDealOutM(outM);
+
+		return rtn;
+	}
+
+	@Override
+	public int insertDealAllMoney(EmpsalaryAll empsalaryAll) throws Exception {
+		int rtn = employeeMapper.insertDealAllMoney(empsalaryAll);
+
+		return rtn;
+	}
 }

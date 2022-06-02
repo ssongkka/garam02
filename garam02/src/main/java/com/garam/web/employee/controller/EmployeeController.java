@@ -71,7 +71,7 @@ public class EmployeeController extends UiUtils {
 	}
 
 	@GetMapping(value = "/sal")
-	public String employeeMoney(@AuthenticationPrincipal User user, Model model) throws Exception {
+	public String employeeSalMoney(@AuthenticationPrincipal User user, Model model) throws Exception {
 
 		model.addAttribute("user", user);
 
@@ -95,6 +95,33 @@ public class EmployeeController extends UiUtils {
 		model.addAttribute("othercompa", othercompa);
 
 		return "employee/employeeSal";
+	}
+
+	@GetMapping(value = "/jang")
+	public String employeeJangMoney(@AuthenticationPrincipal User user, Model model) throws Exception {
+
+		model.addAttribute("user", user);
+
+		RsvtDTO rsvtDTO = new RsvtDTO();
+		List<RsvtDTO> list = rsvtService.selectCustomerAll(rsvtDTO);
+		model.addAttribute("customer", list);
+
+		List<CompanyDTO> company = companyService.selectCompany();
+		model.addAttribute("company", company);
+
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
+
+		List<OptDTO> opt = rsvtService.selectOpt();
+		model.addAttribute("opt", opt);
+
+		List<RsvtDTO> othercompa = rsvtService.selectCustomerOtherCompa();
+		model.addAttribute("othercompa", othercompa);
+
+		return "employee/employeePer";
 	}
 
 	@GetMapping(value = "/pdfDown")

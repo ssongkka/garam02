@@ -83,4 +83,20 @@ public interface EmployeeService {
 	public List<EmpsalaryAll> selectMainEmpSal(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
 	public List<VehicleInfoDTO> selectEmpveAcc(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
+	public List<Empsalary> dealInMoney(Empsalary empsalary) throws Exception;
+
+	public List<Empsalary> dealOutMoney(Empsalary empsalary) throws Exception;
+
+	public List<EmpsalaryAll> dealAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
+
+	public int delDealInM(Empsalary empsalary) throws Exception;
+
+	public int delDealOutM(Empsalary empsalary) throws Exception;
+
+	public int insertDealInM(List<Map<String, Object>> map) throws Exception;
+
+	public int insertDealOutM(List<Map<String, Object>> map) throws Exception;
+
+	public int insertDealAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
 }

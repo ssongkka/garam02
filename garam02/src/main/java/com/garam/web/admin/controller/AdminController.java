@@ -53,13 +53,16 @@ public class AdminController {
 
 	@PostMapping("/signup")
 	public String signup(UserDTO userDTO) throws Exception {
-
-		try {
-			int rtn = userMyService.insertUser(userDTO);
-		} catch (DataAccessException e) {
-		} catch (Exception e) {
-		}
-
 		return "redirect:/admin";
+	}
+
+	@GetMapping("/stats1")
+	public String stats1(@AuthenticationPrincipal User user, Model model) throws Exception {
+		model.addAttribute("user", user);
+
+		List<CompanyDTO> compa = companyService.selectCompany();
+		model.addAttribute("compa", compa);
+
+		return "admin/adminStats1";
 	}
 }

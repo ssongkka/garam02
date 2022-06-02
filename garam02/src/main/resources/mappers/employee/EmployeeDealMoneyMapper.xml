@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garam.web.employee.mapper.EmployeeMapper">
+
+	<sql id="empMoneySalColumns">
+		no, sday, id, separation, date, contents, money, strash
+	</sql>
+
+	<select id="dealInMoney" parameterType="com.garam.web.employee.dto.Empsalary"
+		resultType="com.garam.web.employee.dto.Empsalary">
+
+		SELECT
+
+		*
+
+		FROM
+
+		personnaldealplus
+
+		WHERE
+
+		personnaldealplus.id = #{id}
+
+		AND
+
+		personnaldealplus.sday = #{sday}
+	</select>
+
+	<select id="dealOutMoney" parameterType="com.garam.web.employee.dto.Empsalary"
+		resultType="com.garam.web.employee.dto.Empsalary">
+
+		SELECT
+
+		*
+
+		FROM
+
+		personnaldealminus
+
+		WHERE
+
+		personnaldealminus.id = #{id}
+
+		AND
+
+		personnaldealminus.sday = #{sday}
+	</select>
+
+	<select id="dealAllMoney" parameterType="com.garam.web.employee.dto.EmpsalaryAll"
+		resultType="com.garam.web.employee.dto.EmpsalaryAll">
+
+
+		(SELECT
+
+		*
+
+		FROM
+
+		personnaldeal
+
+		WHERE
+
+		personnaldeal.id = #{id}
+
+		AND
+
+		personnaldeal.date = #{datein})
+
+		UNION
+
+		(SELECT
+
+		*
+
+		FROM
+
+		personnaldeal
+
+		WHERE
+
+		personnaldeal.id = #{id}
+
+		AND
+
+		personnaldeal.date = #{date})
+
+
+	</select>
+	<delete id="delDealInM" parameterType="com.garam.web.employee.dto.Empsalary">
+		DELETE FROM
+
+		personnaldealplus
+
+		WHERE
+
+		personnaldealplus.id = #{id}
+
+		AND
+
+		personnaldealplus.sday =
+		#{sday};
+	</delete>
+	<delete id="delDealOutM" parameterType="com.garam.web.employee.dto.Empsalary">
+		DELETE FROM
+
+		personnaldealminus
+
+		WHERE
+
+		personnaldealminus.id =
+		#{id}
+
+		AND
+
+		personnaldealminus.sday
+		= #{sday};
+	</delete>
+
+	<insert id="insertDealInM" parameterType="java.util.HashMap">
+		INSERT
+
+		INTO
+
+		personnaldealplus
+		(
+		<include refid="empMoneySalColumns" />
+		)
+		VALUES
+
+		<foreach collection="imM" item="value" separator=",">
+			(
+			null,
+			#{value.sday},
+			#{value.id},
+			#{value.separation},
+			#{value.date},
+			#{value.contents},
+			#{value.money},
+			#{value.strash}
+			)
+		</foreach>
+	</insert>
+	<insert id="insertDealOutM" parameterType="java.util.HashMap">
+		INSERT
+
+		INTO
+
+		personnaldealminus
+		(
+		<include refid="empMoneySalColumns" />
+		)
+		VALUES
+
+		<foreach collection="outM" item="value" separator=",">
+			(
+			null,
+			#{value.sday},
+			#{value.id},
+			#{value.separation},
+			#{value.date},
+			#{value.contents},
+			#{value.money},
+			#{value.strash}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertDealAllMoney" parameterType="com.garam.web.employee.dto.EmpsalaryAll">
+
+		INSERT INTO
+
+		personnaldeal
+
+		(dealno,
+		id,
+		date,
+		per,
+		opercnt,
+		opermoney,
+		inm,
+		outm,
+		janm,
+		empin,
+		datein,
+		strash)
+
+		VALUES
+
+		(null,
+		#{id},
+		#{date},
+		#{per},
+		#{opercnt},
+		#{opermoney},
+		#{inm},
+		#{outm},
+		#{janm},
+		#{empin},
+		NOW(),
+		1);
+	</insert>
+</mapper>

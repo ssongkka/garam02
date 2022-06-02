@@ -3,6 +3,8 @@ package com.garam.web.employee.dto;
 public class EmpsalaryAll {
 	// 봉급번호
 	private Integer salno;
+	// 봉급번호
+	private Integer dealno;
 
 	// 사원번호
 	private String id;
@@ -20,6 +22,8 @@ public class EmpsalaryAll {
 
 	private Integer outm;
 
+	private Integer janm;
+
 	private String empin;
 
 	private String datein;
@@ -33,6 +37,14 @@ public class EmpsalaryAll {
 
 	public Integer getSalno() {
 		return salno;
+	}
+
+	public Integer getDealno() {
+		return dealno;
+	}
+
+	public void setDealno(Integer dealno) {
+		this.dealno = dealno;
 	}
 
 	public void setSalno(Integer salno) {
@@ -93,6 +105,14 @@ public class EmpsalaryAll {
 
 	public void setOutm(Integer outm) {
 		this.outm = outm;
+	}
+
+	public Integer getJanm() {
+		return janm;
+	}
+
+	public void setJanm(Integer janm) {
+		this.janm = janm;
 	}
 
 	public String getEmpin() {
