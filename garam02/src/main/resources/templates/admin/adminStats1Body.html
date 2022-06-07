@@ -3,9 +3,91 @@
     <body th:fragment="adminStats1-body">
         <aside th:replace="admin/adminSide :: adminSide"></aside>
         <main class="main">
-
-            
-
+            <div class="statsMain">
+                <div class="statsMain-item row card-song">
+                    <div class="col-md-3 statsMain-item1 statsYearMonth">
+                        <div>
+                            <a class="btn" id="">
+                                <i class="fas fa-chevron-left fa-lg"></i>
+                            </a>
+                        </div>
+                        <div><input type="month" class="input-group"></div>
+                        <div>
+                            <a class="btn" id="">
+                                <i class="fas fa-chevron-right fa-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-3 statsMain-item1"></div>
+                    <div class="col-md-3 statsMain-item1"></div>
+                </div>
+                <div class="statsMain-item row card-song">
+                    <canvas id="myChart" height="300"></canvas>
+                </div>
+                <div class="statsMain-item row card-song">
+                    <table class="table table-bordered table-hover tb-stats1">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="6%">
+                            <col width="auto">
+                            <col width="auto">
+                            <col width="auto">
+                        </colgroup>
+                        <thead class="table-light">
+                            <tr>
+                                <th rowspan="2">차량번호</th>
+                                <th colspan="4">수익</th>
+                                <th colspan="6">비용</th>
+                                <th rowspan="2">연비</th>
+                                <th rowspan="2">총수입</th>
+                                <th rowspan="2">총비용</th>
+                                <th rowspan="2">이익</th>
+                            </tr>
+                            <tr>
+                                <th>정기운행</th>
+                                <th>일반</th>
+                                <th>학생단체</th>
+                                <th>거래처</th>
+                                <th>급여</th>
+                                <th>유류비</th>
+                                <th>대출</th>
+                                <th>차량보험</th>
+                                <th>정비</th>
+                                <th>사고</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th style="text-align: center; letter-spacing: 0.1rem;">0000</th>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td>10,000,000</td>
+                                <td style="text-align: center;">5.5</td>
+                                <th>100,000,000</th>
+                                <th>100,000,000</th>
+                                <th>100,000,000</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
         <script th:inline="javascript">
             /*<![CDATA[*/

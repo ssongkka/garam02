@@ -1,0 +1,26 @@
+.statsMain {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.statsMain-item1 {
+    margin: 1rem 0;
+    padding: 0 2rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.statsMain-item1:nth-child(2),
+.statsMain-item1:nth-child(3),
+.statsMain-item1:nth-child(4) {
+    border-left: 0.1rem solid var(--text-grey);
+}
+
+.tb-stats1 > tbody > tr > td,
+.tb-stats1 > tbody > tr > th {
+    text-align: right;
+}

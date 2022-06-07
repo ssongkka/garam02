@@ -173,6 +173,7 @@
 
 		(dealno,
 		id,
+		carnumber,
 		date,
 		per,
 		opercnt,
@@ -188,6 +189,7 @@
 
 		(null,
 		#{id},
+		#{carnumber},
 		#{date},
 		#{per},
 		#{opercnt},

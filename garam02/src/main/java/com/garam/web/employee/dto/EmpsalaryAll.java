@@ -9,6 +9,8 @@ public class EmpsalaryAll {
 	// 사원번호
 	private String id;
 
+	private String carnumber;
+
 	// 급여년원
 	private String date;
 
@@ -57,6 +59,14 @@ public class EmpsalaryAll {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getCarnumber() {
+		return carnumber;
+	}
+
+	public void setCarnumber(String carnumber) {
+		this.carnumber = carnumber;
 	}
 
 	public String getDate() {

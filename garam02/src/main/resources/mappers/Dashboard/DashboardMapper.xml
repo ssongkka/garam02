@@ -1870,6 +1870,10 @@
 
 		AND
 
+		operation_info.opertype = 1
+
+		AND
+
 		rsvt.bus = '대형'
 
 		) AS id1,
@@ -1909,6 +1913,10 @@
 
 		AND
 
+		operation_info.opertype = 1
+
+		AND
+
 		rsvt.bus = '중형'
 
 		) AS id2,
@@ -1945,6 +1953,10 @@
 		AND
 
 		operation_info.dayst = 1
+
+		AND
+
+		operation_info.opertype = 1
 
 		AND
 

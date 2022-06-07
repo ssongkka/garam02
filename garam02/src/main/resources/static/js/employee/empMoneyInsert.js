@@ -276,6 +276,12 @@ function getEmpInfoM(id) {
                         $('#m-id').val('');
                     }
 
+                    if (r[0].carnumber) {
+                        $('#m-carn').val(r[0].carnumber);
+                    } else {
+                        $('#m-carn').val('');
+                    }
+
                     if (r[0].name) {
                         $('#m-name').html('<span>' + r[0].name + '</span>');
                     } else {
@@ -1234,8 +1240,14 @@ function saveSalary(sepa) {
 
             const empin = user.position + ' ' + user.name;
 
+            let carnnn = null;
+            if ($('#m-carn').val()) {
+                carnnn = $('#m-carn').val();
+            }
+
             const params = {
                 "id": $('#emp-iidd').val(),
+                "carnumber": carnnn,
                 "date": $('#yearmonthsMoney2').val(),
                 "per": per,
                 "opercnt": opercnt,

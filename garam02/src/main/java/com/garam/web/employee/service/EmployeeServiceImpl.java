@@ -948,7 +948,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			tmpDayInt.add(tmp);
 
 			mapRsvt0.put(i, empRsvtDTO.get(i).getOperday());
-			mapRsvt1.put(i, empRsvtDTO.get(i).getDesty() + "-" + empRsvtDTO.get(i).getCtmname());
+			mapRsvt1.put(i, empRsvtDTO.get(i).getCtmname() + "-" + empRsvtDTO.get(i).getDesty());
 			mapRsvt2.put(i, Integer.toString(empRsvtDTO.get(i).getAtlm()));
 		}
 		for (int i = 0; i < regularDTO.size(); i++) {
@@ -958,7 +958,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 			tmpDayInt.add(tmp);
 
 			mapReg0.put(i, regularDTO.get(i).getRegoperday());
-			mapReg1.put(i, regularDTO.get(i).getRegcompany() + "(" + regularDTO.get(i).getRdname() + ")");
+
+			String sseeppaa = "";
+			if (regularDTO.get(i).getRcsepa().equals(1)) {
+				sseeppaa = "출근";
+			} else {
+				sseeppaa = "퇴근";
+			}
+
+			mapReg1.put(i,
+					regularDTO.get(i).getRegcompany() + "(" + regularDTO.get(i).getRdname() + " " + sseeppaa + ")");
 			mapReg2.put(i, regularDTO.get(i).getRegoperatlm());
 		}
 
