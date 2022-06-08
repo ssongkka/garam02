@@ -4,6 +4,10 @@
     gap: 1rem;
 }
 
+.statsMain-item:nth-child(2) {
+    padding: 2rem;
+}
+
 .statsMain-item1 {
     margin: 1rem 0;
     padding: 0 2rem;
@@ -21,6 +25,66 @@
 }
 
 .tb-stats1 > tbody > tr > td,
-.tb-stats1 > tbody > tr > th {
+.tb-stats1 > tbody > tr > th,
+.tb-stats1 > tfoot > tr > td,
+.tb-stats1 > tfoot > tr > th {
     text-align: right;
+}
+
+.tb-stats1 > thead > tr > th {
+    letter-spacing: 0.3rem;
+    padding: 0.3rem;
+}
+
+.tb-stats1 > thead > tr > .incur {
+    cursor: pointer;
+}
+
+.tb-stats1 > thead > tr > .inGun {
+    font-size: 1rem;
+}
+
+.tb-stats1 > thead > tr > .inTh {
+    background: rgba(68, 114, 196, 1);
+}
+
+.tb-stats1 > thead > tr > .outTh {
+    background: rgb(237, 125, 49, 1);
+}
+
+.tb-stats1 > thead > tr > .allTh {
+    background: rgb(112, 173, 71);
+
+}
+
+.tb-stats1 > thead > tr > .gasTh {
+    background: rgb(255, 192, 0);
+}
+
+.tb-stats1 > tbody > tr > .carTd,
+.tb-stats1 > tfoot > tr > .carTd {
+    background: #f8f9fa;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.2rem;
+}
+
+.tb-stats1 > tbody > tr > .inTd,
+.tb-stats1 > tfoot > tr > .inTd {
+    background: rgba(68, 114, 196, 0.1);
+}
+
+.tb-stats1 > tbody > tr > .outTd,
+.tb-stats1 > tfoot > tr > .outTd {
+    background: rgb(237, 125, 49, 0.1);
+}
+
+.tb-stats1 > tbody > tr > .allTd,
+.tb-stats1 > tfoot > tr > .allTd {
+    background: rgba(112, 173, 71, 0.1);
+}
+
+.tb-stats1 > tbody > tr > .gasTd,
+.tb-stats1 > tfoot > tr > .gasTd {
+    background: rgba(255, 192, 0, 0.1);
 }

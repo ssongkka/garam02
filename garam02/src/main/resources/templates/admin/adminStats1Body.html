@@ -7,13 +7,13 @@
                 <div class="statsMain-item row card-song">
                     <div class="col-md-3 statsMain-item1 statsYearMonth">
                         <div>
-                            <a class="btn" id="">
+                            <a class="btn" id="fnDownMonthStatic">
                                 <i class="fas fa-chevron-left fa-lg"></i>
                             </a>
                         </div>
-                        <div><input type="month" class="input-group"></div>
+                        <div><input type="month" class="input-group" id="staticMonth"></div>
                         <div>
-                            <a class="btn" id="">
+                            <a class="btn" id="fnUpMonthStatic">
                                 <i class="fas fa-chevron-right fa-lg"></i>
                             </a>
                         </div>
@@ -21,13 +21,19 @@
                     <div class="col-md-3 statsMain-item1"></div>
                     <div class="col-md-3 statsMain-item1"></div>
                 </div>
-                <div class="statsMain-item row card-song">
-                    <canvas id="myChart" height="300"></canvas>
+                <div class="statsMain-item row card-song" id="chartVeAllCompaDiv">
+                    <canvas id="chartVeAllCompa" height="300"></canvas>
                 </div>
                 <div class="statsMain-item row card-song">
                     <table class="table table-bordered table-hover tb-stats1">
                         <colgroup>
-                            <col width="10%">
+                            <col width="7%">
+                            <col width="6%">
+                            <col width="3%">
+                            <col width="6%">
+                            <col width="3%">
+                            <col width="6%">
+                            <col width="3%">
                             <col width="6%">
                             <col width="6%">
                             <col width="6%">
@@ -35,56 +41,44 @@
                             <col width="6%">
                             <col width="6%">
                             <col width="6%">
-                            <col width="6%">
-                            <col width="6%">
-                            <col width="6%">
-                            <col width="6%">
+                            <col width="4%">
                             <col width="auto">
                             <col width="auto">
                             <col width="auto">
                         </colgroup>
                         <thead class="table-light">
                             <tr>
-                                <th rowspan="2">차량번호</th>
-                                <th colspan="4">수익</th>
-                                <th colspan="6">비용</th>
-                                <th rowspan="2">연비</th>
-                                <th rowspan="2">총수입</th>
-                                <th rowspan="2">총비용</th>
-                                <th rowspan="2">이익</th>
+                                <th rowspan="3" class="sortNumStatic incur">차량번호</th>
+                                <th colspan="7" class="inTh">수 익</th>
+                                <th colspan="6" class="outTh">비 용</th>
+                                <th rowspan="3" class="sortNumStatic gasTh incur">연비</th>
+                                <th rowspan="3" class="sortNumStatic inTh incur">총 수입</th>
+                                <th rowspan="3" class="sortNumStatic outTh incur">총 비용</th>
+                                <th rowspan="3" class="sortNumStatic allTh incur">이 익</th>
                             </tr>
                             <tr>
-                                <th>정기운행</th>
-                                <th>일반</th>
-                                <th>학생단체</th>
-                                <th>거래처</th>
-                                <th>급여</th>
-                                <th>유류비</th>
-                                <th>대출</th>
-                                <th>차량보험</th>
-                                <th>정비</th>
-                                <th>사고</th>
+                                <th rowspan="2" class="sortNumStatic inTh incur">정기운행</th>
+                                <th colspan="2" class="inTh">일 반</th>
+                                <th colspan="2" class="inTh">학생단체</th>
+                                <th colspan="2" class="inTh">거래처</th>
+                                <th rowspan="2" class="sortNumStatic outTh incur">급 여</th>
+                                <th rowspan="2" class="sortNumStatic outTh incur">유류비</th>
+                                <th rowspan="2" class="sortNumStatic outTh incur">대 출</th>
+                                <th rowspan="2" class="sortNumStatic outTh incur">차량보험</th>
+                                <th rowspan="2" class="sortNumStatic outTh incur">정 비</th>
+                                <th rowspan="2" class="sortNumStatic outTh incur">사 고</th>
+                            </tr>
+                            <tr>
+                                <th class="sortNumStatic inTh inGun static1 incur">운행</th>
+                                <th class="sortNumStatic inTh inGun static2 incur">금액</th>
+                                <th class="sortNumStatic inTh inGun static3 incur">운행</th>
+                                <th class="sortNumStatic inTh inGun static4 incur">금액</th>
+                                <th class="sortNumStatic inTh inGun static5 incur">운행</th>
+                                <th class="sortNumStatic inTh inGun static6 incur">금액</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th style="text-align: center; letter-spacing: 0.1rem;">0000</th>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td>10,000,000</td>
-                                <td style="text-align: center;">5.5</td>
-                                <th>100,000,000</th>
-                                <th>100,000,000</th>
-                                <th>100,000,000</th>
-                            </tr>
-                        </tbody>
+                        <tbody id="tbVeAllCompa"></tbody>
+                        <tfoot id="tfVeAllCompa"></tfoot>
                     </table>
                 </div>
             </div>

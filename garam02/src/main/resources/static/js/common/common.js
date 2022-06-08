@@ -611,6 +611,7 @@ function sortTableByColumn1(table, table1, column, asc = true, tthh) {
                 ? 1
                 : -1;
             const tBody = table.tBodies[0];
+            console.log(table.tBodies);
             // const rows = Array.from(tBody.querySelectorAll("tr"));
             const rows = Array.from($(tBody).children('tr'));
             // Sort each row
@@ -699,6 +700,87 @@ function sortTableByColumn1(table, table1, column, asc = true, tthh) {
                 .querySelector(`th:nth-child(${column + 1})`)
                 .classList
                 .toggle("th-sort-desc", !asc);
+            resolve();
+        })
+    }
+}
+function sortTableByColumnStatic(table, table1, column, asc = true, tthh) {
+
+    LoadingWithMask()
+        .then(start1)
+        .then(closeLoadingWithMask);
+
+    function start1() {
+        return new Promise(function (resolve, reject) {
+            const dirModifier = asc
+                ? 1
+                : -1;
+            const tBody = table.tBodies[0];
+            console.log(table.tBodies);
+            // const rows = Array.from(tBody.querySelectorAll("tr"));
+            const rows = Array.from($(tBody).children('tr'));
+            // Sort each row
+            const sortedRows = rows.sort((a, b) => {
+
+                const aColText = $($(a).children()[column])
+                    .text()
+                    .trim()
+                    .replaceAll(',', '');
+
+                const bColText = $($(b).children()[column])
+                    .text()
+                    .trim()
+                    .replaceAll(',', '');
+
+                let aaa = '';
+                let bbb = '';
+
+                if (aColText) {
+                    aaa = aColText;
+                } else {
+                    aaa = 0;
+                }
+
+                if (bColText) {
+                    bbb = bColText;
+                } else {
+                    bbb = 0;
+                }
+
+                let aaa111 = 0;
+                let bbb111 = 0;
+
+                if (parseFloat(aaa) > parseFloat(bbb)) {
+                    aaa111 = 1;
+                    bbb111 = 0;
+                } else {
+                    aaa111 = 0;
+                    bbb111 = 1;
+                }
+
+                return parseFloat(aaa111) > parseFloat(bbb111)
+                    ? (1 * dirModifier)
+                    : (-1 * dirModifier);
+            });
+
+            // Remove all existing TRs from the table
+            while (tBody.firstChild) {
+                tBody.removeChild(tBody.firstChild);
+            }
+
+            // Re-add the newly sorted rows
+            tBody.append(...sortedRows);
+
+            // Remember how the column is currently sorted
+            table1
+                .querySelectorAll("th")
+                .forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+
+            if (asc) {
+                $(tthh).addClass("th-sort-asc");
+            } else {
+                $(tthh).addClass("th-sort-desc");
+            }
             resolve();
         })
     }
@@ -1432,6 +1514,99 @@ $(document).on('click', '.sortNumP', function () {
         .includes("th-sort-asc");
 
     sortTableByColumn11(
+        tableElement1,
+        tableElement1,
+        headerIndex,
+        !currentIsAscending,
+        this
+    );
+});
+$(document).on('click', '.sortNumStatic', function () {
+    const tableElement1 = this.parentElement.parentElement.parentElement;
+
+    const aaa = $(this)
+        .parent()
+        .children();
+
+    let aaaa = 0;
+
+    for (let i = 0; i < aaa.length; i++) {
+        if (aaa[i] == this) {
+            aaaa = i;
+        }
+    }
+
+    let headerIndex = 0;
+
+    switch ($(this).text().replaceAll(' ', '')) {
+        case "차량번호":
+            headerIndex = 0;
+            break;
+        case "정기운행":
+            headerIndex = 1;
+            break;
+        case "일반":
+            headerIndex = 2;
+            break;
+        case "학생단체":
+            headerIndex = 3;
+            break;
+        case "거래처":
+            headerIndex = 4;
+            break;
+        case "급여":
+            headerIndex = 8;
+            break;
+        case "유류비":
+            headerIndex = 9;
+            break;
+        case "대출":
+            headerIndex = 10;
+            break;
+        case "차량보험":
+            headerIndex = 11;
+            break;
+        case "정비":
+            headerIndex = 12;
+            break;
+        case "사고":
+            headerIndex = 13;
+            break;
+        case "연비":
+            headerIndex = 14;
+            break;
+        case "총수입":
+            headerIndex = 15;
+            break;
+        case "총비용":
+            headerIndex = 16;
+            break;
+        case "이익":
+            headerIndex = 17;
+            break;
+
+        default:
+            if ($(this).attr('class').includes('static1')) {
+                headerIndex = 2;
+            } else if ($(this).attr('class').includes('static2')) {
+                headerIndex = 3;
+            } else if ($(this).attr('class').includes('static3')) {
+                headerIndex = 4;
+            } else if ($(this).attr('class').includes('static4')) {
+                headerIndex = 5;
+            } else if ($(this).attr('class').includes('static5')) {
+                headerIndex = 6;
+            } else if ($(this).attr('class').includes('static6')) {
+                headerIndex = 7;
+            }
+            break;
+    }
+
+    const currentIsAscending = $(this)
+        .attr('class')
+        .includes("th-sort-asc");
+
+    sortTableByColumnStatic(
         tableElement1,
         tableElement1,
         headerIndex,

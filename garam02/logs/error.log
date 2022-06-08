@@ -3818,3 +3818,17 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving fragment: "~{'a
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
+>22-06-08 17:14:01 [restartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter:40] ERROR ==>> 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+

@@ -259,7 +259,7 @@ table > tbody > tr > .tdLeft {
 
 .table .th-sort-asc::after,
 .table .th-sort-desc::after {
-    margin-left: 5px;
+    margin-left: 0;
 }
 
 .table .th-sort-asc,
