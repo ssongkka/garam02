@@ -187,7 +187,7 @@ function getVeAllCompa() {
                             iidd7 = AddComma(r[i].ve2);
                         }
 
-                        if (r[i].brand || chM > 0 || r[i].id1) {
+                        if (r[i].fuel || chM > 0 || r[i].id1) {
 
                             arrTmpCar.push(r[i].vehicle2);
                             arrTmpAllIn.push(allIn);
@@ -200,8 +200,9 @@ function getVeAllCompa() {
                             }
 
                             htmls += `
-                    <tr>
-                        <td class="carTd">` + r[i].vehicle2 +
+                    <tr class="veCompaStatic">
+                        <td class="carTd">` +
+                                    r[i].vehicle2 +
                                     `</td>
                         <td class="inTd">` + sss +
                                     `</td>
@@ -239,6 +240,22 @@ function getVeAllCompa() {
                         <td class="allTd"` + cssAll + `>` +
                                     AddComma(parseInt(allIn) - parseInt(allOut)) +
                                     `</td>
+                        <input type="hidden" value="` + r[i].carnumber +
+                                    `">
+                        <input type="hidden" value="` + r[i].vehicle +
+                                    `">
+                        <input type="hidden" value="` + r[i].brand +
+                                    `">
+                        <input type="hidden" value="` + r[i].grade +
+                                    `">
+                        <input type="hidden" value="` + r[i].num +
+                                    `">
+                        <input type="hidden" value="` + r[i].regist +
+                                    `">
+                        <input type="hidden" value="` + r[i].expire +
+                                    `">
+                        <input type="hidden" value="` + r[i].inday +
+                                    `">
                     </tr>`;
 
                             sum1 = sum1 + parseInt(String(sss).replaceAll(',', ''));
@@ -264,6 +281,75 @@ function getVeAllCompa() {
                     }
 
                     const htmlsF = `
+                    <tr>
+                        <td class="carTd">평 균</td>
+                        <td class="inTd">` +
+                            AddComma(sum1 / cntGas) +
+                            `</td>
+                        <td class="inTd">` + AddComma(
+                        (sum15 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="inTd">` + AddComma(
+                        (sum2 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="inTd">` + AddComma(
+                        (sum16 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="inTd">` + AddComma(
+                        (sum3 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="inTd">` + AddComma(
+                        (sum17 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="inTd">` + AddComma(
+                        (sum4 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="outTd">` + AddComma(
+                        (sum5 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="outTd">` + AddComma(
+                        (sum6 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="outTd">` + AddComma(
+                        (sum8 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="outTd">` + AddComma(
+                        (sum9 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="outTd">` + AddComma(
+                        (sum10 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="outTd">` + AddComma(
+                        (sum11 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td style="text-align: center;" class="gasTd">` +
+                            (sum7 / cntGas).toFixed(2) +
+                            `</td>
+                        <td class="inTd">` + AddComma(
+                        (sum12 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="outTd">` + AddComma(
+                        (sum13 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                        <td class="allTd">` + AddComma(
+                        (sum14 / cntGas).toFixed(0)
+                    ) +
+                            `</td>
+                    </tr>
                     <tr>
                         <td class="carTd">합 계</td>
                         <td class="inTd">` +
@@ -371,3 +457,63 @@ function getVeAllCompa() {
         })
     }
 }
+
+$(document).on('click', '.veCompaStatic', function () {
+    const yearMonth = $('#staticMonth').val();
+
+    let tmpArrInM = new Array();
+    let tmpArrOutM = new Array();
+    let tmpArrVe = new Array();
+    let tmpArrAve = new Array();
+
+    const aaa = $(this).children();
+    tmpArrInM.push($(aaa[1]).text().replaceAll(',', ''));
+    tmpArrInM.push($(aaa[3]).text().replaceAll(',', ''));
+    tmpArrInM.push($(aaa[5]).text().replaceAll(',', ''));
+    tmpArrInM.push($(aaa[7]).text().replaceAll(',', ''));
+
+    tmpArrOutM.push($(aaa[8]).text().replaceAll(',', ''));
+    tmpArrOutM.push($(aaa[9]).text().replaceAll(',', ''));
+    tmpArrOutM.push($(aaa[10]).text().replaceAll(',', ''));
+    tmpArrOutM.push($(aaa[11]).text().replaceAll(',', ''));
+    tmpArrOutM.push($(aaa[12]).text().replaceAll(',', ''));
+    tmpArrOutM.push($(aaa[13]).text().replaceAll(',', ''));
+
+    tmpArrVe.push($(aaa[18]).val());
+    tmpArrVe.push($(aaa[19]).val());
+    tmpArrVe.push($(aaa[20]).val());
+    tmpArrVe.push($(aaa[21]).val());
+    tmpArrVe.push($(aaa[22]).val());
+    tmpArrVe.push($(aaa[23]).val());
+    tmpArrVe.push($(aaa[24]).val());
+    tmpArrVe.push($(aaa[25]).val());
+
+    const bbb0 = $('#tfVeAllCompa').children()[0];
+    const bbb = $(bbb0).children();
+
+    tmpArrAve.push(
+        parseInt($(aaa[15]).text().replaceAll(',', '')) - parseInt($(bbb[15]).text().replaceAll(',', ''))
+    );
+    tmpArrAve.push(
+        parseInt($(aaa[16]).text().replaceAll(',', '')) - parseInt($(bbb[16]).text().replaceAll(',', ''))
+    );
+    tmpArrAve.push(
+        parseInt($(aaa[17]).text().replaceAll(',', '')) - parseInt($(bbb[17]).text().replaceAll(',', ''))
+    );
+    tmpArrAve.push(
+        (parseFloat($(aaa[14]).text()) - parseFloat($(bbb[14]).text())).toFixed(2)
+    );
+
+    setAdMDVeStatic(
+        yearMonth,
+        tmpArrInM,
+        tmpArrOutM,
+        $(aaa[15]).text(),
+        $(aaa[16]).text(),
+        $(aaa[17]).text(),
+        $(aaa[14]).text(),
+        tmpArrAve,
+        tmpArrVe
+    );
+    $('#adMDVeCompa').modal('show');
+});

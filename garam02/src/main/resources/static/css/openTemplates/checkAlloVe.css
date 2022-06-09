@@ -76,3 +76,9 @@
     background: #00000030;
     color: #ffffff;
 }
+
+@media (max-width:768px) {
+    #offAlloVe {
+        visibility: hidden !important;
+    }
+}

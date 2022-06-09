@@ -1046,8 +1046,6 @@
 
 		WHERE
 
-
-
 		(vehicleinfo.inday  <![CDATA[<=]]>
 		#{inday} )
 

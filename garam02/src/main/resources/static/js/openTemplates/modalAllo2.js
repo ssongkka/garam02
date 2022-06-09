@@ -306,9 +306,6 @@ function makeModalIl(dday, cctono, rsvt) {
                         }
 
                         aveAlm = parseInt(aveSum / tmpAlm.length);
-                        console.log("aveSum", aveSum);
-                        console.log("tmpAlm.length", tmpAlm.length);
-                        console.log("aveAlm", aveAlm);
 
                         const uniqueAltm = [...new Set(tmpAlm)];
 

@@ -68,17 +68,18 @@ function makeGas(cho) {
 
     function getGasVe(result) {
         return new Promise(function (resolve, reject) {
-            const url = "/ve/veselgas";
+            const url = "/adrst/selveallcomp";
             const headers = {
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST"
             };
 
-            const dayyyy = $('#yearMonthgas').val() + '-01';
+            let tmpArrDay = getStDEnD($('#yearMonthgas').val());
 
             const params = {
-                "inday": dayyyy,
-                "outday": dayyyy
+                "fuel": $('#yearMonthgas').val(),
+                "inday": tmpArrDay[0],
+                "outday": tmpArrDay[1]
             };
 
             $.ajax({
@@ -92,27 +93,33 @@ function makeGas(cho) {
                 success: function (r) {
 
                     for (let i = 0; i < r.length; i++) {
+
+                        let chM = 0;
+
+                        if (r[i].img1) {
+                            chM = chM + parseInt(r[i].img1.split('.')[0]);
+                        }
+
+                        if (r[i].img2) {
+                            chM = chM + parseInt(r[i].img2.split('.')[0]);
+                        }
+
+                        if (r[i].img3) {
+                            chM = chM + parseInt(r[i].img3.split('.')[0]);
+                        }
+
                         if (result.indexOf(r[i].carnumber) < 0) {
-                            for (let m = 0; m < dbCompa.length; m++) {
-                                if (r[i].owner == dbCompa[m].company) {
-                                    let veName = '';
-
-                                    for (let l = 0; l < dbVe.length; l++) {
-                                        if (r[i].carnumber == dbVe[l].carnumber) {
-                                            veName = dbVe[l].vehicle2;
-                                        }
-                                    }
-
-                                    result += `
+                            if (r[i].fuel || chM > 0 || r[i].id1) {
+                                result += `
                         <tr>
-                            <td>` + veName +
-                                            `
+                            <td>` + r[i].vehicle2 +
+                                        `
                                 <input type="hidden" value="">
                                 <input type="hidden" value="` +
-                                            r[i].carnumber +
-                                            `">
+                                        r[i].carnumber +
+                                        `">
                                 <input type="hidden" value="` + r[i].id +
-                                            `">
+                                        `">
                             </td>
                             <td>
                                 <div class="input-group">
@@ -145,7 +152,6 @@ function makeGas(cho) {
                                 </div>
                             </td>
                         </tr>`;
-                                }
                             }
                         }
                     }

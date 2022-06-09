@@ -7,17 +7,28 @@
 
 		SELECT
 
-		vehicleinfo.vehicle,
-
 		vehicleinfo.carnumber,
+		vehicleinfo.vehicle,
+		vehicleinfo.brand,
+		vehicleinfo.grade,
+		vehicleinfo.num,
+		vehicleinfo.regist,
+		vehicleinfo.expire,
+		vehicleinfo.inday,
+		vehicleinfo.id,
+		vehicleinfo.owner,
 
-		(SELECT company.company FROM company WHERE company.company =
-		vehicleinfo.owner) AS brand,
+		(SELECT company.company FROM
+		company WHERE company.company =
+		vehicleinfo.owner) AS
+		fuel,
 
 		(SELECT
 
-		IF((SELECT regulardetail.rdconn FROM regulardetail WHERE regulardetail.opercar =
-		vehicleinfo.carnumber) = 2,
+		IF((SELECT regulardetail.rdconn FROM regulardetail
+		WHERE regulardetail.opercar =
+		vehicleinfo.carnumber) =
+		2,
 
 		regulardetail.rdmoney
 
@@ -33,7 +44,8 @@
 
 		WHERE
 
-		operation_reg.regoperday BETWEEN #{inday} AND #{outday}
+		operation_reg.regoperday BETWEEN
+		#{inday} AND #{outday}
 
 		AND
 
@@ -52,7 +64,8 @@
 
 		WHERE
 
-		regulardetail.opercar =vehicleinfo.carnumber)),
+		regulardetail.opercar
+		=vehicleinfo.carnumber)),
 
 		regulardetail.rdmoney)
 
@@ -62,11 +75,15 @@
 
 		WHERE
 
-		regulardetail.opercar = vehicleinfo.carnumber) AS special,
+		regulardetail.opercar = vehicleinfo.carnumber) AS
+		special,
 
 		(SELECT
 
-		COUNT(IF(operation_info.opertype > 1, rsvt.numm / (SELECT MAX(operation_info.opertype) FROM operation_info WHERE
+		COUNT(IF(operation_info.opertype >
+		1, rsvt.numm /
+		(SELECT MAX(operation_info.opertype) FROM
+		operation_info WHERE
 		operation_info.rsvt =
 		operation_info.rsvt), rsvt.numm))
 
@@ -92,8 +109,10 @@
 
 		WHERE
 
-		(SELECT company.company FROM company WHERE company.company =
-		operation_info.opercom) IS NOT NULL
+		(SELECT company.company FROM company
+		WHERE company.company =
+		operation_info.opercom) IS
+		NOT NULL
 
 		AND
 
@@ -110,12 +129,14 @@
 
 		AND
 
-		operation_info.opercar = vehicleinfo.carnumber) AS regd,
+		operation_info.opercar =
+		vehicleinfo.carnumber) AS regd,
 
 		(SELECT
 
 		SUM(IF(operation_info.opertype > 1,
-		rsvt.numm / (SELECT MAX(operation_info.opertype) FROM operation_info WHERE
+		rsvt.numm / (SELECT
+		MAX(operation_info.opertype) FROM operation_info WHERE
 		operation_info.rsvt =
 		operation_info.rsvt),
 		rsvt.numm))
@@ -143,7 +164,8 @@
 
 		WHERE
 
-		(SELECT company.company FROM company WHERE company.company =
+		(SELECT
+		company.company FROM company WHERE company.company =
 		operation_info.opercom) IS NOT NULL
 
 		AND
@@ -162,13 +184,15 @@
 		AND
 
 		operation_info.opercar =
-		vehicleinfo.carnumber) AS img1,
+		vehicleinfo.carnumber) AS
+		img1,
 
 		(SELECT
 
 		COUNT(IF(operation_info.opertype > 1,
 		rsvt.numm / (SELECT
-		MAX(operation_info.opertype) FROM operation_info WHERE operation_info.rsvt =
+		MAX(operation_info.opertype) FROM operation_info
+		WHERE operation_info.rsvt =
 		operation_info.rsvt),
 		rsvt.numm))
 
@@ -182,7 +206,8 @@
 
 		ON
 
-		operation_info.rsvt = rsvt.rsvt
+		operation_info.rsvt =
+		rsvt.rsvt
 
 		LEFT JOIN
 
@@ -196,7 +221,8 @@
 		WHERE
 
 		(SELECT
-		company.company FROM company WHERE company.company = operation_info.opercom) IS NOT NULL
+		company.company FROM company WHERE company.company =
+		operation_info.opercom) IS NOT NULL
 
 		AND
 
@@ -208,11 +234,13 @@
 
 		AND
 
-		rsvt.stday BETWEEN #{inday} AND #{outday}
+		rsvt.stday BETWEEN #{inday}
+		AND #{outday}
 
 		AND
 
-		operation_info.opercar = vehicleinfo.carnumber)
+		operation_info.opercar =
+		vehicleinfo.carnumber)
 		AS insud,
 
 		(SELECT
@@ -268,8 +296,10 @@
 
 		AND
 
-		operation_info.opercar = vehicleinfo.carnumber)
-		AS img2,
+		operation_info.opercar =
+		vehicleinfo.carnumber)
+		AS
+		img2,
 
 		(SELECT
 
@@ -305,8 +335,10 @@
 
 		WHERE
 
-		(SELECT company.company FROM company WHERE company.company
-		= operation_info.opercom) IS NOT NULL
+		(SELECT
+		company.company FROM company WHERE company.company
+		=
+		operation_info.opercom) IS NOT NULL
 
 		AND
 
@@ -324,16 +356,19 @@
 		AND
 
 		operation_info.opercar =
-		vehicleinfo.carnumber) AS jukd,
+		vehicleinfo.carnumber) AS
+		jukd,
 
 		(SELECT
 
-		SUM(IF(operation_info.opertype > 1, rsvt.numm /
+		SUM(IF(operation_info.opertype > 1,
+		rsvt.numm /
 		(SELECT
 		MAX(operation_info.opertype) FROM operation_info
 		WHERE
 		operation_info.rsvt =
-		operation_info.rsvt), rsvt.numm))
+		operation_info.rsvt),
+		rsvt.numm))
 
 		FROM
 
@@ -354,7 +389,8 @@
 
 		ON
 
-		rsvt.ctmno = customer.ctmno
+		rsvt.ctmno =
+		customer.ctmno
 
 		WHERE
 
@@ -502,12 +538,14 @@
 
 		vemaintenance.vemaintenancedate BETWEEN
 		#{inday}
-		AND #{outday}
+		AND
+		#{outday}
 
 		AND
 
 		vemaintenance.carnumber =
-		vehicleinfo.carnumber) AS ve1,
+		vehicleinfo.carnumber) AS
+		ve1,
 
 		(SELECT
 
