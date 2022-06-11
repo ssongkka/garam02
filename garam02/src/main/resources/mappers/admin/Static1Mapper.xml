@@ -67,7 +67,39 @@
 		regulardetail.opercar
 		=vehicleinfo.carnumber)),
 
-		regulardetail.rdmoney)
+		IF((SELECT
+
+		COUNT(operation_reg.operregseq)
+
+		FROM
+
+		operation_reg
+
+		WHERE
+
+		operation_reg.regoperday BETWEEN
+		#{inday} AND #{outday}
+
+		AND
+
+		operation_reg.regoperno = 1
+
+		AND
+
+		operation_reg.codenum =
+		(SELECT
+
+		regulardetail.codenum
+
+		FROM
+
+		regulardetail
+
+		WHERE
+
+		regulardetail.opercar
+		=vehicleinfo.carnumber)) > 0, regulardetail.rdmoney, 0)
+		)
 
 		FROM
 
@@ -116,7 +148,8 @@
 
 		AND
 
-		operation_info.dayst = 1
+		operation_info.dayst =
+		1
 
 		AND
 
@@ -130,13 +163,15 @@
 		AND
 
 		operation_info.opercar =
-		vehicleinfo.carnumber) AS regd,
+		vehicleinfo.carnumber)
+		AS regd,
 
 		(SELECT
 
 		SUM(IF(operation_info.opertype > 1,
 		rsvt.numm / (SELECT
-		MAX(operation_info.opertype) FROM operation_info WHERE
+		MAX(operation_info.opertype) FROM operation_info
+		WHERE
 		operation_info.rsvt =
 		operation_info.rsvt),
 		rsvt.numm))
@@ -151,7 +186,8 @@
 
 		ON
 
-		operation_info.rsvt = rsvt.rsvt
+		operation_info.rsvt =
+		rsvt.rsvt
 
 		LEFT JOIN
 
@@ -577,6 +613,627 @@
 		OR
 
 		vehicleinfo.outday IS NULL
+
+		ORDER BY
+
+		vehicleinfo.vehicle
+
+	</select>
+
+	<select id="selectVeAllComStaticVeAll" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO"
+		resultType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		SELECT
+
+		vehicleinfo.carnumber,
+		vehicleinfo.vehicle,
+		vehicleinfo.brand,
+		vehicleinfo.grade,
+		vehicleinfo.num,
+		vehicleinfo.regist,
+		vehicleinfo.expire,
+		vehicleinfo.inday,
+		vehicleinfo.id,
+		vehicleinfo.owner,
+
+		(SELECT company.company FROM
+		company WHERE company.company =
+		vehicleinfo.owner) AS
+		fuel,
+
+		(SELECT
+
+		IF((SELECT regulardetail.rdconn FROM regulardetail
+		WHERE regulardetail.opercar =
+		vehicleinfo.carnumber) =
+		2,
+
+		regulardetail.rdmoney
+
+		*
+
+		(SELECT
+
+		COUNT(operation_reg.operregseq)
+
+		FROM
+
+		operation_reg
+
+		WHERE
+
+		operation_reg.regoperday BETWEEN
+		#{inday} AND #{outday}
+
+		AND
+
+		operation_reg.regoperno = 1
+
+		AND
+
+		operation_reg.codenum =
+		(SELECT
+
+		regulardetail.codenum
+
+		FROM
+
+		regulardetail
+
+		WHERE
+
+		regulardetail.opercar
+		=vehicleinfo.carnumber)),
+
+		IF((SELECT
+
+		COUNT(operation_reg.operregseq)
+
+		FROM
+
+		operation_reg
+
+		WHERE
+
+		operation_reg.regoperday BETWEEN
+		#{inday} AND #{outday}
+
+		AND
+
+		operation_reg.regoperno = 1
+
+		AND
+
+		operation_reg.codenum =
+		(SELECT
+
+		regulardetail.codenum
+
+		FROM
+
+		regulardetail
+
+		WHERE
+
+		regulardetail.opercar
+		=vehicleinfo.carnumber)) > 0, regulardetail.rdmoney, 0))
+
+		FROM
+
+		regulardetail
+
+		WHERE
+
+		regulardetail.opercar = vehicleinfo.carnumber) AS
+		special,
+
+		(SELECT
+
+		COUNT(IF(operation_info.opertype >
+		1, rsvt.numm /
+		(SELECT MAX(operation_info.opertype) FROM
+		operation_info WHERE
+		operation_info.rsvt =
+		operation_info.rsvt), rsvt.numm))
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt = rsvt.rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno = customer.ctmno
+
+		WHERE
+
+		(SELECT company.company FROM company
+		WHERE company.company =
+		operation_info.opercom) IS
+		NOT NULL
+
+		AND
+
+		operation_info.dayst =
+		1
+
+		AND
+
+		customer.ctmsepa = 0
+
+		AND
+
+		rsvt.stday BETWEEN #{inday}
+		AND #{outday}
+
+		AND
+
+		operation_info.opercar =
+		vehicleinfo.carnumber)
+		AS regd,
+
+		(SELECT
+
+		SUM(IF(operation_info.opertype > 1,
+		rsvt.numm / (SELECT
+		MAX(operation_info.opertype) FROM operation_info
+		WHERE
+		operation_info.rsvt =
+		operation_info.rsvt),
+		rsvt.numm))
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		(SELECT
+		company.company FROM company WHERE company.company =
+		operation_info.opercom) IS NOT NULL
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		customer.ctmsepa = 0
+
+		AND
+
+		rsvt.stday BETWEEN #{inday}
+		AND #{outday}
+
+		AND
+
+		operation_info.opercar =
+		vehicleinfo.carnumber) AS
+		img1,
+
+		(SELECT
+
+		COUNT(IF(operation_info.opertype > 1,
+		rsvt.numm / (SELECT
+		MAX(operation_info.opertype) FROM operation_info
+		WHERE operation_info.rsvt =
+		operation_info.rsvt),
+		rsvt.numm))
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		(SELECT
+		company.company FROM company WHERE company.company =
+		operation_info.opercom) IS NOT NULL
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		customer.ctmsepa = 1
+
+		AND
+
+		rsvt.stday BETWEEN #{inday}
+		AND #{outday}
+
+		AND
+
+		operation_info.opercar =
+		vehicleinfo.carnumber)
+		AS insud,
+
+		(SELECT
+
+		SUM(IF(operation_info.opertype > 1,
+		rsvt.numm / (SELECT
+		MAX(operation_info.opertype) FROM operation_info
+		WHERE
+		operation_info.rsvt =
+		operation_info.rsvt),
+		rsvt.numm))
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		(SELECT
+		company.company FROM company WHERE company.company =
+		operation_info.opercom) IS NOT NULL
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		customer.ctmsepa = 1
+
+		AND
+
+		rsvt.stday BETWEEN #{inday}
+		AND #{outday}
+
+		AND
+
+		operation_info.opercar =
+		vehicleinfo.carnumber)
+		AS
+		img2,
+
+		(SELECT
+
+		COUNT(IF(operation_info.opertype > 1,
+		rsvt.numm /
+		(SELECT
+		MAX(operation_info.opertype) FROM operation_info
+		WHERE operation_info.rsvt =
+		operation_info.rsvt),
+		rsvt.numm))
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		(SELECT
+		company.company FROM company WHERE company.company
+		=
+		operation_info.opercom) IS NOT NULL
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		customer.ctmsepa = 2
+
+		AND
+
+		rsvt.stday BETWEEN #{inday}
+		AND #{outday}
+
+		AND
+
+		operation_info.opercar =
+		vehicleinfo.carnumber) AS
+		jukd,
+
+		(SELECT
+
+		SUM(IF(operation_info.opertype > 1,
+		rsvt.numm /
+		(SELECT
+		MAX(operation_info.opertype) FROM operation_info
+		WHERE
+		operation_info.rsvt =
+		operation_info.rsvt),
+		rsvt.numm))
+
+		FROM
+
+		operation_info
+
+		LEFT JOIN
+
+		rsvt
+
+		ON
+
+		operation_info.rsvt =
+		rsvt.rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno =
+		customer.ctmno
+
+		WHERE
+
+		(SELECT
+		company.company FROM company WHERE company.company
+		=
+		operation_info.opercom) IS NOT NULL
+
+		AND
+
+		operation_info.dayst = 1
+
+		AND
+
+		customer.ctmsepa = 2
+
+		AND
+
+		rsvt.stday BETWEEN #{inday}
+		AND #{outday}
+
+		AND
+
+		operation_info.opercar =
+		vehicleinfo.carnumber) AS
+		img3,
+
+		(SELECT
+
+		personnalsalary.inm -
+		personnalsalary.outm
+
+		FROM
+
+		personnalsalary
+
+		WHERE
+
+		personnalsalary.date = #{fuel}
+
+		AND
+
+		personnalsalary.carnumber =
+		vehicleinfo.carnumber) AS id1,
+
+		(SELECT
+
+		vegas.vegasmoney
+
+		FROM
+
+		vegas
+
+		WHERE
+
+		vegas.vegasyearmonth =
+		#{fuel}
+
+		AND
+
+		vegas.carnumber =
+		vehicleinfo.carnumber) AS id2,
+
+		(SELECT
+
+		vegas.kml
+
+		FROM
+
+		vegas
+
+		WHERE
+
+		vegas.vegasyearmonth = #{fuel}
+
+		AND
+
+		vegas.carnumber =
+		vehicleinfo.carnumber) AS id3,
+
+		(SELECT
+
+		veloansepa.loansepamoney
+
+		FROM
+
+		veloansepa
+
+		LEFT JOIN
+
+		veloan
+
+		ON
+
+		veloansepa.loanno =
+		veloan.loanno
+
+		WHERE
+
+		veloansepa.loansepamonth
+		= #{fuel}
+
+		AND
+
+		veloan.carnumber = vehicleinfo.carnumber) AS
+		id4,
+
+		(SELECT
+
+		veinsurancesepa.insusepamoney
+
+		FROM
+
+		veinsurancesepa
+
+		LEFT JOIN
+
+		veinsurance
+
+		ON
+
+		veinsurancesepa.insuno =
+		veinsurance.insuno
+
+		WHERE
+
+		veinsurancesepa.insusepaday BETWEEN #{inday} AND
+		#{outday}
+
+		AND
+
+		veinsurance.carnumber =
+		vehicleinfo.carnumber) AS
+		id5,
+
+		(SELECT
+
+		SUM(vemaintenance.vemaintenancemoney)
+
+		FROM
+
+		vemaintenance
+
+		WHERE
+
+		vemaintenance.vemaintenancedate BETWEEN
+		#{inday}
+		AND
+		#{outday}
+
+		AND
+
+		vemaintenance.carnumber =
+		vehicleinfo.carnumber) AS
+		ve1,
+
+		(SELECT
+
+		veacc.veaccmoney
+
+		FROM
+
+		veacc
+
+		WHERE
+
+		veacc.veaccenddate BETWEEN #{inday} AND #{outday}
+
+		AND
+
+		veacc.carnumber =
+		vehicleinfo.carnumber) AS ve2
+
+		FROM
+
+		vehicleinfo
+
+		WHERE
+
+		(vehicleinfo.outday <![CDATA[<=]]>
+		#{outday} AND vehicleinfo.outday <![CDATA[>=]]>
+		#{inday})
+
+		OR
+
+		vehicleinfo.outday IS NULL
+
+		AND
+
+		vehicleinfo.carnumber = #{carnumber}
 
 		ORDER BY
 

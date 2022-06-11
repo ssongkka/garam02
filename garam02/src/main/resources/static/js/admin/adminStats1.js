@@ -418,21 +418,21 @@ function getVeAllCompa() {
                 datasets: [
                     {
                         type: 'bar',
-                        label: '총 수익',
+                        label: '수 익',
                         backgroundColor: 'rgba(68, 114, 196, 1)',
                         borderColor: 'rgb(68, 114, 196)',
                         // barPercentage: 0.5, barThickness: 6, maxBarThickness: 8, minBarLength: 2,
                         data: result[1]
                     }, {
                         type: 'bar',
-                        label: '총 비용',
+                        label: '비 용',
                         backgroundColor: 'rgb(237, 125, 49, 1)',
                         borderColor: 'rgb(237, 125, 49)',
                         // barPercentage: 0.5, barThickness: 6, maxBarThickness: 8, minBarLength: 2,
                         data: result[2]
                     }, {
                         type: 'bar',
-                        label: '이익',
+                        label: '이 익',
                         backgroundColor: 'rgb(112, 173, 71)',
                         borderColor: 'rgb(112, 173, 71)',
                         // barPercentage: 0.5, barThickness: 6, maxBarThickness: 8, minBarLength: 2,
@@ -444,9 +444,30 @@ function getVeAllCompa() {
             const config = {
                 data: data,
                 options: {
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false,
+                                color: function (context) {
+                                    if (context.tick.value == 0) {
+                                        return '#000000'
+                                    }
+                                    return '#ced4da';
+                                }
+                            },
+                            ticks: {
+                                color: function (context) {
+                                    if (context.tick.value < 0) {
+                                        return 'rgb(207, 47, 17)';
+                                    }
+                                    return Chart.defaults.color;
+                                }
+                            }
                         }
                     }
                 }

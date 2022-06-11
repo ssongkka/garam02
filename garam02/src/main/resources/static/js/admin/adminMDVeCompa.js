@@ -1,14 +1,16 @@
 function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas, ave, arrVe) {
 
     const tmpStEnd = getStDEnD(yearMonth);
-    console.log(arrVe);
 
     LoadingWithMask()
         .then(setDe)
         .then(setChart)
-        .then(setChart0)
         .then(setChart1)
         .then(setChart2)
+        .then(setChart3)
+        .then(setChart4)
+        .then(getYearStatic)
+        .then(setChart0)
         .then(closeLoadingWithMask);
 
     const getOrCreateTooltip = (chart) => {
@@ -130,7 +132,7 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
 
     function setDe(result) {
         return new Promise(function (resolve, reject) {
-            $('#staticVeYearMonth').val(yearMonth);
+            $('#veStaticYearMonth').text(yearMonth);
 
             $('#veStaticVe').text(arrVe[1]);
             $('#veStaticBrand').text(arrVe[2]);
@@ -150,6 +152,9 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             if (ave[0] > 0) {
                 htmlsInM = `<i class="fa-solid fa-caret-up"></i>` + AddComma(ave[0]);
                 $('#veStaticInMAve').attr('class', 'vtup');
+            } else if (ave[0] == 0) {
+                htmlsInM = AddComma(ave[0]);
+                $('#veStaticInMAve').attr('class', 'vtsam');
             } else {
                 htmlsInM = `<i class="fa-solid fa-caret-down"></i>` + AddComma(ave[0]);
                 $('#veStaticInMAve').attr('class', 'vtdown');
@@ -159,6 +164,9 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             if (ave[1] > 0) {
                 htmlsOutM = `<i class="fa-solid fa-caret-up"></i>` + AddComma(ave[1]);
                 $('#veStaticOutMAve').attr('class', 'vtup');
+            } else if (ave[1] == 0) {
+                htmlsOutM = AddComma(ave[1]);
+                $('#veStaticOutMAve').attr('class', 'vtsam');
             } else {
                 htmlsOutM = `<i class="fa-solid fa-caret-down"></i>` + AddComma(ave[1]);
                 $('#veStaticOutMAve').attr('class', 'vtdown');
@@ -168,6 +176,9 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             if (ave[2] > 0) {
                 htmlsAllM = `<i class="fa-solid fa-caret-up"></i>` + AddComma(ave[2]);
                 $('#veStaticAllMAve').attr('class', 'vtup');
+            } else if (ave[2] == 0) {
+                htmlsAllM = AddComma(ave[2]);
+                $('#veStaticAllMAve').attr('class', 'vtsam');
             } else {
                 htmlsAllM = `<i class="fa-solid fa-caret-down"></i>` + AddComma(ave[2]);
                 $('#veStaticAllMAve').attr('class', 'vtdown');
@@ -177,6 +188,9 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             if (ave[3] > 0) {
                 htmlsGasM = `<i class="fa-solid fa-caret-up"></i>` + ave[3];
                 $('#veStaticGasAve').attr('class', 'vtup');
+            } else if (ave[3] == 0) {
+                htmlsGasM = AddComma(ave[3]);
+                $('#veStaticGasAve').attr('class', 'vtsam');
             } else {
                 htmlsGasM = `<i class="fa-solid fa-caret-down"></i>` + ave[3];
                 $('#veStaticGasAve').attr('class', 'vtdown');
@@ -197,107 +211,8 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             );
             $('#staticVe01').html(`<canvas id="chartVeS1"></canvas>`);
             $('#staticVe02').html(`<canvas id="chartVeS2"></canvas>`);
-            // $('#staticVe03').html(`<canvas id="chartVeS3" height="90"></canvas>`);
-            // $('#staticVe04').html(`<canvas id="chartVeS4" height="90"></canvas>`);
-            resolve();
-        })
-    }
-    function setChart0(result) {
-        return new Promise(function (resolve, reject) {
-
-            const data = {
-                labels: [
-                    '1월',
-                    '2월',
-                    '3월',
-                    '4월',
-                    '5월',
-                    '6월',
-                    '7월',
-                    '8월',
-                    '9월',
-                    '10월',
-                    '11월',
-                    '12월'
-                ],
-                datasets: [
-                    {
-                        type: 'line',
-                        label: '총 수익',
-                        backgroundColor: 'rgba(68, 114, 196, 0.2)',
-                        borderColor: 'rgb(68, 114, 196)',
-                        // barPercentage: 0.5, barThickness: 6, maxBarThickness: 8, minBarLength: 2,
-                        data: [
-                            80,
-                            40,
-                            50,
-                            25,
-                            37,
-                            70,
-                            65,
-                            42,
-                            44,
-                            21,
-                            11,
-                            32
-                        ]
-                    }, {
-                        type: 'line',
-                        label: '총 수익',
-                        backgroundColor: 'rgb(237, 125, 49, 0.2)',
-                        borderColor: 'rgb(237, 125, 49, 1)',
-                        // barPercentage: 0.5, barThickness: 6, maxBarThickness: 8, minBarLength: 2,
-                        data: [
-                            12,
-                            55,
-                            23,
-                            43,
-                            53,
-                            35,
-                            22,
-                            23,
-                            87,
-                            44,
-                            33,
-                            23
-                        ]
-                    }, {
-                        type: 'line',
-                        label: '총 수익',
-                        backgroundColor: 'rgba(112, 173, 71, 0.2)',
-                        borderColor: 'rgba(112, 173, 71, 1)',
-                        // barPercentage: 0.5, barThickness: 6, maxBarThickness: 8, minBarLength: 2,
-                        data: [
-                            16,
-                            68,
-                            64,
-                            34,
-                            54,
-                            76,
-                            25,
-                            33,
-                            50,
-                            80,
-                            66,
-                            45
-                        ]
-                    }
-                ]
-            };
-
-            const config = {
-                data: data,
-                options: {
-                    responsive: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            };
-
-            const myChart = new Chart($('#chartVeS0'), config);
+            $('#staticVe03').html(`<canvas id="chartVeS3"></canvas>`);
+            $('#staticVe04').html(`<canvas id="chartVeS4"></canvas>`);
             resolve();
         })
     }
@@ -313,7 +228,7 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
                         label: 'My First Dataset',
                         data: arrInM,
                         backgroundColor: [
-                            '#4472c4', '#517cc8', '#5e85cc', '#6b8fd0'
+                            '#4472c4', '#4472c4', '#4472c4', '#4472c4'
                         ],
                         hoverOffset: 4
                     }
@@ -362,11 +277,11 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
                         data: arrOutM,
                         backgroundColor: [
                             '#ed7d31',
-                            '#ee8741',
-                            '#f09150',
-                            '#f19b60',
-                            '#f2a46f',
-                            '#f4ae7f'
+                            '#ed7d31',
+                            '#ed7d31',
+                            '#ed7d31',
+                            '#ed7d31',
+                            '#ed7d31'
                         ],
                         hoverOffset: 4
                     }
@@ -395,6 +310,351 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             };
 
             const myChart = new Chart($('#chartVeS2'), config);
+            resolve();
+        })
+    }
+    function setChart3(result) {
+        return new Promise(function (resolve, reject) {
+            const data = {
+                labels: [
+                    '수익', '비용'
+                ],
+                datasets: [
+                    {
+                        label: 'My First Dataset',
+                        data: [
+                            parseInt(allInM.replaceAll(',', '')),
+                            parseInt(allOutM.replaceAll(',', ''))
+                        ],
+                        backgroundColor: [
+                            '#4472c4', '#ee8741'
+                        ],
+                        hoverOffset: 4
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    interaction: {
+                        mode: 'point',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false,
+                            position: 'nearest',
+                            external: externalTooltipHandler
+                        }
+                    }
+                }
+            };
+
+            const myChart = new Chart($('#chartVeS3'), config);
+            resolve();
+        })
+    }
+    function setChart4(result) {
+        return new Promise(function (resolve, reject) {
+
+            const data = {
+                labels: [
+                    'Eating',
+                    'Drinking',
+                    'Sleeping',
+                    'Designing',
+                    'Coding',
+                    'Cycling',
+                    'Running'
+                ],
+                datasets: [
+                    {
+                        label: 'My First Dataset',
+                        data: [
+                            65,
+                            59,
+                            90,
+                            81,
+                            56,
+                            55,
+                            40
+                        ],
+                        fill: true,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        pointBackgroundColor: 'rgb(255, 99, 132)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    }, {
+                        label: 'My Second Dataset',
+                        data: [
+                            28,
+                            48,
+                            40,
+                            19,
+                            96,
+                            27,
+                            100
+                        ],
+                        fill: true,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false,
+                            position: 'nearest',
+                            external: externalTooltipHandler
+                        }
+                    }
+                }
+            };
+
+            const myChart = new Chart($('#chartVeS4'), config);
+            resolve();
+        })
+    }
+
+    function getYearStatic() {
+        return new Promise(function (resolve, reject) {
+            const url = "/adrst/selveallcompall";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "fuel": $('#staticMonth')
+                    .val()
+                    .split('-')[0],
+                "carnumber": arrVe[0]
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let tmpArrInMMM = new Array();
+                    let tmpArrOutMMM = new Array();
+                    let tmpArrAllMMM = new Array();
+
+                    for (let i = 0; i < r.length; i++) {
+                        let inM = 0;
+                        let outM = 0;
+                        let allM = 0;
+
+                        if (r[i].special) {
+                            inM = inM + parseInt(r[i].special);
+                        }
+
+                        if (r[i].img1) {
+                            inM = inM + parseInt(r[i].img1);
+                        }
+
+                        if (r[i].img2) {
+                            inM = inM + parseInt(r[i].img2);
+                        }
+
+                        if (r[i].img3) {
+                            inM = inM + parseInt(r[i].img3);
+                        }
+
+                        if (r[i].id1) {
+                            outM = outM + parseInt(r[i].id1);
+                        }
+
+                        if (r[i].id2) {
+                            outM = outM + parseInt(r[i].id2);
+                        }
+
+                        if (r[i].id3) {
+                            outM = outM + parseInt(r[i].id3);
+                        }
+
+                        if (r[i].id4) {
+                            outM = outM + parseInt(r[i].id4);
+                        }
+
+                        if (r[i].id5) {
+                            outM = outM + parseInt(r[i].id5);
+                        }
+
+                        if (r[i].ve1) {
+                            outM = outM + parseInt(r[i].ve1);
+                        }
+
+                        if (r[i].ve2) {
+                            outM = outM + parseInt(r[i].ve2);
+                        }
+
+                        allM = parseInt(inM) - parseInt(outM);
+
+                        if (inM === 0 && outM === 0) {
+                            inM = NaN;
+                            outM = NaN;
+                        }
+
+                        if (allM === 0) {
+                            allM = NaN;
+                        }
+
+                        tmpArrInMMM.push(inM);
+                        tmpArrOutMMM.push(outM);
+                        tmpArrAllMMM.push(allM);
+                    }
+
+                    let tmp = new Array();
+                    tmp.push(tmpArrInMMM);
+                    tmp.push(tmpArrOutMMM);
+                    tmp.push(tmpArrAllMMM);
+
+                    resolve(tmp);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function setChart0(result) {
+        return new Promise(function (resolve, reject) {
+
+            const data = {
+                labels: [
+                    '1월',
+                    '2월',
+                    '3월',
+                    '4월',
+                    '5월',
+                    '6월',
+                    '7월',
+                    '8월',
+                    '9월',
+                    '10월',
+                    '11월',
+                    '12월'
+                ],
+                datasets: [
+                    {
+                        type: 'line',
+                        label: '수익',
+                        backgroundColor: 'rgba(68, 114, 196, 0.2)',
+                        borderColor: 'rgba(68, 114, 196, 0.5)',
+                        borderDash: [
+                            5, 5
+                        ],
+                        data: result[0],
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }, {
+                        type: 'line',
+                        label: '비용',
+                        backgroundColor: 'rgb(237, 125, 49, 0.2)',
+                        borderColor: 'rgba(237, 125, 49, 0.5)',
+                        borderDash: [
+                            5, 5
+                        ],
+                        data: result[1],
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }, {
+                        type: 'line',
+                        label: '이익',
+                        backgroundColor: 'rgba(112, 173, 71, 0.2)',
+                        borderColor: 'rgba(112, 173, 71, 1)',
+                        data: result[2],
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }
+                ]
+            };
+
+            let delayed;
+            const config = {
+                data: data,
+                options: {
+                    responsive: false,
+                    animations: {
+                        radius: {
+                            duration: 400,
+                            easing: 'linear',
+                            loop: (context) => context.active
+                        }
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: yearMonth.split('-')[0] + '년',
+                                padding: {
+                                    top: 10,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false,
+                                color: function (context) {
+                                    if (context.tick.value == 0) {
+                                        return '#000000'
+                                    }
+                                    return '#ced4da';
+                                }
+                            },
+                            ticks: {
+                                color: function (context) {
+                                    if (context.tick.value < 0) {
+                                        return 'rgb(207, 47, 17)';
+                                    }
+                                    return Chart.defaults.color;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const myChart = new Chart($('#chartVeS0'), config);
             resolve();
         })
     }
