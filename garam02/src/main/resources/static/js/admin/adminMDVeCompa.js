@@ -1,4 +1,4 @@
-function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas, ave, arrVe) {
+function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas1, gas2, ave, arrVe) {
 
     const tmpStEnd = getStDEnD(yearMonth);
 
@@ -8,133 +8,15 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
         .then(setChart1)
         .then(setChart2)
         .then(setChart3)
-        .then(setChart4)
         .then(getYearStatic)
         .then(setChart0)
         .then(closeLoadingWithMask);
-
-    const getOrCreateTooltip = (chart) => {
-        let tooltipEl = chart
-            .canvas
-            .parentNode
-            .querySelector('div');
-
-        if (!tooltipEl) {
-            tooltipEl = document.createElement('div');
-            tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
-            tooltipEl.style.borderRadius = '3px';
-            tooltipEl.style.color = 'white';
-            tooltipEl.style.opacity = 1;
-            tooltipEl.style.pointerEvents = 'none';
-            tooltipEl.style.position = 'absolute';
-            tooltipEl.style.transform = 'translate(-50%, 0)';
-            tooltipEl.style.transition = 'all .1s ease';
-
-            const table = document.createElement('table');
-            table.style.margin = '0px';
-            table.style.width = '100px';
-
-            tooltipEl.appendChild(table);
-            chart
-                .canvas
-                .parentNode
-                .appendChild(tooltipEl);
-        }
-
-        return tooltipEl;
-    };
-
-    const externalTooltipHandler = (context) => {
-        // Tooltip Element
-        const {chart, tooltip} = context;
-        const tooltipEl = getOrCreateTooltip(chart);
-
-        // Hide if no tooltip
-        if (tooltip.opacity === 0) {
-            tooltipEl.style.opacity = 0;
-            return;
-        }
-
-        // Set Text
-        if (tooltip.body) {
-            const titleLines = tooltip.title || [];
-            const bodyLines = tooltip
-                .body
-                .map(b => b.lines);
-
-            const tableHead = document.createElement('thead');
-
-            titleLines.forEach(title => {
-                const tr = document.createElement('tr');
-                tr.style.borderWidth = 0;
-
-                const th = document.createElement('th');
-                th.style.borderWidth = 0;
-                const text = document.createTextNode(title);
-
-                th.appendChild(text);
-                tr.appendChild(th);
-                tableHead.appendChild(tr);
-            });
-
-            const tableBody = document.createElement('tbody');
-            bodyLines.forEach((body, i) => {
-                const colors = tooltip.labelColors[i];
-
-                const span = document.createElement('span');
-                span.style.background = colors.backgroundColor;
-                span.style.borderColor = colors.borderColor;
-                span.style.borderWidth = '2px';
-                span.style.marginRight = '10px';
-                span.style.height = '10px';
-                span.style.width = '10px';
-                span.style.display = 'inline-block';
-
-                const tr = document.createElement('tr');
-                tr.style.backgroundColor = 'inherit';
-                tr.style.borderWidth = 0;
-
-                const td = document.createElement('td');
-                td.style.borderWidth = 0;
-
-                const text = document.createTextNode(body);
-
-                td.appendChild(span);
-                td.appendChild(text);
-                tr.appendChild(td);
-                tableBody.appendChild(tr);
-            });
-
-            const tableRoot = tooltipEl.querySelector('table');
-
-            // Remove old children
-            while (tableRoot.firstChild) {
-                tableRoot
-                    .firstChild
-                    .remove();
-            }
-
-            // Add new children
-            tableRoot.appendChild(tableHead);
-            tableRoot.appendChild(tableBody);
-        }
-
-        const {offsetLeft: positionX, offsetTop: positionY} = chart.canvas;
-
-        // Display, position, and set styles for font
-        tooltipEl.style.opacity = 1;
-        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-        tooltipEl.style.font = tooltip.options.bodyFont.string;
-        tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding +
-                'px';
-    };
 
     function setDe(result) {
         return new Promise(function (resolve, reject) {
             $('#veStaticYearMonth').text(yearMonth);
 
-            $('#veStaticVe').text(arrVe[1]);
+            $('#veStaticVe').text(arrVe[1].substring(0, 5) + ' ' + arrVe[1].substring(5));
             $('#veStaticBrand').text(arrVe[2]);
             $('#veStaticGrade').text(arrVe[3]);
             $('#veStaticNum').text(arrVe[4] + '인승');
@@ -142,7 +24,8 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
                 arrVe[5].split('-')[0] + "년 " + arrVe[5].split('-')[1] + "월 등록"
             );
 
-            $('#veStaticGas').text(gas);
+            $('#veStaticGas1').text(gas1);
+            $('#veStaticGas2').text(gas2);
 
             $('#veStaticInM').text(allInM);
             $('#veStaticOutM').text(allOutM);
@@ -212,7 +95,6 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             $('#staticVe01').html(`<canvas id="chartVeS1"></canvas>`);
             $('#staticVe02').html(`<canvas id="chartVeS2"></canvas>`);
             $('#staticVe03').html(`<canvas id="chartVeS3"></canvas>`);
-            $('#staticVe04').html(`<canvas id="chartVeS4"></canvas>`);
             resolve();
         })
     }
@@ -359,86 +241,6 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
             resolve();
         })
     }
-    function setChart4(result) {
-        return new Promise(function (resolve, reject) {
-
-            const data = {
-                labels: [
-                    'Eating',
-                    'Drinking',
-                    'Sleeping',
-                    'Designing',
-                    'Coding',
-                    'Cycling',
-                    'Running'
-                ],
-                datasets: [
-                    {
-                        label: 'My First Dataset',
-                        data: [
-                            65,
-                            59,
-                            90,
-                            81,
-                            56,
-                            55,
-                            40
-                        ],
-                        fill: true,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        pointBackgroundColor: 'rgb(255, 99, 132)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(255, 99, 132)'
-                    }, {
-                        label: 'My Second Dataset',
-                        data: [
-                            28,
-                            48,
-                            40,
-                            19,
-                            96,
-                            27,
-                            100
-                        ],
-                        fill: true,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgb(54, 162, 235)',
-                        pointBackgroundColor: 'rgb(54, 162, 235)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(54, 162, 235)'
-                    }
-                ]
-            };
-
-            const config = {
-                type: 'radar',
-                data: data,
-                options: {
-                    elements: {
-                        line: {
-                            borderWidth: 3
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false,
-                            position: 'nearest',
-                            external: externalTooltipHandler
-                        }
-                    }
-                }
-            };
-
-            const myChart = new Chart($('#chartVeS4'), config);
-            resolve();
-        })
-    }
 
     function getYearStatic() {
         return new Promise(function (resolve, reject) {
@@ -569,9 +371,17 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
                 datasets: [
                     {
                         type: 'line',
+                        label: '이익',
+                        backgroundColor: 'rgba(112, 173, 71, 0.2)',
+                        borderColor: 'rgba(112, 173, 71, 1)',
+                        data: result[2],
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }, {
+                        type: 'line',
                         label: '수익',
                         backgroundColor: 'rgba(68, 114, 196, 0.2)',
-                        borderColor: 'rgba(68, 114, 196, 0.5)',
+                        borderColor: 'rgba(68, 114, 196, 0.2)',
                         borderDash: [
                             5, 5
                         ],
@@ -582,26 +392,17 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas,
                         type: 'line',
                         label: '비용',
                         backgroundColor: 'rgb(237, 125, 49, 0.2)',
-                        borderColor: 'rgba(237, 125, 49, 0.5)',
+                        borderColor: 'rgba(237, 125, 49, 0.2)',
                         borderDash: [
                             5, 5
                         ],
                         data: result[1],
                         pointRadius: 3,
                         pointHoverRadius: 6
-                    }, {
-                        type: 'line',
-                        label: '이익',
-                        backgroundColor: 'rgba(112, 173, 71, 0.2)',
-                        borderColor: 'rgba(112, 173, 71, 1)',
-                        data: result[2],
-                        pointRadius: 3,
-                        pointHoverRadius: 6
                     }
                 ]
             };
 
-            let delayed;
             const config = {
                 data: data,
                 options: {

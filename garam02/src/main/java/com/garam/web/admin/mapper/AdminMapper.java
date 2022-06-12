@@ -13,4 +13,6 @@ public interface AdminMapper {
 
 	public List<VehicleInfoDTO> selectVeAllComStaticVeAll(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
+	public List<VehicleInfoDTO> selectVeAllPerStaticVe(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 }

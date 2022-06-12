@@ -76,6 +76,9 @@ function getMdOneShow(opNum, toDay, sepa) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+
+                    console.log(r);
+
                     $('#mdOneTd21').val('');
                     $('#mdOneTd23').val('');
                     $('#mdOneTd24').val('');
@@ -199,14 +202,28 @@ function getMdOneShow(opNum, toDay, sepa) {
                         $('#mdOneTd25').val(AddComma(r[1].atlm));
 
                         $('#mdOneTr2').css('display', 'table-row');
-                        $('#mdOneTrDel2').html(
-                            `<a class="mdOneDel">
-                                <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
-                            </a>`
-                        );
+
+                        if (r[1].operconfirm) {
+                            $('#mdOneTd23').attr("disabled", true);
+                            $('#mdOneTd24').attr("disabled", true);
+                            $('#mdOneTd25').attr("disabled", true);
+
+                            $('#mdOneTrDel2').html(`<a class=""></a>`);
+                        } else {
+                            $('#mdOneTd23').attr("disabled", false);
+                            $('#mdOneTd24').attr("disabled", false);
+                            $('#mdOneTd25').attr("disabled", false);
+
+                            $('#mdOneTrDel2').html(
+                                `<a class="mdOneDel1">
+                                    <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
+                                </a>`
+                            );
+                        }
                     }
 
                     if (r.length > 2) {
+
                         let veh = '';
                         let veCnt = 0;
                         for (let k = 0; k < dbVe.length; k++) {
@@ -245,12 +262,26 @@ function getMdOneShow(opNum, toDay, sepa) {
                         $('#mdOneTd35').val(AddComma(r[2].atlm));
 
                         $('#mdOneTr3').css('display', 'table-row');
-                        $('#mdOneTrDel3').html(
-                            `<a class="mdOneDel">
-                                <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
-                            </a>`
-                        );
+
                         $('#mdOneTrDel2').html(``);
+
+                        if (r[2].operconfirm) {
+                            $('#mdOneTd33').attr("disabled", true);
+                            $('#mdOneTd34').attr("disabled", true);
+                            $('#mdOneTd35').attr("disabled", true);
+
+                            $('#mdOneTrDel3').html(`<a class=""></a>`);
+                        } else {
+                            $('#mdOneTd33').attr("disabled", false);
+                            $('#mdOneTd34').attr("disabled", false);
+                            $('#mdOneTd35').attr("disabled", false);
+
+                            $('#mdOneTrDel3').html(
+                                `<a class="mdOneDel2">
+                                    <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
+                                </a>`
+                            );
+                        }
                     }
 
                     if (r.length > 3) {
@@ -292,12 +323,25 @@ function getMdOneShow(opNum, toDay, sepa) {
                         $('#mdOneTd45').val(AddComma(r[3].atlm));
 
                         $('#mdOneTr4').css('display', 'table-row');
-                        $('#mdOneTrDel4').html(
-                            `<a class="mdOneDel">
-                                <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
-                            </a>`
-                        );
                         $('#mdOneTrDel3').html(``);
+
+                        if (r[3].operconfirm) {
+                            $('#mdOneTd43').attr("disabled", true);
+                            $('#mdOneTd44').attr("disabled", true);
+                            $('#mdOneTd45').attr("disabled", true);
+
+                            $('#mdOneTrDel4').html(`<a class=""></a>`);
+                        } else {
+                            $('#mdOneTd43').attr("disabled", false);
+                            $('#mdOneTd44').attr("disabled", false);
+                            $('#mdOneTd45').attr("disabled", false);
+
+                            $('#mdOneTrDel4').html(
+                                `<a class="mdOneDel3">
+                                    <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
+                                </a>`
+                            );
+                        }
                     }
 
                     if (r.length > 4) {
@@ -339,12 +383,25 @@ function getMdOneShow(opNum, toDay, sepa) {
                         $('#mdOneTd55').val(AddComma(r[4].atlm));
 
                         $('#mdOneTr5').css('display', 'table-row');
-                        $('#mdOneTrDel5').html(
-                            `<a class="mdOneDel">
-                                <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
-                            </a>`
-                        );
                         $('#mdOneTrDel4').html(``);
+
+                        if (r[4].operconfirm) {
+                            $('#mdOneTd53').attr("disabled", true);
+                            $('#mdOneTd54').attr("disabled", true);
+                            $('#mdOneTd55').attr("disabled", true);
+
+                            $('#mdOneTrDel5').html(`<a class=""></a>`);
+                        } else {
+                            $('#mdOneTd53').attr("disabled", false);
+                            $('#mdOneTd54').attr("disabled", false);
+                            $('#mdOneTd55').attr("disabled", false);
+
+                            $('#mdOneTrDel5').html(
+                                `<a class="mdOneDel4">
+                                    <i class="fa-solid fa-x" style="font-size: 1rem; color: var(--text-grey);"></i>
+                                </a>`
+                            );
+                        }
                     }
 
                     resolve();
@@ -415,21 +472,23 @@ $(document).on('click', '#btn-one-plus2', function () {
 
 });
 
-$(document).on('click', '#mdOneTrDel2', function () {
+$(document).on('click', '.mdOneDel1', function () {
     delOneWay2(this, 2);
 });
-$(document).on('click', '#mdOneTrDel3', function () {
+$(document).on('click', '.mdOneDel2', function () {
     delOneWay2(this, 3);
 });
-$(document).on('click', '#mdOneTrDel4', function () {
+$(document).on('click', '.mdOneDel3', function () {
     delOneWay2(this, 4);
 });
-$(document).on('click', '#mdOneTrDel5', function () {
+$(document).on('click', '.mdOneDel4', function () {
     delOneWay2(this, 5);
 });
 
 function delOneWay2(doms, num) {
-    const aaa = $(doms).parent();
+    const aaa = $(doms)
+        .parent()
+        .parent();
     const aaa1 = $(aaa).children()[0];
     const aaa11 = $(aaa1).children()[0];
 

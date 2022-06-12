@@ -65,4 +65,14 @@ public class AdminController {
 
 		return "admin/adminStats1";
 	}
+
+	@GetMapping("/stats2")
+	public String stats2(@AuthenticationPrincipal User user, Model model) throws Exception {
+		model.addAttribute("user", user);
+
+		List<CompanyDTO> compa = companyService.selectCompany();
+		model.addAttribute("compa", compa);
+
+		return "admin/adminStats2";
+	}
 }

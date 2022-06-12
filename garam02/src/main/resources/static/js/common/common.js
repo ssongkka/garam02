@@ -1543,7 +1543,7 @@ $(document).on('click', '.sortNumStatic', function () {
             headerIndex = 0;
             break;
         case "정기운행":
-            headerIndex = 1;
+            headerIndex = 6;
             break;
         case "일반":
             headerIndex = 2;
@@ -1555,49 +1555,50 @@ $(document).on('click', '.sortNumStatic', function () {
             headerIndex = 4;
             break;
         case "급여":
-            headerIndex = 8;
-            break;
-        case "유류비":
-            headerIndex = 9;
-            break;
-        case "대출":
-            headerIndex = 10;
-            break;
-        case "차량보험":
-            headerIndex = 11;
-            break;
-        case "정비":
-            headerIndex = 12;
-            break;
-        case "사고":
             headerIndex = 13;
             break;
-        case "연비":
+        case "유류비":
             headerIndex = 14;
             break;
-        case "총수입":
+        case "대출":
             headerIndex = 15;
             break;
-        case "총비용":
+        case "차량보험":
             headerIndex = 16;
             break;
-        case "이익":
+        case "정비":
             headerIndex = 17;
+            break;
+        case "사고":
+            headerIndex = 18;
+            break;
+        case "총수입":
+            headerIndex = 1;
+            break;
+        case "총비용":
+            headerIndex = 2;
+            break;
+        case "이익":
+            headerIndex = 3;
             break;
 
         default:
             if ($(this).attr('class').includes('static1')) {
-                headerIndex = 2;
-            } else if ($(this).attr('class').includes('static2')) {
-                headerIndex = 3;
-            } else if ($(this).attr('class').includes('static3')) {
-                headerIndex = 4;
-            } else if ($(this).attr('class').includes('static4')) {
-                headerIndex = 5;
-            } else if ($(this).attr('class').includes('static5')) {
-                headerIndex = 6;
-            } else if ($(this).attr('class').includes('static6')) {
                 headerIndex = 7;
+            } else if ($(this).attr('class').includes('static2')) {
+                headerIndex = 8;
+            } else if ($(this).attr('class').includes('static3')) {
+                headerIndex = 9;
+            } else if ($(this).attr('class').includes('static4')) {
+                headerIndex = 10;
+            } else if ($(this).attr('class').includes('static5')) {
+                headerIndex = 11;
+            } else if ($(this).attr('class').includes('static6')) {
+                headerIndex = 12;
+            } else if ($(this).attr('class').includes('static7')) {
+                headerIndex = 4;
+            } else if ($(this).attr('class').includes('static8')) {
+                headerIndex = 5;
             }
             break;
     }

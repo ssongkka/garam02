@@ -114,6 +114,10 @@
     position: relative;
 }
 
+.vtCont-item3 {
+    flex: 1;
+}
+
 #staticVe01,
 #staticVe02,
 #staticVe03,
@@ -162,4 +166,14 @@
     width: 106px;
     height: 106px;
     margin-top: -4rem;
+}
+
+#stCompaT div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: "Bae";
+
+    font-size: 2rem;
 }

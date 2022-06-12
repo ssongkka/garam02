@@ -36,10 +36,26 @@ public class RestAdminController {
 		return list;
 	}
 
+	@PostMapping(value = "/selveallper")
+	public List<VehicleInfoDTO> selveallper(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		List<VehicleInfoDTO> list = adminService.selectVeAllPerStaticVe(vehicleInfoDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/selveallcompall")
 	public List<VehicleInfoDTO> selveallcompall(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
 
 		List<VehicleInfoDTO> list = adminService.selectVeAllComStaticVeAll(vehicleInfoDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/selveallcompYearall")
+	public List<VehicleInfoDTO> selveallcompYearall(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		List<VehicleInfoDTO> list = adminService.selectVeAllComStaticYearAll(vehicleInfoDTO);
 
 		return list;
 	}
