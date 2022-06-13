@@ -698,7 +698,7 @@ $(document).on('click', '#mCh-All', function () {
     const tmpArr = new Array();
     if ($(this).is(':checked')) {
         $('input:checkbox[name="mCHN"]').each(function () {
-            if (!$(this).is(':checked')) {
+            if (!$(this).is(':checked') && !$(this).is(":disabled")) {
 
                 this.checked = true;
 
@@ -732,7 +732,7 @@ $(document).on('click', '#mCh-All', function () {
         });
     } else {
         $('input:checkbox[name="mCHN"]').each(function () {
-            if ($(this).is(':checked')) {
+            if ($(this).is(':checked') && !$(this).is(":disabled")) {
 
                 this.checked = false;
 

@@ -870,7 +870,7 @@ $(document).on('click', '#loanCont-del', function () {
                     data: JSON.stringify(params),
 
                     success: function (r) {
-                        if (r > 0) {
+                        if (r > -1) {
                             alert("대출정보 삭제");
                             $('#modal-loanCont').modal('hide');
                             makeLoan();
@@ -887,7 +887,6 @@ $(document).on('click', '#loanCont-del', function () {
                         loginSession(jqXHR.status);
                     }
                 })
-                resolve();
             })
         }
     }

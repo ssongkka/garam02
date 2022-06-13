@@ -1941,3 +1941,24 @@ $(document).on('click', '#cellBottomRsvt', function () {
 $(document).on('click', '.logo', function () {
     goUrlDay('/dashboard', '');
 });
+
+function percentCal(contArr) {
+    let sum = 0;
+
+    for (let i = 0; i < contArr.length; i++) {
+        sum = sum + parseInt(String(contArr[i]).replaceAll(',', ''));
+    }
+
+    let arrTmpPercent = new Array();
+    for (let i = 0; i < contArr.length; i++) {
+        let tmp = 0;
+
+        tmp = (
+            parseFloat(parseInt(String(contArr[i]).replaceAll(',', '')) / sum) * 100
+        ).toFixed(1);
+
+        arrTmpPercent.push(tmp);
+    }
+
+    return arrTmpPercent;
+}

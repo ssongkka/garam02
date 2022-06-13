@@ -867,7 +867,6 @@ function getVeAllCompa(compa) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
 
                     let tmpArrInM = new Array();
                     let tmpArrOutM = new Array();
@@ -970,8 +969,6 @@ function getVeAllCompa(compa) {
                             sum2 = sum2 + parseInt(String(allOut).replaceAll(',', ''));
                             sum3 = sum3 + parseInt(parseInt(allIn) - parseInt(allOut));
                         }
-
-                        // console.log(sum1); console.log(sum2); console.log(sum3);
 
                         const yearNow = r[i]
                             .vename

@@ -1,8 +1,8 @@
 .md-loanitem {
-    padding: 2rem 3rem;
+    padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 3rem 2rem;
 }
 
 .mdloanFoot {

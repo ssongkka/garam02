@@ -110,14 +110,14 @@ function getEmpOper(result) {
                 if (r.length > 0) {
 
                     for (let i = 0; i < r.length; i++) {
-                        switch (r[i].opertrash) {
+                        switch (parseInt(r[i].opertrash)) {
                             case 0:
                                 if (result.get(r[i].opernum) > 1) {
                                     if (r[i].opertype > 1) {
                                         cnt++;
                                         htmls += '<tr onclick="chTrNot()">';
-                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
-                                                '"disabled"></td>';
+                                        htmls += '<td><input type="checkbox" checked="checked" name="mCHN" disabled="disabled"><' +
+                                                '/td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -142,8 +142,8 @@ function getEmpOper(result) {
                                         if (r[i].opernum != check) {
                                             cnt++;
                                             htmls += '<tr onclick="chTrNot()">';
-                                            htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
-                                                    '"disabled"></td>';
+                                            htmls += '<td><input type="checkbox" checked="checked" name="mCHN" disabled="disabled"><' +
+                                                    '/td>';
                                             htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                             htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -170,8 +170,8 @@ function getEmpOper(result) {
                                     if (r[i].opertype > 1) {
                                         cnt++;
                                         htmls += '<tr onclick="chTrNot()">';
-                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
-                                                '"disabled"></td>';
+                                        htmls += '<td><input type="checkbox" checked="checked" name="mCHN" disabled="disabled"><' +
+                                                '/td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -195,8 +195,8 @@ function getEmpOper(result) {
                                     } else {
                                         cnt++;
                                         htmls += '<tr onclick="chTrNot()">';
-                                        htmls += '<td><input type="checkbox" class="mCH" name="mCHN" checked="checked" disabled=' +
-                                                '"disabled"></td>';
+                                        htmls += '<td><input type="checkbox" checked="checked" name="mCHN" disabled="disabled"><' +
+                                                '/td>';
                                         htmls += '<td class="hideTh">' + r[i].opercar + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opertype + '</td>';
                                         htmls += '<td class="hideTh">' + r[i].opernum + '</td>';
@@ -1501,7 +1501,9 @@ function setCheckBox(result) {
         } else {
             $('#mCh-All').attr("disabled", false);
             $('input:checkbox[name="mCHN"]').each(function () {
-                $(this).attr("disabled", false);
+                if (!$(this).is(":disabled")) {
+                    $(this).attr("disabled", false);
+                }
             });
             clkName();
         }
