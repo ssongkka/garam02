@@ -73,9 +73,23 @@ public class RestEmployeeController {
 		return list;
 	}
 
+	@PostMapping(value = "/empOperPerCnt")
+	public List<EmpRsvtDTO> empOperPerCnt(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeService.selectEmpOperPerListCnt(empRsvtDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/empOper")
 	public List<EmpRsvtDTO> empOper(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
 		List<EmpRsvtDTO> list = employeeService.selectEmpOperList(empRsvtDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empOperPer")
+	public List<EmpRsvtDTO> empOperPer(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeService.selectEmpOperPerList(empRsvtDTO);
 
 		return list;
 	}
@@ -210,6 +224,13 @@ public class RestEmployeeController {
 		return list;
 	}
 
+	@PostMapping(value = "/empRegOperPer")
+	public List<RegularDTO> empRegOperPer(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeService.selEmpRegOperPerList(regularDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/empRegOper1")
 	public List<RegularDTO> selRegOperList1(@RequestBody RegularDTO regularDTO) throws Exception {
 		List<RegularDTO> list = employeeService.selEmpRegOperList1(regularDTO);
@@ -224,6 +245,13 @@ public class RestEmployeeController {
 		return list;
 	}
 
+	@PostMapping(value = "/empRegOperPer2")
+	public List<RegularDTO> empRegOperPer2(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeService.selEmpRegOperPerList2(regularDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/empAllAllo")
 	public List<EmpRsvtDTO> selectEmpAllAllo(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
 		List<EmpRsvtDTO> list = employeeService.selectEmpAllAllo(empRsvtDTO);
@@ -231,9 +259,23 @@ public class RestEmployeeController {
 		return list;
 	}
 
+	@PostMapping(value = "/empAllAlloPer")
+	public List<EmpRsvtDTO> empAllAlloPer(@RequestBody EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeService.selectEmpAllAlloPer(empRsvtDTO);
+
+		return list;
+	}
+
 	@PostMapping(value = "/empAllAllo1")
 	public List<RegularDTO> selectEmpAllAllo1(@RequestBody RegularDTO regularDTO) throws Exception {
 		List<RegularDTO> list = employeeService.selectEmpAllAllo1(regularDTO);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empAllAllo1Per")
+	public List<RegularDTO> empAllAllo1Per(@RequestBody RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeService.selectEmpAllAllo1Per(regularDTO);
 
 		return list;
 	}
@@ -371,6 +413,13 @@ public class RestEmployeeController {
 	@PostMapping(value = "/empDealOutMList")
 	public List<Empsalary> empDealOutMList(@RequestBody Empsalary empsalary) throws Exception {
 		List<Empsalary> list = employeeService.dealOutMoney(empsalary);
+
+		return list;
+	}
+
+	@PostMapping(value = "/empDealList")
+	public List<EmployeeInfoDTO> empDealList() throws Exception {
+		List<EmployeeInfoDTO> list = employeeService.selectDealVe();
 
 		return list;
 	}

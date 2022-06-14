@@ -62,6 +62,8 @@ public class VehicleInfoDTO {
 	// 특이사항
 	private String special;
 
+	private String vebasem;
+
 	// 삭제여부
 	private Integer trash;
 
@@ -544,6 +546,14 @@ public class VehicleInfoDTO {
 
 	public void setSpecial(String special) {
 		this.special = special;
+	}
+
+	public String getVebasem() {
+		return vebasem;
+	}
+
+	public void setVebasem(String vebasem) {
+		this.vebasem = vebasem;
 	}
 
 	public Integer getTrash() {

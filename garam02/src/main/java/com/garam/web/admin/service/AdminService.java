@@ -16,4 +16,6 @@ public interface AdminService {
 
 	public List<VehicleInfoDTO> selectVeAllComStaticVeAll(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
+	public List<VehicleInfoDTO> selectVeAllPerStaticVeAll(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 }

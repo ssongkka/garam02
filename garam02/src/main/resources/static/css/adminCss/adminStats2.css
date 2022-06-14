@@ -1,3 +1,17 @@
+:root {
+    --st-c1: rgb(104, 167, 173);
+    --st-c1: rgb(153, 196, 200);
+    --st-c1: rgb(229, 203, 159);
+    --st-c1: rgb(238, 228, 171);
+    --st-c1: rgb(223, 221, 204);
+
+    --st-cc1: rgba(104, 167, 173, 0.2);
+    --st-cc1: rgba(153, 196, 200, 0.2);
+    --st-cc1: rgba(229, 203, 159, 0.2);
+    --st-cc1: rgba(238, 228, 171, 0.2);
+    --st-cc1: rgba(223, 221, 204, 0.2);
+}
+
 .onestt {
     display: flex;
     flex-direction: column;
@@ -70,21 +84,66 @@
 }
 
 .tPerOneCol1 {
-    background-color: #68A7AD;
+    background-color: rgb(104, 167, 173);
 }
 
 .tPerOneCol2 {
-    background-color: #99C4C8;
+    background-color: rgb(153, 196, 200);
 }
 
 .tPerOneCol3 {
-    background-color: #E5CB9F;
+    background-color: rgb(229, 203, 159);
 }
 
 .tPerOneCol4 {
-    background-color: #EEE4AB;
+    background-color: rgb(238, 228, 171);
 }
 
 .tPerOneCol5 {
-    background-color: #EEEEEE;
+    background-color: rgb(242, 241, 238);
+}
+
+.tb-stats2 > thead > tr > .th11 {
+    background: rgb(104, 167, 173);
+}
+
+.tb-stats2 > thead > tr > .th22 {
+    background: rgb(153, 196, 200);
+}
+
+.tb-stats2 > thead > tr > .th33 {
+    background: rgb(229, 203, 159);
+}
+
+.tb-stats2 > thead > tr > .th44 {
+    background: rgb(238, 228, 171);
+}
+
+.tb-stats2 > thead > tr > .th55 {
+    background: rgb(242, 241, 238);
+}
+
+.tb-stats2 > tbody > tr > .td11,
+.tb-stats2 > tfoot > tr > .td11 {
+    background: rgba(104, 167, 173, 0.2);
+}
+
+.tb-stats2 > tbody > tr > .td22,
+.tb-stats2 > tfoot > tr > .td22 {
+    background: rgba(153, 196, 200, 0.2);
+}
+
+.tb-stats2 > tbody > tr > .td33,
+.tb-stats2 > tfoot > tr > .td33 {
+    background: rgba(229, 203, 159, 0.2);
+}
+
+.tb-stats2 > tbody > tr > .td44,
+.tb-stats2 > tfoot > tr > .td44 {
+    background: rgba(238, 228, 171, 0.2);
+}
+
+.tb-stats2 > tbody > tr > .td55,
+.tb-stats2 > tfoot > tr > .td55 {
+    background: rgba(242, 241, 238,0.5);
 }

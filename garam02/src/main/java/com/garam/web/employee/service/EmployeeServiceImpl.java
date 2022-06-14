@@ -239,8 +239,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public List<EmpRsvtDTO> selectEmpOperPerList(EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeMapper.selectEmpOperPerList(empRsvtDTO);
+
+		return list;
+	}
+
+	@Override
 	public List<EmpRsvtDTO> selectEmpOperListCnt(EmpRsvtDTO empRsvtDTO) throws Exception {
 		List<EmpRsvtDTO> list = employeeMapper.selectEmpOperListCnt(empRsvtDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<EmpRsvtDTO> selectEmpOperPerListCnt(EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeMapper.selectEmpOperPerListCnt(empRsvtDTO);
 
 		return list;
 	}
@@ -355,6 +369,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public List<RegularDTO> selEmpRegOperPerList(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeMapper.selEmpRegOperPerList(regularDTO);
+
+		return list;
+	}
+
+	@Override
 	public List<RegularDTO> selEmpRegOperList1(RegularDTO regularDTO) throws Exception {
 		List<RegularDTO> list = employeeMapper.selEmpRegOperList1(regularDTO);
 
@@ -369,6 +390,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public List<RegularDTO> selEmpRegOperPerList2(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeMapper.selEmpRegOperPerList2(regularDTO);
+
+		return list;
+	}
+
+	@Override
 	public List<EmpRsvtDTO> selectEmpAllAllo(EmpRsvtDTO empRsvtDTO) throws Exception {
 		List<EmpRsvtDTO> list = employeeMapper.selectEmpAllAllo(empRsvtDTO);
 
@@ -376,8 +404,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public List<EmpRsvtDTO> selectEmpAllAlloPer(EmpRsvtDTO empRsvtDTO) throws Exception {
+		List<EmpRsvtDTO> list = employeeMapper.selectEmpAllAlloPer(empRsvtDTO);
+
+		return list;
+	}
+
+	@Override
 	public List<RegularDTO> selectEmpAllAllo1(RegularDTO regularDTO) throws Exception {
 		List<RegularDTO> list = employeeMapper.selectEmpAllAllo1(regularDTO);
+
+		return list;
+	}
+
+	@Override
+	public List<RegularDTO> selectEmpAllAllo1Per(RegularDTO regularDTO) throws Exception {
+		List<RegularDTO> list = employeeMapper.selectEmpAllAllo1Per(regularDTO);
 
 		return list;
 	}
@@ -1227,5 +1269,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		int rtn = employeeMapper.insertDealAllMoney(empsalaryAll);
 
 		return rtn;
+	}
+
+	@Override
+	public List<EmployeeInfoDTO> selectDealVe() throws Exception {
+		List<EmployeeInfoDTO> list = employeeMapper.selectDealVe();
+
+		return list;
 	}
 }

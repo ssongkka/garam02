@@ -30,7 +30,11 @@ public interface EmployeeService {
 
 	public List<EmpRsvtDTO> selectEmpOperList(EmpRsvtDTO empRsvtDTO) throws Exception;
 
+	public List<EmpRsvtDTO> selectEmpOperPerList(EmpRsvtDTO empRsvtDTO) throws Exception;
+
 	public List<EmpRsvtDTO> selectEmpOperListCnt(EmpRsvtDTO empRsvtDTO) throws Exception;
+
+	public List<EmpRsvtDTO> selectEmpOperPerListCnt(EmpRsvtDTO empRsvtDTO) throws Exception;
 
 	public List<EmployeeInfoDTO> SelectEmpBaseMoney(EmployeeInfoDTO employeeInfoDTO) throws Exception;
 
@@ -58,13 +62,21 @@ public interface EmployeeService {
 
 	public List<RegularDTO> selEmpRegOperList(RegularDTO regularDTO) throws Exception;
 
+	public List<RegularDTO> selEmpRegOperPerList(RegularDTO regularDTO) throws Exception;
+
 	public List<RegularDTO> selEmpRegOperList1(RegularDTO regularDTO) throws Exception;
 
 	public List<RegularDTO> selEmpRegOperList2(RegularDTO regularDTO) throws Exception;
 
+	public List<RegularDTO> selEmpRegOperPerList2(RegularDTO regularDTO) throws Exception;
+
 	public List<EmpRsvtDTO> selectEmpAllAllo(EmpRsvtDTO empRsvtDTO) throws Exception;
 
+	public List<EmpRsvtDTO> selectEmpAllAlloPer(EmpRsvtDTO empRsvtDTO) throws Exception;
+
 	public List<RegularDTO> selectEmpAllAllo1(RegularDTO regularDTO) throws Exception;
+
+	public List<RegularDTO> selectEmpAllAllo1Per(RegularDTO regularDTO) throws Exception;
 
 	public int updateRegOper(RegularDTO regularDTO) throws Exception;
 
@@ -99,4 +111,6 @@ public interface EmployeeService {
 	public int insertDealOutM(List<Map<String, Object>> map) throws Exception;
 
 	public int insertDealAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
+
+	public List<EmployeeInfoDTO> selectDealVe() throws Exception;
 }

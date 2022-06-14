@@ -110,6 +110,7 @@ public interface VehicleService {
 	public int updateGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 
 	public int delGas(VehicleInfoDTO vehicleInfoDTO) throws Exception;
-	
+
 	public List<VehicleInfoDTO> selAlloVeCh(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 }

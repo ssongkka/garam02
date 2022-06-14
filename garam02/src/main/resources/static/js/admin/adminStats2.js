@@ -17,7 +17,7 @@ const getOrCreateTooltip = (chart) => {
 
         const table = document.createElement('table');
         table.style.margin = '0px';
-        // table.style.width = '100px';
+        table.style.width = '100px';
 
         tooltipEl.appendChild(table);
         chart
@@ -245,8 +245,15 @@ function getVeAllPer(compa) {
                 comcomcom = compa;
             }
 
+            const qwer = new Date($('#staticMonth').val() + '-01');
+            const oneMonthAgo = new Date(qwer.setMonth(qwer.getMonth() - 1));
+
+            const monthMinus = toStringByFormatting(oneMonthAgo).split('-')[0] + '-' +
+                    toStringByFormatting(oneMonthAgo).split('-')[1]
+
             const params = {
                 "fuel": $('#staticMonth').val(),
+                "color": monthMinus,
                 "inday": tmpArrDay[0],
                 "outday": tmpArrDay[1],
                 "company": comcomcom
@@ -273,6 +280,8 @@ function getVeAllPer(compa) {
                     let sum9 = 0;
                     let sum10 = 0;
                     let sum11 = 0;
+                    let sum12 = 0;
+                    let sum13 = 0;
 
                     let contcnt = 0;
 
@@ -364,6 +373,16 @@ function getVeAllPer(compa) {
                             allAltM = allAltM + parseInt(r[i].insusepapayment);
                         }
 
+                        let janM = 0;
+                        if (r[i].phone1) {
+                            janM = r[i].phone1;
+                        }
+
+                        let janM1 = 0;
+                        if (r[i].phone2) {
+                            janM1 = r[i].phone2;
+                        }
+
                         if (!r[i].fuel || cnt > 0) {
                             arrTmpVe.push(r[i].vehicle2);
                             arrTmpEarn10.push(manegeM);
@@ -384,6 +403,8 @@ function getVeAllPer(compa) {
                             sum9 = sum9 + parseInt(parseInt(hakM) - parseInt(hakAltM));
                             sum10 = sum10 + parseInt(guCnt);
                             sum11 = sum11 + parseInt(parseInt(guM) - parseInt(guAltM));
+                            sum12 = sum12 + parseInt(janM);
+                            sum13 = sum13 + parseInt(ilCnt) + parseInt(hakCnt) + parseInt(guCnt);
 
                             let cssAll = '';
                             if (parseInt(allNumM) - parseInt(allAltM) < 0) {
@@ -405,113 +426,163 @@ function getVeAllPer(compa) {
                             if (parseInt(guM) - parseInt(guAltM) < 0) {
                                 css3 = ' style="color: rgb(207, 47, 17);"';
                             }
+                            let css4 = '';
+                            if (janM < 0) {
+                                css4 = ' style="color: rgb(207, 47, 17);"';
+                            }
 
                             htmls += `
-                        <tr>
+                        <tr class="vePerStatic">
                             <td class="carTd">` +
                                     r[i].vehicle2 +
                                     `</td>
-                            <td>` + AddComma(allNumM) +
+                            <td class="td55">` + (
+                                parseInt(ilCnt) + parseInt(hakCnt) + parseInt(guCnt)
+                            ) +
                                     `</td>
-                            <td>` + AddComma(allAltM) +
+                            <td class="td55">` + AddComma(allNumM) +
                                     `</td>
-                            <td class="allTd"` + cssAll + `>` +
+                            <td class="td55">` + AddComma(allAltM) +
+                                    `</td>
+                            <td class="td55"` + cssAll + `>` +
                                     AddComma(parseInt(allNumM) - parseInt(allAltM)) +
                                     `</td>
-                            <td class="gasTd">` + AddComma(manegeM) +
+                            <td class="td55">` + AddComma(manegeM) +
                                     `</td>
-                            <td class="allTd"` + css0 + `>` +
+                            <td class="allTd">` + AddComma(
+                                (parseInt(allNumM) - parseInt(allAltM)) + parseInt(manegeM)
+                            ) +
+                                    `</td>
+                            <td class="allTd"` + css4 + `>` +
+                                    AddComma(janM) + ` <input type="hidden" value="` + janM1 +
+                                    `"></td>
+                            <td class="td11"` + css0 + `>` +
                                     AddComma(parseInt(jungM) - parseInt(jungAltM)) +
                                     `</td>
-                            <td class="allTd">` + ilCnt +
+                            <td class="td22">` + ilCnt +
                                     `</td>
-                            <td class="allTd"` + css1 + `>` +
+                            <td class="td22"` + css1 + `>` +
                                     AddComma(parseInt(ilM) - parseInt(ilAltM)) +
                                     `</td>
-                            <td class="allTd">` + hakCnt +
+                            <td class="td33">` + hakCnt +
                                     `</td>
-                            <td class="allTd"` + css2 + `>` +
+                            <td class="td33"` + css2 + `>` +
                                     AddComma(parseInt(hakM) - parseInt(hakAltM)) +
                                     `</td>
-                            <td class="allTd">` + guCnt +
+                            <td class="td44">` + guCnt +
                                     `</td>
-                            <td class="allTd"` + css3 + `>` +
+                            <td class="td44"` + css3 + `>` +
                                     AddComma(parseInt(guM) - parseInt(guAltM)) +
                                     `</td>
+                            <input type="hidden" value="` + r[i].loanbank +
+                                    `">
+                            <input type="hidden" value="` + r[i].vehicle +
+                                    `">
+                            <input type="hidden" value="` + r[i].brand +
+                                    `">
+                            <input type="hidden" value="` + r[i].grade +
+                                    `">
+                            <input type="hidden" value="` + r[i].num +
+                                    `">
+                            <input type="hidden" value="` + r[i].regist +
+                                    `">
+                            <input type="hidden" value="` + r[i].expire +
+                                    `">
+                            input type="hidden" value="` + r[i].inday +
+                                    `">
                         </tr>`;
                         }
                     }
 
                     let htmlsFoot = `
                 <tr>
-                    <td>평 균</td>
-                    <td>` +
-                            AddComma(parseFloat(sum1 / contcnt).toFixed(0)) +
+                    <td class="carTd">평 균</td>
+                    <td class="td55">` +
+                            parseFloat(sum13 / contcnt).toFixed(1) +
                             `</td>
-                    <td>` + AddComma(
+                    <td class="td55">` + AddComma(
+                        parseFloat(sum1 / contcnt).toFixed(0)
+                    ) +
+                            `</td>
+                    <td class="td55">` + AddComma(
                         parseFloat(sum2 / contcnt).toFixed(0)
                     ) +
                             `</td>
-                    <td class="allTd">` + AddComma(
+                    <td class="td55">` + AddComma(
                         parseFloat(sum3 / contcnt).toFixed(0)
                     ) +
                             `</td>
-                    <td class="gasTd">` + AddComma(
+                    <td class="td55">` + AddComma(
                         parseFloat(sum4 / contcnt).toFixed(0)
                     ) +
                             `</td>
                     <td class="allTd">` + AddComma(
+                        parseFloat((sum3 + sum4) / contcnt).toFixed(0)
+                    ) +
+                            `</td>
+                    <td class="allTd">` + AddComma(
+                        parseFloat(sum12 / contcnt).toFixed(0)
+                    ) +
+                            `</td>
+                    <td class="td11">` + AddComma(
                         parseFloat(sum5 / contcnt).toFixed(0)
                     ) +
                             `</td>
-                    <td class="allTd">` + AddComma(
+                    <td class="td22">` + AddComma(
                         parseFloat(sum6 / contcnt).toFixed(1)
                     ) +
                             `</td>
-                    <td class="allTd">` + AddComma(
+                    <td class="td22">` + AddComma(
                         parseFloat(sum7 / contcnt).toFixed(0)
                     ) +
                             `</td>
-                    <td class="allTd">` + AddComma(
+                    <td class="td33">` + AddComma(
                         parseFloat(sum8 / contcnt).toFixed(1)
                     ) +
                             `</td>
-                    <td class="allTd">` + AddComma(
+                    <td class="td33">` + AddComma(
                         parseFloat(sum9 / contcnt).toFixed(0)
                     ) +
                             `</td>
-                    <td class="allTd">` + AddComma(
+                    <td class="td44">` + AddComma(
                         parseFloat(sum10 / contcnt).toFixed(1)
                     ) +
                             `</td>
-                    <td class="allTd">` + AddComma(
+                    <td class="td44">` + AddComma(
                         parseFloat(sum11 / contcnt).toFixed(0)
                     ) +
                             `</td>
                 </tr>
                 <tr>
-                    <td>합 계</td>
-                    <td>` +
-                            AddComma(sum1) + `</td>
-                    <td>` + AddComma(sum2) +
+                    <td class="carTd">합 계</td>
+                    <td class="td55">` +
+                            AddComma(sum13) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum3) +
+                    <td class="td55">` + AddComma(sum1) +
                             `</td>
-                    <td class="gasTd">` + AddComma(sum4) +
+                    <td class="td55">` + AddComma(sum2) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum5) +
+                    <td class="td55">` + AddComma(sum3) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum6) +
+                    <td class="td55">` + AddComma(sum4) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum7) +
+                    <td class="allTd">` + AddComma(sum3 + sum4) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum8) +
+                    <td class="allTd">` + AddComma(sum12) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum9) +
+                    <td class="td11">` + AddComma(sum5) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum10) +
+                    <td class="td22">` + AddComma(sum6) +
                             `</td>
-                    <td class="allTd">` + AddComma(sum11) +
+                    <td class="td22">` + AddComma(sum7) +
+                            `</td>
+                    <td class="td33">` + AddComma(sum8) +
+                            `</td>
+                    <td class="td33">` + AddComma(sum9) +
+                            `</td>
+                    <td class="td44">` + AddComma(sum10) +
+                            `</td>
+                    <td class="td44">` + AddComma(sum11) +
                             `</td>
                 </tr>`;
 
@@ -591,8 +662,8 @@ function getVeAllPer(compa) {
                         data: result[5]
                     }, {
                         label: '관리비',
-                        backgroundColor: '#EEEEEE',
-                        borderColor: '#EEEEEE',
+                        backgroundColor: '#dfddcc',
+                        borderColor: '#dfddcc',
                         // barPercentage: 0.5, barThickness: 6, maxBarThickness: 8, minBarLength: 2,
                         data: result[1]
                     }
@@ -652,7 +723,7 @@ function getVeAllPer(compa) {
                         label: 'My First Dataset',
                         data: result[6],
                         backgroundColor: [
-                            '#68A7AD', '#99C4C8', '#E5CB9F', '#EEE4AB', '#EEEEEE'
+                            '#68A7AD', '#99C4C8', '#E5CB9F', '#EEE4AB', '#dfddcc'
                         ],
                         hoverOffset: 4
                     }
@@ -1231,7 +1302,7 @@ function getVeAllPer(compa) {
                 datasets: [
                     {
                         type: 'line',
-                        label: '이익',
+                        label: '배차수익',
                         backgroundColor: 'rgba(112, 173, 71, 0.2)',
                         borderColor: 'rgba(112, 173, 71, 1)',
                         data: result[5],
@@ -1264,8 +1335,8 @@ function getVeAllPer(compa) {
                     }, {
                         type: 'bar',
                         label: '관리비',
-                        backgroundColor: '#EEEEEE',
-                        borderColor: '#EEEEEE',
+                        backgroundColor: '#dfddcc',
+                        borderColor: '#dfddcc',
                         data: result[0]
                     }
                 ]
@@ -1333,63 +1404,67 @@ function getVeAllPer(compa) {
     }
 }
 
-$(document).on('click', '.veCompaStatic', function () {
+$(document).on('click', '.vePerStatic', function () {
     const yearMonth = $('#staticMonth').val();
 
-    let tmpArrInM = new Array();
-    let tmpArrOutM = new Array();
+    let tmpArrAllo = new Array();
+    let tmpArrAlloEarnM = new Array();
+    let tmpArrEarnM = new Array();
     let tmpArrVe = new Array();
     let tmpArrAve = new Array();
 
     const aaa = $(this).children();
-    tmpArrInM.push($(aaa[6]).text().replaceAll(',', ''));
-    tmpArrInM.push($(aaa[8]).text().replaceAll(',', ''));
-    tmpArrInM.push($(aaa[10]).text().replaceAll(',', ''));
-    tmpArrInM.push($(aaa[12]).text().replaceAll(',', ''));
+    tmpArrAllo.push($(aaa[9]).text().replaceAll(',', ''));
+    tmpArrAllo.push($(aaa[11]).text().replaceAll(',', ''));
+    tmpArrAllo.push($(aaa[13]).text().replaceAll(',', ''));
 
-    tmpArrOutM.push($(aaa[13]).text().replaceAll(',', ''));
-    tmpArrOutM.push($(aaa[14]).text().replaceAll(',', ''));
-    tmpArrOutM.push($(aaa[15]).text().replaceAll(',', ''));
-    tmpArrOutM.push($(aaa[16]).text().replaceAll(',', ''));
-    tmpArrOutM.push($(aaa[17]).text().replaceAll(',', ''));
-    tmpArrOutM.push($(aaa[18]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[8]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[10]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[12]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[14]).text().replaceAll(',', ''));
 
+    tmpArrEarnM.push($(aaa[4]).text().replaceAll(',', ''));
+    tmpArrEarnM.push($(aaa[5]).text().replaceAll(',', ''));
+
+    tmpArrVe.push($(aaa[15]).val());
+    tmpArrVe.push($(aaa[16]).val());
+    tmpArrVe.push($(aaa[17]).val());
+    tmpArrVe.push($(aaa[18]).val());
     tmpArrVe.push($(aaa[19]).val());
     tmpArrVe.push($(aaa[20]).val());
     tmpArrVe.push($(aaa[21]).val());
     tmpArrVe.push($(aaa[22]).val());
-    tmpArrVe.push($(aaa[23]).val());
-    tmpArrVe.push($(aaa[24]).val());
-    tmpArrVe.push($(aaa[25]).val());
-    tmpArrVe.push($(aaa[26]).val());
 
-    const bbb0 = $('#tfVeAllCompa').children()[0];
+    const bbb0 = $('#tfVeAllPer').children()[0];
     const bbb = $(bbb0).children();
 
     tmpArrAve.push(
-        parseInt($(aaa[1]).text().replaceAll(',', '')) - parseInt($(bbb[1]).text().replaceAll(',', ''))
-    );
-    tmpArrAve.push(
-        parseInt($(aaa[2]).text().replaceAll(',', '')) - parseInt($(bbb[2]).text().replaceAll(',', ''))
-    );
-    tmpArrAve.push(
-        parseInt($(aaa[3]).text().replaceAll(',', '')) - parseInt($(bbb[3]).text().replaceAll(',', ''))
-    );
-    tmpArrAve.push(
-        (parseFloat($(aaa[4]).text()) - parseFloat($(bbb[4]).text())).toFixed(2)
+        (parseFloat($(aaa[1]).text().replaceAll(',', '')).toFixed(1) - parseFloat($(bbb[1]).text().replaceAll(',', '')).toFixed(1)).toFixed(1)
     );
 
-    setAdMDVeStatic(
+    tmpArrAve.push(
+        parseInt($(aaa[4]).text().replaceAll(',', '')) - parseInt($(bbb[4]).text().replaceAll(',', ''))
+    );
+    tmpArrAve.push(
+        parseInt($(aaa[6]).text().replaceAll(',', '')) - parseInt($(bbb[6]).text().replaceAll(',', ''))
+    );
+
+    const jan1 = parseInt($($(aaa[7]).children()[0]).val().replaceAll(',', ''));
+    const jan2 = parseInt($(aaa[7]).text().replaceAll(',', ''));
+
+    tmpArrAve.push(jan2 - jan1);
+
+    setAdMDVeStaticPer(
         yearMonth,
-        tmpArrInM,
-        tmpArrOutM,
+        tmpArrAllo,
+        tmpArrAlloEarnM,
+        tmpArrEarnM,
         $(aaa[1]).text(),
-        $(aaa[2]).text(),
-        $(aaa[3]).text(),
         $(aaa[4]).text(),
-        $(aaa[5]).text(),
+        $(aaa[6]).text(),
+        $(aaa[7]).text(),
         tmpArrAve,
         tmpArrVe
     );
-    $('#adMDVeCompa').modal('show');
+    $('#adMDVePer').modal('show');
 });

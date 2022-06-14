@@ -48,7 +48,7 @@ function getEmpOperCnt() {
     return new Promise(function (resolve, reject) {
         const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
-        const url = "/emp/empOperCnt";
+        const url = "/emp/empOperPerCnt";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
@@ -56,7 +56,7 @@ function getEmpOperCnt() {
         const params = {
             "stday": arrDay[0],
             "endday": arrDay[1],
-            "operid": $('#emp-iidd').val()
+            "opercar": $('#ve-iidd').val()
         };
         $.ajax({
             url: url,
@@ -85,7 +85,7 @@ function getEmpOper(result) {
 
         const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
-        const url = "/emp/empOper";
+        const url = "/emp/empOperPer";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
@@ -93,7 +93,7 @@ function getEmpOper(result) {
         const params = {
             "stday": arrDay[0],
             "endday": arrDay[1],
-            "operid": $('#emp-iidd').val()
+            "opercar": $('#ve-iidd').val()
         };
         $.ajax({
             url: url,
@@ -680,13 +680,13 @@ function getEmpRegOper(result) {
 
         const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
-        const url = "/emp/empRegOper";
+        const url = "/emp/empRegOperPer";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "regoperid": $('#emp-iidd').val(),
+            "regopercar": $('#ve-iidd').val(),
             "regstartd": arrDay[0],
             "regendd": arrDay[1]
         };
@@ -725,13 +725,13 @@ function getEmpRegOper1(result) {
 
         const arrDay = getStDEnD($('#yearmonthsMoney1').val());
 
-        const url = "/emp/empRegOper2";
+        const url = "/emp/empRegOperPer2";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "regoperid": $('#emp-iidd').val(),
+            "regopercar": $('#ve-iidd').val(),
             "regstartd": arrDay[0],
             "regendd": arrDay[1]
         };
@@ -906,13 +906,13 @@ function getEmpAllAllOper1(result) {
 
         const arrDay = getStDEnD($('#yearmonthsMoney2').val());
 
-        const url = "/emp/empAllAllo";
+        const url = "/emp/empAllAlloPer";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "operid": $('#emp-iidd').val(),
+            "regopercar": $('#ve-iidd').val(),
             "operconfirm": $('#yearmonthsMoney2').val()
         };
         $.ajax({
@@ -1014,13 +1014,13 @@ function getEmpAllAllOper2(result) {
 
         const arrDay = getStDEnD($('#yearmonthsMoney2').val());
 
-        const url = "/emp/empAllAllo1";
+        const url = "/emp/empAllAllo1Per";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "regoperid": $('#emp-iidd').val(),
+            "regopercar": $('#ve-iidd').val(),
             "regoperconfirm": $('#yearmonthsMoney2').val(),
             "regstartd": arrDay[0],
             "regendd": arrDay[1]
@@ -1440,13 +1440,9 @@ function getEmpBaseM(result) {
             data: JSON.stringify(params),
             success: function (r) {
 
-                if (parseInt(result[0]) < 1) {
-                    if (r[0].basem) {
-                        $('#in-baseM').val(AddComma(r[0].basem));
-                    } else {
-                        $('#in-baseM').val(0);
-                    }
-                }
+                // if (parseInt(result[0]) < 1) {     if (r[0].basem) {
+                // $('#in-baseM').val(AddComma(r[0].basem));     } else { $('#in-baseM').val(0);
+                // } }
 
                 if (parseInt(result[1]) < 1) {
                     let htmls = '';

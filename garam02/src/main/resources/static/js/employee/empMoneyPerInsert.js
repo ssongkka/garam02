@@ -85,7 +85,7 @@ $(document).ready(function () {
 
 function getEmpAllM(name) {
     return new Promise(function (resolve, reject) {
-        const url = "/emp/empAll";
+        const url = "/emp/empDealList";
         const headers = {
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST"
@@ -105,18 +105,35 @@ function getEmpAllM(name) {
 
             success: function (r) {
                 let htmlsSolo = '';
-                let htmlsYeb = '';
                 let htmlsOutman = '';
 
                 let cntSolo = 0;
-                let cntYeb = 0;
                 let cntOutman = 0;
 
                 for (let i = 0; i < r.length; i++) {
-                    if (r[i].kind == '개인' && r[i].trash == 0) {
+
+                    console.log(r);
+
+                    if (r[i].trash == 0) {
                         cntOutman++;
 
-                        htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfoM(this.id)">';
+                        htmlsOutman += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfoM(this)">';
+                        if (r[i].vehicle) {
+                            htmlsOutman += '<input type="hidden" value="' + r[i].carnumber + '">'
+                            htmlsOutman += '<input type="hidden" value="' + r[i].id + '">'
+                            htmlsOutman += '<td>'
+                            htmlsOutman += '<span class="tr-ve">'
+                            htmlsOutman += r[i]
+                                .vehicle
+                                .substring(r[i].vehicle.length - 4);
+                            htmlsOutman += '</span>'
+                            htmlsOutman += '</td>'
+                        } else {
+                            htmlsOutman += '<td>'
+                            htmlsOutman += '<span>'
+                            htmlsOutman += '</span>'
+                            htmlsOutman += '</td>'
+                        }
                         htmlsOutman += '<td>'
                         htmlsOutman += '<span class="tr-emp">'
                         htmlsOutman += r[i].name;
@@ -134,14 +151,15 @@ function getEmpAllM(name) {
                             htmlsOutman += '</span>'
                             htmlsOutman += '</td>'
                         }
+
                         if (r[i].birthday) {
-                            htmlsOutman += '<td class="">'
+                            htmlsOutman += '<td class="size-hidden">'
                             htmlsOutman += '<span>'
                             htmlsOutman += r[i].birthday;
                             htmlsOutman += '</span>'
                             htmlsOutman += '</td>'
                         } else {
-                            htmlsOutman += '<td class="">'
+                            htmlsOutman += '<td class="size-hidden">'
                             htmlsOutman += '<span>'
                             htmlsOutman += '</span>'
                             htmlsOutman += '</td>'
@@ -149,16 +167,13 @@ function getEmpAllM(name) {
                         htmlsOutman += '</tr>'
                     }
 
-                    if (r[i].kind == '개인' && r[i].trash == 1) {
+                    if (r[i].trash == 1) {
                         cntSolo++;
 
-                        htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfoM(this.id)">';
-                        htmlsSolo += '<td>'
-                        htmlsSolo += '<span class="tr-emp">'
-                        htmlsSolo += r[i].name;
-                        htmlsSolo += '</span>'
-                        htmlsSolo += '</td>'
+                        htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfoM(this)">';
                         if (r[i].vehicle) {
+                            htmlsSolo += '<input type="hidden" value="' + r[i].carnumber + '">'
+                            htmlsSolo += '<input type="hidden" value="' + r[i].id + '">'
                             htmlsSolo += '<td>'
                             htmlsSolo += '<span class="tr-ve">'
                             htmlsSolo += r[i]
@@ -172,6 +187,11 @@ function getEmpAllM(name) {
                             htmlsSolo += '</span>'
                             htmlsSolo += '</td>'
                         }
+                        htmlsSolo += '<td>'
+                        htmlsSolo += '<span class="tr-emp">'
+                        htmlsSolo += r[i].name;
+                        htmlsSolo += '</span>'
+                        htmlsSolo += '</td>'
                         if (r[i].kind) {
                             htmlsSolo += '<td>'
                             htmlsSolo += '<span>'
@@ -199,48 +219,11 @@ function getEmpAllM(name) {
                         }
                         htmlsSolo += '</tr>'
                     }
-                    if (r[i].kind == '예비' && r[i].trash == 1) {
-                        cntYeb++;
-
-                        htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfoM(this.id)">';
-                        htmlsYeb += '<td>'
-                        htmlsYeb += '<span class="tr-emp">'
-                        htmlsYeb += r[i].name;
-                        htmlsYeb += '</span>'
-                        htmlsYeb += '</td>'
-                        if (r[i].kind) {
-                            htmlsYeb += '<td>'
-                            htmlsYeb += '<span>'
-                            htmlsYeb += r[i].kind;
-                            htmlsYeb += '</span>'
-                            htmlsYeb += '</td>'
-                        } else {
-                            htmlsYeb += '<td>'
-                            htmlsYeb += '<span>'
-                            htmlsYeb += '</span>'
-                            htmlsYeb += '</td>'
-                        }
-                        if (r[i].birthday) {
-                            htmlsYeb += '<td>'
-                            htmlsYeb += '<span>'
-                            htmlsYeb += r[i].birthday;
-                            htmlsYeb += '</span>'
-                            htmlsYeb += '</td>'
-                        } else {
-                            htmlsYeb += '<td>'
-                            htmlsYeb += '<span>'
-                            htmlsYeb += '</span>'
-                            htmlsYeb += '</td>'
-                        }
-                        htmlsYeb += '</tr>'
-                    }
                 }
                 $('#emp-tb-solo').html(htmlsSolo);
-                $('#emp-tb-yeb').html(htmlsYeb);
                 $('#emp-tb-outman').html(htmlsOutman);
 
                 $('#bgSolo').text(cntSolo);
-                $('#bgYeb').text(cntYeb);
                 $('#bgOutman').text(cntOutman);
                 resolve();
             },
@@ -251,7 +234,7 @@ function getEmpAllM(name) {
     })
 }
 
-function getEmpInfoM(id) {
+function getEmpInfoM(dom) {
     $('#mainoper-home-tab').attr("disabled", false);
     $('#operemp-profile-tab').attr("disabled", false);
     $('#moneyemp-profile-tab').attr("disabled", false);
@@ -259,8 +242,16 @@ function getEmpInfoM(id) {
 
     $('#insert-money').attr("disabled", false);
 
-    tbChoice(id);
-    $('#emp-iidd').val(id.split('cut')[0]);
+    console.log(dom);
+
+    const aaa = $(dom).children();
+    const idid = $(aaa[1]).val();
+    const carnnn = $(aaa[0]).val();
+
+    tbChoice($(dom).attr('id'));
+    $('#emp-iidd').val(idid);
+
+    $('#ve-iidd').val(carnnn);
 
     LoadingWithMask()
         .then(getEmpDetailM)
@@ -295,7 +286,7 @@ function getEmpInfoM(id) {
             };
 
             const params = {
-                "id": id.split('cut')[0]
+                "id": idid
             };
 
             $.ajax({
