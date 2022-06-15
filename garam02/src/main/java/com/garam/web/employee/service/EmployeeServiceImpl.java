@@ -1277,4 +1277,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return list;
 	}
+
+	@Override
+	public int updateVeBaseM(VehicleInfoDTO vehicleInfoDTO) throws Exception {
+		int rtn = employeeMapper.updateVeBaseM(vehicleInfoDTO);
+
+		return rtn;
+	}
 }

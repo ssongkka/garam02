@@ -110,4 +110,7 @@ public interface EmployeeMapper {
 	public int insertDealAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
 
 	public List<EmployeeInfoDTO> selectDealVe() throws Exception;
+
+	public int updateVeBaseM(VehicleInfoDTO vehicleInfoDTO) throws Exception;
+
 }

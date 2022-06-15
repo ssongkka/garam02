@@ -11,6 +11,7 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
         .then(getYearPerStatic)
         .then(setChart0)
         .then(setChart00)
+        .then(getPerMdAlloList)
         .then(closeLoadingWithMask);
 
     function setDe(result) {
@@ -642,6 +643,132 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
 
             const myChart = new Chart($('#chartVeS00'), config);
             resolve();
+        })
+    }
+
+    function getPerMdAlloList() {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empOperPer";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const arrDay = getStDEnD(yearMonth);
+
+            const params = {
+                "stday": arrDay[0],
+                "endday": arrDay[1],
+                "opercar": arrVe[0]
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    let htmls = ``;
+
+                    let sum1 = 0;
+                    let sum2 = 0;
+                    let sum3 = 0;
+
+                    for (let i = 0; i < r.length; i++) {
+                        const alEarnM = parseInt(r[i].numm) - parseInt(r[i].atlm);
+
+                        let css = '';
+                        if (alEarnM < 0) {
+                            css = ' style="color: rgb(207, 47, 17);"'
+                        }
+
+                        sum1 = sum1 + parseInt(r[i].numm);
+                        sum2 = sum2 + parseInt(r[i].atlm);
+                        sum3 = sum3 + parseInt(alEarnM);
+
+                        htmls += `
+                <tr>
+                    <td>` + (i + 1) +
+                                `</td>
+                    <td>2` + r[i].operday +
+                                `</td>
+                    <td>` + r[i].desty +
+                                `</td>
+                    <td class="tdRight">` + AddComma(r[i].numm) +
+                                `</td>
+                    <td class="tdRight">` + AddComma(r[i].atlm) +
+                                `</td>
+                    <td class="tdRight"` + css + `>` + AddComma(alEarnM) +
+                                `</td>
+                    <td>` + r[i].ctmname +
+                                `</td>
+                </tr>`;
+                    }
+
+                    let css1 = '';
+                    if (sum3 < 0) {
+                        css1 = ' style="color: rgb(207, 47, 17);"'
+                    }
+
+                    const htmlsFoot = `
+                <tr>
+                    <td colspan="2">합 계</td>
+                    <td>` +
+                            r.length +
+                            `회</td>
+                    <td class="tdRight">` + AddComma(sum1) +
+                            `</td>
+                    <td class="tdRight">` + AddComma(sum2) +
+                            `</td>
+                    <td class="tdRight"` + css1 + `>` + AddComma(sum3) +
+                            `</td>
+                    <td>-</td>
+                </tr>`;
+
+                    $('#tbStPerMd').html(htmls);
+                    $('#tfStPerMd').html(htmlsFoot);
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getAllPerMList(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empDealAllMList";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "carnumber": arrVe[0]
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+
+
+                    if (r.length > 0) {
+                    } 
+
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
         })
     }
 }

@@ -10,6 +10,8 @@ public class Empsalary {
 	// 사원번호
 	private String id;
 
+	private String carnumber;
+
 	// 구분
 	private String separation;
 
@@ -54,6 +56,14 @@ public class Empsalary {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getCarnumber() {
+		return carnumber;
+	}
+
+	public void setCarnumber(String carnumber) {
+		this.carnumber = carnumber;
 	}
 
 	public String getSeparation() {

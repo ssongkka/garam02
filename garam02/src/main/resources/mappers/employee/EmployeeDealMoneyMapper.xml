@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.garam.web.employee.mapper.EmployeeMapper">
 
-	<sql id="empMoneySalColumns">
-		no, sday, id, separation, date, contents, money, strash
-	</sql>
-
 	<select id="selectDealVe" resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		(SELECT
@@ -78,13 +74,26 @@
 
 		personnaldealplus
 
+		LEFT JOIN
+
+		personnaldeal
+
+		ON
+
+		personnaldealplus.carnumber = personnaldeal.carnumber
+
 		WHERE
 
-		personnaldealplus.id = #{id}
+		personnaldeal.carnumber = #{carnumber}
 
 		AND
 
 		personnaldealplus.sday = #{sday}
+
+		AND
+
+		personnaldeal.date = #{sday}
+
 	</select>
 
 	<select id="dealOutMoney" parameterType="com.garam.web.employee.dto.Empsalary"
@@ -98,13 +107,25 @@
 
 		personnaldealminus
 
+		LEFT JOIN
+
+		personnaldeal
+
+		ON
+
+		personnaldealminus.carnumber = personnaldeal.carnumber
+
 		WHERE
 
-		personnaldealminus.id = #{id}
+		personnaldeal.carnumber = #{carnumber}
 
 		AND
 
 		personnaldealminus.sday = #{sday}
+
+		AND
+
+		personnaldeal.date = #{sday}
 	</select>
 
 	<select id="dealAllMoney" parameterType="com.garam.web.employee.dto.EmpsalaryAll"
@@ -119,13 +140,16 @@
 
 		personnaldeal
 
-		WHERE
+		<where>
+			personnaldeal.carnumber = #{carnumber}
 
-		personnaldeal.id = #{id}
+			<if test="datein != null"> AND
 
-		AND
+				personnaldeal.date = #{datein})
 
-		personnaldeal.date = #{datein})
+			</if>
+
+		</where>
 
 		UNION
 
@@ -137,39 +161,40 @@
 
 		personnaldeal
 
-		WHERE
+		<where>
+			personnaldeal.carnumber = #{carnumber}
 
-		personnaldeal.id = #{id}
+			<if test="date != null"> AND
 
-		AND
+				personnaldeal.date = #{date})
 
-		personnaldeal.date = #{date})
+			</if>
 
-	</select>
+		</where>
 
-	<select id="">
-
-		SELECT
-
-		*
-
-		FROM
-
-		personnaldeal
-
-		WHERE
-
-		personnaldeal.id = #{id}
 
 	</select>
+
 	<delete id="delDealInM" parameterType="com.garam.web.employee.dto.Empsalary">
-		DELETE FROM
+		DELETE
 
 		personnaldealplus
 
+		FROM
+
+		personnaldealplus
+
+		LEFT JOIN
+
+		personnaldeal
+
+		ON
+
+		personnaldealplus.carnumber = personnaldeal.carnumber
+
 		WHERE
 
-		personnaldealplus.id = #{id}
+		personnaldeal.carnumber = #{carnumber}
 
 		AND
 
@@ -177,14 +202,25 @@
 		#{sday};
 	</delete>
 	<delete id="delDealOutM" parameterType="com.garam.web.employee.dto.Empsalary">
-		DELETE FROM
+		DELETE
 
 		personnaldealminus
 
+		FROM
+
+		personnaldealminus
+
+		LEFT JOIN
+
+		personnaldeal
+
+		ON
+
+		personnaldealminus.carnumber = personnaldeal.carnumber
+
 		WHERE
 
-		personnaldealminus.id =
-		#{id}
+		personnaldeal.carnumber = #{carnumber}
 
 		AND
 
@@ -198,16 +234,15 @@
 		INTO
 
 		personnaldealplus
-		(
-		<include refid="empMoneySalColumns" />
-		)
+
+
 		VALUES
 
 		<foreach collection="imM" item="value" separator=",">
 			(
 			null,
 			#{value.sday},
-			#{value.id},
+			#{value.carnumber},
 			#{value.separation},
 			#{value.date},
 			#{value.contents},
@@ -222,16 +257,14 @@
 		INTO
 
 		personnaldealminus
-		(
-		<include refid="empMoneySalColumns" />
-		)
+
 		VALUES
 
 		<foreach collection="outM" item="value" separator=",">
 			(
 			null,
 			#{value.sday},
-			#{value.id},
+			#{value.carnumber},
 			#{value.separation},
 			#{value.date},
 			#{value.contents},
@@ -559,8 +592,8 @@
 
 		WHERE
 
-		operation_info.regopercar =
-		#{regopercar}
+		operation_info.opercar =
+		#{opercar}
 
 		AND
 
@@ -681,4 +714,20 @@
 		regulardetail.rdnum,
 		operation_reg.operregseq
 	</select>
+
+	<update id="updateVeBaseM" parameterType="com.garam.web.vehicle.dto.VehicleInfoDTO">
+
+		UPDATE
+
+		vehicleinfo
+
+		SET
+
+		vehicleinfo.vebasem = #{vebasem}
+
+		WHERE
+
+		vehicleinfo.carnumber = #{carnumber}
+
+	</update>
 </mapper>

@@ -112,8 +112,6 @@ function getEmpAllM(name) {
 
                 for (let i = 0; i < r.length; i++) {
 
-                    console.log(r);
-
                     if (r[i].trash == 0) {
                         cntOutman++;
 
@@ -121,6 +119,7 @@ function getEmpAllM(name) {
                         if (r[i].vehicle) {
                             htmlsOutman += '<input type="hidden" value="' + r[i].carnumber + '">'
                             htmlsOutman += '<input type="hidden" value="' + r[i].id + '">'
+                            htmlsOutman += '<input type="hidden" value="' + r[i].vebasem + '">'
                             htmlsOutman += '<td>'
                             htmlsOutman += '<span class="tr-ve">'
                             htmlsOutman += r[i]
@@ -174,6 +173,7 @@ function getEmpAllM(name) {
                         if (r[i].vehicle) {
                             htmlsSolo += '<input type="hidden" value="' + r[i].carnumber + '">'
                             htmlsSolo += '<input type="hidden" value="' + r[i].id + '">'
+                            htmlsSolo += '<input type="hidden" value="' + r[i].vebasem + '">'
                             htmlsSolo += '<td>'
                             htmlsSolo += '<span class="tr-ve">'
                             htmlsSolo += r[i]
@@ -242,16 +242,20 @@ function getEmpInfoM(dom) {
 
     $('#insert-money').attr("disabled", false);
 
-    console.log(dom);
-
     const aaa = $(dom).children();
     const idid = $(aaa[1]).val();
     const carnnn = $(aaa[0]).val();
+    const vebasem = $(aaa[2]).val();
 
     tbChoice($(dom).attr('id'));
     $('#emp-iidd').val(idid);
-
     $('#ve-iidd').val(carnnn);
+
+    if (vebasem) {
+        $('#in-baseM').val(AddComma(vebasem));
+    } else {
+        $('#in-baseM').val(0);
+    }
 
     LoadingWithMask()
         .then(getEmpDetailM)
@@ -298,6 +302,7 @@ function getEmpInfoM(dom) {
                 data: JSON.stringify(params),
 
                 success: function (r) {
+
                     if (r[0].id) {
                         $('#m-id').val(r[0].id);
                     } else {
@@ -1197,6 +1202,7 @@ function saveDeal(sepa) {
             .then(delOutMg)
             .then(saveOutM)
             .then(upEmpMoneys)
+            .then(upVeBaseMoneys)
             .then(getAllMList)
             .then(getEmpOperCnt)
             .then(getEmpOper)
@@ -1227,6 +1233,7 @@ function saveDeal(sepa) {
             .then(upOper)
             .then(upRegOper)
             .then(upEmpMoneys)
+            .then(upVeBaseMoneys)
             .then(insertAllM)
             .then(getAllMList)
             .then(getEmpOperCnt)
@@ -1331,12 +1338,40 @@ function saveDeal(sepa) {
             };
 
             const params = {
-                "basem": ($('#in-baseM').val()).replaceAll(',', ''),
                 "kukm": ($('#kukmM').val()).replaceAll(',', ''),
                 "gunm": ($('#gunmM').val()).replaceAll(',', ''),
                 "gom": ($('#gomM').val()).replaceAll(',', ''),
                 "sanm": ($('#sanmM').val()).replaceAll(',', ''),
                 "id": $('#emp-iidd').val()
+            };
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+                success: function (r) {
+                    resolve();
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function upVeBaseMoneys(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/upVeBaseM";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "vebasem": ($('#in-baseM').val()).replaceAll(',', ''),
+                "carnumber": $('#ve-iidd').val()
             };
             $.ajax({
                 url: url,
@@ -1422,7 +1457,7 @@ function saveDeal(sepa) {
                 "X-HTTP-Method-Override": "POST"
             };
             const params = {
-                "id": $('#emp-iidd').val(),
+                "carnumber": $('#ve-iidd').val(),
                 "sday": $('#yearmonthsMoney2').val()
             };
             $.ajax({
@@ -1470,7 +1505,7 @@ function saveDeal(sepa) {
                 }
 
                 const asd = {
-                    "id": $('#emp-iidd').val(),
+                    "carnumber": $('#ve-iidd').val(),
                     "sday": $('#yearmonthsMoney2').val(),
                     "separation": $(ttdd[6]).text(),
                     "date": day,
@@ -1513,7 +1548,7 @@ function saveDeal(sepa) {
                 "X-HTTP-Method-Override": "POST"
             };
             const params = {
-                "id": $('#emp-iidd').val(),
+                "carnumber": $('#ve-iidd').val(),
                 "sday": $('#yearmonthsMoney2').val()
             };
             $.ajax({
@@ -1538,7 +1573,7 @@ function saveDeal(sepa) {
             let params = new Array();
 
             const ddday = {
-                "id": $('#emp-iidd').val(),
+                "carnumber": $('#ve-iidd').val(),
                 "sday": $('#yearmonthsMoney2').val(),
                 "separation": '관리비',
                 "date": null,
@@ -1586,7 +1621,7 @@ function saveDeal(sepa) {
                 }
 
                 const asd = {
-                    "id": $('#emp-iidd').val(),
+                    "carnumber": $('#ve-iidd').val(),
                     "sday": $('#yearmonthsMoney2').val(),
                     "separation": $(ttdd[6]).text(),
                     "date": day,

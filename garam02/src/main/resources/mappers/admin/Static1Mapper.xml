@@ -1342,8 +1342,8 @@
 
 		ON
 
-		personnaldealminus.id =
-		vehicleinfo.owner
+		personnaldealminus.carnumber =
+		vehicleinfo.carnumber
 
 		WHERE
 
@@ -1457,7 +1457,8 @@
 
 		IF((SELECT
 		regulardetail.rdconn FROM regulardetail
-		WHERE regulardetail.opercar =
+		WHERE
+		regulardetail.opercar =
 		vehicleinfo.carnumber) =
 		2,
 
@@ -2140,8 +2141,8 @@
 
 		ON
 
-		personnaldealminus.id =
-		vehicleinfo.owner
+		personnaldealminus.carnumber =
+		vehicleinfo.carnumber
 
 		WHERE
 

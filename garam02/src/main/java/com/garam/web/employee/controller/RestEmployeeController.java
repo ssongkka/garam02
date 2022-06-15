@@ -423,4 +423,19 @@ public class RestEmployeeController {
 
 		return list;
 	}
+
+	@PostMapping(value = "/upVeBaseM")
+	public int upVeBaseM(@RequestBody VehicleInfoDTO vehicleInfoDTO) throws Exception {
+
+		int rst = 0;
+		try {
+			rst = employeeService.updateVeBaseM(vehicleInfoDTO);
+		} catch (DataAccessException e) {
+			rst = -1;
+
+		} catch (Exception e) {
+			rst = -2;
+		}
+		return rst;
+	}
 }

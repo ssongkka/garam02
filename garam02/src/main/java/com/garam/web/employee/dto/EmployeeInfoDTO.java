@@ -101,6 +101,7 @@ public class EmployeeInfoDTO {
 	private String vehicle;
 
 	private String bus;
+	private String vebasem;
 
 	// 계약시작일
 	private String regstartd;
@@ -676,6 +677,14 @@ public class EmployeeInfoDTO {
 
 	public void setRct(String rct) {
 		this.rct = rct;
+	}
+
+	public String getVebasem() {
+		return vebasem;
+	}
+
+	public void setVebasem(String vebasem) {
+		this.vebasem = vebasem;
 	}
 
 }

@@ -912,7 +912,7 @@ function getEmpAllAllOper1(result) {
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "regopercar": $('#ve-iidd').val(),
+            "opercar": $('#ve-iidd').val(),
             "operconfirm": $('#yearmonthsMoney2').val()
         };
         $.ajax({
@@ -1158,7 +1158,7 @@ function getAllMList(result) {
                 toStringByFormatting(d).split('-')[1];
 
         const params = {
-            "id": $('#emp-iidd').val(),
+            "carnumber": $('#ve-iidd').val(),
             "date": $('#yearmonthsMoney2').val(),
             "datein": dddd
         };
@@ -1221,7 +1221,7 @@ function getEmpInMList(result) {
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "id": $('#emp-iidd').val(),
+            "carnumber": $('#ve-iidd').val(),
             "sday": $('#yearmonthsMoney2').val()
         };
         $.ajax({
@@ -1301,7 +1301,7 @@ function getEmpOutMList(result) {
             "X-HTTP-Method-Override": "POST"
         };
         const params = {
-            "id": $('#emp-iidd').val(),
+            "carnumber": $('#ve-iidd').val(),
             "sday": $('#yearmonthsMoney2').val()
         };
 
@@ -1439,10 +1439,6 @@ function getEmpBaseM(result) {
             dataType: "json",
             data: JSON.stringify(params),
             success: function (r) {
-
-                // if (parseInt(result[0]) < 1) {     if (r[0].basem) {
-                // $('#in-baseM').val(AddComma(r[0].basem));     } else { $('#in-baseM').val(0);
-                // } }
 
                 if (parseInt(result[1]) < 1) {
                     let htmls = '';
