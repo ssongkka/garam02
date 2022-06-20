@@ -14,6 +14,7 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas1
 
     function setDe(result) {
         return new Promise(function (resolve, reject) {
+
             $('#veStaticYearMonth').text(yearMonth);
 
             $('#veStaticVe').text(arrVe[1].substring(0, 5) + ' ' + arrVe[1].substring(5));
@@ -23,6 +24,15 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas1
             $('#veStaticRegD').text(
                 arrVe[5].split('-')[0] + "년 " + arrVe[5].split('-')[1] + "월 등록"
             );
+
+            let namename = '';
+            for (let i = 0; i < dbEmp.length; i++) {
+                if (arrVe[8] == dbEmp[i].id) {
+                    namename = dbEmp[i].name;
+                }
+            }
+
+            $('#veStaticPer').text(namename);
 
             $('#veStaticGas1').text(gas1);
             $('#veStaticGas2').text(gas2);
@@ -428,6 +438,10 @@ function setAdMDVeStatic(yearMonth, arrInM, arrOutM, allInM, allOutM, allM, gas1
                                     left: 0,
                                     right: 0,
                                     bottom: 0
+                                },
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
                                 }
                             }
                         },

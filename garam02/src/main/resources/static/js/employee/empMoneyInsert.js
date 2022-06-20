@@ -116,7 +116,7 @@ function getEmpAllM(name) {
                     if (r[i].kind == '회사' && r[i].trash == 0) {
                         cntOutman++;
 
-                        htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfoM(this.id)">';
+                        htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfoM(this)">';
                         htmlsOutman += '<td>'
                         htmlsOutman += '<span class="tr-emp">'
                         htmlsOutman += r[i].name;
@@ -152,7 +152,7 @@ function getEmpAllM(name) {
                     if (r[i].kind == '회사' && r[i].trash == 1) {
                         cntCompa++;
 
-                        htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfoM(this.id)">';
+                        htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfoM(this)">';
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span class="tr-emp">'
                         htmlsCompa += r[i].name;
@@ -214,7 +214,7 @@ function getEmpAllM(name) {
     })
 }
 
-function getEmpInfoM(id) {
+function getEmpInfoM(dom) {
     $('#mainoper-home-tab').attr("disabled", false);
     $('#operemp-profile-tab').attr("disabled", false);
     $('#moneyemp-profile-tab').attr("disabled", false);
@@ -222,8 +222,13 @@ function getEmpInfoM(id) {
 
     $('#insert-money').attr("disabled", false);
 
-    tbChoice(id);
-    $('#emp-iidd').val(id.split('cut')[0]);
+    tbChoice(dom);
+
+    const iiiddddd = $(dom)
+        .attr('id')
+        .split('cut')[0]
+
+    $('#emp-iidd').val(iiiddddd);
 
     LoadingWithMask()
         .then(getEmpDetailM)
@@ -258,7 +263,7 @@ function getEmpInfoM(id) {
             };
 
             const params = {
-                "id": id.split('cut')[0]
+                "id": $('#emp-iidd').val()
             };
 
             $.ajax({

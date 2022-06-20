@@ -1319,7 +1319,12 @@ function getEmpOutMList(result) {
                     for (let i = 0; i < r.length; i++) {
 
                         if (r[i].separation == '관리비') {
-                            $('#in-baseM').val(AddComma(r[i].money));
+                            console.log(r[i].money);
+                            if (r[i].money) {
+                                $('#in-baseM').val(AddComma(r[i].money));
+                            } else {
+                                $('#in-baseM').val(0);
+                            }
                             switch (r[i].strash) {
                                 case 0:
                                     $("#in-baseM").attr("disabled", true);

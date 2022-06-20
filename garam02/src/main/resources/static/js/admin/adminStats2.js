@@ -431,10 +431,19 @@ function getVeAllPer(compa) {
                                 css4 = ' style="color: rgb(207, 47, 17);"';
                             }
 
+                            let namename = '';
+                            for (let k = 0; k < dbEmp.length; k++) {
+                                if (r[i].owner == dbEmp[k].id) {
+                                    namename = dbEmp[k].name;
+                                }
+                            }
+
                             htmls += `
                         <tr class="vePerStatic">
                             <td class="carTd">` +
                                     r[i].vehicle2 +
+                                    `</td>
+                            <td class="carTd">` + namename +
                                     `</td>
                             <td class="td55">` + (
                                 parseInt(ilCnt) + parseInt(hakCnt) + parseInt(guCnt)
@@ -488,7 +497,9 @@ function getVeAllPer(compa) {
                                     `">
                             <input type="hidden" value="` + r[i].expire +
                                     `">
-                            input type="hidden" value="` + r[i].inday +
+                            <input type="hidden" value="` + r[i].inday +
+                                    `">
+                            <input type="hidden" value="` + r[i].owner +
                                     `">
                         </tr>`;
                         }
@@ -496,7 +507,7 @@ function getVeAllPer(compa) {
 
                     let htmlsFoot = `
                 <tr>
-                    <td class="carTd">평 균</td>
+                    <td class="carTd" colspan="2">평 균</td>
                     <td class="td55">` +
                             parseFloat(sum13 / contcnt).toFixed(1) +
                             `</td>
@@ -554,7 +565,7 @@ function getVeAllPer(compa) {
                             `</td>
                 </tr>
                 <tr>
-                    <td class="carTd">합 계</td>
+                    <td class="carTd" colspan="2">합 계</td>
                     <td class="td55">` +
                             AddComma(sum13) +
                             `</td>
@@ -1370,6 +1381,10 @@ function getVeAllPer(compa) {
                                     left: 0,
                                     right: 0,
                                     bottom: 0
+                                },
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
                                 }
                             }
                         },
@@ -1414,19 +1429,18 @@ $(document).on('click', '.vePerStatic', function () {
     let tmpArrAve = new Array();
 
     const aaa = $(this).children();
-    tmpArrAllo.push($(aaa[9]).text().replaceAll(',', ''));
-    tmpArrAllo.push($(aaa[11]).text().replaceAll(',', ''));
-    tmpArrAllo.push($(aaa[13]).text().replaceAll(',', ''));
+    tmpArrAllo.push($(aaa[10]).text().replaceAll(',', ''));
+    tmpArrAllo.push($(aaa[12]).text().replaceAll(',', ''));
+    tmpArrAllo.push($(aaa[14]).text().replaceAll(',', ''));
 
-    tmpArrAlloEarnM.push($(aaa[8]).text().replaceAll(',', ''));
-    tmpArrAlloEarnM.push($(aaa[10]).text().replaceAll(',', ''));
-    tmpArrAlloEarnM.push($(aaa[12]).text().replaceAll(',', ''));
-    tmpArrAlloEarnM.push($(aaa[14]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[9]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[11]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[13]).text().replaceAll(',', ''));
+    tmpArrAlloEarnM.push($(aaa[15]).text().replaceAll(',', ''));
 
-    tmpArrEarnM.push($(aaa[4]).text().replaceAll(',', ''));
     tmpArrEarnM.push($(aaa[5]).text().replaceAll(',', ''));
+    tmpArrEarnM.push($(aaa[6]).text().replaceAll(',', ''));
 
-    tmpArrVe.push($(aaa[15]).val());
     tmpArrVe.push($(aaa[16]).val());
     tmpArrVe.push($(aaa[17]).val());
     tmpArrVe.push($(aaa[18]).val());
@@ -1434,23 +1448,29 @@ $(document).on('click', '.vePerStatic', function () {
     tmpArrVe.push($(aaa[20]).val());
     tmpArrVe.push($(aaa[21]).val());
     tmpArrVe.push($(aaa[22]).val());
+    tmpArrVe.push($(aaa[23]).val());
+    tmpArrVe.push($(aaa[24]).val());
+
+    console.log(tmpArrVe);
 
     const bbb0 = $('#tfVeAllPer').children()[0];
     const bbb = $(bbb0).children();
 
     tmpArrAve.push(
-        (parseFloat($(aaa[1]).text().replaceAll(',', '')).toFixed(1) - parseFloat($(bbb[1]).text().replaceAll(',', '')).toFixed(1)).toFixed(1)
+        (parseFloat($(aaa[2]).text().replaceAll(',', '')).toFixed(1) - parseFloat($(bbb[2]).text().replaceAll(',', '')).toFixed(1)).toFixed(1)
     );
 
     tmpArrAve.push(
-        parseInt($(aaa[4]).text().replaceAll(',', '')) - parseInt($(bbb[4]).text().replaceAll(',', ''))
+        parseInt($(aaa[5]).text().replaceAll(',', '')) - parseInt($(bbb[5]).text().replaceAll(',', ''))
     );
     tmpArrAve.push(
-        parseInt($(aaa[6]).text().replaceAll(',', '')) - parseInt($(bbb[6]).text().replaceAll(',', ''))
+        parseInt($(aaa[7]).text().replaceAll(',', '')) - parseInt($(bbb[7]).text().replaceAll(',', ''))
     );
 
-    const jan1 = parseInt($($(aaa[7]).children()[0]).val().replaceAll(',', ''));
-    const jan2 = parseInt($(aaa[7]).text().replaceAll(',', ''));
+    console.log($($(aaa[8]).children()[0]).val());
+
+    const jan1 = parseInt($($(aaa[8]).children()[0]).val().replaceAll(',', ''));
+    const jan2 = parseInt($(aaa[8]).text().replaceAll(',', ''));
 
     tmpArrAve.push(jan2 - jan1);
 
@@ -1459,10 +1479,10 @@ $(document).on('click', '.vePerStatic', function () {
         tmpArrAllo,
         tmpArrAlloEarnM,
         tmpArrEarnM,
-        $(aaa[1]).text(),
-        $(aaa[4]).text(),
-        $(aaa[6]).text(),
+        $(aaa[2]).text(),
+        $(aaa[5]).text(),
         $(aaa[7]).text(),
+        $(aaa[8]).text(),
         tmpArrAve,
         tmpArrVe
     );

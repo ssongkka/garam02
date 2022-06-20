@@ -12,10 +12,12 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
         .then(setChart0)
         .then(setChart00)
         .then(getPerMdAlloList)
+        .then(getAllPerMList)
         .then(closeLoadingWithMask);
 
     function setDe(result) {
         return new Promise(function (resolve, reject) {
+            console.log(arrVe);
             $('#veStaticYearMonth').text(yearMonth);
 
             $('#veStaticVe').text(arrVe[1].substring(0, 5) + ' ' + arrVe[1].substring(5));
@@ -25,6 +27,15 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
             $('#veStaticRegD').text(
                 arrVe[5].split('-')[0] + "년 " + arrVe[5].split('-')[1] + "월 등록"
             );
+
+            let namename = '';
+            for (let i = 0; i < dbEmp.length; i++) {
+                if (arrVe[8] == dbEmp[i].id) {
+                    namename = dbEmp[i].name;
+                }
+            }
+
+            $('#veStaticPer').text(namename);
 
             $('#veStaticInM').text(allo);
             $('#veStaticOutM').text(alloM);
@@ -253,8 +264,6 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                 "X-HTTP-Method-Override": "POST"
             };
 
-            console.log(arrVe);
-
             const params = {
                 "fuel": $('#staticMonth')
                     .val()
@@ -272,8 +281,6 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
 
                 success: function (r) {
 
-                    console.log(r);
-
                     let tmpArr1 = new Array();
                     let tmpArr2 = new Array();
                     let tmpArr3 = new Array();
@@ -282,6 +289,8 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                     let tmpArr6 = new Array();
                     let tmpArr7 = new Array();
                     let tmpArr8 = new Array();
+                    let tmpArr9 = new Array();
+                    let tmpArr10 = new Array();
 
                     for (let i = 0; i < r.length; i++) {
                         let allNumM = 0;
@@ -355,9 +364,17 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                             allAltM = allAltM + parseInt(r[i].insusepapayment);
                         }
 
-                        let janM = NaN;
+                        let inininM = 0;
+                        let outoutM = 0;
+                        let janM = 0;
                         if (r[i].phone1) {
                             janM = r[i].phone1;
+                            inininM = r[i].veaccdate;
+                            outoutM = r[i].veacctime;
+                        } else {
+                            inininM = NaN;
+                            outoutM = NaN;
+                            janM = NaN;
                         }
 
                         if (manegeM == 0 && ilCnt == 0 && hakCnt == 0 && guCnt == 0) {
@@ -379,6 +396,8 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                         }
 
                         tmpArr8.push(janM);
+                        tmpArr9.push(inininM);
+                        tmpArr10.push(outoutM);
                     }
 
                     let tmp = new Array();
@@ -391,6 +410,8 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                     tmp.push(tmpArr6);
                     tmp.push(tmpArr7);
                     tmp.push(tmpArr8);
+                    tmp.push(tmpArr9);
+                    tmp.push(tmpArr10);
 
                     resolve(tmp);
                 },
@@ -423,8 +444,11 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                     {
                         type: 'line',
                         label: '운행횟수',
-                        backgroundColor: 'rgba(112, 173, 71, 0.2)',
-                        borderColor: 'rgba(112, 173, 71, 1)',
+                        backgroundColor: 'rgba(112, 103, 145, 0.2)',
+                        borderColor: 'rgba(112, 103, 145, 1)',
+                        borderDash: [
+                            5, 5
+                        ],
                         data: result[6],
                         pointRadius: 3,
                         pointHoverRadius: 6,
@@ -512,6 +536,10 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                                     left: 0,
                                     right: 0,
                                     bottom: 0
+                                },
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
                                 }
                             }
                         },
@@ -578,9 +606,25 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                     {
                         type: 'line',
                         label: '잔액',
-                        backgroundColor: 'rgba(112, 173, 71, 0.2)',
-                        borderColor: 'rgba(112, 173, 71, 1)',
+                        backgroundColor: 'rgba(240, 117, 122, 0.2)',
+                        borderColor: 'rgba(240, 117, 122, 1)',
                         data: result[7],
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }, {
+                        type: 'bar',
+                        label: '입금',
+                        backgroundColor: '#5DBAF0',
+                        borderColor: '#5DBAF0',
+                        data: result[8],
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }, {
+                        type: 'bar',
+                        label: '출금',
+                        backgroundColor: '#F0EE8D',
+                        borderColor: '#F0EE8D',
+                        data: result[9],
                         pointRadius: 3,
                         pointHoverRadius: 6
                     }
@@ -591,13 +635,8 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                 data: data,
                 options: {
                     responsive: false,
-                    animations: {
-                        radius: {
-                            duration: 400,
-                            easing: 'linear',
-                            loop: (context) => context.active
-                        }
-                    },
+                    // animations: {     radius: {         duration: 400,         easing: 'linear',
+                    // loop: (context) => context.active     } },
                     interaction: {
                         mode: 'index',
                         intersect: false
@@ -614,6 +653,10 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                                     left: 0,
                                     right: 0,
                                     bottom: 0
+                                },
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
                                 }
                             }
                         },
@@ -758,10 +801,62 @@ function setAdMDVeStaticPer(yearMonth, arrAllo, arrAlloM, arrEarn, allo, alloM, 
                 dataType: "json",
                 data: JSON.stringify(params),
                 success: function (r) {
+                    let htmls = ``;
+                    let htmlsFt = ``;
 
-
+                    let inMMM = 0;
+                    let outMMM = 0;
                     if (r.length > 0) {
-                    } 
+                        for (let i = r.length - 1; i >= 0; i--) {
+                            inMMM = inMMM + parseInt(r[i].inm);
+                            outMMM = outMMM + parseInt(r[i].outm);
+
+                            let css = '';
+                            if (parseInt(r[i].janm) < 0) {
+                                css = ' style="color: rgb(207, 47, 17);"'
+                            }
+
+                            htmls += `
+                            <tr>
+                                <td>` + r[i].date +
+                                    `</td>
+                                <td class="tdRight">` + AddComma(
+                                r[i].inm
+                            ) +
+                                    `</td>
+                                <td class="tdRight">` + AddComma(
+                                r[i].outm
+                            ) +
+                                    `</td>
+                                <td class="tdRight" ` + css + `>` +
+                                    AddComma(r[i].janm) +
+                                    `</td>
+                            </tr>`;
+                        }
+
+                        const sumJan = inMMM - outMMM;
+
+                        let css1 = '';
+                        if (parseInt(sumJan) < 0) {
+                            css1 = ' style="color: rgb(207, 47, 17);"'
+                        }
+
+                        htmlsFt = `
+                        <tr>
+                            <td>합계</td>
+                            <td class="tdRight">` +
+                                AddComma(inMMM) +
+                                `</td>
+                            <td class="tdRight">` + AddComma(outMMM) +
+                                `</td>
+                            <td class="tdRight" ` + css1 + `>` +
+                                AddComma(inMMM - outMMM) +
+                                `</td>
+                        </tr>`;
+                    }
+
+                    $('#tbStPerDealMd').html(htmls);
+                    $('#tfStPerDealMd').html(htmlsFt);
 
                     resolve();
                 },

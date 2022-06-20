@@ -1272,8 +1272,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<EmployeeInfoDTO> selectDealVe() throws Exception {
-		List<EmployeeInfoDTO> list = employeeMapper.selectDealVe();
+	public List<EmployeeInfoDTO> selectDealVe(EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<EmployeeInfoDTO> list = employeeMapper.selectDealVe(employeeInfoDTO);
 
 		return list;
 	}

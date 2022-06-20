@@ -112,14 +112,18 @@ function getEmpAllM(name) {
 
                 for (let i = 0; i < r.length; i++) {
 
+                    let na = '';
+                    for (let o = 0; o < dbEmp.length; o++) {
+                        if (dbEmp[o].id == r[i].coconum) {
+                            na = dbEmp[o].name;
+                        }
+                    }
+
                     if (r[i].trash == 0) {
                         cntOutman++;
 
                         htmlsOutman += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfoM(this)">';
                         if (r[i].vehicle) {
-                            htmlsOutman += '<input type="hidden" value="' + r[i].carnumber + '">'
-                            htmlsOutman += '<input type="hidden" value="' + r[i].id + '">'
-                            htmlsOutman += '<input type="hidden" value="' + r[i].vebasem + '">'
                             htmlsOutman += '<td>'
                             htmlsOutman += '<span class="tr-ve">'
                             htmlsOutman += r[i]
@@ -135,13 +139,13 @@ function getEmpAllM(name) {
                         }
                         htmlsOutman += '<td>'
                         htmlsOutman += '<span class="tr-emp">'
-                        htmlsOutman += r[i].name;
+                        htmlsOutman += na;
                         htmlsOutman += '</span>'
                         htmlsOutman += '</td>'
-                        if (r[i].kind) {
+                        if (r[i].name) {
                             htmlsOutman += '<td>'
                             htmlsOutman += '<span>'
-                            htmlsOutman += r[i].kind;
+                            htmlsOutman += r[i].name;
                             htmlsOutman += '</span>'
                             htmlsOutman += '</td>'
                         } else {
@@ -163,6 +167,10 @@ function getEmpAllM(name) {
                             htmlsOutman += '</span>'
                             htmlsOutman += '</td>'
                         }
+                        htmlsOutman += '<input type="hidden" value="' + r[i].carnumber + '">'
+                        htmlsOutman += '<input type="hidden" value="' + r[i].id + '">'
+                        htmlsOutman += '<input type="hidden" value="' + r[i].vebasem + '">'
+                        htmlsOutman += '<input type="hidden" value="' + r[i].coconum + '">'
                         htmlsOutman += '</tr>'
                     }
 
@@ -171,9 +179,6 @@ function getEmpAllM(name) {
 
                         htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfoM(this)">';
                         if (r[i].vehicle) {
-                            htmlsSolo += '<input type="hidden" value="' + r[i].carnumber + '">'
-                            htmlsSolo += '<input type="hidden" value="' + r[i].id + '">'
-                            htmlsSolo += '<input type="hidden" value="' + r[i].vebasem + '">'
                             htmlsSolo += '<td>'
                             htmlsSolo += '<span class="tr-ve">'
                             htmlsSolo += r[i]
@@ -189,13 +194,13 @@ function getEmpAllM(name) {
                         }
                         htmlsSolo += '<td>'
                         htmlsSolo += '<span class="tr-emp">'
-                        htmlsSolo += r[i].name;
+                        htmlsSolo += na;
                         htmlsSolo += '</span>'
                         htmlsSolo += '</td>'
-                        if (r[i].kind) {
+                        if (r[i].name) {
                             htmlsSolo += '<td>'
                             htmlsSolo += '<span>'
-                            htmlsSolo += r[i].kind;
+                            htmlsSolo += r[i].name;
                             htmlsSolo += '</span>'
                             htmlsSolo += '</td>'
                         } else {
@@ -217,6 +222,10 @@ function getEmpAllM(name) {
                             htmlsSolo += '</span>'
                             htmlsSolo += '</td>'
                         }
+                        htmlsSolo += '<input type="hidden" value="' + r[i].carnumber + '">'
+                        htmlsSolo += '<input type="hidden" value="' + r[i].id + '">'
+                        htmlsSolo += '<input type="hidden" value="' + r[i].vebasem + '">'
+                        htmlsSolo += '<input type="hidden" value="' + r[i].coconum + '">'
                         htmlsSolo += '</tr>'
                     }
                 }
@@ -243,19 +252,18 @@ function getEmpInfoM(dom) {
     $('#insert-money').attr("disabled", false);
 
     const aaa = $(dom).children();
-    const idid = $(aaa[1]).val();
-    const carnnn = $(aaa[0]).val();
-    const vebasem = $(aaa[2]).val();
+    const carnnn = $(aaa[4]).val();
+    const idid = $(aaa[5]).val();
+    const vebasem = $(aaa[6]).val();
+    const ownerner = $(aaa[7]).val();
 
-    tbChoice($(dom).attr('id'));
+    tbChoice(dom);
+
     $('#emp-iidd').val(idid);
+    $('#emp-owner').val(ownerner);
     $('#ve-iidd').val(carnnn);
 
-    if (vebasem) {
-        $('#in-baseM').val(AddComma(vebasem));
-    } else {
-        $('#in-baseM').val(0);
-    }
+    $('#in-baseM').val(AddComma(vebasem));
 
     LoadingWithMask()
         .then(getEmpDetailM)
@@ -315,8 +323,15 @@ function getEmpInfoM(dom) {
                         $('#m-carn').val('');
                     }
 
+                    let na = '';
+                    for (let o = 0; o < dbEmp.length; o++) {
+                        if (dbEmp[o].id == $('#emp-owner').val()) {
+                            na = dbEmp[o].name;
+                        }
+                    }
+
                     if (r[0].name) {
-                        $('#m-name').html('<span>' + r[0].name + '</span>');
+                        $('#m-name').html('<span>' + r[0].name + '(' + na + ')</span>');
                     } else {
                         $('#m-name').html('<span></span>');
                     }
@@ -1289,7 +1304,7 @@ function saveDeal(sepa) {
             }
 
             const params = {
-                "id": $('#emp-iidd').val(),
+                "id": $('#emp-owner').val(),
                 "carnumber": carnnn,
                 "date": $('#yearmonthsMoney2').val(),
                 "per": per,

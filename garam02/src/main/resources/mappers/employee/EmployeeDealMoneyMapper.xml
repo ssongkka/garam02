@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.garam.web.employee.mapper.EmployeeMapper">
 
-	<select id="selectDealVe" resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
+	<select id="selectDealVe" parameterType="com.garam.web.employee.dto.EmployeeInfoDTO"
+		resultType="com.garam.web.employee.dto.EmployeeInfoDTO">
 
 		(SELECT
 
 		vehicleinfo.*,
-		employeeinfo.*
+		employeeinfo.*,
+		vehicleinfo.owner AS coconum
 
 		FROM
 
@@ -29,9 +31,11 @@
 
 		vehicleinfo.id = employeeinfo.id
 
-		WHERE
-
-		operation_info.opercom != vehicleinfo.company
+		<where>
+			operation_info.opercom != vehicleinfo.company
+			<if test="name != null">AND (employeeinfo.name Like CONCAT('%',#{name},'%') </if>
+			<if test="name != null">OR vehicleinfo.vehicle Like CONCAT('%',#{name},'%')) </if>
+		</where>
 
 		GROUP BY
 
@@ -42,7 +46,8 @@
 		(SELECT
 
 		vehicleinfo.*,
-		employeeinfo.*
+		employeeinfo.*,
+		vehicleinfo.owner AS coconum
 
 		FROM
 
@@ -54,11 +59,15 @@
 
 		ON
 
-		vehicleinfo.id = employeeinfo.id
+		vehicleinfo.id =
+		employeeinfo.id
 
-		WHERE
+		<where>
+			vehicleinfo.company != vehicleinfo.owner
+			<if test="name != null">AND (employeeinfo.name Like CONCAT('%',#{name},'%') </if>
+			<if test="name != null">OR vehicleinfo.vehicle Like CONCAT('%',#{name},'%')) </if>
+		</where>
 
-		vehicleinfo.company != vehicleinfo.owner
 		)
 
 	</select>
@@ -141,15 +150,24 @@
 		personnaldeal
 
 		<where>
-			personnaldeal.carnumber = #{carnumber}
+			<if test="carnumber != null"> AND
+				personnaldeal.carnumber = #{carnumber}
+			</if>
+
+			<if test="id != null"> AND
+				personnaldeal.id = #{id}
+			</if>
 
 			<if test="datein != null"> AND
-
-				personnaldeal.date = #{datein})
-
+				personnaldeal.date = #{datein}
 			</if>
 
 		</where>
+
+		ORDER BY
+
+		personnaldeal.date
+		)
 
 		UNION
 
@@ -162,17 +180,26 @@
 		personnaldeal
 
 		<where>
-			personnaldeal.carnumber = #{carnumber}
+			<if test="carnumber != null"> AND
+				personnaldeal.carnumber = #{carnumber}
+			</if>
+
+			<if test="id != null"> AND
+				personnaldeal.id = #{id}
+			</if>
 
 			<if test="date != null"> AND
 
-				personnaldeal.date = #{date})
+				personnaldeal.date = #{date}
 
 			</if>
 
 		</where>
 
+		ORDER BY
 
+		personnaldeal.date
+		)
 	</select>
 
 	<delete id="delDealInM" parameterType="com.garam.web.employee.dto.Empsalary">

@@ -112,7 +112,7 @@ public interface EmployeeService {
 
 	public int insertDealAllMoney(EmpsalaryAll empsalaryAll) throws Exception;
 
-	public List<EmployeeInfoDTO> selectDealVe() throws Exception;
-	
+	public List<EmployeeInfoDTO> selectDealVe(EmployeeInfoDTO employeeInfoDTO) throws Exception;
+
 	public int updateVeBaseM(VehicleInfoDTO vehicleInfoDTO) throws Exception;
 }

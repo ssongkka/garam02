@@ -106,8 +106,8 @@ function getVeAll(vehicle) {
                 for (let i = 0; i < r.length; i++) {
                     if (parseInt(r[i].trash) == 1) {
                         cnt++;
-                        htmls += '<tr id="' + r[i].carnumber + 'cut" onclick="getVeInfo(this.id)" style="cursor:' +
-                                'pointer;">';
+                        htmls += '<tr id="' + r[i].carnumber + 'cut" onclick="getVeInfo(this)" style="cursor:poi' +
+                                'nter;">';
                         htmls += '<td>'
                         htmls += '<span class="tr-ve">'
                         htmls += r[i].vehicle2;
@@ -166,8 +166,8 @@ function getVeAll(vehicle) {
 
                     if (parseInt(r[i].trash) == 0) {
                         cntEnd++;
-                        htmlsEnd += '<tr id="' + r[i].carnumber + 'cutEnd" onclick="getVeInfo(this.id)" style="curs' +
-                                'or:pointer;">';
+                        htmlsEnd += '<tr id="' + r[i].carnumber + 'cutEnd" onclick="getVeInfo(this)" style="cursor:' +
+                                'pointer;">';
                         htmlsEnd += '<td>'
                         htmlsEnd += '<span class="tr-ve">'
                         htmlsEnd += r[i].vehicle2;
@@ -214,8 +214,8 @@ function getVeAll(vehicle) {
 
                     if (r[i].bus == '대형' && parseInt(r[i].trash) == 1) {
                         cntDae++;
-                        htmlsDae += '<tr id="' + r[i].carnumber + 'cutDae" onclick="getVeInfo(this.id)" style="curs' +
-                                'or:pointer;">';
+                        htmlsDae += '<tr id="' + r[i].carnumber + 'cutDae" onclick="getVeInfo(this)" style="cursor:' +
+                                'pointer;">';
                         htmlsDae += '<td>'
                         htmlsDae += '<span class="tr-ve">'
                         htmlsDae += r[i].vehicle2;
@@ -273,8 +273,8 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].bus == '중형' && parseInt(r[i].trash) == 1) {
                         cntJung++;
-                        htmlsJung += '<tr id="' + r[i].carnumber + 'cutJung" onclick="getVeInfo(this.id)" style="cur' +
-                                'sor:pointer;">';
+                        htmlsJung += '<tr id="' + r[i].carnumber + 'cutJung" onclick="getVeInfo(this)" style="cursor' +
+                                ':pointer;">';
                         htmlsJung += '<td>'
                         htmlsJung += '<span class="tr-ve">'
                         htmlsJung += r[i].vehicle2;
@@ -332,8 +332,8 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].bus == '우등' && parseInt(r[i].trash) == 1) {
                         cntUdong++;
-                        htmlsUdong += '<tr id="' + r[i].carnumber + 'cutUdong" onclick="getVeInfo(this.id)" style="cu' +
-                                'rsor:pointer;">';
+                        htmlsUdong += '<tr id="' + r[i].carnumber + 'cutUdong" onclick="getVeInfo(this)" style="curso' +
+                                'r:pointer;">';
                         htmlsUdong += '<td>'
                         htmlsUdong += '<span class="tr-ve">'
                         htmlsUdong += r[i].vehicle2;
@@ -391,8 +391,8 @@ function getVeAll(vehicle) {
                     }
                     if (r[i].company == r[i].owner && parseInt(r[i].trash) == 1) {
                         cntCompa++;
-                        htmlsCompa += '<tr id="' + r[i].carnumber + 'cutCompa" onclick="getVeInfo(this.id)" style="cu' +
-                                'rsor:pointer;">';
+                        htmlsCompa += '<tr id="' + r[i].carnumber + 'cutCompa" onclick="getVeInfo(this)" style="curso' +
+                                'r:pointer;">';
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span class="tr-ve">'
                         htmlsCompa += r[i].vehicle2;
@@ -451,8 +451,8 @@ function getVeAll(vehicle) {
                     if (r[i].company != r[i].owner && parseInt(r[i].trash) == 1) {
 
                         cntGae++;
-                        htmlsGae += '<tr id="' + r[i].carnumber + 'cutGae" onclick="getVeInfo(this.id)" style="curs' +
-                                'or:pointer;">';
+                        htmlsGae += '<tr id="' + r[i].carnumber + 'cutGae" onclick="getVeInfo(this)" style="cursor:' +
+                                'pointer;">';
                         htmlsGae += '<td>'
                         htmlsGae += '<span class="tr-ve">'
                         htmlsGae += r[i].vehicle2;
@@ -534,7 +534,7 @@ function getVeAll(vehicle) {
     })
 }
 
-function getVeInfo(carnumber) {
+function getVeInfo(dom) {
 
     $('#veTitleHome').attr("disabled", false);
     $('#veTitleOper').attr("disabled", false);
@@ -588,7 +588,7 @@ function getVeInfo(carnumber) {
 
     function get(result) {
         return new Promise(function (resolve, reject) {
-            tbChoice(carnumber);
+            tbChoice(dom);
 
             const url = "/ve/vedetail";
             const headers = {
@@ -596,7 +596,9 @@ function getVeInfo(carnumber) {
                 "X-HTTP-Method-Override": "POST"
             };
             const params = {
-                "carnumber": carnumber.split('cut')[0]
+                "carnumber": $(dom)
+                    .attr('id')
+                    .split('cut')[0]
             };
             $.ajax({
                 url: url,

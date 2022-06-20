@@ -63,8 +63,8 @@ function getEmpAll(name) {
                     if (r[i].trash == 1) {
                         cnt++;
 
-                        htmls += '<tr id="' + r[i].id + 'cut" onclick="getEmpInfo(this.id)" style="cursor:pointe' +
-                                'r;">';
+                        htmls += '<tr id="' + r[i].id +
+                                'cut" onclick="getEmpInfo(this)" style="cursor:pointer;">';
                         htmls += '<td>'
                         htmls += '<span class="tr-emp">'
                         htmls += r[i].name;
@@ -141,8 +141,8 @@ function getEmpAll(name) {
                     if (r[i].trash == 0) {
                         cntOutman++;
 
-                        htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfo(this.id)" style="cursor:' +
-                                'pointer;">';
+                        htmlsOutman += '<tr id="' + r[i].id + 'cutOutman" onclick="getEmpInfo(this)" style="cursor:poi' +
+                                'nter;">';
                         htmlsOutman += '<td>'
                         htmlsOutman += '<span class="tr-emp">'
                         htmlsOutman += r[i].name;
@@ -190,8 +190,8 @@ function getEmpAll(name) {
                     if (r[i].kind == '회사' && r[i].trash == 1) {
                         cntCompa++;
 
-                        htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfo(this.id)" style="cursor:p' +
-                                'ointer;">';
+                        htmlsCompa += '<tr id="' + r[i].id + 'cutCompa" onclick="getEmpInfo(this)" style="cursor:poin' +
+                                'ter;">';
                         htmlsCompa += '<td>'
                         htmlsCompa += '<span class="tr-emp">'
                         htmlsCompa += r[i].name;
@@ -267,8 +267,8 @@ function getEmpAll(name) {
                     if (r[i].kind == '개인' && r[i].trash == 1) {
                         cntSolo++;
 
-                        htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfo(this.id)" style="cursor:po' +
-                                'inter;">';
+                        htmlsSolo += '<tr id="' + r[i].id + 'cutSolo" onclick="getEmpInfo(this)" style="cursor:point' +
+                                'er;">';
                         htmlsSolo += '<td>'
                         htmlsSolo += '<span class="tr-emp">'
                         htmlsSolo += r[i].name;
@@ -344,8 +344,8 @@ function getEmpAll(name) {
                     if (r[i].kind == '예비' && r[i].trash == 1) {
                         cntYeb++;
 
-                        htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfo(this.id)" style="cursor:poi' +
-                                'nter;">';
+                        htmlsYeb += '<tr id="' + r[i].id + 'cutYeb" onclick="getEmpInfo(this)" style="cursor:pointe' +
+                                'r;">';
                         htmlsYeb += '<td>'
                         htmlsYeb += '<span class="tr-emp">'
                         htmlsYeb += r[i].name;
@@ -410,7 +410,7 @@ function getEmpAll(name) {
     })
 }
 
-function getEmpInfo(id) {
+function getEmpInfo(dom) {
     $('#mainoper-home-tab').attr("disabled", false);
     $('#operemp-profile-tab').attr("disabled", false);
     $('#moneyemp-profile-tab').attr("disabled", false);
@@ -418,8 +418,13 @@ function getEmpInfo(id) {
 
     $('#insert-money').attr("disabled", false);
 
-    tbChoice(id);
-    $('#emp-iidd').val(id.split('cut')[0]);
+    tbChoice(dom);
+
+    const iiiddddd = $(dom)
+        .attr('id')
+        .split('cut')[0]
+
+    $('#emp-iidd').val(iiiddddd);
 
     if ($('#empMoney').css('display') === 'block') {
         LoadingWithMask()
@@ -480,7 +485,7 @@ function getEmpInfo(id) {
             };
 
             const params = {
-                "id": id.split('cut')[0]
+                "id": $('#emp-iidd').val()
             };
 
             $.ajax({
@@ -659,6 +664,7 @@ function getEmpInfo(id) {
                         $('#empPic').attr('src', 'img/employee/emp.png');
                         $('#empPic-a').attr('href', 'img/employee/emp.png');
                     }
+
                     resolve();
                 },
                 error: (jqXHR) => {
@@ -1288,6 +1294,7 @@ function makeEmpMoney() {
 
     LoadingWithMask()
         .then(getEmpOper)
+        .then(getEmpOper1)
         .then(closeLoadingWithMask);
 
     function getEmpOper() {
@@ -1312,6 +1319,13 @@ function makeEmpMoney() {
 
                 success: function (r) {
                     let htmls = ``;
+                    let htmlsFt = ``;
+
+                    let sum1 = 0;
+                    let sum2 = 0;
+                    let sum3 = 0;
+                    let sum4 = 0;
+                    let sum5 = 0;
 
                     for (let i = 0; i < r.length; i++) {
 
@@ -1321,9 +1335,26 @@ function makeEmpMoney() {
                             .date
                             .split('-')[1] + "월";
 
+                        let carNNN = '';
+                        for (let k = 0; k < dbVe.length; k++) {
+                            if (r[i].carnumber == dbVe[k].carnumber) {
+                                carNNN = dbVe[k]
+                                    .vehicle
+                                    .substring(dbVe[k].vehicle.length - 4);
+                            }
+                        }
+
+                        sum1 = sum1 + parseInt(r[i].opercnt);
+                        sum2 = sum2 + parseInt(r[i].opermoney);
+                        sum3 = sum3 + parseInt(r[i].inm);
+                        sum4 = sum4 + parseInt(r[i].outm);
+                        sum5 = sum5 + (parseInt(r[i].inm) - parseInt(r[i].outm));
+
                         htmls += `
                     <tr>
                         <td>` + yeammm +
+                                `</td>
+                        <td>` + carNNN +
                                 `</td>
                         <td class="tdRight">` + AddComma(
                             parseInt(r[i].inm) - parseInt(r[i].outm)
@@ -1339,7 +1370,128 @@ function makeEmpMoney() {
                     </tr>`;
                     }
 
+                    htmlsFt += `
+                    <tr>
+                        <td colspan="2">합 계</td>
+                        <td class="tdRight">` +
+                            AddComma(sum5) +
+                            `</td>
+                        <td>` + parseInt(sum1) + '회' +
+                            `</td>
+                        <td class="tdRight">` + AddComma(sum2) +
+                            `</td>
+                        <td class="tdRight">` + AddComma(sum3) +
+                            `</td>
+                        <td class="tdRight">` + AddComma(sum4) +
+                            `</td>
+                    </tr>`;
+
                     $('#empMoneyTb').html(htmls);
+                    $('#empMoneyTF').html(htmlsFt);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+            resolve();
+        })
+    }
+
+    function getEmpOper1() {
+        return new Promise(function (resolve, reject) {
+            const url = "/emp/empDealAllMList";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "id": $('#emp-iidd').val()
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+
+                    let htmls = ``;
+                    let htmlsFt = ``;
+
+                    let sum1 = 0;
+                    let sum2 = 0;
+                    let sum3 = 0;
+                    let sum4 = 0;
+
+                    for (let i = r.length - 1; i >= 0; i--) {
+
+                        const yeammm = r[i]
+                            .date
+                            .split('-')[0] + "년 " + r[i]
+                            .date
+                            .split('-')[1] + "월";
+
+                        const moneySize = parseInt(r[i].inm) - parseInt(r[i].outm);
+                        let css = '';
+                        if (moneySize < 0) {
+                            css = ' style="color: rgb(207, 47, 17);"'
+                        }
+
+                        let carNNN = '';
+                        for (let k = 0; k < dbVe.length; k++) {
+                            if (r[i].carnumber == dbVe[k].carnumber) {
+                                carNNN = dbVe[k]
+                                    .vehicle
+                                    .substring(dbVe[k].vehicle.length - 4);
+                            }
+                        }
+
+                        sum1 = sum1 + parseInt(r[i].opercnt);
+                        sum2 = sum2 + parseInt(r[i].opermoney);
+                        sum3 = sum3 + parseInt(r[i].inm);
+                        sum4 = sum4 + parseInt(r[i].outm);
+
+                        htmls += `
+                    <tr>
+                        <td>` + yeammm +
+                                `</td>
+                        <td>` + carNNN +
+                                `</td>
+                        <td class="tdRight" ` + css + `>` +
+                                AddComma(parseInt(r[i].janm)) +
+                                `</td>
+                        <td>` + r[i].opercnt + '회' +
+                                `</td>
+                        <td class="tdRight">` + AddComma(r[i].opermoney) +
+                                `</td>
+                        <td class="tdRight">` + AddComma(r[i].inm) +
+                                `</td>
+                        <td class="tdRight">` + AddComma(r[i].outm) +
+                                `</td>
+                    </tr>`;
+                    }
+                    htmlsFt += `
+                    <tr>
+                        <td colspan="2">합 계</td>
+                        <td class="tdRight">` +
+                            AddComma(parseInt(sum3) - parseInt(sum4)) +
+                            `</td>
+                        <td>` + parseInt(sum1) + '회' +
+                            `</td>
+                        <td class="tdRight">` + AddComma(sum2) +
+                            `</td>
+                        <td class="tdRight">` + AddComma(sum3) +
+                            `</td>
+                        <td class="tdRight">` + AddComma(sum4) +
+                            `</td>
+                    </tr>`;
+
+                    $('#empMoneyPerTb').html(htmls);
+                    $('#empMoneyPerTF').html(htmlsFt);
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);

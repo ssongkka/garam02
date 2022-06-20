@@ -418,8 +418,8 @@ public class RestEmployeeController {
 	}
 
 	@PostMapping(value = "/empDealList")
-	public List<EmployeeInfoDTO> empDealList() throws Exception {
-		List<EmployeeInfoDTO> list = employeeService.selectDealVe();
+	public List<EmployeeInfoDTO> empDealList(@RequestBody EmployeeInfoDTO employeeInfoDTO) throws Exception {
+		List<EmployeeInfoDTO> list = employeeService.selectDealVe(employeeInfoDTO);
 
 		return list;
 	}

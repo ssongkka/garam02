@@ -31,6 +31,9 @@ $(document).on('click', '#pills-home3-tab', function () {
 $(document).on('click', '#pills-manage-tab', function () {
     goUrl('/dashboardmanage');
 });
+$(document).on('click', '#pills-reg-tab', function () {
+    window.open('/regular/regularAllo', '정기운행배차');
+});
 $(document).on('click', '#pills-allo-tab', function () {
     goUrl('/dashboardallo');
 });
@@ -1804,14 +1807,14 @@ function updateImg(source, id) {
     setTimeout(updateImg, 1000);
 }
 
-function tbChoice(id) {
+function tbChoice(dom) {
     $('td').css('background', 'none');
     $('td').css('color', 'black');
 
-    $('#' + id)
+    $(dom)
         .children('td')
         .css('background', 'var(--main-color)');
-    $('#' + id)
+    $(dom)
         .children('td')
         .css('color', 'var(--sub-color)');
 }

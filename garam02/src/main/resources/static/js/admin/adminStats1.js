@@ -444,6 +444,8 @@ function getVeAllCompa(compa) {
                                     `">
                         <input type="hidden" value="` + r[i].inday +
                                     `">
+                        <input type="hidden" value="` + r[i].id +
+                                    `">
                     </tr>`;
 
                             sum1 = sum1 + parseInt(String(sss).replaceAll(',', ''));
@@ -1249,6 +1251,10 @@ function getVeAllCompa(compa) {
                                     left: 0,
                                     right: 0,
                                     bottom: 0
+                                },
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
                                 }
                             }
                         },
@@ -1311,6 +1317,7 @@ $(document).on('click', '.veCompaStatic', function () {
     tmpArrVe.push($(aaa[24]).val());
     tmpArrVe.push($(aaa[25]).val());
     tmpArrVe.push($(aaa[26]).val());
+    tmpArrVe.push($(aaa[27]).val());
 
     const bbb0 = $('#tfVeAllCompa').children()[0];
     const bbb = $(bbb0).children();

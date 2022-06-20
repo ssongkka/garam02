@@ -48,6 +48,12 @@ public class AdminController {
 		List<CompanyDTO> compa = companyService.selectCompany();
 		model.addAttribute("compa", compa);
 
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
+
 		return "admin/adminSign";
 	}
 
@@ -63,6 +69,12 @@ public class AdminController {
 		List<CompanyDTO> compa = companyService.selectCompany();
 		model.addAttribute("compa", compa);
 
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
+
 		return "admin/adminStats1";
 	}
 
@@ -72,6 +84,12 @@ public class AdminController {
 
 		List<CompanyDTO> compa = companyService.selectCompany();
 		model.addAttribute("compa", compa);
+
+		List<EmployeeInfoDTO> emp = employeeService.selectEmpNameList();
+		model.addAttribute("emp", emp);
+
+		List<VehicleInfoDTO> ve = vehicleService.selectVeNameList();
+		model.addAttribute("ve", ve);
 
 		return "admin/adminStats2";
 	}

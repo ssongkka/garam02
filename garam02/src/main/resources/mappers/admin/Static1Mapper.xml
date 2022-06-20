@@ -1352,7 +1352,8 @@
 
 		AND
 
-		personnaldealminus.sday = #{fuel}
+		personnaldealminus.sday =
+		#{fuel}
 
 		AND
 
@@ -2129,6 +2130,41 @@
 
 		(SELECT
 
+		personnaldeal.inm
+
+		FROM
+
+		personnaldeal
+
+		WHERE
+
+		personnaldeal.carnumber = loanbank
+
+		AND
+
+		personnaldeal.date = #{fuel}) AS
+		veaccdate,
+
+		(SELECT
+
+		personnaldeal.outm
+
+		FROM
+
+		personnaldeal
+
+		WHERE
+
+		personnaldeal.carnumber = loanbank
+
+		AND
+
+		personnaldeal.date =
+		#{fuel}) AS
+		veacctime,
+
+		(SELECT
+
 		SUM(personnaldealminus.money)
 
 		FROM
@@ -2151,7 +2187,8 @@
 
 		AND
 
-		personnaldealminus.sday = #{fuel}
+		personnaldealminus.sday =
+		#{fuel}
 
 		AND
 
@@ -2256,7 +2293,8 @@
 
 		IF((SELECT
 		regulardetail.rdconn FROM regulardetail
-		WHERE regulardetail.opercar =
+		WHERE
+		regulardetail.opercar =
 		vehicleinfo.carnumber) =
 		2,
 
