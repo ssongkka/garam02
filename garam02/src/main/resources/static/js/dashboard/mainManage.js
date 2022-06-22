@@ -14,7 +14,8 @@ function makeManage() {
     const params = {
         "stday": day,
         "endday": day,
-        "rsvttrash": 1
+        "rsvttrash": 1,
+        "stt": 'stt'
     };
 
     $.ajax({

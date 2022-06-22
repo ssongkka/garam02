@@ -431,7 +431,7 @@ function makeModalIl(dday, cctono, rsvt) {
                                         .parent()
                                         .html(`<i class="fa-solid fa-check" style="color: green;"></i>`);
 
-                                    $(aa).attr('data-bs-original-title', '급여 마감된 배차');
+                                    $(aa).attr('data-bs-original-title', '마감된 배차');
                                 }
 
                                 $('div[name="allTitle"]').each(function () {
@@ -860,14 +860,14 @@ $(document).on('click', '#alloMdbtnPapper', function () {
 
     function show01() {
         return new Promise(function (resolve, reject) {
-            $('#paperTitle').text(name + ' ' + tel + ' ' + $('#alloMdDay').val());
+            // $('#paperTitle').text(name + ' ' + tel + ' ' + $('#alloMdDay').val());
             $('#paperCtm').val(ctm);
             $('#paperDay').val($('#alloMdDay').val());
 
             $('#ctmmm').val(ctm);
             $('#dayyy').val($('#alloMdDay').val());
 
-            $('#modalPaper0Ti').text(name + ' 운행 배차서류 생성');
+            $('#modalPaper0Ti').text($('#alloMdDay').val() + ' ' + name + ' 서류 생성');
             $('#ctmmmName').val(name);
             resolve();
         })
@@ -1113,8 +1113,36 @@ $(document).on('keyup', '.alloAllM', function (eInner) {
 });
 
 $(document).on('click', '#modalAllo2X', function () {
-    checkAlloLine();
+    $('#offAlloVe').offcanvas('hide');
+    if ($('#home').css('display') === 'block') {
+        checkAlloLine();
+    }
+
+    if ($('#home3').css('display') === 'block') {
+        if ($('#radioOper1').is(':checked')) {
+            getOperListIl();
+        }
+        if ($('#radioOper2').is(':checked')) {
+            getOperListMonth();
+        }
+        getRsvtListMonthAside();
+    }
+
 });
 $(document).on('click', '#modalAllo2Btn', function () {
-    checkAlloLine();
+    $('#offAlloVe').offcanvas('hide');
+    if ($('#home').css('display') === 'block') {
+        checkAlloLine();
+    }
+
+    if ($('#home3').css('display') === 'block') {
+        if ($('#radioOper1').is(':checked')) {
+            getOperListIl();
+        }
+        if ($('#radioOper2').is(':checked')) {
+            getOperListMonth();
+        }
+        getRsvtListMonthAside();
+    }
+
 });

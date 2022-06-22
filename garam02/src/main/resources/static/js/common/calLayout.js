@@ -40,6 +40,10 @@ $(document).ready(function () {
         $('#pills-manage-tab').addClass('active');
     }
 
+    if ($('#nomanage').css('display') === 'block') {
+        $('#pills-nomanage-tab').addClass('active');
+    }
+
     if ($('#allo').css('display') === 'block') {
         $('#pills-allo-tab').addClass('active');
     }

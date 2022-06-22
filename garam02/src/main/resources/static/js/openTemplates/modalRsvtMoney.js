@@ -66,7 +66,8 @@ function getManageMD2() {
         const params = {
             "stday": $("#yearMonthDay").val(),
             "endday": $("#yearMonthDay").val(),
-            "rsvttrash": 1
+            "rsvttrash": 1,
+            "stt": 'stt'
         };
 
         $.ajax({
@@ -211,9 +212,16 @@ function getManageMD3(result) {
 
                     for (let i = 0; i < r.length; i++) {
                         if (rsvtt == r[i].rsvt) {
+
+                            let veee = parseInt(r[i].vehicle.substring(r[i].vehicle.length - 4));
+                            if (isNaN(veee)) {
+                                veee = r[i].vehicle;
+                            }
+
                             htmls += `
                         <li>
-                            <span class="">` + r[i].vehicle +
+                            <span class="">` +
+                                    veee +
                                     `</span>
                         </li>`;
                         }

@@ -2077,36 +2077,12 @@ $(document).on('click', '#btn-rsvt-cancle', function () {
             success: function (r) {
                 if (r > 0) {
                     alert("예약정보 및 해당 예약의 배차가 취소되었습니다.");
-
-                    if ($('#home').css('display') === 'block') {
-                        goUrlDay('/dashboard', $('#stday-1').val());
-                    }
-
-                    if ($('#home4').css('display') === 'block') {
-                        goUrlDay('/dashboardcal', $('#stday-1').val());
-                    }
-
-                    if ($('#home2').css('display') === 'block') {
-                        goUrlDay('/dashboardrsvt', $('#stday-1').val());
-                    }
-
-                    if ($('#home3').css('display') === 'block') {
-                        goUrlDay('/dashboardoper', $('#stday-1').val());
-                    }
-
-                    if ($('#manage').css('display') === 'block') {
-                        goUrlDay('/dashboardmanage', $('#stday-1').val());
-                    }
-
-                    if ($('#allo').css('display') === 'block') {
-                        goUrlDay('/dashboardallo', $('#stday-1').val());
-                    }
                 } else if (r == -1) {
                     alert("예약정보가 취소 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
                 } else if (r == -2) {
                     alert("예약정보가 취소 실패!\n\n시스템을 확인해주세요.")
                 }
-                rsvtMdHide();
+                location.reload();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);
@@ -2140,7 +2116,7 @@ $(document).on('click', '#btn-rsvt-del', function () {
                 } else if (r == -2) {
                     alert("예약정보가 삭제 실패!\n\n시스템을 확인해주세요.")
                 }
-                rsvtMdHide();
+                location.reload();
             },
             error: (jqXHR) => {
                 loginSession(jqXHR.status);

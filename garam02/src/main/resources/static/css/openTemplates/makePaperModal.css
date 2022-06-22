@@ -28,7 +28,9 @@
     font-size: 1.5rem;
 }
 
-.mdMakePaper-item button {}
+.mdMakePaper-item button {
+    height: 8rem;
+}
 
 .md-bd-paper2 {
     display: flex;

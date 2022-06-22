@@ -161,3 +161,8 @@
     background: #f6f7f9;
     font-weight: 600;
 }
+
+.dropdown-menu.show {
+    overflow-y: scroll;
+    max-height: 10rem;
+}

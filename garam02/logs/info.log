@@ -1,117 +1,79 @@
->22-06-20 11:51:54 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 8976 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 11:51:54 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 11:52:03 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 9.77 seconds (JVM running for 11.346)
->22-06-20 12:01:12 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 8976 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 12:01:12 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 12:01:16 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 4.315 seconds (JVM running for 563.954)
->22-06-20 12:01:18 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 8976 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 12:01:18 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 12:01:20 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.293 seconds (JVM running for 568.164)
->22-06-20 12:01:44 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 15224 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 12:01:44 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 12:01:52 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.658 seconds (JVM running for 10.09)
->22-06-20 12:21:12 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 5404 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 12:21:12 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 12:21:20 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.121 seconds (JVM running for 9.451)
->22-06-20 12:50:35 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 5404 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 12:50:35 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 12:50:37 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.714 seconds (JVM running for 1766.919)
->22-06-20 12:50:39 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 5404 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 12:50:39 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 12:52:56 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 15004 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 12:52:56 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 12:53:04 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.524 seconds (JVM running for 9.895)
->22-06-20 14:43:15 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 14:43:15 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 14:43:24 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.89 seconds (JVM running for 10.758)
->22-06-20 14:57:25 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 14:57:25 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 14:57:28 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.156 seconds (JVM running for 854.652)
->22-06-20 14:57:32 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 14:57:32 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 14:57:34 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.081 seconds (JVM running for 860.812)
->22-06-20 14:57:50 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 14:57:50 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 14:57:52 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.068 seconds (JVM running for 879.055)
->22-06-20 14:58:02 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 14:58:02 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 14:58:04 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.186 seconds (JVM running for 890.828)
->22-06-20 15:28:36 [http-nio-8080-exec-8] [com.garam.web.login.handler.TaskLogoutHandler:16] INFO  ==>> 로그아웃됨
->22-06-20 15:43:15 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 15:43:15 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 15:43:23 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.35 seconds (JVM running for 3610.281)
->22-06-20 15:43:25 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 15:43:25 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 15:43:27 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.026 seconds (JVM running for 3614.257)
->22-06-20 15:43:34 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 15:43:34 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 15:43:36 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.068 seconds (JVM running for 3622.636)
->22-06-20 15:43:44 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 15:43:44 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 15:43:46 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.153 seconds (JVM running for 3633.271)
->22-06-20 15:43:48 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 15:43:48 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 15:43:50 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.043 seconds (JVM running for 3637.218)
->22-06-20 15:43:56 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 15:43:56 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 15:43:59 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.071 seconds (JVM running for 3645.591)
->22-06-20 16:25:55 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7856 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 16:25:55 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 16:26:27 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13012 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 16:26:27 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 16:26:34 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.391 seconds (JVM running for 9.787)
->22-06-20 16:39:15 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 7568 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 16:39:15 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 16:39:22 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.197 seconds (JVM running for 9.509)
->22-06-20 16:40:41 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 15300 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 16:40:41 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 16:40:49 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.146 seconds (JVM running for 9.49)
->22-06-20 16:41:24 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 15300 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 16:41:24 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 16:41:26 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.373 seconds (JVM running for 47.174)
->22-06-20 16:41:35 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13808 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 16:41:35 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 16:41:43 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.164 seconds (JVM running for 9.485)
->22-06-20 18:39:10 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13808 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:39:10 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:39:14 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 3.922 seconds (JVM running for 7060.482)
->22-06-20 18:40:25 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13808 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:40:25 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:40:27 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.058 seconds (JVM running for 7133.755)
->22-06-20 18:40:40 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13808 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:40:40 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:40:42 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.119 seconds (JVM running for 7148.77)
->22-06-20 18:40:49 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13808 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:40:49 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:40:51 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.098 seconds (JVM running for 7157.613)
->22-06-20 18:41:17 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13112 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:41:17 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:41:25 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.303 seconds (JVM running for 9.628)
->22-06-20 18:46:35 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 11352 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:46:35 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:46:42 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 7.91 seconds (JVM running for 9.092)
->22-06-20 18:49:31 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 11352 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:49:31 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:49:33 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.116 seconds (JVM running for 179.851)
->22-06-20 18:49:39 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 11352 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:49:39 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:49:41 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.107 seconds (JVM running for 188.226)
->22-06-20 18:50:29 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 11352 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:50:29 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:50:31 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.02 seconds (JVM running for 238.292)
->22-06-20 18:50:40 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 11352 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:50:40 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:50:42 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.374 seconds (JVM running for 249.292)
->22-06-20 18:51:00 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2364 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:51:00 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:51:08 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.456 seconds (JVM running for 9.801)
->22-06-20 18:51:45 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2364 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:51:45 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:51:48 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.407 seconds (JVM running for 49.896)
->22-06-20 18:52:00 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 1980 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:52:00 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:52:08 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 7.953 seconds (JVM running for 9.301)
->22-06-20 18:56:25 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 1980 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
->22-06-20 18:56:25 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
->22-06-20 18:56:28 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.509 seconds (JVM running for 269.386)
->22-06-20 20:02:15 [http-nio-8080-exec-4] [com.garam.web.login.handler.TaskLogoutHandler:16] INFO  ==>> 로그아웃됨
+>22-06-22 11:44:34 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 6188 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 11:44:34 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 11:44:43 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 9.038 seconds (JVM running for 10.606)
+>22-06-22 11:53:07 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 4988 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 11:53:07 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 11:53:15 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 7.642 seconds (JVM running for 8.909)
+>22-06-22 13:06:20 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 4988 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:06:20 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:06:32 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 14944 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:06:32 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:06:39 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.23 seconds (JVM running for 9.693)
+>22-06-22 13:07:26 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 3636 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:07:26 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:07:33 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 7.787 seconds (JVM running for 8.973)
+>22-06-22 13:09:26 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 3636 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:09:26 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:09:28 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.339 seconds (JVM running for 123.816)
+>22-06-22 13:09:35 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 3636 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:09:35 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:09:37 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.296 seconds (JVM running for 132.428)
+>22-06-22 13:09:42 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 3636 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:09:42 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:09:44 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.31 seconds (JVM running for 140.002)
+>22-06-22 13:09:46 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 3636 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:09:46 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:09:48 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.127 seconds (JVM running for 144.058)
+>22-06-22 13:09:52 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 3636 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:09:52 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:09:55 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.107 seconds (JVM running for 150.212)
+>22-06-22 13:10:12 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 3636 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:10:12 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:10:14 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.077 seconds (JVM running for 169.765)
+>22-06-22 13:11:11 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 14736 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:11:11 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:11:19 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 7.937 seconds (JVM running for 9.143)
+>22-06-22 13:18:37 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 14736 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:18:37 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:18:39 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.231 seconds (JVM running for 449.683)
+>22-06-22 13:19:43 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 460 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 13:19:43 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 13:19:51 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 7.977 seconds (JVM running for 9.311)
+>22-06-22 16:44:16 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 460 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 16:44:16 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 16:46:49 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 13540 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 16:46:49 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 16:46:57 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.323 seconds (JVM running for 9.644)
+>22-06-22 19:40:16 [http-nio-8080-exec-6] [com.garam.web.login.handler.TaskLogoutHandler:16] INFO  ==>> 로그아웃됨
+>22-06-22 20:23:28 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2240 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:23:28 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:23:36 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.531 seconds (JVM running for 9.855)
+>22-06-22 20:32:58 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2240 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:32:58 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:33:00 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.264 seconds (JVM running for 573.783)
+>22-06-22 20:33:21 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2240 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:33:21 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:33:23 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.279 seconds (JVM running for 596.898)
+>22-06-22 20:33:26 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2240 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:33:26 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:33:28 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.171 seconds (JVM running for 601.483)
+>22-06-22 20:33:32 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2240 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:33:32 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:33:34 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.187 seconds (JVM running for 607.808)
+>22-06-22 20:33:36 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 2240 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:33:36 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:33:38 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 2.058 seconds (JVM running for 611.803)
+>22-06-22 20:42:07 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 5328 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:42:07 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:42:15 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.103 seconds (JVM running for 9.303)
+>22-06-22 20:52:20 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 5328 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:52:20 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:52:38 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 16080 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 20:52:38 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 20:52:45 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.392 seconds (JVM running for 9.698)
+>22-06-22 21:43:44 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 16760 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 21:43:44 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 21:43:52 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 8.089 seconds (JVM running for 9.378)
+>22-06-22 21:44:48 [restartedMain] [com.garam.Garam02Application:55] INFO  ==>> Starting Garam02Application using Java 1.8.0_321 on DESKTOP-DLHDK9O with PID 17164 (C:\Users\ssong\git\garam02\garam02\bin\main started by ssong in C:\Users\ssong\git\garam02\garam02)
+>22-06-22 21:44:48 [restartedMain] [com.garam.Garam02Application:637] INFO  ==>> No active profile set, falling back to default profiles: default
+>22-06-22 21:44:55 [restartedMain] [com.garam.Garam02Application:61] INFO  ==>> Started Garam02Application in 7.888 seconds (JVM running for 9.293)

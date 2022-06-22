@@ -595,19 +595,24 @@
 		join customer on rsvt.ctmno =
 		customer.ctmno
 
-		WHERE
+		<where>
+			<if test="stt == null">
+				(rsvt.stday <![CDATA[<=]]>
+				#{stday})
 
-		(rsvt.stday <![CDATA[<=]]>
-		#{stday})
+				AND
 
-		AND
+				(rsvt.endday <![CDATA[>=]]>
+				#{endday})
+			</if>
 
-		(rsvt.endday <![CDATA[>=]]>
-		#{endday})
+			<if test="stt != null">
+				rsvt.stday = #{stday}
+			</if>
+			AND
 
-		AND
-
-		rsvt.rsvttrash = #{rsvttrash}
+			rsvt.rsvttrash = #{rsvttrash}
+		</where>
 
 		ORDER BY
 		rsvt.stday,
@@ -1011,7 +1016,9 @@
 		operation_info.operday = #{operday}
 
 		ORDER BY
-		operation_info.operday
+		rsvt.stt,
+		rsvt.rsvt,
+		operation_info.operno
 
 	</select>
 	<select id="selectAlloOPERMonth" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
@@ -2594,6 +2601,7 @@
 				(rsvt.endday <![CDATA[>=]]>
 				#{stday}))
 			</if>
+			AND rsvt.rsvttrash = 1
 		</where>
 	</select>
 
@@ -2682,4 +2690,79 @@
 		)
 
 	</insert>
+
+	<select id="selectNoManage" parameterType="com.garam.web.dashboard.dto.RsvtDTO"
+		resultType="com.garam.web.dashboard.dto.RsvtDTO">
+
+		SELECT
+
+		customer.ctmname,
+		customer.ctmtel1,
+		customer.ctmtel2,
+		customer.ctmsepa,
+		rsvt.*,
+
+		IFNULL((
+		SELECT
+
+		SUM(rsvtmoney.moneymoney)
+
+		FROM
+
+		rsvtmoney
+
+		WHERE
+
+		rsvtmoney.rsvt = rsvt.rsvt
+		),
+		0) AS id1,
+
+
+		rsvt.conm -
+		IFNULL((
+		SELECT
+
+		SUM(rsvtmoney.moneymoney)
+
+		FROM
+
+		rsvtmoney
+
+		WHERE
+
+		rsvtmoney.rsvt = rsvt.rsvt
+		),
+		0) AS id2
+
+
+		FROM
+
+		rsvt
+
+		LEFT JOIN
+
+		customer
+
+		ON
+
+		rsvt.ctmno
+		= customer.ctmno
+
+		<where>
+			rsvt.rsvttrash = 1
+
+			AND
+
+			rsvt.confirmm IS NULL
+
+			<if test="ctmno != null and ctmno != '' ">
+				AND
+				customer.ctmno = #{ctmno}
+			</if>
+		</where>
+
+		ORDER BY
+
+		rsvt.stday
+	</select>
 </mapper>

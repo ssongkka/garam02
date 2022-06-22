@@ -123,15 +123,16 @@ $(document).on('click', '#ername', function () {
 });
 
 $(document).on('click', '#inNew', function () {
-    $('#modalCustom').modal('hide');
     if ($('#ctmlseqqq').val() && $('#ctmlseqqq').val() != 'new') {
         LoadingWithMask($('#ctmlseqqq').val())
             .then(insertRsvt)
+            .then(closeMdgo)
             .then(closeLoadingWithMask);
     } else if ($('#ctmlseqqq').val() == 'new') {
         LoadingWithMask()
             .then(insertCtm)
             .then(insertRsvt)
+            .then(closeMdgo)
             .then(closeLoadingWithMask);
         function insertCtm(result) {
             return new Promise(function (resolve, reject) {
@@ -172,13 +173,19 @@ $(document).on('click', '#inNew', function () {
                         } else {
                             alert("고객정보 저장 실패!\n\n시스템을 확인해주세요.")
                             setCalWhite($('.dash-cal-con-item-t').attr('id'));
-                            closeLoadingWithMask();
                         }
+
                     },
                     error: (jqXHR) => {
                         loginSession(jqXHR.status);
                     }
                 })
+            })
+        }
+        function closeMdgo(result) {
+            return new Promise(function (resolve, reject) {
+                $('#modalCustom').modal('hide');
+                resolve();
             })
         }
     } else {

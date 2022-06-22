@@ -161,4 +161,6 @@ public interface DashboardMapper {
 	public List<RsvtDTO> selectAllo2Sec(HashMap<String, Object> map) throws Exception;
 
 	public int insertAllo2(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectNoManage(RsvtDTO rsvtDTO) throws Exception;
 }

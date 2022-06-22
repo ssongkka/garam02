@@ -3294,7 +3294,6 @@ function checkAlloLine() {
     LoadingWithMask()
         .then(getCalRsvt1)
         .then(getCalRsvt2)
-        .then(closeAllo2)
         .then(closeLoadingWithMask);
 
     function getCalRsvt1(result) {
@@ -3432,11 +3431,4 @@ function checkAlloLine() {
             })
         })
     };
-
-    function closeAllo2() {
-        return new Promise(function (resolve, reject) {
-            $('#offAlloVe').offcanvas('hide');
-            resolve();
-        })
-    }
 }

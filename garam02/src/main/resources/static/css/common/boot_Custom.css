@@ -110,6 +110,10 @@ a:hover {
 
 .table-responsive {
     overflow-y: auto;
-    
+
 }
 
+.accordion-button:not(.collapsed)::after {
+    background-color: var(--sub-color);
+    border-radius: 50%;
+}

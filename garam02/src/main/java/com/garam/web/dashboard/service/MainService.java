@@ -156,4 +156,6 @@ public interface MainService {
 	public List<RsvtDTO> selectAllo2Sec(List<Map<String, Object>> map) throws Exception;
 
 	public int insertAllo2(RsvtDTO rsvtDTO) throws Exception;
+
+	public List<RsvtDTO> selectNoManage(RsvtDTO rsvtDTO) throws Exception;
 }
