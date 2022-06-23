@@ -6,17 +6,25 @@
     gap: 0;
 }
 
+.home4-item {
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
 .main-home2 {
     display: flex;
     gap: 0;
-    margin-right: 32rem;
+    margin-right: 30rem;
 }
 
 .home-mainCal {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin: 0 1rem;
+    margin: 1rem;
 
     border: none;
     border-radius: 0.25rem;
@@ -41,8 +49,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin-right: 32rem;
+    gap: 1rem 2rem;
+    margin-right: 30rem;
     padding: 1rem 2rem 0;
 }
 
@@ -207,8 +215,6 @@ ul {
     display: flex;
     flex-direction: row;
     padding: 1rem 1.3rem;
-
-    cursor: pointer;
 }
 
 .mainCalTable > tbody > tr > .maincalToday {
@@ -231,6 +237,8 @@ ul {
     border-radius: 50%;
     font-size: 1.5rem;
     font-weight: 600;
+
+    cursor: pointer;
 }
 
 .mainCal2td-top-hol {
@@ -504,6 +512,10 @@ table > tbody > tr > .big28home2 {
     color: #1862c6;
 }
 
+.home2Main {
+    padding: 1rem;
+}
+
 #modalScheBD {
     padding: 3rem;
 }
@@ -519,12 +531,6 @@ table > tbody > tr > .big28home2 {
 
 #searchDateRsvt {}
 
-#home4Aside {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-}
-
 .evAsieGrade {
     display: flex;
     flex-direction: row;
@@ -535,7 +541,7 @@ table > tbody > tr > .big28home2 {
     position: relative;
     overflow-y: scroll;
     width: 100%;
-    max-height: calc(100vh - 22rem);
+    max-height: calc(100vh - 17rem);
 }
 
 @media (max-width:1024px) {}

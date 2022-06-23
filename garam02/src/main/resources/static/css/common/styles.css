@@ -508,6 +508,52 @@ body .modal {
     position: fixed;
 }
 
+.dash-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.dash-nav button {
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+}
+
+.dash-nav hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.dash-nav li {
+    flex: 1;
+}
+
+.dash-nav .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: var(--main-color);
+    background-color: var(--sub-color);
+    border-radius: 0.3rem;
+
+    border: none;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
+}
+
+.dash-nav .nav-link {
+    color: var(--sub-color);
+}
+
+.dash-nav .nav-link:hover {
+    color: var(--main-color);
+    background: var(--sub-color);
+
+    border: none;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
+}
+
 @media (max-width:1024px) {
     .card-song {
         border-radius: 0;

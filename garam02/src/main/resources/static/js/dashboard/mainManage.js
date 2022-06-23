@@ -1,48 +1,53 @@
 $(document).ready(function () {});
 
 function makeManage() {
-    const operdddd = $('.dash-cal-con-item-t').children()[0];
-    const operdddd1 = $(operdddd).children()[1];
-    const day = $(operdddd1).val();
-
-    const url = "/allo/rsvt";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-
-    const params = {
-        "stday": day,
-        "endday": day,
-        "rsvttrash": 1,
-        "stt": 'stt'
-    };
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        caches: false,
-        dataType: "json",
-        data: JSON.stringify(params),
-
-        success: function (r) {
-            getManage(r);
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
-    })
-}
-
-function getManage(list) {
 
     LoadingWithMask()
+        .then(getMG01)
         .then(setManageTable)
         .then(sumRsvtM)
+        .then(makeManageAside)
+        .then(getManageAside)
         .then(closeLoadingWithMask);
 
-    function setManageTable() {
+    function getMG01() {
+        return new Promise(function (resolve, reject) {
+            const operdddd = $('.dash-cal-con-item-t').children()[0];
+            const operdddd1 = $(operdddd).children()[1];
+            const day = $(operdddd1).val();
+
+            const url = "/allo/rsvt";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "stday": day,
+                "endday": day,
+                "rsvttrash": 1,
+                "stt": 'stt'
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve(r);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function setManageTable(list) {
         return new Promise(function (resolve, reject) {
 
             let arrSumRsvt = new Array();
@@ -264,6 +269,7 @@ function getManage(list) {
             resolve(arrSumRsvt);
         })
     }
+
     function sumRsvtM(result) {
         return new Promise(function (resolve, reject) {
             const url = "/manage/selectSumRsvtMoney";
@@ -303,13 +309,165 @@ function getManage(list) {
 
                         $(idIN).text(AddComma(r[0].moneymoney));
                         $(idJan).text(AddComma(parseInt(operMM) - parseInt(r[0].moneymoney)));
-
                     },
                     error: (jqXHR) => {
                         loginSession(jqXHR.status);
                     }
                 })
             }
+            resolve();
+        })
+    }
+
+    function makeManageAside(result) {
+        return new Promise(function (resolve, reject) {
+            const url = "/manage/selectRsvtAside";
+            const headers = {
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST"
+            };
+
+            const params = {
+                "stday": getStDayEndDayMain()[0],
+                "endday": getStDayEndDayMain()[1]
+            };
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                headers: headers,
+                caches: false,
+                dataType: "json",
+                data: JSON.stringify(params),
+
+                success: function (r) {
+                    resolve(r);
+                },
+                error: (jqXHR) => {
+                    loginSession(jqXHR.status);
+                }
+            })
+        })
+    }
+
+    function getManageAside(r) {
+        return new Promise(function (resolve, reject) {
+
+            let arrTmpDay = new Array();
+
+            for (let i = 0; i < parseInt(getStDayEndDayMain()[1].split('-')[2]); i++) {
+                let stD = new Date(getStDayEndDayMain()[0]);
+                stD = new Date(stD.setDate(stD.getDate() + i));
+
+                arrTmpDay.push(toStringByFormatting(stD));
+            }
+
+            let sumIl = 0;
+            let sumHak = 0;
+            let sumGu = 0;
+            let sumM = 0;
+
+            let htmls = ``;
+            for (let k = 0; k < arrTmpDay.length; k++) {
+                const ccc = $('.dash-cal-con-item-t').children()[0];
+                const ccc1 = $(ccc).children()[1];
+
+                const calDay = $(ccc1).val();
+
+                let sttylee = '';
+                if (arrTmpDay[k] == calDay) {
+                    sttylee += 'style="background: var(--sub-color);"';
+                }
+
+                let cntIl = 0;
+                let cntHak = 0;
+                let cntGu = 0;
+
+                let cntJan = 0;
+
+                for (let i = 0; i < r.length; i++) {
+                    if (arrTmpDay[k] == r[i].stday) {
+                        switch (parseInt(r[i].ctmsepa)) {
+                            case 0:
+                                cntIl++;
+                                break;
+                            case 1:
+                                cntHak++;
+                                break;
+                            case 2:
+                                cntGu++;
+                                break;
+                        }
+                        if (r[i].ctmtrash) {
+                            cntJan = cntJan + parseInt(r[i].ctmtrash);
+                        }
+                    }
+                }
+
+                const dayday = parseInt(arrTmpDay[k].split('-')[2]) + '일 ' +
+                        getDayOfWeek(new Date(arrTmpDay[k]).getDay()).replaceAll('요일', '');
+
+                let dayTr = ``;
+                for (let i = 0; i < 42; i++) {
+                    let iiiddd = '#dash-cal-con-item' + (
+                        i + 1
+                    );
+                    if (arrTmpDay[k] == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
+                        if ($(iiiddd).attr('style')) {
+                            dayTr = `<td style="` + $(iiiddd).attr('style') + `;" ` + sttylee + `>` +
+                                    dayday + `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
+                        } else {
+                            dayTr = `<td ` + sttylee + `>` + dayday +
+                                    `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
+                        }
+                    }
+                }
+
+                sumIl = sumIl + parseInt(cntIl);
+                sumHak = sumHak + parseInt(cntHak);
+                sumGu = sumGu + parseInt(cntGu);
+                sumM = sumM + parseInt(cntJan);
+
+                if (!cntIl) {
+                    cntIl = '';
+                }
+                if (!cntHak) {
+                    cntHak = '';
+                }
+                if (!cntGu) {
+                    cntGu = '';
+                }
+
+                htmls += `
+        <tr class="home23Aside" ` + sttylee + `>
+            ` + dayTr +
+                        `
+            <td ` + sttylee + `>` + cntIl +
+                        `</td>
+            <td ` + sttylee + `>` + cntHak +
+                        `</td>
+            <td ` + sttylee + `>` + cntGu +
+                        `</td>
+            <td class="tdRight" ` + sttylee + `>` + AddComma(cntJan) +
+                        `</td>
+        </tr>`;
+
+            }
+
+            const htmlFt = `
+    <tr class="home23Aside">
+        <td>합계</td>
+        <td>` +
+                    sumIl + `</td>
+        <td>` + sumHak + `</td>
+        <td>` + sumGu +
+                    `</td>
+        <td class="tdRight">` + AddComma(sumM) +
+                    `</td>
+    </tr>`;
+
+            $('#manegeAsideTb').html(htmls);
+            $('#manegeAsideTf').html(htmlFt);
             resolve();
         })
     }
@@ -343,126 +501,3 @@ $(document).on('click', '.mainManageMore', function () {
         })
     }
 });
-
-function makeManageAside() {
-    const url = "/manage/selectRsvtAside";
-    const headers = {
-        "Content-Type": "application/json",
-        "X-HTTP-Method-Override": "POST"
-    };
-
-    const params = {
-        "stday": getStDayEndDayMain()[0],
-        "endday": getStDayEndDayMain()[1]
-    };
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        headers: headers,
-        caches: false,
-        dataType: "json",
-        data: JSON.stringify(params),
-
-        success: function (r) {
-            getManageAside(r);
-        },
-        error: (jqXHR) => {
-            loginSession(jqXHR.status);
-        }
-    })
-}
-
-function getManageAside(r) {
-
-    let arrTmpDay = new Array();
-
-    for (let i = 0; i < parseInt(getStDayEndDayMain()[1].split('-')[2]); i++) {
-        let stD = new Date(getStDayEndDayMain()[0]);
-        stD = new Date(stD.setDate(stD.getDate() + i));
-
-        arrTmpDay.push(toStringByFormatting(stD));
-    }
-
-    let htmls = ``;
-    for (let k = 0; k < arrTmpDay.length; k++) {
-        const ccc = $('.dash-cal-con-item-t').children()[0];
-        const ccc1 = $(ccc).children()[1];
-
-        const calDay = $(ccc1).val();
-
-        let sttylee = '';
-        if (arrTmpDay[k] == calDay) {
-            sttylee += 'style="background: var(--sub-color);"';
-        }
-
-        let cntIl = 0;
-        let cntHak = 0;
-        let cntGu = 0;
-
-        let cntJan = 0;
-
-        for (let i = 0; i < r.length; i++) {
-            if (arrTmpDay[k] == r[i].stday) {
-                switch (parseInt(r[i].ctmsepa)) {
-                    case 0:
-                        cntIl++;
-                        break;
-                    case 1:
-                        cntHak++;
-                        break;
-                    case 2:
-                        cntGu++;
-                        break;
-                }
-                if (r[i].ctmtrash) {
-                    cntJan = cntJan + parseInt(r[i].ctmtrash);
-                }
-            }
-        }
-
-        const dayday = parseInt(arrTmpDay[k].split('-')[2]) + '일 ' +
-                getDayOfWeek(new Date(arrTmpDay[k]).getDay()).replaceAll('요일', '');
-
-        let dayTr = ``;
-        for (let i = 0; i < 42; i++) {
-            let iiiddd = '#dash-cal-con-item' + (
-                i + 1
-            );
-            if (arrTmpDay[k] == toStringByFormatting(new Date($(iiiddd).children().children().next().val()))) {
-                if ($(iiiddd).attr('style')) {
-                    dayTr = `<td style="` + $(iiiddd).attr('style') + `;" ` + sttylee + `>` +
-                            dayday + `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
-                } else {
-                    dayTr = `<td ` + sttylee + `>` + dayday +
-                            `<input type="hidden" value="` + arrTmpDay[k] + `"></td>`;
-                }
-            }
-        }
-
-        if (!cntIl) {
-            cntIl = '';
-        }
-        if (!cntHak) {
-            cntHak = '';
-        }
-        if (!cntGu) {
-            cntGu = '';
-        }
-
-        htmls += `
-    <tr class="home23Aside" ` + sttylee + `>
-        ` + dayTr +
-                `
-        <td ` + sttylee + `>` + cntIl +
-                `</td>
-        <td ` + sttylee + `>` + cntHak +
-                `</td>
-        <td ` + sttylee + `>` + cntGu +
-                `</td>
-        <td class="tdRight" ` + sttylee + `>` + AddComma(cntJan) +
-                `</td>
-    </tr>`;
-    }
-    $('#manegeAsideTb').html(htmls);
-}

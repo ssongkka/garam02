@@ -229,11 +229,10 @@
     background: white;
     width: 30rem;
     position: fixed;
-    top: 10.5rem;
+    top: 5rem;
     bottom: 0;
     right: 0;
     z-index: 1000;
-    padding: 1rem;
 }
 
 .no-allo {

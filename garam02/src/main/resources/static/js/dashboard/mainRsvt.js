@@ -286,6 +286,10 @@ function insertRsvt(result) {
                         goUrlDay('/dashboardmanage', $('#stday').val());
                     }
 
+                    if ($('#nomanage').css('display') === 'block') {
+                        makeNoManage();
+                    }
+
                     if ($('#allo').css('display') === 'block') {
                         goUrlDay('/dashboardallo', $('#stday').val());
                     }

@@ -25,7 +25,6 @@ $(document).ready(function () {
 
     if ($('#home4').css('display') === 'block') {
         $('#pills-home4-tab').addClass('active');
-
     }
 
     if ($('#home2').css('display') === 'block') {
@@ -305,7 +304,6 @@ function displayMain() {
 
     if ($('#home4').css('display') === 'block') {
         makeMain2BigCal();
-        makeBigcal2Aside();
     }
 
     if ($('#home2').css('display') === 'block') {
@@ -329,7 +327,10 @@ function displayMain() {
 
     if ($('#manage').css('display') === 'block') {
         makeManage();
-        makeManageAside();
+    }
+
+    if ($('#nomanage').css('display') === 'block') {
+        makeNoManage();
     }
 
     if ($('#allo').css('display') === 'block') {

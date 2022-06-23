@@ -249,11 +249,11 @@ function getSeachOperList(texts) {
                     case '1':
                         if (idChk) {
                             params = {
-                                "stday": $('#searchDateOper').val()
+                                "operday": $('#searchDateOper').val()
                             };
                         } else {
                             params = {
-                                "stday": $('#searchDateOper').val()
+                                "operday": $('#searchDateOper').val()
                             };
                         }
                         break;

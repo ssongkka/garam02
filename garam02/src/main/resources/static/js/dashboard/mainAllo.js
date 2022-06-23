@@ -2752,8 +2752,6 @@ function makeAllo() {
                     }
                 })
             } else {
-                getManage();
-
                 $('#bdg1').text(0);
                 $('#bdg2').text(0);
                 $('#bdg3').text(0);

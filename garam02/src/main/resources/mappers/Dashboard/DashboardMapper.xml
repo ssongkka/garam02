@@ -2755,6 +2755,11 @@
 
 			rsvt.confirmm IS NULL
 
+			AND
+
+			rsvt.stday <![CDATA[<=]]>
+			NOW()
+
 			<if test="ctmno != null and ctmno != '' ">
 				AND
 				customer.ctmno = #{ctmno}

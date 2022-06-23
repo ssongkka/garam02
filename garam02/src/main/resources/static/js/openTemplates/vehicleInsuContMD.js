@@ -444,7 +444,6 @@ $(document).on('click', '#btnInsuSepaUp', function () {
                     makeModalInsuCont($('#insucontNum').val(), 1);
                     if ($('#home4').css('display') === 'block') {
                         makeMain2BigCal();
-                        makeBigcal2Aside();
                     } else {
                         makeInsu();
                     }

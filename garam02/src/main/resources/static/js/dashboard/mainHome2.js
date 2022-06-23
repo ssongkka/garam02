@@ -431,6 +431,10 @@ function makeAsideRsvt(r) {
     }
 
     let htmls = ``;
+    let cntAllAll = 0;
+    let cntAll45 = 0;
+    let cntAll25 = 0;
+    let cntAll28 = 0;
 
     for (let k = 0; k < arrTmpDay.length; k++) {
 
@@ -457,6 +461,8 @@ function makeAsideRsvt(r) {
 
             cntBus = cntBus + parseInt(arr45[k]);
 
+            cntAll45 = cntAll45 + parseInt(arr45[k]);
+
         } else {
             tmp4455 = `
             <td class="tdRight" ` + sttylee +
@@ -475,6 +481,8 @@ function makeAsideRsvt(r) {
 
             cntBus = cntBus + parseInt(arr25[k]);
 
+            cntAll25 = cntAll25 + parseInt(arr25[k]);
+
         } else {
             tmp2255 = `
             <td class="tdRight" ` + sttylee +
@@ -492,6 +500,8 @@ function makeAsideRsvt(r) {
             </td>`;
 
             cntBus = cntBus + parseInt(arr28[k]);
+
+            cntAll28 = cntAll28 + parseInt(arr28[k]);
 
         } else {
             tmp2288 = `
@@ -519,6 +529,8 @@ function makeAsideRsvt(r) {
             }
         }
 
+        cntAllAll = cntAllAll + parseInt(cntBus);
+
         htmls += `
     <tr class="home23Aside" ` + sttylee + `>` + dayTr + tmp4455 +
                 tmp2288 + tmp2255 +
@@ -527,7 +539,24 @@ function makeAsideRsvt(r) {
     </tr>`;
     }
 
+    const htmlsFt = `
+<tr>
+    <td>합 계</td>
+    <td class="big45home2 tdRight" style="font-weight: 600;">` +
+            cntAll45 +
+            `</td>
+    <td class="big25home2 tdRight" style="font-weight: 600;">` +
+            cntAll28 +
+            `</td>
+    <td class="big28home2 tdRight" style="font-weight: 600;">` +
+            cntAll25 +
+            `</td>
+    <td class="tdRight" style="font-weight: 600;">` + cntAllAll +
+            `</td>
+</tr>`;
+
     $('#home2AsideTb').html(htmls);
+    $('#home2AsideTf').html(htmlsFt);
 }
 
 $(document).on('click', '.rsvtChohome', function () {

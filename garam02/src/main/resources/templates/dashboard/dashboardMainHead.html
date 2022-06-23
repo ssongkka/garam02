@@ -10,12 +10,94 @@
             <span class="detail-user-1 detail-company" th:text="${user.company}"></span>
         </div>
         <div class="hd-search">
-            <div class="he-serach-group">
-                <form th:action="@{/search}" method="post">
-                    <div class="hd-search-icon fas fa-search"></div>
-                    <input type="text" placeholder="검색" name="search">
-                </form>
+            <div class="mainNav">
+                <ul class="nav nav-pills nav-justified dash-nav" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-home-tab"
+                            data-bs-toggle="pill"
+                            type="button"
+                            role="tab"
+                            aria-selected="true">운행스케줄러
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-home4-tab"
+                            data-bs-toggle="pill"
+                            type="button"
+                            role="tab"
+                            aria-selected="true">할일스케줄러
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-home2-tab"
+                            data-bs-toggle="pill"
+                            type="button"
+                            role="tab"
+                            aria-selected="true">예약정보관리
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-home3-tab"
+                            data-bs-toggle="pill"
+                            type="button"
+                            role="tab"
+                            aria-selected="true">운행정보관리
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-manage-tab"
+                            data-bs-toggle="pill"
+                            type="button"
+                            role="tab"
+                            aria-selected="false">입금관리
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-nomanage-tab"
+                            data-bs-toggle="pill"
+                            type="button"
+                            role="tab"
+                            aria-selected="false">미수금관리
+                        </button>
+                    </li>
+                    <!-- <li class="nav-item" role="presentation"> <button class="nav-link"
+                    id="pills-allo-tab" data-bs-toggle="pill" type="button" role="tab"
+                    aria-selected="false"> 배차관리 </button> </li> -->
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-reg-tab"
+                            type="button"
+                            role="tab"
+                            aria-selected="false">정기운행배차&nbsp;<i class="fa-solid fa-up-right-from-square"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="pills-rsvt-tab"
+                            type="button"
+                            role="tab"
+                            aria-selected="false">운행예약&nbsp;<i class="fa-solid fa-up-right-from-square"></i>
+                        </button>
+                    </li>
+                </ul>
             </div>
+            <!-- <div class="he-serach-group"> <form th:action="@{/search}" method="post">
+            <div class="hd-search-icon fas fa-search"></div> <input type="text"
+            placeholder="검색" name="search"> </form> </div> -->
         </div>
         <div class="hd-user">
             <div id="detail-user">

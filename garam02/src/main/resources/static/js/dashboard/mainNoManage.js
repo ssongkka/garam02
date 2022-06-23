@@ -1,11 +1,128 @@
-$(document).ready(function () {
-    makeNoManage()
-});
+const getOrCreateTooltip = (chart) => {
+    let tooltipEl = chart
+        .canvas
+        .parentNode
+        .querySelector('div');
+
+    if (!tooltipEl) {
+        tooltipEl = document.createElement('div');
+        tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
+        tooltipEl.style.borderRadius = '3px';
+        tooltipEl.style.color = 'white';
+        tooltipEl.style.opacity = 1;
+        tooltipEl.style.pointerEvents = 'none';
+        tooltipEl.style.position = 'absolute';
+        tooltipEl.style.transform = 'translate(-50%, 0)';
+        tooltipEl.style.transition = 'all .1s ease';
+
+        const table = document.createElement('table');
+        table.style.margin = '0px';
+        table.style.width = '100px';
+
+        tooltipEl.appendChild(table);
+        chart
+            .canvas
+            .parentNode
+            .appendChild(tooltipEl);
+    }
+
+    return tooltipEl;
+};
+
+const externalTooltipHandler = (context) => {
+    // Tooltip Element
+    const {chart, tooltip} = context;
+    const tooltipEl = getOrCreateTooltip(chart);
+
+    // Hide if no tooltip
+    if (tooltip.opacity === 0) {
+        tooltipEl.style.opacity = 0;
+        return;
+    }
+
+    // Set Text
+    if (tooltip.body) {
+        const titleLines = tooltip.title || [];
+        const bodyLines = tooltip
+            .body
+            .map(b => b.lines);
+
+        const tableHead = document.createElement('thead');
+
+        titleLines.forEach(title => {
+            const tr = document.createElement('tr');
+            tr.style.borderWidth = 0;
+
+            const th = document.createElement('th');
+            th.style.borderWidth = 0;
+            const text = document.createTextNode(title);
+
+            th.appendChild(text);
+            tr.appendChild(th);
+            tableHead.appendChild(tr);
+        });
+
+        const tableBody = document.createElement('tbody');
+        bodyLines.forEach((body, i) => {
+            const colors = tooltip.labelColors[i];
+
+            const span = document.createElement('span');
+            span.style.background = colors.backgroundColor;
+            span.style.borderColor = colors.borderColor;
+            span.style.borderWidth = '2px';
+            span.style.marginRight = '10px';
+            span.style.height = '10px';
+            span.style.width = '10px';
+            span.style.display = 'inline-block';
+
+            const tr = document.createElement('tr');
+            tr.style.backgroundColor = 'inherit';
+            tr.style.borderWidth = 0;
+
+            const td = document.createElement('td');
+            td.style.borderWidth = 0;
+
+            const text = document.createTextNode(body);
+
+            td.appendChild(span);
+            td.appendChild(text);
+            tr.appendChild(td);
+            tableBody.appendChild(tr);
+        });
+
+        const tableRoot = tooltipEl.querySelector('table');
+
+        // Remove old children
+        while (tableRoot.firstChild) {
+            tableRoot
+                .firstChild
+                .remove();
+        }
+
+        // Add new children
+        tableRoot.appendChild(tableHead);
+        tableRoot.appendChild(tableBody);
+    }
+
+    const {offsetLeft: positionX, offsetTop: positionY} = chart.canvas;
+
+    // Display, position, and set styles for font
+    tooltipEl.style.opacity = 1;
+    tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+    tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+    tooltipEl.style.font = tooltip.options.bodyFont.string;
+    tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding +
+            'px';
+};
 
 function makeNoManage() {
 
     LoadingWithMask()
         .then(getNoManage)
+        .then(setChart1)
+        .then(setChart2)
+        .then(setChart3)
+        .then(setChart4)
         .then(closeLoadingWithMask);
 
     function getNoManage() {
@@ -27,7 +144,6 @@ function makeNoManage() {
                 data: JSON.stringify(params),
 
                 success: function (r) {
-                    console.log(r);
 
                     let arrTmpCtmNo = new Array();
                     for (let i = 0; i < r.length; i++) {
@@ -38,13 +154,31 @@ function makeNoManage() {
 
                     let tmpArrName = new Array();
                     let tmpArrTel = new Array();
+                    let tmpArrTel1 = new Array();
                     let tmpArrSepa = new Array();
 
                     for (let k = 0; k < uniqueCtmNo.length; k++) {
                         for (let i = 0; i < r.length; i++) {
                             if (r[i].ctmno == uniqueCtmNo[k]) {
-                                tmpArrName.push(r[i].ctmname);
-                                tmpArrTel.push(r[i].ctmtel1);
+
+                                let naname = '';
+                                if (r[i].ctmname) {
+                                    naname = r[i].ctmname;
+                                }
+
+                                let telll1 = '';
+                                if (r[i].ctmtel1) {
+                                    telll1 = r[i].ctmtel1;
+                                }
+
+                                let telll2 = '';
+                                if (r[i].ctmtel2) {
+                                    telll2 = r[i].ctmtel2;
+                                }
+
+                                tmpArrName.push(naname);
+                                tmpArrTel.push(telll1);
+                                tmpArrTel1.push(telll2);
                                 tmpArrSepa.push(r[i].ctmsepa);
                                 break;
                             }
@@ -63,6 +197,19 @@ function makeNoManage() {
                     let cntIl = 0;
                     let cntHak = 0;
                     let cntGu = 0;
+
+                    let cntSumAll = 0;
+                    let cntSumIl = 0;
+                    let cntSumHak = 0;
+                    let cntSumGu = 0;
+
+                    let tmpAllArr = new Array();
+                    let tmpIlArr1 = new Array();
+                    let tmpIlArr2 = new Array();
+                    let tmpHakArr1 = new Array();
+                    let tmpHakArr2 = new Array();
+                    let tmpGuArr1 = new Array();
+                    let tmpGuArr2 = new Array();
 
                     for (let k = 0; k < uniqueCtmNo.length; k++) {
 
@@ -145,12 +292,15 @@ function makeNoManage() {
                         }
 
                         sumAll = sumAll + parseInt(sumRsvt);
+                        cntSumAll = cntSumAll + parseInt(cntRsvt);
 
                         switch (parseInt(tmpArrSepa[k])) {
                             case 0:
                                 cntIl++;
 
                                 sumIl = sumIl + parseInt(sumRsvt);
+
+                                cntSumIl = cntSumIl + parseInt(cntRsvt);
 
                                 let csssss2 = 'trBorder';
                                 if (cntIl < 2) {
@@ -161,6 +311,9 @@ function makeNoManage() {
                                 if (cntIl % 2 != 0) {
                                     cccssss = ' style="background-color: #0000000d;"';
                                 }
+
+                                tmpIlArr1.push(tmpArrName[k]);
+                                tmpIlArr2.push(sumRsvt);
 
                                 htmlsIl += `
                             <div class="accordion-item">
@@ -180,10 +333,11 @@ function makeNoManage() {
                                         `">
                                         <table class="table-hover noManageTable">
                                                 <colgroup>
-                                                    <col width="20%"/>
-                                                    <col width="5%"/>
+                                                    <col width="21%"/>
                                                     <col width="10%"/>
-                                                    <col width="79%"/>
+                                                    <col width="15%"/>
+                                                    <col width="27%"/>
+                                                    <col width="27%"/>
                                                 </colgroup>
                                                 <tbody>
                                                         <tr class="` +
@@ -194,12 +348,15 @@ function makeNoManage() {
                                         `</td>
                                                         <td class="tdBorder2 tdRight"` +
                                         cccssss + `>` + cntRsvt +
-                                        `건</td>
+                                        `</td>
                                                         <td class="tdBorder2 tdRight"` +
                                         cccssss + `>` + AddComma(sumRsvt) +
                                         `</td>
                                                         <td class="tdBorder2"` +
                                         cccssss + `>` + tmpArrTel[k] +
+                                        `</td>
+                                                        <td class="tdBorder2"` +
+                                        cccssss + `>` + tmpArrTel1[k] +
                                         `</td>
                                                         </tr>
                                                 </tbody>
@@ -235,7 +392,7 @@ function makeNoManage() {
                                                     <th class="">출발일</th>
                                                     <th class="">도착일</th>
                                                     <th class="">목적지</th>
-                                                    <th class="sortStr">차량</th>
+                                                    <th class="">차량</th>
                                                     <th class="">대수</th>
                                                     <th class="">부가세</th>
                                                     <th class="">계약금액</th>
@@ -257,6 +414,8 @@ function makeNoManage() {
 
                                 sumHak = sumHak + parseInt(sumRsvt);
 
+                                cntSumHak = cntSumHak + parseInt(cntRsvt);
+
                                 let csssss1 = 'trBorder';
                                 if (cntHak < 2) {
                                     csssss1 = 'trBorder1';
@@ -266,6 +425,9 @@ function makeNoManage() {
                                 if (cntHak % 2 != 0) {
                                     cccssss1 = ' style="background-color: #0000000d;"';
                                 }
+
+                                tmpHakArr1.push(tmpArrName[k]);
+                                tmpHakArr2.push(sumRsvt);
 
                                 htmlsHak += `
                             <div class="accordion-item">
@@ -285,10 +447,11 @@ function makeNoManage() {
                                         `">
                                             <table class="table-hover noManageTable">
                                                 <colgroup>
-                                                    <col width="20%"/>
-                                                    <col width="5%"/>
+                                                    <col width="21%"/>
                                                     <col width="10%"/>
-                                                    <col width="79%"/>
+                                                    <col width="15%"/>
+                                                    <col width="27%"/>
+                                                    <col width="27%"/>
                                                 </colgroup>
                                                 <tbody>
                                                         <tr class="` +
@@ -299,12 +462,15 @@ function makeNoManage() {
                                         `</td>
                                                         <td class="tdBorder2 tdRight"` +
                                         cccssss1 + `>` + cntRsvt +
-                                        `건</td>
+                                        `</td>
                                                         <td class="tdBorder2 tdRight"` +
                                         cccssss1 + `>` + AddComma(sumRsvt) +
                                         `</td>
                                                         <td class="tdBorder2"` +
                                         cccssss1 + `>` + tmpArrTel[k] +
+                                        `</td>
+                                                        <td class="tdBorder2"` +
+                                        cccssss1 + `>` + tmpArrTel1[k] +
                                         `</td>
                                                         </tr>
                                                 </tbody>
@@ -340,7 +506,7 @@ function makeNoManage() {
                                                     <th class="">출발일</th>
                                                     <th class="">도착일</th>
                                                     <th class="">목적지</th>
-                                                    <th class="sortStr">차량</th>
+                                                    <th class="">차량</th>
                                                     <th class="">대수</th>
                                                     <th class="">부가세</th>
                                                     <th class="">계약금액</th>
@@ -363,6 +529,8 @@ function makeNoManage() {
 
                                 sumGu = sumGu + parseInt(sumRsvt);
 
+                                cntSumGu = cntSumGu + parseInt(cntRsvt);
+
                                 let csssss = 'trBorder';
                                 if (cntGu < 2) {
                                     csssss = 'trBorder1';
@@ -372,6 +540,9 @@ function makeNoManage() {
                                 if (cntGu % 2 != 0) {
                                     cccssss2 = ' style="background-color: #0000000d;"';
                                 }
+
+                                tmpGuArr1.push(tmpArrName[k]);
+                                tmpGuArr2.push(sumRsvt);
 
                                 htmlsGu += `
                             <div class="accordion-item">
@@ -391,10 +562,11 @@ function makeNoManage() {
                                         `">
                                         <table class="table-hover noManageTable">
                                                 <colgroup>
-                                                    <col width="20%"/>
-                                                    <col width="5%"/>
+                                                    <col width="21%"/>
                                                     <col width="10%"/>
-                                                    <col width="79%"/>
+                                                    <col width="15%"/>
+                                                    <col width="27%"/>
+                                                    <col width="27%"/>
                                                 </colgroup>
                                                 <tbody>
                                                         <tr class="` +
@@ -405,12 +577,15 @@ function makeNoManage() {
                                         `</td>
                                                         <td class="tdBorder2 tdRight"` +
                                         cccssss2 + `>` + cntRsvt +
-                                        `건</td>
+                                        `</td>
                                                         <td class="tdBorder2 tdRight"` +
                                         cccssss2 + `>` + AddComma(sumRsvt) +
                                         `</td>
                                                         <td class="tdBorder2"` +
                                         cccssss2 + `>` + tmpArrTel[k] +
+                                        `</td>
+                                                        <td class="tdBorder2"` +
+                                        cccssss2 + `>` + tmpArrTel1[k] +
                                         `</td>
                                                         </tr>
                                                 </tbody>
@@ -442,17 +617,17 @@ function makeNoManage() {
                                             </colgroup>
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th class="sortNum">#</th>
-                                                    <th class="sortNum">출발일</th>
-                                                    <th class="sortStr">도착일</th>
-                                                    <th class="sortStr">목적지</th>
-                                                    <th class="sortStr">차량</th>
-                                                    <th class="sortNum">대수</th>
-                                                    <th class="sortStr">부가세</th>
-                                                    <th class="sortNum">계약금액</th>
-                                                    <th class="sortNum">입금액</th>
-                                                    <th class="sortNum">잔금</th>
-                                                    <th class="sortStr">출발장소</th>
+                                                    <th class="">#</th>
+                                                    <th class="">출발일</th>
+                                                    <th class="">도착일</th>
+                                                    <th class="">목적지</th>
+                                                    <th class="">차량</th>
+                                                    <th class="">대수</th>
+                                                    <th class="">부가세</th>
+                                                    <th class="">계약금액</th>
+                                                    <th class="">입금액</th>
+                                                    <th class="">잔금</th>
+                                                    <th class="">출발장소</th>
                                                 </tr>
                                             </thead>
                                             <tbody>` +
@@ -469,16 +644,40 @@ function makeNoManage() {
                         }
                     }
 
-                    $('#noManageTitle1').text(AddComma(sumAll));
-                    $('#noManageTitle2').text(AddComma(sumIl));
-                    $('#noManageTitle3').text(AddComma(sumHak));
-                    $('#noManageTitle4').text(AddComma(sumGu));
+                    tmpAllArr.push(sumIl);
+                    tmpAllArr.push(sumHak);
+                    tmpAllArr.push(sumGu);
+
+                    let arrTmp = new Array();
+
+                    arrTmp.push(tmpAllArr);
+                    arrTmp.push(tmpIlArr1);
+                    arrTmp.push(tmpIlArr2);
+                    arrTmp.push(tmpHakArr1);
+                    arrTmp.push(tmpHakArr2);
+                    arrTmp.push(tmpGuArr1);
+                    arrTmp.push(tmpGuArr2);
+
+                    $('#noManageTitle12').text(AddComma(sumAll));
+                    $('#noManageTitle22').text(AddComma(sumIl));
+                    $('#noManageTitle32').text(AddComma(sumHak));
+                    $('#noManageTitle42').text(AddComma(sumGu));
+
+                    $('#noManageTitle11').text(AddComma(cntSumAll) + '건');
+                    $('#noManageTitle21').text(AddComma(cntSumIl) + '건');
+                    $('#noManageTitle31').text(AddComma(cntSumHak) + '건');
+                    $('#noManageTitle41').text(AddComma(cntSumGu) + '건');
 
                     $('#accoIl').html(htmlsIl);
                     $('#accoHak').html(htmlsHak);
                     $('#accoGu').html(htmlsGu);
 
-                    resolve();
+                    $('#noManageTitle13').html(`<canvas id="chartnNoMa1"></canvas>`);
+                    $('#noManageTitle23').html(`<canvas id="chartnNoMa2"></canvas>`);
+                    $('#noManageTitle33').html(`<canvas id="chartnNoMa3"></canvas>`);
+                    $('#noManageTitle43').html(`<canvas id="chartnNoMa4"></canvas>`);
+
+                    resolve(arrTmp);
                 },
                 error: (jqXHR) => {
                     loginSession(jqXHR.status);
@@ -486,479 +685,186 @@ function makeNoManage() {
             })
         })
     }
-}
 
-$(document).on('click', '.mainNoManageMore', function () {
-    // const aaa = $(this).children()[0]; const aaa1 = $(aaa).children()[0]; const
-    // tmpCtmno = $(aaa1).val(); $('#manageCtmno').val(tmpCtmno); const dayyy =
-    // $('#yearMonthDay').val() + ' ' + getDayOfWeek(     new
-    // Date($('#yearMonthDay').val()).getDay() ); $('#manageTitle').text(dayyy);
-    // LoadingWithMask()     .then(getManageMD1)     .then(getManageMD2)
-    // .then(getManageMD3)     .then(mangeShow1)     .then(closeLoadingWithMask);
-    // function mangeShow1() {     return new Promise(function (resolve, reject) {
-    // $('#modalRsvtMoney').modal('show');         resolve();     }) }
-});
+    function setChart1(result) {
+        return new Promise(function (resolve, reject) {
 
-function getNoManageMD1() {
-    return new Promise(function (resolve, reject) {
-        const url = "/allo/customer";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
+            console.log(result);
 
-        const params = {
-            "stday": $("#yearMonthDay").val(),
-            "endday": $("#yearMonthDay").val(),
-            "rsvttrash": 1
-        };
+            const data = {
+                labels: [
+                    '일반', '학교', '거래처'
+                ],
+                datasets: [
+                    {
+                        label: 'My First Dataset',
+                        data: result[0],
+                        backgroundColor: [
+                            '#D6E6F2', '#C8DAD3', '#F1D1D1'
+                        ],
+                        hoverOffset: 4
+                    }
+                ]
+            };
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            caches: false,
-            dataType: "json",
-            data: JSON.stringify(params),
-
-            success: function (r) {
-                let htmls = ``;
-
-                if (r.length > 0) {
-                    for (let i = 0; i < r.length; i++) {
-                        if ($('#manageCtmno').val() == r[i].ctmno) {
-                            $('#rmCtmName').text(r[i].ctmname);
-                            $('#rmCtmTel').text(r[i].ctmtel1);
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    interaction: {
+                        mode: 'point',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false,
+                            position: 'nearest',
+                            external: externalTooltipHandler
                         }
                     }
                 }
-                resolve();
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
+            };
+
+            const myChart = new Chart($('#chartnNoMa1'), config);
+            resolve(result);
         })
-    })
-}
+    }
+    function setChart2(result) {
+        return new Promise(function (resolve, reject) {
 
-function getNoManageMD2() {
-    return new Promise(function (resolve, reject) {
-        const url = "/allo/rsvt";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
+            let tmpLabelArr = new Array();
+            for (let i = 0; i < result[1].length; i++) {
+                tmpLabelArr.push('#D6E6F2');
+            }
 
-        const params = {
-            "stday": $("#yearMonthDay").val(),
-            "endday": $("#yearMonthDay").val(),
-            "rsvttrash": 1,
-            "stt": 'stt'
-        };
+            const data = {
+                labels: result[1],
+                datasets: [
+                    {
+                        label: 'My First Dataset',
+                        data: result[2],
+                        backgroundColor: tmpLabelArr,
+                        hoverOffset: 4
+                    }
+                ]
+            };
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            caches: false,
-            dataType: "json",
-            data: JSON.stringify(params),
-
-            success: function (r) {
-                let htmls = ``;
-
-                if (r.length > 0) {
-                    let cnt = 0;
-                    let cntM = 0;
-
-                    for (let i = 0; i < r.length; i++) {
-                        if ($('#manageCtmno').val() == r[i].ctmno) {
-                            cnt++;
-                            cntM = cntM + r[i].conm;
-
-                            htmls += `
-                    <div class="rsvtMoney-item">
-                        <input type="hidden" value="` +
-                                    r[i].rsvt +
-                                    `">
-                        <div class="rsvtMoney-rsvt card-song">
-                            <div class="rsvtMoney-rsvt-item1">
-                                <div class="rsvtMoney-desy">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>` +
-                                    r[i].desty +
-                                    `</span>           
-                                    <span class="rsvtMoney-etc">` +
-                                    r[i].num + '대' +
-                                    `</span></div>
-                                <div class="rsvtMoney-conm1">
-                                    <i class="fa-solid fa-won-sign"></i>
-                                    <span>` +
-                                    AddComma(r[i].conm) +
-                                    `</span></div>
-                                <div class="rsvtMoney-conm2">
-                                    <span>` +
-                                    r[i].cont +
-                                    `</span></div>
-                                <div class="dropdown rsvtMoney-allo">
-                                <button
-                                    class="btn btn-light dropdown-toggle card-song ddBtn"
-                                    type="button"
-                                    id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    운행차량
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                </ul>
-                            </div>
-                            </div>
-                            <div class="rsvtMoney-rsvt-item2">
-                                <table class="table table-striped table-sm">
-                                    <colgroup>
-                                        <col width="5%">
-                                        <col width="11%">
-                                        <col width="10%">
-                                        <col width="20%">
-                                        <col width="15%">
-                                        <col width="13%">
-                                        <col width="13%">
-                                        <col width="13%">
-                                    </colgroup>
-                                    <thead>
-                                        <th class="thNone"></th>
-                                        <th>#</th>
-                                        <th>담당자</th>
-                                        <th>입금일</th>
-                                        <th>입금</th>
-                                        <th>메모</th>
-                                        <th>잔금</th>
-                                        <th>입금액</th>
-                                        <th>잔액</th>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot></tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>`;
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    interaction: {
+                        mode: 'point',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false,
+                            position: 'nearest',
+                            external: externalTooltipHandler
                         }
                     }
-
-                    $('#ctmGun').text(cnt + '건');
-                    $('#ctmAllM').text(AddComma(cntM));
-
-                    $('#rsvtMoneyRsvt').html(htmls);
                 }
-                resolve();
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
+            };
+
+            const myChart = new Chart($('#chartnNoMa2'), config);
+            resolve(result);
         })
-    })
-}
+    }
+    function setChart3(result) {
+        return new Promise(function (resolve, reject) {
 
-function getNoManageMD3(result) {
-    return new Promise(function (resolve, reject) {
-        const url = "/allo/oper";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
+            let tmpLabelArr = new Array();
+            for (let i = 0; i < result[3].length; i++) {
+                tmpLabelArr.push('#C8DAD3');
+            }
 
-        const params = {
-            "stday": $("#yearMonthDay").val(),
-            "endday": $("#yearMonthDay").val()
-        };
+            const data = {
+                labels: result[3],
+                datasets: [
+                    {
+                        label: 'My First Dataset',
+                        data: result[4],
+                        backgroundColor: tmpLabelArr,
+                        hoverOffset: 4
+                    }
+                ]
+            };
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            caches: false,
-            dataType: "json",
-            data: JSON.stringify(params),
-
-            success: function (r) {
-
-                const aaa = $('#rsvtMoneyRsvt').children();
-
-                for (let k = 0; k < aaa.length; k++) {
-                    const aaa1 = $(aaa[k]).children()[0];
-                    const rsvtt = $(aaa1).val();
-
-                    getNoManageMD4(rsvtt);
-
-                    let htmls = ``;
-                    const aaa11 = $(aaa[k]).children()[1];
-                    const bbb = $(aaa11).children()[0];
-                    const bbb1 = $(bbb).children()[3];
-                    const bbb11 = $(bbb1).children()[1];
-
-                    for (let i = 0; i < r.length; i++) {
-                        if (rsvtt == r[i].rsvt) {
-
-                            let veee = parseInt(r[i].vehicle.substring(r[i].vehicle.length - 4));
-                            if (isNaN(veee)) {
-                                veee = r[i].vehicle;
-                            }
-
-                            htmls += `
-                        <li>
-                            <span class="">` +
-                                    veee +
-                                    `</span>
-                        </li>`;
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    interaction: {
+                        mode: 'point',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false,
+                            position: 'nearest',
+                            external: externalTooltipHandler
                         }
                     }
-
-                    $(bbb11).html(htmls);
                 }
-                resolve();
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
+            };
+
+            const myChart = new Chart($('#chartnNoMa3'), config);
+            resolve(result);
         })
-    })
-}
+    }
+    function setChart4(result) {
+        return new Promise(function (resolve, reject) {
 
-function getNoManageMD4(para) {
-    return new Promise(function (resolve, reject) {
-        const url = "/manage/selRsvtMoney";
-        const headers = {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        };
+            let tmpLabelArr = new Array();
+            for (let i = 0; i < result[5].length; i++) {
+                tmpLabelArr.push('#F1D1D1');
+            }
 
-        const params = {
-            "rsvt": para
-        };
+            const data = {
+                labels: result[1],
+                datasets: [
+                    {
+                        label: 'My First Dataset',
+                        data: result[6],
+                        backgroundColor: tmpLabelArr,
+                        hoverOffset: 4
+                    }
+                ]
+            };
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: headers,
-            caches: false,
-            dataType: "json",
-            data: JSON.stringify(params),
-
-            success: function (r) {
-
-                let htmlsTb = ``;
-
-                const nowD = toStringByFormatting(new Date());
-
-                const aaa = $('#rsvtMoneyRsvt').children();
-                for (let k = 0; k < aaa.length; k++) {
-
-                    const aaa1 = $(aaa[k]).children()[0];
-                    const mdrsvtt = $(aaa1).val();
-
-                    const bbb = $(aaa[k]).children()[1];
-                    const bbb1 = $(bbb).children()[1];
-                    const bbb11 = $(bbb1).children()[0];
-                    const bbb111 = $(bbb11).children()[2];
-                    const bbb1111 = $(bbb11).children()[3];
-
-                    const ccc = $(bbb).children()[0];
-                    const ccc1 = $(ccc).children()[1];
-                    const ccc11 = $(ccc1).children()[1];
-                    const momoney = $(ccc11).text();
-
-                    if (mdrsvtt == para) {
-
-                        let inmoney = 0;
-                        let jan = 0;
-
-                        let ifCheck = 0;
-
-                        if (r.length > 0) {
-                            ifCheck++;
-                            let janM = momoney.replaceAll(',', '');
-                            let cntNumber = 0;
-                            for (let i = 0; i < r.length; i++) {
-                                const mmmmm = parseInt(janM) - parseInt(r[i].moneymoney);
-
-                                let compaList = ``;
-                                for (let l = 0; l < dbCompa.length; l++) {
-                                    if (r[i].moneytong != '기타') {
-                                        if (dbCompa[l].company == r[i].moneytong) {
-                                            compaList += ` <option value="` + dbCompa[l].company + `" label="` + dbCompa[l].company +
-                                                    `" selected="selected"></option>`;
-                                        } else {
-                                            compaList += ` <option value="` + dbCompa[l].company + `" label="` + dbCompa[l].company +
-                                                    `"></option>`;
-                                        }
-                                    } else {
-                                        compaList += ` <option value="` + dbCompa[l].company + `" label="` + dbCompa[l].company +
-                                                `"></option>`;
-                                    }
-                                }
-
-                                if (r[i].moneytong == '기타') {
-                                    compaList += `<option value="기타" label="기타" selected="selected"></option>`
-                                } else {
-                                    compaList += `<option value="기타" label="기타"></option>`
-                                }
-
-                                htmlsTb += `
-                                <tr>
-                                    <td class="thNone">` +
-                                        r[i].rsvtmoneyseq +
-                                        `</td>
-                                    <td>` + (i + 1) +
-                                        `</td>
-                                    <td>` + r[i].moneyuser +
-                                        `</td>
-                                    <td><input class="form-control" type="date" value="` +
-                                        r[i].moneyday +
-                                        `"></td>
-                                    <td>
-                                        <select class="form-select">
-                                            ` +
-                                        compaList +
-                                        `
-                                        </select>
-                                    </td>
-                                    <td><input type="text" class="form-control" value="` +
-                                        r[i].moneymemo +
-                                        `"></td>
-                                    <td class="tdRight">` +
-                                        AddComma(janM) +
-                                        `</td>
-                                    <td><input type="text" class="form-control inputManage" data-type="currency" value="` +
-                                        AddComma(r[i].moneymoney) +
-                                        `"></td>
-                                    <td class="tdRight">` +
-                                        `<span>` + AddComma(mmmmm) + `</span>` +
-                                        `</td>
-                                </tr>`
-                                janM = mmmmm;
-                                cntNumber = (i + 1);
-
-                                inmoney = inmoney + parseInt(r[i].moneymoney);
-                                jan = parseInt(mmmmm);
-                            }
-
-                            if (janM > 0) {
-                                const nowD = toStringByFormatting(new Date());
-
-                                let compaList = ``;
-                                for (let i = 0; i < dbCompa.length; i++) {
-                                    if (dbCompa[i].company == dbuser.company) {
-                                        compaList += ` <option value="` + dbCompa[i].company + `" label="` + dbCompa[i].company +
-                                                `" selected="selected"></option>`;
-                                    } else {
-                                        compaList += ` <option value="` + dbCompa[i].company + `" label="` + dbCompa[i].company +
-                                                `"></option>`;
-                                    }
-                                }
-
-                                htmlsTb += `
-                            <tr>
-                                <td class="thNone"></td>
-                                <td>` +
-                                        (cntNumber + 1) +
-                                        `</td>
-                                <td>` + dbuser.name +
-                                        `</td>
-                                <td><input class="form-control" type="date" value="` +
-                                        nowD +
-                                        `"></td>
-                                <td>
-                                    <select class="form-select">
-                                        ` +
-                                        compaList +
-                                        `
-                                        <option value="기타" label="기타"></option>
-                                    </select>
-                                </td>
-                                <td><input type="text" class="form-control"></td>
-                                <td class="tdRight">` +
-                                        AddComma(janM) +
-                                        `</td>
-                                <td><input type="text" class="form-control inputManage" data-type="currency"></td>
-                                <td class="tdRight"></td>
-                            </tr>`;
-                            }
-                        } else {
-                            let compaList = ``;
-                            for (let i = 0; i < dbCompa.length; i++) {
-                                if (dbCompa[i].company == dbuser.company) {
-                                    compaList += ` <option value="` + dbCompa[i].company + `" label="` + dbCompa[i].company +
-                                            `" selected="selected"></option>`;
-                                } else {
-                                    compaList += ` <option value="` + dbCompa[i].company + `" label="` + dbCompa[i].company +
-                                            `"></option>`;
-                                }
-                            }
-
-                            htmlsTb += `
-                            <tr>
-                                <td class="thNone"></td>
-                                <td>1</td>
-                                <td>` +
-                                    dbuser.name +
-                                    `</td>
-                                <td><input class="form-control" type="date" value="` +
-                                    nowD +
-                                    `"></td>
-                                <td>
-                                    <select class="form-select">
-                                        ` +
-                                    compaList +
-                                    `
-                                        <option value="기타" label="기타"></option>
-                                    </select>
-                                </td>
-                                <td><input type="text" class="form-control"></td>
-                                <td class="tdRight">` +
-                                    momoney +
-                                    `</td>
-                                <td><input type="text" class="form-control inputManage" data-type="currency"></td>
-                                <td class="tdRight"></td>
-                            </tr>`
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    interaction: {
+                        mode: 'point',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false,
+                            position: 'nearest',
+                            external: externalTooltipHandler
                         }
-
-                        let jjaaan = '';
-                        let jjaaan1 = '';
-
-                        if (ifCheck > 0) {
-                            if (jan == 0) {
-                                jjaaan = `<span class="badge bg-success bgbg"><i class="fa-solid fa-check"></i>완료</span>`;
-                            }
-                            jjaaan1 = AddComma(jan);
-                        } else {
-                            jjaaan1 = momoney;
-                        }
-
-                        let htmlFoot = `
-                    <tr>
-                        <td colspan="5"></td>
-                        <td style="text-align: right;">` +
-                                jjaaan1 +
-                                `</td>
-                        <td style="text-align: right; padding-right: 1rem;">` +
-                                AddComma(inmoney) +
-                                `</td>
-                        <td style="text-align: right;">` + jjaaan +
-                                `</td>
-                    </tr>`;
-
-                        $(bbb111).html(htmlsTb);
-                        $(bbb1111).html(htmlFoot);
-                        $("input[data-type='currency']").bind('keyup keydown', function () {
-                            inputNumberFormat(this);
-                        });
                     }
                 }
-                resolve();
-            },
-            error: (jqXHR) => {
-                loginSession(jqXHR.status);
-            }
+            };
+
+            const myChart = new Chart($('#chartnNoMa4'), config);
+            resolve(result);
         })
-    })
+    }
 }

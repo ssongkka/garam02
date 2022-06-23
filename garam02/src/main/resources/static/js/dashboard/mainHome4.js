@@ -21,6 +21,10 @@ function makeMain2BigCal() {
         .then(getInsuDay2)
         .then(getLoanDay1)
         .then(setMonthMiddle)
+        .then(getInfo)
+        .then(getEndCar)
+        .then(getEndInsu)
+        .then(getEndInspec)
         .then(closeLoadingWithMask);
 
     clTdColor2();
@@ -62,7 +66,6 @@ function makeMain2BigCal() {
                 const bbb4 = $(bbb1).children()[0];
 
                 const bbb5 = $(bbb2).children()[3];
-
 
                 let colorDay = '';
                 let colorNoday = '1';
@@ -675,17 +678,6 @@ function makeMain2BigCal() {
             resolve();
         })
     }
-}
-
-function makeBigcal2Aside() {
-
-    LoadingWithMask()
-        .then(getInfo)
-        .then(getEndCar)
-        .then(getEndInsu)
-        .then(getEndInspec)
-        .then(closeLoadingWithMask);
-
     function getInfo() {
         return new Promise(function (resolve, reject) {
             const url = "/home4/weekseleventinfo";
@@ -927,6 +919,12 @@ function makeBigcal2Aside() {
             })
         })
     }
+}
+
+function makeBigcal2Aside() {
+
+    LoadingWithMask()
+
 }
 
 function checkHolDay(dateNum) {

@@ -294,7 +294,6 @@ $(document).on('click', '#sche-insert', function () {
                         alert("일정 저장");
                         $('#modalScheC').modal('hide');
                         makeMain2BigCal();
-                        makeBigcal2Aside();
                         resolve();
                     } else if (r == -1) {
                         alert("일정 저장 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")
@@ -348,7 +347,6 @@ $(document).on('click', '#sche-del', function () {
                         alert("일정 삭제 완료");
                         $('#modalScheC').modal('hide');
                         makeMain2BigCal();
-                        makeBigcal2Aside();
                         resolve();
                     } else if (r == -1) {
                         alert("일정 삭제 실패!\n\n데이터베이스 처리 과정에 문제가 발생하였습니다.")

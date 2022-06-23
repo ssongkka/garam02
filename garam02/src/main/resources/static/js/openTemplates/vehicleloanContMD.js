@@ -904,7 +904,6 @@ $(document).on('click', '#loanContX', function () {
 
             if ($('#home4').css('display') === 'block') {
                 makeMain2BigCal();
-                makeBigcal2Aside();
             } else {
                 makeLoan();
             }
@@ -932,7 +931,6 @@ $(document).on('click', '#loanContBtn', function () {
 
             if ($('#home4').css('display') === 'block') {
                 makeMain2BigCal();
-                makeBigcal2Aside();
             } else {
                 makeLoan();
             }
